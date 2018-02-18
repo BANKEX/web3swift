@@ -73,10 +73,23 @@ class web3swiftTests: XCTestCase {
         XCTAssert(Data(hmac).toHexString() == "87aa7cdea5ef619d4ff0b4241a1d6cb02379f4e2ce4ec2787ad0b30545e17cdedaa833b7d6b8a702038b274eaea3f4e4be9d914eeb61f1702e696c203a126854")
     }
     
-    func testNewBIP32keystore() {
+    func testNewBIP32keystoreFromGeneratedMnemonics() {
         let mnemonic = try! BIP39.generateMnemonics(bitsOfEntropy: 256)!
         let keystore = try! BIP32Keystore(mnemonics: mnemonic, password: "", mnemonicsPassword: "")
-        XCTAssert(keystore != nil)
+        XCTAssertNotNil(keystore)
+        XCTAssertGreaterThanOrEqual((keystore?.addresses?.count)!, 1)
+    }
+    
+    func testNewBIP32keystoreFromPredefinedMnemonics() {
+        var keystore = try! BIP32Keystore(mnemonics: "hamster diagram private dutch cause delay private meat slide toddler razor book happy fancy gospel tennis maple dilemma loan word shrug inflict delay length", password: "", mnemonicsPassword: "")
+        XCTAssertNotNil(keystore)
+        XCTAssertGreaterThanOrEqual((keystore?.addresses?.count)!, 1)
+        XCTAssertEqual(keystore?.addresses![0].address, "0x71e60D301d284A4cf6e5Ee12926C5f842E2C102C")
+        
+        keystore = try! BIP32Keystore(mnemonics: "burst basket gas panther output brain deer online beef equip duty castle", password: "", mnemonicsPassword: "")
+        XCTAssertNotNil(keystore)
+        XCTAssertGreaterThanOrEqual((keystore?.addresses?.count)!, 1)
+        XCTAssertEqual(keystore?.addresses![0].address, "0xBacF83292D712625688f2b5a32d2aE0f29615D7b")
     }
 //    func testPBKDF2() {
 //        let pass = "passDATAb00AB7YxDTTl".data(using: .utf8)!
