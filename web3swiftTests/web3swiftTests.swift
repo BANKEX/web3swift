@@ -39,7 +39,7 @@ class web3swiftTests: XCTestCase {
                 return try record.parse()
             })
             print(abiNative)
-            XCTAssert(abiNative != nil, "Can't parse some real-world ABI")
+            XCTAssertNotNil(abiNative, "Can't parse some real-world ABI")
         } catch {
             print(error)
         }
@@ -48,36 +48,37 @@ class web3swiftTests: XCTestCase {
     func testBitFunctions () {
         let data = Data([0xf0, 0x02, 0x03])
         let firstBit = data.bitsInRange(0,1)
-        XCTAssert(firstBit == 1)
+        XCTAssertEqual(firstBit, 1)
         let first4bits = data.bitsInRange(0,4)
-        XCTAssert(first4bits == 0x0f)
+        XCTAssertEqual(first4bits, 0x0f)
     }
     
     func testBIP39 () {
         var entropy = Data.fromHex("00000000000000000000000000000000")!
         var phrase = BIP39.generateMnemonicsFromEntropy(entropy: entropy)
-        XCTAssert( phrase == "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about")
+        XCTAssertEqual(phrase, "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about")
         var seed = BIP39.seedFromMmemonics(phrase!, password: "TREZOR")
-        XCTAssert(seed?.toHexString() == "c55257c360c07c72029aebc1b53c05ed0362ada38ead3e3e9efa3708e53495531f09a6987599d18264c1e1c92f2cf141630c7a3c4ab7c81b2f001698e7463b04")
+        XCTAssertEqual(seed?.toHexString(), "c55257c360c07c72029aebc1b53c05ed0362ada38ead3e3e9efa3708e53495531f09a6987599d18264c1e1c92f2cf141630c7a3c4ab7c81b2f001698e7463b04")
         entropy = Data.fromHex("68a79eaca2324873eacc50cb9c6eca8cc68ea5d936f98787c60c7ebc74e6ce7c")!
         phrase = BIP39.generateMnemonicsFromEntropy(entropy: entropy)
-        XCTAssert( phrase == "hamster diagram private dutch cause delay private meat slide toddler razor book happy fancy gospel tennis maple dilemma loan word shrug inflict delay length")
+        XCTAssertEqual(phrase, "hamster diagram private dutch cause delay private meat slide toddler razor book happy fancy gospel tennis maple dilemma loan word shrug inflict delay length")
         seed = BIP39.seedFromMmemonics(phrase!, password: "TREZOR")
-        XCTAssert(seed?.toHexString() == "64c87cde7e12ecf6704ab95bb1408bef047c22db4cc7491c4271d170a1b213d20b385bc1588d9c7b38f1b39d415665b8a9030c9ec653d75e65f847d8fc1fc440")
+        XCTAssertEqual(seed?.toHexString(), "64c87cde7e12ecf6704ab95bb1408bef047c22db4cc7491c4271d170a1b213d20b385bc1588d9c7b38f1b39d415665b8a9030c9ec653d75e65f847d8fc1fc440")
     }
     
     func testHMAC() {
         let seed = Data.fromHex("0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b")!
         let data = Data.fromHex("4869205468657265")!
         let hmac = try! HMAC.init(key: seed.bytes, variant: HMAC.Variant.sha512).authenticate(data.bytes)
-        XCTAssert(Data(hmac).toHexString() == "87aa7cdea5ef619d4ff0b4241a1d6cb02379f4e2ce4ec2787ad0b30545e17cdedaa833b7d6b8a702038b274eaea3f4e4be9d914eeb61f1702e696c203a126854")
+        XCTAssertEqual(Data(hmac).toHexString(), "87aa7cdea5ef619d4ff0b4241a1d6cb02379f4e2ce4ec2787ad0b30545e17cdedaa833b7d6b8a702038b274eaea3f4e4be9d914eeb61f1702e696c203a126854")
     }
     
     func testNewBIP32keystore() {
         let mnemonic = try! BIP39.generateMnemonics(bitsOfEntropy: 256)!
         let keystore = try! BIP32Keystore(mnemonics: mnemonic, password: "", mnemonicsPassword: "")
-        XCTAssert(keystore != nil)
+        XCTAssertNotNil(keystore)
     }
+    
 //    func testPBKDF2() {
 //        let pass = "passDATAb00AB7YxDTTl".data(using: .utf8)!
 //        let salt = "saltKEYbcTcXHCBxtjD2".data(using: .utf8)!
@@ -88,7 +89,7 @@ class web3swiftTests: XCTestCase {
     func testRIPEMD() {
         let data = "message digest".data(using: .ascii)
         let hash = RIPEMD160.hash(message: data!)
-        XCTAssert(hash.toHexString() == "5d0689ef49d2fae572b881b123a85ffa21595f36")
+        XCTAssertEqual(hash.toHexString(), "5d0689ef49d2fae572b881b123a85ffa21595f36")
     }
     
     func testHD32() {
@@ -97,42 +98,42 @@ class web3swiftTests: XCTestCase {
         XCTAssert(node.chaincode == Data.fromHex("873dff81c02f525623fd1fe5167eac3a55a049de3d314bb42ee227ffed37d508"))
         let serialized = node.serialize()
         let serializedPriv = node.serialize(serializePublic: false)
-        XCTAssert(serialized == "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8")
-        XCTAssert(serializedPriv == "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi")
+        XCTAssertEqual(serialized, "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8")
+        XCTAssertEqual(serializedPriv, "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi")
         
         let deserializedNode = HDNode(serializedPriv!)
-        XCTAssert(deserializedNode != nil)
-        XCTAssert(deserializedNode?.depth == 0)
-        XCTAssert(deserializedNode?.index == UInt32(0))
-        XCTAssert(deserializedNode?.isHardened == false)
-        XCTAssert(deserializedNode?.parentFingerprint == Data.fromHex("00000000"))
-        XCTAssert(deserializedNode?.privateKey == node.privateKey)
-        XCTAssert(deserializedNode?.publicKey == node.publicKey)
-        XCTAssert(deserializedNode?.chaincode == node.chaincode)
+        XCTAssertNotNil(deserializedNode)
+        XCTAssertEqual(deserializedNode?.depth, 0)
+        XCTAssertEqual(deserializedNode?.index, UInt32(0))
+        XCTAssertFalse((deserializedNode?.isHardened)!)
+        XCTAssertEqual(deserializedNode?.parentFingerprint, Data.fromHex("00000000"))
+        XCTAssertEqual(deserializedNode?.privateKey, node.privateKey)
+        XCTAssertEqual(deserializedNode?.publicKey, node.publicKey)
+        XCTAssertEqual(deserializedNode?.chaincode, node.chaincode)
         
         let nextNode = node.derive(index: 0, derivePrivateKey: true)
-        XCTAssert(nextNode?.depth == 1)
-        XCTAssert(nextNode?.index == UInt32(0))
-        XCTAssert(nextNode?.isHardened == false)
-        XCTAssert(nextNode?.parentFingerprint == Data.fromHex("3442193e"))
-        XCTAssert(nextNode?.publicKey.toHexString() == "027c4b09ffb985c298afe7e5813266cbfcb7780b480ac294b0b43dc21f2be3d13c")
-        XCTAssert(nextNode?.serialize() == "xpub68Gmy5EVb2BdFbj2LpWrk1M7obNuaPTpT5oh9QCCo5sRfqSHVYWex97WpDZzszdzHzxXDAzPLVSwybe4uPYkSk4G3gnrPqqkV9RyNzAcNJ1")
-        XCTAssert(nextNode?.serialize(serializePublic: false) == "xprv9uHRZZhbkedL37eZEnyrNsQPFZYRAvjy5rt6M1nbEkLSo378x1CQQLo2xxBvREwiK6kqf7GRNvsNEchwibzXaV6i5GcsgyjBeRguXhKsi4R")
+        XCTAssertEqual(nextNode?.depth, 1)
+        XCTAssertEqual(nextNode?.index, UInt32(0))
+        XCTAssertFalse((nextNode?.isHardened)!)
+        XCTAssertEqual(nextNode?.parentFingerprint, Data.fromHex("3442193e"))
+        XCTAssertEqual(nextNode?.publicKey.toHexString(),"027c4b09ffb985c298afe7e5813266cbfcb7780b480ac294b0b43dc21f2be3d13c")
+        XCTAssertEqual(nextNode?.serialize(), "xpub68Gmy5EVb2BdFbj2LpWrk1M7obNuaPTpT5oh9QCCo5sRfqSHVYWex97WpDZzszdzHzxXDAzPLVSwybe4uPYkSk4G3gnrPqqkV9RyNzAcNJ1")
+        XCTAssertEqual(nextNode?.serialize(serializePublic: false), "xprv9uHRZZhbkedL37eZEnyrNsQPFZYRAvjy5rt6M1nbEkLSo378x1CQQLo2xxBvREwiK6kqf7GRNvsNEchwibzXaV6i5GcsgyjBeRguXhKsi4R")
         
         let nextNodeHardened = node.derive(index: 0, derivePrivateKey: true, hardened: true)
-        XCTAssert(nextNodeHardened?.depth == 1)
-        XCTAssert(nextNodeHardened?.index == UInt32(0))
-        XCTAssert(nextNodeHardened?.isHardened == true)
-        XCTAssert(nextNodeHardened?.parentFingerprint == Data.fromHex("3442193e"))
-        XCTAssert(nextNodeHardened?.publicKey.toHexString() == "035a784662a4a20a65bf6aab9ae98a6c068a81c52e4b032c0fb5400c706cfccc56")
-        XCTAssert(nextNodeHardened?.serialize() == "xpub68Gmy5EdvgibQVfPdqkBBCHxA5htiqg55crXYuXoQRKfDBFA1WEjWgP6LHhwBZeNK1VTsfTFUHCdrfp1bgwQ9xv5ski8PX9rL2dZXvgGDnw")
-        XCTAssert(nextNodeHardened?.serialize(serializePublic: false) == "xprv9uHRZZhk6KAJC1avXpDAp4MDc3sQKNxDiPvvkX8Br5ngLNv1TxvUxt4cV1rGL5hj6KCesnDYUhd7oWgT11eZG7XnxHrnYeSvkzY7d2bhkJ7")
+        XCTAssertEqual(nextNodeHardened?.depth, 1)
+        XCTAssertEqual(nextNodeHardened?.index, UInt32(0))
+        XCTAssertTrue((nextNodeHardened?.isHardened)!)
+        XCTAssertEqual(nextNodeHardened?.parentFingerprint, Data.fromHex("3442193e"))
+        XCTAssertEqual(nextNodeHardened?.publicKey.toHexString(), "035a784662a4a20a65bf6aab9ae98a6c068a81c52e4b032c0fb5400c706cfccc56")
+        XCTAssertEqual(nextNodeHardened?.serialize(), "xpub68Gmy5EdvgibQVfPdqkBBCHxA5htiqg55crXYuXoQRKfDBFA1WEjWgP6LHhwBZeNK1VTsfTFUHCdrfp1bgwQ9xv5ski8PX9rL2dZXvgGDnw")
+        XCTAssertEqual(nextNodeHardened?.serialize(serializePublic: false), "xprv9uHRZZhk6KAJC1avXpDAp4MDc3sQKNxDiPvvkX8Br5ngLNv1TxvUxt4cV1rGL5hj6KCesnDYUhd7oWgT11eZG7XnxHrnYeSvkzY7d2bhkJ7")
         
         let treeNode = node.derive(path: HDNode.defaultPath)
-        XCTAssert(treeNode != nil)
-        XCTAssert(treeNode?.depth == 4)
-        XCTAssert(treeNode?.serialize() == "xpub6DZ3xpo1ixWwwNDQ7KFTamRVM46FQtgcDxsmAyeBpTHEo79E1n1LuWiZSMSRhqMQmrHaqJpek2TbtTzbAdNWJm9AhGdv7iJUpDjA6oJD84b")
-        XCTAssert(treeNode?.serialize(serializePublic: false) == "xprv9zZhZKG7taxeit8w1HiTDdUko2Fm1RxkrjxANbEaG7kFvJp5UEh6MiQ5b5XvwWg8xdHMhueagettVG2AbfqSRDyNpxRDBLyMSbNq1KhZ8ai")
+        XCTAssertNotNil(treeNode)
+        XCTAssertEqual(treeNode?.depth, 4)
+        XCTAssertEqual(treeNode?.serialize(), "xpub6DZ3xpo1ixWwwNDQ7KFTamRVM46FQtgcDxsmAyeBpTHEo79E1n1LuWiZSMSRhqMQmrHaqJpek2TbtTzbAdNWJm9AhGdv7iJUpDjA6oJD84b")
+        XCTAssertEqual(treeNode?.serialize(serializePublic: false), "xprv9zZhZKG7taxeit8w1HiTDdUko2Fm1RxkrjxANbEaG7kFvJp5UEh6MiQ5b5XvwWg8xdHMhueagettVG2AbfqSRDyNpxRDBLyMSbNq1KhZ8ai")
         
         
     }
@@ -445,15 +446,15 @@ class web3swiftTests: XCTestCase {
             print(abiNative)
             let hex = result!.toHexString()
             print(hex)
-            XCTAssert(hex == "a9059cbb000000000000000000000000e6877a4d8806e9a9f12eb2e8561ea6c1db19978d0000000000000000000000000000000000000000000000000de0b6b3a7640000", "Failed to encode ERC20")
+            XCTAssertEqual(hex, "a9059cbb000000000000000000000000e6877a4d8806e9a9f12eb2e8561ea6c1db19978d0000000000000000000000000000000000000000000000000de0b6b3a7640000", "Failed to encode ERC20")
             let dummyTrue = BigUInt(1).abiEncode(bits: 256)
             let data = dummyTrue.head!
             let decoded = method[0].decodeReturnData(data)
             print(decoded)
             let ret1 = decoded!["0"] as? Bool
             let ret2 = decoded!["success"] as? Bool
-            XCTAssert(ret1 == true, "Failed to encode ERC20")
-            XCTAssert(ret2 == true, "Failed to encode ERC20")
+            XCTAssertTrue(ret1!, "Failed to encode ERC20")
+            XCTAssertTrue(ret2!, "Failed to encode ERC20")
         } catch {
             print(error)
         }
@@ -498,10 +499,10 @@ class web3swiftTests: XCTestCase {
             let address = "0xd0a6e6c54dbc68db5db3a091b171a77407ff7ccf"
             let parameters = [address] as [AnyObject]
             let transaction = contract.method("balanceOf", parameters:parameters,  options: options)
-            XCTAssert(transaction != nil, "Failed plasma funding transaction")
+            XCTAssertNotNil(transaction, "Failed plasma funding transaction")
             let requestDictionary = transaction!.encodeAsDictionary(from: EthereumAddress("0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d"))
             print(requestDictionary)
-            XCTAssert(requestDictionary != nil, "Can't read ERC20 balance")
+            XCTAssertNotNil(requestDictionary, "Can't read ERC20 balance")
         } catch {
             print(error)
         }
@@ -521,15 +522,15 @@ class web3swiftTests: XCTestCase {
             let options = Web3Options.defaultOptions()
             let parameters = [] as [AnyObject]
             let transaction = contract.method("name", parameters:parameters,  options: options)
-            XCTAssert(transaction != nil, "Failed to create ERC20 name transaction")
+            XCTAssertNotNil(transaction, "Failed to create ERC20 name transaction")
             let requestDictionary = transaction!.encodeAsDictionary(from: EthereumAddress("0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d"))
             print(requestDictionary)
-            XCTAssert(requestDictionary != nil, "Failed to create ERC20 name transaction")
+            XCTAssertNotNil(requestDictionary, "Failed to create ERC20 name transaction")
             let resultData  = Data.fromHex("0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000a534f4e4d20546f6b656e00000000000000000000000000000000000000000000")
             let method = contract.methods["name"]
             let result = method!.decodeReturnData(resultData!)
             print(result)
-            XCTAssert(result != nil, "Failed to create ERC20 name transaction")
+            XCTAssertNotNil(result, "Failed to create ERC20 name transaction")
         } catch {
             print(error)
         }
@@ -538,7 +539,7 @@ class web3swiftTests: XCTestCase {
     func testBigUIntFromHex() {
         let hexRepresentation = "0x1c31de57e49fc00".stripHexPrefix()
         let biguint = BigUInt(hexRepresentation, radix: 16)!
-        XCTAssert(biguint == BigUInt("126978086000000000"))
+        XCTAssertEqual(biguint, BigUInt("126978086000000000"))
     }
     
 //
@@ -578,7 +579,7 @@ class web3swiftTests: XCTestCase {
     func testMakePrivateKey()
     {
         let privKey = SECP256K1.generatePrivateKey()
-        XCTAssert(privKey != nil, "Failed to create new private key")
+        XCTAssertNotNil(privKey, "Failed to create new private key")
     }
     
     func testPerformanceExample() {
