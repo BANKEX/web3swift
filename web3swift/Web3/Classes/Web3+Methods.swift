@@ -13,18 +13,16 @@ public enum JSONRPCmethod: String, Encodable {
     case gasPrice = "eth_gasPrice"
     case blockNumber = "eth_blockNumber"
     case getNetwork = "net_version"
-    
     case sendRawTransaction = "eth_sendRawTransaction"
+    case sendTransaction = "eth_sendTransaction"
     case estimateGas = "eth_estimateGas"
     case call = "eth_call"
     case getTransactionCount = "eth_getTransactionCount"
     case getBalance = "eth_getBalance"
     case getCode = "eth_getCode"
     case getStorageAt = "eth_getStorageAt"
-    
     case getTransactionByHash = "eth_getTransactionByHash"
     case getTransactionReceipt = "eth_getTransactionReceipt"
-    
     case getAccounts = "eth_accounts"
     
     public var requiredNumOfParameter: Int {

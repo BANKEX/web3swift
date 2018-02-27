@@ -125,8 +125,7 @@ public struct EventLog {
         guard let rm = json["removed"] as? Int else {return nil}
         guard let tpc = json["topics"] as? [String] else {return nil}
         address = EthereumAddress(ad)
-        data = Data(Array<UInt8>(hex: d.lowercased().stripHexPrefix()))
-        
+        data = Data.fromHex(d)!
         guard let liUnwrapped = BigUInt(li.stripHexPrefix(), radix: 16) else {return nil}
         logIndex = liUnwrapped
         removed = rm == 1 ? true : false

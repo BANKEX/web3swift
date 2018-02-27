@@ -18,6 +18,11 @@ extension Web3.Utils {
     public enum Units {
         case eth
         case wei
+        case Kwei
+        case Mwei
+        case Gwei
+        case Microether
+        case Finney
         
         var decimals:Int {
             get {
@@ -26,8 +31,16 @@ extension Web3.Utils {
                     return 18
                 case .wei:
                     return 0
-                default:
-                    return 18
+                case .Kwei:
+                    return 3
+                case .Mwei:
+                    return 6
+                case .Gwei:
+                    return 9
+                case .Microether:
+                    return 12
+                case .Finney:
+                    return 15
                 }
             }
         }
@@ -136,5 +149,29 @@ extension Web3.Utils {
             return String(quotient)
         }
         return String(quotient) + "." + remainderPadded
+    }
+    
+    static public func personalECRecover(_ personalMessage: String, signature: String) -> EthereumAddress? {
+        guard let data = Data.fromHex(personalMessage) else {return nil}
+        guard let sig = Data.fromHex(signature) else {return nil}
+        return Web3.Utils.personalECRecover(data, signature:sig)
+    }
+    
+    static public func personalECRecover(_ personalMessage: Data, signature: Data) -> EthereumAddress? {
+        if signature.count != 65 { return nil}
+        let rData = signature[0..<32].bytes
+        let sData = signature[32..<64].bytes
+        let vData = signature[64]
+        guard let signatureData = SECP256K1.marshalSignature(v: vData, r: rData, s: sData) else {return nil}
+        var hash: Data
+        if personalMessage.count == 32 {
+            print("Most likely it's hash already, allow for now")
+            hash = personalMessage
+        } else {
+            guard let h = Web3.Utils.hashPersonalMessage(personalMessage) else {return nil}
+            hash = h
+        }
+        guard let publicKey = SECP256K1.recoverPublicKey(hash: hash, signature: signatureData) else {return nil}
+        return Web3.Utils.publicToAddress(publicKey)
     }
 }

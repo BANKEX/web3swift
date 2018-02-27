@@ -15,6 +15,7 @@ public class Web3HttpProvider: Web3Provider {
     public var url: URL
     public var network: Networks?
     public var attachedKeystoreManager: KeystoreManager? = nil
+    
     public init?(_ httpProviderURL: URL, network net: Networks? = nil, keystoreManager manager: KeystoreManager? = nil) {
         guard httpProviderURL.scheme == "http" || httpProviderURL.scheme == "https" else {return nil}
         url = httpProviderURL
@@ -42,7 +43,7 @@ public class Web3HttpProvider: Web3Provider {
         attachedKeystoreManager = manager
     }
     
-    public func sendSync(request: JSONRPCrequest) -> [String: Any]? {
+    public func send(request: JSONRPCrequest) -> [String: Any]? {
         if request.method == nil {
             return nil
         }
