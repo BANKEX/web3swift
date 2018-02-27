@@ -285,7 +285,6 @@ extension ABIElement {
                     guard let h = pointer.head, let _ = pointer.tail else {return nil}
                     guard h != Data() else {return nil}
                     heads.append(h)
-                    tailsPointer = tailsPointer + BigUInt(h.count)
                     tails.append(tail)
                     tailsPointer = tailsPointer + BigUInt(tail.count)
                 } else {
