@@ -79,6 +79,18 @@ class web3swiftTests: XCTestCase {
         let keystore = try! BIP32Keystore(mnemonics: mnemonic, password: "", mnemonicsPassword: "")
         XCTAssert(keystore != nil)
     }
+    
+    func testPrivateKeyByBIP32keystore() {
+        let mnemonic = try! BIP39.generateMnemonics(bitsOfEntropy: 256)!
+        let keystore = try! BIP32Keystore(mnemonics: mnemonic, password: "", mnemonicsPassword: "")
+        XCTAssert(keystore != nil)
+        
+        let account = keystore!.addresses![0]
+        let key = try! keystore!.UNSAFE_getPrivateKeyData(password: "", account: account)
+        print(key.toHexString())
+        XCTAssertNotNil(key)
+    }
+
 //    func testPBKDF2() {
 //        let pass = "passDATAb00AB7YxDTTl".data(using: .utf8)!
 //        let salt = "saltKEYbcTcXHCBxtjD2".data(using: .utf8)!

@@ -32,8 +32,12 @@ public class BIP32Keystore: AbstractKeystore {
     public func UNSAFE_getPrivateKeyData(password: String, account: EthereumAddress) throws -> Data {
         if let key = self.paths.keyForValue(value: account) {
             guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
-            guard let rootNode = HDNode(decryptedRootNode!) else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
-            guard rootNode.depth == HDNode.defaultPathPrefix.components(separatedBy: "/").count else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
+            //encode
+            let base58String = String(bytes: decryptedRootNode!.bytes, encoding: .ascii)
+            let base58decode = Base58.bytesFromBase58(base58String!)
+            let data = Data(bytes: base58decode)
+            guard let rootNode = HDNode(data) else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
+//            guard rootNode.depth == HDNode.defaultPathPrefix.components(separatedBy: "/").count else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
             guard let index = UInt32(key.components(separatedBy: "/").last!) else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
             guard let keyNode = rootNode.derive(index: index, derivePrivateKey: true) else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
             guard let privateKey = keyNode.privateKey else {throw AbstractKeystoreError.invalidAccountError}
@@ -67,6 +71,7 @@ public class BIP32Keystore: AbstractKeystore {
     
     public init? (mnemonics: String, password: String = "BANKEXFOUNDATION", mnemonicsPassword: String = "BANKEXFOUNDATION", language: BIP39Language = BIP39Language.english) throws {
         guard var seed = BIP39.seedFromMmemonics(mnemonics, password: mnemonicsPassword, language: language) else {throw AbstractKeystoreError.noEntropyError}
+        //1.0 root key
         guard let prefixNode = HDNode(seed: seed)?.derive(path: HDNode.defaultPathPrefix, derivePrivateKey: true) else {return nil}
         defer{ Data.zero(&seed) }
         self.mnemonics = mnemonics
@@ -90,7 +95,7 @@ public class BIP32Keystore: AbstractKeystore {
             }
         }
         guard let newNode = parentNode.derive(index: newIndex, derivePrivateKey: true, hardened: false) else {throw AbstractKeystoreError.keyDerivationError}
-        guard let newAddress = Web3.Utils.publicToAddress(newNode.publicKey)  else {throw AbstractKeystoreError.keyDerivationError}
+        guard let newAddress = Web3.Utils.publicToAddress(newNode.publicKey) else {throw AbstractKeystoreError.keyDerivationError}
         var newPath:String
         if newNode.isHardened {
             newPath = HDNode.defaultPathPrefix + "/" + String(newNode.index % HDNode.hardenedIndexPrefix) + "'"
@@ -98,7 +103,8 @@ public class BIP32Keystore: AbstractKeystore {
             newPath = HDNode.defaultPathPrefix + "/" + String(newNode.index)
         }
         paths[newPath] = newAddress
-        guard let serializedRootNode = parentNode.serialize() else {throw AbstractKeystoreError.keyDerivationError}
+        guard let serializedRootNode = parentNode.serialize(serializePublic: false, version: HDNode.HDversion()) else {throw AbstractKeystoreError.keyDerivationError}
+        //encrypt
         try encryptDataToStorage(password, data: serializedRootNode.data(using: .ascii))
     }
     
@@ -174,7 +180,6 @@ public class BIP32Keystore: AbstractKeystore {
         let derivedKeyLast16bytes = derivedKey[(derivedKey.count - 16)...(derivedKey.count - 1)]
         dataForMAC.append(derivedKeyLast16bytes)
         guard let cipherText = Data.fromHex(keystorePars.crypto.ciphertext) else {return nil}
-        if (cipherText.count != 32) {return nil}
         dataForMAC.append(cipherText)
         let mac = dataForMAC.sha3(.keccak256)
         guard let calculatedMac = Data.fromHex(keystorePars.crypto.mac), mac.constantTimeComparisonTo(calculatedMac) else {return nil}
