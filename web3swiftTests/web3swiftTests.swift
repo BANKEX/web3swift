@@ -80,12 +80,26 @@ class web3swiftTests: XCTestCase {
         XCTAssert(keystore != nil)
     }
     
-    func testPrivateKeyByBIP32keystore() {
+    func testBIP32keystoreExportPrivateKey() {
         let mnemonic = "normal dune pole key case cradle unfold require tornado mercy hospital buyer"
         let keystore = try! BIP32Keystore(mnemonics: mnemonic, password: "", mnemonicsPassword: "")
         XCTAssertNotNil(keystore)
         
         let account = keystore!.addresses![0]
+        let key = try! keystore!.UNSAFE_getPrivateKeyData(password: "", account: account)
+        XCTAssertNotNil(key)
+    }
+    
+    func testByBIP32keystoreCreateChildAccount() {
+        let mnemonic = "normal dune pole key case cradle unfold require tornado mercy hospital buyer"
+        let keystore = try! BIP32Keystore(mnemonics: mnemonic, password: "", mnemonicsPassword: "")
+        XCTAssertNotNil(keystore)
+        XCTAssertEqual(keystore!.addresses?.count, 1)
+        try! keystore?.createNewChildAccount(password: "")
+        
+        XCTAssertEqual(keystore?.addresses?.count, 2)
+        let account = keystore!.addresses![0]
+        
         let key = try! keystore!.UNSAFE_getPrivateKeyData(password: "", account: account)
         XCTAssertNotNil(key)
     }
