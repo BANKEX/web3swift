@@ -83,7 +83,7 @@ public class BIP32Keystore: AbstractKeystore {
         var newIndex = UInt32(0)
         for (p, _) in paths {
             guard let idx = UInt32(p.components(separatedBy: "/").last!) else {continue}
-            if idx > newIndex {
+            if idx >= newIndex {
                 newIndex = idx + 1
             }
         }
