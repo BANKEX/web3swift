@@ -31,13 +31,9 @@ public class BIP32Keystore: AbstractKeystore {
     
     public func UNSAFE_getPrivateKeyData(password: String, account: EthereumAddress) throws -> Data {
         if let key = self.paths.keyForValue(value: account) {
-            guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
-            //encode
-            let base58String = String(bytes: decryptedRootNode!.bytes, encoding: .ascii)
-            let base58decode = Base58.bytesFromBase58(base58String!)
-            let data = Data(bytes: base58decode)
-            guard let rootNode = HDNode(data) else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
-//            guard rootNode.depth == HDNode.defaultPathPrefix.components(separatedBy: "/").count else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
+            guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else { throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
+            guard let base58String = String(bytes: decryptedRootNode!.bytes, encoding: .ascii) else { throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
+            guard let rootNode = HDNode(base58String) else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
             guard let index = UInt32(key.components(separatedBy: "/").last!) else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
             guard let keyNode = rootNode.derive(index: index, derivePrivateKey: true) else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
             guard let privateKey = keyNode.privateKey else {throw AbstractKeystoreError.invalidAccountError}

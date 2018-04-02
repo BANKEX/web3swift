@@ -259,17 +259,6 @@ extension HDNode {
         }
         return currentNode
     }
-    /**
-     Extended public and private keys are serialized as follows:
-     
-     1. 4 byte: version bytes (mainnet: 0x0488B21E public, 0x0488ADE4 private; testnet: 0x043587CF public, 0x04358394 private)
-     2. 1 byte: depth: 0x00 for master nodes, 0x01 for level-1 derived keys, ....
-     3. 4 bytes: the fingerprint of the parent's key (0x00000000 if master key)
-     4. 4 bytes: child number. This is ser32(i) for i in xi = xpar/i, with xi the key being serialized. (0x00000000 if master key)
-     5. 32 bytes: the chain code
-     6. 33 bytes: the public key or private key data (serP(K) for public keys, 0x00 || ser256(k) for private keys)
-     This 78 byte structure can be encoded like other Bitcoin data in Base58, by first adding 32 checksum bits (derived from the double SHA-256 checksum), and then converting to the Base58 representation. This results in a Base58-encoded string of up to 112 characters. Because of the choice of the version bytes, the Base58 representation will start with "xprv" or "xpub" on mainnet, "tprv" or "tpub" on testnet.
-     */
     
     public func serialize(serializePublic: Bool = true, version: HDversion = HDversion()) -> String? {
         var data = Data()
