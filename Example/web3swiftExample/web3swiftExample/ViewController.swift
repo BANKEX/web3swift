@@ -88,12 +88,12 @@ class ViewController: UIViewController {
                 res = intermediateSend?.send(password: "BANKEXFOUNDATION")
                 let derivedSender = intermediateSend?.transaction.sender
                 if (derivedSender?.address != sender.address) {
-                    print(derivedSender!.address)
+                    print(derivedSender?.address)
                     print(sender.address)
                     print("Address mismatch")
                 }
-                let txid = res!["txhash"] as? String
-                print("On Rinkeby TXid = " + txid!)
+//                let txid = res!["txhash"] as? String
+//                print("On Rinkeby TXid = " + txid!)
                 
                 //Balance on Rinkeby
                 let balance = web3Rinkeby.eth.getBalance(address: coldWalletAddress)

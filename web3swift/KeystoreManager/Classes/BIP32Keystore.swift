@@ -31,10 +31,8 @@ public class BIP32Keystore: AbstractKeystore {
     
     public func UNSAFE_getPrivateKeyData(password: String, account: EthereumAddress) throws -> Data {
         if let key = self.paths.keyForValue(value: account) {
-            guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
-            guard let rootNode = HDNode(decryptedRootNode!) else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
-            guard rootNode.depth == HDNode.defaultPathPrefix.components(separatedBy: "/").count else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
             guard let index = UInt32(key.components(separatedBy: "/").last!) else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
+            let rootNode = try getRootNode(password: password)
             guard let keyNode = rootNode.derive(index: index, derivePrivateKey: true) else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
             guard let privateKey = keyNode.privateKey else {throw AbstractKeystoreError.invalidAccountError}
             return privateKey
@@ -67,6 +65,7 @@ public class BIP32Keystore: AbstractKeystore {
     
     public init? (mnemonics: String, password: String = "BANKEXFOUNDATION", mnemonicsPassword: String = "BANKEXFOUNDATION", language: BIP39Language = BIP39Language.english) throws {
         guard var seed = BIP39.seedFromMmemonics(mnemonics, password: mnemonicsPassword, language: language) else {throw AbstractKeystoreError.noEntropyError}
+        //1.0 root key
         guard let prefixNode = HDNode(seed: seed)?.derive(path: HDNode.defaultPathPrefix, derivePrivateKey: true) else {return nil}
         defer{ Data.zero(&seed) }
         self.mnemonics = mnemonics
@@ -75,9 +74,8 @@ public class BIP32Keystore: AbstractKeystore {
     
     
     public func createNewChildAccount(password: String = "BANKEXFOUNDATION") throws {
-        guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
-        guard let rootNode = HDNode(decryptedRootNode!) else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
-        guard rootNode.depth == HDNode.defaultPathPrefix.components(separatedBy: "/").count else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
+        let rootNode = try getRootNode(password: password)
+        guard rootNode.depth == HDNode.defaultPathPrefix.components(separatedBy: "/").count - 1 else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
         try createNewAccount(parentNode: rootNode, password: password)
     }
     
@@ -85,12 +83,12 @@ public class BIP32Keystore: AbstractKeystore {
         var newIndex = UInt32(0)
         for (p, _) in paths {
             guard let idx = UInt32(p.components(separatedBy: "/").last!) else {continue}
-            if idx > newIndex {
+            if idx >= newIndex {
                 newIndex = idx + 1
             }
         }
         guard let newNode = parentNode.derive(index: newIndex, derivePrivateKey: true, hardened: false) else {throw AbstractKeystoreError.keyDerivationError}
-        guard let newAddress = Web3.Utils.publicToAddress(newNode.publicKey)  else {throw AbstractKeystoreError.keyDerivationError}
+        guard let newAddress = Web3.Utils.publicToAddress(newNode.publicKey) else {throw AbstractKeystoreError.keyDerivationError}
         var newPath:String
         if newNode.isHardened {
             newPath = HDNode.defaultPathPrefix + "/" + String(newNode.index % HDNode.hardenedIndexPrefix) + "'"
@@ -98,11 +96,29 @@ public class BIP32Keystore: AbstractKeystore {
             newPath = HDNode.defaultPathPrefix + "/" + String(newNode.index)
         }
         paths[newPath] = newAddress
-        guard let serializedRootNode = parentNode.serialize() else {throw AbstractKeystoreError.keyDerivationError}
+        guard let serializedRootNode = parentNode.serialize(serializePublic: false, version: HDNode.HDversion()) else {throw AbstractKeystoreError.keyDerivationError}
+        //encrypt
         try encryptDataToStorage(password, data: serializedRootNode.data(using: .ascii))
     }
     
-    fileprivate func encryptDataToStorage(_ password: String, data: Data?, dkLen: Int=32, N: Int = 4096, R: Int = 6, P: Int = 1) throws {
+    
+    public func regenerate(oldPassword: String, newPassword: String, dkLen: Int=32, N: Int = 262144, R: Int = 8, P: Int = 1) throws {
+        var keyData = try self.getPrefixNodeData(oldPassword)
+        defer {Data.zero(&keyData!)}
+        try self.encryptDataToStorage(newPassword, data: keyData!)
+    }
+}
+
+extension BIP32Keystore {
+    private func getRootNode(password: String) throws -> HDNode {
+        guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else { throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
+        guard let decryptedRootNodeString = String(bytes: decryptedRootNode!.bytes, encoding: .ascii) else { throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
+        guard let rootNode = HDNode(decryptedRootNodeString) else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
+        guard rootNode.depth == HDNode.defaultPathPrefix.components(separatedBy: "/").count - 1 else {throw AbstractKeystoreError.encryptionError("Failed to sign transaction")}
+        return rootNode
+    }
+    
+    private func encryptDataToStorage(_ password: String, data: Data?, dkLen: Int=32, N: Int = 4096, R: Int = 6, P: Int = 1) throws {
         if (data == nil) {
             throw AbstractKeystoreError.encryptionError("Encryption without key data")
         }
@@ -131,13 +147,8 @@ public class BIP32Keystore: AbstractKeystore {
         keystoreParams = keystorePars
     }
     
-    public func regenerate(oldPassword: String, newPassword: String, dkLen: Int=32, N: Int = 262144, R: Int = 8, P: Int = 1) throws {
-        var keyData = try self.getPrefixNodeData(oldPassword)
-        defer {Data.zero(&keyData!)}
-        try self.encryptDataToStorage(newPassword, data: keyData!)
-    }
     
-    fileprivate func getPrefixNodeData(_ password: String) throws -> Data? {
+    private func getPrefixNodeData(_ password: String) throws -> Data? {
         guard let keystorePars = keystoreParams else {return nil}
         guard let saltData = Data.fromHex(keystorePars.crypto.kdfparams.salt) else {return nil}
         let derivedLen = keystorePars.crypto.kdfparams.dklen
@@ -174,7 +185,6 @@ public class BIP32Keystore: AbstractKeystore {
         let derivedKeyLast16bytes = derivedKey[(derivedKey.count - 16)...(derivedKey.count - 1)]
         dataForMAC.append(derivedKeyLast16bytes)
         guard let cipherText = Data.fromHex(keystorePars.crypto.ciphertext) else {return nil}
-        if (cipherText.count != 32) {return nil}
         dataForMAC.append(cipherText)
         let mac = dataForMAC.sha3(.keccak256)
         guard let calculatedMac = Data.fromHex(keystorePars.crypto.mac), mac.constantTimeComparisonTo(calculatedMac) else {return nil}

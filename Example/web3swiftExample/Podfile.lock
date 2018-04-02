@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.6.0)
+  - Alamofire (4.7.0)
   - Alamofire-Synchronous (4.0.0):
     - Alamofire (~> 4.0)
   - AwaitKit (3.0.1):
@@ -19,9 +19,9 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (4.5.2):
     - PromiseKit/CorePromise
-  - secp256k1_ios (0.1.1)
+  - secp256k1_ios (0.1.2)
   - SipHash (1.2.0)
-  - web3swift (0.2.14):
+  - web3swift (0.2.12):
     - Alamofire (~> 4.5)
     - Alamofire-Synchronous (~> 4.0)
     - BigInt (~> 3.0.1)
@@ -32,24 +32,30 @@ PODS:
 DEPENDENCIES:
   - AwaitKit (~> 3.0.1)
   - PromiseKit (~> 4.4)
-  - web3swift (from `../../`)
+  - web3swift (from `https://github.com/bankex/web3swift.git`, tag `0.2.12`)
 
 EXTERNAL SOURCES:
   web3swift:
-    :path: ../../
+    :git: https://github.com/bankex/web3swift.git
+    :tag: 0.2.12
+
+CHECKOUT OPTIONS:
+  web3swift:
+    :git: https://github.com/bankex/web3swift.git
+    :tag: 0.2.12
 
 SPEC CHECKSUMS:
-  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
   Alamofire-Synchronous: eedf1e6e961c3795a63c74990b3f7d9fbfac7e50
   AwaitKit: daf1af84544413a8dfadb4fc25d8b0f9706e5c83
   BigInt: 8e8a52161c745cd3ab78e3dc346a9fbee51e6cf6
   CryptoSwift: 033efc3523865d19cc6ab6612fa17a62613b5dfa
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   PromiseKit: 743e497a5f505a470d3bbbf4ce0663c1268af0a4
-  secp256k1_ios: 3c94e6cce14ff03924cb6dc10c5017f17011b79d
+  secp256k1_ios: 168c6c49ed9771db51875f5255c8f9847e4cf554
   SipHash: c6e9e43e9c531b5bc6602545130c26194a6d31ce
-  web3swift: 39787043f9867a4709ce2852f2b9b77543df5f46
+  web3swift: da94e170b81b9261f44a0327a2d5414be421517a
 
-PODFILE CHECKSUM: 5ca116ba7ac7ede430186cd1d2b7ef07870944f2
+PODFILE CHECKSUM: e84249d59d7b0ce54b0deffd0e7e0e6c2ced2d70
 
 COCOAPODS: 1.4.0
