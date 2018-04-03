@@ -11,10 +11,31 @@ import CryptoSwift
 
 public enum BIP39Language {
     case english
+    case chinese_simplified
+    case chinese_traditional
+    case japanese
+    case korean
+    case french
+    case italian
+    case spanish
     var words: [String] {
         switch self {
         case .english:
             return englishWords
+        case .chinese_simplified:
+            return simplifiedchineseWords
+        case .chinese_traditional:
+            return traditionalchineseWords
+        case .japanese:
+            return japaneseWords
+        case .korean:
+            return koreanWords
+        case.french:
+            return frenchWords
+        case .italian:
+            return italianWords
+        case .spanish:
+            return spanishWords
         }
     }
 }
