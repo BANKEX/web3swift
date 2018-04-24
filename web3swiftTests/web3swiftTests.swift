@@ -2100,8 +2100,8 @@ class web3swiftTests: XCTestCase {
         
         
         let contractAddress = EthereumAddress("0xe143869afd05e83ffcb2a59b65334c9e2bdc5efd")
-        let url = URL.init(string: "http://192.168.82.77:8545")
-        // let url = URL.init(string: "http://127.0.0.1:8545")
+        //let url = URL.init(string: "http://192.168.82.77:8545")
+         let url = URL.init(string: "http://127.0.0.1:8545")
         let web3 = Web3.new(url!)
         
         
