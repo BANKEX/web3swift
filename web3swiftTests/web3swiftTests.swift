@@ -2089,6 +2089,91 @@ class web3swiftTests: XCTestCase {
         }
     }
     
+
+    
+    func testPersonalSignature2HashOnContract() {
+        
+        
+        let abiString = "[{\"constant\":true,\"inputs\":[{\"name\":\"v\",\"type\":\"uint8\"},{\"name\":\"r\",\"type\":\"bytes32\"},{\"name\":\"s\",\"type\":\"bytes32\"},{\"name\":\"number\",\"type\":\"uint256\"}],\"name\":\"validate\",\"outputs\":[{\"name\":\"\",\"type\":\"bytes32\"},{\"name\":\"\",\"type\":\"address\"},{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"kill\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"v\",\"type\":\"uint8\"},{\"name\":\"r\",\"type\":\"bytes32\"},{\"name\":\"s\",\"type\":\"bytes32\"},{\"name\":\"_stepsNumber\",\"type\":\"uint256\"}],\"name\":\"exchange\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"_rate\",\"type\":\"uint256\"},{\"name\":\"_quota\",\"type\":\"uint256\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"constructor\"}]"
+        
+        
+        
+        
+        let contractAddress = EthereumAddress("0xe143869afd05e83ffcb2a59b65334c9e2bdc5efd")
+        //let url = URL.init(string: "http://192.168.82.77:8545")
+         let url = URL.init(string: "http://127.0.0.1:8545")
+        let web3 = Web3.new(url!)
+        
+        
+        let testString = "1000"
+        let personalMessage  = testString.data(using: String.Encoding.utf8)
+        print(personalMessage)
+        
+        let tempKeystore = try! EthereumKeystoreV3(password: "")
+        let keystoreManager = KeystoreManager([tempKeystore!])
+        web3?.addKeystoreManager(keystoreManager)
+        let expectedAddress = keystoreManager.addresses![0]
+        print(expectedAddress)
+     
+    
+        do {
+            
+            
+            let signature = try Web3Signer.signPersonalMessage2Hash(personalMessage!, keystore: keystoreManager, account: expectedAddress, password: "",useExtraEntropy: false)
+            
+            print(signature)
+            
+            if signature?.count != 65 { print("sign count error")}
+            
+            let rData = Data(signature![0..<32])
+            let sData = Data(signature![32..<64])
+            let vData = BigUInt(signature![64]) + BigUInt(27)
+            print(rData)
+            print(sData)
+            print(vData)
+            print(signature?.toHexString())
+            
+            
+            let contract = web3?.contract(abiString, at: contractAddress, abiVersion: 2)
+            var options = Web3Options.defaultOptions()
+            options.from = expectedAddress
+            
+            let parameters = [vData,rData,sData,BigUInt(1000)] as [AnyObject]
+            
+            print("parameters:")
+            print(parameters)
+            let intermediate = contract?.method("validate",parameters: parameters, options: options)
+            let result = intermediate!.call(options: options)
+            
+            print("v result")
+            print(result)
+            switch result {
+            case .success(let payload):
+                print(payload)
+            case .failure(let error):
+                print(error)
+                
+            }
+            
+        
+            //验签
+            let verifySender: EthereumAddress = Web3.Utils.personalECRecover2Hash(personalMessage!, signature: signature!)!
+            print("verify sender:")
+            print(verifySender)
+            
+            print("\n")
+            
+            
+        }
+        catch{
+            print(error)
+            
+        }
+        
+        
+    }
+    
+
     func testUserCaseEventParsing() {
         let contractAddress = EthereumAddress("0x7ff546aaccd379d2d1f241e1d29cdd61d4d50778")
         let jsonString = "[{\"constant\":false,\"inputs\":[{\"name\":\"_id\",\"type\":\"string\"}],\"name\":\"deposit\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_id\",\"type\":\"string\"},{\"indexed\":true,\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"Deposit\",\"type\":\"event\"}]"
@@ -2107,6 +2192,6 @@ class web3swiftTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
+ 
 }
 
