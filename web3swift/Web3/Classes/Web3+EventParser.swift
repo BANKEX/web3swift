@@ -131,7 +131,11 @@ extension web3.web3contract {
                 let decodedLogs = allLogs.compactMap({ (log) -> EventParserResultProtocol? in
                     let (n, d) = contract.parseEvent(log)
                     guard let evName = n, let evData = d else {return nil}
-                    return EventParserResult(eventName: evName, transactionReceipt: nil, contractAddress: log.address, decodedResult: evData)
+                    let receipt = web3.eth.getTransactionReceipt(log.transactionHash)
+                    if case .failure = receipt {
+                        return nil
+                    }
+                    return EventParserResult(eventName: evName, transactionReceipt: receipt.value, contractAddress: log.address, decodedResult: evData)
                 }).filter { (res:EventParserResultProtocol?) -> Bool in
                     if eventName != nil {
                         return res != nil && res?.eventName == eventName
