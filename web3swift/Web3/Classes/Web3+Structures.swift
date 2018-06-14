@@ -134,6 +134,8 @@ public struct EventLog {
         let rm = json["removed"] as? Int ?? 0
         guard let tpc = json["topics"] as? [String] else {return nil}
         guard let addr = EthereumAddress(ad) else {return nil}
+        guard let txhash = json["transactionHash"] as? String else{return nil}
+        transactionHash = Data.fromHex(txhash)!
         address = addr
         guard let txhash = json["transactionHash"] as? String else{return nil}
         let hash = Data.fromHex(txhash)
