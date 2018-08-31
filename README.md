@@ -4,7 +4,7 @@
 
 ## Important notice: 
 ### This version is not currently supported by founders.
-## Use [BaldyAsh/TinyBigInt](https://github.com/BaldyAsh/TinyBigInt) instead.
+## Use [matterinc/web3swift](https://github.com/matterinc/web3swift) instead.
 
 > As we've left the company BANKEX and I was the main enthusiast maintainer of this project, all the further work and updates will be done in the new repo.
 
