@@ -1,0 +1,6 @@
+
+github "mxcl/PromiseKit" ~> 6.4
+github "attaswift/BigInt" ~> 3.1
+github "krzyzanowskim/CryptoSwift" ~> 0.12
+github "antitypical/Result" ~> 4.0
+github "Boilertalk/secp256k1.swift"

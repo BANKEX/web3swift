@@ -2,7 +2,7 @@ def import_pods
   pod 'PromiseKit', '~> 6.4'
   pod 'BigInt', '~> 3.1'
   pod 'CryptoSwift', '~> 0.12'
-  pod 'Result', '~> 3.2'
+  pod 'Result', '~> 4.0'
   pod 'secp256k1.swift'
 end
 
