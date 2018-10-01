@@ -2,20 +2,6 @@
 
 <img align="left" width="25" height="25" src="https://user-images.githubusercontent.com/28599454/41086111-af4bc3b0-6a41-11e8-9f9f-2d642b12666e.png">[Ask questions](https://stackoverflow.com/questions/tagged/web3swift)
 
-## Important notice: 
-### This version is not currently supported by founders.
-## Use [matterinc/web3swift](https://github.com/matterinc/web3swift) instead.
-
-> As we've left the company BANKEX and I was the main enthusiast maintainer of this project, all the further work and updates will be done in the new repo.
-
->*Sincerely,*
->*Alex (@shamatar)*
-
-> We will continue working at *web3swift* library within our core team in our new company.
->We are committed to make it more powerful and push new updates to [matterinc/web3swift](https://github.com/matterinc/web3swift)
-
->*Regards,*
->*Petr Korolev (@skywinder)*
 
 # web3swift
 
