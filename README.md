@@ -112,6 +112,38 @@ Then, run the following command:
 ```bash
 $ pod install
 ```
+
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with [Homebrew](https://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+
+To integrate web3swift into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```
+github "BANKEX/web3swift" ~> 1.1
+```
+
+Run `carthage update` to build the framework and drag the built `web3swift.framework` into your Xcode project.
+
+### Swift Package Manager
+
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. It is in early development, but web3swift does support its use on supported platforms. 
+
+Once you have your Swift package set up, adding web3swift as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
+
+```swift
+dependencies: [
+.package(url: "https://github.com/BANKEX/web3swift.git", from: "1.1.6")
+]
+```
+
 ## Features
 
 - [x] Create Account
