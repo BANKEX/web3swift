@@ -23,8 +23,8 @@ public extension Data {
     }
     
     public func constantTimeComparisonTo(_ other:Data?) -> Bool {
-        guard let rhs = other else {return false}
-        guard self.count == rhs.count else {return false}
+        guard let rhs = other else { return false }
+        guard self.count == rhs.count else { return false }
         var difference = UInt8(0x00)
         for i in 0..<self.count { // compare full length
             difference |= self[i] ^ rhs[i] //constant time
@@ -69,11 +69,11 @@ public extension Data {
     
     
     func bitsInRange(_ startingBit:Int, _ length:Int) -> UInt64? { //return max of 8 bytes for simplicity, non-public
-        if startingBit + length / 8 > self.count, length > 64, startingBit > 0, length >= 1 {return nil}
+        if startingBit + length / 8 > self.count, length > 64, startingBit > 0, length >= 1 { return nil }
         let bytes = self[(startingBit/8) ..< (startingBit+length+7)/8]
         let padding = Data(repeating: 0, count: 8 - bytes.count)
         let padded = bytes + padding
-        guard padded.count == 8 else {return nil}
+        guard padded.count == 8 else { return nil }
         var uintRepresentation = UInt64(bigEndian: padded.withUnsafeBytes { $0.pointee })
         uintRepresentation = uintRepresentation << (startingBit % 8)
         uintRepresentation = uintRepresentation >> UInt64(64 - length)

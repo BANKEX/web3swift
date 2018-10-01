@@ -13,11 +13,11 @@ import class PromiseKit.Promise
 
 /// Protocol for generic Ethereum event parsing results
 public protocol EventParserResultProtocol {
-    var eventName: String {get}
-    var decodedResult: [String:Any] {get}
-    var contractAddress: EthereumAddress {get}
-    var transactionReceipt: TransactionReceipt? {get}
-    var eventLog: EventLog? {get}
+    var eventName: String { get }
+    var decodedResult: [String:Any] { get }
+    var contractAddress: EthereumAddress { get }
+    var transactionReceipt: TransactionReceipt? { get }
+    var eventLog: EventLog? { get }
 }
 
 /// Protocol for generic Ethereum event parser

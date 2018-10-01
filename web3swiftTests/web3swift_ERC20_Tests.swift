@@ -147,8 +147,8 @@ class web3swift_ERC20_Tests: XCTestCase {
         var options = Web3Options();
         options.from = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")!
         let addressOfUser = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")!
-        guard let tokenBalanceResult = contract?.method("balanceOf", parameters: [addressOfUser] as [AnyObject], options: options)?.call(options: nil) else {return XCTFail()}
-        guard case .success(let tokenBalance) = tokenBalanceResult, let bal = tokenBalance["0"] as? BigUInt else {return XCTFail()}
+        guard let tokenBalanceResult = contract?.method("balanceOf", parameters: [addressOfUser] as [AnyObject], options: options)?.call(options: nil) else { return XCTFail() }
+        guard case .success(let tokenBalance) = tokenBalanceResult, let bal = tokenBalance["0"] as? BigUInt else { return XCTFail() }
         print(String(bal))
     }
     

@@ -23,9 +23,9 @@ class web3swift_remoteParsing_Tests: XCTestCase {
         let contractAddress = EthereumAddress("0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")
         let web3 = Web3.InfuraMainnetWeb3()
         let contract = web3.contract(jsonString, at: contractAddress, abiVersion: 2)
-        guard let eventParser = contract?.createEventParser("Transfer", filter: nil) else {return XCTFail()}
+        guard let eventParser = contract?.createEventParser("Transfer", filter: nil) else { return XCTFail() }
         let present = eventParser.parseBlockByNumber(UInt64(5200088))
-        guard case .success(let pres) = present else {return XCTFail()}
+        guard case .success(let pres) = present else { return XCTFail() }
         print(pres)
         XCTAssert(pres.count == 1)
         let decoded = pres[0].decodedResult
@@ -41,9 +41,9 @@ class web3swift_remoteParsing_Tests: XCTestCase {
         let jsonString = "[{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_spender\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_from\",\"type\":\"address\"},{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"name\":\"\",\"type\":\"uint8\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"version\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"name\":\"balance\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_spender\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"},{\"name\":\"_extraData\",\"type\":\"bytes\"}],\"name\":\"approveAndCall\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_owner\",\"type\":\"address\"},{\"name\":\"_spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"name\":\"remaining\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"inputs\":[{\"name\":\"_initialAmount\",\"type\":\"uint256\"},{\"name\":\"_tokenName\",\"type\":\"string\"},{\"name\":\"_decimalUnits\",\"type\":\"uint8\"},{\"name\":\"_tokenSymbol\",\"type\":\"string\"}],\"type\":\"constructor\"},{\"payable\":false,\"type\":\"fallback\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_to\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_spender\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},]"
         let web3 = Web3.InfuraMainnetWeb3()
         let contract = web3.contract(jsonString, at: nil, abiVersion: 2)
-        guard let eventParser = contract?.createEventParser("Transfer", filter: nil) else {return XCTFail()}
+        guard let eventParser = contract?.createEventParser("Transfer", filter: nil) else { return XCTFail() }
         let present = eventParser.parseBlockByNumber(UInt64(5200120))
-        guard case .success(let pres) = present else {return XCTFail()}
+        guard case .success(let pres) = present else { return XCTFail() }
         print(pres)
         XCTAssert(pres.count == 81)
     }
@@ -52,13 +52,13 @@ class web3swift_remoteParsing_Tests: XCTestCase {
         let jsonString = "[{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_spender\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_from\",\"type\":\"address\"},{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"name\":\"\",\"type\":\"uint8\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"version\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"name\":\"balance\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_spender\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"},{\"name\":\"_extraData\",\"type\":\"bytes\"}],\"name\":\"approveAndCall\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_owner\",\"type\":\"address\"},{\"name\":\"_spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"name\":\"remaining\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"inputs\":[{\"name\":\"_initialAmount\",\"type\":\"uint256\"},{\"name\":\"_tokenName\",\"type\":\"string\"},{\"name\":\"_decimalUnits\",\"type\":\"uint8\"},{\"name\":\"_tokenSymbol\",\"type\":\"string\"}],\"type\":\"constructor\"},{\"payable\":false,\"type\":\"fallback\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_to\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_spender\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},]"
         let web3 = Web3.InfuraMainnetWeb3()
         let contract = web3.contract(jsonString, at: nil, abiVersion: 2)
-        guard let eventParser = contract?.createEventParser("Transfer", filter: nil) else {return XCTFail()}
+        guard let eventParser = contract?.createEventParser("Transfer", filter: nil) else { return XCTFail() }
         let blockNumber = web3.eth.getBlockNumber()
-        guard case .success(let currentBlock) = blockNumber else {return XCTFail()}
+        guard case .success(let currentBlock) = blockNumber else { return XCTFail() }
         let currentBlockAsInt = UInt64(currentBlock)
         for i in currentBlockAsInt-1 ... currentBlockAsInt {
             let present = eventParser.parseBlockByNumber(i)
-            guard case .success(let pres) = present else {return XCTFail()}
+            guard case .success(let pres) = present else { return XCTFail() }
             for p in pres {
                 print("Block " + String(i) + "\n")
                 print("Emitted by contract " + p.contractAddress.address + "\n")
@@ -77,9 +77,9 @@ class web3swift_remoteParsing_Tests: XCTestCase {
         var filter = EventFilter()
         filter.addresses = [EthereumAddress("0x53066cddbc0099eb6c96785d9b3df2aaeede5da3")!]
         filter.parameterFilters = [([EthereumAddress("0xefdcf2c36f3756ce7247628afdb632fa4ee12ec5")!] as [EventFilterable]), ([EthereumAddress("0xd5395c132c791a7f46fa8fc27f0ab6bacd824484")!] as [EventFilterable])]
-        guard let eventParser = contract?.createEventParser("Transfer", filter: filter) else {return XCTFail()}
+        guard let eventParser = contract?.createEventParser("Transfer", filter: filter) else { return XCTFail() }
         let present = eventParser.parseBlockByNumber(UInt64(5200120))
-        guard case .success(let pres) = present else {return XCTFail()}
+        guard case .success(let pres) = present else { return XCTFail() }
         print(pres)
         XCTAssert(pres.count == 1)
         //TODO: - Make following assert
@@ -96,7 +96,7 @@ class web3swift_remoteParsing_Tests: XCTestCase {
         filter.toBlock = .blockNumber(UInt64(5200120))
         filter.addresses = [EthereumAddress("0x53066cddbc0099eb6c96785d9b3df2aaeede5da3")!]
         filter.parameterFilters = [([EthereumAddress("0xefdcf2c36f3756ce7247628afdb632fa4ee12ec5")!] as [EventFilterable]), ([EthereumAddress("0xd5395c132c791a7f46fa8fc27f0ab6bacd824484")!] as [EventFilterable])]
-        guard let eventParserResult = contract?.getIndexedEvents(eventName: "Transfer", filter: filter) else {return XCTFail()}
+        guard let eventParserResult = contract?.getIndexedEvents(eventName: "Transfer", filter: filter) else { return XCTFail() }
         switch eventParserResult {
         case .success(let result):
             print(result)
@@ -116,7 +116,7 @@ class web3swift_remoteParsing_Tests: XCTestCase {
         filter.toBlock = .blockNumber(UInt64(5200120))
         filter.addresses = [EthereumAddress("0x53066cddbc0099eb6c96785d9b3df2aaeede5da3")!]
         filter.parameterFilters = [([EthereumAddress("0xefdcf2c36f3756ce7247628afdb632fa4ee12ec5")!] as [EventFilterable]), (nil as [EventFilterable]?)]
-        guard let eventParserResult = contract?.getIndexedEvents(eventName: "Transfer", filter: filter) else {return XCTFail()}
+        guard let eventParserResult = contract?.getIndexedEvents(eventName: "Transfer", filter: filter) else { return XCTFail() }
         switch eventParserResult {
         case .success(let result):
             print(result)

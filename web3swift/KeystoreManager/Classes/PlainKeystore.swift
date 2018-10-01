@@ -20,14 +20,14 @@ public class PlainKeystore: AbstractKeystore {
     }
     
     public convenience init?(privateKey: String) {
-        guard let privateKeyData = Data.fromHex(privateKey) else {return nil}
+        guard let privateKeyData = Data.fromHex(privateKey) else { return nil }
         self.init(privateKey: privateKeyData)
     }
     
     public init?(privateKey: Data) {
-        guard SECP256K1.verifyPrivateKey(privateKey: privateKey) else {return nil}
-        guard let publicKey = Web3.Utils.privateToPublic(privateKey, compressed: false) else {return nil}
-        guard let address = Web3.Utils.publicToAddress(publicKey) else {return nil}
+        guard SECP256K1.verifyPrivateKey(privateKey: privateKey) else { return nil }
+        guard let publicKey = Web3.Utils.privateToPublic(privateKey, compressed: false) else { return nil }
+        guard let address = Web3.Utils.publicToAddress(publicKey) else { return nil }
         self.addresses = [address]
         self.privateKey = privateKey
     }

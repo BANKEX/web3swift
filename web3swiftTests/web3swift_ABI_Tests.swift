@@ -223,11 +223,11 @@ class web3swift_ABI_Tests: XCTestCase {
         let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.array(type: .uint(bits: 256), length: 2)),
                      ABIv2.Element.InOut(name: "2", type: ABIv2.Element.ParameterType.uint(bits: 256))]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
-        guard let result = res else {return XCTFail()}
+        guard let result = res else { return XCTFail() }
         XCTAssert(result.count == 2)
-        guard let firstElement = result[0] as? [BigUInt] else {return XCTFail()}
+        guard let firstElement = result[0] as? [BigUInt] else { return XCTFail() }
         XCTAssert(firstElement.count == 2)
-        guard let secondElement = result[1] as? BigUInt else {return XCTFail()}
+        guard let secondElement = result[1] as? BigUInt else { return XCTFail() }
         XCTAssert(firstElement[0] == BigUInt(1))
         XCTAssert(firstElement[1] == BigUInt(92))
         XCTAssert(secondElement == BigUInt(3))
@@ -237,9 +237,9 @@ class web3swift_ABI_Tests: XCTestCase {
         let data = "00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000003"
         let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.array(type: .uint(bits: 256), length: 0))]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
-        guard let result = res else {return XCTFail()}
+        guard let result = res else { return XCTFail() }
         XCTAssert(result.count == 1)
-        guard let firstElement = result[0] as? [BigUInt] else {return XCTFail()}
+        guard let firstElement = result[0] as? [BigUInt] else { return XCTFail() }
         XCTAssert(firstElement.count == 3)
         XCTAssert(firstElement[0] == BigUInt(1))
         XCTAssert(firstElement[1] == BigUInt(2))
@@ -250,9 +250,9 @@ class web3swift_ABI_Tests: XCTestCase {
         let data = "0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000b68656c6c6f20776f726c64000000000000000000000000000000000000000000"
         let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.dynamicBytes)]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
-        guard let result = res else {return XCTFail()}
+        guard let result = res else { return XCTFail() }
         XCTAssert(result.count == 1)
-        guard let firstElement = result[0] as? Data else {return XCTFail()}
+        guard let firstElement = result[0] as? Data else { return XCTFail() }
         XCTAssert(firstElement.count == 11)
     }
     
@@ -260,9 +260,9 @@ class web3swift_ABI_Tests: XCTestCase {
         let data = "0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000b68656c6c6f20776f726c64000000000000000000000000000000000000000000"
         let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.string)]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
-        guard let result = res else {return XCTFail()}
+        guard let result = res else { return XCTFail() }
         XCTAssert(result.count == 1)
-        guard let firstElement = result[0] as? String else {return XCTFail()}
+        guard let firstElement = result[0] as? String else { return XCTFail() }
         XCTAssert(firstElement == "hello world")
     }
     
@@ -270,9 +270,9 @@ class web3swift_ABI_Tests: XCTestCase {
         let data = "fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe"
         let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.int(bits: 32))]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
-        guard let result = res else {return XCTFail()}
+        guard let result = res else { return XCTFail() }
         XCTAssert(result.count == 1)
-        guard let firstElement = result[0] as? BigInt else {return XCTFail()}
+        guard let firstElement = result[0] as? BigInt else { return XCTFail() }
         XCTAssert(firstElement == BigInt(-2))
     }
     
@@ -280,9 +280,9 @@ class web3swift_ABI_Tests: XCTestCase {
         let data = "ffffffffffffffffffffffffffffffffffffffffffffffffffffb29c26f344fe"
         let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.int(bits: 64))]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
-        guard let result = res else {return XCTFail()}
+        guard let result = res else { return XCTFail() }
         XCTAssert(result.count == 1)
-        guard let firstElement = result[0] as? BigInt else {return XCTFail()}
+        guard let firstElement = result[0] as? BigInt else { return XCTFail() }
         XCTAssert(firstElement == BigInt("-85091238591234")!)
     }
     
@@ -291,11 +291,11 @@ class web3swift_ABI_Tests: XCTestCase {
         let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.bool),
                      ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.uint(bits: 32))]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
-        guard let result = res else {return XCTFail()}
+        guard let result = res else { return XCTFail() }
         XCTAssert(result.count == types.count)
-        guard let firstElement = result[0] as? Bool else {return XCTFail()}
+        guard let firstElement = result[0] as? Bool else { return XCTFail() }
         XCTAssert(firstElement == true)
-        guard let secondElement = result[1] as? BigUInt else {return XCTFail()}
+        guard let secondElement = result[1] as? BigUInt else { return XCTFail() }
         XCTAssert(secondElement == 42)
     }
     
@@ -304,11 +304,11 @@ class web3swift_ABI_Tests: XCTestCase {
         let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.bool),
                      ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.array(type: .uint(bits: 256), length: 0))]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
-        guard let result = res else {return XCTFail()}
+        guard let result = res else { return XCTFail() }
         XCTAssert(result.count == types.count)
-        guard let firstElement = result[0] as? Bool else {return XCTFail()}
+        guard let firstElement = result[0] as? Bool else { return XCTFail() }
         XCTAssert(firstElement == true)
-        guard let secondElement = result[1] as? [BigUInt] else {return XCTFail()}
+        guard let secondElement = result[1] as? [BigUInt] else { return XCTFail() }
         XCTAssert(secondElement.count == 1)
         XCTAssert(secondElement[0] == 42)
     }
@@ -320,9 +320,9 @@ class web3swift_ABI_Tests: XCTestCase {
         "000000000000000000000000407d73d8a49eeb85d32cf465507dd71d507100c3"
         let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.array(type: .address, length: 0))]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
-        guard let result = res else {return XCTFail()}
+        guard let result = res else { return XCTFail() }
         XCTAssert(result.count == types.count)
-        guard let firstElement = result[0] as? [EthereumAddress] else {return XCTFail()}
+        guard let firstElement = result[0] as? [EthereumAddress] else { return XCTFail() }
         XCTAssert(firstElement.count == 2)
         XCTAssert(firstElement[0].address.lowercased().stripHexPrefix() == "407d73d8a49eeb85d32cf465507dd71d507100c1")
         XCTAssert(firstElement[1].address.lowercased().stripHexPrefix() == "407d73d8a49eeb85d32cf465507dd71d507100c3")

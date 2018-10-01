@@ -33,12 +33,12 @@ struct RLP {
         if let hexData = Data.fromHex(string) {
             return encode(hexData)
         }
-        guard let data = string.data(using: .utf8) else {return nil}
+        guard let data = string.data(using: .utf8) else { return nil }
         return encode(data)
     }
     
     internal static func encode(_ number: Int) -> Data? {
-        guard number >= 0 else {return nil}
+        guard number >= 0 else { return nil }
         let uint = UInt(number)
         return encode(uint)
     }
@@ -66,7 +66,7 @@ struct RLP {
         if (data.count == 1 && data.bytes[0] < UInt8(0x80)) {
             return data
         } else {
-            guard let length = encodeLength(data.count, offset: UInt8(0x80)) else {return nil}
+            guard let length = encodeLength(data.count, offset: UInt8(0x80)) else { return nil }
             var encoded = Data()
             encoded.append(length)
             encoded.append(data)
@@ -85,12 +85,12 @@ struct RLP {
     internal static func encodeLength(_ length: BigUInt, offset: UInt8) -> Data? {
         if (length < length56) {
             let encodedLength = length + BigUInt(UInt(offset))
-            guard (encodedLength.bitWidth <= 8) else {return nil}
+            guard (encodedLength.bitWidth <= 8) else { return nil }
             return encodedLength.serialize()
         } else if (length < lengthMax) {
             let encodedLength = length.serialize()
             let len = BigUInt(UInt(encodedLength.count))
-            guard let prefix = lengthToBinary(len) else {return nil}
+            guard let prefix = lengthToBinary(len) else { return nil }
             let lengthPrefix = prefix + offset + UInt8(55)
             var encoded = Data([lengthPrefix])
             encoded.append(encodedLength)
@@ -105,7 +105,7 @@ struct RLP {
         }
         let divisor = BigUInt(256)
         var encoded = Data()
-        guard let prefix = lengthToBinary(length/divisor) else {return nil}
+        guard let prefix = lengthToBinary(length/divisor) else { return nil }
         let suffix = length % divisor
         
         var prefixData = Data([prefix])
@@ -116,7 +116,7 @@ struct RLP {
         
         encoded.append(prefixData)
         encoded.append(suffixData)
-        guard encoded.count == 1 else {return nil}
+        guard encoded.count == 1 else { return nil }
         return encoded.bytes[0]
     }
     
@@ -126,12 +126,12 @@ struct RLP {
             if let encoded = encode(e) {
                 encodedData.append(encoded)
             } else {
-                guard let asArray = e as? Array<AnyObject> else {return nil}
-                guard let encoded = encode(asArray) else {return nil}
+                guard let asArray = e as? Array<AnyObject> else { return nil }
+                guard let encoded = encode(asArray) else { return nil }
                 encodedData.append(encoded)
             }
         }
-        guard var encodedLength = encodeLength(encodedData.count, offset: UInt8(0xc0)) else {return nil}
+        guard var encodedLength = encodeLength(encodedData.count, offset: UInt8(0xc0)) else { return nil }
         if (encodedLength != Data()) {
             encodedLength.append(encodedData)
         }
@@ -142,10 +142,10 @@ struct RLP {
         var encodedData = Data()
         for el in elements {
             let e = el as AnyObject
-            guard let encoded = encode(e) else {return nil}
+            guard let encoded = encode(e) else { return nil }
             encodedData.append(encoded)
         }
-        guard var encodedLength = encodeLength(encodedData.count, offset: UInt8(0xc0)) else {return nil}
+        guard var encodedLength = encodeLength(encodedData.count, offset: UInt8(0xc0)) else { return nil }
         if (encodedLength != Data()) {
             encodedLength.append(encodedData)
         }
@@ -153,7 +153,7 @@ struct RLP {
     }
     
     static func decode(_ raw: String) -> RLPItem? {
-        guard let rawData = Data.fromHex(raw) else {return nil}
+        guard let rawData = Data.fromHex(raw) else { return nil }
         return decode(rawData)
     }
     
@@ -165,18 +165,18 @@ struct RLP {
         var bytesToParse = raw
         while bytesToParse.count != 0 {
             let (of, dl, t) = decodeLength(bytesToParse)
-            guard let offset = of, let dataLength = dl, let type = t else {return nil}
+            guard let offset = of, let dataLength = dl, let type = t else { return nil }
             switch type {
             case .empty:
                 break
             case .data:
-                guard let slice = try? slice(data: bytesToParse, offset: offset, length: dataLength) else {return nil}
+                guard let slice = try? slice(data: bytesToParse, offset: offset, length: dataLength) else { return nil }
                 let data = Data(slice)
                 let rlpItem = RLPItem.init(content: .data(data))
                 outputArray.append(rlpItem)
             case .list:
-                guard let slice = try? slice(data: bytesToParse, offset: offset, length: dataLength) else {return nil}
-                guard let inside = decode(Data(slice)) else {return nil}
+                guard let slice = try? slice(data: bytesToParse, offset: offset, length: dataLength) else { return nil }
+                guard let inside = decode(Data(slice)) else { return nil }
                 switch inside.content {
                 case .data(_):
                     return nil
@@ -184,7 +184,7 @@ struct RLP {
                     outputArray.append(inside)
                 }
             }
-            guard let tail = try? slice(data: bytesToParse, start: offset + dataLength) else {return nil}
+            guard let tail = try? slice(data: bytesToParse, start: offset + dataLength) else { return nil }
             bytesToParse = tail
         }
         return RLPItem.init(content: .list(outputArray, 0))
@@ -250,8 +250,8 @@ struct RLP {
         
         subscript(index: Int) -> RLPItem? {
             get {
-                guard self.hasNext else {return nil}
-                guard case .list(let list, _) = self.content else {return nil}
+                guard self.hasNext else { return nil }
+                guard case .list(let list, _) = self.content else { return nil }
                 let item = list[index]
                 return item
             }
@@ -265,7 +265,7 @@ struct RLP {
             if self.isList {
                 return nil
             }
-            guard case .data(let data) = self.content else {return nil}
+            guard case .data(let data) = self.content else { return nil }
             return data
         }
         

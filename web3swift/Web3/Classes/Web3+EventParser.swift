@@ -21,7 +21,7 @@ extension web3.web3contract {
         public var filter: EventFilter?
         var web3: web3
         public init? (web3 web3Instance: web3, eventName: String, contract: ContractProtocol, filter: EventFilter? = nil) {
-            guard let _ = contract.allEvents.index(of: eventName) else {return nil}
+            guard let _ = contract.allEvents.index(of: eventName) else { return nil }
             self.eventName = eventName
             self.web3 = web3Instance
             self.contract = contract
@@ -302,7 +302,7 @@ extension web3.web3contract {
                 let allLogs = value
                 let decodedLogs = allLogs.compactMap({ (log) -> EventParserResult? in
                     let (n, d) = self.contract.parseEvent(log)
-                    guard let evName = n, let evData = d else {return nil}
+                    guard let evName = n, let evData = d else { return nil }
                     var res = EventParserResult(eventName: evName, transactionReceipt: nil, contractAddress: log.address, decodedResult: evData)
                     res.eventLog = log
                     return res

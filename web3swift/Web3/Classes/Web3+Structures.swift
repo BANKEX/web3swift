@@ -166,13 +166,13 @@ public struct TransactionDetails: Decodable {
     public init? (_ json: [String: AnyObject]) {
         let bh = json["blockHash"] as? String
         if (bh != nil) {
-            guard let blockHash = Data.fromHex(bh!) else {return nil}
+            guard let blockHash = Data.fromHex(bh!) else { return nil }
             self.blockHash = blockHash
         }
         let bn = json["blockNumber"] as? String
         let ti = json["transactionIndex"] as? String
         
-        guard let transaction = EthereumTransaction.fromJSON(json) else {return nil}
+        guard let transaction = EthereumTransaction.fromJSON(json) else { return nil }
         self.transaction = transaction
         if bn != nil {
             blockNumber = BigUInt(bn!.stripHexPrefix(), radix: 16)
@@ -394,10 +394,10 @@ public enum TransactionInBlock:Decodable {
     
     public init?(_ data: AnyObject) {
         if let string = data as? String {
-            guard let d = Data.fromHex(string) else {return nil}
+            guard let d = Data.fromHex(string) else { return nil }
             self = .hash(d)
         } else if let dict = data as? [String:AnyObject] {
-            guard let t = EthereumTransaction.fromJSON(dict) else {return nil}
+            guard let t = EthereumTransaction.fromJSON(dict) else { return nil }
             self = .transaction(t)
         } else {
             return nil

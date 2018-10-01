@@ -23,7 +23,7 @@ func toByteArray<T>(_ value: T) -> [UInt8] {
 //    }
 //
 //    var output = Data(count: length)
-//    guard let passwordData = password.data(using: .utf8) else {return nil}
+//    guard let passwordData = password.data(using: .utf8) else { return nil }
 //    let passwordLen = passwordData.count
 //    let saltLen = salt.count
 //    let result = output.withUnsafeMutableBytes { (outputPtr:UnsafeMutablePointer<UInt8>) -> Int32 in
@@ -44,9 +44,9 @@ func toByteArray<T>(_ value: T) -> [UInt8] {
 //}
 
 public func scrypt (password: String, salt: Data, length: Int, N: Int, R: Int, P: Int) -> Data? {
-    guard let passwordData = password.data(using: .utf8) else {return nil}
-    guard let deriver = try? Scrypt(password: passwordData.bytes, salt: salt.bytes, dkLen: length, N: N, r: R, p: P) else {return nil}
-    guard let result = try? deriver.calculate() else {return nil}
+    guard let passwordData = password.data(using: .utf8) else { return nil }
+    guard let deriver = try? Scrypt(password: passwordData.bytes, salt: salt.bytes, dkLen: length, N: N, r: R, p: P) else { return nil }
+    guard let result = try? deriver.calculate() else { return nil }
     return Data(result)
 }
 enum ScryptError: Error {

@@ -12,8 +12,8 @@ public typealias TransactionIntermediate = web3.web3contract.TransactionIntermed
 
 
 public protocol AbstractKeystore {
-    var addresses: [EthereumAddress]? {get}
-    var isHDKeystore: Bool {get}
+    var addresses: [EthereumAddress]? { get }
+    var isHDKeystore: Bool { get }
     func UNSAFE_getPrivateKeyData(password: String, account: EthereumAddress) throws -> Data
 }
 

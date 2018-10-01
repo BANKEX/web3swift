@@ -10,10 +10,10 @@ import Foundation
 import BigInt
 
 public protocol ContractProtocol {
-    var address: EthereumAddress? {get set}
-    var options: Web3Options? {get set}
-    var allMethods: [String] {get}
-    var allEvents: [String] {get}
+    var address: EthereumAddress? { get set }
+    var options: Web3Options? { get set }
+    var allMethods: [String] { get }
+    var allEvents: [String] { get }
     func deploy(bytecode:Data, parameters: [AnyObject], extraData: Data, options: Web3Options?) -> EthereumTransaction?
     func method(_ method:String, parameters: [AnyObject], extraData: Data, options: Web3Options?) -> EthereumTransaction?
     init?(_ abiString: String, at: EthereumAddress?)

@@ -26,7 +26,7 @@ public final class _ObjCBigUInt: NSObject{
     }
     
     public func toString(radix: Int = 10) -> NSString {
-        guard let val = self.biguint else {return "" as NSString}
+        guard let val = self.biguint else { return "" as NSString }
         return String(val, radix: radix) as NSString
     }
 }

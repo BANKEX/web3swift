@@ -34,7 +34,7 @@ extension web3 {
                 print("ABIv1 bound contract is now deprecated")
                 return nil
             case 2:
-                guard let c = ContractV2(abiString, at: at) else {return nil}
+                guard let c = ContractV2(abiString, at: at) else { return nil }
                 contract = c
             default:
                 return nil
@@ -56,7 +56,7 @@ extension web3 {
         public func deploy(bytecode: Data, parameters: [AnyObject] = [AnyObject](), extraData: Data = Data(), options: Web3Options?) -> TransactionIntermediate? {
             
             let mergedOptions = Web3Options.merge(self.options, with: options)
-            guard var tx = self.contract.deploy(bytecode: bytecode, parameters: parameters, extraData: extraData, options: mergedOptions) else {return nil}
+            guard var tx = self.contract.deploy(bytecode: bytecode, parameters: parameters, extraData: extraData, options: mergedOptions) else { return nil }
             tx.chainID = self.web3.provider.network?.chainID
             let intermediate = TransactionIntermediate(transaction: tx, web3: self.web3, contract: self.contract, method: "fallback", options: mergedOptions)
             return intermediate
@@ -70,7 +70,7 @@ extension web3 {
         /// Returns a "Transaction intermediate" object.
         public func method(_ method:String = "fallback", parameters: [AnyObject] = [AnyObject](), extraData: Data = Data(), options: Web3Options?) -> TransactionIntermediate? {
             let mergedOptions = Web3Options.merge(self.options, with: options)
-            guard var tx = self.contract.method(method, parameters: parameters, extraData: extraData, options: mergedOptions) else {return nil}
+            guard var tx = self.contract.method(method, parameters: parameters, extraData: extraData, options: mergedOptions) else { return nil }
             tx.chainID = self.web3.provider.network?.chainID
             let intermediate = TransactionIntermediate(transaction: tx, web3: self.web3, contract: self.contract, method: method, options: mergedOptions)
             return intermediate

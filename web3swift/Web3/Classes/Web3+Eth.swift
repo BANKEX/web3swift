@@ -389,7 +389,7 @@ extension web3.Eth {
      */
     public func sendETH(to: EthereumAddress, amount: BigUInt, extraData: Data = Data(), options: Web3Options? = nil) -> TransactionIntermediate? {
         let contract = self.web3.contract(Web3.Utils.coldWalletABI, at: to, abiVersion: 2)
-        guard var mergedOptions = Web3Options.merge(self.options, with: options) else {return nil}
+        guard var mergedOptions = Web3Options.merge(self.options, with: options) else { return nil }
         mergedOptions.value = amount
         let intermediate = contract?.method("fallback", extraData: extraData, options: mergedOptions)
         return intermediate
@@ -411,7 +411,7 @@ extension web3.Eth {
      * String "1.01" and units: .eth will result in sending 1.01 ETH to another address*
      */
     public func sendETH(to: EthereumAddress, amount: String, units: Web3.Utils.Units = .eth, extraData: Data = Data(), options: Web3Options? = nil) -> TransactionIntermediate? {
-        guard let value = Web3.Utils.parseToBigUInt(amount, units: .eth) else {return nil}
+        guard let value = Web3.Utils.parseToBigUInt(amount, units: .eth) else { return nil }
         return sendETH(to: to, amount: value, extraData: extraData, options: options)
     }
     
@@ -432,8 +432,8 @@ extension web3.Eth {
      * String "1.01" and units: .eth will result in sending 1.01 ETH to another address*
      */
     public func sendETH(from: EthereumAddress, to: EthereumAddress, amount: String, units: Web3.Utils.Units = .eth, extraData: Data = Data(), options: Web3Options? = nil) -> TransactionIntermediate? {
-        guard let value = Web3.Utils.parseToBigUInt(amount, units: .eth) else {return nil}
-        guard var mergedOptions = Web3Options.merge(self.options, with: options) else {return nil}
+        guard let value = Web3.Utils.parseToBigUInt(amount, units: .eth) else { return nil }
+        guard var mergedOptions = Web3Options.merge(self.options, with: options) else { return nil }
         mergedOptions.from = from
         return sendETH(to: to, amount: value, extraData: extraData, options: mergedOptions)
     }
@@ -454,9 +454,9 @@ extension web3.Eth {
      */
     public func sendERC20tokensWithKnownDecimals(tokenAddress: EthereumAddress, from: EthereumAddress, to: EthereumAddress, amount: BigUInt, options: Web3Options? = nil) -> TransactionIntermediate? {
         let contract = self.web3.contract(Web3.Utils.erc20ABI, at: tokenAddress, abiVersion: 2)
-        guard var mergedOptions = Web3Options.merge(self.options, with: options) else {return nil}
+        guard var mergedOptions = Web3Options.merge(self.options, with: options) else { return nil }
         mergedOptions.from = from
-        guard let intermediate = contract?.method("transfer", parameters: [to, amount] as [AnyObject], options: mergedOptions) else {return nil}
+        guard let intermediate = contract?.method("transfer", parameters: [to, amount] as [AnyObject], options: mergedOptions) else { return nil }
         return intermediate
     }
     
@@ -479,21 +479,21 @@ extension web3.Eth {
      */
     public func sendERC20tokensWithNaturalUnits(tokenAddress: EthereumAddress, from: EthereumAddress, to: EthereumAddress, amount: String, options: Web3Options? = nil) -> TransactionIntermediate? {
         let contract = self.web3.contract(Web3.Utils.erc20ABI, at: tokenAddress, abiVersion: 2)
-        guard var mergedOptions = Web3Options.merge(self.options, with: options) else {return nil}
+        guard var mergedOptions = Web3Options.merge(self.options, with: options) else { return nil }
         mergedOptions.from = from
-        guard let intermediate = contract?.method("decimals", options: mergedOptions) else {return nil}
+        guard let intermediate = contract?.method("decimals", options: mergedOptions) else { return nil }
         let callResult = intermediate.call(options: mergedOptions, onBlock: "latest")
         var decimals = BigUInt(0)
         switch callResult {
         case .success(let response):
-            guard let dec = response["0"], let decTyped = dec as? BigUInt else {return nil}
+            guard let dec = response["0"], let decTyped = dec as? BigUInt else { return nil }
             decimals = decTyped
             break
         case .failure(_):
             break
         }
         let intDecimals = Int(decimals)
-        guard let value = Web3.Utils.parseToBigUInt(amount, decimals: intDecimals) else {return nil}
+        guard let value = Web3.Utils.parseToBigUInt(amount, decimals: intDecimals) else { return nil }
         return sendERC20tokensWithKnownDecimals(tokenAddress: tokenAddress, from: from, to: to, amount: value, options: options)
     }
     

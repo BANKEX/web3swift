@@ -100,9 +100,9 @@ class web3swift_Tests: XCTestCase {
         let jsonString = "[{\"constant\":false,\"inputs\":[{\"name\":\"_id\",\"type\":\"string\"}],\"name\":\"deposit\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_id\",\"type\":\"string\"},{\"indexed\":true,\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"Deposit\",\"type\":\"event\"}]"
         let web3 = Web3.InfuraRinkebyWeb3()
         let contract = web3.contract(jsonString, at: contractAddress, abiVersion: 2)
-        guard let eventParser = contract?.createEventParser("Deposit", filter: nil) else {return XCTFail()}
+        guard let eventParser = contract?.createEventParser("Deposit", filter: nil) else { return XCTFail() }
         let present = eventParser.parseBlockByNumber(UInt64(2138657))
-        guard case .success(let pres) = present else {return XCTFail()}
+        guard case .success(let pres) = present else { return XCTFail() }
         print(pres)
         XCTAssert(pres.count == 1)
     }
@@ -132,7 +132,7 @@ class web3swift_Tests: XCTestCase {
         do {
             let jsonString = "[{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"users\",\"outputs\":[{\"name\":\"name\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"userDeviceCount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalUsers\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
             let web3 = Web3.InfuraRinkebyWeb3()
-            guard let addr = EthereumAddress("0xdef61132a0c1259464b19e4590e33666aae38574") else {return XCTFail()}
+            guard let addr = EthereumAddress("0xdef61132a0c1259464b19e4590e33666aae38574") else { return XCTFail() }
             let contract = web3.contract(jsonString, at: addr, abiVersion: 2)
             XCTAssert(contract != nil)
             let allMethods = contract!.contract.allMethods
