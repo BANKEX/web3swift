@@ -1,11 +1,11 @@
 def import_pods
-  pod 'scrypt', '~> 1.5'
-  pod "PromiseKit", "~> 6.3"
+  pod 'scrypt', '~> 2.0'
+  pod "PromiseKit", "~> 6.4"
   pod 'BigInt', '~> 3.1'
-  pod 'CryptoSwift', '~> 0.11'
-  pod 'Result', '~> 3.0'
+  pod 'CryptoSwift', '~> 0.12'
+  pod 'Result', '~> 3.2'
 #  pod 'libsodium', :modular_headers => true
-  pod 'secp256k1_ios', :git => 'https://github.com/shamatar/secp256k1_ios.git', :modular_headers => true
+  pod 'secp256k1.swift'
 end
 
 target 'web3swift-macOS' do
