@@ -21,9 +21,34 @@ public class EthURL {
   
   public var isPay: Bool
   public var targetAddress: String
-  public var chainId: UInt64?
+  public var chainId: BigInt?
   public var functionName: String?
   public var parameters = [String: String]()
+  public var string: String {
+    var string = "ethereum:"
+    if isPay {
+      string += "pay-"
+    }
+    string += targetAddress
+    if let chainId = chainId {
+      string += "@" + chainId.description
+    }
+    if let name = functionName {
+      string += "/" + name
+    }
+    if !parameters.isEmpty {
+      string += "?" + parameters.map { "\($0.key)=\($0.value)" }.joined(separator: "&")
+    }
+    return string
+  }
+  public var url: URL {
+    return URL(string: string)!
+  }
+  
+  public init(address: String) {
+    isPay = false
+    self.targetAddress = address
+  }
   
   public init(string: String) throws {
     let prefix = "ethereum:"
@@ -39,7 +64,7 @@ public class EthURL {
     if let user = url.user {
       address = user
       guard let host = url.host else { throw Error.userCorrupted }
-      chainId = UInt64(host, radix: 16)
+      chainId = BigInt(host, radix: 16)
     } else {
       guard let host = url.host else { throw Error.hostCorrupted }
       address = host
@@ -64,4 +89,5 @@ public class EthURL {
       parameters[$0.name] = value
     }
   }
+  
 }
