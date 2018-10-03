@@ -36,13 +36,13 @@ extension SECP256K1 {
             guard var recoverableSignature = SECP256K1.recoverableSign(hash: hash, privateKey: privateKey, useExtraEntropy: useExtraEntropy) else {
                 continue
             }
-            guard let truePublicKey = SECP256K1.privateKeyToPublicKey(privateKey: privateKey) else {continue}
-            guard let recoveredPublicKey = SECP256K1.recoverPublicKey(hash: hash, recoverableSignature: &recoverableSignature) else {continue}
+            guard let truePublicKey = SECP256K1.privateKeyToPublicKey(privateKey: privateKey) else { continue }
+            guard let recoveredPublicKey = SECP256K1.recoverPublicKey(hash: hash, recoverableSignature: &recoverableSignature) else { continue }
             if Data(toByteArray(truePublicKey.data)) != Data(toByteArray(recoveredPublicKey.data)) {
 //                print("Didn't recover correctly!")
                 continue
             }
-            guard let serializedSignature = SECP256K1.serializeSignature(recoverableSignature: &recoverableSignature) else {continue}
+            guard let serializedSignature = SECP256K1.serializeSignature(recoverableSignature: &recoverableSignature) else { continue }
             let rawSignature = Data(toByteArray(recoverableSignature))
             return (serializedSignature, rawSignature)
 //            print("Signature required \(rounds) rounds")

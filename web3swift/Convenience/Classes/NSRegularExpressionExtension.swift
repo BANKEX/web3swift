@@ -73,7 +73,7 @@ extension NSRegularExpression {
         let names = self.textCheckingResultsOfNamedCaptureGroups()
         for (_,m) in matchResult.enumerated() {
             for i in (0..<m.numberOfRanges) {
-                guard let r2 = string.range(from: m.range(at: i)) else {continue}
+                guard let r2 = string.range(from: m.range(at: i)) else { continue }
                 let g = String(string[r2])
                 if let name = nameForIndex(i, from: names) {
                     dict[name] = g

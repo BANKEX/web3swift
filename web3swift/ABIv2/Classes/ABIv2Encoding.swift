@@ -204,7 +204,7 @@ extension ABIv2Encoder {
                 let data = address.addressData
                 return data.setLengthLeft(32)
             } else if let address = value as? EthereumAddress {
-                guard address.isValid else {break}
+                guard address.isValid else { break }
                 let data = address.addressData
                 return data.setLengthLeft(32)
             } else if let data = value as? Data {
@@ -219,8 +219,8 @@ extension ABIv2Encoder {
                 }
             }
         case .bytes(let length):
-            guard let data = convertToData(value) else {break}
-            if data.count > length {break}
+            guard let data = convertToData(value) else { break }
+            if data.count > length { break }
             return data.setLengthRight(32)
         case .string:
             if let string = value as? String {
@@ -231,34 +231,34 @@ extension ABIv2Encoder {
                 else {
                     dataGuess = string.data(using: .utf8)
                 }
-                guard let data = dataGuess else {break}
+                guard let data = dataGuess else { break }
                 let minLength = ((data.count + 31) / 32)*32
-                guard let paddedData = data.setLengthRight(UInt64(minLength)) else {break}
+                guard let paddedData = data.setLengthRight(UInt64(minLength)) else { break }
                 let length = BigUInt(data.count)
-                guard let head = length.abiEncode(bits: 256) else {break}
+                guard let head = length.abiEncode(bits: 256) else { break }
                 let total = head+paddedData
                 return total
             }
         case .dynamicBytes:
-            guard let data = convertToData(value) else {break}
+            guard let data = convertToData(value) else { break }
             let minLength = ((data.count + 31) / 32)*32
-            guard let paddedData = data.setLengthRight(UInt64(minLength)) else {break}
+            guard let paddedData = data.setLengthRight(UInt64(minLength)) else { break }
             let length = BigUInt(data.count)
-            guard let head = length.abiEncode(bits: 256) else {break}
+            guard let head = length.abiEncode(bits: 256) else { break }
             let total = head+paddedData
             return total
         case .array(type: let subType, length: let length):
             switch type.arraySize {
             case .dynamicSize:
-                guard length == 0 else {break}
-                guard let val = value as? [AnyObject] else {break}
-                guard let lengthEncoding = BigUInt(val.count).abiEncode(bits: 256) else {break}
+                guard length == 0 else { break }
+                guard let val = value as? [AnyObject] else { break }
+                guard let lengthEncoding = BigUInt(val.count).abiEncode(bits: 256) else { break }
                 if subType.isStatic {
                     // work in a previous context
                     var toReturn = Data()
                     for i in 0 ..< val.count {
                         let enc = encodeSingleType(type: subType, value: val[i])
-                        guard let encoding = enc else {break}
+                        guard let encoding = enc else { break }
                         toReturn.append(encoding)
                     }
                     let total = lengthEncoding + toReturn
@@ -299,15 +299,15 @@ extension ABIv2Encoder {
                     return total
                 }
             case .staticSize(let staticLength):
-                guard staticLength != 0 else {break}
-                guard let val = value as? [AnyObject] else {break}
-                guard staticLength == val.count else {break}
+                guard staticLength != 0 else { break }
+                guard let val = value as? [AnyObject] else { break }
+                guard staticLength == val.count else { break }
                 if subType.isStatic {
                     // work in a previous context
                     var toReturn = Data()
                     for i in 0 ..< val.count {
                         let enc = encodeSingleType(type: subType, value: val[i])
-                        guard let encoding = enc else {break}
+                        guard let encoding = enc else { break }
                         toReturn.append(encoding)
                     }
 //                    print("Static array of static types encoding :\n" + String(toReturn.toHexString()))
@@ -347,7 +347,7 @@ extension ABIv2Encoder {
         case .tuple(types: let subTypes):
             var tails = [Data]()
             var heads = [Data]()
-            guard let val = value as? [AnyObject] else {break}
+            guard let val = value as? [AnyObject] else { break }
             for i in 0 ..< subTypes.count {
                 let enc = encodeSingleType(type: subTypes[i], value: val[i])
                 guard let encoding = enc else { return nil }
