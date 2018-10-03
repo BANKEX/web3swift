@@ -57,14 +57,14 @@ class web3swift_transactions_Tests: XCTestCase {
         options.value = Web3.Utils.parseToBigUInt("1.0", units: .eth)
         options.from = keystoreManager.addresses?.first
         let intermediate = contract?.method("fallback", options: options)
-        guard let result = intermediate?.send(password: "") else {return XCTFail()}
+        guard let result = intermediate?.send(password: "") else { return XCTFail() }
         switch result {
         case .success(_):
             return XCTFail()
         case .failure(let error):
             print(error)
-            guard case .nodeError(let descr) = error else {return XCTFail()}
-            guard descr == "insufficient funds for gas * price + value" else {return XCTFail()}
+            guard case .nodeError(let descr) = error else { return XCTFail() }
+            guard descr == "insufficient funds for gas * price + value" else { return XCTFail() }
         }
     }
     
@@ -97,20 +97,20 @@ class web3swift_transactions_Tests: XCTestCase {
     
     func getKeystoreData() -> Data? {
         let bundle = Bundle(for: type(of: self))
-        guard let path = bundle.path(forResource: "key", ofType: "json") else {return nil}
-        guard let data = NSData(contentsOfFile: path) else {return nil}
+        guard let path = bundle.path(forResource: "key", ofType: "json") else { return nil }
+        guard let data = NSData(contentsOfFile: path) else { return nil }
         return data as Data
     }
     
     func testSendETH() {
-        guard let keystoreData = getKeystoreData() else {return}
-        guard let keystoreV3 = EthereumKeystoreV3.init(keystoreData) else {return XCTFail()}
+        guard let keystoreData = getKeystoreData() else { return }
+        guard let keystoreV3 = EthereumKeystoreV3.init(keystoreData) else { return XCTFail() }
         let web3Rinkeby = Web3.InfuraRinkebyWeb3()
         let keystoreManager = KeystoreManager.init([keystoreV3])
         web3Rinkeby.addKeystoreManager(keystoreManager)
-        guard case .success(let gasPriceRinkeby) = web3Rinkeby.eth.getGasPrice() else {return}
+        guard case .success(let gasPriceRinkeby) = web3Rinkeby.eth.getGasPrice() else { return }
         let sendToAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")!
-        guard let intermediate = web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001") else {return XCTFail()}
+        guard let intermediate = web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001") else { return XCTFail() }
         var options = Web3Options.defaultOptions()
         options.from = keystoreV3.addresses?.first
         options.gasPrice = gasPriceRinkeby

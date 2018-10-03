@@ -221,7 +221,7 @@ extension ABIv2.Element.ParameterType: ABIv2Encoding {
             }
             return "\(type.abiRepresentation)[\(length)]"
         case .tuple(types: let types):
-            let typesRepresentation = types.map({return $0.abiRepresentation})
+            let typesRepresentation = types.map { $0.abiRepresentation}
             let typesJoined = typesRepresentation.joined(separator: ",")
             return "tuple(\(typesJoined))"
         case .string:

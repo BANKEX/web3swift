@@ -58,14 +58,14 @@ class web3swift_promises_Tests: XCTestCase {
     
     func testSendETHPromise() {
         do {
-            guard let keystoreData = getKeystoreData() else {return}
-            guard let keystoreV3 = EthereumKeystoreV3.init(keystoreData) else {return XCTFail()}
+            guard let keystoreData = getKeystoreData() else { return }
+            guard let keystoreV3 = EthereumKeystoreV3.init(keystoreData) else { return XCTFail() }
             let web3Rinkeby = Web3.InfuraRinkebyWeb3()
             let keystoreManager = KeystoreManager.init([keystoreV3])
             web3Rinkeby.addKeystoreManager(keystoreManager)
-            guard case .success(let gasPriceRinkeby) = web3Rinkeby.eth.getGasPrice() else {return}
+            guard case .success(let gasPriceRinkeby) = web3Rinkeby.eth.getGasPrice() else { return }
             let sendToAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")!
-            guard let intermediate = web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001") else {return XCTFail()}
+            guard let intermediate = web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001") else { return XCTFail() }
             var options = Web3Options.defaultOptions()
             options.from = keystoreV3.addresses?.first
             options.gasPrice = gasPriceRinkeby
@@ -83,7 +83,7 @@ class web3swift_promises_Tests: XCTestCase {
             let contract = web3.contract(Web3.Utils.erc20ABI, at: EthereumAddress("0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")!, abiVersion: 2)
             let addressOfUser = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")!
             let tokenBalance = try contract!.method("balanceOf", parameters: [addressOfUser] as [AnyObject], options: nil)!.callPromise(options: nil).wait()
-            guard let bal = tokenBalance["0"] as? BigUInt else {return XCTFail()}
+            guard let bal = tokenBalance["0"] as? BigUInt else { return XCTFail() }
             print(String(bal))
         } catch {
             print(error)
@@ -120,7 +120,7 @@ class web3swift_promises_Tests: XCTestCase {
             var filter = EventFilter()
             filter.addresses = [EthereumAddress("0x53066cddbc0099eb6c96785d9b3df2aaeede5da3")!]
             filter.parameterFilters = [([EthereumAddress("0xefdcf2c36f3756ce7247628afdb632fa4ee12ec5")!] as [EventFilterable]), ([EthereumAddress("0xd5395c132c791a7f46fa8fc27f0ab6bacd824484")!] as [EventFilterable])]
-            guard let eventParser = contract?.createEventParser("Transfer", filter: filter) else {return XCTFail()}
+            guard let eventParser = contract?.createEventParser("Transfer", filter: filter) else { return XCTFail() }
             let present = try eventParser.parseBlockByNumberPromise(UInt64(5200120)).wait()
             print(present)
             XCTAssert(present.count == 1)
@@ -132,8 +132,8 @@ class web3swift_promises_Tests: XCTestCase {
     
     func getKeystoreData() -> Data? {
         let bundle = Bundle(for: type(of: self))
-        guard let path = bundle.path(forResource: "key", ofType: "json") else {return nil}
-        guard let data = NSData(contentsOfFile: path) else {return nil}
+        guard let path = bundle.path(forResource: "key", ofType: "json") else { return nil }
+        guard let data = NSData(contentsOfFile: path) else { return nil }
         return data as Data
     }
 }

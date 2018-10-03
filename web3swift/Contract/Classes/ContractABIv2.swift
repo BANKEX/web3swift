@@ -130,8 +130,8 @@ public struct ContractV2:ContractProtocol {
         } else {
             value = BigUInt(0)
         }
-        guard let constructor = self.constructor else {return nil}
-        guard let encodedData = constructor.encodeParameters(parameters) else {return nil}
+        guard let constructor = self.constructor else { return nil }
+        guard let encodedData = constructor.encodeParameters(parameters) else { return nil }
         var fullData = bytecode
         if encodedData != Data() {
             fullData.append(encodedData)
@@ -182,9 +182,9 @@ public struct ContractV2:ContractProtocol {
         let foundMethod = self.methods.filter { (key, value) -> Bool in
             return key == method
         }
-        guard foundMethod.count == 1 else {return nil}
+        guard foundMethod.count == 1 else { return nil }
         let abiMethod = foundMethod[method]
-        guard let encodedData = abiMethod?.encodeParameters(parameters) else {return nil}
+        guard let encodedData = abiMethod?.encodeParameters(parameters) else { return nil }
         let transaction = EthereumTransaction(gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: encodedData)
         return transaction
     }
@@ -212,7 +212,7 @@ public struct ContractV2:ContractProtocol {
     }
     
     public func testBloomForEventPrecence(eventName: String, bloom: EthereumBloomFilter) -> Bool? {
-        guard let event = events[eventName] else {return nil}
+        guard let event = events[eventName] else { return nil }
         if event.anonymous {
             return true
         }
@@ -224,8 +224,8 @@ public struct ContractV2:ContractProtocol {
         if method == "fallback" {
             return [String:Any]()
         }
-        guard let function = methods[method] else {return nil}
-        guard case .function(_) = function else {return nil}
+        guard let function = methods[method] else { return nil }
+        guard case .function(_) = function else { return nil }
         return function.decodeReturnData(data)
     }
     
@@ -233,7 +233,7 @@ public struct ContractV2:ContractProtocol {
         if method == "fallback" {
             return nil
         }
-        guard let function = methods[method] else {return nil}
+        guard let function = methods[method] else { return nil }
         switch function {
         case .function(_):
             return function.decodeInputData(data)
@@ -245,7 +245,7 @@ public struct ContractV2:ContractProtocol {
     }
     
     public func decodeInputData(_ data: Data) -> [String:Any]? {
-        guard data.count % 32 == 4 else {return nil}
+        guard data.count % 32 == 4 else { return nil }
         let methodSignature = data[0..<4]
         let foundFunction = self._abi.filter { (m) -> Bool in
             switch m {

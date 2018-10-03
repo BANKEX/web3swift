@@ -28,7 +28,7 @@ extension SECP256K1 {
     static var context = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN|SECP256K1_CONTEXT_VERIFY))
     
     static func signForRecovery(hash: Data, privateKey: Data, useExtraEntropy: Bool = false) -> (serializedSignature:Data?, rawSignature: Data?) {
-        if (hash.count != 32 || privateKey.count != 32) {return (nil, nil)}
+        if (hash.count != 32 || privateKey.count != 32) { return (nil, nil) }
         if !SECP256K1.verifyPrivateKey(privateKey: privateKey) {
             return (nil, nil)
         }
@@ -52,9 +52,9 @@ extension SECP256K1 {
     }
     
     static func privateToPublic(privateKey: Data, compressed: Bool = false) -> Data? {
-        if (privateKey.count != 32) {return nil}
-        guard var publicKey = SECP256K1.privateKeyToPublicKey(privateKey: privateKey) else {return nil}
-        guard let serializedKey = serializePublicKey(publicKey: &publicKey, compressed: compressed) else {return nil}
+        if (privateKey.count != 32) { return nil }
+        guard var publicKey = SECP256K1.privateKeyToPublicKey(privateKey: privateKey) else { return nil }
+        guard let serializedKey = serializePublicKey(publicKey: &publicKey, compressed: compressed) else { return nil }
         return serializedKey
     }
     
@@ -69,7 +69,7 @@ extension SECP256K1 {
         }
         for i in 0 ..< numToCombine {
             let key = keys[i]
-            guard let pubkey = SECP256K1.parsePublicKey(serializedKey: key) else {return nil}
+            guard let pubkey = SECP256K1.parsePublicKey(serializedKey: key) else { return nil }
             storage.append(pubkey)
         }
         for i in 0 ..< numToCombine {
@@ -100,7 +100,7 @@ extension SECP256K1 {
     
     
     static func recoverPublicKey(hash: Data, recoverableSignature: inout secp256k1_ecdsa_recoverable_signature) -> secp256k1_pubkey? {
-        guard hash.count == 32 else {return nil}
+        guard hash.count == 32 else { return nil }
         var publicKey: secp256k1_pubkey = secp256k1_pubkey()
         let result = hash.withUnsafeBytes { (hashPointer:UnsafePointer<UInt8>) -> Int32 in
             withUnsafePointer(to: &recoverableSignature, { (signaturePointer:UnsafePointer<secp256k1_ecdsa_recoverable_signature>) -> Int32 in
@@ -118,7 +118,7 @@ extension SECP256K1 {
     }
     
     static func privateKeyToPublicKey(privateKey: Data) -> secp256k1_pubkey? {
-        if (privateKey.count != 32) {return nil}
+        if (privateKey.count != 32) { return nil }
         var publicKey = secp256k1_pubkey()
         let result = privateKey.withUnsafeBytes { (privateKeyPointer:UnsafePointer<UInt8>) -> Int32 in
             let res = secp256k1_ec_pubkey_create(context!, UnsafeMutablePointer<secp256k1_pubkey>(&publicKey), privateKeyPointer)
@@ -169,7 +169,7 @@ extension SECP256K1 {
     }
     
     static func parseSignature(signature: Data) -> secp256k1_ecdsa_recoverable_signature? {
-         guard signature.count == 65 else {return nil}
+         guard signature.count == 65 else { return nil }
         var recoverableSignature: secp256k1_ecdsa_recoverable_signature = secp256k1_ecdsa_recoverable_signature()
         let serializedSignature = Data(signature[0..<64])
         let v = Int32(signature[64])
@@ -217,7 +217,7 @@ extension SECP256K1 {
             return nil
         }
         var recoverableSignature: secp256k1_ecdsa_recoverable_signature = secp256k1_ecdsa_recoverable_signature();
-        guard let extraEntropy = Data.randomBytes(length: 32) else {return nil}
+        guard let extraEntropy = Data.randomBytes(length: 32) else { return nil }
         let result = hash.withUnsafeBytes { (hashPointer:UnsafePointer<UInt8>) -> Int32 in
             privateKey.withUnsafeBytes { (privateKeyPointer:UnsafePointer<UInt8>) -> Int32 in
                 extraEntropy.withUnsafeBytes { (extraEntropyPointer:UnsafePointer<UInt8>) -> Int32 in
@@ -235,22 +235,22 @@ extension SECP256K1 {
     }
     
     static func recoverPublicKey(hash: Data, signature: Data, compressed: Bool = false) -> Data? {
-        guard hash.count == 32, signature.count == 65 else {return nil}
-        guard var recoverableSignature = parseSignature(signature: signature) else {return nil}
-        guard var publicKey = SECP256K1.recoverPublicKey(hash: hash, recoverableSignature: &recoverableSignature) else {return nil}
-        guard let serializedKey = SECP256K1.serializePublicKey(publicKey: &publicKey, compressed: compressed) else {return nil}
+        guard hash.count == 32, signature.count == 65 else { return nil }
+        guard var recoverableSignature = parseSignature(signature: signature) else { return nil }
+        guard var publicKey = SECP256K1.recoverPublicKey(hash: hash, recoverableSignature: &recoverableSignature) else { return nil }
+        guard let serializedKey = SECP256K1.serializePublicKey(publicKey: &publicKey, compressed: compressed) else { return nil }
         return serializedKey
     }
     
     static func recoverSender(hash: Data, signature: Data) -> EthereumAddress? {
-        guard let pubKey = SECP256K1.recoverPublicKey(hash:hash, signature:signature, compressed: false) else {return nil}
-        guard pubKey.count == 65 else {return nil}
+        guard let pubKey = SECP256K1.recoverPublicKey(hash:hash, signature:signature, compressed: false) else { return nil }
+        guard pubKey.count == 65 else { return nil }
         let addressData = Data(pubKey.sha3(.keccak256)[12..<32])
         return EthereumAddress(addressData)
     }
     
     static func verifyPrivateKey(privateKey: Data) -> Bool {
-        if (privateKey.count != 32) {return false}
+        if (privateKey.count != 32) { return false }
         let result = privateKey.withUnsafeBytes { (privateKeyPointer:UnsafePointer<UInt8>) -> Int32 in
             let res = secp256k1_ec_seckey_verify(context!, privateKeyPointer)
             return res
@@ -269,7 +269,7 @@ extension SECP256K1 {
     }
     
     static func unmarshalSignature(signatureData:Data) -> UnmarshaledSignature? {
-        if (signatureData.count != 65) {return nil}
+        if (signatureData.count != 65) { return nil }
         let bytes = signatureData.bytes
         let r = Array(bytes[0..<32])
         let s = Array(bytes[32..<64])
@@ -284,7 +284,7 @@ extension SECP256K1 {
     }
     
     static func marshalSignature(v: UInt8, r: [UInt8], s: [UInt8]) -> Data? {
-        guard r.count == 32, s.count == 32 else {return nil}
+        guard r.count == 32, s.count == 32 else { return nil }
         var completeSignature = Data(bytes: r)
         completeSignature.append(Data(bytes: s))
         completeSignature.append(Data(bytes: [v]))
@@ -292,7 +292,7 @@ extension SECP256K1 {
     }
     
     static func marshalSignature(v: Data, r: Data, s: Data) -> Data? {
-        guard r.count == 32, s.count == 32, v.count == 1 else {return nil}
+        guard r.count == 32, s.count == 32, v.count == 1 else { return nil }
         var completeSignature = Data(r)
         completeSignature.append(s)
         completeSignature.append(v)

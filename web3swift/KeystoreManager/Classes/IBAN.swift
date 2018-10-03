@@ -58,7 +58,7 @@ public struct IBAN {
     public func toEthereumAddress() -> EthereumAddress? {
         if self.isDirect {
             let base36 = self.iban[4...];
-            guard let asBigNumber = BigUInt(base36, radix: 36) else {return  nil}
+            guard let asBigNumber = BigUInt(base36, radix: 36) else { return nil }
             let addressString = String(asBigNumber, radix: 16).leftPadding(toLength: 40, withPad: "0")
             return EthereumAddress(addressString.addHexPrefix())
         } else {
@@ -76,8 +76,8 @@ public struct IBAN {
         let IBAN = end + begining
         var arrayOfInts = [Int]()
         for ch in IBAN {
-            guard let dataPoint = String(ch).data(using: .ascii) else {return ""}
-            guard dataPoint.count == 1 else {return ""}
+            guard let dataPoint = String(ch).data(using: .ascii) else { return "" }
+            guard dataPoint.count == 1 else { return "" }
             let code = Int(dataPoint[0])
             if code >= 65 && code <= 90 {
                 arrayOfInts.append(code - 65 + 10)
@@ -118,15 +118,15 @@ public struct IBAN {
     
     public init?(_ ibanString: String) {
         let matched = ibanString.replacingOccurrences(of: " ", with: "").uppercased()
-        guard IBAN.isValidIBANaddress(matched) else {return nil}
+        guard IBAN.isValidIBANaddress(matched) else { return nil }
         self.iban = matched
     }
     
     public init?(_ address: EthereumAddress) {
         let addressString = address.address.lowercased().stripHexPrefix()
-        guard let bigNumber = BigUInt(addressString, radix: 16) else {return nil}
+        guard let bigNumber = BigUInt(addressString, radix: 16) else { return nil }
         let base36EncodedString = String(bigNumber, radix: 36);
-        guard base36EncodedString.count <= 30 else {return nil}
+        guard base36EncodedString.count <= 30 else { return nil }
         let padded = base36EncodedString.leftPadding(toLength: 30, withPad: "0")
         let prefix = "XE"
         let remainder = IBAN.calculateChecksumMod97(IBAN.decodeToInts(prefix + "00" + padded));

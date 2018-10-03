@@ -89,17 +89,17 @@ extension ABIv2.Element {
     func encodeParameters(_ parameters: [AnyObject]) -> Data? {
         switch self {
         case .constructor(let constructor):
-            guard parameters.count == constructor.inputs.count else {return nil}
-            guard let data = ABIv2Encoder.encode(types: constructor.inputs, values: parameters) else {return nil}
+            guard parameters.count == constructor.inputs.count else { return nil }
+            guard let data = ABIv2Encoder.encode(types: constructor.inputs, values: parameters) else { return nil }
             return data
         case .event(_):
             return nil
         case .fallback(_):
             return nil
         case .function(let function):
-            guard parameters.count == function.inputs.count else {return nil}
+            guard parameters.count == function.inputs.count else { return nil }
             let signature = function.methodEncoding
-            guard let data = ABIv2Encoder.encode(types: function.inputs, values: parameters) else {return nil}
+            guard let data = ABIv2Encoder.encode(types: function.inputs, values: parameters) else { return nil }
             return signature + data
         }
     }
@@ -126,10 +126,10 @@ extension ABIv2.Element {
                 return returnArray
             }
             
-            guard function.outputs.count*32 <= data.count else {return nil}
+            guard function.outputs.count*32 <= data.count else { return nil }
             var returnArray = [String:Any]()
             var i = 0;
-            guard let values = ABIv2Decoder.decode(types: function.outputs, data: data) else {return nil}
+            guard let values = ABIv2Decoder.decode(types: function.outputs, data: data) else { return nil }
             for output in function.outputs {
                 let name = "\(i)"
                 returnArray[name] = values[i]
@@ -167,10 +167,10 @@ extension ABIv2.Element {
                 return returnArray
             }
             
-            guard function.inputs.count*32 <= data.count else {return nil}
+            guard function.inputs.count*32 <= data.count else { return nil }
             var returnArray = [String:Any]()
             var i = 0;
-            guard let values = ABIv2Decoder.decode(types: function.inputs, data: data) else {return nil}
+            guard let values = ABIv2Decoder.decode(types: function.inputs, data: data) else { return nil }
             for input in function.inputs {
                 let name = "\(i)"
                 returnArray[name] = values[i]
@@ -199,10 +199,10 @@ extension ABIv2.Element {
                 return returnArray
             }
             
-            guard function.inputs.count*32 <= data.count else {return nil}
+            guard function.inputs.count*32 <= data.count else { return nil }
             var returnArray = [String:Any]()
             var i = 0;
-            guard let values = ABIv2Decoder.decode(types: function.inputs, data: data) else {return nil}
+            guard let values = ABIv2Decoder.decode(types: function.inputs, data: data) else { return nil }
             for input in function.inputs {
                 let name = "\(i)"
                 returnArray[name] = values[i]
@@ -218,7 +218,7 @@ extension ABIv2.Element {
 
 extension ABIv2.Element.Event {
     func decodeReturnedLogs(_ eventLog: EventLog) -> [String:Any]? {
-        guard let eventContent = ABIv2Decoder.decodeLog(event: self, eventLog: eventLog) else {return nil}
+        guard let eventContent = ABIv2Decoder.decodeLog(event: self, eventLog: eventLog) else { return nil }
         return eventContent
     }
 }

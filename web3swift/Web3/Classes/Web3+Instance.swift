@@ -50,8 +50,8 @@ public class web3: Web3OptionsInheritable {
         return self.ethInstance!
     }
     
-    public class Eth:Web3OptionsInheritable {
-        var provider:Web3Provider
+    public class Eth: Web3OptionsInheritable {
+        var provider: Web3Provider
 //        weak var web3: web3?
         var web3: web3
         public var options: Web3Options {

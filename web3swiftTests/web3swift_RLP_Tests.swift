@@ -103,7 +103,7 @@ class web3swift_RLP_Tests: XCTestCase {
         var result = RLP.decode(expected)!
         XCTAssert(result.count == 1, "Failed to RLP decode empty array")
         result = result[0]!
-        guard case .noItem = result.content else {return XCTFail()}
+        guard case .noItem = result.content else { return XCTFail() }
     }
     
     func testRLPencodeShortInt() {

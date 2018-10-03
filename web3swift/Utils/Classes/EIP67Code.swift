@@ -48,7 +48,7 @@ extension Web3 {
         }
         
         public init? (address : String) {
-            guard let addr = EthereumAddress(address) else {return nil}
+            guard let addr = EthereumAddress(address) else { return nil }
             self.address = addr
         }
         
@@ -87,10 +87,10 @@ extension Web3 {
     public struct EIP67CodeGenerator {
         
         public static func createImage(from: EIP67Code, scale: Double = 1.0) -> CIImage {
-            guard let string = from.toString().addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return CIImage()}
-            guard let data = string.data(using: .utf8, allowLossyConversion: false) else {return CIImage()}
-            let filter = CIFilter(name: "CIQRCodeGenerator", withInputParameters: ["inputMessage" : data, "inputCorrectionLevel":"L"])
-            guard var image = filter?.outputImage else {return CIImage()}
+            guard let string = from.toString().addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return CIImage() }
+            guard let data = string.data(using: .utf8, allowLossyConversion: false) else { return CIImage() }
+            let filter = CIFilter(name: "CIQRCodeGenerator", parameters: ["inputMessage" : data, "inputCorrectionLevel":"L"])
+            guard var image = filter?.outputImage else { return CIImage() }
             let transformation = CGAffineTransform(scaleX: CGFloat(scale), y: CGFloat(scale))
             image = image.transformed(by: transformation)
             return image
@@ -99,32 +99,32 @@ extension Web3 {
 
     public struct EIP67CodeParser {
         public static func parse(_ data: Data) -> EIP67Code? {
-            guard let string = String(data: data, encoding: .utf8) else {return nil}
+            guard let string = String(data: data, encoding: .utf8) else { return nil }
             return parse(string)
         }
         
         public static func parse(_ string: String) -> EIP67Code? {
-            guard string.hasPrefix("ethereum:") else {return nil}
+            guard string.hasPrefix("ethereum:") else { return nil }
             let striped = string.components(separatedBy: "ethereum:")
-            guard striped.count == 2 else {return nil}
-            guard let encoding = striped[1].removingPercentEncoding else {return nil}
-            guard let url = URL.init(string: encoding) else {return nil}
-            guard let address = EthereumAddress(url.lastPathComponent) else {return nil}
+            guard striped.count == 2 else { return nil }
+            guard let encoding = striped[1].removingPercentEncoding else { return nil }
+            guard let url = URL.init(string: encoding) else { return nil }
+            guard let address = EthereumAddress(url.lastPathComponent) else { return nil }
             var code = EIP67Code(address: address)
-            guard let components = URLComponents(string: encoding)?.queryItems else {return code}
+            guard let components = URLComponents(string: encoding)?.queryItems else { return code }
             for comp in components {
                 switch comp.name {
                 case "value":
-                    guard let value = comp.value else {return nil}
-                    guard let val = BigUInt(value, radix: 10) else {return nil}
+                    guard let value = comp.value else { return nil }
+                    guard let val = BigUInt(value, radix: 10) else { return nil }
                     code.amount = val
                 case "gas":
-                    guard let value = comp.value else {return nil}
-                    guard let val = BigUInt(value, radix: 10) else {return nil}
+                    guard let value = comp.value else { return nil }
+                    guard let val = BigUInt(value, radix: 10) else { return nil }
                     code.gasLimit = val
                 case "data":
-                    guard let value = comp.value else {return nil}
-                    guard let data = Data.fromHex(value) else {return nil}
+                    guard let value = comp.value else { return nil }
+                    guard let data = Data.fromHex(value) else { return nil }
                     code.data = EIP67Code.DataType.data(data)
                 case "function":
                     continue

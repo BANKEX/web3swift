@@ -32,7 +32,7 @@ public struct Web3Signer {
     public static func signPersonalMessage(_ personalMessage: Data, keystore: AbstractKeystore, account: EthereumAddress, password: String, useExtraEntropy: Bool = false) throws -> Data? {
         var privateKey = try keystore.UNSAFE_getPrivateKeyData(password: password, account: account)
         defer {Data.zero(&privateKey)}
-        guard let hash = Web3.Utils.hashPersonalMessage(personalMessage) else {return nil}
+        guard let hash = Web3.Utils.hashPersonalMessage(personalMessage) else { return nil }
         let (compressedSignature, _) = SECP256K1.signForRecovery(hash: hash, privateKey: privateKey, useExtraEntropy: useExtraEntropy)
         return compressedSignature
     }
@@ -49,10 +49,10 @@ public struct Web3Signer {
         }
         
         private static func attemptSignature(transaction:inout EthereumTransaction, privateKey: Data, useExtraEntropy: Bool = false) -> Bool {
-            guard let chainID = transaction.chainID else {return false}
-            guard let hash = transaction.hashForSignature(chainID: chainID) else {return false}
+            guard let chainID = transaction.chainID else { return false }
+            guard let hash = transaction.hashForSignature(chainID: chainID) else { return false }
             let signature  = SECP256K1.signForRecovery(hash: hash, privateKey: privateKey, useExtraEntropy: useExtraEntropy)
-            guard let serializedSignature = signature.serializedSignature else {return false}
+            guard let serializedSignature = signature.serializedSignature else { return false }
             guard let unmarshalledSignature = SECP256K1.unmarshalSignature(signatureData: serializedSignature) else {
                 return false
             }
@@ -80,9 +80,9 @@ public struct Web3Signer {
         }
         
         private static func attemptSignature(transaction:inout EthereumTransaction, privateKey: Data, useExtraEntropy: Bool = false) -> Bool {
-            guard let hash = transaction.hashForSignature(chainID: nil) else {return false}
+            guard let hash = transaction.hashForSignature(chainID: nil) else { return false }
             let signature  = SECP256K1.signForRecovery(hash: hash, privateKey: privateKey, useExtraEntropy: useExtraEntropy)
-            guard let serializedSignature = signature.serializedSignature else {return false}
+            guard let serializedSignature = signature.serializedSignature else { return false }
             guard let unmarshalledSignature = SECP256K1.unmarshalSignature(signatureData: serializedSignature) else {
                 return false
             }

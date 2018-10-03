@@ -10,7 +10,7 @@ import Foundation
 import BigInt
 
 public protocol Web3OptionsInheritable {
-    var options: Web3Options {get}
+    var options: Web3Options { get }
 }
 
 /// Options for sending or calling a particular Ethereum transaction
@@ -63,7 +63,7 @@ public struct Web3Options {
             options.value = valueBiguint
         }
         if let fromString = json["from"] as? String {
-            guard let addressFrom = EthereumAddress(fromString) else {return nil}
+            guard let addressFrom = EthereumAddress(fromString) else { return nil }
             options.from = addressFrom
         }
         return options
@@ -110,7 +110,7 @@ public struct Web3Options {
     ///
     /// Please refer to the source code for a logic.
     public static func smartMergeGasLimit(originalOptions: Web3Options?, extraOptions: Web3Options?, gasEstimate: BigUInt) -> BigUInt? {
-        guard let mergedOptions = Web3Options.merge(originalOptions, with: extraOptions) else {return nil} //just require any non-nils
+        guard let mergedOptions = Web3Options.merge(originalOptions, with: extraOptions) else { return nil } //just require any non-nils
         if mergedOptions.gasLimit == nil {
             return gasEstimate // for user's convenience we just use an estimate
 //            return nil // there is no opinion from user, so we can not proceed
@@ -134,7 +134,7 @@ public struct Web3Options {
     }
     
     public static func smartMergeGasPrice(originalOptions: Web3Options?, extraOptions: Web3Options?, priceEstimate: BigUInt) -> BigUInt? {
-        guard let mergedOptions = Web3Options.merge(originalOptions, with: extraOptions) else {return nil} //just require any non-nils
+        guard let mergedOptions = Web3Options.merge(originalOptions, with: extraOptions) else { return nil } //just require any non-nils
         if mergedOptions.gasPrice == nil {
             return priceEstimate
         } else if mergedOptions.gasPrice == 0 {
