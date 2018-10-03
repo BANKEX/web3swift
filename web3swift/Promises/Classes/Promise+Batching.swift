@@ -34,8 +34,8 @@ public class JSONRPCrequestDispatcher {
         var pendingTrigger: Guarantee<Void>?
         var provider: Web3Provider
         var queue: DispatchQueue
-        var lockQueue : DispatchQueue
-        var triggered : Bool = false
+        var lockQueue: DispatchQueue
+        var triggered: Bool = false
         func add(_ request: JSONRPCrequest, maxWaitTime: TimeInterval) throws -> Promise<JSONRPCresponse> {
             if self.triggered {
                 throw Web3Error.nodeError("Batch is already in flight")
@@ -62,12 +62,10 @@ public class JSONRPCrequestDispatcher {
         
         func trigger() {
             self.lockQueue.async {
-                if self.triggered {
-                    return
-                }
+                guard !self.triggered else { return }
                 self.triggered = true
                 let requestsBatch = JSONRPCrequestBatch(requests: self.requests)
-                _ = self.provider.sendAsync(requestsBatch, queue: self.queue).done(on: self.queue){batch in
+                self.provider.sendAsync(requestsBatch, queue: self.queue).done(on: self.queue) { batch in
                     for response in batch.responses {
                         if self.promisesDict[UInt64(response.id)] == nil {
                             for k in self.promisesDict.keys {
@@ -80,7 +78,7 @@ public class JSONRPCrequestDispatcher {
                         let promise = self.promisesDict[UInt64(response.id)]!
                         promise.resolver.fulfill(response)
                     }
-                }.catch(on:self.queue) {err in
+                }.catch(on: self.queue) { err in
                     for k in self.promisesDict.keys {
                         self.promisesDict[k]?.resolver.reject(err)
                     }
@@ -125,9 +123,9 @@ public class JSONRPCrequestDispatcher {
                     do {
                         let batch = try self.getBatch()
                         let internalPromise = try batch.add(request, maxWaitTime: self.MAX_WAIT_TIME)
-                        internalPromise.done(on: self.queue) {resp in
+                        internalPromise.done(on: self.queue) { resp in
                             seal.fulfill(resp)
-                        }.catch(on: self.queue){err in
+                        }.catch(on: self.queue) { err in
                             seal.reject(err)
                         }
                     } catch {
