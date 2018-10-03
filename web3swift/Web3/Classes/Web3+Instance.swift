@@ -13,8 +13,8 @@ import PromiseKit
 
 /// A web3 instance bound to provider. All further functionality is provided under web.*. namespaces.
 public class web3: Web3OptionsInheritable {
-    public var provider : Web3Provider
-    public var options : Web3Options = Web3Options.defaultOptions()
+    public var provider: Web3Provider
+    public var options: Web3Options = Web3Options.defaultOptions()
     public var defaultBlock = "latest"
     public var requestDispatcher: JSONRPCrequestDispatcher
     
@@ -74,7 +74,7 @@ public class web3: Web3OptionsInheritable {
         return self.personalInstance!
     }
     
-    public class Personal:Web3OptionsInheritable {
+    public class Personal: Web3OptionsInheritable {
         var provider:Web3Provider
         //        weak var web3: web3?
         var web3: web3
@@ -94,12 +94,12 @@ public class web3: Web3OptionsInheritable {
         if (self.walletInstance != nil) {
             return self.walletInstance!
         }
-        self.walletInstance = web3.Web3Wallet(provider : self.provider, web3: self)
+        self.walletInstance = web3.Web3Wallet(provider: self.provider, web3: self)
         return self.walletInstance!
     }
     
     public class Web3Wallet {
-        var provider:Web3Provider
+        var provider: Web3Provider
 //        weak var web3: web3?
         var web3: web3
         public init(provider prov: Web3Provider, web3 web3instance: web3) {
@@ -115,12 +115,12 @@ public class web3: Web3OptionsInheritable {
         if (self.browserFunctionsInstance != nil) {
             return self.browserFunctionsInstance!
         }
-        self.browserFunctionsInstance = web3.BrowserFunctions(provider : self.provider, web3: self)
+        self.browserFunctionsInstance = web3.BrowserFunctions(provider: self.provider, web3: self)
         return self.browserFunctionsInstance!
     }
     
-    public class BrowserFunctions:Web3OptionsInheritable {
-        var provider:Web3Provider
+    public class BrowserFunctions: Web3OptionsInheritable {
+        var provider: Web3Provider
         //        weak var web3: web3?
         var web3: web3
         public var options: Web3Options {

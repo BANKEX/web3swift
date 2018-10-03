@@ -21,7 +21,7 @@ class web3swift_infura_Tests: XCTestCase {
         case .success(let result):
             let balance = result
             let balString = Web3.Utils.formatToEthereumUnits(balance, toUnits: .eth, decimals: 3)
-            print(balString)
+            print(balString ?? "nil")
         }
     }
     
