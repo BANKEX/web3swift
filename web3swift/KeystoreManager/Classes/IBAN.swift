@@ -125,11 +125,11 @@ public struct IBAN {
     public init?(_ address: EthereumAddress) {
         let addressString = address.address.lowercased().stripHexPrefix()
         guard let bigNumber = BigUInt(addressString, radix: 16) else { return nil }
-        let base36EncodedString = String(bigNumber, radix: 36);
+        let base36EncodedString = String(bigNumber, radix: 36)
         guard base36EncodedString.count <= 30 else { return nil }
         let padded = base36EncodedString.leftPadding(toLength: 30, withPad: "0")
         let prefix = "XE"
-        let remainder = IBAN.calculateChecksumMod97(IBAN.decodeToInts(prefix + "00" + padded));
+        let remainder = IBAN.calculateChecksumMod97(IBAN.decodeToInts(prefix + "00" + padded))
         let checkDigits = "0" + String(98 - remainder)
         let twoDigits = checkDigits[checkDigits.count-2..<checkDigits.count]
         let fullIban = prefix + twoDigits + padded
