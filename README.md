@@ -103,7 +103,7 @@ platform :ios, '9.0'
 
 target '<Your Target Name>' do
     use_frameworks!
-    pod 'web3swift', '~> 0.8.0'
+    pod 'web3swift', :git => 'https://github.com/bankex/web3swift.git', :branch => 'master'
 end
 ```
 
@@ -134,13 +134,13 @@ Run `carthage update` to build the framework and drag the built `web3swift.frame
 
 ### Swift Package Manager
 
-The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. It is in early development, but web3swift does support its use on supported platforms. 
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. It is in early development, but web3swift does support its use on supported platforms.
 
 Once you have your Swift package set up, adding web3swift as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
 
 ```swift
 dependencies: [
-.package(url: "https://github.com/BANKEX/web3swift.git", from: "1.1.6")
+.package(url: "https://github.com/BANKEX/web3swift.git", from: "1.1.7")
 ]
 ```
 
@@ -233,7 +233,7 @@ switch convenienceTransferResult {
 - Full reference `web3js` functionality
 - Light Ethereum subprotocol (LES) integration
 
-## [Apps using this library](https://github.com/BANKEX/web3swift/wiki/Apps-using-web3swift) 
+## [Apps using this library](https://github.com/BANKEX/web3swift/wiki/Apps-using-web3swift)
 
 If you've used this project in a live app, please let us know!
 
@@ -259,7 +259,7 @@ Changes made to this branch will be merged into the [master](https://github.com/
 
 When using this pod, references to this repo, [BANKEX](http://bankex.com) and [BANKEX Foundation](http://bankexfoundation.org) are appreciated.
 
-## Authors
+## Contributors
 
 Alex Vlasov, [@shamatar](https://github.com/shamatar)
 
