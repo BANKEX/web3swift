@@ -93,7 +93,7 @@ public class BIP32Keystore: AbstractKeystore {
     public func createNewAccount(parentNode: HDNode, password: String = "BANKEXFOUNDATION", aesMode: String = "aes-128-cbc") throws {
         var newIndex = UInt32(0)
         for (p, _) in paths {
-            guard let idx = UInt32(p.components(separatedBy: "/").last!) else {continue}
+            guard let idx = UInt32(p.components(separatedBy: "/").last!) else { continue }
             if idx >= newIndex {
                 newIndex = idx + 1
             }

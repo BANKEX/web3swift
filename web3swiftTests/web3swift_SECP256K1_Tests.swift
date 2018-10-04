@@ -25,7 +25,7 @@ class web3swift_SECP256K1_Tests: XCTestCase {
         for _ in 0 ..< 10000 {
             let randomHash = Data.randomBytes(length: 32)!
             let randomPrivateKey = Data.randomBytes(length: 32)!
-            guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else {continue}
+            guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else { continue }
             allAttempts = allAttempts + 1
             let signature = SECP256K1.signForRecovery(hash: randomHash, privateKey: randomPrivateKey, useExtraEntropy: true)
             guard let serialized = signature.serializedSignature else {
@@ -55,7 +55,7 @@ class web3swift_SECP256K1_Tests: XCTestCase {
         for _ in 0 ..< 10000 {
             let randomHash = Data.randomBytes(length: 32)!
             let randomPrivateKey = Data.randomBytes(length: 32)!
-            guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else {continue}
+            guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else { continue }
             allAttempts = allAttempts + 1
             let signature = SECP256K1.signForRecovery(hash: randomHash, privateKey: randomPrivateKey, useExtraEntropy: false)
             guard let serialized = signature.serializedSignature else {
@@ -97,7 +97,7 @@ class web3swift_SECP256K1_Tests: XCTestCase {
         for _ in 0 ..< 1024 {
             let randomHash = Data.randomBytes(length: 32)!
             let randomPrivateKey = Data.randomBytes(length: 32)!
-            guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else {continue}
+            guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else { continue }
             guard var signature = SECP256K1.recoverableSign(hash: randomHash, privateKey: randomPrivateKey, useExtraEntropy: true) else { return XCTFail() }
             guard let serialized = SECP256K1.serializeSignature(recoverableSignature: &signature) else { return XCTFail() }
             guard let parsed = SECP256K1.parseSignature(signature: serialized) else { return XCTFail() }

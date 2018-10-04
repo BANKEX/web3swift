@@ -15,13 +15,13 @@ public class KeystoreManager: AbstractKeystore {
         get {
             var toReturn = [EthereumAddress]()
             for keystore in _keystores {
-                guard let key = keystore.addresses?.first else {continue}
+                guard let key = keystore.addresses?.first else { continue }
                 if key.isValid {
                     toReturn.append(key)
                 }
             }
             for keystore in _bip32keystores {
-                guard let allAddresses = keystore.addresses else {continue}
+                guard let allAddresses = keystore.addresses else { continue }
                 for addr in allAddresses {
                     if addr.isValid {
                         toReturn.append(addr)
@@ -29,7 +29,7 @@ public class KeystoreManager: AbstractKeystore {
                 }
             }
             for keystore in _plainKeystores {
-                guard let key = keystore.addresses?.first else {continue}
+                guard let key = keystore.addresses?.first else { continue }
                 if key.isValid {
                     toReturn.append(key)
                 }
@@ -60,13 +60,13 @@ public class KeystoreManager: AbstractKeystore {
     
     public func walletForAddress(_ address: EthereumAddress) -> AbstractKeystore? {
         for keystore in _keystores {
-            guard let key = keystore.addresses?.first else {continue}
+            guard let key = keystore.addresses?.first else { continue }
             if key == address && key.isValid {
                 return keystore as AbstractKeystore?
             }
         }
         for keystore in _bip32keystores {
-            guard let allAddresses = keystore.addresses else {continue}
+            guard let allAddresses = keystore.addresses else { continue }
             for addr in allAddresses {
                 if addr == address && addr.isValid {
                     return keystore as AbstractKeystore?
@@ -74,7 +74,7 @@ public class KeystoreManager: AbstractKeystore {
             }
         }
         for keystore in _plainKeystores {
-            guard let key = keystore.addresses?.first else {continue}
+            guard let key = keystore.addresses?.first else { continue }
             if key == address && key.isValid {
                 return keystore as AbstractKeystore?
             }
@@ -145,12 +145,12 @@ public class KeystoreManager: AbstractKeystore {
                     filePath = path + "/"
                 }
                 filePath = filePath + file
-                guard let content = fileManager.contents(atPath: filePath) else {continue}
+                guard let content = fileManager.contents(atPath: filePath) else { continue }
                 if (!scanForHDwallets) {
-                    guard let keystore = EthereumKeystoreV3(content) else {continue}
+                    guard let keystore = EthereumKeystoreV3(content) else { continue }
                     _keystores.append(keystore)
                 } else {
-                    guard let bipkeystore = BIP32Keystore(content) else {continue}
+                    guard let bipkeystore = BIP32Keystore(content) else { continue }
                     _bip32keystores.append(bipkeystore)
                 }
             }
@@ -161,12 +161,12 @@ public class KeystoreManager: AbstractKeystore {
                     filePath = path + "/"
                 }
                 filePath = filePath + file
-                guard let content = fileManager.contents(atPath: filePath) else {continue}
+                guard let content = fileManager.contents(atPath: filePath) else { continue }
                 if (!scanForHDwallets) {
-                    guard let keystore = EthereumKeystoreV3(content) else {continue}
+                    guard let keystore = EthereumKeystoreV3(content) else { continue }
                     _keystores.append(keystore)
                 } else {
-                    guard let bipkeystore = BIP32Keystore(content) else {continue}
+                    guard let bipkeystore = BIP32Keystore(content) else { continue }
                     _bip32keystores.append(bipkeystore)
                 }
             }

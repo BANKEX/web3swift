@@ -35,7 +35,7 @@ public struct ContractV2:ContractProtocol {
         for m in self._abi {
             switch m {
             case .function(let function):
-                guard let name = function.name else {continue}
+                guard let name = function.name else { continue }
                 toReturn[name] = m
             default:
                 continue
