@@ -57,7 +57,7 @@ extension web3 {
             
             let mergedOptions = Web3Options.merge(self.options, with: options)
             guard var tx = self.contract.deploy(bytecode: bytecode, parameters: parameters, extraData: extraData, options: mergedOptions) else { return nil }
-            tx.chainID = self.web3.provider.network?.chainID
+            tx.chainID = self.web3.provider.network
             let intermediate = TransactionIntermediate(transaction: tx, web3: self.web3, contract: self.contract, method: "fallback", options: mergedOptions)
             return intermediate
         }
@@ -68,10 +68,10 @@ extension web3 {
         /// Elements of "parameters" can be other arrays or instances of String, Data, BigInt, BigUInt, Int or EthereumAddress.
         ///
         /// Returns a "Transaction intermediate" object.
-        public func method(_ method:String = "fallback", parameters: [AnyObject] = [AnyObject](), extraData: Data = Data(), options: Web3Options?) -> TransactionIntermediate? {
+        public func method(_ method: String = "fallback", parameters: [AnyObject] = [AnyObject](), extraData: Data = Data(), options: Web3Options?) -> TransactionIntermediate? {
             let mergedOptions = Web3Options.merge(self.options, with: options)
             guard var tx = self.contract.method(method, parameters: parameters, extraData: extraData, options: mergedOptions) else { return nil }
-            tx.chainID = self.web3.provider.network?.chainID
+            tx.chainID = self.web3.provider.network
             let intermediate = TransactionIntermediate(transaction: tx, web3: self.web3, contract: self.contract, method: method, options: mergedOptions)
             return intermediate
         }

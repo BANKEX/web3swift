@@ -108,29 +108,28 @@ extension EthereumTransaction:Decodable {
             }
         }
         
-        guard let nonce = try decodeHexToBigUInt(container, key: .nonce) else {throw Web3Error.dataError}
+        guard let nonce = try decodeHexToBigUInt(container, key: .nonce) else { throw Web3Error.dataError }
         self.nonce = nonce
 
-        guard let v = try decodeHexToBigUInt(container, key: .v) else {throw Web3Error.dataError}
+        guard let v = try decodeHexToBigUInt(container, key: .v) else { throw Web3Error.dataError }
         self.v = v
         
-        guard let r = try decodeHexToBigUInt(container, key: .r) else {throw Web3Error.dataError}
+        guard let r = try decodeHexToBigUInt(container, key: .r) else { throw Web3Error.dataError }
         self.r = r
         
-        guard let s = try decodeHexToBigUInt(container, key: .s) else {throw Web3Error.dataError}
+        guard let s = try decodeHexToBigUInt(container, key: .s) else { throw Web3Error.dataError }
         self.s = s
         
         if options.value == nil || options.to == nil || options.gasLimit == nil || options.gasPrice == nil{
             throw Web3Error.dataError
         }
-        self.value = options.value!
-        self.to = options.to!
-        self.gasPrice = options.gasPrice!
-        self.gasLimit = options.gasLimit!
+        value = options.value!
+        to = options.to!
+        gasPrice = options.gasPrice!
+        gasLimit = options.gasLimit!
         
-        let inferedChainID = self.inferedChainID
-        if (self.inferedChainID != nil && self.v >= BigUInt(37)) {
-            self.chainID = inferedChainID
+        if let inferedChainID = inferedChainID, v >= 37 {
+            chainID = inferedChainID
         }
     }
 }

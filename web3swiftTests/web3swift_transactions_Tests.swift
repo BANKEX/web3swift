@@ -30,14 +30,14 @@ class web3swift_transactions_Tests: XCTestCase {
             let privateKeyData = Data.fromHex("0x4646464646464646464646464646464646464646464646464646464646464646")!
             let publicKey = Web3.Utils.privateToPublic(privateKeyData, compressed: false)
             let sender = Web3.Utils.publicToAddress(publicKey!)
-            transaction.chainID = BigUInt(1)
+            transaction.chainID = 1
             print(transaction)
-            let hash = transaction.hashForSignature(chainID: BigUInt(1))
+            let hash = transaction.hashForSignature(chainID: 1)
             let expectedHash = "0xdaf5a779ae972f972197303d7b574746c7ef83eadac0f2791ad23db92e4c8e53".stripHexPrefix()
             XCTAssert(hash!.toHexString() == expectedHash, "Transaction signature failed")
             try Web3Signer.EIP155Signer.sign(transaction: &transaction, privateKey: privateKeyData, useExtraEntropy: false)
             print(transaction)
-            XCTAssert(transaction.v == UInt8(37), "Transaction signature failed")
+            XCTAssert(transaction.v == 37, "Transaction signature failed")
             XCTAssert(sender == transaction.sender)
         }
         catch {

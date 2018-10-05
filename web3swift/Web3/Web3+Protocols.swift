@@ -33,47 +33,64 @@ public protocol EventParserProtocol {
 }
 
 /// Enum for the most-used Ethereum networks. Network ID is crucial for EIP155 support
-public enum Networks {
-    case Rinkeby
-    case Mainnet
-    case Ropsten
-    case Kovan
-    case Custom(networkID: BigUInt)
-    
-    var name: String {
-        switch self {
-        case .Rinkeby: return "rinkeby"
-        case .Ropsten: return "ropsten"
-        case .Mainnet: return "mainnet"
-        case .Kovan: return "kovan"
-        case .Custom: return ""
-        }
+public struct NetworkId: RawRepresentable, CustomStringConvertible, ExpressibleByIntegerLiteral {
+  public typealias IntegerLiteralType = Int
+  public var rawValue: BigUInt
+  public init(rawValue: BigUInt) {
+    self.rawValue = rawValue
+  }
+  public init(_ rawValue: BigUInt) {
+    self.rawValue = rawValue
+  }
+  public init(_ rawValue: Int) {
+    self.rawValue = BigUInt(rawValue)
+  }
+  public init(integerLiteral value: Int) {
+    rawValue = BigUInt(value)
+  }
+  public var all: [NetworkId] {
+    return [.mainnet, .ropsten, .rinkeby, .kovan]
+  }
+  public static var `default`: NetworkId = .mainnet
+  public static var mainnet: NetworkId { return 1 }
+  public static var ropsten: NetworkId { return 3 }
+  public static var rinkeby: NetworkId { return 4 }
+  public static var kovan: NetworkId { return 42 }
+  public var description: String {
+    switch rawValue {
+    case 1: return "mainnet"
+    case 3: return "ropsten"
+    case 4: return "rinkeby"
+    case 42: return "kovan"
+    default: return ""
     }
-    
-    var chainID: BigUInt {
-        switch self {
-        case .Custom(let networkID): return networkID
-        case .Mainnet: return BigUInt(1)
-        case .Ropsten: return BigUInt(3)
-        case .Rinkeby: return BigUInt(4)
-        case .Kovan: return BigUInt(42)
-        }
+  }
+}
+
+extension NetworkId: Numeric {
+    public typealias Magnitude = RawValue.Magnitude
+    public var magnitude: RawValue.Magnitude {
+        return rawValue.magnitude
     }
-    
-    static let allValues = [Mainnet, Ropsten, Kovan, Rinkeby]
-    
-    static func fromInt(_ networkID:Int) -> Networks? {
-        switch networkID {
-        case 1:
-            return Networks.Mainnet
-        case 3:
-            return Networks.Ropsten
-        case 4:
-            return Networks.Rinkeby
-        case 42:
-            return Networks.Kovan
-        default:
-            return Networks.Custom(networkID: BigUInt(networkID))
-        }
+    public init?<T>(exactly source: T) where T : BinaryInteger {
+        rawValue = RawValue(source)
+    }
+    public static func *(lhs: NetworkId, rhs: NetworkId) -> NetworkId {
+        return NetworkId(rawValue: lhs.rawValue * rhs.rawValue)
+    }
+    public static func *=(lhs: inout NetworkId, rhs: NetworkId) {
+        lhs.rawValue *= rhs.rawValue
+    }
+    public static func +(lhs: NetworkId, rhs: NetworkId) -> NetworkId {
+        return NetworkId(rawValue: lhs.rawValue + rhs.rawValue)
+    }
+    public static func +=(lhs: inout NetworkId, rhs: NetworkId) {
+        lhs.rawValue += rhs.rawValue
+    }
+    public static func -(lhs: NetworkId, rhs: NetworkId) -> NetworkId {
+        return NetworkId(rawValue: lhs.rawValue - rhs.rawValue)
+    }
+    public static func -=(lhs: inout NetworkId, rhs: NetworkId) {
+        lhs.rawValue -= rhs.rawValue
     }
 }

@@ -155,7 +155,7 @@ extension web3.BrowserFunctions {
             transaction.nonce = nonceResult.value!
             
             if (self.web3.provider.network != nil) {
-                transaction.chainID = self.web3.provider.network?.chainID
+                transaction.chainID = self.web3.provider.network
             }
             
             guard let keystore = keystoreManager.walletForAddress(from) else { return nil }

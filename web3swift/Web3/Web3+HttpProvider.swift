@@ -14,7 +14,7 @@ import PromiseKit
 public protocol Web3Provider {
     func sendAsync(_ request: JSONRPCrequest, queue: DispatchQueue) -> Promise<JSONRPCresponse>
     func sendAsync(_ requests: JSONRPCrequestBatch, queue: DispatchQueue) -> Promise<JSONRPCresponseBatch>
-    var network: Networks? { get set }
+    var network: NetworkId? { get set }
     var attachedKeystoreManager: KeystoreManager? { get set }
     var url: URL { get }
     var session: URLSession { get }
@@ -24,14 +24,14 @@ public protocol Web3Provider {
 /// The default http provider.
 public class Web3HttpProvider: Web3Provider {
     public var url: URL
-    public var network: Networks?
+    public var network: NetworkId?
     public var attachedKeystoreManager: KeystoreManager? = nil
     public var session: URLSession = {() -> URLSession in
         let config = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: config)
         return urlSession
     }()
-    public init?(_ httpProviderURL: URL, network net: Networks? = nil, keystoreManager manager: KeystoreManager? = nil) {
+    public init?(_ httpProviderURL: URL, network net: NetworkId? = nil, keystoreManager manager: KeystoreManager? = nil) {
         do {
             guard httpProviderURL.scheme == "http" || httpProviderURL.scheme == "https" else { return nil }
             url = httpProviderURL
@@ -45,7 +45,7 @@ public class Web3HttpProvider: Web3Provider {
                     return nil
                 }
                 guard let result: String = response.getValue(), let intNetworkNumber = Int(result) else { return nil }
-                network = Networks.fromInt(intNetworkNumber)
+                network = NetworkId(intNetworkNumber)
                 if network == nil { return nil }
             } else {
                 network = net

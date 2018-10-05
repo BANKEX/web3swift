@@ -31,7 +31,7 @@ extension web3.web3contract {
             self.method = method
             self.options = Web3Options.merge(web3.options, with: options)
             if self.web3.provider.network != nil {
-                self.transaction.chainID = self.web3.provider.network?.chainID
+                self.transaction.chainID = self.web3.provider.network
             }
         }
         

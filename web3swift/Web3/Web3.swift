@@ -35,19 +35,19 @@ public struct Web3 {
     
     /// Initialized Web3 instance bound to Infura's mainnet provider.
     public static func InfuraMainnetWeb3(accessToken: String? = nil) -> web3 {
-        let infura = InfuraProvider(Networks.Mainnet, accessToken: accessToken)!
+        let infura = InfuraProvider(.mainnet, accessToken: accessToken)!
         return web3(provider: infura)
     }
     
     /// Initialized Web3 instance bound to Infura's rinkeby provider.
     public static func InfuraRinkebyWeb3(accessToken: String? = nil) -> web3 {
-        let infura = InfuraProvider(Networks.Rinkeby, accessToken: accessToken)!
+        let infura = InfuraProvider(.rinkeby, accessToken: accessToken)!
         return web3(provider: infura)
     }
     
     /// Initialized Web3 instance bound to Infura's ropsten provider.
     public static func InfuraRopstenWeb3(accessToken: String? = nil) -> web3 {
-        let infura = InfuraProvider(Networks.Ropsten, accessToken: accessToken)!
+        let infura = InfuraProvider(.ropsten, accessToken: accessToken)!
         return web3(provider: infura)
     }
     

@@ -11,8 +11,8 @@ import BigInt
 
 /// Custom Web3 HTTP provider of Infura nodes.
 public final class InfuraProvider: Web3HttpProvider {
-    public init?(_ net:Networks, accessToken token: String? = nil, keystoreManager manager: KeystoreManager? = nil) {
-        var requestURLstring = "https://" + net.name + ".infura.io/"
+    public init?(_ net: NetworkId, accessToken token: String? = nil, keystoreManager manager: KeystoreManager? = nil) {
+        var requestURLstring = "https://\(net).infura.io/"
         if token != nil {
             requestURLstring = requestURLstring + token!
         }
