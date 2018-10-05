@@ -5,10 +5,10 @@
 
 # web3swift
 
-[![Version](https://img.shields.io/cocoapods/v/web3swift.svg?style=flat)](http://cocoapods.org/pods/web3swift)
-[![License](https://img.shields.io/cocoapods/l/web3swift.svg?style=flat)](http://cocoapods.org/pods/web3swift)
-[![Platform](https://img.shields.io/cocoapods/p/web3swift.svg?style=flat)](http://cocoapods.org/pods/web3swift)
-[![support](https://brianmacdonald.github.io/Ethonate/svg/eth-support-blue.svg)](https://brianmacdonald.github.io/Ethonate/address#0x6394b37Cf80A7358b38068f0CA4760ad49983a1B)
+[![Version](https://img.shields.io/cocoapods/v/web3swift.svg?style=flat)](https://cocoapods.org/pods/web3swift)
+[![License](https://img.shields.io/cocoapods/l/web3swift.svg?style=flat)](https://cocoapods.org/pods/web3swift)
+[![Platform](https://img.shields.io/cocoapods/p/web3swift.svg?style=flat)](https://cocoapods.org/pods/web3swift)
+[![support](https://brianmacdonald.github.io/Ethonate/svg/eth-support-blue.svg)](https://brianmacdonald.github.io/Ethonate/address#0x47FC2e245b983A92EB3359F06E31F34B107B6EF6)
 
 - Swift implementation of [web3.js](https://github.com/ethereum/web3.js/) functionality :zap:
 - Interaction with remote node via JSON RPC :thought_balloon:
@@ -78,7 +78,7 @@ Web3swift requires Swift 4.1 and iOS 9.0 or macOS 10.13 although we recommend to
 ## Communication
 
 - if you **need help**, use [Stack Overflow](https://stackoverflow.com/questions/tagged/web3swift) (tag 'web3swift')
-- If you'd like to **ask a general question**, use [Stack Overflow](http://stackoverflow.com/questions/tagged/web3swift).
+- If you'd like to **ask a general question**, use [Stack Overflow](https://stackoverflow.com/questions/tagged/web3swift).
 - If you **found a bug**, [open an issue](https://github.com/BANKEX/web3swift/issues).
 - If you **have a feature request**, [open an issue](https://github.com/BANKEX/web3swift/issues).
 - If you **want to contribute**, [submit a pull request](https://github.com/BANKEX/web3swift/pulls).
@@ -87,7 +87,7 @@ Web3swift requires Swift 4.1 and iOS 9.0 or macOS 10.13 although we recommend to
 
 ### CocoaPods
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
 
 ```bash
 $ sudo gem install cocoapods
@@ -257,7 +257,7 @@ Changes made to this branch will be merged into the [master](https://github.com/
 
 ## Appreciation
 
-When using this pod, references to this repo, [BANKEX](http://bankex.com) and [BANKEX Foundation](http://bankexfoundation.org) are appreciated.
+When using this pod, references to this repo, [BANKEX](https://bankex.com) and [BANKEX Foundation](https://new.bankexfoundation.org/) are appreciated.
 
 ## Contributors
 
