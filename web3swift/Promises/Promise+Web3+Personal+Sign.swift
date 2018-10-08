@@ -16,7 +16,7 @@ extension web3.Personal {
         let queue = web3.requestDispatcher.queue
         do {
             if self.web3.provider.attachedKeystoreManager == nil {
-                let hexData = message.toHexString().addHexPrefix()
+                let hexData = message.toHexString().withHex
                 let request = JSONRPCRequestFabric.prepareRequest(.personalSign, parameters: [from.address.lowercased(), hexData])
                 return self.web3.dispatch(request).map(on: queue) {response in
                     guard let value: Data = response.getValue() else {

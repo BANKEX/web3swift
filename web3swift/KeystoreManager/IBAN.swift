@@ -60,7 +60,7 @@ public struct IBAN {
             let base36 = self.iban[4...];
             guard let asBigNumber = BigUInt(base36, radix: 36) else { return nil }
             let addressString = String(asBigNumber, radix: 16).leftPadding(toLength: 40, withPad: "0")
-            return EthereumAddress(addressString.addHexPrefix())
+            return EthereumAddress(addressString.withHex)
         } else {
             return nil
         }
@@ -123,7 +123,7 @@ public struct IBAN {
     }
     
     public init?(_ address: EthereumAddress) {
-        let addressString = address.address.lowercased().stripHexPrefix()
+        let addressString = address.address.lowercased().withoutHex
         guard let bigNumber = BigUInt(addressString, radix: 16) else { return nil }
         let base36EncodedString = String(bigNumber, radix: 36)
         guard base36EncodedString.count <= 30 else { return nil }

@@ -25,6 +25,6 @@ public final class _ObjCEthereumAddress: NSObject{
     }
     
     public static var contractDeploymentAddress: _ObjCEthereumAddress {
-        return _ObjCEthereumAddress(address: EthereumAddress.contractDeploymentAddress())
+        return _ObjCEthereumAddress(address: .contractDeployment)
     }
 }

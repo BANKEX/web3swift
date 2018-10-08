@@ -107,7 +107,7 @@ class web3swift_ABI_Tests: XCTestCase {
         XCTAssert(data != nil, "failed to encode")
         let expected = "0x00000000000000000000000000000000000000000000000000000000000000450000000000000000000000000000000000000000000000000000000000000001"
         print(data!.toHexString().lowercased())
-        XCTAssert(data?.toHexString().lowercased().addHexPrefix() == expected, "failed to encode")
+        XCTAssert(data?.toHexString().lowercased().withHex == expected, "failed to encode")
     }
     
     func testABIv2encoding2()
@@ -119,7 +119,7 @@ class web3swift_ABI_Tests: XCTestCase {
         XCTAssert(data != nil, "failed to encode")
         let expected = "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000046461766500000000000000000000000000000000000000000000000000000000"
         print(data!.toHexString().lowercased())
-        XCTAssert(data?.toHexString().lowercased().addHexPrefix() == expected, "failed to encode")
+        XCTAssert(data?.toHexString().lowercased().withHex == expected, "failed to encode")
     }
     
     func testABIv2encoding3()
@@ -136,7 +136,7 @@ class web3swift_ABI_Tests: XCTestCase {
         XCTAssert(data != nil, "failed to encode")
         let expected = "0x0000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000000464617665000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000003"
         print(data!.toHexString().lowercased())
-        XCTAssert(data?.toHexString().lowercased().addHexPrefix() == expected, "failed to encode")
+        XCTAssert(data?.toHexString().lowercased().withHex == expected, "failed to encode")
     }
     
     func testABIv2encoding4()
@@ -150,7 +150,7 @@ class web3swift_ABI_Tests: XCTestCase {
                                        values: [number!] as [AnyObject])
         XCTAssert(data != nil, "failed to encode")
         let expected = "0xfffffffffffff38dd0f10627f5529bdb2c52d4846810af0ac000000000000001"
-        let result = data?.toHexString().lowercased().addHexPrefix()
+        let result = data?.toHexString().lowercased().withHex
         print(result)
         XCTAssert(result == expected, "failed to encode")
     }
@@ -166,8 +166,8 @@ class web3swift_ABI_Tests: XCTestCase {
                                        values: [string] as [AnyObject])
         XCTAssert(data != nil, "failed to encode")
         let expected = "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000c22068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c64202068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c64202068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c64000000000000000000000000000000000000000000000000000000000000"
-        print(data?.toHexString().lowercased().addHexPrefix())
-        XCTAssert(data?.toHexString().lowercased().addHexPrefix() == expected, "failed to encode")
+        print(data?.toHexString().lowercased().withHex)
+        XCTAssert(data?.toHexString().lowercased().withHex == expected, "failed to encode")
     }
     
     func testABIv2encoding6()
@@ -187,7 +187,7 @@ class web3swift_ABI_Tests: XCTestCase {
         XCTAssert(data != nil, "failed to encode")
         let expected = "0x00000000000000000000000000000000000000000000000000000000000001230000000000000000000000000000000000000000000000000000000000000080313233343536373839300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000004560000000000000000000000000000000000000000000000000000000000000789000000000000000000000000000000000000000000000000000000000000000d48656c6c6f2c20776f726c642100000000000000000000000000000000000000"
         print(data!.toHexString().lowercased())
-        XCTAssert(data?.toHexString().lowercased().addHexPrefix() == expected, "failed to encode")
+        XCTAssert(data?.toHexString().lowercased().withHex == expected, "failed to encode")
     }
     
     func testABIv2encoding7()
@@ -324,8 +324,8 @@ class web3swift_ABI_Tests: XCTestCase {
         XCTAssert(result.count == types.count)
         guard let firstElement = result[0] as? [EthereumAddress] else { return XCTFail() }
         XCTAssert(firstElement.count == 2)
-        XCTAssert(firstElement[0].address.lowercased().stripHexPrefix() == "407d73d8a49eeb85d32cf465507dd71d507100c1")
-        XCTAssert(firstElement[1].address.lowercased().stripHexPrefix() == "407d73d8a49eeb85d32cf465507dd71d507100c3")
+        XCTAssert(firstElement[0].address.lowercased().withoutHex == "407d73d8a49eeb85d32cf465507dd71d507100c1")
+        XCTAssert(firstElement[1].address.lowercased().withoutHex == "407d73d8a49eeb85d32cf465507dd71d507100c3")
     }
     
     

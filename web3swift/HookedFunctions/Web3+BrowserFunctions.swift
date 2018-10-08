@@ -40,8 +40,8 @@ extension web3.BrowserFunctions {
         do {
             guard let keystoreManager = self.web3.provider.attachedKeystoreManager else { return nil }
             
-            guard let signature = try Web3Signer.signPersonalMessage(personalMessage, keystore: keystoreManager, account: EthereumAddress(account)!, password: password) else { return nil }
-            return signature.toHexString().addHexPrefix()
+            guard let signature = try Web3Signer.signPersonalMessage(personalMessage, keystore: keystoreManager, account: EthereumAddress(account), password: password) else { return nil }
+            return signature.toHexString().withHex
         }
         catch{
             print(error)
@@ -161,7 +161,7 @@ extension web3.BrowserFunctions {
             guard let keystore = keystoreManager.walletForAddress(from) else { return nil }
             try Web3Signer.signTX(transaction: &transaction, keystore: keystore, account: from, password: password)
             print(transaction)
-            let signedData = transaction.encode(forSignature: false, chainID: nil)?.toHexString().addHexPrefix()
+            let signedData = transaction.encode(forSignature: false, chainID: nil)?.toHexString().withHex
             return signedData
         }
         catch {

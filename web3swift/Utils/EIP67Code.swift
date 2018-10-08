@@ -35,7 +35,7 @@ extension Web3 {
                     } else if let number = el.1 as? BigInt {
                         return el.0.abiRepresentation + " " + String(number, radix: 10)
                     } else if let data = el.1 as? Data {
-                        return el.0.abiRepresentation + " " + data.toHexString().addHexPrefix()
+                        return el.0.abiRepresentation + " " + data.toHexString().withHex
                     }
                     return ""
                 }).joined(separator: ", ") + ")"
@@ -45,11 +45,6 @@ extension Web3 {
         
         public init (address : EthereumAddress) {
             self.address = address
-        }
-        
-        public init? (address : String) {
-            guard let addr = EthereumAddress(address) else { return nil }
-            self.address = addr
         }
         
         public func toString() -> String {
@@ -65,7 +60,7 @@ extension Web3 {
             if let data = self.data {
                 switch data {
                 case .data(let d):
-                    queryItems.append(URLQueryItem(name: "data", value: d.toHexString().addHexPrefix()))
+                    queryItems.append(URLQueryItem(name: "data", value: d.toHexString().withHex))
                 case .function(let f):
                     if let enc = f.toString() {
                         queryItems.append(URLQueryItem(name: "function", value: enc))
@@ -109,7 +104,8 @@ extension Web3 {
             guard striped.count == 2 else { return nil }
             guard let encoding = striped[1].removingPercentEncoding else { return nil }
             guard let url = URL.init(string: encoding) else { return nil }
-            guard let address = EthereumAddress(url.lastPathComponent) else { return nil }
+            let address = EthereumAddress(url.lastPathComponent)
+            guard address.isValid else { return nil }
             var code = EIP67Code(address: address)
             guard let components = URLComponents(string: encoding)?.queryItems else { return code }
             for comp in components {

@@ -58,14 +58,14 @@ class web3swift_ERC20_Tests: XCTestCase {
             let abiNative = try abi.map({ (record) -> ABIv2.Element in
                 return try record.parse()
             })
-            let constractAddress = EthereumAddress("0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0")!
+            let constractAddress = EthereumAddress("0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0")
             let contract = ContractV2(abi: abiNative, at: constractAddress)
             let options = Web3Options.defaultOptions()
             let address = "0xd0a6e6c54dbc68db5db3a091b171a77407ff7ccf"
             let parameters = [address] as [AnyObject]
             let transaction = contract.method("balanceOf", parameters:parameters,  options: options)
             XCTAssert(transaction != nil, "Failed plasma funding transaction")
-            let requestDictionary = transaction!.encodeAsDictionary(from: EthereumAddress("0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d")!)
+            let requestDictionary = transaction!.encodeAsDictionary(from: EthereumAddress("0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d"))
             XCTAssert(requestDictionary != nil, "Can't read ERC20 balance")
         } catch {
             print(error)
@@ -143,10 +143,10 @@ class web3swift_ERC20_Tests: XCTestCase {
     
     func testERC20tokenBalance() {
         let web3 = Web3.InfuraMainnetWeb3()
-        let contract = web3.contract(Web3.Utils.erc20ABI, at: EthereumAddress("0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")!, abiVersion: 2)
+        let contract = web3.contract(Web3.Utils.erc20ABI, at: EthereumAddress("0x45245bc59219eeaaf6cd3f382e078a461ff9de7b"), abiVersion: 2)
         var options = Web3Options();
-        options.from = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")!
-        let addressOfUser = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")!
+        options.from = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+        let addressOfUser = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
         guard let tokenBalanceResult = contract?.method("balanceOf", parameters: [addressOfUser] as [AnyObject], options: options)?.call(options: nil) else { return XCTFail() }
         guard case .success(let tokenBalance) = tokenBalanceResult, let bal = tokenBalance["0"] as? BigUInt else { return XCTFail() }
         print(String(bal))

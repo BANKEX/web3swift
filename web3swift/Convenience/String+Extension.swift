@@ -68,35 +68,30 @@ extension String {
         return Data(byteArray)
     }
     
-    func hasHexPrefix() -> Bool {
-        return self.hasPrefix("0x")
+    var isHex: Bool {
+        return hasPrefix("0x")
     }
-    
-    func stripHexPrefix() -> String {
-        if self.hasPrefix("0x") {
-            let indexStart = self.index(self.startIndex, offsetBy: 2)
-            return String(self[indexStart...])
-        }
-        return self
+    var withHex: String {
+        guard !isHex else { return self }
+        return "0x" + self
     }
-    
-    func addHexPrefix() -> String {
-        if !self.hasPrefix("0x") {
-            return "0x" + self
-        }
-        return self
+    var withoutHex: String {
+        guard isHex else { return self }
+        return String(self[2...])
     }
-    
-    func stripLeadingZeroes() -> String? {
-        let hex = self.addHexPrefix()
-        guard let matcher = try? NSRegularExpression(pattern: "^(?<prefix>0x)0*(?<end>[0-9a-fA-F]*)$", options: NSRegularExpression.Options.dotMatchesLineSeparators) else { return nil }
-        let match = matcher.captureGroups(string: hex, options: NSRegularExpression.MatchingOptions.anchored)
-        guard let prefix = match["prefix"] else { return nil }
-        guard let end = match["end"] else { return nil }
-        if (end != "") {
-            return prefix + end
+    func stripLeadingZeroes() -> String {
+        let hex = self.withHex
+        var count = 0
+        for character in hex[2...] {
+            guard character == "0" else { break }
+            count += 1
         }
-        return "0x0"
+        guard count > 0 else { return hex }
+        if count + 2 == hex.count {
+            return "0x0"
+        } else {
+            return "0x" + hex[Int(2+count)...]
+        }
     }
     
     func matchingStrings(regex: String) -> [[String]] {

@@ -56,18 +56,7 @@ extension BigInt {
             return twoComplement.serialize()
         }
     }
-}
-
-extension BigUInt {
-    func abiEncode(bits: UInt64) -> Data? {
-        let data = self.serialize()
-        let paddedLength = UInt64(ceil((Double(bits)/8.0)))
-        let padded = data.setLengthLeft(paddedLength)
-        return padded
-    }
-}
-
-extension BigInt {
+    
     func abiEncode(bits: UInt64) -> Data? {
         let isNegative = self < (BigInt(0))
         let data = self.toTwosComplement()
@@ -75,9 +64,7 @@ extension BigInt {
         let padded = data.setLengthLeft(paddedLength, isNegative: isNegative)
         return padded
     }
-}
-
-extension BigInt {
+    
     static func fromTwosComplement(data: Data) -> BigInt {
         let isPositive = ((data[0] & 128) >> 7) == 0
         if (isPositive) {
@@ -89,5 +76,14 @@ extension BigInt {
             let bigint = BigInt(0) - BigInt(magnitude)
             return bigint
         }
+    }
+}
+
+extension BigUInt {
+    func abiEncode(bits: UInt64) -> Data? {
+        let data = self.serialize()
+        let paddedLength = UInt64(ceil((Double(bits)/8.0)))
+        let padded = data.setLengthLeft(paddedLength)
+        return padded
     }
 }

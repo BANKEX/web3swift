@@ -53,17 +53,18 @@ public struct Web3Options {
     
     public static func fromJSON(_ json: [String: Any]) -> Web3Options? {
         var options = Web3Options()
-        if let gas = json["gas"] as? String, let gasBiguint = BigUInt(gas.stripHexPrefix().lowercased(), radix: 16) {
+        if let gas = json["gas"] as? String, let gasBiguint = BigUInt(gas.withoutHex.lowercased(), radix: 16) {
             options.gasLimit = gasBiguint
         }
-        if let gasPrice = json["gasPrice"] as? String, let gasPriceBiguint = BigUInt(gasPrice.stripHexPrefix().lowercased(), radix: 16) {
+        if let gasPrice = json["gasPrice"] as? String, let gasPriceBiguint = BigUInt(gasPrice.withoutHex.lowercased(), radix: 16) {
             options.gasPrice = gasPriceBiguint
         }
-        if let value = json["value"] as? String, let valueBiguint = BigUInt(value.stripHexPrefix().lowercased(), radix: 16) {
+        if let value = json["value"] as? String, let valueBiguint = BigUInt(value.withoutHex.lowercased(), radix: 16) {
             options.value = valueBiguint
         }
         if let fromString = json["from"] as? String {
-            guard let addressFrom = EthereumAddress(fromString) else { return nil }
+            let addressFrom = EthereumAddress(fromString)
+          guard addressFrom.isValid else { return nil }
             options.from = addressFrom
         }
         return options

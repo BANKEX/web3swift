@@ -228,7 +228,7 @@ extension web3.web3contract.TransactionIntermediate {
             callPromise.done(on: queue) {(data:Data) throws in
                     do {
                         if (self.method == "fallback") {
-                            let resultHex = data.toHexString().addHexPrefix()
+                            let resultHex = data.toHexString().withHex
                             seal.fulfill(["result": resultHex as Any])
                             return
                         }

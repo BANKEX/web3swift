@@ -12,13 +12,13 @@ fileprivate func decodeHexToData<T>(_ container:  KeyedDecodingContainer<T>, key
     if (allowOptional) {
         let string = try? container.decode(String.self, forKey: key)
         if string != nil {
-            guard let data = Data.fromHex(string!) else {throw Web3Error.dataError}
+            guard let data = Data.fromHex(string!) else { throw Web3Error.dataError }
             return data
         }
         return nil
     } else {
         let string = try container.decode(String.self, forKey: key)
-        guard let data = Data.fromHex(string) else {throw Web3Error.dataError}
+        guard let data = Data.fromHex(string) else { throw Web3Error.dataError }
         return data
     }
 }
@@ -27,13 +27,13 @@ fileprivate func decodeHexToBigUInt<T>(_ container:  KeyedDecodingContainer<T>, 
     if (allowOptional) {
         let string = try? container.decode(String.self, forKey: key)
         if string != nil {
-            guard let number = BigUInt(string!.stripHexPrefix(), radix: 16) else {throw Web3Error.dataError}
+            guard let number = BigUInt(string!.withoutHex, radix: 16) else { throw Web3Error.dataError }
             return number
         }
         return nil
     } else {
         let string = try container.decode(String.self, forKey: key)
-        guard let number = BigUInt(string.stripHexPrefix(), radix: 16) else {throw Web3Error.dataError}
+        guard let number = BigUInt(string.withoutHex, radix: 16) else { throw Web3Error.dataError }
         return number
     }
 }
@@ -59,10 +59,11 @@ extension Web3Options:Decodable {
         let toString = try container.decode(String?.self, forKey: .to)
         var to: EthereumAddress?
         if toString == nil || toString == "0x" || toString == "0x0" {
-            to = EthereumAddress.contractDeploymentAddress()
+            to = EthereumAddress.contractDeployment
         } else {
-            guard let addressString = toString else {throw Web3Error.dataError}
-            guard let ethAddr = EthereumAddress(addressString) else {throw Web3Error.dataError}
+            guard let addressString = toString else { throw Web3Error.dataError }
+            let ethAddr = EthereumAddress(addressString)
+            guard ethAddr.isValid else { throw Web3Error.dataError }
             to = ethAddr
         }
         self.to = to
@@ -174,10 +175,10 @@ public struct TransactionDetails: Decodable {
         guard let transaction = EthereumTransaction.fromJSON(json) else { return nil }
         self.transaction = transaction
         if bn != nil {
-            blockNumber = BigUInt(bn!.stripHexPrefix(), radix: 16)
+            blockNumber = BigUInt(bn!.withoutHex, radix: 16)
         }
         if ti != nil {
-            transactionIndex = BigUInt(ti!.stripHexPrefix(), radix: 16)
+            transactionIndex = BigUInt(ti!.withoutHex, radix: 16)
         }
     }
 }
@@ -282,7 +283,7 @@ extension EthereumAddress: Decodable, Encodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let stringValue = try container.decode(String.self)
-        self.init(stringValue)!
+        self.init(stringValue)
     }
     public func encode(to encoder: Encoder) throws {
         let value = self.address.lowercased()
@@ -481,13 +482,10 @@ public struct Block:Decodable {
         guard let receiptsRoot = try decodeHexToData(container, key: .receiptsRoot) else {throw Web3Error.dataError}
         self.receiptsRoot = receiptsRoot
         
-        let minerAddress = try? container.decode(String.self, forKey: .miner)
-        var miner:EthereumAddress?
-        if minerAddress != nil {
-            guard let minr = EthereumAddress(minerAddress!) else {throw Web3Error.dataError}
-            miner = minr
+        if let minerAddress = try? container.decode(String.self, forKey: .miner) {
+            guard minerAddress.isAddress else { throw Web3Error.dataError }
+            self.miner = EthereumAddress(minerAddress)
         }
-        self.miner = miner
         
         guard let difficulty = try decodeHexToBigUInt(container, key: .difficulty) else {throw Web3Error.dataError}
         self.difficulty = difficulty
@@ -507,7 +505,7 @@ public struct Block:Decodable {
         guard let gasUsed = try decodeHexToBigUInt(container, key: .gasUsed) else {throw Web3Error.dataError}
         self.gasUsed = gasUsed
         
-        let timestampString = try container.decode(String.self, forKey: .timestamp).stripHexPrefix()
+        let timestampString = try container.decode(String.self, forKey: .timestamp).withoutHex
         guard let timestampInt = UInt64(timestampString, radix: 16) else {throw Web3Error.dataError}
         let timestamp = Date(timeIntervalSince1970: TimeInterval(timestampInt))
         self.timestamp = timestamp

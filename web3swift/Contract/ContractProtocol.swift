@@ -62,7 +62,7 @@ public struct EventFilter {
             case .pending:
                 return "pending"
             case .blockNumber(let number):
-                return String(number, radix: 16).addHexPrefix()
+                return String(number, radix: 16).withHex
             }
         }
     }

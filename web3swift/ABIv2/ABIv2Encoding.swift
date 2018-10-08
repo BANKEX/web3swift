@@ -30,7 +30,7 @@ extension ABIv2Encoder {
             if base10 != nil {
                 return base10!
             }
-            let base16 = BigUInt(v.stripHexPrefix(), radix: 16)
+            let base16 = BigUInt(v.withoutHex, radix: 16)
             if base16 != nil {
                 return base16!
             }
@@ -72,7 +72,7 @@ extension ABIv2Encoder {
             if base10 != nil {
                 return base10
             }
-            let base16 = BigInt(v.stripHexPrefix(), radix: 16)
+            let base16 = BigInt(v.withoutHex, radix: 16)
             if base16 != nil {
                 return base16
             }
@@ -108,7 +108,7 @@ extension ABIv2Encoder {
         case let d as Data:
             return d
         case let d as String:
-            if d.hasHexPrefix() {
+            if d.isHex {
                 let hex = Data.fromHex(d)
                 if hex != nil {
                     return hex
@@ -200,7 +200,8 @@ extension ABIv2Encoder {
             }
         case .address:
             if let string = value as? String {
-                guard let address = EthereumAddress(string) else { return nil }
+                let address = EthereumAddress(string)
+                guard address.isValid else { return nil }
                 let data = address.addressData
                 return data.setLengthLeft(32)
             } else if let address = value as? EthereumAddress {
@@ -225,8 +226,8 @@ extension ABIv2Encoder {
         case .string:
             if let string = value as? String {
                 var dataGuess: Data?
-                if string.hasHexPrefix() {
-                    dataGuess = Data.fromHex(string.lowercased().stripHexPrefix())
+                if string.isHex {
+                    dataGuess = Data.fromHex(string.lowercased().withoutHex)
                 }
                 else {
                     dataGuess = string.data(using: .utf8)

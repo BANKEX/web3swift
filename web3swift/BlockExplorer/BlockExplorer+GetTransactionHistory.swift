@@ -90,22 +90,12 @@ public struct TransactionHistoryRecord: Decodable {
         hash = hashData
         let intBlock = try container.decode(UInt64.self, forKey: CodingKeys.block)
         block = BigUInt.init(integerLiteral: intBlock)
-        var stringAddressFrom = try container.decode(String.self, forKey: CodingKeys.addressFrom)
-        if !stringAddressFrom.hasHexPrefix() {
-            stringAddressFrom = stringAddressFrom.addHexPrefix()
-        }
-        guard let nativeAddressFrom = EthereumAddress(stringAddressFrom) else {
-            throw Web3Error.transactionSerializationError
-        }
-        addressFrom = nativeAddressFrom
-        var stringAddressTo = try container.decode(String.self, forKey: CodingKeys.addressTo)
-        if !stringAddressTo.hasHexPrefix() {
-            stringAddressTo = stringAddressTo.addHexPrefix()
-        }
-        guard let nativeAddressTo = EthereumAddress(stringAddressTo) else {
-            throw Web3Error.transactionSerializationError
-        }
-        addressTo = nativeAddressTo
+        let stringAddressFrom = try container.decode(String.self, forKey: CodingKeys.addressFrom).withHex
+        addressFrom = EthereumAddress(stringAddressFrom)
+        guard addressFrom.isValid else { throw Web3Error.transactionSerializationError }
+        let stringAddressTo = try container.decode(String.self, forKey: CodingKeys.addressTo).withHex
+        addressTo = EthereumAddress(stringAddressTo)
+        guard addressTo.isValid else { throw Web3Error.transactionSerializationError }
         isoTime = try container.decode(String.self, forKey: CodingKeys.isoTime)
         let stringType = try container.decode(String.self, forKey: CodingKeys.type)
         var nativeType: TransactionType
@@ -189,9 +179,8 @@ public struct Token: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let stringAddress = try container.decode(String.self, forKey: CodingKeys.address)
         if !stringAddress.isEmpty {
-            guard let nativeAddress = EthereumAddress(stringAddress, type: .normal, ignoreChecksum: true) else {
-                throw Web3Error.transactionSerializationError
-            }
+            let nativeAddress = EthereumAddress(stringAddress)
+            guard nativeAddress.isValid else { throw Web3Error.transactionSerializationError }
             address = nativeAddress
         } else {
             address = nil

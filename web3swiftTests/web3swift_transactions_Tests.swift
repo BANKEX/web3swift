@@ -18,22 +18,22 @@ class web3swift_transactions_Tests: XCTestCase {
     
     func testTransaction() {
         do {
-            var transaction = EthereumTransaction(nonce: BigUInt(9),
-                                                  gasPrice: BigUInt("20000000000")!,
-                                                  gasLimit: BigUInt(21000),
-                                                  to: EthereumAddress("0x3535353535353535353535353535353535353535")!,
-                                                  value: BigUInt("1000000000000000000")!,
+            var transaction = EthereumTransaction(nonce: 9,
+                                                  gasPrice: 20000000000,
+                                                  gasLimit: 21000,
+                                                  to: "0x3535353535353535353535353535353535353535",
+                                                  value: "1000000000000000000",
                                                   data: Data(),
-                                                  v: BigUInt(0),
-                                                  r: BigUInt(0),
-                                                  s: BigUInt(0))
+                                                  v: 0,
+                                                  r: 0,
+                                                  s: 0)
             let privateKeyData = Data.fromHex("0x4646464646464646464646464646464646464646464646464646464646464646")!
             let publicKey = Web3.Utils.privateToPublic(privateKeyData, compressed: false)
             let sender = Web3.Utils.publicToAddress(publicKey!)
             transaction.chainID = 1
             print(transaction)
             let hash = transaction.hashForSignature(chainID: 1)
-            let expectedHash = "0xdaf5a779ae972f972197303d7b574746c7ef83eadac0f2791ad23db92e4c8e53".stripHexPrefix()
+            let expectedHash = "0xdaf5a779ae972f972197303d7b574746c7ef83eadac0f2791ad23db92e4c8e53".withoutHex
             XCTAssert(hash!.toHexString() == expectedHash, "Transaction signature failed")
             try Web3Signer.EIP155Signer.sign(transaction: &transaction, privateKey: privateKeyData, useExtraEntropy: false)
             print(transaction)
@@ -48,7 +48,7 @@ class web3swift_transactions_Tests: XCTestCase {
     
     func testEthSendExample() {
         let web3 = Web3.InfuraMainnetWeb3()
-        let sendToAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")!
+        let sendToAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
         let tempKeystore = try! EthereumKeystoreV3(password: "")
         let keystoreManager = KeystoreManager([tempKeystore!])
         web3.addKeystoreManager(keystoreManager)
@@ -109,7 +109,7 @@ class web3swift_transactions_Tests: XCTestCase {
         let keystoreManager = KeystoreManager.init([keystoreV3])
         web3Rinkeby.addKeystoreManager(keystoreManager)
         guard case .success(let gasPriceRinkeby) = web3Rinkeby.eth.getGasPrice() else { return }
-        let sendToAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")!
+        let sendToAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
         guard let intermediate = web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001") else { return XCTFail() }
         var options = Web3Options.defaultOptions()
         options.from = keystoreV3.addresses?.first
@@ -127,8 +127,8 @@ class web3swift_transactions_Tests: XCTestCase {
     func testTokenBalanceTransferOnMainNet() {
         // BKX TOKEN
         let web3 = Web3.InfuraMainnetWeb3()
-        let coldWalletAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")!
-        let contractAddress = EthereumAddress("0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")!
+        let coldWalletAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+        let contractAddress = EthereumAddress("0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")
         var options = Web3Options()
         options.from = coldWalletAddress
         let tempKeystore = try! EthereumKeystoreV3(password: "")
@@ -148,8 +148,8 @@ class web3swift_transactions_Tests: XCTestCase {
     func testTokenBalanceTransferOnMainNetUsingConvenience() {
         // BKX TOKEN
         let web3 = Web3.InfuraMainnetWeb3()
-        let coldWalletAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")!
-        let contractAddress = EthereumAddress("0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")!
+        let coldWalletAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+        let contractAddress = EthereumAddress("0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")
         let tempKeystore = try! EthereumKeystoreV3(password: "")
         let keystoreManager = KeystoreManager([tempKeystore!])
         web3.addKeystoreManager(keystoreManager)

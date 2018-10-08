@@ -12,7 +12,7 @@ import PromiseKit
 
 extension web3.Eth {
     public func getTransactionReceiptPromise(_ txhash: Data) -> Promise<TransactionReceipt> {
-        let hashString = txhash.toHexString().addHexPrefix()
+        let hashString = txhash.toHexString().withHex
         return self.getTransactionReceiptPromise(hashString)
     }
     

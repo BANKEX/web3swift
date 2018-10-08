@@ -29,8 +29,8 @@ extension Web3.Utils {
         guard let normalizedAddress = from.addressData.setLengthLeft(32) else { return nil }
         guard let data = RLP.encode([normalizedAddress, nonce] as [Any]) else { return nil }
         guard let contractAddressData = Web3.Utils.sha3(data)?[12..<32] else { return nil }
-        guard let contractAddress = EthereumAddress(Data(contractAddressData)) else { return nil }
-        return contractAddress
+        // contractAddressData == 20 so we don't need to check for EthereumAddress.isValid
+        return EthereumAddress(Data(contractAddressData))
     }
     
     /// Various units used in Ethereum ecosystem
@@ -110,7 +110,7 @@ extension Web3.Utils {
     /// Returns the EthereumAddress object.
     public static func publicToAddress(_ publicKey: Data) -> EthereumAddress? {
         guard let addressData = Web3.Utils.publicToAddressData(publicKey) else { return nil }
-        let address = addressData.toHexString().addHexPrefix().lowercased()
+        let address = addressData.toHexString().withHex.lowercased()
         return EthereumAddress(address)
     }
     
@@ -120,14 +120,14 @@ extension Web3.Utils {
     /// Returns a 0x prefixed hex string.
     public static func publicToAddressString(_ publicKey: Data) -> String? {
         guard let addressData = Web3.Utils.publicToAddressData(publicKey) else { return nil }
-        let address = addressData.toHexString().addHexPrefix().lowercased()
+        let address = addressData.toHexString().withHex.lowercased()
         return address
     }
     
     /// Converts address data (20 bytes) to the 0x prefixed hex string. Does not perform checksumming.
     public static func addressDataToString(_ addressData: Data) -> String? {
         guard addressData.count == 20 else { return nil }
-        return addressData.toHexString().addHexPrefix().lowercased()
+        return addressData.toHexString().withHex.lowercased()
     }
     
     /// Hashes a personal message by first padding it with the "\u{19}Ethereum Signed Message:\n" string and message length string.

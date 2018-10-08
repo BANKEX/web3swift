@@ -12,7 +12,7 @@ import PromiseKit
 
 extension web3.Eth {
     public func getBlockByHashPromise(_ hash: Data, fullTransactions: Bool = false) -> Promise<Block> {
-        let hashString = hash.toHexString().addHexPrefix()
+        let hashString = hash.toHexString().withHex
         return getBlockByHashPromise(hashString, fullTransactions: fullTransactions)
     }
     

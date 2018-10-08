@@ -53,7 +53,7 @@ class web3swift_Tests: XCTestCase {
     }
     
     func testBigUIntFromHex() {
-        let hexRepresentation = "0x1c31de57e49fc00".stripHexPrefix()
+        let hexRepresentation = "0x1c31de57e49fc00".withoutHex
         let biguint = BigUInt(hexRepresentation, radix: 16)!
         XCTAssert(biguint == BigUInt("126978086000000000"))
     }
@@ -115,7 +115,7 @@ class web3swift_Tests: XCTestCase {
         let createdAddress = native?.toEthereumAddress()?.address
         XCTAssert(createdAddress == expectedAddress)
         
-        let address = EthereumAddress("0x03c5496aee77c1ba1f0854206a26dda82a81d6d8")!
+        let address = EthereumAddress("0x03c5496aee77c1ba1f0854206a26dda82a81d6d8")
         let fromAddress = Web3.Utils.Iban(address)
         let ibn = fromAddress?.iban
         XCTAssert(ibn == "XE83FUTTUNPK7WZJSGGCWVEBARQWQ8YML4")
@@ -132,7 +132,7 @@ class web3swift_Tests: XCTestCase {
         do {
             let jsonString = "[{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"users\",\"outputs\":[{\"name\":\"name\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"userDeviceCount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalUsers\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
             let web3 = Web3.InfuraRinkebyWeb3()
-            guard let addr = EthereumAddress("0xdef61132a0c1259464b19e4590e33666aae38574") else { return XCTFail() }
+            let addr = EthereumAddress("0xdef61132a0c1259464b19e4590e33666aae38574")
             let contract = web3.contract(jsonString, at: addr, abiVersion: 2)
             XCTAssert(contract != nil)
             let allMethods = contract!.contract.allMethods

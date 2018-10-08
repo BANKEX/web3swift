@@ -163,11 +163,11 @@ public struct JSONRPCresponse: Decodable{
         let slf = T.self
         if slf == BigUInt.self {
             guard let string = self.result as? String else { return nil }
-            guard let value = BigUInt(string.stripHexPrefix(), radix: 16) else { return nil }
+            guard let value = BigUInt(string.withoutHex, radix: 16) else { return nil }
             return value as? T
         } else if slf == BigInt.self {
             guard let string = self.result as? String else { return nil }
-            guard let value = BigInt(string.stripHexPrefix(), radix: 16) else { return nil }
+            guard let value = BigInt(string.withoutHex, radix: 16) else { return nil }
             return value as? T
         } else if slf == Data.self {
             guard let string = self.result as? String else { return nil }
@@ -175,7 +175,8 @@ public struct JSONRPCresponse: Decodable{
             return value as? T
         } else if slf == EthereumAddress.self {
             guard let string = self.result as? String else { return nil }
-            guard let value = EthereumAddress(string, ignoreChecksum: true) else { return nil }
+            let value = EthereumAddress(string)
+            guard value.isValid else { return nil }
             return value as? T
         }
 //        else if slf == String.self {
@@ -188,13 +189,13 @@ public struct JSONRPCresponse: Decodable{
         else if slf == [BigUInt].self {
             guard let string = self.result as? [String] else { return nil }
             let values = string.compactMap { (str) -> BigUInt? in
-                return BigUInt(str.stripHexPrefix(), radix: 16)
+                return BigUInt(str.withoutHex, radix: 16)
             }
             return values as? T
         } else if slf == [BigInt].self {
             guard let string = self.result as? [String] else { return nil }
             let values = string.compactMap { (str) -> BigInt? in
-                return BigInt(str.stripHexPrefix(), radix: 16)
+                return BigInt(str.withoutHex, radix: 16)
             }
             return values as? T
         } else if slf == [Data].self {
@@ -206,7 +207,9 @@ public struct JSONRPCresponse: Decodable{
         } else if slf == [EthereumAddress].self {
             guard let string = self.result as? [String] else { return nil }
             let values = string.compactMap { (str) -> EthereumAddress? in
-                return EthereumAddress(str, ignoreChecksum: true)
+                let address = EthereumAddress(str)
+                guard address.isValid else { return nil }
+                return address
             }
             return values as? T
         }

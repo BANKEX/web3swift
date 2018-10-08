@@ -108,7 +108,7 @@ public struct ContractV2:ContractProtocol {
     }
     
     public func deploy(bytecode:Data, parameters: [AnyObject] = [AnyObject](), extraData: Data = Data(), options: Web3Options?) -> EthereumTransaction? {
-        let to:EthereumAddress = EthereumAddress.contractDeploymentAddress()
+        let to: EthereumAddress = .contractDeployment
         let mergedOptions = Web3Options.merge(self.options, with: options)
         var gasLimit:BigUInt
         if let gasInOptions = mergedOptions?.gasLimit {

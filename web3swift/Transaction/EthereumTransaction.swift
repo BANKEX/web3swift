@@ -116,14 +116,14 @@ public struct EthereumTransaction: CustomStringConvertible {
             toReturn = toReturn + "Gas limit: " + String(describing: self.gasLimit) + "\n"
             toReturn = toReturn + "To: " + self.to.address  + "\n"
             toReturn = toReturn + "Value: " + String(self.value) + "\n"
-            toReturn = toReturn + "Data: " + self.data.toHexString().addHexPrefix().lowercased() + "\n"
+            toReturn = toReturn + "Data: " + self.data.toHexString().withHex.lowercased() + "\n"
             toReturn = toReturn + "v: " + String(self.v) + "\n"
             toReturn = toReturn + "r: " + String(self.r) + "\n"
             toReturn = toReturn + "s: " + String(self.s) + "\n"
             toReturn = toReturn + "Intrinsic chainID: " + String(describing:self.chainID) + "\n"
             toReturn = toReturn + "Infered chainID: " + String(describing:self.inferedChainID) + "\n"
             toReturn = toReturn + "sender: " + String(describing: self.sender?.address)  + "\n"
-            toReturn = toReturn + "hash: " + String(describing: self.hash?.toHexString().addHexPrefix()) + "\n"
+            toReturn = toReturn + "hash: " + String(describing: self.hash?.toHexString().withHex) + "\n"
             return toReturn
         }
         
@@ -167,7 +167,7 @@ public struct EthereumTransaction: CustomStringConvertible {
         get {
             guard self.sender != nil else { return nil }
             guard let hash = self.hash else { return nil }
-            let txid = hash.toHexString().addHexPrefix().lowercased()
+            let txid = hash.toHexString().withHex.lowercased()
             return txid
         }
     }
@@ -208,13 +208,13 @@ public struct EthereumTransaction: CustomStringConvertible {
         var params = TransactionParameters(from: from?.address.lowercased(),
                                            to: toString)
         let gasEncoding = self.gasLimit.abiEncode(bits: 256)
-        params.gas = gasEncoding?.toHexString().addHexPrefix().stripLeadingZeroes()
+        params.gas = gasEncoding?.toHexString().withHex.stripLeadingZeroes()
         let gasPriceEncoding = self.gasPrice.abiEncode(bits: 256)
-        params.gasPrice = gasPriceEncoding?.toHexString().addHexPrefix().stripLeadingZeroes()
+        params.gasPrice = gasPriceEncoding?.toHexString().withHex.stripLeadingZeroes()
         let valueEncoding = self.value.abiEncode(bits: 256)
-        params.value = valueEncoding?.toHexString().addHexPrefix().stripLeadingZeroes()
+        params.value = valueEncoding?.toHexString().withHex.stripLeadingZeroes()
         if (self.data != Data()) {
-            params.data = self.data.toHexString().addHexPrefix()
+            params.data = self.data.toHexString().withHex
         } else {
             params.data = "0x"
         }
@@ -232,10 +232,10 @@ public struct EthereumTransaction: CustomStringConvertible {
         guard let toString = json["to"] as? String else { return nil }
         var to: EthereumAddress
         if toString == "0x" || toString == "0x0" {
-            to = EthereumAddress.contractDeploymentAddress()
+            to = .contractDeployment
         } else {
-            guard let ethAddr = EthereumAddress(toString) else { return nil }
-            to = ethAddr
+            to = EthereumAddress(toString)
+            guard to.isValid else { return nil }
         }
 //        if (!to.isValid) {
 //            return nil
@@ -247,23 +247,23 @@ public struct EthereumTransaction: CustomStringConvertible {
         guard dataString != nil, let data = Data.fromHex(dataString!) else { return nil }
         var transaction = EthereumTransaction(to: to, data: data, options: options)
         if let nonceString = json["nonce"] as? String {
-            guard let nonce = BigUInt(nonceString.stripHexPrefix(), radix: 16) else { return nil }
+            guard let nonce = BigUInt(nonceString.withoutHex, radix: 16) else { return nil }
             transaction.nonce = nonce
         }
         if let vString = json["v"] as? String {
-            guard let v = BigUInt(vString.stripHexPrefix(), radix: 16) else { return nil }
+            guard let v = BigUInt(vString.withoutHex, radix: 16) else { return nil }
             transaction.v = v
         }
         if let rString = json["r"] as? String {
-            guard let r = BigUInt(rString.stripHexPrefix(), radix: 16) else { return nil }
+            guard let r = BigUInt(rString.withoutHex, radix: 16) else { return nil }
             transaction.r = r
         }
         if let sString = json["s"] as? String {
-            guard let s = BigUInt(sString.stripHexPrefix(), radix: 16) else { return nil }
+            guard let s = BigUInt(sString.withoutHex, radix: 16) else { return nil }
             transaction.s = s
         }
         if let valueString = json["value"] as? String {
-            guard let value = BigUInt(valueString.stripHexPrefix(), radix: 16) else { return nil }
+            guard let value = BigUInt(valueString.withoutHex, radix: 16) else { return nil }
             transaction.value = value
         }
         if let inferedChainID = transaction.inferedChainID, transaction.v >= 37 {
@@ -286,13 +286,12 @@ public struct EthereumTransaction: CustomStringConvertible {
             var to:EthereumAddress
             switch rlpItem[3]!.content {
             case .noItem:
-                to = EthereumAddress.contractDeploymentAddress()
+                to = .contractDeployment
             case .data(let addressData):
                 if addressData.count == 0 {
-                    to = EthereumAddress.contractDeploymentAddress()
+                    to = .contractDeployment
                 } else if addressData.count == 20 {
-                    guard let addr = EthereumAddress(addressData) else { return nil }
-                    to = addr
+                    to = EthereumAddress(addressData)
                 } else {
                     return nil
                 }
@@ -337,7 +336,7 @@ public struct EthereumTransaction: CustomStringConvertible {
     static func createRawTransaction(transaction: EthereumTransaction) -> JSONRPCrequest? {
         guard transaction.sender != nil else { return nil }
         guard let encodedData = transaction.encode() else { return nil }
-        let hex = encodedData.toHexString().addHexPrefix().lowercased()
+        let hex = encodedData.toHexString().withHex.lowercased()
         var request = JSONRPCrequest()
         request.method = JSONRPCmethod.sendRawTransaction
         let params = [hex] as Array<Encodable>
