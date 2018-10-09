@@ -15,8 +15,8 @@ class web3swift_User_cases: XCTestCase {
     
     func getKeystoreData() -> Data? {
         let bundle = Bundle(for: type(of: self))
-        guard let path = bundle.path(forResource: "key", ofType: "json") else {return nil}
-        guard let data = NSData(contentsOfFile: path) else {return nil}
+        guard let path = bundle.path(forResource: "key", ofType: "json") else { return nil }
+        guard let data = NSData(contentsOfFile: path) else { return nil }
         return data as Data
     }
     
@@ -27,8 +27,8 @@ class web3swift_User_cases: XCTestCase {
         let contract = web3.contract(jsonString, at: contractAddress)
         XCTAssert(contract != nil, "Failed to create ERC20 contract from ABI")
         var options = Web3Options.defaultOptions()
-        options.from = EthereumAddress("0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d")
-        let account = EthereumAddress("0xb870065718919ac4f9572ffc4bde0b2516f4e723")!
+        options.from = "0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d"
+        let account: EthereumAddress = "0xb870065718919ac4f9572ffc4bde0b2516f4e723"
         let transactionIntermediate = contract?.method("balanceOf", parameters:[account] as [AnyObject], options: options)
         let result = transactionIntermediate!.call(options: options)
         switch result {
@@ -37,7 +37,7 @@ class web3swift_User_cases: XCTestCase {
             XCTFail()
         case .success(let response):
             let balance = response["0"] as? BigUInt
-            print(balance)
+            print(balance!)
         }
     }
     
@@ -48,38 +48,38 @@ class web3swift_User_cases: XCTestCase {
     }
     
     func testProperGasLimit() {
-        guard let keystoreData = getKeystoreData() else {return XCTFail()}
-        guard let keystoreV3 = EthereumKeystoreV3.init(keystoreData) else {return XCTFail()}
+        guard let keystoreData = getKeystoreData() else { return XCTFail() }
+        guard let keystoreV3 = EthereumKeystoreV3.init(keystoreData) else { return XCTFail() }
         let web3Rinkeby = Web3.InfuraRinkebyWeb3()
         let keystoreManager = KeystoreManager.init([keystoreV3])
         web3Rinkeby.addKeystoreManager(keystoreManager)
-        guard case .success(let gasPriceRinkeby) = web3Rinkeby.eth.getGasPrice() else {return XCTFail()}
-        let sendToAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")!
-        guard let intermediate = web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001") else {return XCTFail()}
+        guard case .success(let gasPriceRinkeby) = web3Rinkeby.eth.getGasPrice() else { return XCTFail() }
+        let sendToAddress: EthereumAddress = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
+        guard let intermediate = web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001") else { return XCTFail() }
         var options = Web3Options.defaultOptions()
         options.from = keystoreV3.addresses?.first
         options.gasPrice = gasPriceRinkeby
-        guard case .success(let gasEstimate) = intermediate.estimateGas(options: options) else {return XCTFail()}
+        guard case .success(let gasEstimate) = intermediate.estimateGas(options: options) else { return XCTFail() }
         options.gasLimit = gasEstimate + 1234
-        guard case .success(let assembled) = intermediate.assemble(options: options)  else {return XCTFail()}
+        guard case .success(let assembled) = intermediate.assemble(options: options)  else { return XCTFail() }
         XCTAssert(assembled.gasLimit == options.gasLimit)
     }
     
     func testProperGasPrice() {
-        guard let keystoreData = getKeystoreData() else {return XCTFail()}
-        guard let keystoreV3 = EthereumKeystoreV3.init(keystoreData) else {return XCTFail()}
+        guard let keystoreData = getKeystoreData() else { return XCTFail() }
+        guard let keystoreV3 = EthereumKeystoreV3.init(keystoreData) else { return XCTFail() }
         let web3Rinkeby = Web3.InfuraRinkebyWeb3()
         let keystoreManager = KeystoreManager.init([keystoreV3])
         web3Rinkeby.addKeystoreManager(keystoreManager)
-        guard case .success(let gasPriceRinkeby) = web3Rinkeby.eth.getGasPrice() else {return XCTFail()}
-        let sendToAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")!
-        guard let intermediate = web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001") else {return XCTFail()}
+        guard case .success(let gasPriceRinkeby) = web3Rinkeby.eth.getGasPrice() else { return XCTFail() }
+        let sendToAddress: EthereumAddress = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
+        guard let intermediate = web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001") else { return XCTFail() }
         var options = Web3Options.defaultOptions()
         options.from = keystoreV3.addresses?.first
         options.gasPrice = gasPriceRinkeby * 2
-        guard case .success(let gasEstimate) = intermediate.estimateGas(options: options) else {return XCTFail()}
+        guard case .success(let gasEstimate) = intermediate.estimateGas(options: options) else { return XCTFail() }
         options.gasLimit = gasEstimate + 1234
-        guard case .success(let assembled) = intermediate.assemble(options: options)  else {return XCTFail()}
+        guard case .success(let assembled) = intermediate.assemble(options: options)  else { return XCTFail() }
         XCTAssert(assembled.gasLimit == options.gasLimit)
         XCTAssert(assembled.gasPrice == options.gasPrice)
     }
@@ -90,7 +90,7 @@ class web3swift_User_cases: XCTestCase {
         switch details {
         case .success(let details):
             print(details)
-            XCTAssert(details.transaction.to == .contractDeploymentAddress())
+            XCTAssert(details.transaction.to == .contractDeployment)
         case .failure(let error):
             print(error)
             XCTFail()
@@ -108,9 +108,8 @@ class web3swift_User_cases: XCTestCase {
     
     func testNonBatchedRequest() {
         let web3 = Web3.InfuraMainnetWeb3()
-        let address = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")!
         web3.requestDispatcher.policy = .NoBatching
-        let balanceResult = web3.eth.getBalance(address: address)
+        let balanceResult = web3.eth.getBalance(address: "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
         switch balanceResult {
         case .success(let bal):
             print(bal)

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = "web3swift"
-s.version          = "1.1.5"
+s.version          = "1.1.7"
 s.summary          = "Web3 implementation in vanilla Swift for iOS ans macOS"
 
 s.description      = <<-DESC
@@ -13,11 +13,11 @@ s.author           = { "Alex Vlasov" => "av@bankexfoundation.org" }
 s.source           = { :git => 'https://github.com/bankex/web3swift.git', :tag => s.version.to_s }
 s.social_media_url = 'https://twitter.com/shamatar'
 
-s.swift_version = '4.1'
+s.swift_version = '4.2'
 s.module_name = 'web3swift'
 s.ios.deployment_target = "9.0"
 s.osx.deployment_target = "10.11"
-s.source_files = "web3swift/**/*.{h,swift}", 
+s.source_files = "web3swift/**/*.{h,swift}",
 s.public_header_files = "web3swift/**/*.{h}"
 s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
 

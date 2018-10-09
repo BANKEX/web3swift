@@ -13,7 +13,7 @@ class web3swift_infura_Tests: XCTestCase {
     
     func testGetBalance() {
         let web3 = Web3.InfuraMainnetWeb3()
-        let address = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")!
+        let address = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
         let response = web3.eth.getBalance(address: address)
         switch response {
         case .failure(_):
@@ -21,7 +21,7 @@ class web3swift_infura_Tests: XCTestCase {
         case .success(let result):
             let balance = result
             let balString = Web3.Utils.formatToEthereumUnits(balance, toUnits: .eth, decimals: 3)
-            print(balString)
+            print(balString ?? "nil")
         }
     }
     

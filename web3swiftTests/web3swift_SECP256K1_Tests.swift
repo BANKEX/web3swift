@@ -12,7 +12,7 @@ import XCTest
 import CryptoSwift
 import BigInt
 import Result
-import secp256k1_ios
+import secp256k1
 
 
 @testable import web3swift_iOS
@@ -25,7 +25,7 @@ class web3swift_SECP256K1_Tests: XCTestCase {
         for _ in 0 ..< 10000 {
             let randomHash = Data.randomBytes(length: 32)!
             let randomPrivateKey = Data.randomBytes(length: 32)!
-            guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else {continue}
+            guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else { continue }
             allAttempts = allAttempts + 1
             let signature = SECP256K1.signForRecovery(hash: randomHash, privateKey: randomPrivateKey, useExtraEntropy: true)
             guard let serialized = signature.serializedSignature else {
@@ -55,7 +55,7 @@ class web3swift_SECP256K1_Tests: XCTestCase {
         for _ in 0 ..< 10000 {
             let randomHash = Data.randomBytes(length: 32)!
             let randomPrivateKey = Data.randomBytes(length: 32)!
-            guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else {continue}
+            guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else { continue }
             allAttempts = allAttempts + 1
             let signature = SECP256K1.signForRecovery(hash: randomHash, privateKey: randomPrivateKey, useExtraEntropy: false)
             guard let serialized = signature.serializedSignature else {
@@ -82,10 +82,10 @@ class web3swift_SECP256K1_Tests: XCTestCase {
     
     func testPrivateToPublic() {
         let randomPrivateKey = Data.randomBytes(length: 32)!
-        guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else {return XCTFail()}
-        guard var previousPublic = SECP256K1.privateKeyToPublicKey(privateKey: randomPrivateKey) else {return XCTFail()}
+        guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else { return XCTFail() }
+        guard var previousPublic = SECP256K1.privateKeyToPublicKey(privateKey: randomPrivateKey) else { return XCTFail() }
         for _ in 0 ..< 100000 {
-            guard let pub = SECP256K1.privateKeyToPublicKey(privateKey: randomPrivateKey) else {return XCTFail()}
+            guard let pub = SECP256K1.privateKeyToPublicKey(privateKey: randomPrivateKey) else { return XCTFail() }
             guard Data(toByteArray(previousPublic.data)) == Data(toByteArray(pub.data)) else {
                 return XCTFail()
             }
@@ -97,10 +97,10 @@ class web3swift_SECP256K1_Tests: XCTestCase {
         for _ in 0 ..< 1024 {
             let randomHash = Data.randomBytes(length: 32)!
             let randomPrivateKey = Data.randomBytes(length: 32)!
-            guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else {continue}
-            guard var signature = SECP256K1.recoverableSign(hash: randomHash, privateKey: randomPrivateKey, useExtraEntropy: true) else {return XCTFail()}
-            guard let serialized = SECP256K1.serializeSignature(recoverableSignature: &signature) else {return XCTFail()}
-            guard let parsed = SECP256K1.parseSignature(signature: serialized) else {return XCTFail()}
+            guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else { continue }
+            guard var signature = SECP256K1.recoverableSign(hash: randomHash, privateKey: randomPrivateKey, useExtraEntropy: true) else { return XCTFail() }
+            guard let serialized = SECP256K1.serializeSignature(recoverableSignature: &signature) else { return XCTFail() }
+            guard let parsed = SECP256K1.parseSignature(signature: serialized) else { return XCTFail() }
             let sigData = Data(toByteArray(signature.data))
             let parsedData = Data(toByteArray(parsed.data))
             guard sigData == parsedData else {

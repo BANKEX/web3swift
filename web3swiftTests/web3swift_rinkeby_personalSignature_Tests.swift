@@ -10,7 +10,7 @@ import XCTest
 import CryptoSwift
 import BigInt
 import Result
-import secp256k1_ios
+import secp256k1
 
 @testable import web3swift_iOS
 
@@ -26,14 +26,14 @@ class web3swift_rinkeby_personalSignature_Tests: XCTestCase {
         let expectedAddress = keystoreManager.addresses![0]
         print(expectedAddress)
         let signRes = web3.personal.signPersonalMessage(message: message.data(using: .utf8)!, from: expectedAddress, password: "")
-        guard case .success(let signature) = signRes else {return XCTFail()}
+        guard case .success(let signature) = signRes else { return XCTFail() }
         let unmarshalledSignature = SECP256K1.unmarshalSignature(signatureData: signature)!
         print("V = " + String(unmarshalledSignature.v))
         print("R = " + Data(unmarshalledSignature.r).toHexString())
         print("S = " + Data(unmarshalledSignature.s).toHexString())
         print("Personal hash = " + Web3.Utils.hashPersonalMessage(message.data(using: .utf8)!)!.toHexString())
         let recoveredSigner = web3.personal.ecrecover(personalMessage: message.data(using: .utf8)!, signature: signature)
-        guard case .success(let signer) = recoveredSigner else {return XCTFail()}
+        guard case .success(let signer) = recoveredSigner else { return XCTFail() }
         XCTAssert(expectedAddress == signer, "Failed to sign personal message")
     }
     
@@ -46,7 +46,7 @@ class web3swift_rinkeby_personalSignature_Tests: XCTestCase {
         let expectedAddress = keystoreManager.addresses![0]
         print(expectedAddress)
         let signRes = web3.personal.signPersonalMessage(message: message.data(using: .utf8)!, from: expectedAddress, password: "")
-        guard case .success(let signature) = signRes else {return XCTFail()}
+        guard case .success(let signature) = signRes else { return XCTFail() }
         let unmarshalledSignature = SECP256K1.unmarshalSignature(signatureData: signature)!
         print("V = " + String(unmarshalledSignature.v))
         print("R = " + Data(unmarshalledSignature.r).toHexString())
@@ -60,7 +60,7 @@ class web3swift_rinkeby_personalSignature_Tests: XCTestCase {
         var result = intermediate!.call(options: nil)
         switch result {
         case .success(let res):
-            guard let hash = res["hash"]! as? Data else {return XCTFail()}
+            guard let hash = res["hash"]! as? Data else { return XCTFail() }
             XCTAssert(Web3.Utils.hashPersonalMessage(message.data(using: .utf8)!)! == hash)
         case .failure(let error):
             print(error)
@@ -71,7 +71,7 @@ class web3swift_rinkeby_personalSignature_Tests: XCTestCase {
         result = intermediate!.call(options: nil)
         switch result {
         case .success(let res):
-            guard let signer = res["signer"]! as? EthereumAddress else {return XCTFail()}
+            guard let signer = res["signer"]! as? EthereumAddress else { return XCTFail() }
             print(signer)
             XCTAssert(signer == expectedAddress)
         case .failure(let error):

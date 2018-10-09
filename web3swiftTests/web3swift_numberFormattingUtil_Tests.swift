@@ -10,7 +10,7 @@ import XCTest
 import CryptoSwift
 import BigInt
 import Result
-import secp256k1_ios
+import secp256k1
 
 @testable import web3swift_iOS
 

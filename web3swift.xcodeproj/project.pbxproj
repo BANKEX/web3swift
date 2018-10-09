@@ -15,6 +15,9 @@
 		00E5FE7E20EA3A3F0030E0D6 /* web3swift_ABI_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E5FE7D20EA3A3F0030E0D6 /* web3swift_ABI_Tests.swift */; };
 		00E5FE8020EA3CEA0030E0D6 /* web3swift_RLP_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E5FE7F20EA3CEA0030E0D6 /* web3swift_RLP_Tests.swift */; };
 		00E5FE8220EA3FF40030E0D6 /* web3swift_infura_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E5FE8120EA3FF40030E0D6 /* web3swift_infura_Tests.swift */; };
+		13A24E4E21629CBC004C48A0 /* Promise+Web3+Eth+EstimateGas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A1823F20D79FDB0016741F /* Promise+Web3+Eth+EstimateGas.swift */; };
+		13A24E51216365A4004C48A0 /* EthURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A24E50216365A4004C48A0 /* EthURL.swift */; };
+		13A24E52216365A4004C48A0 /* EthURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A24E50216365A4004C48A0 /* EthURL.swift */; };
 		13AE5971A972F5B55FA6FB69 /* libPods-web3swift-iOS_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8349531F1984454E50389370 /* libPods-web3swift-iOS_Tests.a */; };
 		1CD91B321FD769A6007BFB45 /* web3swift_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD91B311FD769A6007BFB45 /* web3swift_Tests.swift */; };
 		1CD91B341FD769A6007BFB45 /* web3swift_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CD91AFC1FD76910007BFB45 /* web3swift_iOS.framework */; };
@@ -168,7 +171,6 @@
 		81DDECCF1FDF004E0063684A /* Web3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DDECCE1FDF004E0063684A /* Web3.swift */; };
 		81DFB3FF210775320011DC85 /* Web3+Infura.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DFB3FE210775320011DC85 /* Web3+Infura.swift */; };
 		81DFB400210775320011DC85 /* Web3+Infura.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DFB3FE210775320011DC85 /* Web3+Infura.swift */; };
-		81DFCC4C20F7546300603123 /* key.json in Resources */ = {isa = PBXBuildFile; fileRef = 81DFCC4B20F7546300603123 /* key.json */; };
 		81EB1E4B208173D7003BD47F /* Web3+Personal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EB1E4A208173D7003BD47F /* Web3+Personal.swift */; };
 		81EB1E4C208173D7003BD47F /* Web3+Personal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EB1E4A208173D7003BD47F /* Web3+Personal.swift */; };
 		81FA43F62044097100EE14D5 /* web3swift_macOS_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA43F52044097100EE14D5 /* web3swift_macOS_Tests.swift */; };
@@ -234,6 +236,7 @@
 		08BD06D432296DA533D07D20 /* Pods_Web3Swift_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Web3Swift_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F133EC83594B17BA8C71784 /* Pods_web3swift_ios_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_web3swift_ios_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		10C02100CDF7C2D5C79A52B9 /* Pods_web3Swift_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_web3Swift_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		13A24E50216365A4004C48A0 /* EthURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthURL.swift; sourceTree = "<group>"; };
 		18E81592D2802B9F4E200823 /* Pods_web3swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_web3swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD91AFC1FD76910007BFB45 /* web3swift_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = web3swift_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD91AFF1FD76910007BFB45 /* web3swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = web3swift.h; sourceTree = "<group>"; };
@@ -311,9 +314,9 @@
 		81A1824A20D7DF1B0016741F /* Promise+Web3+Personal+UnlockAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Personal+UnlockAccount.swift"; sourceTree = "<group>"; };
 		81C0FCEF20440C3600D82FAF /* Web3+Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Web3+Wallet.swift"; sourceTree = "<group>"; };
 		81C0FCF120440EB500D82FAF /* Web3+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Web3+Protocols.swift"; sourceTree = "<group>"; };
-		81C0FCF320440F0900D82FAF /* Web3+Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Web3+Options.swift"; sourceTree = "<group>"; };
+		81C0FCF320440F0900D82FAF /* Web3+Options.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = "Web3+Options.swift"; sourceTree = "<group>"; tabWidth = 2; };
 		81C0FCF520440F9900D82FAF /* TransactionSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSigner.swift; sourceTree = "<group>"; };
-		81C0FCF8204456E600D82FAF /* Web3+BrowserFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Web3+BrowserFunctions.swift"; sourceTree = "<group>"; };
+		81C0FCF8204456E600D82FAF /* Web3+BrowserFunctions.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = "Web3+BrowserFunctions.swift"; sourceTree = "<group>"; tabWidth = 4; };
 		81C0FCFC20449D1400D82FAF /* Web3+TransactionIntermediate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Web3+TransactionIntermediate.swift"; sourceTree = "<group>"; };
 		81C146F61FF274B200AA943E /* Web3+Structures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Web3+Structures.swift"; sourceTree = "<group>"; };
 		81C5DA0A2072548900424CD6 /* ABIv2Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABIv2Parsing.swift; sourceTree = "<group>"; };
@@ -331,7 +334,6 @@
 		81D7D97720A61E3800A193EC /* EventFiltering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFiltering.swift; sourceTree = "<group>"; };
 		81DDECCE1FDF004E0063684A /* Web3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3.swift; sourceTree = "<group>"; };
 		81DFB3FE210775320011DC85 /* Web3+Infura.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Web3+Infura.swift"; sourceTree = "<group>"; };
-		81DFCC4B20F7546300603123 /* key.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = key.json; path = ../../../../Desktop/key.json; sourceTree = "<group>"; };
 		81EB1E4A208173D7003BD47F /* Web3+Personal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Web3+Personal.swift"; sourceTree = "<group>"; };
 		81FA43F32044097000EE14D5 /* web3swift-macOS_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "web3swift-macOS_Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FA43F52044097100EE14D5 /* web3swift_macOS_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = web3swift_macOS_Tests.swift; sourceTree = "<group>"; };
@@ -411,18 +413,18 @@
 		0073F22320D949D7000791F1 /* BlockExplorer */ = {
 			isa = PBXGroup;
 			children = (
-				0073F22420D949E8000791F1 /* Classes */,
+				0073F22520D949F7000791F1 /* BlockExplorer.swift */,
+				0073F22720D94A11000791F1 /* BlockExplorer+GetTransactionHistory.swift */,
 			);
 			path = BlockExplorer;
 			sourceTree = "<group>";
 		};
-		0073F22420D949E8000791F1 /* Classes */ = {
+		13A24E4F21636541004C48A0 /* EthURL */ = {
 			isa = PBXGroup;
 			children = (
-				0073F22520D949F7000791F1 /* BlockExplorer.swift */,
-				0073F22720D94A11000791F1 /* BlockExplorer+GetTransactionHistory.swift */,
+				13A24E50216365A4004C48A0 /* EthURL.swift */,
 			);
-			path = Classes;
+			path = EthURL;
 			sourceTree = "<group>";
 		};
 		1CD91AF21FD76910007BFB45 = {
@@ -451,6 +453,7 @@
 		1CD91AFE1FD76910007BFB45 /* web3swift */ = {
 			isa = PBXGroup;
 			children = (
+				13A24E4F21636541004C48A0 /* EthURL */,
 				81FECD43211ADE20006DA367 /* ObjectiveCbridge */,
 				0073F22320D949D7000791F1 /* BlockExplorer */,
 				81A1821220D5A2430016741F /* Promises */,
@@ -475,7 +478,6 @@
 			children = (
 				8102F5C2211E00820032DF60 /* scrypt_Tests.swift */,
 				81FECD5D211AEFCE006DA367 /* web3swift_ObjC_Tests.swift */,
-				81DFCC4B20F7546300603123 /* key.json */,
 				815C74C720ECBF3E00DE2AC4 /* web3swift_User_cases.swift */,
 				00E5FE8120EA3FF40030E0D6 /* web3swift_infura_Tests.swift */,
 				00E5FE7F20EA3CEA0030E0D6 /* web3swift_RLP_Tests.swift */,
@@ -527,29 +529,13 @@
 		8113D2AE1FD7E1590074282C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				8113D2AF1FD7E1590074282C /* Classes */,
+				818D810D1FDC1A2000663CE3 /* RLP.swift */,
+				81FB21F8207BA78B007F9A83 /* EIP67Code.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		8113D2AF1FD7E1590074282C /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				818D810D1FDC1A2000663CE3 /* RLP.swift */,
-				81FB21F8207BA78B007F9A83 /* EIP67Code.swift */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
 		8113D2B51FD7E1590074282C /* KeystoreManager */ = {
-			isa = PBXGroup;
-			children = (
-				8113D2B71FD7E1590074282C /* Classes */,
-			);
-			path = KeystoreManager;
-			sourceTree = "<group>";
-		};
-		8113D2B71FD7E1590074282C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				817EBB2420066E2B00E02EAA /* AbstractKeystore.swift */,
@@ -565,36 +551,20 @@
 				8103BBCB2077B84400499769 /* PlainKeystore.swift */,
 				8160E5CD20B8245A0070070B /* IBAN.swift */,
 			);
-			path = Classes;
+			path = KeystoreManager;
 			sourceTree = "<group>";
 		};
 		8113D2C11FD7E1590074282C /* Transaction */ = {
-			isa = PBXGroup;
-			children = (
-				8113D2C21FD7E1590074282C /* Classes */,
-			);
-			path = Transaction;
-			sourceTree = "<group>";
-		};
-		8113D2C21FD7E1590074282C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				8113D2C31FD7E1590074282C /* EthereumTransaction.swift */,
 				81C0FCF520440F9900D82FAF /* TransactionSigner.swift */,
 				8125F06820499AC300A0F2FE /* BloomFilter.swift */,
 			);
-			path = Classes;
+			path = Transaction;
 			sourceTree = "<group>";
 		};
 		818EABD71FDC9A3800E013FC /* Contract */ = {
-			isa = PBXGroup;
-			children = (
-				818EABD81FDC9A4800E013FC /* Classes */,
-			);
-			path = Contract;
-			sourceTree = "<group>";
-		};
-		818EABD81FDC9A4800E013FC /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				81C5DA2D2074EBF500424CD6 /* ContractABIv2.swift */,
@@ -603,18 +573,10 @@
 				81D7D97420A3240900A193EC /* EthereumFilterEncodingExtensions.swift */,
 				81D7D97720A61E3800A193EC /* EventFiltering.swift */,
 			);
-			path = Classes;
+			path = Contract;
 			sourceTree = "<group>";
 		};
 		81A1821220D5A2430016741F /* Promises */ = {
-			isa = PBXGroup;
-			children = (
-				81A1821320D5A24F0016741F /* Classes */,
-			);
-			path = Promises;
-			sourceTree = "<group>";
-		};
-		81A1821320D5A24F0016741F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				81A1821720D5A3E70016741F /* Promise+HttpProvider.swift */,
@@ -637,18 +599,10 @@
 				81A1824A20D7DF1B0016741F /* Promise+Web3+Personal+UnlockAccount.swift */,
 				81195AAF20D7FF8500ABC6B1 /* Promise+Web3+Contract+GetIndexedEvents.swift */,
 			);
-			path = Classes;
+			path = Promises;
 			sourceTree = "<group>";
 		};
 		81C0FCEA20440BB400D82FAF /* Web3 */ = {
-			isa = PBXGroup;
-			children = (
-				81C0FCEB20440BBE00D82FAF /* Classes */,
-			);
-			path = Web3;
-			sourceTree = "<group>";
-		};
-		81C0FCEB20440BBE00D82FAF /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				81DDECCE1FDF004E0063684A /* Web3.swift */,
@@ -667,12 +621,14 @@
 				818D16CE204D42910084D2A4 /* Web3+EventParser.swift */,
 				81EB1E4A208173D7003BD47F /* Web3+Personal.swift */,
 			);
-			path = Classes;
+			path = Web3;
 			sourceTree = "<group>";
 		};
 		81C0FCED20440BDF00D82FAF /* HookedFunctions */ = {
 			isa = PBXGroup;
 			children = (
+				81C0FCEF20440C3600D82FAF /* Web3+Wallet.swift */,
+				81C0FCF8204456E600D82FAF /* Web3+BrowserFunctions.swift */,
 				81C0FCEE20440BE900D82FAF /* Classes */,
 			);
 			path = HookedFunctions;
@@ -681,21 +637,11 @@
 		81C0FCEE20440BE900D82FAF /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				81C0FCEF20440C3600D82FAF /* Web3+Wallet.swift */,
-				81C0FCF8204456E600D82FAF /* Web3+BrowserFunctions.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
 		};
 		81C5DA082072542300424CD6 /* ABIv2 */ = {
-			isa = PBXGroup;
-			children = (
-				81C5DA092072542F00424CD6 /* Classes */,
-			);
-			path = ABIv2;
-			sourceTree = "<group>";
-		};
-		81C5DA092072542F00424CD6 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				81C5DA0A2072548900424CD6 /* ABIv2Parsing.swift */,
@@ -706,7 +652,7 @@
 				81C5DA242072E14E00424CD6 /* ABIv2Encoding.swift */,
 				81C5DA2A2074CA1400424CD6 /* ABIv2Decoding.swift */,
 			);
-			path = Classes;
+			path = ABIv2;
 			sourceTree = "<group>";
 		};
 		81FA43F42044097100EE14D5 /* web3swift-macOS_Tests */ = {
@@ -721,14 +667,6 @@
 		81FB21F6207BA6DC007F9A83 /* Convenience */ = {
 			isa = PBXGroup;
 			children = (
-				81FB21F7207BA6EB007F9A83 /* Classes */,
-			);
-			path = Convenience;
-			sourceTree = "<group>";
-		};
-		81FB21F7207BA6EB007F9A83 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
 				81C5DA272072E18200424CD6 /* NativeTypesEncoding+Extensions.swift */,
 				8113D2B01FD7E1590074282C /* CryptoExtensions.swift */,
 				8113D2B21FD7E1590074282C /* LibSecp256k1Extension.swift */,
@@ -740,34 +678,18 @@
 				8123E1CA200CBB2200B6D3AB /* Array+Extension.swift */,
 				8113D2FF1FD7F30F0074282C /* String+Extension.swift */,
 			);
-			path = Classes;
+			path = Convenience;
 			sourceTree = "<group>";
 		};
 		81FB2204207BCFD9007F9A83 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				81FB2205207BCFE4007F9A83 /* Classes */,
+				81FB2206207BCFF9007F9A83 /* bankex-foundation-logo-coin.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		81FB2205207BCFE4007F9A83 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				81FB2206207BCFF9007F9A83 /* bankex-foundation-logo-coin.png */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
 		81FECD43211ADE20006DA367 /* ObjectiveCbridge */ = {
-			isa = PBXGroup;
-			children = (
-				81FECD47211ADE5C006DA367 /* Classes */,
-			);
-			path = ObjectiveCbridge;
-			sourceTree = "<group>";
-		};
-		81FECD47211ADE5C006DA367 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				81FECD44211ADE51006DA367 /* Web3+ObjC.swift */,
@@ -779,7 +701,7 @@
 				81FECD57211AEB56006DA367 /* BigUInt+ObjC.swift */,
 				81FECD5A211AECBD006DA367 /* Web3+Eth+ObjC.swift */,
 			);
-			path = Classes;
+			path = ObjectiveCbridge;
 			sourceTree = "<group>";
 		};
 		868F9682FE77A7BADF675F92 /* Pods */ = {
@@ -957,7 +879,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81DFCC4C20F7546300603123 /* key.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1101,6 +1022,7 @@
 				81C5DA282072E18200424CD6 /* NativeTypesEncoding+Extensions.swift in Sources */,
 				8123E1C7200CBAC200B6D3AB /* Dictionary+Extension.swift in Sources */,
 				81D7D97820A61E3800A193EC /* EventFiltering.swift in Sources */,
+				13A24E51216365A4004C48A0 /* EthURL.swift in Sources */,
 				8160E5CE20B8245A0070070B /* IBAN.swift in Sources */,
 				810B0F9C1FEC520500CF0DA2 /* Web3+Methods.swift in Sources */,
 				81A1822520D678590016741F /* Promise+Web3+Eth+GetGasPrice.swift in Sources */,
@@ -1214,6 +1136,7 @@
 				41948132203630530065A83B /* BIP32HDNode.swift in Sources */,
 				81A1824920D7DDA20016741F /* Promise+Web3+Personal+Sign.swift in Sources */,
 				81A1822620D678590016741F /* Promise+Web3+Eth+GetGasPrice.swift in Sources */,
+				13A24E52216365A4004C48A0 /* EthURL.swift in Sources */,
 				41948133203630530065A83B /* BIP39.swift in Sources */,
 				81C5DA2F2074EBF500424CD6 /* ContractABIv2.swift in Sources */,
 				81A1824320D7AA750016741F /* Promise+Web3+Eth+SendTransaction.swift in Sources */,
@@ -1225,6 +1148,7 @@
 				8116666420455E33008D8AD0 /* Web3+Wallet.swift in Sources */,
 				81FECD4A211ADEB1006DA367 /* Web3+Instance+ObjC.swift in Sources */,
 				81C5DA1C2072633300424CD6 /* ABIv2ParameterTypes.swift in Sources */,
+				13A24E4E21629CBC004C48A0 /* Promise+Web3+Eth+EstimateGas.swift in Sources */,
 				81FECD53211AE110006DA367 /* PlainKeystore+ObjC.swift in Sources */,
 				41948137203630530065A83B /* EthereumTransaction.swift in Sources */,
 				41948138203630530065A83B /* CryptoExtensions.swift in Sources */,
@@ -1443,7 +1367,7 @@
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_INCLUDE_PATHS = "$(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				USE_HEADERMAP = NO;
@@ -1481,7 +1405,7 @@
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_INCLUDE_PATHS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				USE_HEADERMAP = NO;
@@ -1555,7 +1479,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1581,7 +1505,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

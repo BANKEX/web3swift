@@ -1,17 +1,14 @@
 ![bkx-foundation-github-swift](https://user-images.githubusercontent.com/3356474/34412791-5b58962c-ebf0-11e7-8460-5592b12e6e9d.png)
 
 <img align="left" width="25" height="25" src="https://user-images.githubusercontent.com/28599454/41086111-af4bc3b0-6a41-11e8-9f9f-2d642b12666e.png">[Ask questions](https://stackoverflow.com/questions/tagged/web3swift)
-## Important notices
-With the version 0.3.0 the API should be less volatile. All public functions should return a [Result](https://github.com/antitypical/Result) instead of `nil` or throwing.
 
-Example is updated for 0.5.0, although please prefer to use tests as an example for your code.
 
 # web3swift
 
-[![Version](https://img.shields.io/cocoapods/v/web3swift.svg?style=flat)](http://cocoapods.org/pods/web3swift)
-[![License](https://img.shields.io/cocoapods/l/web3swift.svg?style=flat)](http://cocoapods.org/pods/web3swift)
-[![Platform](https://img.shields.io/cocoapods/p/web3swift.svg?style=flat)](http://cocoapods.org/pods/web3swift)
-[![support](https://brianmacdonald.github.io/Ethonate/svg/eth-support-blue.svg)](https://brianmacdonald.github.io/Ethonate/address#0x6394b37Cf80A7358b38068f0CA4760ad49983a1B)
+[![Version](https://img.shields.io/cocoapods/v/web3swift.svg?style=flat)](https://cocoapods.org/pods/web3swift)
+[![License](https://img.shields.io/cocoapods/l/web3swift.svg?style=flat)](https://cocoapods.org/pods/web3swift)
+[![Platform](https://img.shields.io/cocoapods/p/web3swift.svg?style=flat)](https://cocoapods.org/pods/web3swift)
+[![support](https://brianmacdonald.github.io/Ethonate/svg/eth-support-blue.svg)](https://brianmacdonald.github.io/Ethonate/address#0x47FC2e245b983A92EB3359F06E31F34B107B6EF6)
 
 - Swift implementation of [web3.js](https://github.com/ethereum/web3.js/) functionality :zap:
 - Interaction with remote node via JSON RPC :thought_balloon:
@@ -81,7 +78,7 @@ Web3swift requires Swift 4.1 and iOS 9.0 or macOS 10.13 although we recommend to
 ## Communication
 
 - if you **need help**, use [Stack Overflow](https://stackoverflow.com/questions/tagged/web3swift) (tag 'web3swift')
-- If you'd like to **ask a general question**, use [Stack Overflow](http://stackoverflow.com/questions/tagged/web3swift).
+- If you'd like to **ask a general question**, use [Stack Overflow](https://stackoverflow.com/questions/tagged/web3swift).
 - If you **found a bug**, [open an issue](https://github.com/BANKEX/web3swift/issues).
 - If you **have a feature request**, [open an issue](https://github.com/BANKEX/web3swift/issues).
 - If you **want to contribute**, [submit a pull request](https://github.com/BANKEX/web3swift/pulls).
@@ -90,7 +87,7 @@ Web3swift requires Swift 4.1 and iOS 9.0 or macOS 10.13 although we recommend to
 
 ### CocoaPods
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
 
 ```bash
 $ sudo gem install cocoapods
@@ -106,7 +103,7 @@ platform :ios, '9.0'
 
 target '<Your Target Name>' do
     use_frameworks!
-    pod 'web3swift', '~> 0.8.0'
+    pod 'web3swift', :git => 'https://github.com/bankex/web3swift.git', :branch => 'master'
 end
 ```
 
@@ -115,6 +112,38 @@ Then, run the following command:
 ```bash
 $ pod install
 ```
+
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with [Homebrew](https://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+
+To integrate web3swift into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```
+github "BANKEX/web3swift" ~> 1.1
+```
+
+Run `carthage update` to build the framework and drag the built `web3swift.framework` into your Xcode project.
+
+### Swift Package Manager
+
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. It is in early development, but web3swift does support its use on supported platforms.
+
+Once you have your Swift package set up, adding web3swift as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
+
+```swift
+dependencies: [
+.package(url: "https://github.com/BANKEX/web3swift.git", from: "1.1.7")
+]
+```
+
 ## Features
 
 - [x] Create Account
@@ -204,7 +233,7 @@ switch convenienceTransferResult {
 - Full reference `web3js` functionality
 - Light Ethereum subprotocol (LES) integration
 
-## [Apps using this library](https://github.com/BANKEX/web3swift/wiki/Apps-using-web3swift) 
+## [Apps using this library](https://github.com/BANKEX/web3swift/wiki/Apps-using-web3swift)
 
 If you've used this project in a live app, please let us know!
 
@@ -228,13 +257,13 @@ Changes made to this branch will be merged into the [master](https://github.com/
 
 ## Appreciation
 
-When using this pod, references to this repo, [BANKEX](http://bankex.com) and [BANKEX Foundation](http://bankexfoundation.org) are appreciated.
+When using this pod, references to this repo, [BANKEX](https://bankex.com) and [BANKEX Foundation](https://new.bankexfoundation.org/) are appreciated.
 
-## Authors
+## Contributors
 
-Alex Vlasov, [@shamatar](https://github.com/shamatar),  av@bankexfoundation.org
+Alex Vlasov, [@shamatar](https://github.com/shamatar)
 
-Petr Korolev, [@skywinder](https://github.com/skywinder), pk@bankexfoundation.org
+Petr Korolev, [@skywinder](https://github.com/skywinder)
 
 ## License
 
