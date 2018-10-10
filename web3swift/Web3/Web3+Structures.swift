@@ -70,7 +70,7 @@ extension Web3Options:Decodable {
         let from = try container.decodeIfPresent(EthereumAddress.self, forKey: .to)
 //        var from: EthereumAddress?
 //        if fromString != nil {
-//            guard let ethAddr = EthereumAddress(toString) else {throw Web3Error.dataError}
+//            guard let ethAddr = EthereumAddress(toString) else { throw Web3Error.dataError }
 //            from = ethAddr
 //        }
         self.from = from
@@ -163,22 +163,16 @@ public struct TransactionDetails: Decodable {
         self.transaction = transaction
     }
     
-    public init? (_ json: [String: AnyObject]) {
-        let bh = json["blockHash"] as? String
-        if (bh != nil) {
-            guard let blockHash = Data.fromHex(bh!) else { return nil }
-            self.blockHash = blockHash
+    public init(_ json: [String: Any]) throws {
+        if json["blockHash"] != nil {
+            blockHash = try json.hexData("blockHash")
         }
-        let bn = json["blockNumber"] as? String
-        let ti = json["transactionIndex"] as? String
-        
-        guard let transaction = EthereumTransaction.fromJSON(json) else { return nil }
-        self.transaction = transaction
-        if bn != nil {
-            blockNumber = BigUInt(bn!.withoutHex, radix: 16)
+        transaction = try EthereumTransaction(json)
+        if json["blockNumber"] != nil {
+            blockNumber = try json.bigUInt("blockNumber")
         }
-        if ti != nil {
-            transactionIndex = BigUInt(ti!.withoutHex, radix: 16)
+        if json["transactionIndex"] != nil {
+            transactionIndex = try json.bigUInt("transactionIndex")
         }
     }
 }
@@ -217,16 +211,16 @@ public struct TransactionReceipt: Decodable {
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard let blockNumber = try decodeHexToBigUInt(container, key: .blockNumber) else {throw Web3Error.dataError}
+        guard let blockNumber = try decodeHexToBigUInt(container, key: .blockNumber) else { throw Web3Error.dataError }
         self.blockNumber = blockNumber
         
-        guard let blockHash = try decodeHexToData(container, key: .blockHash) else {throw Web3Error.dataError}
+        guard let blockHash = try decodeHexToData(container, key: .blockHash) else { throw Web3Error.dataError }
         self.blockHash = blockHash
         
-        guard let transactionIndex = try decodeHexToBigUInt(container, key: .transactionIndex) else {throw Web3Error.dataError}
+        guard let transactionIndex = try decodeHexToBigUInt(container, key: .transactionIndex) else { throw Web3Error.dataError }
         self.transactionIndex = transactionIndex
         
-        guard let transactionHash = try decodeHexToData(container, key: .transactionHash) else {throw Web3Error.dataError}
+        guard let transactionHash = try decodeHexToData(container, key: .transactionHash) else { throw Web3Error.dataError }
         self.transactionHash = transactionHash
         
         let contractAddress = try container.decodeIfPresent(EthereumAddress.self, forKey: .contractAddress)
@@ -234,10 +228,10 @@ public struct TransactionReceipt: Decodable {
             self.contractAddress = contractAddress
         }
         
-        guard let cumulativeGasUsed = try decodeHexToBigUInt(container, key: .cumulativeGasUsed) else {throw Web3Error.dataError}
+        guard let cumulativeGasUsed = try decodeHexToBigUInt(container, key: .cumulativeGasUsed) else { throw Web3Error.dataError }
         self.cumulativeGasUsed = cumulativeGasUsed
         
-        guard let gasUsed = try decodeHexToBigUInt(container, key: .gasUsed) else {throw Web3Error.dataError}
+        guard let gasUsed = try decodeHexToBigUInt(container, key: .gasUsed) else { throw Web3Error.dataError }
         self.gasUsed = gasUsed
         
         
@@ -337,22 +331,22 @@ public struct EventLog : Decodable {
         let address = try container.decode(EthereumAddress.self, forKey: .address)
         self.address = address
         
-        guard let blockNumber = try decodeHexToBigUInt(container, key: .blockNumber) else {throw Web3Error.dataError}
+        guard let blockNumber = try decodeHexToBigUInt(container, key: .blockNumber) else { throw Web3Error.dataError }
         self.blockNumber = blockNumber
         
-        guard let blockHash = try decodeHexToData(container, key: .blockHash) else {throw Web3Error.dataError}
+        guard let blockHash = try decodeHexToData(container, key: .blockHash) else { throw Web3Error.dataError }
         self.blockHash = blockHash
         
-        guard let transactionIndex = try decodeHexToBigUInt(container, key: .transactionIndex) else {throw Web3Error.dataError}
+        guard let transactionIndex = try decodeHexToBigUInt(container, key: .transactionIndex) else { throw Web3Error.dataError }
         self.transactionIndex = transactionIndex
         
-        guard let transactionHash = try decodeHexToData(container, key: .transactionHash) else {throw Web3Error.dataError}
+        guard let transactionHash = try decodeHexToData(container, key: .transactionHash) else { throw Web3Error.dataError }
         self.transactionHash = transactionHash
     
-        guard let data = try decodeHexToData(container, key: .data) else {throw Web3Error.dataError}
+        guard let data = try decodeHexToData(container, key: .data) else { throw Web3Error.dataError }
         self.data = data
         
-        guard let logIndex = try decodeHexToBigUInt(container, key: .logIndex) else {throw Web3Error.dataError}
+        guard let logIndex = try decodeHexToBigUInt(container, key: .logIndex) else { throw Web3Error.dataError }
         self.logIndex = logIndex
         
         let removed = try decodeHexToBigUInt(container, key: .removed, allowOptional: true)
@@ -365,13 +359,16 @@ public struct EventLog : Decodable {
         let topicsStrings = try container.decode([String].self, forKey: .topics)
         var allTopics = [Data]()
         for top in topicsStrings {
-            guard let topic = Data.fromHex(top) else {throw Web3Error.dataError}
+            guard let topic = Data.fromHex(top) else { throw Web3Error.dataError }
             allTopics.append(topic)
         }
         self.topics = allTopics
     }
 }
 
+public enum TransactionInBlockError: Error {
+    case corrupted
+}
 public enum TransactionInBlock:Decodable {
     case hash(Data)
     case transaction(EthereumTransaction)
@@ -380,11 +377,11 @@ public enum TransactionInBlock:Decodable {
     public init(from decoder: Decoder) throws {
         let value = try decoder.singleValueContainer()
         if let string = try? value.decode(String.self) {
-            guard let d = Data.fromHex(string) else {throw Web3Error.dataError}
+            guard let d = Data.fromHex(string) else { throw Web3Error.dataError }
             self = .hash(d)
         } else if let dict = try? value.decode([String:String].self) {
-//            guard let t = try? EthereumTransaction(from: decoder) else {throw Web3Error.dataError}
-            guard let t = EthereumTransaction.fromJSON(dict) else {throw Web3Error.dataError}
+//            guard let t = try? EthereumTransaction(from: decoder) else { throw Web3Error.dataError }
+            let t = try EthereumTransaction(dict)
             self = .transaction(t)
         } else {
             self = .null
@@ -392,15 +389,15 @@ public enum TransactionInBlock:Decodable {
     }
     
     
-    public init?(_ data: AnyObject) {
+    public init(_ data: Any) throws {
         if let string = data as? String {
-            guard let d = Data.fromHex(string) else { return nil }
+            guard let d = Data.fromHex(string) else { throw TransactionInBlockError.corrupted }
             self = .hash(d)
-        } else if let dict = data as? [String:AnyObject] {
-            guard let t = EthereumTransaction.fromJSON(dict) else { return nil }
+        } else if let dict = data as? [String: Any] {
+            let t = try EthereumTransaction(dict)
             self = .transaction(t)
         } else {
-            return nil
+            throw TransactionInBlockError.corrupted
         }
     }
 }
@@ -451,19 +448,19 @@ public struct Block:Decodable {
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard let number = try decodeHexToBigUInt(container, key: .number) else {throw Web3Error.dataError}
+        guard let number = try decodeHexToBigUInt(container, key: .number) else { throw Web3Error.dataError }
         self.number = number
         
-        guard let hash = try decodeHexToData(container, key: .hash) else {throw Web3Error.dataError}
+        guard let hash = try decodeHexToData(container, key: .hash) else { throw Web3Error.dataError }
         self.hash = hash
         
-        guard let parentHash = try decodeHexToData(container, key: .parentHash) else {throw Web3Error.dataError}
+        guard let parentHash = try decodeHexToData(container, key: .parentHash) else { throw Web3Error.dataError }
         self.parentHash = parentHash
         
         let nonce = try decodeHexToData(container, key: .nonce, allowOptional: true)
         self.nonce = nonce
         
-        guard let sha3Uncles = try decodeHexToData(container, key: .sha3Uncles) else {throw Web3Error.dataError}
+        guard let sha3Uncles = try decodeHexToData(container, key: .sha3Uncles) else { throw Web3Error.dataError }
         self.sha3Uncles = sha3Uncles
         
         let logsBloomData = try decodeHexToData(container, key: .logsBloom, allowOptional: true)
@@ -473,13 +470,13 @@ public struct Block:Decodable {
         }
         self.logsBloom = bloom
         
-        guard let transactionsRoot = try decodeHexToData(container, key: .transactionsRoot) else {throw Web3Error.dataError}
+        guard let transactionsRoot = try decodeHexToData(container, key: .transactionsRoot) else { throw Web3Error.dataError }
         self.transactionsRoot = transactionsRoot
         
-        guard let stateRoot = try decodeHexToData(container, key: .stateRoot) else {throw Web3Error.dataError}
+        guard let stateRoot = try decodeHexToData(container, key: .stateRoot) else { throw Web3Error.dataError }
         self.stateRoot = stateRoot
         
-        guard let receiptsRoot = try decodeHexToData(container, key: .receiptsRoot) else {throw Web3Error.dataError}
+        guard let receiptsRoot = try decodeHexToData(container, key: .receiptsRoot) else { throw Web3Error.dataError }
         self.receiptsRoot = receiptsRoot
         
         if let minerAddress = try? container.decode(String.self, forKey: .miner) {
@@ -487,26 +484,26 @@ public struct Block:Decodable {
             self.miner = EthereumAddress(minerAddress)
         }
         
-        guard let difficulty = try decodeHexToBigUInt(container, key: .difficulty) else {throw Web3Error.dataError}
+        guard let difficulty = try decodeHexToBigUInt(container, key: .difficulty) else { throw Web3Error.dataError }
         self.difficulty = difficulty
         
-        guard let totalDifficulty = try decodeHexToBigUInt(container, key: .totalDifficulty) else {throw Web3Error.dataError}
+        guard let totalDifficulty = try decodeHexToBigUInt(container, key: .totalDifficulty) else { throw Web3Error.dataError }
         self.totalDifficulty = totalDifficulty
         
-        guard let extraData = try decodeHexToData(container, key: .extraData) else {throw Web3Error.dataError}
+        guard let extraData = try decodeHexToData(container, key: .extraData) else { throw Web3Error.dataError }
         self.extraData = extraData
         
-        guard let size = try decodeHexToBigUInt(container, key: .size) else {throw Web3Error.dataError}
+        guard let size = try decodeHexToBigUInt(container, key: .size) else { throw Web3Error.dataError }
         self.size = size
         
-        guard let gasLimit = try decodeHexToBigUInt(container, key: .gasLimit) else {throw Web3Error.dataError}
+        guard let gasLimit = try decodeHexToBigUInt(container, key: .gasLimit) else { throw Web3Error.dataError }
         self.gasLimit = gasLimit
         
-        guard let gasUsed = try decodeHexToBigUInt(container, key: .gasUsed) else {throw Web3Error.dataError}
+        guard let gasUsed = try decodeHexToBigUInt(container, key: .gasUsed) else { throw Web3Error.dataError }
         self.gasUsed = gasUsed
         
         let timestampString = try container.decode(String.self, forKey: .timestamp).withoutHex
-        guard let timestampInt = UInt64(timestampString, radix: 16) else {throw Web3Error.dataError}
+        guard let timestampInt = UInt64(timestampString, radix: 16) else { throw Web3Error.dataError }
         let timestamp = Date(timeIntervalSince1970: TimeInterval(timestampInt))
         self.timestamp = timestamp
         
@@ -516,7 +513,7 @@ public struct Block:Decodable {
         let unclesStrings = try container.decode([String].self, forKey: .uncles)
         var uncles = [Data]()
         for str in unclesStrings {
-            guard let d = Data.fromHex(str) else {throw Web3Error.dataError}
+            guard let d = Data.fromHex(str) else { throw Web3Error.dataError }
             uncles.append(d)
         }
         self.uncles = uncles

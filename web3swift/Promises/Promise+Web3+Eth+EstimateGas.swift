@@ -19,7 +19,7 @@ extension web3.Eth {
                 throw Web3Error.processingError("Transaction is invalid")
             }
             let rp = web3.dispatch(request)
-            return rp.map(on: queue ) { response in
+            return rp.map(on: queue) { response in
                 guard let value: BigUInt = response.getValue() else {
                     if response.error != nil {
                         throw Web3Error.nodeError(response.error!.message)

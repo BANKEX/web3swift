@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import enum Result.Result
 import BigInt
 import PromiseKit
 fileprivate typealias PromiseResult = PromiseKit.Result
@@ -40,16 +39,8 @@ extension web3.web3contract {
          - important: This call is synchronous
          
          */
-        public func parseBlockByNumber(_ blockNumber: UInt64) -> Result<[EventParserResultProtocol], Web3Error> {
-            do {
-                let result = try self.parseBlockByNumberPromise(blockNumber).wait()
-                return Result(result)
-            } catch {
-                if let err = error as? Web3Error {
-                    return Result.failure(err)
-                }
-                return Result.failure(Web3Error.generalError(error))
-            }
+        public func parseBlockByNumber(_ blockNumber: UInt64) throws -> [EventParserResultProtocol] {
+            return try parseBlockByNumberPromise(blockNumber).wait()
         }
         
         /**
@@ -64,16 +55,8 @@ extension web3.web3contract {
          - important: This call is synchronous
          
          */
-        public func parseBlock(_ block: Block) -> Result<[EventParserResultProtocol], Web3Error> {
-            do {
-                let result = try self.parseBlockPromise(block).wait()
-                return Result(result)
-            } catch {
-                if let err = error as? Web3Error {
-                    return Result.failure(err)
-                }
-                return Result.failure(Web3Error.generalError(error))
-            }
+        public func parseBlock(_ block: Block) throws -> [EventParserResultProtocol] {
+            return try parseBlockPromise(block).wait()
         }
         
         /**
@@ -88,16 +71,8 @@ extension web3.web3contract {
          - important: This call is synchronous
          
          */
-        public func parseTransactionByHash(_ hash: Data) -> Result<[EventParserResultProtocol], Web3Error> {
-            do {
-                let result = try self.parseTransactionByHashPromise(hash).wait()
-                return Result(result)
-            } catch {
-                if let err = error as? Web3Error {
-                    return Result.failure(err)
-                }
-                return Result.failure(Web3Error.generalError(error))
-            }
+        public func parseTransactionByHash(_ hash: Data) throws -> [EventParserResultProtocol] {
+            return try parseTransactionByHashPromise(hash).wait()
         }
         
         /**
@@ -112,16 +87,8 @@ extension web3.web3contract {
          - important: This call is synchronous
          
          */
-        public func parseTransaction(_ transaction: EthereumTransaction) -> Result<[EventParserResultProtocol], Web3Error> {
-            do {
-                let result = try self.parseTransactionPromise(transaction).wait()
-                return Result(result)
-            } catch {
-                if let err = error as? Web3Error {
-                    return Result.failure(err)
-                }
-                return Result.failure(Web3Error.generalError(error))
-            }
+        public func parseTransaction(_ transaction: EthereumTransaction) throws -> [EventParserResultProtocol] {
+            return try parseTransactionPromise(transaction).wait()
         }
     }
 }
@@ -261,16 +228,8 @@ extension web3.web3contract {
      - important: This call is synchronous
      
      */
-    public func getIndexedEvents(eventName: String?, filter: EventFilter, joinWithReceipts: Bool = false) -> Result<[EventParserResultProtocol], Web3Error> {
-        do {
-            let result = try self.getIndexedEventsPromise(eventName: eventName, filter: filter, joinWithReceipts: joinWithReceipts).wait()
-            return Result(result)
-        } catch {
-            if let err = error as? Web3Error {
-                return Result.failure(err)
-            }
-            return Result.failure(Web3Error.generalError(error))
-        }
+    public func getIndexedEvents(eventName: String?, filter: EventFilter, joinWithReceipts: Bool = false) throws -> [EventParserResultProtocol] {
+        return try getIndexedEventsPromise(eventName: eventName, filter: filter, joinWithReceipts: joinWithReceipts).wait()
     }
 }
 

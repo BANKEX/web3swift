@@ -28,7 +28,7 @@ extension web3.Personal {
                     return value
                 }
             }
-            guard let signature = try Web3Signer.signPersonalMessage(message, keystore: self.web3.provider.attachedKeystoreManager!, account: from, password: password) else { throw Web3Error.inputError("Failed to locally sign a message") }
+            let signature = try Web3Signer.signPersonalMessage(message, keystore: self.web3.provider.attachedKeystoreManager!, account: from, password: password)
             let returnPromise = Promise<Data>.pending()
             queue.async {
                 returnPromise.resolver.fulfill(signature)

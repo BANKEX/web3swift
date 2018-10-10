@@ -42,7 +42,7 @@ public struct Web3Options {
     }
     
     /// Default options filler. Sets gas limit, gas price and value to zeroes.
-    public static func defaultOptions() -> Web3Options{
+    public static func defaultOptions() -> Web3Options {
         var options = Web3Options()
         options.gasLimit = BigUInt(0)
         options.gasPrice = BigUInt(0)
@@ -50,24 +50,11 @@ public struct Web3Options {
         return options
     }
     
-    
-    public static func fromJSON(_ json: [String: Any]) -> Web3Options? {
-        var options = Web3Options()
-        if let gas = json["gas"] as? String, let gasBiguint = BigUInt(gas.withoutHex.lowercased(), radix: 16) {
-            options.gasLimit = gasBiguint
-        }
-        if let gasPrice = json["gasPrice"] as? String, let gasPriceBiguint = BigUInt(gasPrice.withoutHex.lowercased(), radix: 16) {
-            options.gasPrice = gasPriceBiguint
-        }
-        if let value = json["value"] as? String, let valueBiguint = BigUInt(value.withoutHex.lowercased(), radix: 16) {
-            options.value = valueBiguint
-        }
-        if let fromString = json["from"] as? String {
-            let addressFrom = EthereumAddress(fromString)
-          guard addressFrom.isValid else { return nil }
-            options.from = addressFrom
-        }
-        return options
+    public init(_ json: [String: Any]) throws {
+        gasLimit = try json.bigUInt("gasLimit")
+        gasPrice = try json.bigUInt("gasPrice")
+        value = try json.bigUInt("value")
+        from = try json.address("from")
     }
     
     /// Merges two sets of topions by overriding the parameters from the first set by parameters from the second

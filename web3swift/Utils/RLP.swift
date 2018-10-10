@@ -306,13 +306,13 @@ struct RLP {
     }
     
     internal static func slice(data: Data, offset: BigUInt, length: BigUInt) throws -> Data {
-        if BigUInt(data.count) < offset + length {throw Web3Error.dataError}
+        if BigUInt(data.count) < offset + length { throw Web3Error.dataError }
         let slice = data[UInt64(offset) ..< UInt64(offset + length)]
         return Data(slice)
     }
     
     internal static func slice(data: Data, start: BigUInt) throws -> Data {
-        if BigUInt(data.count) < start {throw Web3Error.dataError}
+        if BigUInt(data.count) < start { throw Web3Error.dataError }
         let slice = data[UInt64(start) ..< UInt64(data.count)]
         return Data(slice)
     }

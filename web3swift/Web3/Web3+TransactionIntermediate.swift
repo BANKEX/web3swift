@@ -49,16 +49,9 @@ extension web3.web3contract {
          - important: This call is synchronous
          
          */
-        public func send(password: String = "BANKEXFOUNDATION", options: Web3Options? = nil, onBlock: String = "pending") -> Result<TransactionSendingResult, Web3Error> {
-            do {
-                let result = try self.sendPromise(password: password, options: options, onBlock: onBlock).wait()
-                return Result(result)
-            } catch {
-                if let err = error as? Web3Error {
-                    return Result.failure(err)
-                }
-                return Result.failure(Web3Error.generalError(error))
-            }
+        @discardableResult
+        public func send(password: String = "BANKEXFOUNDATION", options: Web3Options? = nil, onBlock: String = "pending") throws -> TransactionSendingResult {
+            return try self.sendPromise(password: password, options: options, onBlock: onBlock).wait()
         }
         
         /**
@@ -74,16 +67,10 @@ extension web3.web3contract {
          - important: This call is synchronous
          
          */
-        public func call(options: Web3Options?, onBlock: String = "latest") -> Result<[String:Any], Web3Error> {
-            do {
-                let result = try self.callPromise(options: options, onBlock: onBlock).wait()
-                return Result(result)
-            } catch {
-                if let err = error as? Web3Error {
-                    return Result.failure(err)
-                }
-                return Result.failure(Web3Error.generalError(error))
-            }
+        
+        @discardableResult
+        public func call(options: Web3Options?, onBlock: String = "latest") throws -> [String: Any] {
+            return try self.callPromise(options: options, onBlock: onBlock).wait()
         }
         
         /**
@@ -99,16 +86,8 @@ extension web3.web3contract {
          - important: This call is synchronous
          
          */
-        public func estimateGas(options: Web3Options?, onBlock: String = "latest") -> Result<BigUInt, Web3Error> {
-            do {
-                let result = try self.estimateGasPromise(options: options, onBlock: onBlock).wait()
-                return Result(result)
-            } catch {
-                if let err = error as? Web3Error {
-                    return Result.failure(err)
-                }
-                return Result.failure(Web3Error.generalError(error))
-            }
+        public func estimateGas(options: Web3Options?, onBlock: String = "latest") throws -> BigUInt {
+            return try self.estimateGasPromise(options: options, onBlock: onBlock).wait()
         }
         
         /**
@@ -124,16 +103,8 @@ extension web3.web3contract {
          - important: This call is synchronous
          
          */
-        public func assemble(options: Web3Options? = nil, onBlock: String = "pending") -> Result<EthereumTransaction, Web3Error> {
-            do {
-                let result = try self.assemblePromise(options: options, onBlock: onBlock).wait()
-                return Result(result)
-            } catch {
-                if let err = error as? Web3Error {
-                    return Result.failure(err)
-                }
-                return Result.failure(Web3Error.generalError(error))
-            }
+        public func assemble(options: Web3Options? = nil, onBlock: String = "pending") throws -> EthereumTransaction {
+            return try self.assemblePromise(options: options, onBlock: onBlock).wait()
         }
    
     }
@@ -157,9 +128,9 @@ extension web3.web3contract.TransactionIntermediate {
             optionsForGasEstimation.from = mergedOptions.from
             optionsForGasEstimation.to = mergedOptions.to
             optionsForGasEstimation.value = mergedOptions.value
-            let getNoncePromise : Promise<BigUInt> = self.web3.eth.getTransactionCountPromise(address: from, onBlock: onBlock)
-            let gasEstimatePromise : Promise<BigUInt> = self.web3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
-            let gasPricePromise : Promise<BigUInt> = self.web3.eth.getGasPricePromise()
+            let getNoncePromise: Promise<BigUInt> = self.web3.eth.getTransactionCountPromise(address: from, onBlock: onBlock)
+            let gasEstimatePromise: Promise<BigUInt> = self.web3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
+            let gasPricePromise: Promise<BigUInt> = self.web3.eth.getGasPricePromise()
             var promisesToFulfill: [Promise<BigUInt>] = [getNoncePromise, gasPricePromise, gasPricePromise]
             when(resolved: getNoncePromise, gasEstimatePromise, gasPricePromise).map(on: queue, { (results:[PromiseResult<BigUInt>]) throws -> EthereumTransaction in
                 

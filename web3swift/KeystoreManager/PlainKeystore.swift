@@ -11,7 +11,7 @@ import Foundation
 public class PlainKeystore: AbstractKeystore {
     private var privateKey: Data
     
-    public var addresses: [EthereumAddress]?
+    public var addresses: [EthereumAddress]
     
     public var isHDKeystore: Bool = false
     
@@ -19,15 +19,15 @@ public class PlainKeystore: AbstractKeystore {
         return self.privateKey
     }
     
-    public convenience init?(privateKey: String) {
-        guard let privateKeyData = Data.fromHex(privateKey) else { return nil }
-        self.init(privateKey: privateKeyData)
+    public convenience init(privateKey: String) throws {
+        try self.init(privateKey: privateKey.dataFromHex())
     }
     
-    public init?(privateKey: Data) {
-        guard SECP256K1.verifyPrivateKey(privateKey: privateKey) else { return nil }
-        guard let publicKey = Web3.Utils.privateToPublic(privateKey, compressed: false) else { return nil }
-        guard let address = Web3.Utils.publicToAddress(publicKey) else { return nil }
+    public init(privateKey: Data) throws {
+        try SECP256K1.verifyPrivateKey(privateKey: privateKey)
+        
+        let publicKey = try Web3.Utils.privateToPublic(privateKey, compressed: false)
+        let address = try Web3.Utils.publicToAddress(publicKey)
         self.addresses = [address]
         self.privateKey = privateKey
     }

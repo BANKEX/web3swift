@@ -71,7 +71,7 @@ public class BIP39 {
     
     static public func generateMnemonics(bitsOfEntropy: Int, language: BIP39Language = BIP39Language.english) throws -> String? {
         guard bitsOfEntropy >= 128 && bitsOfEntropy <= 256 && bitsOfEntropy % 32 == 0 else { return nil }
-        guard let entropy = Data.randomBytes(length: bitsOfEntropy/8) else {throw AbstractKeystoreError.noEntropyError}
+        let entropy = Data.random(length: bitsOfEntropy/8)
         return BIP39.generateMnemonicsFromEntropy(entropy: entropy, language: language)
         
     }

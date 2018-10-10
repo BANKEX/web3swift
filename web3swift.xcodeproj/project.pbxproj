@@ -314,7 +314,7 @@
 		81A1824A20D7DF1B0016741F /* Promise+Web3+Personal+UnlockAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Personal+UnlockAccount.swift"; sourceTree = "<group>"; };
 		81C0FCEF20440C3600D82FAF /* Web3+Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Web3+Wallet.swift"; sourceTree = "<group>"; };
 		81C0FCF120440EB500D82FAF /* Web3+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Web3+Protocols.swift"; sourceTree = "<group>"; };
-		81C0FCF320440F0900D82FAF /* Web3+Options.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = "Web3+Options.swift"; sourceTree = "<group>"; tabWidth = 2; };
+		81C0FCF320440F0900D82FAF /* Web3+Options.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = "Web3+Options.swift"; sourceTree = "<group>"; tabWidth = 4; };
 		81C0FCF520440F9900D82FAF /* TransactionSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSigner.swift; sourceTree = "<group>"; };
 		81C0FCF8204456E600D82FAF /* Web3+BrowserFunctions.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = "Web3+BrowserFunctions.swift"; sourceTree = "<group>"; tabWidth = 4; };
 		81C0FCFC20449D1400D82FAF /* Web3+TransactionIntermediate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Web3+TransactionIntermediate.swift"; sourceTree = "<group>"; };

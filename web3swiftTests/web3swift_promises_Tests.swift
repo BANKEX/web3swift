@@ -45,36 +45,31 @@ class web3swift_promises_Tests: XCTestCase {
             let contract = web3.contract(Web3.Utils.coldWalletABI, at: sendToAddress, abiVersion: 2)
             var options = Web3Options.defaultOptions()
             options.value = Web3.Utils.parseToBigUInt("1.0", units: .eth)
-            options.from = keystoreManager.addresses?.first
+            options.from = keystoreManager.addresses.first
             let intermediate = contract?.method("fallback", options: options)
             let esimate = try intermediate!.estimateGasPromise(options: nil).wait()
             print(esimate)
             XCTAssert(esimate == 21000)
-        } catch{
+        } catch {
             print(error)
             XCTFail()
         }
     }
     
-    func testSendETHPromise() {
-        do {
-            guard let keystoreData = getKeystoreData() else { return }
-            guard let keystoreV3 = EthereumKeystoreV3.init(keystoreData) else { return XCTFail() }
-            let web3Rinkeby = Web3.InfuraRinkebyWeb3()
-            let keystoreManager = KeystoreManager.init([keystoreV3])
-            web3Rinkeby.addKeystoreManager(keystoreManager)
-            guard case .success(let gasPriceRinkeby) = web3Rinkeby.eth.getGasPrice() else { return }
-            let sendToAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
-            guard let intermediate = web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001") else { return XCTFail() }
-            var options = Web3Options.defaultOptions()
-            options.from = keystoreV3.addresses?.first
-            options.gasPrice = gasPriceRinkeby
-            let result = try intermediate.sendPromise(options: options).wait()
-            print(result)
-        } catch {
-            print(error)
-            XCTFail()
-        }
+    func testSendETHPromise() throws {
+        guard let keystoreData = getKeystoreData() else { return }
+        guard let keystoreV3 = EthereumKeystoreV3.init(keystoreData) else { return XCTFail() }
+        let web3Rinkeby = Web3.InfuraRinkebyWeb3()
+        let keystoreManager = KeystoreManager.init([keystoreV3])
+        web3Rinkeby.addKeystoreManager(keystoreManager)
+        let gasPrice = try web3Rinkeby.eth.getGasPrice()
+        let sendToAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+        guard let intermediate = web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001") else { return XCTFail() }
+        var options = Web3Options.defaultOptions()
+        options.from = keystoreV3.addresses.first
+        options.gasPrice = gasPrice
+        let result = try intermediate.sendPromise(options: options).wait()
+        print(result)
     }
     
     func testERC20tokenBalancePromise() {

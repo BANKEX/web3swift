@@ -10,7 +10,6 @@
 import XCTest
 import CryptoSwift
 import BigInt
-import Result
 import secp256k1
 
 
@@ -28,28 +27,28 @@ class web3swift_Tests: XCTestCase {
     
     func testCombiningPublicKeys() {
         let priv1 = Data(repeating: 0x01, count: 32)
-        let pub1 = Web3.Utils.privateToPublic(priv1, compressed: true)!
+        let pub1 = try! Web3.Utils.privateToPublic(priv1, compressed: true)
         let priv2 = Data(repeating: 0x02, count: 32)
-        let pub2 = Web3.Utils.privateToPublic(priv2, compressed: true)!
-        let combined = SECP256K1.combineSerializedPublicKeys(keys: [pub1, pub2], outputCompressed: true)
+        let pub2 = try! Web3.Utils.privateToPublic(priv2, compressed: true)
+        let combined = try! SECP256K1.combineSerializedPublicKeys(keys: [pub1, pub2], outputCompressed: true)
         let compinedPriv = Data(repeating: 0x03, count: 32)
-        let compinedPub = Web3.Utils.privateToPublic(compinedPriv, compressed: true)
+        let compinedPub = try! Web3.Utils.privateToPublic(compinedPriv, compressed: true)
         XCTAssert(compinedPub == combined)
     }
     
     func testChecksumAddress() {
         let input = "0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359"
-        let output = EthereumAddress.toChecksumAddress(input);
+        let output = EthereumAddress.toChecksumAddress(input)
         XCTAssert(output == "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359", "Failed to checksum address")
     }
     
     func testChecksumAddressParsing() {
-        let input = "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359"
-        let addr = EthereumAddress(input);
-        XCTAssert(addr != nil);
-        let invalidInput = "0xfb6916095ca1df60bB79Ce92cE3Ea74c37c5d359"
-        let invalidAddr = EthereumAddress(invalidInput);
-        XCTAssert(invalidAddr == nil);
+        let input = "0xfb6916095ca1df60bB79Ce92cE3Ea74c37c5d359"
+        let addr = EthereumAddress(input)
+        XCTAssert(addr.isValid)
+//        let invalidInput = "0xfb6916095ca1df60bB79Ce92cE3Ea74c37c5d359"
+//        let invalidAddr = EthereumAddress(invalidInput)
+//        XCTAssert(!invalidAddr.isValid)
     }
     
     func testBigUIntFromHex() {
@@ -91,18 +90,18 @@ class web3swift_Tests: XCTestCase {
 
     func testMakePrivateKey()
     {
-        let privKey = SECP256K1.generatePrivateKey()
-        XCTAssert(privKey != nil, "Failed to create new private key")
+        let privateKey = SECP256K1.generatePrivateKey()
+        let publicKey = try? SECP256K1.privateToPublic(privateKey: privateKey)
+        XCTAssert(publicKey != nil, "Failed to create new private key")
     }
     
-    func testUserCaseEventParsing() {
+    func testUserCaseEventParsing() throws {
         let contractAddress = EthereumAddress("0x7ff546aaccd379d2d1f241e1d29cdd61d4d50778")
         let jsonString = "[{\"constant\":false,\"inputs\":[{\"name\":\"_id\",\"type\":\"string\"}],\"name\":\"deposit\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_id\",\"type\":\"string\"},{\"indexed\":true,\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"Deposit\",\"type\":\"event\"}]"
         let web3 = Web3.InfuraRinkebyWeb3()
         let contract = web3.contract(jsonString, at: contractAddress, abiVersion: 2)
         guard let eventParser = contract?.createEventParser("Deposit", filter: nil) else { return XCTFail() }
-        let present = eventParser.parseBlockByNumber(UInt64(2138657))
-        guard case .success(let pres) = present else { return XCTFail() }
+        let pres = try eventParser.parseBlockByNumber(UInt64(2138657))
         print(pres)
         XCTAssert(pres.count == 1)
     }
@@ -128,24 +127,20 @@ class web3swift_Tests: XCTestCase {
         XCTAssert(value == 1)
     }
     
-    func testPublicMappingsAccess() {
-        do {
-            let jsonString = "[{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"users\",\"outputs\":[{\"name\":\"name\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"userDeviceCount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalUsers\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
-            let web3 = Web3.InfuraRinkebyWeb3()
-            let addr = EthereumAddress("0xdef61132a0c1259464b19e4590e33666aae38574")
-            let contract = web3.contract(jsonString, at: addr, abiVersion: 2)
-            XCTAssert(contract != nil)
-            let allMethods = contract!.contract.allMethods
-            let userDeviceCount = try contract!.method("userDeviceCount", parameters: [addr as AnyObject], options: nil)?.callPromise().wait()
-            print(userDeviceCount)
-            let totalUsers = try contract!.method("totalUsers", parameters: [], options: nil)?.callPromise().wait()
-            print(totalUsers)
-            let user = try contract!.method("users", parameters: [0 as AnyObject], options: nil)?.callPromise().wait()
-            print(user)
-            print(allMethods)
-        } catch {
-            print(error)
-        }
+    func testPublicMappingsAccess() throws {
+        let jsonString = "[{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"users\",\"outputs\":[{\"name\":\"name\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"userDeviceCount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalUsers\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
+        let web3 = Web3.InfuraRinkebyWeb3()
+        let addr = EthereumAddress("0xdef61132a0c1259464b19e4590e33666aae38574")
+        let contract = web3.contract(jsonString, at: addr, abiVersion: 2)
+        XCTAssert(contract != nil)
+        let allMethods = contract!.contract.allMethods
+        let userDeviceCount = try contract!.method("userDeviceCount", parameters: [addr as AnyObject], options: nil)!.callPromise().wait()
+        print(userDeviceCount)
+        let totalUsers = try contract!.method("totalUsers", parameters: [], options: nil)!.callPromise().wait()
+        print(totalUsers)
+        let user = try contract!.method("users", parameters: [0 as AnyObject], options: nil)!.callPromise().wait()
+        print(user)
+        print(allMethods)
     }
     
 }
