@@ -38,26 +38,25 @@ class web3swift_transactions_Tests: XCTestCase {
             print(transaction)
             XCTAssert(transaction.v == 37, "Transaction signature failed")
             XCTAssert(sender == transaction.sender)
-        }
-        catch {
+        } catch {
             print(error)
             XCTFail()
         }
     }
     
-    func testEthSendExample() {
+    func testEthSendExample() throws {
         let web3 = Web3.InfuraMainnetWeb3()
         let sendToAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
         let tempKeystore = try! EthereumKeystoreV3(password: "")
         let keystoreManager = KeystoreManager([tempKeystore!])
         web3.addKeystoreManager(keystoreManager)
-        let contract = web3.contract(Web3.Utils.coldWalletABI, at: sendToAddress, abiVersion: 2)
-        var options = Web3Options.defaultOptions()
+        let contract = try web3.contract(Web3.Utils.coldWalletABI, at: sendToAddress)
+        var options = Web3Options.default
         options.value = Web3.Utils.parseToBigUInt("1.0", units: .eth)
         options.from = keystoreManager.addresses.first
-        let intermediate = contract?.method("fallback", options: options)
+        let intermediate = try contract.method("fallback", options: options)
         do {
-            try intermediate?.send(password: "")
+            try intermediate.send(password: "")
             XCTFail("Shouldn't be sended")
         } catch Web3Error.nodeError(let descr) {
             XCTAssertEqual(descr, "insufficient funds for gas * price + value")
@@ -94,8 +93,8 @@ class web3swift_transactions_Tests: XCTestCase {
         web3Rinkeby.addKeystoreManager(keystoreManager)
         let gasPriceRinkeby = try web3Rinkeby.eth.getGasPrice()
         let sendToAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
-        guard let intermediate = web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001") else { return XCTFail() }
-        var options = Web3Options.defaultOptions()
+        let intermediate = try web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001")
+        var options = Web3Options.default
         options.from = keystoreV3.addresses.first
         options.gasPrice = gasPriceRinkeby
         try intermediate.send(password: "BANKEXFOUNDATION", options: options)
@@ -111,22 +110,22 @@ class web3swift_transactions_Tests: XCTestCase {
         let tempKeystore = try! EthereumKeystoreV3(password: "")
         let keystoreManager = KeystoreManager([tempKeystore!])
         web3.addKeystoreManager(keystoreManager)
-        let contract = web3.contract(Web3.Utils.erc20ABI, at: contractAddress, abiVersion: 2)!
-        try contract.method("transfer", parameters: [coldWalletAddress, BigUInt(1)] as [AnyObject], options: options)!.call(options: nil)
+        let contract = try web3.contract(Web3.Utils.erc20ABI, at: contractAddress)
+        try contract.method("transfer", args: coldWalletAddress, BigUInt(1), options: options).call(options: nil)
     }
     
-    func testTokenBalanceTransferOnMainNetUsingConvenience() throws {
-        // BKX TOKEN
-        let web3 = Web3.InfuraMainnetWeb3()
-        let coldWalletAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
-        let contractAddress = EthereumAddress("0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")
-        let tempKeystore = try! EthereumKeystoreV3(password: "")
-        let keystoreManager = KeystoreManager([tempKeystore!])
-        web3.addKeystoreManager(keystoreManager)
-        let intermediate = web3.eth.sendERC20tokensWithNaturalUnits(tokenAddress:contractAddress, from: coldWalletAddress, to: coldWalletAddress, amount: "1.0")
-        let gasLimit = try intermediate!.estimateGas(options: nil)
-        var options = Web3Options();
-        options.gasLimit = gasLimit
-        try intermediate!.call(options: options)
-    }
+//    func testTokenBalanceTransferOnMainNetUsingConvenience() throws {
+//        // BKX TOKEN
+//        let web3 = Web3.InfuraMainnetWeb3()
+//        let coldWalletAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+//        let contractAddress = EthereumAddress("0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")
+//        let tempKeystore = try! EthereumKeystoreV3(password: "")
+//        let keystoreManager = KeystoreManager([tempKeystore!])
+//        web3.addKeystoreManager(keystoreManager)
+//        let intermediate = try web3.eth.sendERC20tokensWithNaturalUnits(tokenAddress:contractAddress, from: coldWalletAddress, to: coldWalletAddress, amount: "1.0")
+//        let gasLimit = try intermediate.estimateGas(options: nil)
+//        var options = Web3Options();
+//        options.gasLimit = gasLimit
+//        try intermediate.call(options: options)
+//    }
 }

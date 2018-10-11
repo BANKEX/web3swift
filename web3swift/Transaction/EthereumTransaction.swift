@@ -106,18 +106,17 @@ public struct EthereumTransaction: CustomStringConvertible {
     }
     
     public init(to: EthereumAddress, data: Data, options: Web3Options) {
-        let defaults = Web3Options.defaultOptions()
-        let merged = Web3Options.merge(defaults, with: options)
+        let merged = Web3Options.default.merge(with: options)
         self.nonce = BigUInt(0)
-        self.gasLimit = merged!.gasLimit!
-        self.gasPrice = merged!.gasPrice!
-        self.value = merged!.value!
+        self.gasLimit = merged.gasLimit!
+        self.gasPrice = merged.gasPrice!
+        self.value = merged.value!
         self.to = to
         self.data = data
     }
     
     
-    public init (nonce: BigUInt, gasPrice: BigUInt, gasLimit: BigUInt, to: EthereumAddress, value: BigUInt, data: Data, v: BigUInt, r: BigUInt, s: BigUInt) {
+    public init(nonce: BigUInt, gasPrice: BigUInt, gasLimit: BigUInt, to: EthereumAddress, value: BigUInt, data: Data, v: BigUInt, r: BigUInt, s: BigUInt) {
         self.nonce = nonce
         self.gasPrice = gasPrice
         self.gasLimit = gasLimit
@@ -217,21 +216,21 @@ public struct EthereumTransaction: CustomStringConvertible {
         }
     }
     
-    public func encode(forSignature:Bool = false, chainID: NetworkId? = nil) -> Data? {
+    public func encode(forSignature: Bool = false, chainID: NetworkId? = nil) -> Data? {
         if (forSignature) {
             if chainID != nil  {
-                let fields = [self.nonce, self.gasPrice, self.gasLimit, self.to.addressData, self.value, self.data, chainID!, BigUInt(0), BigUInt(0)] as [AnyObject]
+                let fields = [nonce, gasPrice, gasLimit, to.addressData, value, data, chainID!, BigUInt(0), BigUInt(0)] as [AnyObject]
                 return RLP.encode(fields)
             }
             else if self.chainID != nil  {
-                let fields = [self.nonce, self.gasPrice, self.gasLimit, self.to.addressData, self.value, self.data, self.chainID!, BigUInt(0), BigUInt(0)] as [AnyObject]
+                let fields = [nonce, gasPrice, gasLimit, to.addressData, value, data, chainID!, BigUInt(0), BigUInt(0)] as [AnyObject]
                 return RLP.encode(fields)
             } else {
-                let fields = [self.nonce, self.gasPrice, self.gasLimit, self.to.addressData, self.value, self.data] as [AnyObject]
+                let fields = [nonce, gasPrice, gasLimit, to.addressData, value, data] as [AnyObject]
                 return RLP.encode(fields)
             }
         } else {
-            let fields = [self.nonce, self.gasPrice, self.gasLimit, self.to.addressData, self.value, self.data, self.v, self.r, self.s] as [AnyObject]
+            let fields = [nonce, gasPrice, gasLimit, to.addressData, value, data, v, r, s] as [AnyObject]
             return RLP.encode(fields)
         }
     }

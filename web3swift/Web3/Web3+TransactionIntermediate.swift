@@ -7,29 +7,28 @@
 //
 
 import Foundation
-import enum Result.Result
 import BigInt
 import PromiseKit
 fileprivate typealias PromiseResult = PromiseKit.Result
 
-extension web3.web3contract {
+extension web3.Web3Contract {
 
     /// TransactionIntermediate is an almost-ready transaction or a smart-contract function call. It bears all the required information
     /// to call the smart-contract and decode the returned information, or estimate gas required for transaction, or send a transaciton
     /// to the blockchain.
-    public class TransactionIntermediate{
+    public class TransactionIntermediate {
         public var transaction:EthereumTransaction
         public var contract: ContractProtocol
         public var method: String
-        public var options: Web3Options? = Web3Options.defaultOptions()
+        public var options: Web3Options = .default
         var web3: web3
-        public init (transaction: EthereumTransaction, web3 web3Instance: web3, contract: ContractProtocol, method: String, options: Web3Options?) {
+        public init(transaction: EthereumTransaction, web3 web3Instance: web3, contract: ContractProtocol, method: String, options: Web3Options) {
             self.transaction = transaction
             self.web3 = web3Instance
             self.contract = contract
             self.contract.options = options
             self.method = method
-            self.options = Web3Options.merge(web3.options, with: options)
+            self.options = web3.options.merge(with: options)
             if self.web3.provider.network != nil {
                 self.transaction.chainID = self.web3.provider.network
             }
@@ -110,16 +109,13 @@ extension web3.web3contract {
     }
 }
 
-extension web3.web3contract.TransactionIntermediate {
+extension web3.Web3Contract.TransactionIntermediate {
     
     public func assemblePromise(options: Web3Options? = nil, onBlock: String = "pending") -> Promise<EthereumTransaction> {
         var assembledTransaction : EthereumTransaction = self.transaction
         let queue = self.web3.requestDispatcher.queue
         let returnPromise = Promise<EthereumTransaction> { seal in
-            guard let mergedOptions = Web3Options.merge(self.options, with: options) else {
-                seal.reject(Web3Error.inputError("Provided options are invalid"))
-                return
-            }
+            let mergedOptions = self.options.merge(with: options)
             guard let from = mergedOptions.from else {
                 seal.reject(Web3Error.inputError("No 'from' field provided"))
                 return
@@ -144,14 +140,10 @@ extension web3.web3contract.TransactionIntermediate {
                 guard case .fulfilled(let gasPrice) = results[2] else {
                     throw Web3Error.processingError("Failed to fetch gas price")
                 }
-                guard let estimate = Web3Options.smartMergeGasLimit(originalOptions: options, extraOptions: mergedOptions, gasEstimate: gasEstimate) else {
-                    throw Web3Error.processingError("Failed to calculate gas estimate that satisfied options")
-                }
+                let estimate = Web3Options.smartMergeGasLimit(originalOptions: options, extraOptions: mergedOptions, gasEstimate: gasEstimate)
                 assembledTransaction.nonce = nonce
                 assembledTransaction.gasLimit = estimate
-                guard let finalGasPrice = Web3Options.smartMergeGasPrice(originalOptions: options, extraOptions: mergedOptions, priceEstimate: gasPrice) else {
-                    throw Web3Error.processingError("Missing parameter of gas price for transaction")
-                }
+                let finalGasPrice = Web3Options.smartMergeGasPrice(originalOptions: options, extraOptions: mergedOptions, priceEstimate: gasPrice)
                 assembledTransaction.gasPrice = finalGasPrice
 //                if assembledTransaction.gasPrice == 0 {
 //                    if mergedOptions.gasPrice != nil {
@@ -173,9 +165,7 @@ extension web3.web3contract.TransactionIntermediate {
     public func sendPromise(password:String = "BANKEXFOUNDATION", options: Web3Options? = nil, onBlock: String = "pending") -> Promise<TransactionSendingResult>{
         let queue = self.web3.requestDispatcher.queue
         return self.assemblePromise(options: options, onBlock: onBlock).then(on: queue) { transaction throws -> Promise<TransactionSendingResult> in
-            guard let mergedOptions = Web3Options.merge(self.options, with: options) else {
-                throw Web3Error.inputError("Provided options are invalid")
-            }
+            let mergedOptions = self.options.merge(with: options)
             var cleanedOptions = Web3Options()
             cleanedOptions.from = mergedOptions.from
             cleanedOptions.to = mergedOptions.to
@@ -184,31 +174,27 @@ extension web3.web3contract.TransactionIntermediate {
     }
     
     public func callPromise(options: Web3Options? = nil, onBlock: String = "latest") -> Promise<[String: Any]>{
-        let assembledTransaction : EthereumTransaction = self.transaction
+        let assembledTransaction: EthereumTransaction = self.transaction
         let queue = self.web3.requestDispatcher.queue
         let returnPromise = Promise<[String:Any]> { seal in
-            guard let mergedOptions = Web3Options.merge(self.options, with: options) else {
-                seal.reject(Web3Error.inputError("Provided options are invalid"))
-                return
-            }
+            let mergedOptions = self.options.merge(with: options)
             var optionsForCall = Web3Options()
             optionsForCall.from = mergedOptions.from
             optionsForCall.to = mergedOptions.to
             optionsForCall.value = mergedOptions.value
-            let callPromise : Promise<Data> = self.web3.eth.callPromise(assembledTransaction, options: optionsForCall, onBlock: onBlock)
-            callPromise.done(on: queue) {(data:Data) throws in
+            let callPromise: Promise<Data> = self.web3.eth.callPromise(assembledTransaction, options: optionsForCall, onBlock: onBlock)
+            callPromise.done(on: queue) { data in
                     do {
                         if (self.method == "fallback") {
                             let resultHex = data.toHexString().withHex
                             seal.fulfill(["result": resultHex as Any])
                             return
                         }
-                        guard let decodedData = self.contract.decodeReturnData(self.method, data: data) else
-                        {
+                        guard let decodedData = self.contract.decodeReturnData(self.method, data: data) else {
                             throw Web3Error.processingError("Can not decode returned parameters")
                         }
                         seal.fulfill(decodedData)
-                    } catch{
+                    } catch {
                         seal.reject(error)
                     }
                 }.catch(on: queue) {err in
@@ -222,10 +208,7 @@ extension web3.web3contract.TransactionIntermediate {
         let assembledTransaction : EthereumTransaction = self.transaction
         let queue = self.web3.requestDispatcher.queue
         let returnPromise = Promise<BigUInt> { seal in
-            guard let mergedOptions = Web3Options.merge(self.options, with: options) else {
-                seal.reject(Web3Error.inputError("Provided options are invalid"))
-                return
-            }
+            let mergedOptions = self.options.merge(with: options)
             var optionsForGasEstimation = Web3Options()
             optionsForGasEstimation.from = mergedOptions.from
             optionsForGasEstimation.to = mergedOptions.to

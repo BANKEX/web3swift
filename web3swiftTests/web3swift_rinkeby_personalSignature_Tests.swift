@@ -49,17 +49,17 @@ class web3swift_rinkeby_personalSignature_Tests: XCTestCase {
         print("S = " + Data(unmarshalledSignature.s).toHexString())
         try print("Personal hash = " + Web3.Utils.hashPersonalMessage(message.data(using: .utf8)!).toHexString())
         let jsonString = "[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"constant\":true,\"inputs\":[{\"name\":\"_message\",\"type\":\"string\"}],\"name\":\"hashPersonalMessage\",\"outputs\":[{\"name\":\"hash\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_message\",\"type\":\"string\"},{\"name\":\"v\",\"type\":\"uint8\"},{\"name\":\"r\",\"type\":\"bytes32\"},{\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"recoverSigner\",\"outputs\":[{\"name\":\"signer\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"}]"
-        let contract = web3.contract(jsonString, at: EthereumAddress("0x6f1745a39059268e8e4572e97897b50e4aab62a8"), abiVersion: 2)!
-        var options = Web3Options.defaultOptions()
+        let contract = try web3.contract(jsonString, at: "0x6f1745a39059268e8e4572e97897b50e4aab62a8")
+        var options = Web3Options.default
         options.from = expectedAddress
-        var intermediate = contract.method("hashPersonalMessage", parameters: [message as AnyObject], options: options)
-        var res = try intermediate!.call(options: nil)
+        var intermediate = try contract.method("hashPersonalMessage", args: message, options: options)
+        var res = try intermediate.call(options: nil)
         guard let hash = res["hash"]! as? Data else { return XCTFail() }
         let hash2 = try Web3.Utils.hashPersonalMessage(message.data(using: .utf8)!)
         XCTAssert(hash2 == hash)
         
-        intermediate = contract.method("recoverSigner", parameters: [message, unmarshalledSignature.v, Data(unmarshalledSignature.r), Data(unmarshalledSignature.s)] as [AnyObject], options: options)
-        res = try intermediate!.call(options: nil)
+        intermediate = try contract.method("recoverSigner", args: message, unmarshalledSignature.v, Data(unmarshalledSignature.r), Data(unmarshalledSignature.s), options: options)
+        res = try intermediate.call(options: nil)
         guard let signer = res["signer"]! as? EthereumAddress else { return XCTFail() }
         print(signer)
         XCTAssert(signer == expectedAddress)

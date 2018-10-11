@@ -14,7 +14,7 @@ import PromiseKit
 /// A web3 instance bound to provider. All further functionality is provided under web.*. namespaces.
 public class web3: Web3OptionsInheritable {
     public var provider: Web3Provider
-    public var options: Web3Options = Web3Options.defaultOptions()
+    public var options: Web3Options = .default
     public var defaultBlock = "latest"
     public var requestDispatcher: JSONRPCrequestDispatcher
     

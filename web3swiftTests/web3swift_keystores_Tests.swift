@@ -56,11 +56,10 @@ class web3swift_Keystores_tests: XCTestCase {
     }
     
     func testNewBIP32keystore() throws {
-        // 3.5438530445098877 sec to complete
-        let mnemonic = try! BIP39.generateMnemonics(bitsOfEntropy: 256)!
-        print(CFAbsoluteTimeGetCurrent() - time)
-        time = CFAbsoluteTimeGetCurrent()
-        _ = try BIP32Keystore(mnemonics: mnemonic, password: "", mnemonicsPassword: "")
+        // 1.7766820192337036 sec to complete
+        let mnemonics = try! BIP39.generateMnemonics(bitsOfEntropy: 256)!
+        _ = try BIP32Keystore(mnemonics: mnemonics, password: "", mnemonicsPassword: "")
+        
     }
     
     func testBIP32keystoreExportPrivateKey() throws {
