@@ -11,35 +11,33 @@ import Foundation
 public class KeystoreManager: AbstractKeystore {
     public var isHDKeystore: Bool = false
     
-    public var addresses: [EthereumAddress]? {
-        get {
-            var toReturn = [EthereumAddress]()
-            for keystore in _keystores {
-                guard let key = keystore.addresses?.first else { continue }
-                if key.isValid {
-                    toReturn.append(key)
-                }
+    public var addresses: [EthereumAddress] {
+        var toReturn = [EthereumAddress]()
+        for keystore in _keystores {
+            guard let key = keystore.addresses.first else { continue }
+            if key.isValid {
+                toReturn.append(key)
             }
-            for keystore in _bip32keystores {
-                guard let allAddresses = keystore.addresses else { continue }
-                for addr in allAddresses {
-                    if addr.isValid {
-                        toReturn.append(addr)
-                    }
-                }
-            }
-            for keystore in _plainKeystores {
-                guard let key = keystore.addresses?.first else { continue }
-                if key.isValid {
-                    toReturn.append(key)
-                }
-            }
-            return toReturn
         }
+        for keystore in _bip32keystores {
+            let allAddresses = keystore.addresses
+            for addr in allAddresses {
+                if addr.isValid {
+                    toReturn.append(addr)
+                }
+            }
+        }
+        for keystore in _plainKeystores {
+            guard let key = keystore.addresses.first else { continue }
+            if key.isValid {
+                toReturn.append(key)
+            }
+        }
+        return toReturn
     }
     
     public func UNSAFE_getPrivateKeyData(password: String, account: EthereumAddress) throws -> Data {
-        guard let keystore = self.walletForAddress(account) else {throw AbstractKeystoreError.invalidAccountError}
+        guard let keystore = self.walletForAddress(account) else { throw AbstractKeystoreError.invalidAccountError }
         return try keystore.UNSAFE_getPrivateKeyData(password: password, account: account)
     }
     
@@ -60,13 +58,13 @@ public class KeystoreManager: AbstractKeystore {
     
     public func walletForAddress(_ address: EthereumAddress) -> AbstractKeystore? {
         for keystore in _keystores {
-            guard let key = keystore.addresses?.first else { continue }
+            guard let key = keystore.addresses.first else { continue }
             if key == address && key.isValid {
                 return keystore as AbstractKeystore?
             }
         }
         for keystore in _bip32keystores {
-            guard let allAddresses = keystore.addresses else { continue }
+            let allAddresses = keystore.addresses
             for addr in allAddresses {
                 if addr == address && addr.isValid {
                     return keystore as AbstractKeystore?
@@ -74,7 +72,7 @@ public class KeystoreManager: AbstractKeystore {
             }
         }
         for keystore in _plainKeystores {
-            guard let key = keystore.addresses?.first else { continue }
+            guard let key = keystore.addresses.first else { continue }
             if key == address && key.isValid {
                 return keystore as AbstractKeystore?
             }

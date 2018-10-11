@@ -12,12 +12,10 @@ import BigInt
 extension web3.BrowserFunctions {
     
     public func getAccounts() -> [String]? {
-        let result = self.web3.eth.getAccounts()
-        switch result {
-        case .failure(_):
+        do {
+            return try self.web3.eth.getAccounts().compactMap { $0.address }
+        } catch {
             return nil
-        case .success(let accounts):
-            return accounts.compactMap({$0.address})
         }
     }
     
@@ -37,135 +35,104 @@ extension web3.BrowserFunctions {
     }
     
     public func sign(_ personalMessage: Data, account: String, password: String = "BANKEXFOUNDATION") -> String? {
-        do {
-            guard let keystoreManager = self.web3.provider.attachedKeystoreManager else { return nil }
-            
-            guard let signature = try Web3Signer.signPersonalMessage(personalMessage, keystore: keystoreManager, account: EthereumAddress(account), password: password) else { return nil }
-            return signature.toHexString().withHex
-        }
-        catch{
-            print(error)
-            return nil
-        }
+        guard let keystoreManager = self.web3.provider.attachedKeystoreManager else { return nil }
+        guard let signature = try? Web3Signer.signPersonalMessage(personalMessage, keystore: keystoreManager, account: EthereumAddress(account), password: password) else { return nil }
+        return signature.toHexString().withHex
     }
     
-    public func personalECRecover(_ personalMessage: String, signature: String) -> String? {
-        guard let data = Data.fromHex(personalMessage) else { return nil }
-        guard let sig = Data.fromHex(signature) else { return nil }
-        return self.personalECRecover(data, signature:sig)
+    public func personalECRecover(_ personalMessage: String, signature: String) throws -> String {
+        return try personalECRecover(personalMessage.dataFromHex(), signature: signature.dataFromHex())
     }
     
-    public func personalECRecover(_ personalMessage: Data, signature: Data) -> String? {
-        if signature.count != 65 { return nil}
+    public func personalECRecover(_ personalMessage: Data, signature: Data) throws -> String {
+        try signature.checkSignatureSize()
         let rData = signature[0..<32].bytes
         let sData = signature[32..<64].bytes
         let vData = signature[64]
-        guard let signatureData = SECP256K1.marshalSignature(v: vData, r: rData, s: sData) else { return nil }
+        let signatureData = try SECP256K1.marshalSignature(v: vData, r: rData, s: sData)
         var hash: Data
         if personalMessage.count == 32 {
             print("Most likely it's hash already, allow for now")
             hash = personalMessage
         } else {
-            guard let h = Web3.Utils.hashPersonalMessage(personalMessage) else { return nil }
-            hash = h
+            hash = try Web3.Utils.hashPersonalMessage(personalMessage)
         }
-        guard let publicKey = SECP256K1.recoverPublicKey(hash: hash, signature: signatureData) else { return nil }
-        return Web3.Utils.publicToAddressString(publicKey)
+        let publicKey = try SECP256K1.recoverPublicKey(hash: hash, signature: signatureData)
+        return try Web3.Utils.publicToAddressString(publicKey)
     }
     
     
-    public func sendTransaction(_ transactionJSON: [String: Any], password: String = "BANKEXFOUNDATION") -> [String:Any]? {
-        guard let transaction = EthereumTransaction.fromJSON(transactionJSON) else { return nil }
-        guard let options = Web3Options.fromJSON(transactionJSON) else { return nil }
-        return self.sendTransaction(transaction, options: options, password: password)
+    public func sendTransaction(_ transactionJSON: [String: Any], password: String = "BANKEXFOUNDATION") throws -> String {
+        let transaction = try EthereumTransaction(transactionJSON)
+        let options = try Web3Options(transactionJSON)
+        return try sendTransaction(transaction, options: options, password: password)
     }
     
-    public func sendTransaction(_ transaction: EthereumTransaction, options: Web3Options, password: String = "BANKEXFOUNDATION") -> [String:Any]? {
-        let result = self.web3.eth.sendTransaction(transaction, options: options, password: password)
-        switch result {
-        case .failure(_):
-            return nil
-        case .success(let res):
-            return ["txhash": res.hash]
-        }
+    public func sendTransaction(_ transaction: EthereumTransaction, options: Web3Options, password: String = "BANKEXFOUNDATION") throws -> String {
+        return try web3.eth.sendTransaction(transaction, options: options, password: password).hash
     }
     
-    public func estimateGas(_ transactionJSON: [String: Any]) -> BigUInt? {
-        guard let transaction = EthereumTransaction.fromJSON(transactionJSON) else { return nil }
-        guard let options = Web3Options.fromJSON(transactionJSON) else { return nil }
-        return self.estimateGas(transaction, options: options)
+    public func estimateGas(_ transactionJSON: [String: Any]) throws -> BigUInt {
+        let transaction = try EthereumTransaction(transactionJSON)
+        let options = try Web3Options(transactionJSON)
+        return try estimateGas(transaction, options: options)
     }
     
-    public func estimateGas(_ transaction: EthereumTransaction, options: Web3Options) -> BigUInt? {
-        let result = self.web3.eth.estimateGas(transaction, options: options)
-        switch result {
-        case .failure(_):
-            return nil
-        case .success(let res):
-            return res
-        }
+    public func estimateGas(_ transaction: EthereumTransaction, options: Web3Options) throws -> BigUInt {
+        return try self.web3.eth.estimateGas(transaction, options: options)
     }
     
-    public func prepareTxForApproval(_ transactionJSON: [String: Any]) -> (transaction: EthereumTransaction?, options: Web3Options?) {
-        guard let transaction = EthereumTransaction.fromJSON(transactionJSON) else { return (nil, nil) }
-        guard let options = Web3Options.fromJSON(transactionJSON) else { return (nil, nil) }
-        return self.prepareTxForApproval(transaction, options: options)
+    public func prepareTxForApproval(_ transactionJSON: [String: Any]) throws -> (transaction: EthereumTransaction, options: Web3Options) {
+        let transaction = try EthereumTransaction(transactionJSON)
+        let options = try Web3Options(transactionJSON)
+        return try prepareTxForApproval(transaction, options: options)
     }
     
-    public func prepareTxForApproval(_ trans: EthereumTransaction, options  opts: Web3Options) -> (transaction: EthereumTransaction?, options: Web3Options?) {
+    public enum TransactionError: Error {
+        case optionsFromNotFound
+        case keystoreManagerNotFound
+        case privateKeyNotFound(forAddress: EthereumAddress)
+        case cannotEncodeTransaction
+    }
+    public func prepareTxForApproval(_ trans: EthereumTransaction, options opts: Web3Options) throws -> (transaction: EthereumTransaction, options: Web3Options) {
         var transaction = trans
         var options = opts
-        guard let _ = options.from else { return (nil, nil) }
-        let gasPriceResult = self.web3.eth.getGasPrice()
-        if case .failure(_) = gasPriceResult {
-            return (nil, nil)
-        }
-        transaction.gasPrice = gasPriceResult.value!
-        options.gasPrice = gasPriceResult.value!
-        guard let gasEstimate = self.estimateGas(transaction, options: options) else { return (nil, nil) }
-        transaction.gasLimit = gasEstimate
-        options.gasLimit = gasEstimate
+        guard options.from != nil else { throw TransactionError.optionsFromNotFound }
+        let gasPrice = try self.web3.eth.getGasPrice()
+        transaction.gasPrice = gasPrice
+        options.gasPrice = gasPrice
+        let gasLimit = try estimateGas(transaction, options: options)
+        transaction.gasLimit = gasLimit
+        options.gasLimit = gasLimit
         print(transaction)
         return (transaction, options)
     }
     
-    public func signTransaction(_ transactionJSON: [String: Any], password: String = "BANKEXFOUNDATION") -> String? {
-        guard let transaction = EthereumTransaction.fromJSON(transactionJSON) else { return nil }
-        guard let options = Web3Options.fromJSON(transactionJSON) else { return nil }
-        return self.signTransaction(transaction, options: options, password: password)
+    public func signTransaction(_ transactionJSON: [String: Any], password: String = "BANKEXFOUNDATION") throws -> String {
+        let transaction = try EthereumTransaction(transactionJSON)
+        let options = try Web3Options(transactionJSON)
+        return try signTransaction(transaction, options: options, password: password)
     }
     
-    public func signTransaction(_ trans: EthereumTransaction, options: Web3Options, password: String = "BANKEXFOUNDATION") -> String? {
-        do {
-            var transaction = trans
-            guard let from = options.from else { return nil }
-            guard let keystoreManager = self.web3.provider.attachedKeystoreManager else { return nil }
-            let gasPriceResult = self.web3.eth.getGasPrice()
-            if case .failure(_) = gasPriceResult {
-                return nil
-            }
-            transaction.gasPrice = gasPriceResult.value!
-            guard let gasEstimate = self.estimateGas(transaction, options: options) else { return nil }
-            transaction.gasLimit = gasEstimate
-            
-            let nonceResult = self.web3.eth.getTransactionCount(address: from, onBlock: "pending")
-            if case .failure(_) = nonceResult {
-                return nil
-            }
-            transaction.nonce = nonceResult.value!
-            
-            if (self.web3.provider.network != nil) {
-                transaction.chainID = self.web3.provider.network
-            }
-            
-            guard let keystore = keystoreManager.walletForAddress(from) else { return nil }
-            try Web3Signer.signTX(transaction: &transaction, keystore: keystore, account: from, password: password)
-            print(transaction)
-            let signedData = transaction.encode(forSignature: false, chainID: nil)?.toHexString().withHex
-            return signedData
+    public func signTransaction(_ trans: EthereumTransaction, options: Web3Options, password: String = "BANKEXFOUNDATION") throws -> String {
+        var transaction = trans
+        guard let from = options.from else { throw TransactionError.optionsFromNotFound }
+        guard let keystoreManager = self.web3.provider.attachedKeystoreManager else { throw TransactionError.keystoreManagerNotFound }
+        let gasPrice = try self.web3.eth.getGasPrice()
+        transaction.gasPrice = gasPrice
+        let gasLimit = try estimateGas(transaction, options: options)
+        transaction.gasLimit = gasLimit
+        
+        transaction.nonce = try self.web3.eth.getTransactionCount(address: from, onBlock: "pending")
+        
+        if (self.web3.provider.network != nil) {
+            transaction.chainID = self.web3.provider.network
         }
-        catch {
-            return nil
-        }
+        
+        guard let keystore = keystoreManager.walletForAddress(from) else { throw TransactionError.privateKeyNotFound(forAddress: from) }
+        try Web3Signer.signTX(transaction: &transaction, keystore: keystore, account: from, password: password)
+        print(transaction)
+        guard let signedData = transaction.encode(forSignature: false, chainID: nil)?.toHexString().withHex else { throw TransactionError.cannotEncodeTransaction }
+        return signedData
     }
 }

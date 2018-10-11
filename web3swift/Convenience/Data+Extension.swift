@@ -9,6 +9,16 @@
 import Foundation
 //import libsodium
 
+public enum DataError: Error {
+    case hexStringCorrupted(String)
+    public var localizedDescription: String {
+        switch self {
+        case .hexStringCorrupted(let string):
+            return "Cannot convert hex string \"\(string)\" to data"
+        }
+    }
+}
+
 public extension Data {
     
     init<T>(fromArray values: [T]) {
@@ -22,6 +32,7 @@ public extension Data {
         }
     }
     
+    // Why do we need this?
     public func constantTimeComparisonTo(_ other:Data?) -> Bool {
         guard let rhs = other else { return false }
         guard self.count == rhs.count else { return false }
@@ -40,18 +51,13 @@ public extension Data {
             dataPtr.initialize(repeating: 0, count: count)
         }
     }
-    public static func randomBytes(length: Int) -> Data? {
-        for _ in 0...1024 {
-            var data = Data(repeating: 0, count: length)
-            let result = data.withUnsafeMutableBytes {
-                (mutableBytes: UnsafeMutablePointer<UInt8>) -> Int32 in
-                SecRandomCopyBytes(kSecRandomDefault, 32, mutableBytes)
-            }
-            if result == errSecSuccess {
-                return data
-            }
+    public static func random(length: Int) -> Data {
+        var data = Data(repeating: 0, count: length)
+        let result = data.withUnsafeMutableBytes {
+            SecRandomCopyBytes(kSecRandomDefault, length, $0)
         }
-        return nil
+        assert(result == errSecSuccess, "SecRandomCopyBytes crashed")
+        return data
     }
     
     public static func fromHex(_ hex: String) -> Data? {

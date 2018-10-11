@@ -11,7 +11,6 @@ import XCTest
 import XCTest
 import CryptoSwift
 import BigInt
-import Result
 import secp256k1
 
 
@@ -19,73 +18,62 @@ import secp256k1
 
 class web3swift_SECP256K1_Tests: XCTestCase {
     
-    func testNonDeterministicSignature() {
+    func testNonDeterministicSignature() throws {
         var unsuccesfulNondeterministic = 0;
         var allAttempts = 0
         for _ in 0 ..< 10000 {
-            let randomHash = Data.randomBytes(length: 32)!
-            let randomPrivateKey = Data.randomBytes(length: 32)!
-            guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else { continue }
-            allAttempts = allAttempts + 1
-            let signature = SECP256K1.signForRecovery(hash: randomHash, privateKey: randomPrivateKey, useExtraEntropy: true)
-            guard let serialized = signature.serializedSignature else {
-                unsuccesfulNondeterministic = unsuccesfulNondeterministic + 1
-                continue
-            }
-            guard let recovered = SECP256K1.recoverPublicKey(hash: randomHash, signature: serialized, compressed: true) else {
-                unsuccesfulNondeterministic = unsuccesfulNondeterministic + 1
-                continue
-            }
-            guard let original = SECP256K1.privateToPublic(privateKey: randomPrivateKey, compressed: true) else {
-                unsuccesfulNondeterministic = unsuccesfulNondeterministic + 1
-                continue
-            }
-            guard recovered == original else {
-                unsuccesfulNondeterministic = unsuccesfulNondeterministic + 1
-                continue
+            do {
+                let randomHash = Data.random(length: 32)
+                let randomPrivateKey = Data.random(length: 32)
+                try SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey)
+                allAttempts = allAttempts + 1
+                let signature = try SECP256K1.signForRecovery(hash: randomHash, privateKey: randomPrivateKey, useExtraEntropy: true)
+                let serialized = signature.serializedSignature
+                let recovered = try SECP256K1.recoverPublicKey(hash: randomHash, signature: serialized, compressed: true)
+                let original = try SECP256K1.privateToPublic(privateKey: randomPrivateKey, compressed: true)
+                guard recovered == original else {
+                    unsuccesfulNondeterministic += 1
+                    continue
+                }
+            } catch {
+                unsuccesfulNondeterministic += 1
             }
         }
         print("Problems with \(unsuccesfulNondeterministic) non-deterministic signatures out from \(allAttempts)")
-        XCTAssert(unsuccesfulNondeterministic == 0)
+        XCTAssertEqual(unsuccesfulNondeterministic, 0)
     }
     
     func testDeterministicSignature() {
         var unsuccesfulDeterministic = 0;
         var allAttempts = 0
         for _ in 0 ..< 10000 {
-            let randomHash = Data.randomBytes(length: 32)!
-            let randomPrivateKey = Data.randomBytes(length: 32)!
-            guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else { continue }
-            allAttempts = allAttempts + 1
-            let signature = SECP256K1.signForRecovery(hash: randomHash, privateKey: randomPrivateKey, useExtraEntropy: false)
-            guard let serialized = signature.serializedSignature else {
-                unsuccesfulDeterministic = unsuccesfulDeterministic + 1
-                continue
+            do {
+                let randomHash = Data.random(length: 32)
+                let randomPrivateKey = Data.random(length: 32)
+                try SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey)
+                allAttempts = allAttempts + 1
+                let signature = try SECP256K1.signForRecovery(hash: randomHash, privateKey: randomPrivateKey, useExtraEntropy: false)
+                let serialized = signature.serializedSignature
+                let recovered = try SECP256K1.recoverPublicKey(hash: randomHash, signature: serialized, compressed: true)
+                let original = try SECP256K1.privateToPublic(privateKey: randomPrivateKey, compressed: true)
+                guard recovered == original else {
+                    unsuccesfulDeterministic += 1
+                    continue
+                }
+            } catch {
+                unsuccesfulDeterministic += 1
             }
-            guard let recovered = SECP256K1.recoverPublicKey(hash: randomHash, signature: serialized, compressed: true) else {
-                unsuccesfulDeterministic = unsuccesfulDeterministic + 1
-                continue
-            }
-            guard let original = SECP256K1.privateToPublic(privateKey: randomPrivateKey, compressed: true) else {
-                unsuccesfulDeterministic = unsuccesfulDeterministic + 1
-                continue
-            }
-            guard recovered == original else {
-                unsuccesfulDeterministic = unsuccesfulDeterministic + 1
-                continue
-            }
-            
         }
         print("Problems with \(unsuccesfulDeterministic) deterministic signatures out from \(allAttempts)")
         XCTAssert(unsuccesfulDeterministic == 0)
     }
     
-    func testPrivateToPublic() {
-        let randomPrivateKey = Data.randomBytes(length: 32)!
-        guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else { return XCTFail() }
-        guard var previousPublic = SECP256K1.privateKeyToPublicKey(privateKey: randomPrivateKey) else { return XCTFail() }
+    func testPrivateToPublic() throws {
+        let randomPrivateKey = Data.random(length: 32)
+        try SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey)
+        var previousPublic = try SECP256K1.privateKeyToPublicKey(privateKey: randomPrivateKey)
         for _ in 0 ..< 100000 {
-            guard let pub = SECP256K1.privateKeyToPublicKey(privateKey: randomPrivateKey) else { return XCTFail() }
+            let pub = try SECP256K1.privateKeyToPublicKey(privateKey: randomPrivateKey)
             guard Data(toByteArray(previousPublic.data)) == Data(toByteArray(pub.data)) else {
                 return XCTFail()
             }
@@ -93,14 +81,14 @@ class web3swift_SECP256K1_Tests: XCTestCase {
         }
     }
     
-    func testSerializationAndParsing() {
+    func testSerializationAndParsing() throws {
         for _ in 0 ..< 1024 {
-            let randomHash = Data.randomBytes(length: 32)!
-            let randomPrivateKey = Data.randomBytes(length: 32)!
-            guard SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey) else { continue }
-            guard var signature = SECP256K1.recoverableSign(hash: randomHash, privateKey: randomPrivateKey, useExtraEntropy: true) else { return XCTFail() }
-            guard let serialized = SECP256K1.serializeSignature(recoverableSignature: &signature) else { return XCTFail() }
-            guard let parsed = SECP256K1.parseSignature(signature: serialized) else { return XCTFail() }
+            let randomHash = Data.random(length: 32)
+            let randomPrivateKey = Data.random(length: 32)
+            try SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey)
+            var signature = try SECP256K1.recoverableSign(hash: randomHash, privateKey: randomPrivateKey, useExtraEntropy: true)
+            let serialized = try SECP256K1.serializeSignature(recoverableSignature: &signature)
+            let parsed = try SECP256K1.parseSignature(signature: serialized)
             let sigData = Data(toByteArray(signature.data))
             let parsedData = Data(toByteArray(parsed.data))
             guard sigData == parsedData else {

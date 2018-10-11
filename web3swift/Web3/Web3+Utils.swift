@@ -21,6 +21,38 @@ extension Web3 {
     }
 }
 
+/// Various units used in Ethereum ecosystem
+public enum Web3Units {
+    case eth
+    case wei
+    case Kwei
+    case Mwei
+    case Gwei
+    case Microether
+    case Finney
+    
+    var decimals:Int {
+        get {
+            switch self {
+            case .eth:
+                return 18
+            case .wei:
+                return 0
+            case .Kwei:
+                return 3
+            case .Mwei:
+                return 6
+            case .Gwei:
+                return 9
+            case .Microether:
+                return 12
+            case .Finney:
+                return 15
+            }
+        }
+    }
+}
+
 extension Web3.Utils {
     
     /// Calculate address of deployed contract deterministically based on the address of the deploying Ethereum address
@@ -33,83 +65,72 @@ extension Web3.Utils {
         return EthereumAddress(Data(contractAddressData))
     }
     
-    /// Various units used in Ethereum ecosystem
-    public enum Units {
-        case eth
-        case wei
-        case Kwei
-        case Mwei
-        case Gwei
-        case Microether
-        case Finney
-        
-        var decimals:Int {
-            get {
-                switch self {
-                case .eth:
-                    return 18
-                case .wei:
-                    return 0
-                case .Kwei:
-                    return 3
-                case .Mwei:
-                    return 6
-                case .Gwei:
-                    return 9
-                case .Microether:
-                    return 12
-                case .Finney:
-                    return 15
-                }
-            }
-        }
-    }
+    @available(*, deprecated, message: "Use Web3Units")
+    public struct Units {}
     
     /// Precoded "cold wallet" (private key controlled) address. Basically - only a payable fallback function.
-    public static var coldWalletABI = "[{\"payable\":true,\"type\":\"fallback\"}]"
+    public static var coldWalletABI = """
+[{"payable":true,"type":"fallback"}]
+"""
     
     /// Precoded ERC20 contracts ABI. Output parameters are named for ease of use.
-    public static var erc20ABI = "[{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_spender\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_from\",\"type\":\"address\"},{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"name\":\"\",\"type\":\"uint8\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"version\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"name\":\"balance\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_spender\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"},{\"name\":\"_extraData\",\"type\":\"bytes\"}],\"name\":\"approveAndCall\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_owner\",\"type\":\"address\"},{\"name\":\"_spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"name\":\"remaining\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"inputs\":[{\"name\":\"_initialAmount\",\"type\":\"uint256\"},{\"name\":\"_tokenName\",\"type\":\"string\"},{\"name\":\"_decimalUnits\",\"type\":\"uint8\"},{\"name\":\"_tokenSymbol\",\"type\":\"string\"}],\"type\":\"constructor\"},{\"payable\":false,\"type\":\"fallback\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_to\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_spender\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},]"
+    public static var erc20ABI = """
+[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"},{"name":"_extraData","type":"bytes"}],"name":"approveAndCall","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[{"name":"_initialAmount","type":"uint256"},{"name":"_tokenName","type":"string"},{"name":"_decimalUnits","type":"uint8"},{"name":"_tokenSymbol","type":"string"}],"type":"constructor"},{"payable":false,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"},]
+"""
+}
+
+public enum Web3UtilsError: Error {
+    case cannotConvertDataToAscii
+    case invalidSignatureLength
+    public var localizedDescription: String {
+        switch self {
+        case .cannotConvertDataToAscii:
+            return "Cannot convert provided data to ascii string"
+        case .invalidSignatureLength:
+            return "Invalid signature length: Signature size should be 65 bytes"
+        }
+    }
+}
+
+public enum PublicKeyToAddressError: Error {
+    case shouldStartWith4
+    case invalidPublicKeySize
 }
 
 extension Web3.Utils {
     
     /// Convert the private key (32 bytes of Data) to compressed (33 bytes) or non-compressed (65 bytes) public key.
-    public static func privateToPublic(_ privateKey: Data, compressed: Bool = false) -> Data? {
-        guard let publicKey = SECP256K1.privateToPublic(privateKey:  privateKey, compressed: compressed) else { return nil }
-        return publicKey
+    public static func privateToPublic(_ privateKey: Data, compressed: Bool = false) throws -> Data {
+        return try SECP256K1.privateToPublic(privateKey:  privateKey, compressed: compressed)
     }
     
     /// Convert a public key to the corresponding EthereumAddress. Accepts public keys in compressed (33 bytes), non-compressed (65 bytes)
     /// or raw concat(X,Y) (64 bytes) format.
     ///
     /// Returns 20 bytes of address data.
-    public static func publicToAddressData(_ publicKey: Data) -> Data? {
+    public static func publicToAddressData(_ publicKey: Data) throws -> Data {
         if publicKey.count == 33 {
-            guard let decompressedKey = SECP256K1.combineSerializedPublicKeys(keys: [publicKey], outputCompressed: false) else { return nil }
-            return publicToAddressData(decompressedKey)
-        }
-        var stipped = publicKey
-        if (stipped.count == 65) {
-            if (stipped[0] != 4) {
-                return nil
+            let decompressedKey = try SECP256K1.combineSerializedPublicKeys(keys: [publicKey], outputCompressed: false)
+            return try publicToAddressData(decompressedKey)
+        } else {
+            var stipped = publicKey
+            if (stipped.count == 65) {
+                guard stipped[0] == 4 else { throw PublicKeyToAddressError.shouldStartWith4 }
+                stipped = stipped[1...64]
             }
-            stipped = stipped[1...64]
+            guard stipped.count == 64 else { throw PublicKeyToAddressError.invalidPublicKeySize }
+            let sha3 = stipped.sha3(.keccak256)
+            let addressData = sha3[12..<32]
+            return addressData
         }
-        if (stipped.count != 64) {
-            return nil
-        }
-        let sha3 = stipped.sha3(.keccak256)
-        let addressData = sha3[12...31]
-        return addressData
     }
     
     /// Convert a public key to the corresponding EthereumAddress. Accepts public keys in compressed (33 bytes), non-compressed (65 bytes)
     /// or raw concat(X,Y) (64 bytes) format.
     ///
     /// Returns the EthereumAddress object.
-    public static func publicToAddress(_ publicKey: Data) -> EthereumAddress? {
-        guard let addressData = Web3.Utils.publicToAddressData(publicKey) else { return nil }
+    public static func publicToAddress(_ publicKey: Data) throws -> EthereumAddress {
+        let addressData = try Web3.Utils.publicToAddressData(publicKey)
         let address = addressData.toHexString().withHex.lowercased()
         return EthereumAddress(address)
     }
@@ -118,25 +139,25 @@ extension Web3.Utils {
     /// or raw concat(X,Y) (64 bytes) format.
     ///
     /// Returns a 0x prefixed hex string.
-    public static func publicToAddressString(_ publicKey: Data) -> String? {
-        guard let addressData = Web3.Utils.publicToAddressData(publicKey) else { return nil }
+    public static func publicToAddressString(_ publicKey: Data) throws -> String {
+        let addressData = try Web3.Utils.publicToAddressData(publicKey)
         let address = addressData.toHexString().withHex.lowercased()
         return address
     }
     
     /// Converts address data (20 bytes) to the 0x prefixed hex string. Does not perform checksumming.
-    public static func addressDataToString(_ addressData: Data) -> String? {
-        guard addressData.count == 20 else { return nil }
-        return addressData.toHexString().withHex.lowercased()
+    public static func addressDataToString(_ addressData: Data) throws -> String {
+        return EthereumAddress(addressData)._address
     }
     
     /// Hashes a personal message by first padding it with the "\u{19}Ethereum Signed Message:\n" string and message length string.
     /// Should be used if some arbitrary information should be hashed and signed to prevent signing an Ethereum transaction
     /// by accident.
-    public static func hashPersonalMessage(_ personalMessage: Data) -> Data? {
+    /// throws Web3UtilsError.cannotConvertDataToAscii
+    public static func hashPersonalMessage(_ personalMessage: Data) throws -> Data {
         var prefix = "\u{19}Ethereum Signed Message:\n"
         prefix += String(personalMessage.count)
-        guard let prefixData = prefix.data(using: .ascii) else { return nil }
+        guard let prefixData = prefix.data(using: .ascii) else { throw Web3UtilsError.cannotConvertDataToAscii }
         var data = Data()
         if personalMessage.count >= prefixData.count && prefixData == personalMessage[0 ..< prefixData.count] {
             data.append(personalMessage)
@@ -144,14 +165,13 @@ extension Web3.Utils {
             data.append(prefixData)
             data.append(personalMessage)
         }
-        let hash = data.sha3(.keccak256)
-        return hash
+        return data.sha3(.keccak256)
     }
     
     /// Parse a user-supplied string using the number of decimals for particular Ethereum unit.
     /// If input is non-numeric or precision is not sufficient - returns nil.
     /// Allowed decimal separators are ".", ",".
-    public static func parseToBigUInt(_ amount: String, units: Web3.Utils.Units = .eth) -> BigUInt? {
+    public static func parseToBigUInt(_ amount: String, units: Web3Units = .eth) -> BigUInt? {
         let unitDecimals = units.decimals
         return parseToBigUInt(amount, decimals: unitDecimals)
     }
@@ -180,7 +200,7 @@ extension Web3.Utils {
     /// then limit the decimal part to "decimals" symbols and uses a "decimalSeparator" as a separator.
     ///
     /// Returns nil of formatting is not possible to satisfy.
-    public static func formatToEthereumUnits(_ bigNumber: BigInt, toUnits: Web3.Utils.Units = .eth, decimals: Int = 4, decimalSeparator: String = ".") -> String? {
+    public static func formatToEthereumUnits(_ bigNumber: BigInt, toUnits: Web3Units = .eth, decimals: Int = 4, decimalSeparator: String = ".") -> String? {
         let magnitude = bigNumber.magnitude
         guard let formatted = formatToEthereumUnits(magnitude, toUnits: toUnits, decimals: decimals, decimalSeparator: decimalSeparator) else { return nil }
         switch bigNumber.sign {
@@ -211,7 +231,7 @@ extension Web3.Utils {
     /// then limit the decimal part to "decimals" symbols and uses a "decimalSeparator" as a separator.
     ///
     /// Returns nil of formatting is not possible to satisfy.
-    public static func formatToEthereumUnits(_ bigNumber: BigUInt, toUnits: Web3.Utils.Units = .eth, decimals: Int = 4, decimalSeparator: String = ".", fallbackToScientific: Bool = false) -> String? {
+    public static func formatToEthereumUnits(_ bigNumber: BigUInt, toUnits: Web3Units = .eth, decimals: Int = 4, decimalSeparator: String = ".", fallbackToScientific: Bool = false) -> String? {
         return formatToPrecision(bigNumber, numberDecimals: toUnits.decimals, formattingDecimals: decimals, decimalSeparator: decimalSeparator, fallbackToScientific: fallbackToScientific);
     }
     
@@ -260,25 +280,19 @@ extension Web3.Utils {
     /// BE WARNED - changing a message will result in different Ethereum address, but not in error.
     ///
     /// Input parameters should be hex Strings.
-    static public func personalECRecover(_ personalMessage: String, signature: String) -> EthereumAddress? {
-        guard let data = Data.fromHex(personalMessage) else { return nil }
-        guard let sig = Data.fromHex(signature) else { return nil }
-        return Web3.Utils.personalECRecover(data, signature:sig)
+    static public func personalECRecover(_ personalMessage: String, signature: String) throws -> EthereumAddress {
+        return try Web3.Utils.personalECRecover(personalMessage.dataFromHex(), signature:signature.dataFromHex())
     }
     
     /// Recover the Ethereum address from recoverable secp256k1 signature. Message is first hashed using the "personal hash" protocol.
     /// BE WARNED - changing a message will result in different Ethereum address, but not in error.
     ///
     /// Input parameters should be Data objects.
-    static public func personalECRecover(_ personalMessage: Data, signature: Data) -> EthereumAddress? {
-        if signature.count != 65 { return nil}
-        let rData = signature[0..<32].bytes
-        let sData = signature[32..<64].bytes
-        let vData = signature[64]
-        guard let signatureData = SECP256K1.marshalSignature(v: vData, r: rData, s: sData) else { return nil }
-        guard let hash = Web3.Utils.hashPersonalMessage(personalMessage) else { return nil }
-        guard let publicKey = SECP256K1.recoverPublicKey(hash: hash, signature: signatureData) else { return nil }
-        return Web3.Utils.publicToAddress(publicKey)
+    static public func personalECRecover(_ personalMessage: Data, signature: Data) throws -> EthereumAddress {
+        guard signature.count == 65 else { throw Web3UtilsError.invalidSignatureLength }
+        let hash = try Web3.Utils.hashPersonalMessage(personalMessage)
+        let publicKey = try SECP256K1.recoverPublicKey(hash: hash, signature: signature)
+        return try Web3.Utils.publicToAddress(publicKey)
     }
     
     
@@ -286,14 +300,14 @@ extension Web3.Utils {
     /// Takes a hash of some message. What message is hashed should be checked by user separately.
     ///
     /// Input parameters should be Data objects.
-    static public func hashECRecover(hash: Data, signature: Data) -> EthereumAddress? {
-        if signature.count != 65 { return nil}
+    static public func hashECRecover(hash: Data, signature: Data) throws -> EthereumAddress {
+        try signature.checkSignatureSize()
         let rData = signature[0..<32].bytes
         let sData = signature[32..<64].bytes
         let vData = signature[64]
-        guard let signatureData = SECP256K1.marshalSignature(v: vData, r: rData, s: sData) else { return nil }
-        guard let publicKey = SECP256K1.recoverPublicKey(hash: hash, signature: signatureData) else { return nil }
-        return Web3.Utils.publicToAddress(publicKey)
+        let signatureData = try SECP256K1.marshalSignature(v: vData, r: rData, s: sData)
+        let publicKey = try SECP256K1.recoverPublicKey(hash: hash, signature: signatureData)
+        return try Web3.Utils.publicToAddress(publicKey)
     }
     
     /// returns Ethereum variant of sha3 (keccak256) of data. Returns nil is data is empty

@@ -8,11 +8,11 @@
 
 import Foundation
 
-public typealias TransactionIntermediate = web3.web3contract.TransactionIntermediate
+public typealias TransactionIntermediate = web3.Web3Contract.TransactionIntermediate
 
 
 public protocol AbstractKeystore {
-    var addresses: [EthereumAddress]? { get }
+    var addresses: [EthereumAddress] { get }
     var isHDKeystore: Bool { get }
     func UNSAFE_getPrivateKeyData(password: String, account: EthereumAddress) throws -> Data
 }

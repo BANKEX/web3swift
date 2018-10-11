@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Result
 
 public enum Web3Error: Error {
     case transactionSerializationError
@@ -54,24 +53,21 @@ public struct Web3 {
 }
 
 struct ResultUnwrapper {
-    static func getResponse(_ response: [String: Any]?) -> Result<Any, Web3Error> {
-        guard response != nil, let res = response else {
-            return Result.failure(Web3Error.connectionError)
-        }
+    // throws Web3Error
+    static func getResponse(_ response: [String: Any]?) throws -> Any {
+        guard response != nil, let res = response else { throw Web3Error.connectionError }
         if let error = res["error"] {
             if let errString = error as? String {
-                return Result.failure(Web3Error.nodeError(errString))
+                throw Web3Error.nodeError(errString)
             } else if let errDict = error as? [String:Any] {
                 if errDict["message"] != nil, let descr = errDict["message"]! as? String  {
-                    return Result.failure(Web3Error.nodeError(descr))
+                    throw Web3Error.nodeError(descr)
                 }
             }
-            return Result.failure(Web3Error.unknownError)
+            throw Web3Error.unknownError
         }
-        guard let result = res["result"] else {
-            return Result.failure(Web3Error.dataError)
-        }
-        return Result(result)
+        guard let result = res["result"] else { throw Web3Error.dataError }
+        return result
     }
 }
 

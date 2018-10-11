@@ -23,6 +23,7 @@ public struct EthereumAddress: Equatable {
             return true
         }
     }
+    
     var _address: String
     public var type: AddressType = .normal
     public static func ==(lhs: EthereumAddress, rhs: EthereumAddress) -> Bool {
@@ -54,7 +55,7 @@ public struct EthereumAddress: Equatable {
     
     public static func toChecksumAddress(_ addr: String) -> String? {
         let address = addr.lowercased().withoutHex
-        guard let hash = address.data(using: .ascii)?.sha3(.keccak256).toHexString().withoutHex else { return nil }
+        guard let hash = address.data(using: .ascii)?.sha3(.keccak256).toHexString() else { return nil }
         var ret = "0x"
         
         for (i,char) in address.enumerated() {

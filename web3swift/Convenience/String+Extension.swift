@@ -79,6 +79,11 @@ extension String {
         guard isHex else { return self }
         return String(self[2...])
     }
+    func dataFromHex() throws -> Data {
+        let data = Data(hex: self)
+        guard data.count > 0 else { throw DataError.hexStringCorrupted(self) }
+        return data
+    }
     func stripLeadingZeroes() -> String {
         let hex = self.withHex
         var count = 0
