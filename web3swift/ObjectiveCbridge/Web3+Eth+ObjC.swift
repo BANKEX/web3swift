@@ -10,9 +10,9 @@ import Foundation
 
 @objc(web3Eth)
 public final class _ObjCweb3Eth: NSObject {
-    private(set) weak var web3: web3?
+    private(set) weak var web3: Web3?
 
-    init(web3: web3?) {
+    init(web3: Web3?) {
         self.web3 = web3
     }
 

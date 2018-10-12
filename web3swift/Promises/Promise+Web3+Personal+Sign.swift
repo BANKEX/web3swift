@@ -10,7 +10,7 @@ import BigInt
 import Foundation
 import PromiseKit
 
-extension web3.Personal {
+extension Web3.Personal {
     func signPersonalMessagePromise(message: Data, from: EthereumAddress, password: String = "BANKEXFOUNDATION") -> Promise<Data> {
         let queue = web3.requestDispatcher.queue
         do {

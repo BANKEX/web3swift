@@ -9,7 +9,7 @@
 import BigInt
 import Foundation
 
-extension web3.BrowserFunctions {
+extension Web3.BrowserFunctions {
     public func getAccounts() -> [String]? {
         do {
             return try web3.eth.getAccounts().compactMap { $0.address }

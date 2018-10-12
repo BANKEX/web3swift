@@ -10,7 +10,7 @@ import BigInt
 import Foundation
 import PromiseKit
 
-extension web3.Eth {
+extension Web3.Eth {
     public func getTransactionDetailsPromise(_ txhash: Data) -> Promise<TransactionDetails> {
         let hashString = txhash.toHexString().withHex
         return getTransactionDetailsPromise(hashString)

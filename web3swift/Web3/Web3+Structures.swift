@@ -122,6 +122,7 @@ extension EthereumTransaction: Decodable {
         if options.value == nil || options.to == nil || options.gasLimit == nil || options.gasPrice == nil {
             throw Web3Error.dataError
         }
+        chainID = nil
         value = options.value!
         to = options.to!
         gasPrice = options.gasPrice!

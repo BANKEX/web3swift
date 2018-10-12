@@ -75,7 +75,7 @@ public class Web3Response {
     }
 }
 
-extension web3.Web3Contract {
+extension Web3.Web3Contract {
     /// TransactionIntermediate is an almost-ready transaction or a smart-contract function call. It bears all the required information
     /// to call the smart-contract and decode the returned information, or estimate gas required for transaction, or send a transaciton
     /// to the blockchain.
@@ -84,8 +84,8 @@ extension web3.Web3Contract {
         public var contract: ContractProtocol
         public var method: String
         public var options: Web3Options = .default
-        var web3: web3
-        public init(transaction: EthereumTransaction, web3 web3Instance: web3, contract: ContractProtocol, method: String, options: Web3Options) {
+        var web3: Web3
+        public init(transaction: EthereumTransaction, web3 web3Instance: Web3, contract: ContractProtocol, method: String, options: Web3Options) {
             self.transaction = transaction
             web3 = web3Instance
             self.contract = contract
@@ -171,7 +171,7 @@ extension web3.Web3Contract {
     }
 }
 
-extension web3.Web3Contract.TransactionIntermediate {
+extension Web3.Web3Contract.TransactionIntermediate {
     public func assemblePromise(options: Web3Options? = nil, onBlock: String = "pending") -> Promise<EthereumTransaction> {
         var assembledTransaction: EthereumTransaction = transaction
         let queue = web3.requestDispatcher.queue

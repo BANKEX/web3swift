@@ -10,7 +10,7 @@ import BigInt
 import Foundation
 import PromiseKit
 
-extension web3.Eth {
+extension Web3.Eth {
     public func getBlockNumberPromise() -> Promise<BigUInt> {
         let request = JSONRPCRequestFabric.prepareRequest(.blockNumber, parameters: [])
         let rp = web3.dispatch(request)

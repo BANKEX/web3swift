@@ -10,7 +10,7 @@ import BigInt
 import Foundation
 import PromiseKit
 
-extension web3.Eth {
+extension Web3.Eth {
     public func getBlockByHashPromise(_ hash: Data, fullTransactions: Bool = false) -> Promise<Block> {
         let hashString = hash.toHexString().withHex
         return getBlockByHashPromise(hashString, fullTransactions: fullTransactions)

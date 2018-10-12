@@ -10,7 +10,7 @@ import BigInt
 import Foundation
 import PromiseKit
 
-extension web3.Personal {
+extension Web3.Personal {
     func unlockAccountPromise(account: EthereumAddress, password: String = "BANKEXFOUNDATION", seconds: UInt64 = 300) -> Promise<Bool> {
         let addr = account.address
         return unlockAccountPromise(account: addr, password: password, seconds: seconds)

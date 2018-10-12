@@ -13,7 +13,7 @@ public enum Web3WalletError: Error {
     case noAccounts
 }
 
-extension web3.Web3Wallet {
+extension Web3.Web3Wallet {
     /// throws Web3WalletError.attachadKeystoreNotFound
     public func getAccounts() throws -> [EthereumAddress] {
         guard let keystoreManager = self.web3.provider.attachedKeystoreManager else { throw Web3WalletError.attachadKeystoreNotFound }

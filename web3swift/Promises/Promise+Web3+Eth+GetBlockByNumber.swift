@@ -10,7 +10,7 @@ import BigInt
 import Foundation
 import PromiseKit
 
-extension web3.Eth {
+extension Web3.Eth {
     public func getBlockByNumberPromise(_ number: UInt64, fullTransactions: Bool = false) -> Promise<Block> {
         let block = String(number, radix: 16).withHex
         return getBlockByNumberPromise(block, fullTransactions: fullTransactions)

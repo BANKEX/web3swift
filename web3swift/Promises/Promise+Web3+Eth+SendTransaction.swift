@@ -10,7 +10,7 @@ import BigInt
 import Foundation
 import PromiseKit
 
-extension web3.Eth {
+extension Web3.Eth {
     func sendTransactionPromise(_ transaction: EthereumTransaction, options: Web3Options, password: String = "BANKEXFOUNDATION") -> Promise<TransactionSendingResult> {
 //        print(transaction)
         var assembledTransaction: EthereumTransaction = transaction.mergedWithOptions(options)

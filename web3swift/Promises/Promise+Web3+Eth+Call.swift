@@ -9,7 +9,7 @@
 import Foundation
 import PromiseKit
 
-extension web3.Eth {
+extension Web3.Eth {
     func callPromise(_ transaction: EthereumTransaction, options: Web3Options, onBlock: String = "latest") -> Promise<Data> {
         let queue = web3.requestDispatcher.queue
         do {

@@ -15,6 +15,7 @@
 		00E5FE7E20EA3A3F0030E0D6 /* web3swift_ABI_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E5FE7D20EA3A3F0030E0D6 /* web3swift_ABI_Tests.swift */; };
 		00E5FE8020EA3CEA0030E0D6 /* web3swift_RLP_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E5FE7F20EA3CEA0030E0D6 /* web3swift_RLP_Tests.swift */; };
 		00E5FE8220EA3FF40030E0D6 /* web3swift_infura_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E5FE8120EA3FF40030E0D6 /* web3swift_infura_Tests.swift */; };
+		1323B7AB2170CB4400306BBB /* ERC20.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1323B7AA2170CB4400306BBB /* ERC20.swift */; };
 		13A24E4E21629CBC004C48A0 /* Promise+Web3+Eth+EstimateGas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A1823F20D79FDB0016741F /* Promise+Web3+Eth+EstimateGas.swift */; };
 		13A24E51216365A4004C48A0 /* EthURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A24E50216365A4004C48A0 /* EthURL.swift */; };
 		13A24E52216365A4004C48A0 /* EthURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A24E50216365A4004C48A0 /* EthURL.swift */; };
@@ -238,6 +239,7 @@
 		08BD06D432296DA533D07D20 /* Pods_Web3Swift_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Web3Swift_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F133EC83594B17BA8C71784 /* Pods_web3swift_ios_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_web3swift_ios_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		10C02100CDF7C2D5C79A52B9 /* Pods_web3Swift_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_web3Swift_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1323B7AA2170CB4400306BBB /* ERC20.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC20.swift; sourceTree = "<group>"; };
 		13A24E50216365A4004C48A0 /* EthURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthURL.swift; sourceTree = "<group>"; };
 		13A24EE6216F988C004C48A0 /* UInt256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UInt256.swift; sourceTree = "<group>"; };
 		18E81592D2802B9F4E200823 /* Pods_web3swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_web3swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -433,6 +435,7 @@
 		13A24EDF216E4BF5004C48A0 /* Contracts */ = {
 			isa = PBXGroup;
 			children = (
+				1323B7AA2170CB4400306BBB /* ERC20.swift */,
 			);
 			path = Contracts;
 			sourceTree = "<group>";
@@ -1033,6 +1036,7 @@
 				81FECD55211AEB49006DA367 /* EthereumAddress+ObjC.swift in Sources */,
 				81C5DA282072E18200424CD6 /* NativeTypesEncoding+Extensions.swift in Sources */,
 				8123E1C7200CBAC200B6D3AB /* Dictionary+Extension.swift in Sources */,
+				1323B7AB2170CB4400306BBB /* ERC20.swift in Sources */,
 				81D7D97820A61E3800A193EC /* EventFiltering.swift in Sources */,
 				13A24E51216365A4004C48A0 /* EthURL.swift in Sources */,
 				8160E5CE20B8245A0070070B /* IBAN.swift in Sources */,

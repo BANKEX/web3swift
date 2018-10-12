@@ -10,7 +10,7 @@ import BigInt
 import Foundation
 import PromiseKit
 
-extension web3.Eth {
+extension Web3.Eth {
     public func getBalancePromise(address: EthereumAddress, onBlock: String = "latest") -> Promise<BigUInt> {
         let addr = address.address
         return getBalancePromise(address: addr, onBlock: onBlock)

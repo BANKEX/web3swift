@@ -11,14 +11,14 @@ import Foundation
 import PromiseKit
 fileprivate typealias PromiseResult = PromiseKit.Result
 
-extension web3.Web3Contract {
+extension Web3.Web3Contract {
     /// An event parser to fetch events produced by smart-contract related transactions. Should not be constructed manually, but rather by calling the corresponding function on the Web3Contract object.
     public struct EventParser: EventParserProtocol {
         public var contract: ContractProtocol
         public var eventName: String
         public var filter: EventFilter?
-        var web3: web3
-        public init? (web3 web3Instance: web3, eventName: String, contract: ContractProtocol, filter: EventFilter? = nil) {
+        var web3: Web3
+        public init? (web3 web3Instance: Web3, eventName: String, contract: ContractProtocol, filter: EventFilter? = nil) {
             guard let _ = contract.allEvents.index(of: eventName) else { return nil }
             self.eventName = eventName
             web3 = web3Instance
@@ -92,7 +92,7 @@ extension web3.Web3Contract {
     }
 }
 
-extension web3.Web3Contract.EventParser {
+extension Web3.Web3Contract.EventParser {
     public func parseTransactionPromise(_ transaction: EthereumTransaction) -> Promise<[EventParserResultProtocol]> {
         let queue = web3.requestDispatcher.queue
         do {
@@ -210,7 +210,7 @@ extension web3.Web3Contract.EventParser {
     }
 }
 
-extension web3.Web3Contract {
+extension Web3.Web3Contract {
     /**
      *Fetches events by doing a lookup on "indexed" parameters of the event. Smart-contract developer can make some of event values "indexed" for such fast queries.*
 
@@ -230,7 +230,7 @@ extension web3.Web3Contract {
     }
 }
 
-extension web3.Web3Contract {
+extension Web3.Web3Contract {
     public func getIndexedEventsPromise(eventName: String?, filter: EventFilter, joinWithReceipts: Bool = false) -> Promise<[EventParserResultProtocol]> {
         let queue = web3.requestDispatcher.queue
         do {

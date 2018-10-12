@@ -15,7 +15,7 @@ import XCTest
 
 class web3swift_rinkeby_personalSignature_Tests: XCTestCase {
     func testPersonalSignature() throws {
-        let web3 = Web3.InfuraRinkebyWeb3()
+        let web3 = Web3(infura: .rinkeby)
         let tempKeystore = try! EthereumKeystoreV3(password: "")
         let keystoreManager = KeystoreManager([tempKeystore!])
         web3.addKeystoreManager(keystoreManager)
@@ -33,7 +33,7 @@ class web3swift_rinkeby_personalSignature_Tests: XCTestCase {
     }
 
     func testPersonalSignatureOnContract() throws {
-        let web3 = Web3.InfuraRinkebyWeb3()
+        let web3 = Web3(infura: .rinkeby)
         let tempKeystore = try! EthereumKeystoreV3(password: "")
         let keystoreManager = KeystoreManager([tempKeystore!])
         web3.addKeystoreManager(keystoreManager)

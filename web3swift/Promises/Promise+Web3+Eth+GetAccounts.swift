@@ -10,7 +10,7 @@ import BigInt
 import Foundation
 import PromiseKit
 
-extension web3.Eth {
+extension Web3.Eth {
     public func getAccountsPromise() -> Promise<[EthereumAddress]> {
         let queue = web3.requestDispatcher.queue
         if web3.provider.attachedKeystoreManager != nil {

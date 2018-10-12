@@ -97,8 +97,8 @@ class web3swift_ABI_Tests: XCTestCase {
         //        var b = 'cdcd77c000000000000000000000000000000000000000000000000000000000000000450000000000000000000000000000000000000000000000000000000000000001'
         //
         let types = [
-            ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.uint(bits: 32)),
-            ABIv2.Element.InOut(name: "2", type: ABIv2.Element.ParameterType.bool),
+            ABIv2.Element.InOut(name: "1", type: .uint(bits: 32)),
+            ABIv2.Element.InOut(name: "2", type: .bool),
         ]
         let data = ABIv2Encoder.encode(types: types, values: [BigUInt(69), true] as [AnyObject])
         XCTAssert(data != nil, "failed to encode")
@@ -109,7 +109,7 @@ class web3swift_ABI_Tests: XCTestCase {
 
     func testABIv2encoding2() {
         let types = [
-            ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.string),
+            ABIv2.Element.InOut(name: "1", type: .string),
         ]
         let data = ABIv2Encoder.encode(types: types, values: ["dave"] as [AnyObject])
         XCTAssert(data != nil, "failed to encode")
@@ -122,9 +122,9 @@ class web3swift_ABI_Tests: XCTestCase {
         //        var a = abi.methodID('sam', [ 'bytes', 'bool', 'uint256[]' ]).toString('hex') + abi.rawEncode([ 'bytes', 'bool', 'uint256[]' ], [ 'dave', true, [ 1, 2, 3 ] ]).toString('hex')
         //        var b = 'a5643bf20000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000000464617665000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000003'
         let types = [
-            ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.dynamicBytes),
-            ABIv2.Element.InOut(name: "2", type: ABIv2.Element.ParameterType.bool),
-            ABIv2.Element.InOut(name: "3", type: ABIv2.Element.ParameterType.array(type: .uint(bits: 256), length: 0)),
+            ABIv2.Element.InOut(name: "1", type: .dynamicBytes),
+            ABIv2.Element.InOut(name: "2", type: .bool),
+            ABIv2.Element.InOut(name: "3", type: .array(type: .uint(bits: 256), length: 0)),
         ]
 
         let data = ABIv2Encoder.encode(types: types, values: ["dave".data(using: .utf8)!, true, [BigUInt(1), BigUInt(2), BigUInt(3)]] as [AnyObject])
@@ -138,7 +138,7 @@ class web3swift_ABI_Tests: XCTestCase {
         //        var a = abi.rawEncode([ 'int256' ], [ new BN('-19999999999999999999999999999999999999999999999999999999999999', 10) ]).toString('hex')
         //        var b = 'fffffffffffff38dd0f10627f5529bdb2c52d4846810af0ac000000000000001'
 
-        let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.int(bits: 256))]
+        let types = [ABIv2.Element.InOut(name: "1", type: .int(bits: 256))]
         let number = BigInt("-19999999999999999999999999999999999999999999999999999999999999", radix: 10)
         let data = ABIv2Encoder.encode(types: types,
                                        values: [number!] as [AnyObject])
@@ -154,7 +154,7 @@ class web3swift_ABI_Tests: XCTestCase {
         //        var b = '000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000c22068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c64202068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c64202068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c64000000000000000000000000000000000000000000000000000000000000'
 
         let string = " hello world hello world hello world hello world  hello world hello world hello world hello world  hello world hello world hello world hello world hello world hello world hello world hello world"
-        let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.string)]
+        let types = [ABIv2.Element.InOut(name: "1", type: .string)]
         let data = ABIv2Encoder.encode(types: types,
                                        values: [string] as [AnyObject])
         XCTAssert(data != nil, "failed to encode")
@@ -166,10 +166,10 @@ class web3swift_ABI_Tests: XCTestCase {
     func testABIv2encoding6() {
         //        var a = abi.methodID('f', [ 'uint', 'uint32[]', 'bytes10', 'bytes' ]).toString('hex') + abi.rawEncode([ 'uint', 'uint32[]', 'bytes10', 'bytes' ], [ 0x123, [ 0x456, 0x789 ], '1234567890', 'Hello, world!' ]).toString('hex')
         //        var b = '8be6524600000000000000000000000000000000000000000000000000000000000001230000000000000000000000000000000000000000000000000000000000000080313233343536373839300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000004560000000000000000000000000000000000000000000000000000000000000789000000000000000000000000000000000000000000000000000000000000000d48656c6c6f2c20776f726c642100000000000000000000000000000000000000'
-        let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.uint(bits: 256)),
-                     ABIv2.Element.InOut(name: "2", type: ABIv2.Element.ParameterType.array(type: .uint(bits: 32), length: 0)),
-                     ABIv2.Element.InOut(name: "3", type: ABIv2.Element.ParameterType.bytes(length: 10)),
-                     ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.dynamicBytes)]
+        let types = [ABIv2.Element.InOut(name: "1", type: .uint(bits: 256)),
+                     ABIv2.Element.InOut(name: "2", type: .array(type: .uint(bits: 32), length: 0)),
+                     ABIv2.Element.InOut(name: "3", type: .bytes(length: 10)),
+                     ABIv2.Element.InOut(name: "1", type: .dynamicBytes)]
         let data = ABIv2Encoder.encode(types: types,
                                        values: [BigUInt("123", radix: 16)!,
                                                 [BigUInt("456", radix: 16)!, BigUInt("789", radix: 16)!] as [AnyObject],
@@ -183,7 +183,7 @@ class web3swift_ABI_Tests: XCTestCase {
 
     func testABIv2encoding7() {
         let types = [
-            ABIv2.Element.InOut(name: "2", type: ABIv2.Element.ParameterType.array(type: .string, length: 0)),
+            ABIv2.Element.InOut(name: "2", type: .array(type: .string, length: 0)),
         ]
         let data = ABIv2Encoder.encode(types: types,
                                        values: [["Hello", "World"]] as [AnyObject])
@@ -195,7 +195,7 @@ class web3swift_ABI_Tests: XCTestCase {
 
     func testABIv2encoding8() {
         let types = [
-            ABIv2.Element.InOut(name: "2", type: ABIv2.Element.ParameterType.array(type: .string, length: 2)),
+            ABIv2.Element.InOut(name: "2", type: .array(type: .string, length: 2)),
         ]
         let data = ABIv2Encoder.encode(types: types,
                                        values: [["Hello", "World"]] as [AnyObject])
@@ -207,8 +207,7 @@ class web3swift_ABI_Tests: XCTestCase {
 
     func testABIv2Decoding1() {
         let data = "0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000005c0000000000000000000000000000000000000000000000000000000000000003"
-        let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.array(type: .uint(bits: 256), length: 2)),
-                     ABIv2.Element.InOut(name: "2", type: ABIv2.Element.ParameterType.uint(bits: 256))]
+        let types = [ABIv2.Element.InOut(name: "1", type: .array(type: .uint(bits: 256), length: 2)), ABIv2.Element.InOut(name: "2", type: .uint(bits: 256))]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
         guard let result = res else { return XCTFail() }
         XCTAssert(result.count == 2)
@@ -222,7 +221,7 @@ class web3swift_ABI_Tests: XCTestCase {
 
     func testABIv2Decoding2() {
         let data = "00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000003"
-        let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.array(type: .uint(bits: 256), length: 0))]
+        let types = [ABIv2.Element.InOut(name: "1", type: .array(type: .uint(bits: 256), length: 0))]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
         guard let result = res else { return XCTFail() }
         XCTAssert(result.count == 1)
@@ -235,7 +234,7 @@ class web3swift_ABI_Tests: XCTestCase {
 
     func testABIv2Decoding3() {
         let data = "0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000b68656c6c6f20776f726c64000000000000000000000000000000000000000000"
-        let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.dynamicBytes)]
+        let types = [ABIv2.Element.InOut(name: "1", type: .dynamicBytes)]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
         guard let result = res else { return XCTFail() }
         XCTAssert(result.count == 1)
@@ -245,7 +244,7 @@ class web3swift_ABI_Tests: XCTestCase {
 
     func testABIv2Decoding4() {
         let data = "0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000b68656c6c6f20776f726c64000000000000000000000000000000000000000000"
-        let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.string)]
+        let types = [ABIv2.Element.InOut(name: "1", type: .string)]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
         guard let result = res else { return XCTFail() }
         XCTAssert(result.count == 1)
@@ -255,7 +254,7 @@ class web3swift_ABI_Tests: XCTestCase {
 
     func testABIv2Decoding5() {
         let data = "fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe"
-        let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.int(bits: 32))]
+        let types = [ABIv2.Element.InOut(name: "1", type: .int(bits: 32))]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
         guard let result = res else { return XCTFail() }
         XCTAssert(result.count == 1)
@@ -265,7 +264,7 @@ class web3swift_ABI_Tests: XCTestCase {
 
     func testABIv2Decoding6() {
         let data = "ffffffffffffffffffffffffffffffffffffffffffffffffffffb29c26f344fe"
-        let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.int(bits: 64))]
+        let types = [ABIv2.Element.InOut(name: "1", type: .int(bits: 64))]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
         guard let result = res else { return XCTFail() }
         XCTAssert(result.count == 1)
@@ -275,8 +274,8 @@ class web3swift_ABI_Tests: XCTestCase {
 
     func testABIv2Decoding7() {
         let data = "0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000002a"
-        let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.bool),
-                     ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.uint(bits: 32))]
+        let types = [ABIv2.Element.InOut(name: "1", type: .bool),
+                     ABIv2.Element.InOut(name: "1", type: .uint(bits: 32))]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
         guard let result = res else { return XCTFail() }
         XCTAssert(result.count == types.count)
@@ -288,8 +287,8 @@ class web3swift_ABI_Tests: XCTestCase {
 
     func testABIv2Decoding8() {
         let data = "000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000002a"
-        let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.bool),
-                     ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.array(type: .uint(bits: 256), length: 0))]
+        let types = [ABIv2.Element.InOut(name: "1", type: .bool),
+                     ABIv2.Element.InOut(name: "1", type: .array(type: .uint(bits: 256), length: 0))]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
         guard let result = res else { return XCTFail() }
         XCTAssert(result.count == types.count)
@@ -305,7 +304,7 @@ class web3swift_ABI_Tests: XCTestCase {
             "0000000000000000000000000000000000000000000000000000000000000002" +
             "000000000000000000000000407d73d8a49eeb85d32cf465507dd71d507100c1" +
             "000000000000000000000000407d73d8a49eeb85d32cf465507dd71d507100c3"
-        let types = [ABIv2.Element.InOut(name: "1", type: ABIv2.Element.ParameterType.array(type: .address, length: 0))]
+        let types = [ABIv2.Element.InOut(name: "1", type: .array(type: .address, length: 0))]
         let res = ABIv2Decoder.decode(types: types, data: Data.fromHex(data)!)
         guard let result = res else { return XCTFail() }
         XCTAssert(result.count == types.count)

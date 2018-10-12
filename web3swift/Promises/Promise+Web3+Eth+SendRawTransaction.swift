@@ -9,7 +9,7 @@
 import Foundation
 import PromiseKit
 
-extension web3.Eth {
+extension Web3.Eth {
     func sendRawTransactionPromise(_ transaction: Data) -> Promise<TransactionSendingResult> {
         guard let deserializedTX = EthereumTransaction.fromRaw(transaction) else {
             let promise = Promise<TransactionSendingResult>.pending()

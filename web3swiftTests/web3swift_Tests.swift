@@ -94,7 +94,7 @@ class web3swift_Tests: XCTestCase {
     func testUserCaseEventParsing() throws {
         let contractAddress = EthereumAddress("0x7ff546aaccd379d2d1f241e1d29cdd61d4d50778")
         let jsonString = "[{\"constant\":false,\"inputs\":[{\"name\":\"_id\",\"type\":\"string\"}],\"name\":\"deposit\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_id\",\"type\":\"string\"},{\"indexed\":true,\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"Deposit\",\"type\":\"event\"}]"
-        let web3 = Web3.InfuraRinkebyWeb3()
+        let web3 = Web3(infura: .rinkeby)
         let contract = try web3.contract(jsonString, at: contractAddress)
         guard let eventParser = contract.createEventParser("Deposit", filter: nil) else { return XCTFail() }
         let pres = try eventParser.parseBlockByNumber(UInt64(2_138_657))
@@ -125,7 +125,7 @@ class web3swift_Tests: XCTestCase {
 
     func testPublicMappingsAccess() throws {
         let jsonString = "[{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"users\",\"outputs\":[{\"name\":\"name\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"userDeviceCount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalUsers\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
-        let web3 = Web3.InfuraRinkebyWeb3()
+        let web3 = Web3(infura: .rinkeby)
         let addr = EthereumAddress("0xdef61132a0c1259464b19e4590e33666aae38574")
         let contract = try web3.contract(jsonString, at: addr)
         let allMethods = contract.contract.allMethods
