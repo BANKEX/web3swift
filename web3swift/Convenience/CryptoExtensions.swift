@@ -6,15 +6,15 @@
 //  Copyright © 2017 Alexander Vlasov. All rights reserved.
 //
 
-import Foundation
 import CryptoSwift
+import Foundation
 
 func toByteArray<T>(_ value: T) -> [UInt8] {
     var value = value
     return withUnsafeBytes(of: &value) { Array($0) }
 }
 
-//public func scryptLibSodium (password: String, salt: Data, length: Int, N: Int, R: Int, P: Int) -> Data? {
+// public func scryptLibSodium (password: String, salt: Data, length: Int, N: Int, R: Int, P: Int) -> Data? {
 //    let BytesMin = Int(crypto_generichash_bytes_min())
 //    let BytesMax = Int(crypto_generichash_bytes_max())
 //    if length < BytesMin || length > BytesMax {
@@ -40,14 +40,15 @@ func toByteArray<T>(_ value: T) -> [UInt8] {
 //        return nil
 //    }
 //    return output
-//}
+// }
 
-public func scrypt (password: String, salt: Data, length: Int, N: Int, R: Int, P: Int) -> Data? {
+public func scrypt(password: String, salt: Data, length: Int, N: Int, R: Int, P: Int) -> Data? {
     guard let passwordData = password.data(using: .utf8) else { return nil }
     guard let deriver = try? Scrypt(password: passwordData.bytes, salt: salt.bytes, dkLen: length, N: N, r: R, p: P) else { return nil }
     guard let result = try? deriver.calculate() else { return nil }
     return Data(result)
 }
+
 enum ScryptError: Error {
     case nIsTooLarge
     case rIsTooLarge
@@ -60,7 +61,7 @@ private class Scrypt {
         case invalidPassword
         case invalidSalt
     }
-    
+
     /// Configuration parameters.
     private let salt: Array<UInt8> // S
     private let password: Array<UInt8>
@@ -69,19 +70,19 @@ private class Scrypt {
     private let N: Int
     private let r: Int
     private let p: Int
-    
+
     init(password: Array<UInt8>, salt: Array<UInt8>, dkLen: Int, N: Int, r: Int, p: Int) throws {
         precondition(dkLen > 0)
         precondition(N > 0)
         precondition(r > 0)
         precondition(p > 0)
-        
+
         guard !(N < 2 || (N & (N - 1)) != 0) else { throw ScryptError.nMustBeAPowerOf2GreaterThan1 }
-        
+
         guard N <= .max / 128 / r else { throw ScryptError.nIsTooLarge }
         guard r <= .max / 128 / p else { throw ScryptError.rIsTooLarge }
-        
-        self.blocksize = 128 * r
+
+        blocksize = 128 * r
         self.N = N
         self.r = r
         self.p = p
@@ -89,40 +90,40 @@ private class Scrypt {
         self.salt = salt
         self.dkLen = dkLen
     }
-    
+
     /// Runs the key derivation function with a specific password.
     func calculate() throws -> [UInt8] {
         // Allocate memory.
         let B = UnsafeMutableRawPointer.allocate(byteCount: 128 * r * p, alignment: 64)
         let XY = UnsafeMutableRawPointer.allocate(byteCount: 256 * r + 64, alignment: 64)
         let V = UnsafeMutableRawPointer.allocate(byteCount: 128 * r * N, alignment: 64)
-        
+
         // Deallocate memory when done
         defer {
             B.deallocate()
             XY.deallocate()
             V.deallocate()
         }
-        
+
         /* 1: (B_0 ... B_{p-1}) <-- PBKDF2(P, S, 1, p * MFLen) */
         let barray = try PKCS5.PBKDF2(password: password, salt: [UInt8](salt), iterations: 1, keyLength: p * 128 * r, variant: .sha256).calculate()
         barray.withUnsafeBytes { p in
             B.copyMemory(from: p.baseAddress!, byteCount: barray.count)
         }
-        
+
         /* 2: for i = 0 to p - 1 do */
         for i in 0 ..< p {
             /* 3: B_i <-- MF(B_i, N) */
             smix(B + i * 128 * r, V.assumingMemoryBound(to: UInt32.self), XY.assumingMemoryBound(to: UInt32.self))
         }
-        
+
         /* 5: DK <-- PBKDF2(P, B, 1, dkLen) */
         let pointer = B.assumingMemoryBound(to: UInt8.self)
         let bufferPointer = UnsafeBufferPointer(start: pointer, count: p * 128 * r)
         let block = [UInt8](bufferPointer)
         return try PKCS5.PBKDF2(password: password, salt: block, iterations: 1, keyLength: dkLen, variant: .sha256).calculate()
     }
-    
+
     /// Computes `B = SMix_r(B, N)`.
     ///
     /// The input `block` must be `128*r` bytes in length; the temporary storage `v` must be `128*r*n` bytes in length;
@@ -132,56 +133,56 @@ private class Scrypt {
         let X = xy
         let Y = xy + 32 * r
         let Z = xy + 64 * r
-        
+
         /* 1: X <-- B */
         for k in 0 ..< 32 * r {
             X[k] = (block + 4 * k).load(as: UInt32.self)
         }
-        
+
         /* 2: for i = 0 to N - 1 do */
         for i in stride(from: 0, to: N, by: 2) {
             /* 3: V_i <-- X */
             UnsafeMutableRawPointer(v + i * (32 * r)).copyMemory(from: X, byteCount: 128 * r)
-            
+
             /* 4: X <-- H(X) */
             blockMixSalsa8(X, Y, Z)
-            
+
             /* 3: V_i <-- X */
             UnsafeMutableRawPointer(v + (i + 1) * (32 * r)).copyMemory(from: Y, byteCount: 128 * r)
-            
+
             /* 4: X <-- H(X) */
             blockMixSalsa8(Y, X, Z)
         }
-        
+
         /* 6: for i = 0 to N - 1 do */
         for _ in stride(from: 0, to: N, by: 2) {
             /* 7: j <-- Integerify(X) mod N */
             var j = Int(integerify(X) & UInt64(N - 1))
-            
+
             /* 8: X <-- H(X \xor V_j) */
             blockXor(X, v + j * 32 * r, 128 * r)
             blockMixSalsa8(X, Y, Z)
-            
+
             /* 7: j <-- Integerify(X) mod N */
             j = Int(integerify(Y) & UInt64(N - 1))
-            
+
             /* 8: X <-- H(X \xor V_j) */
             blockXor(Y, v + j * 32 * r, 128 * r)
             blockMixSalsa8(Y, X, Z)
         }
-        
+
         /* 10: B' <-- X */
         for k in 0 ..< 32 * r {
             UnsafeMutableRawPointer(block + 4 * k).storeBytes(of: X[k], as: UInt32.self)
         }
     }
-    
+
     /// Returns the result of parsing `B_{2r-1}` as a little-endian integer.
     private func integerify(_ block: UnsafeRawPointer) -> UInt64 {
         let bi = block + (2 * r - 1) * 64
         return bi.load(as: UInt64.self)
     }
-    
+
     /// Compute `bout = BlockMix_{salsa20/8, r}(bin)`.
     ///
     /// The input `bin` must be `128*r` bytes in length; the output `bout` must also be the same size. The temporary
@@ -189,31 +190,32 @@ private class Scrypt {
     private func blockMixSalsa8(_ bin: UnsafePointer<UInt32>, _ bout: UnsafeMutablePointer<UInt32>, _ x: UnsafeMutablePointer<UInt32>) {
         /* 1: X <-- B_{2r - 1} */
         UnsafeMutableRawPointer(x).copyMemory(from: bin + (2 * r - 1) * 16, byteCount: 64)
-        
+
         /* 2: for i = 0 to 2r - 1 do */
         for i in stride(from: 0, to: 2 * r, by: 2) {
             /* 3: X <-- H(X \xor B_i) */
             blockXor(x, bin + i * 16, 64)
             salsa20_8(x)
-            
+
             /* 4: Y_i <-- X */
             /* 6: B' <-- (Y_0, Y_2 ... Y_{2r-2}, Y_1, Y_3 ... Y_{2r-1}) */
             UnsafeMutableRawPointer(bout + i * 8).copyMemory(from: x, byteCount: 64)
-            
+
             /* 3: X <-- H(X \xor B_i) */
             blockXor(x, bin + i * 16 + 16, 64)
             salsa20_8(x)
-            
+
             /* 4: Y_i <-- X */
             /* 6: B' <-- (Y_0, Y_2 ... Y_{2r-2}, Y_1, Y_3 ... Y_{2r-1}) */
             UnsafeMutableRawPointer(bout + i * 8 + r * 16).copyMemory(from: x, byteCount: 64)
         }
     }
-    
+
     @inline(__always)
     func rotate(_ a: UInt32, _ b: UInt32) -> UInt32 {
         return (a << b) | (a >> (32 - b))
     }
+
     /// Applies the salsa20/8 core to the provided block.
     private func salsa20_8(_ block: UnsafeMutablePointer<UInt32>) {
         var x0 = block[0]
@@ -232,40 +234,40 @@ private class Scrypt {
         var x13 = block[13]
         var x14 = block[14]
         var x15 = block[15]
-        
-        for _ in 0..<4 {
-            x4 ^= rotate(x0 &+ x12, 7);
-            x8 ^= rotate(x4 &+ x0, 9);
-            x12 ^= rotate(x8 &+ x4,13);
-            x0 ^= rotate(x12 &+ x8,18);
-            x9 ^= rotate(x5 &+ x1, 7);
-            x13 ^= rotate(x9 &+ x5, 9);
-            x1 ^= rotate(x13 &+ x9,13);
-            x5 ^= rotate(x1 &+ x13,18);
-            x14 ^= rotate(x10 &+ x6, 7);
-            x2 ^= rotate(x14 &+ x10, 9);
-            x6 ^= rotate(x2 &+ x14,13);
-            x10 ^= rotate(x6 &+ x2,18);
-            x3 ^= rotate(x15 &+ x11, 7);
-            x7 ^= rotate(x3 &+ x15, 9);
-            x11 ^= rotate(x7 &+ x3,13);
-            x15 ^= rotate(x11 &+ x7,18);
-            x1 ^= rotate(x0 &+ x3, 7);
-            x2 ^= rotate(x1 &+ x0, 9);
-            x3 ^= rotate(x2 &+ x1,13);
-            x0 ^= rotate(x3 &+ x2,18);
-            x6 ^= rotate(x5 &+ x4, 7);
-            x7 ^= rotate(x6 &+ x5, 9);
-            x4 ^= rotate(x7 &+ x6,13);
-            x5 ^= rotate(x4 &+ x7,18);
-            x11 ^= rotate(x10 &+ x9, 7);
-            x8 ^= rotate(x11 &+ x10, 9);
-            x9 ^= rotate(x8 &+ x11,13);
-            x10 ^= rotate(x9 &+ x8,18);
-            x12 ^= rotate(x15 &+ x14, 7);
-            x13 ^= rotate(x12 &+ x15, 9);
-            x14 ^= rotate(x13 &+ x12,13);
-            x15 ^= rotate(x14 &+ x13,18);
+
+        for _ in 0 ..< 4 {
+            x4 ^= rotate(x0 &+ x12, 7)
+            x8 ^= rotate(x4 &+ x0, 9)
+            x12 ^= rotate(x8 &+ x4, 13)
+            x0 ^= rotate(x12 &+ x8, 18)
+            x9 ^= rotate(x5 &+ x1, 7)
+            x13 ^= rotate(x9 &+ x5, 9)
+            x1 ^= rotate(x13 &+ x9, 13)
+            x5 ^= rotate(x1 &+ x13, 18)
+            x14 ^= rotate(x10 &+ x6, 7)
+            x2 ^= rotate(x14 &+ x10, 9)
+            x6 ^= rotate(x2 &+ x14, 13)
+            x10 ^= rotate(x6 &+ x2, 18)
+            x3 ^= rotate(x15 &+ x11, 7)
+            x7 ^= rotate(x3 &+ x15, 9)
+            x11 ^= rotate(x7 &+ x3, 13)
+            x15 ^= rotate(x11 &+ x7, 18)
+            x1 ^= rotate(x0 &+ x3, 7)
+            x2 ^= rotate(x1 &+ x0, 9)
+            x3 ^= rotate(x2 &+ x1, 13)
+            x0 ^= rotate(x3 &+ x2, 18)
+            x6 ^= rotate(x5 &+ x4, 7)
+            x7 ^= rotate(x6 &+ x5, 9)
+            x4 ^= rotate(x7 &+ x6, 13)
+            x5 ^= rotate(x4 &+ x7, 18)
+            x11 ^= rotate(x10 &+ x9, 7)
+            x8 ^= rotate(x11 &+ x10, 9)
+            x9 ^= rotate(x8 &+ x11, 13)
+            x10 ^= rotate(x9 &+ x8, 18)
+            x12 ^= rotate(x15 &+ x14, 7)
+            x13 ^= rotate(x12 &+ x15, 9)
+            x14 ^= rotate(x13 &+ x12, 13)
+            x15 ^= rotate(x14 &+ x13, 18)
         }
         block[0] = x0
         block[1] = x1
@@ -284,12 +286,12 @@ private class Scrypt {
         block[14] = x14
         block[15] = x15
     }
-    
+
     private func blockXor(_ dest: UnsafeMutableRawPointer, _ src: UnsafeRawPointer, _ len: Int) {
         let D = dest.assumingMemoryBound(to: UInt.self)
         let S = src.assumingMemoryBound(to: UInt.self)
         let L = len / MemoryLayout<UInt>.size
-        
+
         for i in 0 ..< L {
             D[i] ^= S[i]
         }

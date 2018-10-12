@@ -6,8 +6,8 @@
 //  Copyright © 2017 Bankex Foundation. All rights reserved.
 //
 
-import Foundation
 import BigInt
+import Foundation
 import PromiseKit
 
 /// Providers abstraction for custom providers (websockets, other custom private key managers). At the moment should not be used.
@@ -20,17 +20,17 @@ public protocol Web3Provider {
     var session: URLSession { get }
 }
 
-
 /// The default http provider.
 public class Web3HttpProvider: Web3Provider {
     public var url: URL
     public var network: NetworkId?
-    public var attachedKeystoreManager: KeystoreManager? = nil
-    public var session: URLSession = {() -> URLSession in
+    public var attachedKeystoreManager: KeystoreManager?
+    public var session: URLSession = { () -> URLSession in
         let config = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: config)
         return urlSession
     }()
+
     public init?(_ httpProviderURL: URL, network net: NetworkId? = nil, keystoreManager manager: KeystoreManager? = nil) {
         do {
             guard httpProviderURL.scheme == "http" || httpProviderURL.scheme == "https" else { return nil }
@@ -56,4 +56,3 @@ public class Web3HttpProvider: Web3Provider {
         attachedKeystoreManager = manager
     }
 }
-

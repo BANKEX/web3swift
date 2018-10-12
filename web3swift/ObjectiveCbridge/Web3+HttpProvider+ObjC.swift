@@ -9,14 +9,14 @@
 import Foundation
 
 @objc(Web3HttpProvider)
-final class _ObjCWeb3HttpProvider: NSObject{
-    private (set) var web3Provider: Web3HttpProvider?
-    
-    init(providerURL: NSURL, network: _ObjCNetwork, keystoreManager: _ObjCKeystoreManager){
+final class _ObjCWeb3HttpProvider: NSObject {
+    private(set) var web3Provider: Web3HttpProvider?
+
+    init(providerURL: NSURL, network: _ObjCNetwork, keystoreManager: _ObjCKeystoreManager) {
         guard let ks = keystoreManager.keystoreManager else { return }
-        self.web3Provider = Web3HttpProvider(providerURL as URL, network: NetworkId(network.networkID), keystoreManager: ks)
+        web3Provider = Web3HttpProvider(providerURL as URL, network: NetworkId(network.networkID), keystoreManager: ks)
     }
-    
+
     init(web3Provider: Web3HttpProvider) {
         self.web3Provider = web3Provider
     }
@@ -25,7 +25,7 @@ final class _ObjCWeb3HttpProvider: NSObject{
 @objc(Network)
 final class _ObjCNetwork: NSObject {
     let networkID: Int
-    
+
     init(networkID: Int) {
         self.networkID = networkID
     }

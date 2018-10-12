@@ -6,26 +6,26 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import Foundation
-import CoreImage
 import BigInt
+import CoreImage
+import Foundation
 
 extension Web3 {
-
     public struct EIP67Code {
         public var address: EthereumAddress
         public var gasLimit: BigUInt?
         public var amount: BigUInt?
         public var data: DataType?
-        
+
         public enum DataType {
             case data(Data)
             case function(Function)
         }
+
         public struct Function {
             public var method: String
             public var parameters: [(ABIv2.Element.ParameterType, AnyObject)]
-            
+
             public func toString() -> String? {
                 let encoding = method + "(" + parameters.map({ (el) -> String in
                     if let string = el.1 as? String {
@@ -42,14 +42,14 @@ extension Web3 {
                 return encoding
             }
         }
-        
-        public init (address : EthereumAddress) {
+
+        public init(address: EthereumAddress) {
             self.address = address
         }
-        
+
         public func toString() -> String {
             var urlComponents = URLComponents()
-            let mainPart = "ethereum:"+self.address.address.lowercased()
+            let mainPart = "ethereum:" + address.address.lowercased()
             var queryItems = [URLQueryItem]()
             if let amount = self.amount {
                 queryItems.append(URLQueryItem(name: "value", value: String(amount, radix: 10)))
@@ -59,9 +59,9 @@ extension Web3 {
             }
             if let data = self.data {
                 switch data {
-                case .data(let d):
+                case let .data(d):
                     queryItems.append(URLQueryItem(name: "data", value: d.toHexString().withHex))
-                case .function(let f):
+                case let .function(f):
                     if let enc = f.toString() {
                         queryItems.append(URLQueryItem(name: "function", value: enc))
                     }
@@ -73,18 +73,17 @@ extension Web3 {
             }
             return mainPart
         }
-        
+
         public func toImage(scale: Double = 1.0) -> CIImage {
             return EIP67CodeGenerator.createImage(from: self, scale: scale)
         }
     }
 
     public struct EIP67CodeGenerator {
-        
         public static func createImage(from: EIP67Code, scale: Double = 1.0) -> CIImage {
             guard let string = from.toString().addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return CIImage() }
             guard let data = string.data(using: .utf8, allowLossyConversion: false) else { return CIImage() }
-            let filter = CIFilter(name: "CIQRCodeGenerator", parameters: ["inputMessage" : data, "inputCorrectionLevel":"L"])
+            let filter = CIFilter(name: "CIQRCodeGenerator", parameters: ["inputMessage": data, "inputCorrectionLevel": "L"])
             guard var image = filter?.outputImage else { return CIImage() }
             let transformation = CGAffineTransform(scaleX: CGFloat(scale), y: CGFloat(scale))
             image = image.transformed(by: transformation)
@@ -97,13 +96,13 @@ extension Web3 {
             guard let string = String(data: data, encoding: .utf8) else { return nil }
             return parse(string)
         }
-        
+
         public static func parse(_ string: String) -> EIP67Code? {
             guard string.hasPrefix("ethereum:") else { return nil }
             let striped = string.components(separatedBy: "ethereum:")
             guard striped.count == 2 else { return nil }
             guard let encoding = striped[1].removingPercentEncoding else { return nil }
-            guard let url = URL.init(string: encoding) else { return nil }
+            guard let url = URL(string: encoding) else { return nil }
             let address = EthereumAddress(url.lastPathComponent)
             guard address.isValid else { return nil }
             var code = EIP67Code(address: address)

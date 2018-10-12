@@ -37,12 +37,11 @@ public struct KeystoreParamsV3: Decodable, Encodable {
     var crypto: CryptoParamsV3
     var id: String?
     var version: Int
-    
+
     public init(address ad: String?, crypto cr: CryptoParamsV3, id i: String, version ver: Int) {
         address = ad
         crypto = cr
         id = i
         version = ver
     }
-    
 }

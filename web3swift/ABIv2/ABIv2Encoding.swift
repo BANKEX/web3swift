@@ -6,12 +6,10 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import Foundation
 import BigInt
+import Foundation
 
-public struct ABIv2Encoder {
-    
-}
+public struct ABIv2Encoder {}
 
 extension ABIv2Encoder {
     public static func convertToBigUInt(_ value: AnyObject) -> BigUInt? {
@@ -60,7 +58,7 @@ extension ABIv2Encoder {
         }
         return nil
     }
-    
+
     public static func convertToBigInt(_ value: AnyObject) -> BigInt? {
         switch value {
         case let v as BigUInt:
@@ -102,7 +100,7 @@ extension ABIv2Encoder {
         }
         return nil
     }
-    
+
     public static func convertToData(_ value: AnyObject) -> Data? {
         switch value {
         case let d as Data:
@@ -134,8 +132,7 @@ extension ABIv2Encoder {
         }
         return nil
     }
-    
-    
+
     public static func encode(types: [ABIv2.Element.InOut], values: [AnyObject]) -> Data? {
         guard types.count == values.count else { return nil }
         let params = types.compactMap { (el) -> ABIv2.Element.ParameterType in
@@ -143,7 +140,7 @@ extension ABIv2Encoder {
         }
         return encode(types: params, values: values)
     }
-    
+
     public static func encode(types: [ABIv2.Element.ParameterType], values: [AnyObject]) -> Data? {
         guard types.count == values.count else { return nil }
         var tails = [Data]()
@@ -181,17 +178,17 @@ extension ABIv2Encoder {
         }
         return headsConcatenated + tailsConcatenated
     }
-    
+
     public static func encodeSingleType(type: ABIv2.Element.ParameterType, value: AnyObject) -> Data? {
         switch type {
-        case .uint(_):
+        case .uint:
             if let biguint = convertToBigUInt(value) {
                 return biguint.abiEncode(bits: 256)
             }
             if let bigint = convertToBigInt(value) {
                 return bigint.abiEncode(bits: 256)
             }
-        case .int(_):
+        case .int:
             if let biguint = convertToBigUInt(value) {
                 return biguint.abiEncode(bits: 256)
             }
@@ -213,13 +210,13 @@ extension ABIv2Encoder {
             }
         case .bool:
             if let bool = value as? Bool {
-                if (bool) {
+                if bool {
                     return BigUInt(1).abiEncode(bits: 256)
                 } else {
                     return BigUInt(0).abiEncode(bits: 256)
                 }
             }
-        case .bytes(let length):
+        case let .bytes(length):
             guard let data = convertToData(value) else { break }
             if data.count > length { break }
             return data.setLengthRight(32)
@@ -228,27 +225,26 @@ extension ABIv2Encoder {
                 var dataGuess: Data?
                 if string.isHex {
                     dataGuess = Data.fromHex(string.lowercased().withoutHex)
-                }
-                else {
+                } else {
                     dataGuess = string.data(using: .utf8)
                 }
                 guard let data = dataGuess else { break }
-                let minLength = ((data.count + 31) / 32)*32
+                let minLength = ((data.count + 31) / 32) * 32
                 guard let paddedData = data.setLengthRight(UInt64(minLength)) else { break }
                 let length = BigUInt(data.count)
                 guard let head = length.abiEncode(bits: 256) else { break }
-                let total = head+paddedData
+                let total = head + paddedData
                 return total
             }
         case .dynamicBytes:
             guard let data = convertToData(value) else { break }
-            let minLength = ((data.count + 31) / 32)*32
+            let minLength = ((data.count + 31) / 32) * 32
             guard let paddedData = data.setLengthRight(UInt64(minLength)) else { break }
             let length = BigUInt(data.count)
             guard let head = length.abiEncode(bits: 256) else { break }
-            let total = head+paddedData
+            let total = head + paddedData
             return total
-        case .array(type: let subType, length: let length):
+        case let .array(type: subType, length: length):
             switch type.arraySize {
             case .dynamicSize:
                 guard length == 0 else { break }
@@ -295,11 +291,11 @@ extension ABIv2Encoder {
                             tailsConcatenated.append(tail)
                         }
                     }
-                    let total =  lengthEncoding + headsConcatenated + tailsConcatenated
+                    let total = lengthEncoding + headsConcatenated + tailsConcatenated
 //                    print("Dynamic array of dynamic types encoding :\n" + String(total.toHexString()))
                     return total
                 }
-            case .staticSize(let staticLength):
+            case let .staticSize(staticLength):
                 guard staticLength != 0 else { break }
                 guard let val = value as? [AnyObject] else { break }
                 guard staticLength == val.count else { break }
@@ -345,7 +341,7 @@ extension ABIv2Encoder {
             case .notArray:
                 break
             }
-        case .tuple(types: let subTypes):
+        case let .tuple(types: subTypes):
             var tails = [Data]()
             var heads = [Data]()
             guard let val = value as? [AnyObject] else { break }

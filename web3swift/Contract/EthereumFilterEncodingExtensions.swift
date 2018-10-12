@@ -6,18 +6,18 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import Foundation
 import BigInt
+import Foundation
 
 extension BigUInt: EventFilterEncodable {
     public func eventFilterEncoded() -> String? {
-        return self.abiEncode(bits: 256)?.toHexString().withHex
+        return abiEncode(bits: 256)?.toHexString().withHex
     }
 }
 
 extension BigInt: EventFilterEncodable {
     public func eventFilterEncoded() -> String? {
-        return self.abiEncode(bits: 256)?.toHexString().withHex
+        return abiEncode(bits: 256)?.toHexString().withHex
     }
 }
 
@@ -41,5 +41,3 @@ extension String: EventFilterEncodable {
         return data.sha3(.keccak256).toHexString().withHex
     }
 }
-
-

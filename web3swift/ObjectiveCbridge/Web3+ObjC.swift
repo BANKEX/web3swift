@@ -14,15 +14,14 @@ public final class _ObjCWeb3: NSObject {
         let web3 = Web3.InfuraMainnetWeb3()
         return _ObjCweb3(web3: web3)
     }
-    
+
     public static func InfuraRinkebyWeb3() -> _ObjCweb3 {
         let web3 = Web3.InfuraRinkebyWeb3()
         return _ObjCweb3(web3: web3)
     }
-    
+
     public static func new(providerURL: NSURL) -> _ObjCweb3 {
         let web3 = Web3.new(providerURL as URL)
         return _ObjCweb3(web3: web3)
     }
 }
-

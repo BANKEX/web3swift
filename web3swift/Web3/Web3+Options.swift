@@ -6,8 +6,8 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import Foundation
 import BigInt
+import Foundation
 
 public protocol Web3OptionsInheritable {
     var options: Web3Options { get }
@@ -18,28 +18,28 @@ public struct Web3Options {
     /// Sets the transaction destination. It can either be a contract address or a private key controlled wallet address.
     ///
     /// Usually should never be nil.
-    public var to: EthereumAddress? = nil
+    public var to: EthereumAddress?
     /// Sets from what account a transaction should be sent. Used only internally as the sender of Ethereum transaction
     /// is determined purely from the transaction signature. Indicates to the Ethereum node or to the local keystore what private key
     /// should be used to sign a transaction.
     ///
     /// Can be nil if one reads the information from the blockchain.
-    public var from: EthereumAddress? = nil
+    public var from: EthereumAddress?
     /// Sets the gas limit for a transaction.
     ///
     /// If set to nil it's usually determined automatically.
-    public var gasLimit: BigUInt? = nil
+    public var gasLimit: BigUInt?
     /// Sets the gas price for a transaction.
     ///
     /// If set to nil it's usually determined automatically.
-    public var gasPrice: BigUInt? = nil
+    public var gasPrice: BigUInt?
     /// Sets the value (amount of Wei) sent along the transaction.
     ///
     /// If set to nil it's equal to zero
-    public var value: BigUInt? = nil
-    
+    public var value: BigUInt?
+
     public init() {}
-    
+
     /// Default options filler. Sets gas limit, gas price and value to zeroes.
     public static var `default`: Web3Options {
         var options = Web3Options()
@@ -50,14 +50,14 @@ public struct Web3Options {
     }
     @available(*, unavailable, renamed: "default")
     public static func defaultOptions() -> Web3Options { fatalError() }
-    
+
     public init(_ json: [String: Any]) throws {
         gasLimit = try json.bigUInt("gasLimit")
         gasPrice = try json.bigUInt("gasPrice")
         value = try json.bigUInt("value")
         from = try json.address("from")
     }
-    
+
     /// Merges two sets of topions by overriding the parameters from the first set by parameters from the second
     /// set if those are not nil.
     ///
@@ -72,12 +72,12 @@ public struct Web3Options {
         merge(&new.value, old.value)
         return new
     }
-    
+
     private func merge<T>(_ to: inout T?, _ from: T?) {
         guard let from = from else { return }
         to = from
     }
-    
+
     /// merges two sets of options along with a gas estimate to try to guess the final gas limit value required by user.
     ///
     /// Please refer to the source code for a logic.
@@ -105,7 +105,7 @@ public struct Web3Options {
             }
         }
     }
-    
+
     public static func smartMergeGasPrice(originalOptions: Web3Options?, extraOptions: Web3Options?, priceEstimate: BigUInt) -> BigUInt {
         let originalOptions = originalOptions ?? .default
         let mergedOptions = originalOptions.merge(with: extraOptions)
@@ -118,4 +118,3 @@ public struct Web3Options {
         }
     }
 }
-

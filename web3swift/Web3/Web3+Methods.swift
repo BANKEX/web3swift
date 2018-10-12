@@ -9,7 +9,6 @@
 import Foundation
 
 public enum JSONRPCmethod: String, Encodable {
-    
     case gasPrice = "eth_gasPrice"
     case blockNumber = "eth_blockNumber"
     case getNetwork = "net_version"
@@ -29,35 +28,33 @@ public enum JSONRPCmethod: String, Encodable {
     case personalSign = "eth_sign"
     case unlockAccount = "personal_unlockAccount"
     case getLogs = "eth_getLogs"
-    
+
     public var requiredNumOfParameters: Int {
-        get {
-            switch self {
-            case .call:
-                return 2
-            case .getTransactionCount:
-                return 2
-            case .getBalance:
-                return 2
-            case .getStorageAt:
-                return 2
-            case .getCode:
-                return 2
-            case .getBlockByHash:
-                return 2
-            case .getBlockByNumber:
-                return 2
-            case .gasPrice:
-                return 0
-            case .blockNumber:
-                return 0
-            case .getNetwork:
-                return 0
-            case .getAccounts:
-                return 0
-            default:
-                return 1
-            }
+        switch self {
+        case .call:
+            return 2
+        case .getTransactionCount:
+            return 2
+        case .getBalance:
+            return 2
+        case .getStorageAt:
+            return 2
+        case .getCode:
+            return 2
+        case .getBlockByHash:
+            return 2
+        case .getBlockByNumber:
+            return 2
+        case .gasPrice:
+            return 0
+        case .blockNumber:
+            return 0
+        case .getNetwork:
+            return 0
+        case .getAccounts:
+            return 0
+        default:
+            return 1
         }
     }
 }

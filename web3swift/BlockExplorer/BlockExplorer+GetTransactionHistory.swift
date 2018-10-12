@@ -6,19 +6,18 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
+import BigInt
 import Foundation
 import PromiseKit
-import BigInt
 
 extension BlockExplorer {
     public func getTransactionHistory(address: EthereumAddress, tokenName name: String = "Ether", page: Int = 1, size: Int = 50) -> Promise<[TransactionHistoryRecord]> {
         let address = address.address
         return getTransactionsHistory(address: address, tokenName: name, page: page, size: size)
     }
-    
+
     public func getTransactionsHistory(address publicAddress: String, tokenName name: String = "Ether", page: Int = 1, size: Int = 50) -> Promise<[TransactionHistoryRecord]> {
-        
-        //Configuring http request
+        // Configuring http request
         let listId: ListId = (name == "Ether") ? .listOfETH : .listOfTokens
         let url = URL(string: urlStringList)!
         var request = URLRequest(url: url)
@@ -26,24 +25,24 @@ extension BlockExplorer {
         let internalParams = InternalParam(entityId: publicAddress, page: page, size: size)
         let parameters = Body(listId: listId.rawValue, moduleId: "address", params: internalParams)
 
-        return Promise<[TransactionHistoryRecord]> {seal in
+        return Promise<[TransactionHistoryRecord]> { seal in
             do {
                 request.httpBody = try JSONEncoder().encode(parameters)
             } catch {
                 seal.reject(error)
             }
-            //Performing the request
-            let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+            // Performing the request
+            let task = URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
                 if let error = error { seal.reject(error); return }
                 guard let data = data else { return }
-                
+
                 do {
-                    //Parsing JSON
+                    // Parsing JSON
                     let jsonResponce = try JSONDecoder().decode(Response.self, from: data)
                     if listId == .listOfETH {
                         seal.fulfill(jsonResponce.rows)
                     } else {
-                        seal.fulfill( jsonResponce.rows.filter { $0.token.name == name } )
+                        seal.fulfill(jsonResponce.rows.filter { $0.token.name == name })
                     }
                 } catch {
                     seal.reject(error)
@@ -54,7 +53,7 @@ extension BlockExplorer {
     }
 }
 
-//MARK: - Decodable structures
+// MARK: - Decodable structures
 
 public struct Response: Decodable {
     let rows: [TransactionHistoryRecord]
@@ -62,7 +61,6 @@ public struct Response: Decodable {
 }
 
 public struct TransactionHistoryRecord: Decodable {
-    
     public let id: String
     public let hash: Data
     public let block: BigUInt
@@ -79,17 +77,17 @@ public struct TransactionHistoryRecord: Decodable {
     public let txFee: BigUInt // in wei
     public let gasUsed: BigUInt // in wei
     public let gasCost: BigUInt // in wei
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(String.self, forKey: CodingKeys.id)
         let hashString = try container.decode(String.self, forKey: CodingKeys.hash)
-        guard let hashData  = Data.fromHex(hashString) else {
+        guard let hashData = Data.fromHex(hashString) else {
             throw Web3Error.transactionSerializationError
         }
         hash = hashData
         let intBlock = try container.decode(UInt64.self, forKey: CodingKeys.block)
-        block = BigUInt.init(integerLiteral: intBlock)
+        block = BigUInt(integerLiteral: intBlock)
         let stringAddressFrom = try container.decode(String.self, forKey: CodingKeys.addressFrom).withHex
         addressFrom = EthereumAddress(stringAddressFrom)
         guard addressFrom.isValid else { throw Web3Error.transactionSerializationError }
@@ -114,7 +112,7 @@ public struct TransactionHistoryRecord: Decodable {
             nativeType = .tx
         }
         type = nativeType
-        
+
         let intStatus = try container.decode(Int.self, forKey: CodingKeys.status)
         status = intStatus == 0 ? .failed : .succeeded
         error = try container.decode(String.self, forKey: CodingKeys.error)
@@ -122,7 +120,7 @@ public struct TransactionHistoryRecord: Decodable {
         isContract = intIsContract == 0 ? false : true
         let intIsInner = try container.decode(Int.self, forKey: CodingKeys.isInner)
         isInner = intIsInner == 0 ? false : true
-        let stringValue  = try container.decode(String.self, forKey: CodingKeys.value)
+        let stringValue = try container.decode(String.self, forKey: CodingKeys.value)
         guard let uintValue = UInt64(stringValue, radix: 16) else {
             throw Web3Error.transactionSerializationError
         }
@@ -132,15 +130,14 @@ public struct TransactionHistoryRecord: Decodable {
         guard let uintTxFee = UInt64(stringTxFee, radix: 16) else {
             throw Web3Error.transactionSerializationError
         }
-        
-        txFee = BigUInt.init(integerLiteral: uintTxFee)
+
+        txFee = BigUInt(integerLiteral: uintTxFee)
         let intGasUsed = try container.decode(UInt64.self, forKey: CodingKeys.gasUsed)
         gasUsed = BigUInt(integerLiteral: intGasUsed)
         let intGasCost = try container.decode(UInt64.self, forKey: CodingKeys.gasCost)
         gasCost = BigUInt(integerLiteral: intGasCost)
     }
-    
-    
+
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case hash
@@ -159,7 +156,6 @@ public struct TransactionHistoryRecord: Decodable {
         case gasUsed = "gasused"
         case gasCost = "gascost"
     }
-    
 }
 
 public struct Token: Decodable {
@@ -167,14 +163,14 @@ public struct Token: Decodable {
     public let name: String
     public let symbol: String
     public let decimal: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case address = "addr"
         case name
         case symbol = "smbl"
         case decimal = "dcm"
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let stringAddress = try container.decode(String.self, forKey: CodingKeys.address)
@@ -201,7 +197,8 @@ public struct Head: Decodable {
     let updateTime: String
 }
 
-//MARK: - enums
+// MARK: - enums
+
 public enum TransactionType {
     case tx, call, create, suicide, token
 }
@@ -215,18 +212,16 @@ public enum ListId: String {
     case listOfTokens
 }
 
-//MARK: - HTTP body structures
-public struct Body:Codable {
-    let listId:String
-    let moduleId:String
-    let params:InternalParam
+// MARK: - HTTP body structures
+
+public struct Body: Codable {
+    let listId: String
+    let moduleId: String
+    let params: InternalParam
 }
 
-public struct InternalParam:Codable {
-    let entityId:String
-    let page:Int
-    let size:Int
+public struct InternalParam: Codable {
+    let entityId: String
+    let page: Int
+    let size: Int
 }
-
-
-

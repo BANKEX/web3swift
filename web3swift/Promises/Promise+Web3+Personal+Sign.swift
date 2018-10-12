@@ -6,19 +6,18 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import Foundation
 import BigInt
+import Foundation
 import PromiseKit
 
 extension web3.Personal {
-    
-    func signPersonalMessagePromise(message: Data, from: EthereumAddress, password:String = "BANKEXFOUNDATION") -> Promise<Data> {
+    func signPersonalMessagePromise(message: Data, from: EthereumAddress, password: String = "BANKEXFOUNDATION") -> Promise<Data> {
         let queue = web3.requestDispatcher.queue
         do {
-            if self.web3.provider.attachedKeystoreManager == nil {
+            if web3.provider.attachedKeystoreManager == nil {
                 let hexData = message.toHexString().withHex
                 let request = JSONRPCRequestFabric.prepareRequest(.personalSign, parameters: [from.address.lowercased(), hexData])
-                return self.web3.dispatch(request).map(on: queue) {response in
+                return web3.dispatch(request).map(on: queue) { response in
                     guard let value: Data = response.getValue() else {
                         if response.error != nil {
                             throw Web3Error.nodeError(response.error!.message)
@@ -28,7 +27,7 @@ extension web3.Personal {
                     return value
                 }
             }
-            let signature = try Web3Signer.signPersonalMessage(message, keystore: self.web3.provider.attachedKeystoreManager!, account: from, password: password)
+            let signature = try Web3Signer.signPersonalMessage(message, keystore: web3.provider.attachedKeystoreManager!, account: from, password: password)
             let returnPromise = Promise<Data>.pending()
             queue.async {
                 returnPromise.resolver.fulfill(signature)

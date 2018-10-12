@@ -6,14 +6,14 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import Foundation
 import BigInt
+import Foundation
 import class PromiseKit.Promise
 
 /// Protocol for generic Ethereum event parsing results
 public protocol EventParserResultProtocol {
     var eventName: String { get }
-    var decodedResult: [String:Any] { get }
+    var decodedResult: [String: Any] { get }
     var contractAddress: EthereumAddress { get }
     var transactionReceipt: TransactionReceipt? { get }
     var eventLog: EventLog? { get }
@@ -33,37 +33,42 @@ public protocol EventParserProtocol {
 
 /// Enum for the most-used Ethereum networks. Network ID is crucial for EIP155 support
 public struct NetworkId: RawRepresentable, CustomStringConvertible, ExpressibleByIntegerLiteral {
-  public typealias IntegerLiteralType = Int
-  public var rawValue: BigUInt
-  public init(rawValue: BigUInt) {
-    self.rawValue = rawValue
-  }
-  public init(_ rawValue: BigUInt) {
-    self.rawValue = rawValue
-  }
-  public init(_ rawValue: Int) {
-    self.rawValue = BigUInt(rawValue)
-  }
-  public init(integerLiteral value: Int) {
-    rawValue = BigUInt(value)
-  }
-  public var all: [NetworkId] {
-    return [.mainnet, .ropsten, .rinkeby, .kovan]
-  }
-  public static var `default`: NetworkId = .mainnet
-  public static var mainnet: NetworkId { return 1 }
-  public static var ropsten: NetworkId { return 3 }
-  public static var rinkeby: NetworkId { return 4 }
-  public static var kovan: NetworkId { return 42 }
-  public var description: String {
-    switch rawValue {
-    case 1: return "mainnet"
-    case 3: return "ropsten"
-    case 4: return "rinkeby"
-    case 42: return "kovan"
-    default: return ""
+    public typealias IntegerLiteralType = Int
+    public var rawValue: BigUInt
+    public init(rawValue: BigUInt) {
+        self.rawValue = rawValue
     }
-  }
+
+    public init(_ rawValue: BigUInt) {
+        self.rawValue = rawValue
+    }
+
+    public init(_ rawValue: Int) {
+        self.rawValue = BigUInt(rawValue)
+    }
+
+    public init(integerLiteral value: Int) {
+        rawValue = BigUInt(value)
+    }
+
+    public var all: [NetworkId] {
+        return [.mainnet, .ropsten, .rinkeby, .kovan]
+    }
+
+    public static var `default`: NetworkId = .mainnet
+    public static var mainnet: NetworkId { return 1 }
+    public static var ropsten: NetworkId { return 3 }
+    public static var rinkeby: NetworkId { return 4 }
+    public static var kovan: NetworkId { return 42 }
+    public var description: String {
+        switch rawValue {
+        case 1: return "mainnet"
+        case 3: return "ropsten"
+        case 4: return "rinkeby"
+        case 42: return "kovan"
+        default: return ""
+        }
+    }
 }
 
 extension NetworkId: Numeric {
@@ -71,25 +76,32 @@ extension NetworkId: Numeric {
     public var magnitude: RawValue.Magnitude {
         return rawValue.magnitude
     }
-    public init?<T>(exactly source: T) where T : BinaryInteger {
+
+    public init?<T>(exactly source: T) where T: BinaryInteger {
         rawValue = RawValue(source)
     }
-    public static func *(lhs: NetworkId, rhs: NetworkId) -> NetworkId {
+
+    public static func * (lhs: NetworkId, rhs: NetworkId) -> NetworkId {
         return NetworkId(rawValue: lhs.rawValue * rhs.rawValue)
     }
-    public static func *=(lhs: inout NetworkId, rhs: NetworkId) {
+
+    public static func *= (lhs: inout NetworkId, rhs: NetworkId) {
         lhs.rawValue *= rhs.rawValue
     }
-    public static func +(lhs: NetworkId, rhs: NetworkId) -> NetworkId {
+
+    public static func + (lhs: NetworkId, rhs: NetworkId) -> NetworkId {
         return NetworkId(rawValue: lhs.rawValue + rhs.rawValue)
     }
-    public static func +=(lhs: inout NetworkId, rhs: NetworkId) {
+
+    public static func += (lhs: inout NetworkId, rhs: NetworkId) {
         lhs.rawValue += rhs.rawValue
     }
-    public static func -(lhs: NetworkId, rhs: NetworkId) -> NetworkId {
+
+    public static func - (lhs: NetworkId, rhs: NetworkId) -> NetworkId {
         return NetworkId(rawValue: lhs.rawValue - rhs.rawValue)
     }
-    public static func -=(lhs: inout NetworkId, rhs: NetworkId) {
+
+    public static func -= (lhs: inout NetworkId, rhs: NetworkId) {
         lhs.rawValue -= rhs.rawValue
     }
 }

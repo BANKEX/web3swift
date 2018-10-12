@@ -6,8 +6,8 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import Foundation
 import BigInt
+import Foundation
 
 extension BigUInt: EventFilterComparable {
     public func isEqualTo(_ other: AnyObject) -> Bool {
@@ -15,7 +15,7 @@ extension BigUInt: EventFilterComparable {
         case let oth as BigUInt:
             return self == oth
         case let oth as BigInt:
-            return self.magnitude == oth.magnitude && self.signum() == oth.signum()
+            return magnitude == oth.magnitude && signum() == oth.signum()
         default:
             return false
         }
@@ -28,7 +28,7 @@ extension BigInt: EventFilterComparable {
         case let oth as BigInt:
             return self == oth
         case let oth as BigUInt:
-            return self.magnitude == oth.magnitude && self.signum() == oth.signum()
+            return magnitude == oth.magnitude && signum() == oth.signum()
         default:
             return false
         }
@@ -93,4 +93,3 @@ extension EthereumAddress: EventFilterComparable {
         }
     }
 }
-
