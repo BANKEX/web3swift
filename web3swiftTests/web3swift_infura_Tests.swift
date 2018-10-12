@@ -10,7 +10,6 @@ import XCTest
 
 @testable import web3swift_iOS
 class web3swift_infura_Tests: XCTestCase {
-    
     func testGetBalance() throws {
         let web3 = Web3.InfuraMainnetWeb3()
         let address = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
@@ -18,44 +17,42 @@ class web3swift_infura_Tests: XCTestCase {
         let balString = Web3.Utils.formatToEthereumUnits(balance, toUnits: .eth, decimals: 3)
         print(balString ?? "nil")
     }
-    
+
     func testGetBlockByHash() throws {
         let web3 = Web3.InfuraMainnetWeb3()
         let result = try web3.eth.getBlockByHash("0x6d05ba24da6b7a1af22dc6cc2a1fe42f58b2a5ea4c406b19c8cf672ed8ec0695", fullTransactions: true)
         print(result)
     }
-    
+
     func testGetBlockByNumber1() throws {
         let web3 = Web3.InfuraMainnetWeb3()
         let result = try web3.eth.getBlockByNumber("latest", fullTransactions: true)
         print(result)
     }
-    
+
     func testGetBlockByNumber2() throws {
         let web3 = Web3.InfuraMainnetWeb3()
-        let result = try web3.eth.getBlockByNumber(UInt64(5184323), fullTransactions: true)
+        let result = try web3.eth.getBlockByNumber(UInt64(5_184_323), fullTransactions: true)
         print(result)
         let transactions = result.transactions
         for transaction in transactions {
             switch transaction {
-            case .transaction(let tx):
+            case let .transaction(tx):
                 print(String(describing: tx))
             default:
                 break
             }
         }
     }
-    
+
     func testGetBlockByNumber3() {
         let web3 = Web3.InfuraMainnetWeb3()
-        XCTAssertNoThrow(try web3.eth.getBlockByNumber(UInt64(1000000000), fullTransactions: true))
+        XCTAssertNoThrow(try web3.eth.getBlockByNumber(UInt64(1_000_000_000), fullTransactions: true))
     }
-    
+
     func testGasPrice() throws {
         let web3 = Web3.InfuraMainnetWeb3()
         let gasPrice = try web3.eth.getGasPrice()
         print(gasPrice)
     }
-
-    
 }

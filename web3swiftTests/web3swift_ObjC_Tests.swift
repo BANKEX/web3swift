@@ -6,8 +6,8 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import XCTest
 @testable import web3swift_iOS
+import XCTest
 
 class web3swift_ObjC_Tests: XCTestCase {
     func testBalance() {

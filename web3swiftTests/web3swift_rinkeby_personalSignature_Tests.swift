@@ -6,16 +6,14 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import XCTest
-import CryptoSwift
 import BigInt
+import CryptoSwift
 import secp256k1
+import XCTest
 
 @testable import web3swift_iOS
 
 class web3swift_rinkeby_personalSignature_Tests: XCTestCase {
-    
-    
     func testPersonalSignature() throws {
         let web3 = Web3.InfuraRinkebyWeb3()
         let tempKeystore = try! EthereumKeystoreV3(password: "")
@@ -33,7 +31,7 @@ class web3swift_rinkeby_personalSignature_Tests: XCTestCase {
         let signer = try web3.personal.ecrecover(personalMessage: message.data(using: .utf8)!, signature: signature)
         XCTAssert(expectedAddress == signer, "Failed to sign personal message")
     }
-    
+
     func testPersonalSignatureOnContract() throws {
         let web3 = Web3.InfuraRinkebyWeb3()
         let tempKeystore = try! EthereumKeystoreV3(password: "")
@@ -57,12 +55,11 @@ class web3swift_rinkeby_personalSignature_Tests: XCTestCase {
         guard let hash = res["hash"]! as? Data else { return XCTFail() }
         let hash2 = try Web3.Utils.hashPersonalMessage(message.data(using: .utf8)!)
         XCTAssert(hash2 == hash)
-        
+
         intermediate = try contract.method("recoverSigner", args: message, unmarshalledSignature.v, Data(unmarshalledSignature.r), Data(unmarshalledSignature.s), options: options)
         res = try intermediate.call(options: nil)
         guard let signer = res["signer"]! as? EthereumAddress else { return XCTFail() }
         print(signer)
         XCTAssert(signer == expectedAddress)
     }
-    
 }
