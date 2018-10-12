@@ -9,7 +9,63 @@
 import Foundation
 import BigInt
 import PromiseKit
-fileprivate typealias PromiseResult = PromiseKit.Result
+
+public enum Web3ResponseError: Error {
+    case notFound
+    case wrongType
+}
+public class Web3Response {
+    let dictionary: [String: Any]
+    public var position = 0
+    init(_ dictionary: [String: Any]) {
+        self.dictionary = dictionary
+    }
+    public subscript(key: String) -> Any? {
+        return dictionary[key]
+    }
+    public subscript(index: Int) -> Any? {
+        return dictionary["\(index)"]
+    }
+    /// Returns next response argument as BigUInt (like self[n] as? BigUInt; n += 1)
+    /// throws Web3ResponseError.notFound if there is no value at self[n]
+    /// throws Web3ResponseError.wrongType if it cannot cast self[n] to BigUInt
+    public func uint256() throws -> BigUInt {
+        guard let value = dictionary[nextIndex] else { throw Web3ResponseError.notFound }
+        if let value = value as? BigUInt {
+            return value
+        } else if let value = value as? String {
+            guard let value = BigUInt(value.withoutHex, radix: 16) else { throw Web3ResponseError.wrongType }
+            return value
+        } else {
+            throw Web3ResponseError.wrongType
+        }
+    }
+    /// Returns next response argument as EthereumAddress (like self[n] as? EthereumAddress; n += 1)
+    /// throws Web3ResponseError.notFound if there is no value at self[n]
+    /// throws Web3ResponseError.wrongType if it cannot cast self[n] to EthereumAddress
+    public func address() throws -> EthereumAddress {
+        guard let value = dictionary[nextIndex] else { throw Web3ResponseError.notFound }
+        guard let address = value as? EthereumAddress else { throw Web3ResponseError.wrongType }
+        return address
+    }
+    /// Returns next response argument as String (like self[n] as? String; n += 1)
+    /// throws Web3ResponseError.notFound if there is no value at self[n]
+    /// throws Web3ResponseError.wrongType if it cannot cast self[n] to String
+    public func string() throws -> String {
+        guard let value = dictionary[nextIndex] else { throw Web3ResponseError.notFound }
+        guard let string = value as? String else { throw Web3ResponseError.wrongType }
+        return string
+    }
+    public func next() throws -> Any {
+        guard let value = dictionary[nextIndex] else { throw Web3ResponseError.notFound }
+        return value
+    }
+    private var nextIndex: String {
+        let p = position
+        position += 1
+        return String(p)
+    }
+}
 
 extension web3.Web3Contract {
 
@@ -68,7 +124,7 @@ extension web3.Web3Contract {
          */
         
         @discardableResult
-        public func call(options: Web3Options?, onBlock: String = "latest") throws -> [String: Any] {
+        public func call(options: Web3Options?, onBlock: String = "latest") throws -> Web3Response {
             return try self.callPromise(options: options, onBlock: onBlock).wait()
         }
         
@@ -128,7 +184,7 @@ extension web3.Web3Contract.TransactionIntermediate {
             let gasEstimatePromise: Promise<BigUInt> = self.web3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
             let gasPricePromise: Promise<BigUInt> = self.web3.eth.getGasPricePromise()
             var promisesToFulfill: [Promise<BigUInt>] = [getNoncePromise, gasPricePromise, gasPricePromise]
-            when(resolved: getNoncePromise, gasEstimatePromise, gasPricePromise).map(on: queue, { (results:[PromiseResult<BigUInt>]) throws -> EthereumTransaction in
+            when(resolved: getNoncePromise, gasEstimatePromise, gasPricePromise).map(on: queue, { (results: [Result<BigUInt>]) throws -> EthereumTransaction in
                 
                 promisesToFulfill.removeAll()
                 guard case .fulfilled(let nonce) = results[0] else {
@@ -173,10 +229,10 @@ extension web3.Web3Contract.TransactionIntermediate {
         }
     }
     
-    public func callPromise(options: Web3Options? = nil, onBlock: String = "latest") -> Promise<[String: Any]>{
+    public func callPromise(options: Web3Options? = nil, onBlock: String = "latest") -> Promise<Web3Response>{
         let assembledTransaction: EthereumTransaction = self.transaction
         let queue = self.web3.requestDispatcher.queue
-        let returnPromise = Promise<[String:Any]> { seal in
+        let returnPromise = Promise<Web3Response> { seal in
             let mergedOptions = self.options.merge(with: options)
             var optionsForCall = Web3Options()
             optionsForCall.from = mergedOptions.from
@@ -185,15 +241,16 @@ extension web3.Web3Contract.TransactionIntermediate {
             let callPromise: Promise<Data> = self.web3.eth.callPromise(assembledTransaction, options: optionsForCall, onBlock: onBlock)
             callPromise.done(on: queue) { data in
                     do {
-                        if (self.method == "fallback") {
+                        if self.method == "fallback" {
                             let resultHex = data.toHexString().withHex
-                            seal.fulfill(["result": resultHex as Any])
-                            return
+                            let response = Web3Response(["result": resultHex as Any])
+                            seal.fulfill(response)
+                        } else {
+                            guard let decodedData = self.contract.decodeReturnData(self.method, data: data) else {
+                                throw Web3Error.processingError("Can not decode returned parameters")
+                            }
+                            seal.fulfill(Web3Response(decodedData))
                         }
-                        guard let decodedData = self.contract.decodeReturnData(self.method, data: data) else {
-                            throw Web3Error.processingError("Can not decode returned parameters")
-                        }
-                        seal.fulfill(decodedData)
                     } catch {
                         seal.reject(error)
                     }

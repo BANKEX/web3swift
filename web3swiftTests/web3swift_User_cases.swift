@@ -29,9 +29,8 @@ class web3swift_User_cases: XCTestCase {
         options.from = "0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d"
         let account: EthereumAddress = "0xb870065718919ac4f9572ffc4bde0b2516f4e723"
         let transactionIntermediate = try contract.method("balanceOf", args: account, options: options)
-        let response = try transactionIntermediate.call(options: options)
-        let balance = response["0"] as? BigUInt
-        print(balance!)
+        let balance = try transactionIntermediate.call(options: options).uint256()
+        print(balance)
     }
     
     func testUserCase2() {

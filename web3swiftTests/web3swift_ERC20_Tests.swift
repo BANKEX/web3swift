@@ -90,8 +90,7 @@ class web3swift_ERC20_Tests: XCTestCase {
         var options = Web3Options.default
         options.from = EthereumAddress("0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d")
         let transactionIntermediate = try contract.method("name", options: options)
-        let response = try transactionIntermediate.call(options: options)
-        let name = response["0"] as? String
+        let name = try transactionIntermediate.call(options: options).string()
         XCTAssert(name == "\"BANKEX\" project utility token", "Failed to create ERC20 name transaction")
     }
     
@@ -104,20 +103,21 @@ class web3swift_ERC20_Tests: XCTestCase {
         var options = Web3Options.default
         options.from = EthereumAddress("0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d")
         let transactionIntermediate = try contract.method("name", options: options)
-        let response = try transactionIntermediate.call(options: options)
-        let name = response["0"] as? String
+        let name = try transactionIntermediate.call(options: options).string()
+        
         XCTAssert(name == "\"BANKEX\" project utility token", "Failed to create ERC20 name transaction")
-        print("Token name = " + name!)
+        print("Token name = " + name)
     }
     
     func testERC20tokenBalance() throws {
         let web3 = Web3.InfuraMainnetWeb3()
+        
         let contract = try web3.contract(Web3.Utils.erc20ABI, at: "0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")
         var options = Web3Options();
         options.from = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
         let addressOfUser = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
-        let tokenBalance = try contract.method("balanceOf", args: addressOfUser, options: options).call(options: nil)
-        XCTAssertNotNil(tokenBalance["0"] as? BigUInt)
+        let tokenBalance = try contract.method("balanceOf", args: addressOfUser, options: options).call(options: nil).uint256()
+        print(tokenBalance)
     }
-    
 }
+

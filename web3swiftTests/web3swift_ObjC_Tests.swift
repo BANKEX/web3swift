@@ -13,7 +13,7 @@ class web3swift_ObjC_Tests: XCTestCase {
     func testBalance() {
         let web3 = _ObjCWeb3.InfuraMainnetWeb3()
         let address = _ObjCEthereumAddress(address: "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
-        let err: NSErrorPointer = NSErrorPointer(nilLiteral: ())
+        let err = NSErrorPointer(nilLiteral: ())
         let balance = web3.web3Eth.getBalance(address: address, error: err)
         XCTAssert(err?.pointee == nil)
         XCTAssert(balance != nil)
