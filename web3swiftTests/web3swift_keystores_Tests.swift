@@ -24,18 +24,20 @@ class web3swift_Keystores_tests: XCTestCase {
         checkTime()
     }
 
-    func testBIP39() {
+    func testBIP39() throws {
         // 2.159708023071289 sec to complete
         var entropy = Data.fromHex("00000000000000000000000000000000")!
-        var phrase = BIP39.generateMnemonicsFromEntropy(entropy: entropy)
-        XCTAssert(phrase == "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about")
-        var seed = BIP39.seedFromMmemonics(phrase!, password: "TREZOR")
-        XCTAssert(seed?.toHexString() == "c55257c360c07c72029aebc1b53c05ed0362ada38ead3e3e9efa3708e53495531f09a6987599d18264c1e1c92f2cf141630c7a3c4ab7c81b2f001698e7463b04")
+        var mnemonics = try Mnemonics(entropy: entropy)
+        XCTAssertEqual(mnemonics.string, "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about")
+        mnemonics.password = "TREZOR"
+        var seed = mnemonics.seed()
+        XCTAssert(seed.toHexString() == "c55257c360c07c72029aebc1b53c05ed0362ada38ead3e3e9efa3708e53495531f09a6987599d18264c1e1c92f2cf141630c7a3c4ab7c81b2f001698e7463b04")
         entropy = Data.fromHex("68a79eaca2324873eacc50cb9c6eca8cc68ea5d936f98787c60c7ebc74e6ce7c")!
-        phrase = BIP39.generateMnemonicsFromEntropy(entropy: entropy)
-        XCTAssert(phrase == "hamster diagram private dutch cause delay private meat slide toddler razor book happy fancy gospel tennis maple dilemma loan word shrug inflict delay length")
-        seed = BIP39.seedFromMmemonics(phrase!, password: "TREZOR")
-        XCTAssert(seed?.toHexString() == "64c87cde7e12ecf6704ab95bb1408bef047c22db4cc7491c4271d170a1b213d20b385bc1588d9c7b38f1b39d415665b8a9030c9ec653d75e65f847d8fc1fc440")
+        mnemonics = try Mnemonics(entropy: entropy)
+        XCTAssertEqual(mnemonics.string, "hamster diagram private dutch cause delay private meat slide toddler razor book happy fancy gospel tennis maple dilemma loan word shrug inflict delay length")
+        mnemonics.password = "TREZOR"
+        seed = mnemonics.seed()
+        XCTAssert(seed.toHexString() == "64c87cde7e12ecf6704ab95bb1408bef047c22db4cc7491c4271d170a1b213d20b385bc1588d9c7b38f1b39d415665b8a9030c9ec653d75e65f847d8fc1fc440")
     }
 
     func testHMAC() {
@@ -44,6 +46,18 @@ class web3swift_Keystores_tests: XCTestCase {
         let data = Data.fromHex("4869205468657265")!
         let hmac = try! HMAC(key: seed.bytes, variant: HMAC.Variant.sha512).authenticate(data.bytes)
         XCTAssert(Data(hmac).toHexString() == "87aa7cdea5ef619d4ff0b4241a1d6cb02379f4e2ce4ec2787ad0b30545e17cdedaa833b7d6b8a702038b274eaea3f4e4be9d914eeb61f1702e696c203a126854")
+    }
+    
+    func testMnemonicsWithAllLanguagesAndEntropySizes() {
+        let languages: [BIP39Language] = [.english, .chinese_simplified, .chinese_traditional, .japanese, .korean, .french, .italian, .spanish]
+        var mnemonics: Mnemonics!
+        let entropySizes: [EntropySize] = [.b128, .b160, .b192, .b224, .b256]
+        for language in languages {
+            for size in entropySizes {
+                mnemonics = Mnemonics(entropySize: size, language: language)
+            }
+        }
+        XCTAssert(mnemonics.seed().count > 0)
     }
 
     func testV3keystoreExportPrivateKey() {
@@ -64,14 +78,14 @@ class web3swift_Keystores_tests: XCTestCase {
 
     func testNewBIP32keystore() throws {
         // 1.7766820192337036 sec to complete
-        let mnemonics = try! BIP39.generateMnemonics(bitsOfEntropy: 256)!
-        _ = try BIP32Keystore(mnemonics: mnemonics, password: "", mnemonicsPassword: "")
+        let mnemonics = Mnemonics()
+        XCTAssertNoThrow(try BIP32Keystore(mnemonics: mnemonics, password: ""))
     }
 
     func testBIP32keystoreExportPrivateKey() throws {
         // 6.153380036354065 sec to complete
-        let mnemonic = "normal dune pole key case cradle unfold require tornado mercy hospital buyer"
-        let keystore = try! BIP32Keystore(mnemonics: mnemonic, password: "", mnemonicsPassword: "")
+        let mnemonics = try Mnemonics("normal dune pole key case cradle unfold require tornado mercy hospital buyer")
+        let keystore = try BIP32Keystore(mnemonics: mnemonics, password: "")
         XCTAssertNotNil(keystore)
         let account = keystore.addresses[0]
         _ = try keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
@@ -79,39 +93,40 @@ class web3swift_Keystores_tests: XCTestCase {
 
     func testBIP32keystoreMatching() throws {
         // 5.8 sec to complete
-        let mnemonic = "fruit wave dwarf banana earth journey tattoo true farm silk olive fence"
-        let keystore = try! BIP32Keystore(mnemonics: mnemonic, password: "", mnemonicsPassword: "banana")
-        XCTAssertNotNil(keystore)
+        let mnemonics = try Mnemonics("fruit wave dwarf banana earth journey tattoo true farm silk olive fence")
+        mnemonics.password = "banana"
+        let keystore = try BIP32Keystore(mnemonics: mnemonics, password: "")
         let account = keystore.addresses[0]
         let key = try keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
         let pubKey = try Web3.Utils.privateToPublic(key, compressed: true)
-        XCTAssert(pubKey.toHexString() == "027160bd3a4d938cac609ff3a11fe9233de7b76c22a80d2b575e202cbf26631659")
+        XCTAssertEqual(pubKey.toHexString(), "027160bd3a4d938cac609ff3a11fe9233de7b76c22a80d2b575e202cbf26631659")
     }
 
-    func testBIP32keystoreMatchingRootNode() {
+    func testBIP32keystoreMatchingRootNode() throws {
         // 5.793358087539673 sec to complete
-        let mnemonic = "fruit wave dwarf banana earth journey tattoo true farm silk olive fence"
-        let keystore = try! BIP32Keystore(mnemonics: mnemonic, password: "", mnemonicsPassword: "banana")
-        XCTAssertNotNil(keystore)
-        let rootNode = try! keystore.serializeRootNodeToString(password: "")
-        XCTAssert(rootNode == "xprvA2KM71v838kPwE8Lfr12m9DL939TZmPStMnhoFcZkr1nBwDXSG7c3pjYbMM9SaqcofK154zNSCp7W7b4boEVstZu1J3pniLQJJq7uvodfCV")
+        let mnemonics = try Mnemonics("fruit wave dwarf banana earth journey tattoo true farm silk olive fence")
+        mnemonics.password = "banana"
+        let keystore = try BIP32Keystore(mnemonics: mnemonics, password: "")
+        let rootNode = try keystore.serializeRootNodeToString(password: "")
+        XCTAssertEqual(rootNode, "xprvA2KM71v838kPwE8Lfr12m9DL939TZmPStMnhoFcZkr1nBwDXSG7c3pjYbMM9SaqcofK154zNSCp7W7b4boEVstZu1J3pniLQJJq7uvodfCV")
     }
 
     func testBIP32keystoreCustomPathMatching() throws {
         // 5.992403030395508 sec to complete
-        let mnemonic = "fruit wave dwarf banana earth journey tattoo true farm silk olive fence"
-        let keystore = try! BIP32Keystore(mnemonics: mnemonic, password: "", mnemonicsPassword: "banana", prefixPath: "m/44'/60'/0'/0")
+        let mnemonics = try Mnemonics("fruit wave dwarf banana earth journey tattoo true farm silk olive fence")
+        mnemonics.password = "banana"
+        let keystore = try BIP32Keystore(mnemonics: mnemonics, password: "", prefixPath: "m/44'/60'/0'/0")
         XCTAssertNotNil(keystore)
         let account = keystore.addresses[0]
         let key = try keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
         let pubKey = try Web3.Utils.privateToPublic(key, compressed: true)
-        XCTAssert(pubKey.toHexString() == "027160bd3a4d938cac609ff3a11fe9233de7b76c22a80d2b575e202cbf26631659")
+        XCTAssertEqual(pubKey.toHexString(), "027160bd3a4d938cac609ff3a11fe9233de7b76c22a80d2b575e202cbf26631659")
     }
 
-    func testByBIP32keystoreCreateChildAccount() {
+    func testByBIP32keystoreCreateChildAccount() throws {
         //  sec to complete
-        let mnemonic = "normal dune pole key case cradle unfold require tornado mercy hospital buyer"
-        let keystore = try! BIP32Keystore(mnemonics: mnemonic, password: "", mnemonicsPassword: "")
+        let mnemonics = try Mnemonics("normal dune pole key case cradle unfold require tornado mercy hospital buyer")
+        let keystore = try! BIP32Keystore(mnemonics: mnemonics, password: "")
         XCTAssertNotNil(keystore)
         XCTAssertEqual(keystore.addresses.count, 1)
         try! keystore.createNewChildAccount(password: "")
@@ -121,10 +136,10 @@ class web3swift_Keystores_tests: XCTestCase {
         XCTAssertNotNil(key)
     }
 
-    func testByBIP32keystoreCreateCustomChildAccount() {
+    func testByBIP32keystoreCreateCustomChildAccount() throws {
         //  sec to complete
-        let mnemonic = "normal dune pole key case cradle unfold require tornado mercy hospital buyer"
-        let keystore = try! BIP32Keystore(mnemonics: mnemonic, password: "", mnemonicsPassword: "")
+        let mnemonics = try Mnemonics("normal dune pole key case cradle unfold require tornado mercy hospital buyer")
+        let keystore = try! BIP32Keystore(mnemonics: mnemonics, password: "")
         XCTAssertNotNil(keystore)
         XCTAssertEqual(keystore.addresses.count, 1)
         try! keystore.createNewCustomChildAccount(password: "", path: "/42/1")
@@ -135,10 +150,10 @@ class web3swift_Keystores_tests: XCTestCase {
         print(keystore.paths)
     }
 
-    func testByBIP32keystoreSaveAndDeriva() {
+    func testByBIP32keystoreSaveAndDeriva() throws {
         //  sec to complete
-        let mnemonic = "normal dune pole key case cradle unfold require tornado mercy hospital buyer"
-        let keystore = try! BIP32Keystore(mnemonics: mnemonic, password: "", mnemonicsPassword: "", prefixPath: "m/44'/60'/0'")
+        let mnemonics = try Mnemonics("normal dune pole key case cradle unfold require tornado mercy hospital buyer")
+        let keystore = try! BIP32Keystore(mnemonics: mnemonics, password: "", prefixPath: "m/44'/60'/0'")
         XCTAssertNotNil(keystore)
         XCTAssertEqual(keystore.addresses.count, 1)
         try! keystore.createNewCustomChildAccount(password: "", path: "/0/1")
