@@ -9,7 +9,7 @@
 import BigInt
 import Foundation
 
-extension Data {
+public extension Data {
     func setLengthLeft(_ toBytes: UInt64, isNegative: Bool = false) -> Data? {
         let existingLength = UInt64(count)
         if existingLength == toBytes {
@@ -45,7 +45,7 @@ extension Data {
     }
 }
 
-extension BigInt {
+public extension BigInt {
     func toTwosComplement() -> Data {
         if sign == BigInt.Sign.plus {
             return magnitude.serialize()
@@ -79,7 +79,7 @@ extension BigInt {
     }
 }
 
-extension BigUInt {
+public extension BigUInt {
     func abiEncode(bits: UInt64) -> Data? {
         let data = serialize()
         let paddedLength = UInt64(ceil((Double(bits) / 8.0)))

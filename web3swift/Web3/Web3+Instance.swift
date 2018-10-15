@@ -12,6 +12,7 @@ import PromiseKit
 
 /// A web3 instance bound to provider. All further functionality is provided under web.*. namespaces.
 public class Web3: Web3OptionsInheritable {
+    public static var `default`: Web3 = Web3(infura: .mainnet)
     public var provider: Web3Provider
     public var options: Web3Options = .default
     public var defaultBlock = "latest"

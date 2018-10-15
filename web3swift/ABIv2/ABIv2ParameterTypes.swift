@@ -179,7 +179,7 @@ extension ABIv2.Element.Function {
     }
 
     public var methodEncoding: Data {
-        return signature.data(using: .ascii)!.sha3(.keccak256)[0 ... 3]
+        return signature.data(using: .ascii)!.sha3(.keccak256)[0..<4]
     }
 }
 

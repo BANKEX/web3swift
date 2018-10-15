@@ -13,13 +13,15 @@ import XCTest
 
 class web3swift_Keystores_tests: XCTestCase {
     var time = CFAbsoluteTimeGetCurrent()
-    override func setUp() {
+    func checkTime() {
+        print(CFAbsoluteTimeGetCurrent() - time)
         time = CFAbsoluteTimeGetCurrent()
     }
-
+    override func setUp() {
+        checkTime()
+    }
     override func tearDown() {
-        print(CFAbsoluteTimeGetCurrent() - time)
-        time = CFAbsoluteTimeGetCurrent() - time
+        checkTime()
     }
 
     func testBIP39() {
@@ -47,12 +49,16 @@ class web3swift_Keystores_tests: XCTestCase {
     func testV3keystoreExportPrivateKey() {
         // 5.033522009849548 sec to complete
         let keystore = try! EthereumKeystoreV3(password: "")
+        checkTime()
         XCTAssertNotNil(keystore)
         let account = keystore!.addresses[0]
         print(account)
+        checkTime()
         let data = try! keystore!.serialize()
+        checkTime()
         print(try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions(rawValue: 0)))
         let key = try! keystore!.UNSAFE_getPrivateKeyData(password: "", account: account)
+        checkTime()
         XCTAssertNotNil(key)
     }
 

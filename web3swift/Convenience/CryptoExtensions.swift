@@ -110,7 +110,7 @@ private class Scrypt {
         barray.withUnsafeBytes { p in
             B.copyMemory(from: p.baseAddress!, byteCount: barray.count)
         }
-
+        
         /* 2: for i = 0 to p - 1 do */
         for i in 0 ..< p {
             /* 3: B_i <-- MF(B_i, N) */
