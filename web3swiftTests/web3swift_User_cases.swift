@@ -38,42 +38,42 @@ class web3swift_User_cases: XCTestCase {
         XCTAssert(web3 != nil, "Failed to create web3 for custom provider")
     }
 
-    func testProperGasLimit() throws {
-        guard let keystoreData = getKeystoreData() else { return XCTFail() }
-        guard let keystoreV3 = EthereumKeystoreV3(keystoreData) else { return XCTFail() }
-        let web3Rinkeby = Web3(infura: .rinkeby)
-        let keystoreManager = KeystoreManager([keystoreV3])
-        web3Rinkeby.addKeystoreManager(keystoreManager)
-        let gasPriceRinkeby = try web3Rinkeby.eth.getGasPrice()
-        let sendToAddress: EthereumAddress = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
-        let intermediate = try web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001")
-        var options = Web3Options.default
-        options.from = keystoreV3.addresses.first
-        options.gasPrice = gasPriceRinkeby
-        let gasEstimate = try intermediate.estimateGas(options: options)
-        options.gasLimit = gasEstimate + 1234
-        let assembled = try intermediate.assemble(options: options)
-        XCTAssert(assembled.gasLimit == options.gasLimit)
-    }
-
-    func testProperGasPrice() throws {
-        guard let keystoreData = getKeystoreData() else { return XCTFail() }
-        guard let keystoreV3 = EthereumKeystoreV3(keystoreData) else { return XCTFail() }
-        let web3Rinkeby = Web3(infura: .rinkeby)
-        let keystoreManager = KeystoreManager([keystoreV3])
-        web3Rinkeby.addKeystoreManager(keystoreManager)
-        let gasPriceRinkeby = try web3Rinkeby.eth.getGasPrice()
-        let sendToAddress: EthereumAddress = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
-        let intermediate = try web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001")
-        var options = Web3Options.default
-        options.from = keystoreV3.addresses.first
-        options.gasPrice = gasPriceRinkeby * 2
-        let gasEstimate = try intermediate.estimateGas(options: options)
-        options.gasLimit = gasEstimate + 1234
-        let assembled = try intermediate.assemble(options: options)
-        XCTAssert(assembled.gasLimit == options.gasLimit)
-        XCTAssert(assembled.gasPrice == options.gasPrice)
-    }
+//    func testProperGasLimit() throws {
+//        guard let keystoreData = getKeystoreData() else { return XCTFail() }
+//        guard let keystoreV3 = EthereumKeystoreV3(keystoreData) else { return XCTFail() }
+//        let web3Rinkeby = Web3(infura: .rinkeby)
+//        let keystoreManager = KeystoreManager([keystoreV3])
+//        web3Rinkeby.addKeystoreManager(keystoreManager)
+//        let gasPriceRinkeby = try web3Rinkeby.eth.getGasPrice()
+//        let sendToAddress: EthereumAddress = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
+//        let intermediate = try web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001")
+//        var options = Web3Options.default
+//        options.from = keystoreV3.addresses.first
+//        options.gasPrice = gasPriceRinkeby
+//        let gasEstimate = try intermediate.estimateGas(options: options)
+//        options.gasLimit = gasEstimate + 1234
+//        let assembled = try intermediate.assemble(options: options)
+//        XCTAssert(assembled.gasLimit == options.gasLimit)
+//    }
+//
+//    func testProperGasPrice() throws {
+//        guard let keystoreData = getKeystoreData() else { return XCTFail() }
+//        guard let keystoreV3 = EthereumKeystoreV3(keystoreData) else { return XCTFail() }
+//        let web3Rinkeby = Web3(infura: .rinkeby)
+//        let keystoreManager = KeystoreManager([keystoreV3])
+//        web3Rinkeby.addKeystoreManager(keystoreManager)
+//        let gasPriceRinkeby = try web3Rinkeby.eth.getGasPrice()
+//        let sendToAddress: EthereumAddress = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
+//        let intermediate = try web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001")
+//        var options = Web3Options.default
+//        options.from = keystoreV3.addresses.first
+//        options.gasPrice = gasPriceRinkeby * 2
+//        let gasEstimate = try intermediate.estimateGas(options: options)
+//        options.gasLimit = gasEstimate + 1234
+//        let assembled = try intermediate.assemble(options: options)
+//        XCTAssert(assembled.gasLimit == options.gasLimit)
+//        XCTAssert(assembled.gasPrice == options.gasPrice)
+//    }
 
     func testParseTransactionDetailsForContractCreation() throws {
         let web3 = Web3(infura: .mainnet)

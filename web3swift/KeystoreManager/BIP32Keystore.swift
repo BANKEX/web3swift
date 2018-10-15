@@ -61,9 +61,9 @@ public class BIP32Keystore: AbstractKeystore {
         keystoreParams = keystorePars
         rootPrefix = keystoreParams!.rootPath!
     }
-
-    public convenience init(mnemonics: String, password: String = "BANKEXFOUNDATION", mnemonicsPassword: String = "", language: BIP39Language = BIP39Language.english, prefixPath: String = HDNode.defaultPathMetamaskPrefix) throws {
-        guard var seed = BIP39.seedFromMmemonics(mnemonics, password: mnemonicsPassword, language: language) else { throw AbstractKeystoreError.noEntropyError }
+    
+    public convenience init(mnemonics: Mnemonics, password: String = "BANKEXFOUNDATION", language: BIP39Language = BIP39Language.english, prefixPath: String = HDNode.defaultPathMetamaskPrefix) throws {
+        var seed = mnemonics.seed()
         defer { Data.zero(&seed) }
         try self.init(seed: seed, password: password, prefixPath: prefixPath)
     }

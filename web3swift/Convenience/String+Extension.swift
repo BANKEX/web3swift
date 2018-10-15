@@ -65,7 +65,7 @@ extension String {
         }
     }
 
-    func interpretAsBinaryData() -> Data? {
+    func interpretAsBinaryData() -> Data {
         let padded = padding(toLength: ((count + 7) / 8) * 8, withPad: "0", startingAt: 0)
         let byteArray = padded.split(intoChunksOf: 8).map { UInt8(strtoul($0, nil, 2)) }
         return Data(byteArray)

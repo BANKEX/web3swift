@@ -49,9 +49,70 @@ public enum BIP39Language {
     }
 }
 
-public class BIP39 {
-    public static func generateMnemonicsFromEntropy(entropy: Data, language: BIP39Language = BIP39Language.english) -> String? {
-        guard entropy.count >= 16, entropy.count & 4 == 0 else { return nil }
+public enum EntropySize: Int {
+    case b128 = 128
+    case b160 = 160
+    case b192 = 192
+    case b224 = 224
+    case b256 = 256
+}
+
+public class Mnemonics {
+    public enum Error: Swift.Error {
+        case invalidEntropySize
+    }
+    public enum EntropyError: Swift.Error {
+        case notEnoughtWords
+        case invalidNumberOfWords
+        case wordNotFound(String)
+        case invalidOrderOfWords
+        case checksumFailed(String,String)
+    }
+    public let string: String
+    public let language: BIP39Language
+    public var entropy: Data
+    public var password: String = ""
+    
+    public static func seed(from mnemonics: String, password: String) -> Data {
+        let mnemData = Array(mnemonics.decomposedStringWithCompatibilityMapping.utf8)
+        let salt = "mnemonic" + password
+        let saltData = Array(salt.decomposedStringWithCompatibilityMapping.utf8)
+        
+        // PKCS5.PBKDF2 throws only if mnemData.isEmpty
+        // or keyLength > variant.digestLength * 256
+        // and .calculate() won't throw any errors
+        // so i feel free to use "try!"
+        let seed = try! PKCS5.PBKDF2(password: mnemData, salt: saltData, iterations: 2048, keyLength: 64, variant: .sha512).calculate()
+        return Data(bytes: seed)
+    }
+    
+    public init(_ string: String, language: BIP39Language = .english) throws {
+        // checking entropy
+        let wordList = string.components(separatedBy: " ")
+        guard wordList.count >= 12 else { throw EntropyError.notEnoughtWords }
+        guard wordList.count % 4 == 0 else { throw EntropyError.invalidNumberOfWords }
+
+        var bitString = ""
+        for word in wordList {
+            guard let idx = language.words.index(of: word) else { throw EntropyError.wordNotFound(word) }
+            let idxAsInt = language.words.startIndex.distance(to: idx)
+            let stringForm = String(UInt16(idxAsInt), radix: 2).leftPadding(toLength: 11, withPad: "0")
+            bitString.append(stringForm)
+        }
+        let stringCount = bitString.count
+        guard stringCount % 33 == 0 else { throw EntropyError.invalidOrderOfWords }
+        let position = (bitString.count - bitString.count / 33)
+        let entropyBits = bitString[0..<position]
+        let checksumBits = bitString[position..<bitString.count]
+        let entropy = entropyBits.interpretAsBinaryData()
+        let checksum = String(entropy.sha256().bitsInRange(0, checksumBits.count), radix: 2).leftPadding(toLength: checksumBits.count, withPad: "0")
+        guard checksum == checksumBits else { throw EntropyError.checksumFailed(checksum, checksumBits) }
+        self.string = string
+        self.language = language
+        self.entropy = entropy
+    }
+    public init(entropySize: EntropySize = .b256, language: BIP39Language = .english) {
+        self.entropy = Data.random(length: entropySize.rawValue / 8)
         let checksum = entropy.sha256()
         let checksumBits = entropy.count * 8 / 32
         var fullEntropy = Data()
@@ -59,61 +120,62 @@ public class BIP39 {
         fullEntropy.append(checksum[0 ..< (checksumBits + 7) / 8])
         var wordList = [String]()
         for i in 0 ..< fullEntropy.count * 8 / 11 {
-            guard let bits = fullEntropy.bitsInRange(i * 11, 11) else { return nil }
+            let bits = fullEntropy.bitsInRange(i * 11, 11)
             let index = Int(bits)
-            guard language.words.count > index else { return nil }
+            let word = language.words[index]
+            wordList.append(word)
+        }
+        self.string = wordList.joined(separator: language.separator)
+        self.language = language
+    }
+    public init(entropy: Data, language: BIP39Language = .english) throws {
+        guard entropy.count >= 16, entropy.count % 4 == 0 else { throw Error.invalidEntropySize }
+        let checksum = entropy.sha256()
+        let checksumBits = entropy.count * 8 / 32
+        var fullEntropy = Data()
+        fullEntropy.append(entropy)
+        fullEntropy.append(checksum[0 ..< (checksumBits + 7) / 8])
+        var wordList = [String]()
+        for i in 0 ..< fullEntropy.count * 8 / 11 {
+            let bits = fullEntropy.bitsInRange(i * 11, 11)
+            let index = Int(bits)
             let word = language.words[index]
             wordList.append(word)
         }
         let separator = language.separator
-        return wordList.joined(separator: separator)
+        self.entropy = entropy
+        self.string = wordList.joined(separator: separator)
+        self.language = language
+    }
+    public func seed() -> Data {
+        return Mnemonics.seed(from: string, password: password)
+    }
+}
+
+extension Mnemonics: CustomStringConvertible {
+    public var description: String {
+        return string
+    }
+}
+
+public class BIP39 {
+    @available(*, unavailable, message: "Use try Mnemonics(entropy:language:)")
+    public static func generateMnemonicsFromEntropy(entropy: Data, language: BIP39Language = BIP39Language.english) -> String? {
+        fatalError()
     }
 
-    public static func generateMnemonics(bitsOfEntropy: Int, language: BIP39Language = BIP39Language.english) throws -> String? {
-        guard bitsOfEntropy >= 128 && bitsOfEntropy <= 256 && bitsOfEntropy % 32 == 0 else { return nil }
-        let entropy = Data.random(length: bitsOfEntropy / 8)
-        return BIP39.generateMnemonicsFromEntropy(entropy: entropy, language: language)
+    @available(*, unavailable, message: "Use Mnemonics(entropySize:language:)")
+    public static func generateMnemonics(bitsOfEntropy: Int, language: BIP39Language = BIP39Language.english) -> String? {
+        fatalError()
     }
 
+    @available(*,deprecated: 2.0,message: "Use Mnemonics().entropy")
     public static func mnemonicsToEntropy(_ mnemonics: String, language: BIP39Language = BIP39Language.english) -> Data? {
-        let wordList = mnemonics.components(separatedBy: " ")
-        guard wordList.count >= 12 && wordList.count % 4 == 0 else { return nil }
-        var bitString = ""
-        for word in wordList {
-            let idx = language.words.index(of: word)
-            if idx == nil {
-                return nil
-            }
-            let idxAsInt = language.words.startIndex.distance(to: idx!)
-            let stringForm = String(UInt16(idxAsInt), radix: 2).leftPadding(toLength: 11, withPad: "0")
-            bitString.append(stringForm)
-        }
-        let stringCount = bitString.count
-        if stringCount % 33 != 0 {
-            return nil
-        }
-        let entropyBits = bitString[0 ..< (bitString.count - bitString.count / 33)]
-        let checksumBits = bitString[(bitString.count - bitString.count / 33) ..< bitString.count]
-        guard let entropy = entropyBits.interpretAsBinaryData() else {
-            return nil
-        }
-        let checksum = String(entropy.sha256().bitsInRange(0, checksumBits.count)!, radix: 2).leftPadding(toLength: checksumBits.count, withPad: "0")
-        if checksum != checksumBits {
-            return nil
-        }
-        return entropy
+        fatalError()
     }
 
+    @available(*,deprecated: 2.0,message: "Use Mnemonics().seed(password:)")
     public static func seedFromMmemonics(_ mnemonics: String, password: String = "", language: BIP39Language = BIP39Language.english) -> Data? {
-        let valid = BIP39.mnemonicsToEntropy(mnemonics, language: language) != nil
-        if !valid {
-            print("Potentially invalid mnemonics")
-        }
-        let mnemData = Array(mnemonics.decomposedStringWithCompatibilityMapping.utf8)
-        let salt = "mnemonic" + password
-        let saltData = Array(salt.decomposedStringWithCompatibilityMapping.utf8)
-        guard let seedArray = try? PKCS5.PBKDF2(password: mnemData, salt: saltData, iterations: 2048, keyLength: 64, variant: HMAC.Variant.sha512).calculate() else { return nil }
-        let seed = Data(bytes: seedArray)
-        return seed
+        fatalError()
     }
 }
