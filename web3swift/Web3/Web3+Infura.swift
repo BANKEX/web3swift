@@ -6,8 +6,8 @@
 //  Copyright © 2017 Bankex Foundation. All rights reserved.
 //
 
-import Foundation
 import BigInt
+import Foundation
 
 /// Custom Web3 HTTP provider of Infura nodes.
 public final class InfuraProvider: Web3HttpProvider {
@@ -20,4 +20,3 @@ public final class InfuraProvider: Web3HttpProvider {
         super.init(providerURL!, network: net, keystoreManager: manager)
     }
 }
-

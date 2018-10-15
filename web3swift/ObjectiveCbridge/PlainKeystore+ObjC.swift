@@ -9,21 +9,21 @@
 import Foundation
 
 @objc(PlainKeystore)
-public final class _ObjCPlainKeystore: NSObject{
-    private (set) var keystore: PlainKeystore?
-    
+public final class _ObjCPlainKeystore: NSObject {
+    private(set) var keystore: PlainKeystore?
+
     init(privateKey: String) {
-        self.keystore = try? PlainKeystore(privateKey: privateKey)
+        keystore = try? PlainKeystore(privateKey: privateKey)
     }
-    
+
     init(privateKey: Data) {
-        self.keystore = try? PlainKeystore(privateKey: privateKey)
+        keystore = try? PlainKeystore(privateKey: privateKey)
     }
-    
+
     init(privateKey: NSData) {
-        self.keystore = try? PlainKeystore(privateKey: privateKey as Data)
+        keystore = try? PlainKeystore(privateKey: privateKey as Data)
     }
-    
+
     init(keystore: PlainKeystore) {
         self.keystore = keystore
     }

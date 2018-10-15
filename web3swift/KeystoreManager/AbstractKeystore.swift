@@ -8,8 +8,7 @@
 
 import Foundation
 
-public typealias TransactionIntermediate = web3.Web3Contract.TransactionIntermediate
-
+public typealias TransactionIntermediate = Web3.Web3Contract.TransactionIntermediate
 
 public protocol AbstractKeystore {
     var addresses: [EthereumAddress] { get }

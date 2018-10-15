@@ -9,7 +9,6 @@
 import Foundation
 
 public struct ABIv2TypeParser {
-    
     private enum BaseParameterType: String {
         case address
         case uint
@@ -20,15 +19,15 @@ public struct ABIv2TypeParser {
         case string
         case tuple
     }
-    
+
     private static func baseTypeMatch(from string: String, length: UInt64 = 0) -> ABIv2.Element.ParameterType? {
         switch BaseParameterType(rawValue: string) {
         case .address?:
             return .address
         case .uint?:
-            return .uint(bits: length == 0 ? 256: length)
+            return .uint(bits: length == 0 ? 256 : length)
         case .int?:
-            return .int(bits: length == 0 ? 256: length)
+            return .int(bits: length == 0 ? 256 : length)
         case .bool?:
             return .bool
         case .function?:
@@ -46,13 +45,13 @@ public struct ABIv2TypeParser {
             return nil
         }
     }
-    
-    public static func parseTypeString(_ string:String) throws -> ABIv2.Element.ParameterType {
+
+    public static func parseTypeString(_ string: String) throws -> ABIv2.Element.ParameterType {
         let (type, tail) = recursiveParseType(string)
         guard let t = type, tail == nil else { throw Web3Error.inputError("Failed to parse ABI element " + string) }
         return t
     }
-    
+
     public static func recursiveParseType(_ string: String) -> (type: ABIv2.Element.ParameterType?, tail: String?) {
         let matcher = try! NSRegularExpression(pattern: ABIv2.TypeParsingExpressions.typeEatingRegex, options: NSRegularExpression.Options.dotMatchesLineSeparators)
         let match = matcher.matches(in: string, options: NSRegularExpression.MatchingOptions.anchored, range: string.fullNSRange)
@@ -80,12 +79,12 @@ public struct ABIv2TypeParser {
             type = baseType
         }
         tail = string.replacingCharacters(in: string.range(of: baseTypeString)!, with: "")
-        if (tail == "") {
+        if tail == "" {
             return (type, nil)
         }
         return recursiveParseArray(baseType: type!, string: tail)
     }
-    
+
     public static func recursiveParseArray(baseType: ABIv2.Element.ParameterType, string: String) -> (type: ABIv2.Element.ParameterType?, tail: String?) {
         let matcher = try! NSRegularExpression(pattern: ABIv2.TypeParsingExpressions.arrayEatingRegex, options: NSRegularExpression.Options.dotMatchesLineSeparators)
         let match = matcher.matches(in: string, options: NSRegularExpression.MatchingOptions.anchored, range: string.fullNSRange)
@@ -105,7 +104,7 @@ public struct ABIv2TypeParser {
             type = baseType
         }
         tail = string.replacingCharacters(in: string.range(of: baseArrayString)!, with: "")
-        if (tail == "") {
+        if tail == "" {
             return (type, nil)
         }
         return recursiveParseArray(baseType: type!, string: tail)

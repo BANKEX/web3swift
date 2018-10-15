@@ -6,15 +6,15 @@
 //  Copyright © 2017 Bankex Foundation. All rights reserved.
 //
 
-import Foundation
 import BigInt
+import Foundation
 
 /// Global counter object to enumerate JSON RPC requests.
 public struct Counter {
     public static var counter = UInt64(1)
     public static var lockQueue = DispatchQueue(label: "counterQueue")
     public static func increment() -> UInt64 {
-        var c:UInt64 = 0
+        var c: UInt64 = 0
         lockQueue.sync {
             c = Counter.counter
             Counter.counter = Counter.counter + 1
@@ -29,14 +29,14 @@ public struct JSONRPCrequest: Encodable {
     var method: JSONRPCmethod?
     var params: JSONRPCparams?
     var id: UInt64 = Counter.increment()
-    
+
     enum CodingKeys: String, CodingKey {
         case jsonrpc
         case method
         case params
         case id
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(jsonrpc, forKey: .jsonrpc)
@@ -44,72 +44,70 @@ public struct JSONRPCrequest: Encodable {
         try container.encode(params, forKey: .params)
         try container.encode(id, forKey: .id)
     }
-    
+
     public var isValid: Bool {
-        get {
-            if self.method == nil {
-                return false
-            }
-            guard let method = self.method else { return false }
-            return method.requiredNumOfParameters == self.params?.params.count
+        if self.method == nil {
+            return false
         }
+        guard let method = self.method else { return false }
+        return method.requiredNumOfParameters == params?.params.count
     }
 }
 
 /// JSON RPC batch request structure for serialization and deserialization purposes.
 public struct JSONRPCrequestBatch: Encodable {
     var requests: [JSONRPCrequest]
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
-        try container.encode(self.requests)
+        try container.encode(requests)
     }
 }
 
 /// JSON RPC response structure for serialization and deserialization purposes.
-public struct JSONRPCresponse: Decodable{
+public struct JSONRPCresponse: Decodable {
     public var id: Int
     public var jsonrpc = "2.0"
     public var result: Any?
     public var error: ErrorMessage?
     public var message: String?
-    
+
     enum JSONRPCresponseKeys: String, CodingKey {
-        case id = "id"
-        case jsonrpc = "jsonrpc"
-        case result = "result"
-        case error = "error"
+        case id
+        case jsonrpc
+        case result
+        case error
     }
-    
+
     public init(id: Int, jsonrpc: String, result: Any?, error: ErrorMessage?) {
         self.id = id
         self.jsonrpc = jsonrpc
         self.result = result
         self.error = error
     }
-    
+
     public struct ErrorMessage: Decodable {
         public var code: Int
         public var message: String
     }
-    
+
     internal var decodableTypes: [Decodable.Type] = [[EventLog].self,
-                                  [TransactionDetails].self,
-                                  [TransactionReceipt].self,
-                                  [Block].self,
-                                  [String].self,
-                                  [Int].self,
-                                  [Bool].self,
-                                  EventLog.self,
-                                  TransactionDetails.self,
-                                  TransactionReceipt.self,
-                                  Block.self,
-                                  String.self,
-                                  Int.self,
-                                  Bool.self,
-                                  [String:String].self,
-                                  [String:Int].self]
-    
+                                                     [TransactionDetails].self,
+                                                     [TransactionReceipt].self,
+                                                     [Block].self,
+                                                     [String].self,
+                                                     [Int].self,
+                                                     [Bool].self,
+                                                     EventLog.self,
+                                                     TransactionDetails.self,
+                                                     TransactionReceipt.self,
+                                                     Block.self,
+                                                     String.self,
+                                                     Int.self,
+                                                     Bool.self,
+                                                     [String: String].self,
+                                                     [String: Int].self]
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: JSONRPCresponseKeys.self)
         let id: Int = try container.decode(Int.self, forKey: .id)
@@ -119,7 +117,7 @@ public struct JSONRPCresponse: Decodable{
             self.init(id: id, jsonrpc: jsonrpc, result: nil, error: errorMessage)
             return
         }
-        var result: Any? = nil
+        var result: Any?
         if let rawValue = try? container.decodeIfPresent(String.self, forKey: .result) {
             result = rawValue
         } else if let rawValue = try? container.decodeIfPresent(Int.self, forKey: .result) {
@@ -152,10 +150,10 @@ public struct JSONRPCresponse: Decodable{
             result = rawValue
         } else if let rawValue = try? container.decodeIfPresent([String: Int].self, forKey: .result) {
             result = rawValue
-        } 
+        }
         self.init(id: id, jsonrpc: jsonrpc, result: result, error: nil)
     }
-    
+
     /// Get the JSON RCP reponse value by deserializing it into some native <T> class.
     ///
     /// Returns nil if serialization fails
@@ -178,15 +176,7 @@ public struct JSONRPCresponse: Decodable{
             let value = EthereumAddress(string)
             guard value.isValid else { return nil }
             return value as? T
-        }
-//        else if slf == String.self {
-//            guard let value = self.result as? T else { return nil }
-//            return value
-//        } else if slf == Int.self {
-//            guard let value = self.result as? T else { return nil }
-//            return value
-//        }
-        else if slf == [BigUInt].self {
+        } else if slf == [BigUInt].self {
             guard let string = self.result as? [String] else { return nil }
             let values = string.compactMap { (str) -> BigUInt? in
                 return BigUInt(str.withoutHex, radix: 16)
@@ -213,7 +203,7 @@ public struct JSONRPCresponse: Decodable{
             }
             return values as? T
         }
-        guard let value = self.result as? T  else { return nil }
+        guard let value = self.result as? T else { return nil }
         return value
     }
 }
@@ -221,7 +211,7 @@ public struct JSONRPCresponse: Decodable{
 /// JSON RPC batch response structure for serialization and deserialization purposes.
 public struct JSONRPCresponseBatch: Decodable {
     var responses: [JSONRPCresponse]
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let responses = try container.decode([JSONRPCresponse].self)
@@ -237,8 +227,8 @@ public struct TransactionParameters: Codable {
     public var gasPrice: String?
     public var to: String?
     public var value: String? = "0x0"
-    
-    public init(from _from:String?, to _to:String?) {
+
+    public init(from _from: String?, to _to: String?) {
         from = _from
         to = _to
     }
@@ -253,9 +243,9 @@ public struct EventFilterParameters: Codable {
 }
 
 /// Raw JSON RCP 2.0 internal flattening wrapper.
-public struct JSONRPCparams: Encodable{
+public struct JSONRPCparams: Encodable {
     public var params = [Any]()
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.unkeyedContainer()
         for par in params {

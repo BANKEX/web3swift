@@ -6,8 +6,8 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import Foundation
 import BigInt
+import Foundation
 
 public protocol ContractProtocol {
     var address: EthereumAddress? { get set }
@@ -17,10 +17,10 @@ public protocol ContractProtocol {
     func deploy(bytecode: Data, parameters: [Any], extraData: Data, options: Web3Options?) throws -> EthereumTransaction
     func method(_ method: String, parameters: [Any], extraData: Data, options: Web3Options?) throws -> EthereumTransaction
     init(_ abiString: String, at address: EthereumAddress?) throws
-    func decodeReturnData(_ method:String, data: Data) -> [String: Any]?
-    func decodeInputData(_ method:String, data: Data) -> [String: Any]?
-    func decodeInputData(_ data: Data) -> [String:Any]?
-    func parseEvent(_ eventLog: EventLog) -> (eventName:String?, eventData:[String:Any]?)
+    func decodeReturnData(_ method: String, data: Data) -> [String: Any]?
+    func decodeInputData(_ method: String, data: Data) -> [String: Any]?
+    func decodeInputData(_ data: Data) -> [String: Any]?
+    func parseEvent(_ eventLog: EventLog) -> (eventName: String?, eventData: [String: Any]?)
     func testBloomForEventPrecence(eventName: String, bloom: EthereumBloomFilter) -> Bool?
 //    func allEvents() -> [String: [String: Any]?]
 }
@@ -33,44 +33,38 @@ public protocol EventFilterEncodable {
     func eventFilterEncoded() -> String?
 }
 
-public protocol EventFilterable: EventFilterComparable, EventFilterEncodable {
-    
-}
+public protocol EventFilterable: EventFilterComparable, EventFilterEncodable {}
 
-extension BigUInt: EventFilterable {
-}
-extension BigInt: EventFilterable {
-}
-extension Data: EventFilterable {
-}
-extension String: EventFilterable {
-}
-extension EthereumAddress: EventFilterable {
-}
+extension BigUInt: EventFilterable {}
 
+extension BigInt: EventFilterable {}
+
+extension Data: EventFilterable {}
+
+extension String: EventFilterable {}
+
+extension EthereumAddress: EventFilterable {}
 
 public struct EventFilter {
     public enum Block {
         case latest
         case pending
         case blockNumber(UInt64)
-        
+
         var encoded: String {
             switch self {
             case .latest:
                 return "latest"
             case .pending:
                 return "pending"
-            case .blockNumber(let number):
+            case let .blockNumber(number):
                 return String(number, radix: 16).withHex
             }
         }
     }
-    
-    public init() {
-        
-    }
-    
+
+    public init() {}
+
     public init(fromBlock: Block?, toBlock: Block?,
                 addresses: [EthereumAddress]? = nil,
                 parameterFilters: [[EventFilterable]?]? = nil) {
@@ -79,26 +73,26 @@ public struct EventFilter {
         self.addresses = addresses
         self.parameterFilters = parameterFilters
     }
-    
+
     public var fromBlock: Block?
     public var toBlock: Block?
     public var addresses: [EthereumAddress]?
     public var parameterFilters: [[EventFilterable]?]?
-    
+
     public func rpcPreEncode() -> EventFilterParameters {
         var encoding = EventFilterParameters()
-        if self.fromBlock != nil {
-            encoding.fromBlock = self.fromBlock!.encoded
+        if fromBlock != nil {
+            encoding.fromBlock = fromBlock!.encoded
         }
-        if self.toBlock != nil {
-            encoding.toBlock = self.toBlock!.encoded
+        if toBlock != nil {
+            encoding.toBlock = toBlock!.encoded
         }
-        if self.addresses != nil {
-            if self.addresses!.count == 1 {
+        if addresses != nil {
+            if addresses!.count == 1 {
                 encoding.address = [self.addresses![0].address]
             } else {
                 var encodedAddresses = [String?]()
-                for addr in self.addresses! {
+                for addr in addresses! {
                     encodedAddresses.append(addr.address)
                 }
                 encoding.address = encodedAddresses

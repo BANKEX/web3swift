@@ -13,16 +13,15 @@ public struct KeystoreParamsBIP32: Decodable, Encodable {
     var id: String?
     var version: Int = 32
     var isHDWallet: Bool
-    var pathToAddress: [String:String]
+    var pathToAddress: [String: String]
     var rootPath: String?
-    
+
     public init(crypto cr: CryptoParamsV3, id i: String, version ver: Int, rootPath: String? = nil) {
         crypto = cr
         id = i
         version = ver
         isHDWallet = true
-        pathToAddress = [String:String]()
+        pathToAddress = [String: String]()
         self.rootPath = rootPath
     }
-    
 }

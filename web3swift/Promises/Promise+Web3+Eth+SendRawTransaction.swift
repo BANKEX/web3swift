@@ -9,7 +9,7 @@
 import Foundation
 import PromiseKit
 
-extension web3.Eth {
+extension Web3.Eth {
     func sendRawTransactionPromise(_ transaction: Data) -> Promise<TransactionSendingResult> {
         guard let deserializedTX = EthereumTransaction.fromRaw(transaction) else {
             let promise = Promise<TransactionSendingResult>.pending()
@@ -19,7 +19,7 @@ extension web3.Eth {
         return sendRawTransactionPromise(deserializedTX)
     }
 
-    func sendRawTransactionPromise(_ transaction: EthereumTransaction) -> Promise<TransactionSendingResult>{
+    func sendRawTransactionPromise(_ transaction: EthereumTransaction) -> Promise<TransactionSendingResult> {
 //        print(transaction)
         let queue = web3.requestDispatcher.queue
         do {
@@ -27,7 +27,7 @@ extension web3.Eth {
                 throw Web3Error.processingError("Transaction is invalid")
             }
             let rp = web3.dispatch(request)
-            return rp.map(on: queue ) { response in
+            return rp.map(on: queue) { response in
                 guard let value: String = response.getValue() else {
                     if response.error != nil {
                         throw Web3Error.nodeError(response.error!.message)

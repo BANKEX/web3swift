@@ -6,8 +6,8 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import Foundation
 import BigInt
+import Foundation
 
 extension BigUInt: EventFilterComparable {
     public func isEqualTo(_ other: AnyObject) -> Bool {
@@ -15,7 +15,7 @@ extension BigUInt: EventFilterComparable {
         case let oth as BigUInt:
             return self == oth
         case let oth as BigInt:
-            return self.magnitude == oth.magnitude && self.signum() == oth.signum()
+            return magnitude == oth.magnitude && signum() == oth.signum()
         default:
             return false
         }
@@ -28,7 +28,7 @@ extension BigInt: EventFilterComparable {
         case let oth as BigInt:
             return self == oth
         case let oth as BigUInt:
-            return self.magnitude == oth.magnitude && self.signum() == oth.signum()
+            return magnitude == oth.magnitude && signum() == oth.signum()
         default:
             return false
         }
@@ -39,16 +39,9 @@ extension String: EventFilterComparable {
     public func isEqualTo(_ other: AnyObject) -> Bool {
         switch other {
         case let oth as String:
-            guard let data = self.data(using: .utf8) else { return false }
-            guard let otherData = oth.data(using: .utf8) else { return false }
-            let hash = data.sha3(.keccak256)
-            let otherHash = otherData.sha3(.keccak256)
-            return hash == otherHash
+            return data.sha3(.keccak256) == oth.data.sha3(.keccak256)
         case let oth as Data:
-            guard let data = self.data(using: .utf8) else { return false }
-            let hash = data.sha3(.keccak256)
-            let otherHash = oth.sha3(.keccak256)
-            return hash == otherHash
+            return data.sha3(.keccak256) == oth.sha3(.keccak256)
         default:
             return false
         }
@@ -93,4 +86,3 @@ extension EthereumAddress: EventFilterComparable {
         }
     }
 }
-

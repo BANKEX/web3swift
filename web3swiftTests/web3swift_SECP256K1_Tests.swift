@@ -8,18 +8,16 @@
 
 import XCTest
 
-import XCTest
-import CryptoSwift
 import BigInt
+import CryptoSwift
 import secp256k1
-
+import XCTest
 
 @testable import web3swift_iOS
 
 class web3swift_SECP256K1_Tests: XCTestCase {
-    
     func testNonDeterministicSignature() throws {
-        var unsuccesfulNondeterministic = 0;
+        var unsuccesfulNondeterministic = 0
         var allAttempts = 0
         for _ in 0 ..< 10000 {
             do {
@@ -42,9 +40,9 @@ class web3swift_SECP256K1_Tests: XCTestCase {
         print("Problems with \(unsuccesfulNondeterministic) non-deterministic signatures out from \(allAttempts)")
         XCTAssertEqual(unsuccesfulNondeterministic, 0)
     }
-    
+
     func testDeterministicSignature() {
-        var unsuccesfulDeterministic = 0;
+        var unsuccesfulDeterministic = 0
         var allAttempts = 0
         for _ in 0 ..< 10000 {
             do {
@@ -67,12 +65,12 @@ class web3swift_SECP256K1_Tests: XCTestCase {
         print("Problems with \(unsuccesfulDeterministic) deterministic signatures out from \(allAttempts)")
         XCTAssert(unsuccesfulDeterministic == 0)
     }
-    
+
     func testPrivateToPublic() throws {
         let randomPrivateKey = Data.random(length: 32)
         try SECP256K1.verifyPrivateKey(privateKey: randomPrivateKey)
         var previousPublic = try SECP256K1.privateKeyToPublicKey(privateKey: randomPrivateKey)
-        for _ in 0 ..< 100000 {
+        for _ in 0 ..< 100_000 {
             let pub = try SECP256K1.privateKeyToPublicKey(privateKey: randomPrivateKey)
             guard Data(toByteArray(previousPublic.data)) == Data(toByteArray(pub.data)) else {
                 return XCTFail()
@@ -80,7 +78,7 @@ class web3swift_SECP256K1_Tests: XCTestCase {
             previousPublic = pub
         }
     }
-    
+
     func testSerializationAndParsing() throws {
         for _ in 0 ..< 1024 {
             let randomHash = Data.random(length: 32)
@@ -101,5 +99,4 @@ class web3swift_SECP256K1_Tests: XCTestCase {
             }
         }
     }
-    
 }

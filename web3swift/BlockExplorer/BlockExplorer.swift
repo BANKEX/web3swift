@@ -10,7 +10,7 @@ import Foundation
 
 public class BlockExplorer {
     public var urlStringList: String
-    
+
     public init() {
         urlStringList = "https://scan.bankex.com/api/list"
     }

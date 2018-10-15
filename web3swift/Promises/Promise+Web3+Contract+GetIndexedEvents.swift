@@ -6,8 +6,4 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-
 // placeholder
-
-
-

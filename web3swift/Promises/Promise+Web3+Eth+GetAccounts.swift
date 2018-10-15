@@ -6,14 +6,14 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import Foundation
 import BigInt
+import Foundation
 import PromiseKit
 
-extension web3.Eth {
+extension Web3.Eth {
     public func getAccountsPromise() -> Promise<[EthereumAddress]> {
         let queue = web3.requestDispatcher.queue
-        if (self.web3.provider.attachedKeystoreManager != nil) {
+        if web3.provider.attachedKeystoreManager != nil {
             let promise = Promise<[EthereumAddress]>.pending()
             queue.async {
                 do {
@@ -27,7 +27,7 @@ extension web3.Eth {
         }
         let request = JSONRPCRequestFabric.prepareRequest(.getAccounts, parameters: [])
         let rp = web3.dispatch(request)
-        return rp.map(on: queue ) { response in
+        return rp.map(on: queue) { response in
             guard let value: [EthereumAddress] = response.getValue() else {
                 if response.error != nil {
                     throw Web3Error.nodeError(response.error!.message)

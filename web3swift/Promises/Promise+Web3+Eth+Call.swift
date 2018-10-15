@@ -9,16 +9,15 @@
 import Foundation
 import PromiseKit
 
-extension web3.Eth {
-    
-    func callPromise(_ transaction: EthereumTransaction, options: Web3Options, onBlock: String = "latest") -> Promise<Data>{
+extension Web3.Eth {
+    func callPromise(_ transaction: EthereumTransaction, options: Web3Options, onBlock: String = "latest") -> Promise<Data> {
         let queue = web3.requestDispatcher.queue
         do {
             guard let request = EthereumTransaction.createRequest(method: .call, transaction: transaction, onBlock: onBlock, options: options) else {
                 throw Web3Error.processingError("Transaction is invalid")
             }
             let rp = web3.dispatch(request)
-            return rp.map(on: queue ) { response in
+            return rp.map(on: queue) { response in
                 guard let value: Data = response.getValue() else {
                     if response.error != nil {
                         throw Web3Error.nodeError(response.error!.message)

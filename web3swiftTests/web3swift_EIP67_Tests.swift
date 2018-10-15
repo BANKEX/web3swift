@@ -6,36 +6,34 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import XCTest
-import CryptoSwift
 import BigInt
+import CryptoSwift
 import secp256k1
-
+import XCTest
 
 @testable import web3swift_iOS
 
 class web3swift_EIP67_Tests: XCTestCase {
-    
     func testEIP67encoding() {
-        var eip67Data = Web3.EIP67Code.init(address: "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+        var eip67Data = Web3.EIP67Code(address: "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
         eip67Data.gasLimit = BigUInt(21000)
         eip67Data.amount = BigUInt("1000000000000000000")
         //        eip67Data.data =
         let encoding = eip67Data.toString()
         print(encoding)
     }
-    
+
     func testEIP67codeGeneration() {
-        var eip67Data = Web3.EIP67Code.init(address: "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+        var eip67Data = Web3.EIP67Code(address: "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
         eip67Data.gasLimit = BigUInt(21000)
         eip67Data.amount = BigUInt("1000000000000000000")
         //        eip67Data.data =
         let encoding = eip67Data.toImage(scale: 5.0)
         XCTAssert(encoding != CIImage())
     }
-    
+
     func testEIP67decoding() {
-        var eip67Data = Web3.EIP67Code.init(address: "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+        var eip67Data = Web3.EIP67Code(address: "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
         eip67Data.gasLimit = BigUInt(21000)
         eip67Data.amount = BigUInt("1000000000000000000")
         //        eip67Data.data =
@@ -45,6 +43,4 @@ class web3swift_EIP67_Tests: XCTestCase {
         XCTAssert(code.gasLimit == eip67Data.gasLimit)
         XCTAssert(code.amount == eip67Data.amount)
     }
-    
 }
-

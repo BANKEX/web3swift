@@ -22,10 +22,8 @@ s.public_header_files = "web3swift/**/*.{h}"
 s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
 
 s.frameworks = 'CoreImage'
+s.dependency 'PromiseKit', '~> 6.4'
 s.dependency 'BigInt', '~> 3.1'
-s.dependency 'Result', '~> 3.0'
-s.dependency 'CryptoSwift', '~> 0.11'
-s.dependency 'secp256k1_ios', '~> 0.1'
-s.dependency 'PromiseKit', '~> 6.3'
-s.dependency 'scrypt', '~> 1.5'
+s.dependency 'CryptoSwift', '~> 0.12'
+s.dependency 'secp256k1.swift'
 end
