@@ -50,7 +50,7 @@ class web3swift_local_node_Tests: XCTestCase {
     func testSignPersonal() throws {
         let web3 = Web3(url: url)!
         let allAddresses = try web3.eth.getAccounts()
-        _ = try web3.personal.signPersonalMessage(message: "hello world".data(using: .utf8)!, from: allAddresses[0])
+        _ = try web3.personal.signPersonalMessage(message: "hello world".data, from: allAddresses[0])
     }
 
     // TODO: preinit new account to test

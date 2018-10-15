@@ -31,9 +31,9 @@ struct RLP {
     internal static func encode(_ string: String) -> Data? {
         if let hexData = Data.fromHex(string) {
             return encode(hexData)
+        } else {
+            return encode(string.data)
         }
-        guard let data = string.data(using: .utf8) else { return nil }
-        return encode(data)
     }
 
     internal static func encode(_ number: Int) -> Data? {

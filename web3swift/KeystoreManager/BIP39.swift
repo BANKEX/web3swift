@@ -109,10 +109,10 @@ public class BIP39 {
         if !valid {
             print("Potentially invalid mnemonics")
         }
-        guard let mnemData = mnemonics.decomposedStringWithCompatibilityMapping.data(using: .utf8) else { return nil }
+        let mnemData = Array(mnemonics.decomposedStringWithCompatibilityMapping.utf8)
         let salt = "mnemonic" + password
-        guard let saltData = salt.decomposedStringWithCompatibilityMapping.data(using: .utf8) else { return nil }
-        guard let seedArray = try? PKCS5.PBKDF2(password: mnemData.bytes, salt: saltData.bytes, iterations: 2048, keyLength: 64, variant: HMAC.Variant.sha512).calculate() else { return nil }
+        let saltData = Array(salt.decomposedStringWithCompatibilityMapping.utf8)
+        guard let seedArray = try? PKCS5.PBKDF2(password: mnemData, salt: saltData, iterations: 2048, keyLength: 64, variant: HMAC.Variant.sha512).calculate() else { return nil }
         let seed = Data(bytes: seedArray)
         return seed
     }

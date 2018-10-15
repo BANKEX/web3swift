@@ -67,21 +67,18 @@ class web3swift_Tests: XCTestCase {
         ]
         var bloom = EthereumBloomFilter()
         for str in positive {
-            let data = str.data(using: .utf8)!
             let oldBytes = bloom.bytes
-            bloom.add(BigUInt(data))
+            bloom.add(BigUInt(str.data))
             let newBytes = bloom.bytes
             if newBytes != oldBytes {
                 print("Added new bits")
             }
         }
         for str in positive {
-            let data = str.data(using: .utf8)!
-            XCTAssert(bloom.lookup(data), "Failed")
+            XCTAssert(bloom.lookup(str.data), "Failed")
         }
         for str in negative {
-            let data = str.data(using: .utf8)!
-            XCTAssert(bloom.lookup(data) == false, "Failed")
+            XCTAssert(bloom.lookup(str.data) == false, "Failed")
         }
     }
 

@@ -9,6 +9,10 @@
 import Foundation
 
 extension String {
+    var data: Data {
+        return Data(utf8)
+    }
+    
     var fullRange: Range<Index> {
         return startIndex ..< endIndex
     }

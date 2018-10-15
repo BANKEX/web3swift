@@ -106,15 +106,10 @@ extension ABIv2Encoder {
         case let d as Data:
             return d
         case let d as String:
-            if d.isHex {
-                let hex = Data.fromHex(d)
-                if hex != nil {
-                    return hex
-                }
-            }
-            let str = d.data(using: .utf8)
-            if str != nil {
-                return str
+            if d.isHex, let hex = Data.fromHex(d) {
+                return hex
+            } else {
+                return d.data
             }
         case let d as [UInt8]:
             return Data(d)
@@ -130,7 +125,6 @@ extension ABIv2Encoder {
         default:
             return nil
         }
-        return nil
     }
 
     public static func encode(types: [ABIv2.Element.InOut], values: [AnyObject]) -> Data? {
@@ -226,7 +220,7 @@ extension ABIv2Encoder {
                 if string.isHex {
                     dataGuess = Data.fromHex(string.lowercased().withoutHex)
                 } else {
-                    dataGuess = string.data(using: .utf8)
+                    dataGuess = string.data
                 }
                 guard let data = dataGuess else { break }
                 let minLength = ((data.count + 31) / 32) * 32

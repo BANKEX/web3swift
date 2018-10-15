@@ -152,8 +152,8 @@ class web3swift_Keystores_tests: XCTestCase {
     }
 
     //    func testPBKDF2() {
-    //        let pass = "passDATAb00AB7YxDTTl".data(using: .utf8)!
-    //        let salt = "saltKEYbcTcXHCBxtjD2".data(using: .utf8)!
+    //        let pass = "passDATAb00AB7YxDTTl".data
+    //        let salt = "saltKEYbcTcXHCBxtjD2".data
     //        let dataArray = try? PKCS5.PBKDF2(password: pass.bytes, salt: salt.bytes, iterations: 100000, keyLength: 65, variant: HMAC.Variant.sha512).calculate()
     //        XCTAssert(Data(dataArray!).toHexString().withHex.lowercased() == "0x594256B0BD4D6C9F21A87F7BA5772A791A10E6110694F44365CD94670E57F1AECD797EF1D1001938719044C7F018026697845EB9AD97D97DE36AB8786AAB5096E7".lowercased())
     //    }

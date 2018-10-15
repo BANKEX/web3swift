@@ -39,16 +39,9 @@ extension String: EventFilterComparable {
     public func isEqualTo(_ other: AnyObject) -> Bool {
         switch other {
         case let oth as String:
-            guard let data = self.data(using: .utf8) else { return false }
-            guard let otherData = oth.data(using: .utf8) else { return false }
-            let hash = data.sha3(.keccak256)
-            let otherHash = otherData.sha3(.keccak256)
-            return hash == otherHash
+            return data.sha3(.keccak256) == oth.data.sha3(.keccak256)
         case let oth as Data:
-            guard let data = self.data(using: .utf8) else { return false }
-            let hash = data.sha3(.keccak256)
-            let otherHash = oth.sha3(.keccak256)
-            return hash == otherHash
+            return data.sha3(.keccak256) == oth.sha3(.keccak256)
         default:
             return false
         }

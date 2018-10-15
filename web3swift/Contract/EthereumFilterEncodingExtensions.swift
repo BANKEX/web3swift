@@ -37,7 +37,6 @@ extension EthereumAddress: EventFilterEncodable {
 
 extension String: EventFilterEncodable {
     public func eventFilterEncoded() -> String? {
-        guard let data = self.data(using: .utf8) else { return nil }
         return data.sha3(.keccak256).toHexString().withHex
     }
 }

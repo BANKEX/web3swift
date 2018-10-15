@@ -41,9 +41,7 @@ public class EthereumKeystoreV3: AbstractKeystore {
     public var keystoreParams: KeystoreParamsV3?
 
     public convenience init?(_ jsonString: String) {
-        let lowercaseJSON = jsonString.lowercased()
-        guard let jsonData = lowercaseJSON.data(using: .utf8) else { return nil }
-        self.init(jsonData)
+        self.init(jsonString.lowercased().data)
     }
 
     public convenience init?(_ jsonData: Data) {
@@ -145,8 +143,7 @@ public class EthereumKeystoreV3: AbstractKeystore {
             }
             guard hashVariant != nil else { return nil }
             guard let c = keystoreParams.crypto.kdfparams.c else { return nil }
-            guard let passData = password.data(using: .utf8) else { return nil }
-            guard let derivedArray = try? PKCS5.PBKDF2(password: passData.bytes, salt: saltData.bytes, iterations: c, keyLength: derivedLen, variant: hashVariant!).calculate() else { return nil }
+            guard let derivedArray = try? PKCS5.PBKDF2(password: Array(password.utf8), salt: saltData.bytes, iterations: c, keyLength: derivedLen, variant: hashVariant!).calculate() else { return nil }
             passwordDerivedKey = Data(bytes: derivedArray)
         default:
             return nil

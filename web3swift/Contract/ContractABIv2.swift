@@ -81,8 +81,7 @@ public struct ContractV2: ContractProtocol {
     public var options: Web3Options = .default
 
     public init(_ abiString: String, at address: EthereumAddress? = nil) throws {
-        let jsonData = abiString.data(using: .utf8)
-        let abi = try JSONDecoder().decode([ABIv2.Record].self, from: jsonData!)
+        let abi = try JSONDecoder().decode([ABIv2.Record].self, from: abiString.data)
         let abiNative = try abi.map({ (record) -> ABIv2.Element in
             try record.parse()
         })

@@ -376,7 +376,7 @@ public extension RIPEMD160 {
     }
 
     public static func hash(message: String) -> Data {
-        return RIPEMD160.hash(message: message.data(using: .utf8)!)
+        return RIPEMD160.hash(message: Data(message.utf8))
     }
 }
 
@@ -400,10 +400,10 @@ public extension RIPEMD160 {
     }
 
     public static func hmac(key: Data, message: String) -> Data {
-        return RIPEMD160.hmac(key: key, message: message.data(using: .utf8)!)
+        return RIPEMD160.hmac(key: key, message: message.data)
     }
 
     public static func hmac(key: String, message: String) -> Data {
-        return RIPEMD160.hmac(key: key.data(using: .utf8)!, message: message)
+        return RIPEMD160.hmac(key: key.data, message: message)
     }
 }

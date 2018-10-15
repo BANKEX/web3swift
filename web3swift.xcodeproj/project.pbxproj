@@ -18,6 +18,8 @@
 		1323B7AB2170CB4400306BBB /* ERC20.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1323B7AA2170CB4400306BBB /* ERC20.swift */; };
 		1323B7AD2170E1ED00306BBB /* SolidityFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1323B7AC2170E1ED00306BBB /* SolidityFunction.swift */; };
 		1323B7AE2170E1ED00306BBB /* SolidityFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1323B7AC2170E1ED00306BBB /* SolidityFunction.swift */; };
+		1323B7F42174BB1E00306BBB /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1323B7F32174BB1E00306BBB /* Support.swift */; };
+		1323B7F52174BB1E00306BBB /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1323B7F32174BB1E00306BBB /* Support.swift */; };
 		13A24E4E21629CBC004C48A0 /* Promise+Web3+Eth+EstimateGas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A1823F20D79FDB0016741F /* Promise+Web3+Eth+EstimateGas.swift */; };
 		13A24E51216365A4004C48A0 /* EthURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A24E50216365A4004C48A0 /* EthURL.swift */; };
 		13A24E52216365A4004C48A0 /* EthURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A24E50216365A4004C48A0 /* EthURL.swift */; };
@@ -242,6 +244,7 @@
 		071E273DC0406F330FA4C4FC /* Pods-web3swift-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-web3swift-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-web3swift-iOS/Pods-web3swift-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		1323B7AA2170CB4400306BBB /* ERC20.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC20.swift; sourceTree = "<group>"; };
 		1323B7AC2170E1ED00306BBB /* SolidityFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidityFunction.swift; sourceTree = "<group>"; };
+		1323B7F32174BB1E00306BBB /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		13A24E50216365A4004C48A0 /* EthURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthURL.swift; sourceTree = "<group>"; };
 		13A24EE6216F988C004C48A0 /* UInt256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UInt256.swift; sourceTree = "<group>"; };
 		1CD91AFC1FD76910007BFB45 /* web3swift_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = web3swift_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -501,6 +504,7 @@
 				E23B5AE020EA695400DC7F32 /* web3swift_rinkeby_personalSignature_Tests.swift */,
 				E23B5AE220EA69B900DC7F32 /* web3swift_numberFormattingUtil_Tests.swift */,
 				E23B5AE420EA6A0A00DC7F32 /* web3swift_contractV2_Tests.swift */,
+				1323B7F32174BB1E00306BBB /* Support.swift */,
 			);
 			path = web3swiftTests;
 			sourceTree = "<group>";
@@ -1103,6 +1107,7 @@
 				00E5FE8220EA3FF40030E0D6 /* web3swift_infura_Tests.swift in Sources */,
 				1CD91B321FD769A6007BFB45 /* web3swift_Tests.swift in Sources */,
 				E23B5ADF20EA68FA00DC7F32 /* web3swift_SECP256K1_Tests.swift in Sources */,
+				1323B7F42174BB1E00306BBB /* Support.swift in Sources */,
 				00E5FE7E20EA3A3F0030E0D6 /* web3swift_ABI_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1204,6 +1209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81FA43F62044097100EE14D5 /* web3swift_macOS_Tests.swift in Sources */,
+				1323B7F52174BB1E00306BBB /* Support.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
