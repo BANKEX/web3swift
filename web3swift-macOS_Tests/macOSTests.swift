@@ -8,7 +8,7 @@
 
 import XCTest
 
-class web3swift_macOS_Tests: XCTestCase {
+class macOSTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

@@ -13,7 +13,7 @@ import XCTest
 
 @testable import web3swift_iOS
 
-class web3swift_rinkeby_personalSignature_Tests: XCTestCase {
+class RinkebyPersonalSignatureTests: XCTestCase {
     func testPersonalSignature() throws {
         let web3 = Web3(infura: .rinkeby)
         let tempKeystore = try! EthereumKeystoreV3(password: "")

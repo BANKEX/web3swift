@@ -12,7 +12,7 @@ import XCTest
 
 @testable import web3swift_iOS
 
-class scrypt_Tests: XCTestCase {
+class ScryptTests: XCTestCase {
     func testScrypt() {
         let password = Array("password".data(using: .ascii)!)
         let salt = Array("NaCl".data(using: .ascii)!)

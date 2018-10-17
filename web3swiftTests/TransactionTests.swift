@@ -13,7 +13,7 @@ import XCTest
 
 @testable import web3swift_iOS
 
-class web3swift_transactions_Tests: XCTestCase {
+class TransactionsTests: XCTestCase {
     func testTransaction() throws {
         do {
             var transaction = EthereumTransaction(nonce: 9,

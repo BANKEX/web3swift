@@ -11,7 +11,7 @@ import XCTest
 
 @testable import web3swift_iOS
 
-class web3swift_User_cases: XCTestCase {
+class UserCases: XCTestCase {
     func getKeystoreData() -> Data? {
         let bundle = Bundle(for: type(of: self))
         guard let path = bundle.path(forResource: "key", ofType: "json") else { return nil }

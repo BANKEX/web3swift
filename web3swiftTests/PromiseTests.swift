@@ -12,7 +12,7 @@ import XCTest
 
 @testable import web3swift_iOS
 
-class web3swift_promises_Tests: XCTestCase {
+class PromisesTests: XCTestCase {
     var urlSession: URLSession?
     func testGetBalancePromise() {
         do {

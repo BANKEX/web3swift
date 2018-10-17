@@ -72,6 +72,9 @@ public extension Data {
         }
         return Data(array)
     }
+    public func keccak256() -> Data {
+        return sha3(.keccak256)
+    }
 
     func bitsInRange(_ startingBit: Int, _ length: Int) -> UInt64 { // return max of 8 bytes for simplicity, non-public
 //        if startingBit + length / 8 > count, length > 64, startingBit > 0, length >= 1 { return nil }

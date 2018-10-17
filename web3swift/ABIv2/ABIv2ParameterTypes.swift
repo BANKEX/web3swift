@@ -9,6 +9,8 @@
 import BigInt
 import Foundation
 
+
+
 extension ABIv2.Element {
     /// Specifies the type that parameters in a contract have.
     public enum ParameterType: ABIv2ElementPropertiesProtocol {
@@ -30,20 +32,9 @@ extension ABIv2.Element {
             case .dynamicBytes:
                 return false
             case let .array(type: type, length: length):
-                if length == 0 {
-                    return false
-                }
-                if !type.isStatic {
-                    return false
-                }
-                return true
+                return length > 0 && type.isStatic
             case let .tuple(types: types):
-                for t in types {
-                    if !t.isStatic {
-                        return false
-                    }
-                }
-                return true
+                return types.allSatisfy { $0.isStatic }
             case .bytes(length: _):
                 return true
             default:
@@ -53,7 +44,7 @@ extension ABIv2.Element {
 
         var isArray: Bool {
             switch self {
-            case .array(type: _, length: _):
+            case .array:
                 return true
             default:
                 return false
@@ -104,9 +95,9 @@ extension ABIv2.Element {
 
         var emptyValue: Any {
             switch self {
-            case .uint(bits: _):
+            case .uint:
                 return BigUInt(0)
-            case .int(bits: _):
+            case .int:
                 return BigUInt(0)
             case .address:
                 return EthereumAddress("0x0000000000000000000000000000000000000000")
@@ -133,8 +124,9 @@ extension ABIv2.Element {
             case .array(type: _, length: let length):
                 if length == 0 {
                     return ArraySize.dynamicSize
+                } else {
+                    return ArraySize.staticSize(length)
                 }
-                return ArraySize.staticSize(length)
             default:
                 return ArraySize.notArray
             }

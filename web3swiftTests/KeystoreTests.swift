@@ -11,7 +11,7 @@ import XCTest
 
 @testable import web3swift_iOS
 
-class web3swift_Keystores_tests: XCTestCase {
+class KeystoresTests: XCTestCase {
     var time = CFAbsoluteTimeGetCurrent()
     func checkTime() {
         print(CFAbsoluteTimeGetCurrent() - time)
