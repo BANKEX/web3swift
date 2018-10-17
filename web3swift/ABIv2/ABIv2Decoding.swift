@@ -29,6 +29,7 @@ extension ABIv2Decoder {
             toReturn.append(valueUnwrapped)
             consumed = consumed + consumedUnwrapped
         }
+        
         guard toReturn.count == types.count else { return nil }
         return toReturn
     }

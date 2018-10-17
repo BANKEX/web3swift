@@ -9,6 +9,9 @@
 import Foundation
 
 extension String {
+    public func keccak256() -> Data {
+        return data.keccak256()
+    }
     var data: Data {
         return Data(utf8)
     }

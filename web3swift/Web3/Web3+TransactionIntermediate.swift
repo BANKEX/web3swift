@@ -15,6 +15,47 @@ public enum Web3ResponseError: Error {
     case wrongType
 }
 
+public class Web3DataResponse {
+    public let data: Data
+    public var position = 0
+    public init(_ data: Data) {
+        self.data = data
+    }
+    public func uint256() throws -> BigUInt {
+        return try BigUInt(data(32))
+    }
+    public func address() throws -> EthereumAddress {
+        try skip(12)
+        return try EthereumAddress(data(20))
+    }
+    public func string() throws -> String {
+        return try pointer {
+            let length = try uint256()
+            guard length <= Int.max else { throw Web3ResponseError.wrongType }
+            guard let string = try String(data: data(Int(length)), encoding: .utf8) else { throw Web3ResponseError.wrongType }
+            return string
+        }
+    }
+    
+    public func skip(_ count: Int) throws {
+        let end = position+32
+        guard end <= data.count else { throw Web3ResponseError.notFound }
+        position = end
+    }
+    public func data(_ size: Int) throws -> Data {
+        let range = position..<position+32
+        guard range.upperBound <= data.count else { throw Web3ResponseError.notFound }
+        position = range.upperBound
+        return self.data[range]
+    }
+    public func pointer<T>(block: ()throws->T) throws -> T {
+        let pointer = try uint256()
+        let pos = position
+        defer { position = pos }
+        return try block()
+    }
+}
+
 public class Web3Response {
     let dictionary: [String: Any]
     public var position = 0
@@ -251,6 +292,7 @@ extension Web3.Web3Contract.TransactionIntermediate {
                         let response = Web3Response(["result": resultHex as Any])
                         seal.fulfill(response)
                     } else {
+                        print(data.toHexString())
                         guard let decodedData = self.contract.decodeReturnData(self.method, data: data) else {
                             throw Web3Error.processingError("Can not decode returned parameters")
                         }

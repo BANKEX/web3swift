@@ -10,3 +10,16 @@ import Foundation
 import BigInt
 import PromiseKit
 
+//class ERC20 {
+//    let address: EthereumAddress
+//    init(address: EthereumAddress) {
+//        self.address = address
+//    }
+//    var name: String {
+//        let function = UnsafeSolidityFunction("name()")
+//        let data = function.data()
+//        let transaction = EthereumTransaction(to: address, data: data, options: .default)
+//        let request = TransactionIntermediate(transaction: transaction, web3: .default, contract: <#T##ContractProtocol#>, method: "name", options: .default)
+//        
+//    }
+//}

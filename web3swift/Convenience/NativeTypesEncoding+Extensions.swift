@@ -57,11 +57,11 @@ public extension BigInt {
         }
     }
 
-    func abiEncode(bits: UInt64) -> Data? {
+    func abiEncode(bits: UInt64) -> Data! {
         let isNegative = self < (BigInt(0))
         let data = toTwosComplement()
         let paddedLength = UInt64(ceil((Double(bits) / 8.0)))
-        let padded = data.setLengthLeft(paddedLength, isNegative: isNegative)
+        let padded = data.setLengthLeft(paddedLength, isNegative: isNegative)!
         return padded
     }
 

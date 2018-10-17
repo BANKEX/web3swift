@@ -101,7 +101,6 @@ class web3swift_ERC20_Tests: XCTestCase {
         options.from = EthereumAddress("0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d")
         let transactionIntermediate = try contract.method("name", options: options)
         let name = try transactionIntermediate.call(options: options).string()
-
         XCTAssert(name == "\"BANKEX\" project utility token", "Failed to create ERC20 name transaction")
         print("Token name = " + name)
     }
