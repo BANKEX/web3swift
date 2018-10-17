@@ -28,6 +28,11 @@ public class Web3DataResponse {
         try skip(12)
         return try EthereumAddress(data(20))
     }
+    public func bool() throws -> Bool {
+        let value = try BigUInt(data(32))
+        guard value < 2 else { throw Web3ResponseError.wrongType }
+        return value == 1
+    }
     public func string() throws -> String {
         return try pointer {
             let length = try uint256()
@@ -38,12 +43,12 @@ public class Web3DataResponse {
     }
     
     public func skip(_ count: Int) throws {
-        let end = position+32
+        let end = position+count
         guard end <= data.count else { throw Web3ResponseError.notFound }
         position = end
     }
     public func data(_ size: Int) throws -> Data {
-        let range = position..<position+32
+        let range = position..<position+size
         guard range.upperBound <= data.count else { throw Web3ResponseError.notFound }
         position = range.upperBound
         return self.data[range]

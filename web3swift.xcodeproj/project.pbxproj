@@ -22,6 +22,7 @@
 		1323B7F52174BB1E00306BBB /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1323B7F32174BB1E00306BBB /* Support.swift */; };
 		1323B7F72176255900306BBB /* SolidityTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1323B7F62176255900306BBB /* SolidityTypes.swift */; };
 		1323B7F82176255900306BBB /* SolidityTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1323B7F62176255900306BBB /* SolidityTypes.swift */; };
+		1323B8002177A83000306BBB /* BetterERC20Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1323B7FF2177A83000306BBB /* BetterERC20Tests.swift */; };
 		13A24E4E21629CBC004C48A0 /* Promise+Web3+Eth+EstimateGas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A1823F20D79FDB0016741F /* Promise+Web3+Eth+EstimateGas.swift */; };
 		13A24E51216365A4004C48A0 /* EthURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A24E50216365A4004C48A0 /* EthURL.swift */; };
 		13A24E52216365A4004C48A0 /* EthURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A24E50216365A4004C48A0 /* EthURL.swift */; };
@@ -248,6 +249,7 @@
 		1323B7AC2170E1ED00306BBB /* SolidityFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidityFunction.swift; sourceTree = "<group>"; };
 		1323B7F32174BB1E00306BBB /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		1323B7F62176255900306BBB /* SolidityTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidityTypes.swift; sourceTree = "<group>"; };
+		1323B7FF2177A83000306BBB /* BetterERC20Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterERC20Tests.swift; sourceTree = "<group>"; };
 		13A24E50216365A4004C48A0 /* EthURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthURL.swift; sourceTree = "<group>"; };
 		13A24EE6216F988C004C48A0 /* UInt256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UInt256.swift; sourceTree = "<group>"; };
 		1CD91AFC1FD76910007BFB45 /* web3swift_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = web3swift_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -421,6 +423,14 @@
 			path = BlockExplorer;
 			sourceTree = "<group>";
 		};
+		1323B7FA2177A58000306BBB /* BetterABI */ = {
+			isa = PBXGroup;
+			children = (
+				1323B7FF2177A83000306BBB /* BetterERC20Tests.swift */,
+			);
+			path = BetterABI;
+			sourceTree = "<group>";
+		};
 		13A24E4F21636541004C48A0 /* EthURL */ = {
 			isa = PBXGroup;
 			children = (
@@ -487,6 +497,7 @@
 		1CD91B301FD769A6007BFB45 /* web3swiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				1323B7FA2177A58000306BBB /* BetterABI */,
 				8102F5C2211E00820032DF60 /* ScryptTests.swift */,
 				81FECD5D211AEFCE006DA367 /* ObjectiveCTests.swift */,
 				815C74C720ECBF3E00DE2AC4 /* UserCasesTests.swift */,
@@ -1090,6 +1101,7 @@
 				815C74C820ECBF3E00DE2AC4 /* UserCasesTests.swift in Sources */,
 				E23B5AE520EA6A0A00DC7F32 /* ContractV2Tests.swift in Sources */,
 				E23B5AE120EA695400DC7F32 /* RinkebyPersonalSignatureTests.swift in Sources */,
+				1323B8002177A83000306BBB /* BetterERC20Tests.swift in Sources */,
 				E23B5ADB20EA67D800DC7F32 /* AdvancedABITests.swift in Sources */,
 				4EFFCB70208554EB008165FE /* RemoteParsingTests.swift in Sources */,
 				00E5FE7C20EA37B50030E0D6 /* ERC20Tests.swift in Sources */,
