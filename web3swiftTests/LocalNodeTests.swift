@@ -13,7 +13,7 @@ import XCTest
 
 @testable import web3swift_iOS
 
-class web3swift_local_node_Tests: XCTestCase {
+class LocalNodeTests: XCTestCase {
     let url = URL(string: "http://127.0.0.1:8545")!
     func testDeployWithRemoteSigning() throws {
         let web3 = Web3(url: url)!

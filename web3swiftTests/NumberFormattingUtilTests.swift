@@ -13,7 +13,7 @@ import XCTest
 
 @testable import web3swift_iOS
 
-class web3swift_numberFormattingUtil_Tests: XCTestCase {
+class NumberFormattingUtilTests: XCTestCase {
     func testNumberFormattingUtil() {
         let balance = BigInt("-1000000000000000000")!
         let formatted = Web3.Utils.formatToPrecision(balance, numberDecimals: 18, formattingDecimals: 4, decimalSeparator: ",")

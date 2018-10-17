@@ -10,7 +10,7 @@ import BigInt
 import XCTest
 
 @testable import web3swift_iOS
-class web3swift_RLP_Tests: XCTestCase {
+class RLPTests: XCTestCase {
     func testRLPencodeShortString() {
         let testString = "dog"
         let encoded = RLP.encode(testString)

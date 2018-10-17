@@ -9,7 +9,7 @@
 @testable import web3swift_iOS
 import XCTest
 
-class web3swift_ObjC_Tests: XCTestCase {
+class ObjectiveСTests: XCTestCase {
     func testBalance() {
         let web3 = _ObjCWeb3.InfuraMainnetWeb3()
         let address = _ObjCEthereumAddress(address: "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")

@@ -15,7 +15,7 @@ import XCTest
 
 @testable import web3swift_iOS
 
-class web3swift_SECP256K1_Tests: XCTestCase {
+class SECP256K1Tests: XCTestCase {
     func testNonDeterministicSignature() throws {
         var unsuccesfulNondeterministic = 0
         var allAttempts = 0

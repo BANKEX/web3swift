@@ -13,7 +13,7 @@ import XCTest
 
 @testable import web3swift_iOS
 
-class web3swift_Tests: XCTestCase {
+class Tests: XCTestCase {
     func testBitFunctions() {
         let data = Data([0xF0, 0x02, 0x03])
         let firstBit = data.bitsInRange(0, 1)

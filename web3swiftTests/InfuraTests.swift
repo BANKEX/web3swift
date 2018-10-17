@@ -9,7 +9,7 @@
 import XCTest
 
 @testable import web3swift_iOS
-class web3swift_infura_Tests: XCTestCase {
+class InfuraTests: XCTestCase {
     func testGetBalance() throws {
         let web3 = Web3(infura: .mainnet)
         let address = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")

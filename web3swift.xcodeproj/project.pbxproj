@@ -181,7 +181,7 @@
 		81DFB400210775320011DC85 /* Web3+Infura.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DFB3FE210775320011DC85 /* Web3+Infura.swift */; };
 		81EB1E4B208173D7003BD47F /* Web3+Personal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EB1E4A208173D7003BD47F /* Web3+Personal.swift */; };
 		81EB1E4C208173D7003BD47F /* Web3+Personal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EB1E4A208173D7003BD47F /* Web3+Personal.swift */; };
-		81FA43F62044097100EE14D5 /* web3swift_macOS_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA43F52044097100EE14D5 /* web3swift_macOS_Tests.swift */; };
+		81FA43F62044097100EE14D5 /* macOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA43F52044097100EE14D5 /* macOSTests.swift */; };
 		81FA43F82044097100EE14D5 /* web3swift_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 417715D420362916005C3E16 /* web3swift_macOS.framework */; };
 		81FB21FE207BB297007F9A83 /* EIP67Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FB21F8207BA78B007F9A83 /* EIP67Code.swift */; };
 		81FB21FF207BB297007F9A83 /* EIP67Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FB21F8207BA78B007F9A83 /* EIP67Code.swift */; };
@@ -205,7 +205,7 @@
 		81FECD59211AEB56006DA367 /* BigUInt+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FECD57211AEB56006DA367 /* BigUInt+ObjC.swift */; };
 		81FECD5B211AECBD006DA367 /* Web3+Eth+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FECD5A211AECBD006DA367 /* Web3+Eth+ObjC.swift */; };
 		81FECD5C211AECBD006DA367 /* Web3+Eth+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FECD5A211AECBD006DA367 /* Web3+Eth+ObjC.swift */; };
-		81FECD5E211AEFCE006DA367 /* ObjcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FECD5D211AEFCE006DA367 /* ObjcTests.swift */; };
+		81FECD5E211AEFCE006DA367 /* ObjectiveCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FECD5D211AEFCE006DA367 /* ObjectiveCTests.swift */; };
 		C0590534428D1202BCE1F377 /* libPods-web3swift-macOS_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F1F928CA675466CE84EC214F /* libPods-web3swift-macOS_Tests.a */; };
 		E23B5ADB20EA67D800DC7F32 /* AdvancedABITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23B5ADA20EA67D800DC7F32 /* AdvancedABITests.swift */; };
 		E23B5ADD20EA685D00DC7F32 /* EIP67Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23B5ADC20EA685D00DC7F32 /* EIP67Tests.swift */; };
@@ -343,7 +343,7 @@
 		81DFB3FE210775320011DC85 /* Web3+Infura.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Web3+Infura.swift"; sourceTree = "<group>"; };
 		81EB1E4A208173D7003BD47F /* Web3+Personal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Web3+Personal.swift"; sourceTree = "<group>"; };
 		81FA43F32044097000EE14D5 /* web3swift-macOS_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "web3swift-macOS_Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81FA43F52044097100EE14D5 /* web3swift_macOS_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = web3swift_macOS_Tests.swift; sourceTree = "<group>"; };
+		81FA43F52044097100EE14D5 /* macOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = macOSTests.swift; sourceTree = "<group>"; };
 		81FA43F72044097100EE14D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81FB21F8207BA78B007F9A83 /* EIP67Code.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EIP67Code.swift; sourceTree = "<group>"; };
 		81FB2200207BC58B007F9A83 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -357,7 +357,7 @@
 		81FECD54211AEB49006DA367 /* EthereumAddress+ObjC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EthereumAddress+ObjC.swift"; sourceTree = "<group>"; };
 		81FECD57211AEB56006DA367 /* BigUInt+ObjC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BigUInt+ObjC.swift"; sourceTree = "<group>"; };
 		81FECD5A211AECBD006DA367 /* Web3+Eth+ObjC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Web3+Eth+ObjC.swift"; sourceTree = "<group>"; };
-		81FECD5D211AEFCE006DA367 /* ObjcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjcTests.swift; sourceTree = "<group>"; };
+		81FECD5D211AEFCE006DA367 /* ObjectiveCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveCTests.swift; sourceTree = "<group>"; };
 		81FECD63211AF162006DA367 /* web3swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "web3swift-Bridging-Header.h"; sourceTree = "<group>"; };
 		84FE102DCF803A65C0DE2DEA /* libPods-web3swift-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-web3swift-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99686FFF168EE92B92750E2C /* libPods-web3swift-iOS_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-web3swift-iOS_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -488,7 +488,7 @@
 			isa = PBXGroup;
 			children = (
 				8102F5C2211E00820032DF60 /* ScryptTests.swift */,
-				81FECD5D211AEFCE006DA367 /* ObjcTests.swift */,
+				81FECD5D211AEFCE006DA367 /* ObjectiveCTests.swift */,
 				815C74C720ECBF3E00DE2AC4 /* UserCasesTests.swift */,
 				00E5FE8120EA3FF40030E0D6 /* InfuraTests.swift */,
 				00E5FE7F20EA3CEA0030E0D6 /* RLPTests.swift */,
@@ -500,7 +500,6 @@
 				1CD91B311FD769A6007BFB45 /* MainTests.swift */,
 				4EFFCB6F208554EB008165FE /* RemoteParsingTests.swift */,
 				4EFFCB6D208552F2008165FE /* LocalNodeTests.swift */,
-				1CD91B331FD769A6007BFB45 /* Info.plist */,
 				E23B5ADA20EA67D800DC7F32 /* AdvancedABITests.swift */,
 				E23B5ADC20EA685D00DC7F32 /* EIP67Tests.swift */,
 				E23B5ADE20EA68F900DC7F32 /* SECP256K1Tests.swift */,
@@ -508,6 +507,7 @@
 				E23B5AE220EA69B900DC7F32 /* NumberFormattingUtilTests.swift */,
 				E23B5AE420EA6A0A00DC7F32 /* ContractV2Tests.swift */,
 				1323B7F32174BB1E00306BBB /* Support.swift */,
+				1CD91B331FD769A6007BFB45 /* Info.plist */,
 			);
 			path = web3swiftTests;
 			sourceTree = "<group>";
@@ -652,7 +652,7 @@
 		81FA43F42044097100EE14D5 /* web3swift-macOS_Tests */ = {
 			isa = PBXGroup;
 			children = (
-				81FA43F52044097100EE14D5 /* web3swift_macOS_Tests.swift */,
+				81FA43F52044097100EE14D5 /* macOSTests.swift */,
 				81FA43F72044097100EE14D5 /* Info.plist */,
 			);
 			path = "web3swift-macOS_Tests";
@@ -1099,7 +1099,7 @@
 				00E5FE8020EA3CEA0030E0D6 /* RLPTests.swift in Sources */,
 				4EFFCB6E208552F2008165FE /* LocalNodeTests.swift in Sources */,
 				81A1821D20D5C6C10016741F /* PromiseTests.swift in Sources */,
-				81FECD5E211AEFCE006DA367 /* ObjcTests.swift in Sources */,
+				81FECD5E211AEFCE006DA367 /* ObjectiveCTests.swift in Sources */,
 				E23B5ADD20EA685D00DC7F32 /* EIP67Tests.swift in Sources */,
 				00E5FE8220EA3FF40030E0D6 /* InfuraTests.swift in Sources */,
 				1CD91B321FD769A6007BFB45 /* MainTests.swift in Sources */,
@@ -1206,7 +1206,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81FA43F62044097100EE14D5 /* web3swift_macOS_Tests.swift in Sources */,
+				81FA43F62044097100EE14D5 /* macOSTests.swift in Sources */,
 				1323B7F52174BB1E00306BBB /* Support.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
