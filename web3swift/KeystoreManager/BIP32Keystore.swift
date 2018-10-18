@@ -62,7 +62,7 @@ public class BIP32Keystore: AbstractKeystore {
         rootPrefix = keystoreParams!.rootPath!
     }
     
-    public convenience init(mnemonics: Mnemonics, password: String = "BANKEXFOUNDATION", language: BIP39Language = BIP39Language.english, prefixPath: String = HDNode.defaultPathMetamaskPrefix) throws {
+    public convenience init(mnemonics: Mnemonics, password: String = "BANKEXFOUNDATION", prefixPath: String = HDNode.defaultPathMetamaskPrefix) throws {
         var seed = mnemonics.seed()
         defer { Data.zero(&seed) }
         try self.init(seed: seed, password: password, prefixPath: prefixPath)
