@@ -256,6 +256,7 @@
 		1323B7FF2177A83000306BBB /* BetterERC20Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterERC20Tests.swift; sourceTree = "<group>"; };
 		1323B8042177B85F00306BBB /* ERC721.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC721.swift; sourceTree = "<group>"; };
 		1323B80A2177BA9700306BBB /* ERC777.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC777.swift; sourceTree = "<group>"; };
+		1323B80D2178C16700306BBB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		13A24E50216365A4004C48A0 /* EthURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthURL.swift; sourceTree = "<group>"; };
 		13A24EE6216F988C004C48A0 /* UInt256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UInt256.swift; sourceTree = "<group>"; };
 		1CD91AFC1FD76910007BFB45 /* web3swift_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = web3swift_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -458,6 +459,7 @@
 		1CD91AF21FD76910007BFB45 = {
 			isa = PBXGroup;
 			children = (
+				1323B80D2178C16700306BBB /* README.md */,
 				1CD91AFE1FD76910007BFB45 /* web3swift */,
 				1CD91B301FD769A6007BFB45 /* web3swiftTests */,
 				81FA43F42044097100EE14D5 /* web3swift-macOS_Tests */,

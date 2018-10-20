@@ -44,7 +44,7 @@ extension Array where Element == SolidityDataRepresentable {
 }
 
 extension EthereumAddress {
-    public func assemblePromise(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "pending") -> Promise<EthereumTransaction> {
+    public func assemble(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "pending") -> Promise<EthereumTransaction> {
         let options = web3.options.merge(with: options)
         
         let data = arguments.compactMap { value in
@@ -61,9 +61,9 @@ extension EthereumAddress {
             optionsForGasEstimation.from = options.from
             optionsForGasEstimation.to = options.to
             optionsForGasEstimation.value = options.value
-            let getNoncePromise: Promise<BigUInt> = web3.eth.getTransactionCountPromise(address: from, onBlock: onBlock)
-            let gasEstimatePromise: Promise<BigUInt> = web3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
-            let gasPricePromise: Promise<BigUInt> = web3.eth.getGasPricePromise()
+            let getNoncePromise = web3.eth.getTransactionCountPromise(address: from, onBlock: onBlock)
+            let gasEstimatePromise = web3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
+            let gasPricePromise = web3.eth.getGasPricePromise()
             var promisesToFulfill: [Promise<BigUInt>] = [getNoncePromise, gasPricePromise, gasPricePromise]
             when(resolved: getNoncePromise, gasEstimatePromise, gasPricePromise).map(on: queue, { (results: [Result<BigUInt>]) throws -> EthereumTransaction in
                 
@@ -83,50 +83,30 @@ extension EthereumAddress {
                 let finalGasPrice = Web3Options.smartMergeGasPrice(originalOptions: options, extraOptions: options, priceEstimate: gasPrice)
                 assembledTransaction.gasPrice = finalGasPrice
                 return assembledTransaction
-            }).done(on: queue) { tx in
-                seal.fulfill(tx)
-                }.catch(on: queue) { err in
-                    seal.reject(err)
-            }
+            }).done(on: queue, seal.fulfill).catch(on: queue, seal.reject)
         }
         return returnPromise
     }
     
-    
-    public func send(_ function: String, _ arguments: Any..., password: String = "BANKEXFOUNDATION", web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "pending") throws -> TransactionSendingResult {
-        return try send(function, arguments, password: password, web3: web3, options: options, onBlock: onBlock)
+    public func send(_ function: String, _ arguments: Any..., password: String = "BANKEXFOUNDATION", web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "pending") -> Promise<TransactionSendingResult> {
+        return send(function, arguments, password: password, web3: web3, options: options, onBlock: onBlock)
     }
-    public func send(_ function: String, _ arguments: [Any], password: String = "BANKEXFOUNDATION", web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "pending") throws -> TransactionSendingResult {
-        return try sendPromise(function, arguments, password: password, web3: web3, options: options, onBlock: onBlock).wait()
-    }
-    public func sendPromise(_ function: String, _ arguments: Any..., password: String = "BANKEXFOUNDATION", web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "pending") -> Promise<TransactionSendingResult> {
-        return sendPromise(function, arguments, password: password, web3: web3, options: options, onBlock: onBlock)
-    }
-    public func sendPromise(_ function: String, _ arguments: [Any], password: String = "BANKEXFOUNDATION", web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "pending") -> Promise<TransactionSendingResult> {
+    public func send(_ function: String, _ arguments: [Any], password: String = "BANKEXFOUNDATION", web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "pending") -> Promise<TransactionSendingResult> {
         let options = web3.options.merge(with: options)
         let queue = web3.requestDispatcher.queue
-        return assemblePromise(function, arguments, web3: web3, options: options, onBlock: onBlock).then(on: queue) { transaction throws -> Promise<TransactionSendingResult> in
+        return assemble(function, arguments, web3: web3, options: options, onBlock: onBlock).then(on: queue) { transaction throws -> Promise<TransactionSendingResult> in
             var cleanedOptions = Web3Options()
             cleanedOptions.from = options.from
             cleanedOptions.to = options.to
             return web3.eth.sendTransactionPromise(transaction, options: cleanedOptions, password: password)
         }
     }
-    public func call(_ function: String, _ arguments: Any..., web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") throws -> Web3DataResponse {
-        return try callPromise(function, arguments, web3: web3, options: options, onBlock: onBlock).wait()
+    public func call(_ function: String, _ arguments: Any..., web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<Web3DataResponse> {
+        return call(function, arguments, web3: web3, options: options, onBlock: onBlock)
     }
-    public func call(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") throws -> Web3DataResponse {
-        return try callPromise(function, arguments, web3: web3, options: options, onBlock: onBlock).wait()
-    }
-    public func callPromise(_ function: String, _ arguments: Any..., web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<Web3DataResponse> {
-        return callPromise(function, arguments, web3: web3, options: options, onBlock: onBlock)
-    }
-    public func callPromise(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<Web3DataResponse> {
+    public func call(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<Web3DataResponse> {
         let options = web3.options.merge(with: options)
-        let data = arguments.compactMap { value in
-            return value as? SolidityDataRepresentable
-        }.data(function: function)
-        print(data.toHexString())
+        let data = arguments.compactMap { $0 as? SolidityDataRepresentable }.data(function: function)
         let assembledTransaction = EthereumTransaction(to: self, data: data, options: options)
         let queue = web3.requestDispatcher.queue
         return Promise<Web3DataResponse> { seal in
@@ -140,9 +120,13 @@ extension EthereumAddress {
         }
     }
     
-    public func estimateGasPromise(_ function: String, web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
+    public func estimateGas(_ function: String, _ arguments: Any..., web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
+        return estimateGas(function, arguments, web3: web3, options: options, onBlock: onBlock)
+    }
+    public func estimateGas(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
         let options = web3.options.merge(with: options)
-        let assembledTransaction = EthereumTransaction(to: self, data: function.keccak256(), options: options)
+        let data = arguments.compactMap { $0 as? SolidityDataRepresentable }.data(function: function)
+        let assembledTransaction = EthereumTransaction(to: self, data: data, options: options)
         let queue = web3.requestDispatcher.queue
         return Promise<BigUInt> { seal in
             var optionsForGasEstimation = Web3Options()
