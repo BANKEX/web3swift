@@ -41,12 +41,12 @@ public class KeystoreManager: AbstractKeystore {
         return try keystore.UNSAFE_getPrivateKeyData(password: password, account: account)
     }
 
-    public static var allManagers = [KeystoreManager]()
-    public static var defaultManager: KeystoreManager? {
-        if KeystoreManager.allManagers.count == 0 {
+    public static var all = [KeystoreManager]()
+    public static var `default`: KeystoreManager? {
+        if KeystoreManager.all.count == 0 {
             return nil
         }
-        return KeystoreManager.allManagers[0]
+        return KeystoreManager.all[0]
     }
 
     public static func managerForPath(_ path: String, scanForHDwallets: Bool = false, suffix: String? = nil) -> KeystoreManager? {

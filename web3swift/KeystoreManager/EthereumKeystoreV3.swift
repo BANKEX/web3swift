@@ -61,7 +61,7 @@ public class EthereumKeystoreV3: AbstractKeystore {
     }
 
     public init? (password: String = "BANKEXFOUNDATION", aesMode: String = "aes-128-cbc") throws {
-        var newPrivateKey = SECP256K1.generatePrivateKey()
+        var newPrivateKey = Data.random(length: 32)
         defer { Data.zero(&newPrivateKey) }
         try encryptDataToStorage(password, keyData: newPrivateKey, aesMode: aesMode)
     }

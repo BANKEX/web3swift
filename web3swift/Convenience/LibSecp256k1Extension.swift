@@ -286,10 +286,6 @@ extension SECP256K1 {
         guard result == 1 else { throw SECP256K1Error.invalidPrivateKey }
     }
 
-    static func generatePrivateKey() -> Data {
-        return .random(length: 32)
-    }
-
     static func unmarshalSignature(signatureData: Data) throws -> UnmarshaledSignature {
         try signatureData.checkSignatureSize()
         let bytes = signatureData.bytes
