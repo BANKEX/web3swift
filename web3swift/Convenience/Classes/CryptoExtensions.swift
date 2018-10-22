@@ -267,22 +267,22 @@ private class Scrypt {
             x14 ^= rotate(x13 &+ x12,13);
             x15 ^= rotate(x14 &+ x13,18);
         }
-        block[0] = x0
-        block[1] = x1
-        block[2] = x2
-        block[3] = x3
-        block[4] = x4
-        block[5] = x5
-        block[6] = x6
-        block[7] = x7
-        block[8] = x8
-        block[9] = x9
-        block[10] = x10
-        block[11] = x11
-        block[12] = x12
-        block[13] = x13
-        block[14] = x14
-        block[15] = x15
+        block[0] = block[0] &+ x0
+        block[1] = block[1] &+ x1
+        block[2] = block[2] &+ x2
+        block[3] = block[3] &+ x3
+        block[4] = block[4] &+ x4
+        block[5] = block[5] &+ x5
+        block[6] = block[6] &+ x6
+        block[7] = block[7] &+ x7
+        block[8] = block[8] &+ x8
+        block[9] = block[9] &+ x9
+        block[10] = block[10] &+ x10
+        block[11] = block[11] &+ x11
+        block[12] = block[12] &+ x12
+        block[13] = block[13] &+ x13
+        block[14] = block[14] &+ x14
+        block[15] = block[15] &+ x15
     }
     
     private func blockXor(_ dest: UnsafeMutableRawPointer, _ src: UnsafeRawPointer, _ len: Int) {

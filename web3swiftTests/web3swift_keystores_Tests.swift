@@ -59,6 +59,24 @@ class web3swift_Keystores_tests: XCTestCase {
         XCTAssertNotNil(key)
     }
     
+    
+    func testImportAndExport() throws {
+        let json = """
+{"version":3,"id":"8b60fda9-5f27-4478-9cc9-72059571aa6e","crypto":{"ciphertext":"d34e78640359a599970a58b3b4b7c987945e56c69411028ea62394e8d1ea7e4b","cipherparams":{"iv":"6e4a429a30807ab9202a9aefad152398"},"kdf":"scrypt","kdfparams":{"r":6,"p":1,"n":4096,"dklen":32,"salt":"0000000000000000000000000000000000000000000000000000000000000000"},"mac":"79888d6ce3a2a24d6b70d07ca9067b57e4a57bd9416a3abb336900cacf82e29a","cipher":"aes-128-cbc"},"address":"0x0b0f7a95485060973726d03e7c326a6542bcb55b"}
+"""
+        let keystore = EthereumKeystoreV3(json)!
+        let data = try keystore.serialize()!
+        
+        let key = try keystore.UNSAFE_getPrivateKeyData(password: "hello world", account: keystore.addresses![0]).toHexString()
+        
+        let keystore2 = EthereumKeystoreV3(data)!
+        let data2 = try keystore2.serialize()!
+        let key2 = try keystore2.UNSAFE_getPrivateKeyData(password: "hello world", account: keystore.addresses![0]).toHexString()
+        
+        XCTAssertEqual(data,data2)
+        XCTAssertEqual(key,key2)
+    }
+    
     func testBIP32keystoreMatching() {
         let mnemonic = "fruit wave dwarf banana earth journey tattoo true farm silk olive fence"
         let keystore = try! BIP32Keystore(mnemonics: mnemonic, password: "", mnemonicsPassword: "banana")
