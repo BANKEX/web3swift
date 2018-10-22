@@ -47,12 +47,12 @@ class BetterERC20Tests: XCTestCase {
     }
     
     func testERC20Name() throws {
-        let name = try contract.call("name()").string()
+        let name = try contract.call("name()").wait().string()
         XCTAssertEqual(name, "\"BANKEX\" project utility token")
     }
     
     func testERC20Balance() throws {
-        let balance = try contract.call("balanceOf(address)",user).uint256()
+        let balance = try contract.call("balanceOf(address)",user).wait().uint256()
         print(balance)
     }
 

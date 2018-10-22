@@ -78,6 +78,7 @@ private class Scrypt {
 
         /* 1: (B_0 ... B_{p-1}) <-- PBKDF2(P, S, 1, p * MFLen) */
         let barray = try PKCS5.PBKDF2(password: password, salt: [UInt8](salt), iterations: 1, keyLength: p * 128 * r, variant: .sha256).calculate()
+        
         barray.withUnsafeBytes { p in
             B.copyMemory(from: p.baseAddress!, byteCount: barray.count)
         }
@@ -109,11 +110,13 @@ private class Scrypt {
         for k in 0 ..< 32 * r {
             X[k] = (block + 4 * k).load(as: UInt32.self)
         }
+        
 
         /* 2: for i = 0 to N - 1 do */
         for i in stride(from: 0, to: N, by: 2) {
             /* 3: V_i <-- X */
             UnsafeMutableRawPointer(v + i * (32 * r)).copyMemory(from: X, byteCount: 128 * r)
+            
 
             /* 4: X <-- H(X) */
             blockMixSalsa8(X, Y, Z)
@@ -240,22 +243,22 @@ private class Scrypt {
             x14 ^= rotate(x13 &+ x12, 13)
             x15 ^= rotate(x14 &+ x13, 18)
         }
-        block[0] = x0
-        block[1] = x1
-        block[2] = x2
-        block[3] = x3
-        block[4] = x4
-        block[5] = x5
-        block[6] = x6
-        block[7] = x7
-        block[8] = x8
-        block[9] = x9
-        block[10] = x10
-        block[11] = x11
-        block[12] = x12
-        block[13] = x13
-        block[14] = x14
-        block[15] = x15
+        block[0] = block[0] &+ x0
+        block[1] = block[1] &+ x1
+        block[2] = block[2] &+ x2
+        block[3] = block[3] &+ x3
+        block[4] = block[4] &+ x4
+        block[5] = block[5] &+ x5
+        block[6] = block[6] &+ x6
+        block[7] = block[7] &+ x7
+        block[8] = block[8] &+ x8
+        block[9] = block[9] &+ x9
+        block[10] = block[10] &+ x10
+        block[11] = block[11] &+ x11
+        block[12] = block[12] &+ x12
+        block[13] = block[13] &+ x13
+        block[14] = block[14] &+ x14
+        block[15] = block[15] &+ x15
     }
 
     private func blockXor(_ dest: UnsafeMutableRawPointer, _ src: UnsafeRawPointer, _ len: Int) {
