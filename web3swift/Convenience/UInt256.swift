@@ -9,7 +9,10 @@
 import BigInt
 import Foundation
 
+
 extension BigUInt {
+    
+    
     public init?(_ string: String, units: Web3Units) {
         self.init(string, decimals: units.decimals)
     }
@@ -30,23 +33,31 @@ extension BigUInt {
         }
         self = mainPart
     }
+    
+    
+    public struct StringOptions: OptionSet {
+        public let rawValue: Int
+        public init(rawValue: Int) {
+            self.rawValue = rawValue
+        }
+        public static let fallbackToScientific = StringOptions(rawValue: 0b1)
+        public static let stripZeroes = StringOptions(rawValue: 0b10)
+        public static let `default`: StringOptions = [.stripZeroes]
+    }
     /// Formats a BigUInt object to String. The supplied number is first divided into integer and decimal part based on "toUnits",
     /// then limit the decimal part to "decimals" symbols and uses a "decimalSeparator" as a separator.
-    ///
-    /// Returns nil of formatting is not possible to satisfy.
-    public func string(units: Web3Units = .eth, decimals: Int = 4, decimalSeparator: String = ".", fallbackToScientific: Bool = false) -> String {
-        return string(numberDecimals: units.decimals, formattingDecimals: decimals, decimalSeparator: decimalSeparator, fallbackToScientific: fallbackToScientific)
+    /// default: decimals: 18, decimalSeparator: ".", options: .stripZeroes
+    public func string(units: Web3Units, decimals: Int = 18, decimalSeparator: String = ".", options: StringOptions = .default) -> String {
+        return string(unitDecimals: units.decimals, decimals: decimals, decimalSeparator: decimalSeparator, options: options)
     }
     
     /// Formats a BigUInt object to String. The supplied number is first divided into integer and decimal part based on "toUnits",
     /// then limit the decimal part to "decimals" symbols and uses a "decimalSeparator" as a separator.
     /// Fallbacks to scientific format if higher precision is required.
-    ///
-    /// Returns nil of formatting is not possible to satisfy.
-    public func string(numberDecimals: Int = 18, formattingDecimals: Int = 4, decimalSeparator: String = ".", fallbackToScientific: Bool = false) -> String {
+    /// default: decimals: 18, decimalSeparator: ".", options: .stripZeroes
+    public func string(unitDecimals: Int, decimals: Int = 18, decimalSeparator: String = ".", options: StringOptions = .default) -> String {
         guard self != 0 else { return "0" }
-        let unitDecimals = numberDecimals
-        var toDecimals = formattingDecimals
+        var toDecimals = decimals
         if unitDecimals < toDecimals {
             toDecimals = unitDecimals
         }
@@ -55,46 +66,50 @@ extension BigUInt {
         var fullRemainder = String(remainder)
         let fullPaddedRemainder = fullRemainder.leftPadding(toLength: unitDecimals, withPad: "0")
         let remainderPadded = fullPaddedRemainder[0 ..< toDecimals]
-        if remainderPadded == String(repeating: "0", count: toDecimals) {
-            if quotient != 0 {
+        let offset = remainderPadded.reversed().firstIndex(where: { $0 != "0" })?.base
+        
+        if let offset = offset {
+            if toDecimals == 0 {
                 return String(quotient)
-            } else if fallbackToScientific {
-                var firstDigit = 0
-                for char in fullPaddedRemainder {
-                    if char == "0" {
-                        firstDigit = firstDigit + 1
-                    } else {
-                        let firstDecimalUnit = String(fullPaddedRemainder[firstDigit ..< firstDigit+1])
-                        var remainingDigits = ""
-                        let numOfRemainingDecimals = fullPaddedRemainder.count - firstDigit - 1
-                        if numOfRemainingDecimals <= 0 {
-                            remainingDigits = ""
-                        } else if numOfRemainingDecimals > formattingDecimals {
-                            let end = firstDigit+1+formattingDecimals > fullPaddedRemainder.count ? fullPaddedRemainder.count : firstDigit+1+formattingDecimals
-                            remainingDigits = String(fullPaddedRemainder[firstDigit+1 ..< end])
-                        } else {
-                            remainingDigits = String(fullPaddedRemainder[firstDigit+1 ..< fullPaddedRemainder.count])
-                        }
-                        fullRemainder = firstDecimalUnit
-                        if !remainingDigits.isEmpty {
-                            fullRemainder += decimalSeparator + remainingDigits
-                        }
-                        firstDigit = firstDigit + 1
-                        break
-                    }
-                }
-                return fullRemainder + "e-" + String(firstDigit)
+            } else if options.contains(.stripZeroes) {
+                return String(quotient) + decimalSeparator + remainderPadded[..<offset]
+            } else {
+                return String(quotient) + decimalSeparator + remainderPadded
             }
-        }
-        if toDecimals == 0 {
+        } else if quotient != 0 || !options.contains(.fallbackToScientific) {
             return String(quotient)
         } else {
-            return String(quotient) + decimalSeparator + remainderPadded
+            var firstDigit = 0
+            for char in fullPaddedRemainder {
+                if char == "0" {
+                    firstDigit = firstDigit + 1
+                } else {
+                    let firstDecimalUnit = String(fullPaddedRemainder[firstDigit ..< firstDigit+1])
+                    var remainingDigits = ""
+                    let numOfRemainingDecimals = fullPaddedRemainder.count - firstDigit - 1
+                    if numOfRemainingDecimals <= 0 {
+                        remainingDigits = ""
+                    } else if numOfRemainingDecimals > decimals {
+                        let end = firstDigit+1+decimals > fullPaddedRemainder.count ? fullPaddedRemainder.count : firstDigit+1+decimals
+                        remainingDigits = String(fullPaddedRemainder[firstDigit+1 ..< end])
+                    } else {
+                        remainingDigits = String(fullPaddedRemainder[firstDigit+1 ..< fullPaddedRemainder.count])
+                    }
+                    fullRemainder = firstDecimalUnit
+                    if !remainingDigits.isEmpty {
+                        fullRemainder += decimalSeparator + remainingDigits
+                    }
+                    firstDigit = firstDigit + 1
+                    break
+                }
+            }
+            return fullRemainder + "e-" + String(firstDigit)
         }
     }
 }
 
 extension BigInt {
+    public typealias StringOptions = BigUInt.StringOptions
     /// Returns .description to not confuse
     public func string() -> String {
         return description
@@ -102,9 +117,9 @@ extension BigInt {
     /// Formats a BigInt object to String. The supplied number is first divided into integer and decimal part based on "units",
     /// then limit the decimal part to "decimals" symbols and uses a "decimalSeparator" as a separator.
     /// Fallbacks to scientific format if higher precision is required.
-    public func string(numberDecimals: Int, formattingDecimals: Int = 4, decimalSeparator: String = ".", fallbackToScientific: Bool = false) -> String {
-        
-        let formatted = magnitude.string(numberDecimals: numberDecimals, formattingDecimals: formattingDecimals, decimalSeparator: decimalSeparator, fallbackToScientific: fallbackToScientific)
+    /// default: decimals: 18, decimalSeparator: ".", options: .stripZeroes
+    public func string(unitDecimals: Int, decimals: Int = 18, decimalSeparator: String = ".", options: StringOptions = .default) -> String {
+        let formatted = magnitude.string(unitDecimals: unitDecimals, decimals: decimals, decimalSeparator: decimalSeparator, options: options)
         switch sign {
         case .plus:
             return formatted
@@ -115,15 +130,9 @@ extension BigInt {
     
     /// Formats a BigInt object to String. The supplied number is first divided into integer and decimal part based on "units",
     /// then limit the decimal part to "decimals" symbols and uses a "decimalSeparator" as a separator.
-    public func string(units: Web3Units, decimals: Int = 4, decimalSeparator: String = ".") -> String {
-        
-        let formatted = magnitude.string(numberDecimals: units.decimals, formattingDecimals: decimals, decimalSeparator: decimalSeparator)
-        switch sign {
-        case .plus:
-            return formatted
-        case .minus:
-            return "-" + formatted
-        }
+    /// default: decimals: 18, decimalSeparator: ".", options: .stripZeroes
+    public func string(units: Web3Units, decimals: Int = 18, decimalSeparator: String = ".", options: StringOptions = .default) -> String {
+        return string(unitDecimals: units.decimals, decimals: decimals, decimalSeparator: decimalSeparator, options: options)
     }
 }
 
