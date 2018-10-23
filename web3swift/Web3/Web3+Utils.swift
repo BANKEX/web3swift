@@ -194,15 +194,9 @@ extension Web3.Utils {
     /// then limit the decimal part to "decimals" symbols and uses a "decimalSeparator" as a separator.
     ///
     /// Returns nil of formatting is not possible to satisfy.
-    public static func formatToEthereumUnits(_ bigNumber: BigInt, toUnits: Web3Units = .eth, decimals: Int = 4, decimalSeparator: String = ".") -> String? {
-        let magnitude = bigNumber.magnitude
-        guard let formatted = formatToEthereumUnits(magnitude, toUnits: toUnits, decimals: decimals, decimalSeparator: decimalSeparator) else { return nil }
-        switch bigNumber.sign {
-        case .plus:
-            return formatted
-        case .minus:
-            return "-" + formatted
-        }
+    @available(*,deprecated: 2.0,message: "Use number.string(units:formattingDecimals:decimalSeparator:fallbackToScientific")
+    public static func formatToEthereumUnits(_ bigNumber: BigInt, toUnits: Web3Units = .eth, decimals: Int = 4, decimalSeparator: String = ".") -> String {
+        return bigNumber.string(units: toUnits, decimals: decimals, decimalSeparator: decimalSeparator)
     }
 
     /// Formats a BigInt object to String. The supplied number is first divided into integer and decimal part based on "toUnits",
@@ -210,23 +204,18 @@ extension Web3.Utils {
     /// Fallbacks to scientific format if higher precision is required.
     ///
     /// Returns nil of formatting is not possible to satisfy.
-    public static func formatToPrecision(_ bigNumber: BigInt, numberDecimals: Int = 18, formattingDecimals: Int = 4, decimalSeparator: String = ".", fallbackToScientific: Bool = false) -> String? {
-        let magnitude = bigNumber.magnitude
-        guard let formatted = formatToPrecision(magnitude, numberDecimals: numberDecimals, formattingDecimals: formattingDecimals, decimalSeparator: decimalSeparator, fallbackToScientific: fallbackToScientific) else { return nil }
-        switch bigNumber.sign {
-        case .plus:
-            return formatted
-        case .minus:
-            return "-" + formatted
-        }
+    @available(*,deprecated: 2.0,message: "Use number.string(numberDecimals:formattingDecimals:decimalSeparator:fallbackToScientific")
+    public static func formatToPrecision(_ bigNumber: BigInt, numberDecimals: Int = 18, formattingDecimals: Int = 4, decimalSeparator: String = ".", fallbackToScientific: Bool = false) -> String {
+        return bigNumber.string(numberDecimals: numberDecimals, formattingDecimals: formattingDecimals, decimalSeparator: decimalSeparator, fallbackToScientific: fallbackToScientific)
     }
 
     /// Formats a BigUInt object to String. The supplied number is first divided into integer and decimal part based on "toUnits",
     /// then limit the decimal part to "decimals" symbols and uses a "decimalSeparator" as a separator.
     ///
     /// Returns nil of formatting is not possible to satisfy.
-    public static func formatToEthereumUnits(_ bigNumber: BigUInt, toUnits: Web3Units = .eth, decimals: Int = 4, decimalSeparator: String = ".", fallbackToScientific: Bool = false) -> String? {
-        return formatToPrecision(bigNumber, numberDecimals: toUnits.decimals, formattingDecimals: decimals, decimalSeparator: decimalSeparator, fallbackToScientific: fallbackToScientific)
+    @available(*,deprecated: 2.0,message: "Use number.string(units:formattingDecimals:decimalSeparator:fallbackToScientific")
+    public static func formatToEthereumUnits(_ bigNumber: BigUInt, toUnits: Web3Units = .eth, decimals: Int = 4, decimalSeparator: String = ".", fallbackToScientific: Bool = false) -> String {
+        return bigNumber.string(units: toUnits, decimals: decimals, decimalSeparator: decimalSeparator, fallbackToScientific: fallbackToScientific)
     }
 
     /// Formats a BigUInt object to String. The supplied number is first divided into integer and decimal part based on "toUnits",
@@ -234,40 +223,9 @@ extension Web3.Utils {
     /// Fallbacks to scientific format if higher precision is required.
     ///
     /// Returns nil of formatting is not possible to satisfy.
-    public static func formatToPrecision(_ bigNumber: BigUInt, numberDecimals: Int = 18, formattingDecimals: Int = 4, decimalSeparator: String = ".", fallbackToScientific: Bool = false) -> String? {
-        if bigNumber == 0 {
-            return "0"
-        }
-        let unitDecimals = numberDecimals
-        var toDecimals = formattingDecimals
-        if unitDecimals < toDecimals {
-            toDecimals = unitDecimals
-        }
-        let divisor = BigUInt(10).power(unitDecimals)
-        let (quotient, remainder) = bigNumber.quotientAndRemainder(dividingBy: divisor)
-        let fullRemainder = String(remainder)
-        let fullPaddedRemainder = fullRemainder.leftPadding(toLength: unitDecimals, withPad: "0")
-        let remainderPadded = fullPaddedRemainder[0 ..< toDecimals]
-        if remainderPadded == String(repeating: "0", count: toDecimals) {
-            if quotient != 0 {
-                return String(quotient)
-            } else if fallbackToScientific {
-                var firstDigit = 0
-                for char in fullPaddedRemainder {
-                    if char == "0" {
-                        firstDigit = firstDigit + 1
-                    } else {
-                        firstDigit = firstDigit + 1
-                        break
-                    }
-                }
-                return fullRemainder + "e-" + String(firstDigit)
-            }
-        }
-        if toDecimals == 0 {
-            return String(quotient)
-        }
-        return String(quotient) + decimalSeparator + remainderPadded
+    @available(*,deprecated: 2.0,message: "Use number.string(numberDecimals:formattingDecimals:decimalSeparator:fallbackToScientific")
+    public static func formatToPrecision(_ bigNumber: BigUInt, numberDecimals: Int = 18, formattingDecimals: Int = 4, decimalSeparator: String = ".", fallbackToScientific: Bool = false) -> String {
+        return bigNumber.string(numberDecimals: numberDecimals, formattingDecimals: formattingDecimals, decimalSeparator: decimalSeparator, fallbackToScientific: fallbackToScientific)
     }
 
     /// Recover the Ethereum address from recoverable secp256k1 signature. Message is first hashed using the "personal hash" protocol.

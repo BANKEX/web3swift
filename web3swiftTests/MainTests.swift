@@ -83,7 +83,7 @@ class Tests: XCTestCase {
     }
 
     func testMakePrivateKey() {
-        let privateKey = SECP256K1.generatePrivateKey()
+        let privateKey = Data.random(length: 32)
         let publicKey = try? SECP256K1.privateToPublic(privateKey: privateKey)
         XCTAssert(publicKey != nil, "Failed to create new private key")
     }
