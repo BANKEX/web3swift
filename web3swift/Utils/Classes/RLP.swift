@@ -283,17 +283,17 @@ struct RLP {
             let prefixByte = input[0]
             if prefixByte <= 0x7f {
                 return (BigUInt(0), BigUInt(1), .data)
-            }else if prefixByte <= 0xb7 && length > BigUInt(prefixByte - 0x80) {
+            } else if (0x80...0xb7).contains(prefixByte) && length > BigUInt(prefixByte - 0x80) {
                 let dataLength = BigUInt(prefixByte - 0x80)
                 return (BigUInt(1), dataLength, .data)
-            } else if try prefixByte <= 0xbf && length > BigUInt(prefixByte - 0xb7) && length >  BigUInt(prefixByte - 0xb7) + toBigUInt(slice(data: input, offset: BigUInt(1), length: BigUInt(prefixByte - 0xb7))) {
+            } else if try (0xb7...0xbf).contains(prefixByte) && length > BigUInt(prefixByte - 0xb7) && length >  BigUInt(prefixByte - 0xb7) + toBigUInt(slice(data: input, offset: BigUInt(1), length: BigUInt(prefixByte - 0xb7))) {
                 let lengthOfLength = BigUInt(prefixByte - 0xb7)
                 let dataLength = try toBigUInt(slice(data: input, offset: BigUInt(1), length: BigUInt(prefixByte - 0xb7)))
                 return (1 + lengthOfLength, dataLength, .data)
-            } else if prefixByte <= 0xf7 && length > BigUInt(prefixByte - 0xc0) {
+            } else if (0xc0...0xf7).contains(prefixByte) && length > BigUInt(prefixByte - 0xc0) {
                 let listLen = BigUInt(prefixByte - 0xc0)
                 return (1, listLen, .list)
-            } else if try prefixByte <= 0xff && length > BigUInt(prefixByte - 0xf7) && length > BigUInt(prefixByte - 0xf7) + toBigUInt(slice(data: input, offset: BigUInt(1), length: BigUInt(prefixByte - 0xf7))) {
+            } else if try prefixByte >= 0xf7 && length > BigUInt(prefixByte - 0xf7) && length > BigUInt(prefixByte - 0xf7) + toBigUInt(slice(data: input, offset: BigUInt(1), length: BigUInt(prefixByte - 0xf7))) {
                 let lengthOfListLength = BigUInt(prefixByte - 0xf7)
                 let listLength = try toBigUInt(slice(data: input, offset: BigUInt(1), length: BigUInt(prefixByte - 0xf7)))
                 return (1 + lengthOfListLength, listLength, .list)
