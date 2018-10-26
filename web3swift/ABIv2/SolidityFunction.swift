@@ -12,9 +12,15 @@ import PromiseKit
 
 public protocol SolidityDataRepresentable {
     var solidityData: Data { get }
+    var isSolidityBinaryType: Bool { get }
 }
+public extension SolidityDataRepresentable {
+    var isSolidityBinaryType: Bool { return false }
+}
+
 extension BinaryInteger {
     public var solidityData: Data { return BigInt(self).abiEncode(bits: 256) }
+    
 }
 extension Int: SolidityDataRepresentable {}
 extension Int8: SolidityDataRepresentable {}
@@ -33,13 +39,47 @@ extension EthereumAddress: SolidityDataRepresentable {
 }
 extension Data: SolidityDataRepresentable {
     public var solidityData: Data { return self }
+    public var isSolidityBinaryType: Bool { return true }
 }
 extension String: SolidityDataRepresentable {
     public var solidityData: Data { return data }
+    public var isSolidityBinaryType: Bool { return true }
 }
-extension Array where Element == SolidityDataRepresentable {
+extension Array: SolidityDataRepresentable where Element == SolidityDataRepresentable {
+    public var solidityData: Data {
+        var data = Data(capacity: 32 * count)
+        for element in self {
+            data.append(element.solidityData)
+        }
+        return data
+    }
+    
+//    func dynamicSolidityData() -> Data {
+//        var data = Data(capacity: 32 * (count+1))
+//        data.append(count.solidityData)
+//        for element in self {
+//            data.append(element.solidityData)
+//        }
+//        return data
+//    }
+//    func staticSolidityData(count: Int) -> Data {
+//        let capacity = 32 * count
+//        var data = Data(capacity: capacity)
+//        for element in self {
+//            data.append(element.solidityData)
+//        }
+//        if data.count < capacity {
+//            data.append(Data(count: capacity - data.count))
+//        }
+//        return data
+//    }
     func data(function: String) -> Data {
-        return reduce(into: function.keccak256()[0..<4], { $0.append($1.solidityData) })
+        var data = Data(capacity: count * 32 + 4)
+        data.append(function.keccak256()[0..<4])
+        for element in self {
+            data.append(element.solidityData)
+        }
+        return data
     }
 }
 
@@ -47,9 +87,8 @@ extension EthereumAddress {
     public func assemble(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "pending") -> Promise<EthereumTransaction> {
         let options = web3.options.merge(with: options)
         
-        let data = arguments.compactMap { value in
-            return value as? SolidityDataRepresentable
-            }.data(function: function)
+        let function = try! SolidityFunction(function: function)
+        let data = function.encode(arguments as! [SolidityDataRepresentable])
         var assembledTransaction = EthereumTransaction(to: self, data: data, options: options)
         let queue = web3.requestDispatcher.queue
         let returnPromise = Promise<EthereumTransaction> { seal in
@@ -106,7 +145,8 @@ extension EthereumAddress {
     }
     public func call(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<Web3DataResponse> {
         let options = web3.options.merge(with: options)
-        let data = arguments.compactMap { $0 as? SolidityDataRepresentable }.data(function: function)
+        let function = try! SolidityFunction(function: function)
+        let data = function.encode(arguments as! [SolidityDataRepresentable])
         let assembledTransaction = EthereumTransaction(to: self, data: data, options: options)
         let queue = web3.requestDispatcher.queue
         return Promise<Web3DataResponse> { seal in
@@ -125,7 +165,8 @@ extension EthereumAddress {
     }
     public func estimateGas(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
         let options = web3.options.merge(with: options)
-        let data = arguments.compactMap { $0 as? SolidityDataRepresentable }.data(function: function)
+        let function = try! SolidityFunction(function: function)
+        let data = function.encode(arguments as! [SolidityDataRepresentable])
         let assembledTransaction = EthereumTransaction(to: self, data: data, options: options)
         let queue = web3.requestDispatcher.queue
         return Promise<BigUInt> { seal in
@@ -139,76 +180,3 @@ extension EthereumAddress {
         }
     }
 }
-
-//public class UnsafeSolidityFunction {
-//    public let name: String
-//    public init(_ name: String) {
-//        self.name = name
-//    }
-//    public var hash: Data {
-//        return name.data.sha3(.keccak256)[0..<4]
-//    }
-//    public func data(with arguments: [SolidityDataRepresentable]) -> Data {
-//        return arguments.reduce(into: hash, { $0.append($1.solidityData) })
-//    }
-//    public func data(with arguments: SolidityDataRepresentable...) -> Data {
-//        return data(with: arguments)
-//    }
-//}
-
-//protocol SolidityConvertable {
-//    func write(type: SolidityType) throws
-//}
-//enum SolidityType {
-//    case address
-//    case 
-//}
-
-//extension String {
-//    var solidityType: String {
-//        switch self {
-//        case "uint":
-//            return "uint256"
-//        case "int":
-//            return "int256"
-//        default:
-//            return self
-//        }
-//    }
-//}
-//
-
-//class SafeSolidityFunction: CustomStringConvertible {
-//    enum Error: Swift.Error {
-//        case corrupted
-//        case emptyFunctionName
-//    }
-//    let name: String
-//    let arguments: [String]
-//    init(function: String) throws {
-//        var function = function.trimmingCharacters(in: .whitespacesAndNewlines)
-//        guard let index = function.index(of: "(") else { throw Error.corrupted }
-//        name = function[..<index].trimmingCharacters(in: .whitespacesAndNewlines)
-//        guard name.count > 0 else { throw Error.emptyFunctionName }
-//        guard function.hasSuffix(")") else { throw Error.corrupted }
-//        function.removeLast()
-//        let arguments = function[function.index(after: index)...]
-//        self.arguments = arguments.split(separator: ",").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-//    }
-//    var description: String {
-//        return "\(name)(\(arguments.joined(separator: ",")))"
-//    }
-//}
-
-/*
- converts:
- "balanceOf(address)"
- "transfer(address,address,uint256)"
- "transfer(address, address, uint256)"
- "transfer(address, address, uint256)"
- "transfer (address, address, uint)"
- "  transfer  (  address  ,  address  ,  uint256  )  "
- to
- .name: String
- .arguments: [String]
- */

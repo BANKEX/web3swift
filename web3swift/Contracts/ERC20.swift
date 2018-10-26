@@ -38,6 +38,7 @@ public class ERC20 {
     }
     
     public func allowance(from owner: EthereumAddress, to spender: EthereumTransaction) throws -> BigUInt {
+        
         return try address.call("allowance(address,address)", owner, spender, options: options).wait().uint256()
     }
     

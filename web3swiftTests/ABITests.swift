@@ -40,6 +40,7 @@ class ABITests: XCTestCase {
                 try record.parse()
             })
             print(abiNative)
+        
             XCTAssert(true, "Failed to parse ABI")
     }
 

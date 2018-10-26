@@ -59,7 +59,33 @@ public extension Data {
         assert(result == errSecSuccess, "SecRandomCopyBytes crashed")
         return data
     }
-
+    
+    var hex: String {
+        var string = ""
+        withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
+            for i in 0..<count {
+                string += bytes[i].hex
+            }
+        }
+        return string
+    }
+    func hex(separateEvery: Int, separator: String = " ") -> String {
+        var string = ""
+        string.reserveCapacity(count*2+count/separateEvery*separator.count)
+        var separateCount = separateEvery
+        withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
+            for i in 0..<count {
+                string += bytes[i].hex
+                separateCount -= 1
+                if separateCount == 0 {
+                    separateCount = separateEvery
+                    string += separator
+                }
+            }
+        }
+        return string
+    }
+    
     public static func fromHex(_ hex: String) -> Data? {
         let string = hex.lowercased().withoutHex
         let array = Array<UInt8>(hex: string)
@@ -85,5 +111,15 @@ public extension Data {
         uintRepresentation = uintRepresentation << (startingBit % 8)
         uintRepresentation = uintRepresentation >> UInt64(64 - length)
         return uintRepresentation
+    }
+}
+
+extension UInt8 {
+    public var hex: String {
+        if self < 0x10 {
+            return "0" + String(self, radix: 16)
+        } else {
+            return String(self, radix: 16)
+        }
     }
 }

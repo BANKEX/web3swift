@@ -291,7 +291,7 @@ struct RLP {
             } else if prefixByte <= 0xF7 && length > BigUInt(prefixByte - 0xC0) {
                 let listLen = BigUInt(prefixByte - 0xC0)
                 return (1, listLen, .list)
-            } else if try prefixByte <= 0xFF && length > BigUInt(prefixByte - 0xF7) && length > BigUInt(prefixByte - 0xF7) + toBigUInt(slice(data: input, offset: BigUInt(1), length: BigUInt(prefixByte - 0xF7))) {
+            } else if try prefixByte >= 0xF7 && length > BigUInt(prefixByte - 0xF7) && length > BigUInt(prefixByte - 0xF7) + toBigUInt(slice(data: input, offset: BigUInt(1), length: BigUInt(prefixByte - 0xF7))) {
                 let lengthOfListLength = BigUInt(prefixByte - 0xF7)
                 let listLength = try toBigUInt(slice(data: input, offset: BigUInt(1), length: BigUInt(prefixByte - 0xF7)))
                 return (1 + lengthOfListLength, listLength, .list)
