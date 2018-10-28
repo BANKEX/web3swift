@@ -30,7 +30,6 @@
 		107BB8E62184E6A985D726DC62002D2A /* secp256k1_recovery.h in Headers */ = {isa = PBXBuildFile; fileRef = 312440F25FBB44F0BCEB98AD3DFA97EF /* secp256k1_recovery.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1081218CB62BBB41C2CC7621A9C5B515 /* lax_der_parsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BCFEB8E5C2EB26B2F4CE3A13826B593 /* lax_der_parsing.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		10CCE2DD62BAC7D2AFD81456D4C64BC6 /* lax_der_parsing.c in Sources */ = {isa = PBXBuildFile; fileRef = E2CA69EBCA01EF97AED5F7DEACD119A3 /* lax_der_parsing.c */; };
-		117462C167BE8AA199FE315717E148F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A9882D7606624DB09D137DA346B890 /* Foundation.framework */; };
 		12E2DAFAC17884DCE53F2E133A13DC56 /* when.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F323E5FE2BDD9E0F451BAA62D1C259 /* when.swift */; };
 		133747794F37E3A739F51CB04EAEC784 /* UInt16+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A7000185A26F66B929BCCC9B97F6AB /* UInt16+Extension.swift */; };
 		13F1754C822AFFFDEE8441743F83F26E /* join.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5DFF96351191FA612C60D8D79F8CDB /* join.m */; };
@@ -290,6 +289,7 @@
 		B6DFA7E8DA13AD3CBC14DC731DDBCC1D /* basic-config.h in Headers */ = {isa = PBXBuildFile; fileRef = 532BBDA8600E73430458F8A9B1EE6DA6 /* basic-config.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B727F3BF1CFD7A3F799CBF4B4CBC1079 /* after.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EA791757D1A5D699087734EBFAE36E /* after.m */; };
 		B7C9D9C5BEFFF6A3C1C82EAFFD627B03 /* secp256k1-config.h in Headers */ = {isa = PBXBuildFile; fileRef = DFC427EEDD977C8554600C0653938484 /* secp256k1-config.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		B80EEC592C8BD44D26C12ED1FA3CC211 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9141557151A6042910B007BFD2C08337 /* Foundation.framework */; };
 		BB8C2BC141C2C36041A875325C7C7EAB /* scalar_4x64_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 8667F3DFE2CC159C91F9328C24381EBD /* scalar_4x64_impl.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		BBA09722E5E1F51D78880DBE038BCD3F /* ecmult_const_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D229B46ECFAB35FC8CD3890E9861912 /* ecmult_const_impl.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		BCC38AC9861A565A8A1CA479D8497D5A /* CustomStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1B2B151A6E8C82F7C915622AD000D6 /* CustomStringConvertible.swift */; };
@@ -300,6 +300,7 @@
 		BF3BE25F1C62851A95EF0421AA39D523 /* ecmult_const.h in Headers */ = {isa = PBXBuildFile; fileRef = B8428816BCD795B6F021F5C6863813B6 /* ecmult_const.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		BF9C1C12AD3560167B0800059B4A6D6E /* Poly1305.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFC508F95E9544588146E62A6204E83 /* Poly1305.swift */; };
 		C0101FD19738FB97383D1C0CF5EEBF77 /* String Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E54E3DD969DD62E318CDB3E59C77070 /* String Conversion.swift */; };
+		C0BF9F181E7298B66EF38FD1AC61BB22 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A5C7F3160C1A282D95FFBC31C59404D /* UIKit.framework */; };
 		C0F8B164DDA6157937A300C207D56E4E /* Subtraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA3A1B23D78BBF00343837EF49EEC7A /* Subtraction.swift */; };
 		C0FD6275035C522C4E924D63141D5576 /* secp256k1-config.h in Headers */ = {isa = PBXBuildFile; fileRef = DFC427EEDD977C8554600C0653938484 /* secp256k1-config.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		C1693DEA3241820346B6392F419BE86A /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68653139550C9F09443A6CCEA7C5CFE5 /* PKCS7.swift */; };
@@ -307,7 +308,6 @@
 		C29F35ADAD199A2FDED28CF5FBC74C6C /* num_gmp_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E1B6C951FC4B9CCDBBA17CF2D7E51F6 /* num_gmp_impl.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		C2B6A9CAC80650090C1B440C488460D1 /* PromiseKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E85C3FE9DE4901B9D283F79A3FC3F3F /* PromiseKit-dummy.m */; };
 		C420F74F411178FB20F79B022567A36F /* Checksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DDA13291A2F2DB80CC4525D766F750 /* Checksum.swift */; };
-		C442EA83DE5C1C6268EF0EDB2C7E00DA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D7D0776B9B3FF06601DD39FA599C90 /* UIKit.framework */; };
 		C45AB3CBDC8E80549A5258F1EF33B5E4 /* UInt128.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFE773245D44DAE889147B3C6EC13C /* UInt128.swift */; };
 		C4D7369A6EE4185C3499B0C7F6D4AF54 /* Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781A28AD49099547063DFBE9170ADC8A /* Cipher.swift */; };
 		C51E2C43F8BCFE934B54B38049715CD7 /* scalar_8x32.h in Headers */ = {isa = PBXBuildFile; fileRef = 359F214E239DBDD291B43711BD83F395 /* scalar_8x32.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -315,7 +315,6 @@
 		C55D7F3112EA0AE1C16D64D5D93FB8E2 /* BlockEncryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DC4E949BD5522AD611C64A2A71B111 /* BlockEncryptor.swift */; };
 		C5C8E105D6B79B679C2C88E2615EAC66 /* UInt32+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B13D85227DFC6E9EA6CA4B67369AC1 /* UInt32+Extension.swift */; };
 		C688460AE5CFB900C73C8529B0F18494 /* field_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = EFBABD6A27565FFE7DA31D937FCBB19D /* field_impl.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		C69AD9FC89BB41CF1F93C05DD548BC10 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75E5EE20B9BFFFDFC7AC813752336250 /* Foundation.framework */; };
 		C82FC634CDBEDE3B237D836D99F6C75A /* NSURLSession+AnyPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = D4A690B02EC047AD93A9E7A5EC7F9BA8 /* NSURLSession+AnyPromise.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		C8CE38B6AAC93DD2E592B51DB53FD9BA /* race.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FE6E5A27CC110FEA1EC6F0B03B7AD3 /* race.swift */; };
 		C99D577A092BAC38F187293F675BBE40 /* scalar_low.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A4227D228DC3BEBAF95766B33561F72 /* scalar_low.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -411,6 +410,7 @@
 		F9697E5E03294F84CDF66EBBDB3FC67E /* CryptoSwift-macOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A0CB8FC8222FE6888742EBBBFD48DFA /* CryptoSwift-macOS-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		FA9AEF2C8D8495DFBB7D202A04CD4C7B /* BlockEncryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DC4E949BD5522AD611C64A2A71B111 /* BlockEncryptor.swift */; };
 		FB15EFD9B279E96538754752538F6F2D /* Blowfish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346E2AEDB52FB1152831AA7D12FDE445 /* Blowfish.swift */; };
+		FB3B8083F636DC3A45D8BB593C7C0865 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72220B6001A2BD888AB52C2A47D550E8 /* Foundation.framework */; };
 		FBA0C0B9F810F412F1B19B633DF77D78 /* BigInt-macOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AC1524F9D5A07176AA576ACE3BF3E41B /* BigInt-macOS-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		FCB1CB10C7B53391A7DB1DA480B7ADFA /* PromiseKit.root-CorePromise-Foundation-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F6EB61CBCC0A58EA75E94BD9A79353CC /* PromiseKit.root-CorePromise-Foundation-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		FCED3203930B97862A1738354CD3B535 /* main_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = DC4D80E91DDB0F742C8B3E05ACB1D1D9 /* main_impl.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -600,6 +600,7 @@
 		09BE5D550575030D17509AA9EC8B3433 /* BigUInt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BigUInt.swift; path = sources/BigUInt.swift; sourceTree = "<group>"; };
 		09E6F0E17B524D5203BB82F0927DED7C /* Pods-web3swift-iOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-web3swift-iOS-acknowledgements.markdown"; sourceTree = "<group>"; };
 		09E9309B251F79376B867D7A115BD419 /* libSipHash-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libSipHash-macOS.a"; path = "libSipHash-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A5C7F3160C1A282D95FFBC31C59404D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		0B3A8A1265A6932800FDF40A5E65FEC7 /* Pods-web3swift-macOS_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-web3swift-macOS_Tests-dummy.m"; sourceTree = "<group>"; };
 		0D3BC92FAB99097DBF5F079EF837E1C5 /* ecdsa.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecdsa.h; path = secp256k1/Classes/secp256k1/src/ecdsa.h; sourceTree = "<group>"; };
 		0DB9D9BFF31E6E60A9AC74F2C521AF60 /* secp256k1.c */ = {isa = PBXFileReference; includeInIndex = 1; name = secp256k1.c; path = secp256k1/Classes/secp256k1/src/secp256k1.c; sourceTree = "<group>"; };
@@ -724,9 +725,9 @@
 		6F2B7B7A6A9A29F169D7DFF67B89BEB5 /* Deprecations.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Deprecations.swift; path = Sources/Deprecations.swift; sourceTree = "<group>"; };
 		70B9902FDD957B9A0A1ED98D50A46A99 /* Padding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Padding.swift; path = Sources/CryptoSwift/Padding.swift; sourceTree = "<group>"; };
 		7209133ACAB41627461CCA389DB8B71B /* libPods-web3swift-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-web3swift-iOS.a"; path = "libPods-web3swift-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		72220B6001A2BD888AB52C2A47D550E8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		74BB15748CDEEDED2F255DAF2A78DB0E /* PBKDF1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PBKDF1.swift; path = Sources/CryptoSwift/PKCS/PBKDF1.swift; sourceTree = "<group>"; };
 		759817BE9E7181E6935AD53DFEE03296 /* Division.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Division.swift; path = sources/Division.swift; sourceTree = "<group>"; };
-		75E5EE20B9BFFFDFC7AC813752336250 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		764FA1D9C81ABC1BD579E09E492B8C1C /* secp256k1_main.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secp256k1_main.h; path = secp256k1/Classes/secp256k1_main.h; sourceTree = "<group>"; };
 		781A28AD49099547063DFBE9170ADC8A /* Cipher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Cipher.swift; path = Sources/CryptoSwift/Cipher.swift; sourceTree = "<group>"; };
 		78D0F676D09223D5C9A3484D0E2D183D /* libSipHash-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libSipHash-iOS.a"; path = "libSipHash-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -758,6 +759,7 @@
 		907D7F602962FAD84FD9F497B44539AD /* field_5x52_int128_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = field_5x52_int128_impl.h; path = secp256k1/Classes/secp256k1/src/field_5x52_int128_impl.h; sourceTree = "<group>"; };
 		9087FAEC340EE5F171C344A5BCFA5E20 /* field_5x52_asm_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = field_5x52_asm_impl.h; path = secp256k1/Classes/secp256k1/src/field_5x52_asm_impl.h; sourceTree = "<group>"; };
 		908A6EB35AAA10251F51E3D138F244ED /* secp256k1.swift-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "secp256k1.swift-iOS-umbrella.h"; path = "../../Headers/Public/secp256k1/secp256k1.swift-iOS-umbrella.h"; sourceTree = "<group>"; };
+		9141557151A6042910B007BFD2C08337 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		918C33A1897B47FFC362E6D7182F70F2 /* CryptoSwift-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CryptoSwift-iOS-umbrella.h"; path = "../../Headers/Public/CryptoSwift/CryptoSwift-iOS-umbrella.h"; sourceTree = "<group>"; };
 		91AEB621A8887EA12FFB79CDB98F78DC /* PCBC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PCBC.swift; path = Sources/CryptoSwift/BlockMode/PCBC.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -774,7 +776,6 @@
 		9D753EC42B01ACFAB8B6CA72A8A27C78 /* SHA1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SHA1.swift; path = Sources/CryptoSwift/SHA1.swift; sourceTree = "<group>"; };
 		9E4BAEEA73C3281D49D4F0ECD6695248 /* secp256k1.swift-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "secp256k1.swift-iOS-prefix.pch"; sourceTree = "<group>"; };
 		A185C27EDF3F4103E9E95C2300C88565 /* field_10x26.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = field_10x26.h; path = secp256k1/Classes/secp256k1/src/field_10x26.h; sourceTree = "<group>"; };
-		A2A9882D7606624DB09D137DA346B890 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		A34C054527EBDF82EB2597D163FF9C6C /* Catchable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Catchable.swift; path = Sources/Catchable.swift; sourceTree = "<group>"; };
 		A3BEC9DCB13AEEC695277E5B2F0EA2DB /* ZeroPadding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZeroPadding.swift; path = Sources/CryptoSwift/ZeroPadding.swift; sourceTree = "<group>"; };
 		A4255BCCB53F4BB2D2175A21F53F6DEB /* firstly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = firstly.swift; path = Sources/firstly.swift; sourceTree = "<group>"; };
@@ -868,7 +869,6 @@
 		EFBABD6A27565FFE7DA31D937FCBB19D /* field_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = field_impl.h; path = secp256k1/Classes/secp256k1/src/field_impl.h; sourceTree = "<group>"; };
 		F263E9F1BEDD5D5AA23229B8AFB7F71F /* secp256k1.swift-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "secp256k1.swift-macOS-umbrella.h"; path = "../../Headers/Public/secp256k1/secp256k1.swift-macOS-umbrella.h"; sourceTree = "<group>"; };
 		F3D33D5E9C77404EE2EC106E57024E66 /* Guarantee.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Guarantee.swift; path = Sources/Guarantee.swift; sourceTree = "<group>"; };
-		F3D7D0776B9B3FF06601DD39FA599C90 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		F4C34DD631573EE6E039B2E9E1A9784D /* Exponentiation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Exponentiation.swift; path = sources/Exponentiation.swift; sourceTree = "<group>"; };
 		F4FF7265B9233A8026669E40430ABF89 /* AES.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AES.swift; path = Sources/CryptoSwift/AES.swift; sourceTree = "<group>"; };
 		F5E42498C78ACADD6AA83DAA782CD673 /* Digest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Digest.swift; path = Sources/CryptoSwift/Digest.swift; sourceTree = "<group>"; };
@@ -893,7 +893,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				117462C167BE8AA199FE315717E148F7 /* Foundation.framework in Frameworks */,
+				B80EEC592C8BD44D26C12ED1FA3CC211 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -922,8 +922,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C69AD9FC89BB41CF1F93C05DD548BC10 /* Foundation.framework in Frameworks */,
-				C442EA83DE5C1C6268EF0EDB2C7E00DA /* UIKit.framework in Frameworks */,
+				FB3B8083F636DC3A45D8BB593C7C0865 /* Foundation.framework in Frameworks */,
+				C0BF9F181E7298B66EF38FD1AC61BB22 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1103,6 +1103,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2C7F6DCC691B3F7BE3BAD651EA1797D4 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				72220B6001A2BD888AB52C2A47D550E8 /* Foundation.framework */,
+				0A5C7F3160C1A282D95FFBC31C59404D /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
 		3D8652ADC75AB2C3BA00E4B428B43586 /* SipHash */ = {
 			isa = PBXGroup;
 			children = (
@@ -1132,6 +1141,14 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/SipHash-iOS";
+			sourceTree = "<group>";
+		};
+		5404095ADA34F55D5FBAC826D65B1DA0 /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				9141557151A6042910B007BFD2C08337 /* Foundation.framework */,
+			);
+			name = "OS X";
 			sourceTree = "<group>";
 		};
 		7242BDFE4EC925876A40027F19A698B6 /* Targets Support Files */ = {
@@ -1286,15 +1303,6 @@
 			path = CryptoSwift;
 			sourceTree = "<group>";
 		};
-		90ABF97ADF207E0260CC66367A9305C5 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				75E5EE20B9BFFFDFC7AC813752336250 /* Foundation.framework */,
-				F3D7D0776B9B3FF06601DD39FA599C90 /* UIKit.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
 		962C5AF3201D3A4096ADB7CA8C834554 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1332,19 +1340,11 @@
 			path = "../Target Support Files/PromiseKit";
 			sourceTree = "<group>";
 		};
-		B3718E35C7244DB8874A0494263C8E6C /* OS X */ = {
-			isa = PBXGroup;
-			children = (
-				A2A9882D7606624DB09D137DA346B890 /* Foundation.framework */,
-			);
-			name = "OS X";
-			sourceTree = "<group>";
-		};
 		BFEF163CB0C80F5BE6FDC6A6BD227D67 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				90ABF97ADF207E0260CC66367A9305C5 /* iOS */,
-				B3718E35C7244DB8874A0494263C8E6C /* OS X */,
+				2C7F6DCC691B3F7BE3BAD651EA1797D4 /* iOS */,
+				5404095ADA34F55D5FBAC826D65B1DA0 /* OS X */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2790,34 +2790,35 @@
 			};
 			name = Release;
 		};
-		143B15F1EFB505A6A00C997B7CAFB680 /* Debug */ = {
+		0902B98C3C916108C745F45E9A520460 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3C18FE09DB747D4F64CDC4EBF07A6AF0 /* Pods-web3swift-macOS.debug.xcconfig */;
+			baseConfigurationReference = 33962D01D919CC86C37D56B4A70BF5CF /* CryptoSwift-iOS.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				EXECUTABLE_PREFIX = lib;
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MODULEMAP_FILE = "Target Support Files/Pods-web3swift-macOS/Pods-web3swift-macOS.modulemap";
+				GCC_PREFIX_HEADER = "Target Support Files/CryptoSwift-iOS/CryptoSwift-iOS-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MODULEMAP_FILE = "Headers/Public/CryptoSwift/CryptoSwift-iOS.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = macosx;
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = CryptoSwift;
+				PRODUCT_NAME = "CryptoSwift-iOS";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
-			name = Debug;
+			name = Release;
 		};
-		16416428CF498F325BBAA830C1754761 /* Release */ = {
+		0A2CCA140A2C258126D48B92C2645854 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6D76E01714111860B1A58E945BFEDC3A /* Pods-web3swift-iOS.release.xcconfig */;
+			baseConfigurationReference = B12A75E0FD8B52123CBAE9EEB4A42F3B /* Pods-web3swift-iOS_Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2826,21 +2827,44 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-web3swift-iOS/Pods-web3swift-iOS.modulemap";
+				MODULEMAP_FILE = "Target Support Files/Pods-web3swift-iOS_Tests/Pods-web3swift-iOS_Tests.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		230216165473EA6FF8AF6395195C1C28 /* Release */ = {
+		0AB6336F39652684C80C43AD2F11B44D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 81341A4EA27C2006BFB70C1FE64F979A /* PromiseKit.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/PromiseKit/PromiseKit-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MODULEMAP_FILE = Headers/Public/PromiseKit/PromiseKit.modulemap;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = PromiseKit;
+				PRODUCT_NAME = PromiseKit;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0D40868D0462DB78E4EF8181E2E22B25 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA4E29CF9F90968E182A66003DD24CF5 /* PromiseKit.root-CorePromise-Foundation.xcconfig */;
 			buildSettings = {
@@ -2862,121 +2886,11 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 4.2;
-			};
-			name = Release;
-		};
-		3553CDD6493DFEA34F4C6021140F41C8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F89A3CAEEBCB60B36E53C4C29E683786 /* SipHash-iOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/SipHash-iOS/SipHash-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MODULEMAP_FILE = "Headers/Public/SipHash/SipHash-iOS.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = SipHash;
-				PRODUCT_NAME = "SipHash-iOS";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		35FE90C4321FAFFDC78AB8AAA38B1ABA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B4B4227E998F9708067F5826AFA59A9 /* CryptoSwift-macOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "Target Support Files/CryptoSwift-macOS/CryptoSwift-macOS-prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				MODULEMAP_FILE = "Headers/Public/CryptoSwift/CryptoSwift-macOS.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = CryptoSwift;
-				PRODUCT_NAME = "CryptoSwift-macOS";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
-		3C82BE886085424D51EE9862BC47C246 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F89A3CAEEBCB60B36E53C4C29E683786 /* SipHash-iOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/SipHash-iOS/SipHash-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MODULEMAP_FILE = "Headers/Public/SipHash/SipHash-iOS.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = SipHash;
-				PRODUCT_NAME = "SipHash-iOS";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		40D3A4BA9BA6FDE6281B701347C9FA05 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 81341A4EA27C2006BFB70C1FE64F979A /* PromiseKit.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/PromiseKit/PromiseKit-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MODULEMAP_FILE = Headers/Public/PromiseKit/PromiseKit.modulemap;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = PromiseKit;
-				PRODUCT_NAME = PromiseKit;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		40FAF256E2552C1297E21C3CE7143137 /* Debug */ = {
+		14A98C33954162D778F614C69A818B77 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CFF935D0FA27DF791E8FDBB6D5D68CB2 /* Pods-web3swift-macOS_Tests.debug.xcconfig */;
 			buildSettings = {
@@ -2996,39 +2910,60 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		47384531706EF84966CA26E5D7B959C7 /* Release */ = {
+		177CEE05472969D8C7F5A55D2B58AB24 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B4B4227E998F9708067F5826AFA59A9 /* CryptoSwift-macOS.xcconfig */;
+			baseConfigurationReference = F89A3CAEEBCB60B36E53C4C29E683786 /* SipHash-iOS.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "Target Support Files/CryptoSwift-macOS/CryptoSwift-macOS-prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				MODULEMAP_FILE = "Headers/Public/CryptoSwift/CryptoSwift-macOS.modulemap";
+				GCC_PREFIX_HEADER = "Target Support Files/SipHash-iOS/SipHash-iOS-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MODULEMAP_FILE = "Headers/Public/SipHash/SipHash-iOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = SipHash;
+				PRODUCT_NAME = "SipHash-iOS";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		21AAE967C2221C4CAECE3D6A43ECA427 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 33962D01D919CC86C37D56B4A70BF5CF /* CryptoSwift-iOS.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/CryptoSwift-iOS/CryptoSwift-iOS-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MODULEMAP_FILE = "Headers/Public/CryptoSwift/CryptoSwift-iOS.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
 				PRODUCT_MODULE_NAME = CryptoSwift;
-				PRODUCT_NAME = "CryptoSwift-macOS";
+				PRODUCT_NAME = "CryptoSwift-iOS";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = Release;
+			name = Debug;
 		};
-		52AE0D053B55E91A69EBAB2E3EE85F50 /* Debug */ = {
+		2FE0E4C1C8BB193D81280D1959EDFA07 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CF6C79F120D09E56E9B6FBEF5A84E44F /* SipHash-macOS.xcconfig */;
 			buildSettings = {
@@ -3049,40 +2984,62 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 			};
-			name = Debug;
+			name = Release;
 		};
-		54ED05165ED3D3A5891AA813D6A95B43 /* Release */ = {
+		3085431705F1057839B3C35014B0644B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 44D13A91A685B75E6468BF0DD149DFC7 /* BigInt-iOS.xcconfig */;
+			baseConfigurationReference = B696116796A8A4DB1C7ADC88E35FD570 /* BigInt-macOS.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "Target Support Files/BigInt-macOS/BigInt-macOS-prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MODULEMAP_FILE = "Headers/Public/BigInt/BigInt-macOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = BigInt;
+				PRODUCT_NAME = "BigInt-macOS";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+		400AC42BAFACBCF29F4C49914AE61492 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F89A3CAEEBCB60B36E53C4C29E683786 /* SipHash-iOS.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/BigInt-iOS/BigInt-iOS-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/SipHash-iOS/SipHash-iOS-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MODULEMAP_FILE = "Headers/Public/BigInt/BigInt-iOS.modulemap";
+				MODULEMAP_FILE = "Headers/Public/SipHash/SipHash-iOS.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = BigInt;
-				PRODUCT_NAME = "BigInt-iOS";
+				PRODUCT_MODULE_NAME = SipHash;
+				PRODUCT_NAME = "SipHash-iOS";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		5FCBD0A9F6FEC43961BDF6211D4F283C /* Debug */ = {
+		410940BCADE683311D0516B99A5AB80D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3143,110 +3100,87 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
-		6532888DD4B4FA3AB86C68A86E46EA3F /* Debug */ = {
+		45388ED03B6D99D855DC570FA9D451F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33962D01D919CC86C37D56B4A70BF5CF /* CryptoSwift-iOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/CryptoSwift-iOS/CryptoSwift-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MODULEMAP_FILE = "Headers/Public/CryptoSwift/CryptoSwift-iOS.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = CryptoSwift;
-				PRODUCT_NAME = "CryptoSwift-iOS";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		75043C8F40164C98B31D82E931DDF45C /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B12A75E0FD8B52123CBAE9EEB4A42F3B /* Pods-web3swift-iOS_Tests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-web3swift-iOS_Tests/Pods-web3swift-iOS_Tests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		763172B6124DE387BE9650DD14E1BE82 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 549BC77FB563C5F7078EEF621568360D /* Pods-web3swift-iOS.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-web3swift-iOS/Pods-web3swift-iOS.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		7B61B812F61A884768B1B880A1FC3F07 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B696116796A8A4DB1C7ADC88E35FD570 /* BigInt-macOS.xcconfig */;
+			baseConfigurationReference = CF6C79F120D09E56E9B6FBEF5A84E44F /* SipHash-macOS.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "Target Support Files/BigInt-macOS/BigInt-macOS-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/SipHash-macOS/SipHash-macOS-prefix.pch";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				MODULEMAP_FILE = "Headers/Public/BigInt/BigInt-macOS.modulemap";
+				MODULEMAP_FILE = "Headers/Public/SipHash/SipHash-macOS.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = BigInt;
-				PRODUCT_NAME = "BigInt-macOS";
+				PRODUCT_MODULE_NAME = SipHash;
+				PRODUCT_NAME = "SipHash-macOS";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
+		};
+		5E58219303AF58D5281BFD2F2B3693FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B4B4227E998F9708067F5826AFA59A9 /* CryptoSwift-macOS.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "Target Support Files/CryptoSwift-macOS/CryptoSwift-macOS-prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MODULEMAP_FILE = "Headers/Public/CryptoSwift/CryptoSwift-macOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = CryptoSwift;
+				PRODUCT_NAME = "CryptoSwift-macOS";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		68D9B835EBFAA5E74CF32340B6FE73F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 81341A4EA27C2006BFB70C1FE64F979A /* PromiseKit.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/PromiseKit/PromiseKit-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MODULEMAP_FILE = Headers/Public/PromiseKit/PromiseKit.modulemap;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = PromiseKit;
+				PRODUCT_NAME = PromiseKit;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
 		};
 		7DF56F036652FDF92825777F74898BCC /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -3274,60 +3208,32 @@
 			};
 			name = Debug;
 		};
-		8433D0A48DA650345E96E8DE78A53D44 /* Debug */ = {
+		85116D1E39F69E413C8326BA99FB53D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 81341A4EA27C2006BFB70C1FE64F979A /* PromiseKit.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/PromiseKit/PromiseKit-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MODULEMAP_FILE = Headers/Public/PromiseKit/PromiseKit.modulemap;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = PromiseKit;
-				PRODUCT_NAME = PromiseKit;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		8B5DA9981D4888441EC8961DAD788FE8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CF6C79F120D09E56E9B6FBEF5A84E44F /* SipHash-macOS.xcconfig */;
+			baseConfigurationReference = B696116796A8A4DB1C7ADC88E35FD570 /* BigInt-macOS.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "Target Support Files/SipHash-macOS/SipHash-macOS-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/BigInt-macOS/BigInt-macOS-prefix.pch";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				MODULEMAP_FILE = "Headers/Public/SipHash/SipHash-macOS.modulemap";
+				MODULEMAP_FILE = "Headers/Public/BigInt/BigInt-macOS.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = SipHash;
-				PRODUCT_NAME = "SipHash-macOS";
+				PRODUCT_MODULE_NAME = BigInt;
+				PRODUCT_NAME = "BigInt-macOS";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.2;
 			};
-			name = Release;
+			name = Debug;
 		};
-		9FC95E93B60448569789C60751C0DD23 /* Release */ = {
+		8C5289CBBC5C4736B11BE5B4AC7797B4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3383,11 +3289,88 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
 		};
-		A6C678E000CF6ADE0F054BE66F7F3559 /* Release */ = {
+		99CAC840CC586A292AEB9301B0BA8FF3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44D13A91A685B75E6468BF0DD149DFC7 /* BigInt-iOS.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/BigInt-iOS/BigInt-iOS-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MODULEMAP_FILE = "Headers/Public/BigInt/BigInt-iOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = BigInt;
+				PRODUCT_NAME = "BigInt-iOS";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9D5B4D88245F15A375DC620DC69F4213 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44D13A91A685B75E6468BF0DD149DFC7 /* BigInt-iOS.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/BigInt-iOS/BigInt-iOS-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MODULEMAP_FILE = "Headers/Public/BigInt/BigInt-iOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = BigInt;
+				PRODUCT_NAME = "BigInt-iOS";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A271A1648C15D7269740B1F7A07CA3FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D76E01714111860B1A58E945BFEDC3A /* Pods-web3swift-iOS.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-web3swift-iOS/Pods-web3swift-iOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A8CB7D80B85ECC4259397DC4AF3B134A /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 50832FC4B2337F53A6F628D514DA730A /* Pods-web3swift-macOS_Tests.release.xcconfig */;
 			buildSettings = {
@@ -3407,12 +3390,33 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
-		A6D13C7DC60A1881E8B8F7A0752F12E4 /* Debug */ = {
+		A9FDBC8BAE7469AABB25C11FB6759B0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C06CEB32F04CBF303CC2562A16F7241 /* Pods-web3swift-macOS.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				EXECUTABLE_PREFIX = lib;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULEMAP_FILE = "Target Support Files/Pods-web3swift-macOS/Pods-web3swift-macOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		BC44C9609A74C9C1310A1646F73BD3A0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA4E29CF9F90968E182A66003DD24CF5 /* PromiseKit.root-CorePromise-Foundation.xcconfig */;
 			buildSettings = {
@@ -3434,67 +3438,36 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
-			};
-			name = Debug;
-		};
-		B126933F20D893DEA9C786FE63964623 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33962D01D919CC86C37D56B4A70BF5CF /* CryptoSwift-iOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/CryptoSwift-iOS/CryptoSwift-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MODULEMAP_FILE = "Headers/Public/CryptoSwift/CryptoSwift-iOS.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = CryptoSwift;
-				PRODUCT_NAME = "CryptoSwift-iOS";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		CC43036955A34BA502243A63BC978DFD /* Release */ = {
+		C530FF0FFD1131F95AC2397E1BF00EC5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B696116796A8A4DB1C7ADC88E35FD570 /* BigInt-macOS.xcconfig */;
+			baseConfigurationReference = 1B4B4227E998F9708067F5826AFA59A9 /* CryptoSwift-macOS.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "Target Support Files/BigInt-macOS/BigInt-macOS-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/CryptoSwift-macOS/CryptoSwift-macOS-prefix.pch";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				MODULEMAP_FILE = "Headers/Public/BigInt/BigInt-macOS.modulemap";
+				MODULEMAP_FILE = "Headers/Public/CryptoSwift/CryptoSwift-macOS.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = BigInt;
-				PRODUCT_NAME = "BigInt-macOS";
+				PRODUCT_MODULE_NAME = CryptoSwift;
+				PRODUCT_NAME = "CryptoSwift-macOS";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
-		CCCE764E8BA04A9CDF5DAA7560AB0260 /* Debug */ = {
+		D96BC9B107182050510601BBB33B7656 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 838E20D48ECBA3CCA073FF52AA6BD234 /* Pods-web3swift-iOS_Tests.debug.xcconfig */;
 			buildSettings = {
@@ -3512,36 +3485,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
-		};
-		D6A9B7CF39E397358947E28D2D91D3CC /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2C06CEB32F04CBF303CC2562A16F7241 /* Pods-web3swift-macOS.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				EXECUTABLE_PREFIX = lib;
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MODULEMAP_FILE = "Target Support Files/Pods-web3swift-macOS/Pods-web3swift-macOS.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-			};
-			name = Release;
 		};
 		DD3575E0767AC64B908EE4B4A75FE71C /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -3569,28 +3515,24 @@
 			};
 			name = Release;
 		};
-		F5EF01B8B578248E81AC7226D35F0120 /* Debug */ = {
+		FB8CF625FF45F1F775F6C4788D2FF7D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 44D13A91A685B75E6468BF0DD149DFC7 /* BigInt-iOS.xcconfig */;
+			baseConfigurationReference = 549BC77FB563C5F7078EEF621568360D /* Pods-web3swift-iOS.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/BigInt-iOS/BigInt-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MODULEMAP_FILE = "Headers/Public/BigInt/BigInt-iOS.modulemap";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-web3swift-iOS/Pods-web3swift-iOS.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = BigInt;
-				PRODUCT_NAME = "BigInt-iOS";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -3620,14 +3562,37 @@
 			};
 			name = Debug;
 		};
+		FD91A2946C680C559468957ACE8E2D5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3C18FE09DB747D4F64CDC4EBF07A6AF0 /* Pods-web3swift-macOS.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				EXECUTABLE_PREFIX = lib;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULEMAP_FILE = "Target Support Files/Pods-web3swift-macOS/Pods-web3swift-macOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
 		0C77F4AAD6AB152B0270ADDF7865B8E6 /* Build configuration list for PBXNativeTarget "Pods-web3swift-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				143B15F1EFB505A6A00C997B7CAFB680 /* Debug */,
-				D6A9B7CF39E397358947E28D2D91D3CC /* Release */,
+				FD91A2946C680C559468957ACE8E2D5A /* Debug */,
+				A9FDBC8BAE7469AABB25C11FB6759B0B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3635,8 +3600,8 @@
 		249649C0D306826B8AEC43AC3D978C98 /* Build configuration list for PBXNativeTarget "SipHash-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				52AE0D053B55E91A69EBAB2E3EE85F50 /* Debug */,
-				8B5DA9981D4888441EC8961DAD788FE8 /* Release */,
+				45388ED03B6D99D855DC570FA9D451F2 /* Debug */,
+				2FE0E4C1C8BB193D81280D1959EDFA07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3644,8 +3609,8 @@
 		2743D0887CD399ABDB72205B1CE98BAC /* Build configuration list for PBXNativeTarget "Pods-web3swift-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				763172B6124DE387BE9650DD14E1BE82 /* Debug */,
-				16416428CF498F325BBAA830C1754761 /* Release */,
+				FB8CF625FF45F1F775F6C4788D2FF7D5 /* Debug */,
+				A271A1648C15D7269740B1F7A07CA3FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3653,8 +3618,8 @@
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5FCBD0A9F6FEC43961BDF6211D4F283C /* Debug */,
-				9FC95E93B60448569789C60751C0DD23 /* Release */,
+				410940BCADE683311D0516B99A5AB80D /* Debug */,
+				8C5289CBBC5C4736B11BE5B4AC7797B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3662,8 +3627,8 @@
 		47C2AA14D9BBB2B7CC5629CE1C553C1B /* Build configuration list for PBXNativeTarget "BigInt-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F5EF01B8B578248E81AC7226D35F0120 /* Debug */,
-				54ED05165ED3D3A5891AA813D6A95B43 /* Release */,
+				99CAC840CC586A292AEB9301B0BA8FF3 /* Debug */,
+				9D5B4D88245F15A375DC620DC69F4213 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3671,8 +3636,8 @@
 		547785C16D0CE0E3A29C7B5CDE8A6B14 /* Build configuration list for PBXNativeTarget "Pods-web3swift-macOS_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				40FAF256E2552C1297E21C3CE7143137 /* Debug */,
-				A6C678E000CF6ADE0F054BE66F7F3559 /* Release */,
+				14A98C33954162D778F614C69A818B77 /* Debug */,
+				A8CB7D80B85ECC4259397DC4AF3B134A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3680,8 +3645,8 @@
 		604E68D68F08C230C85D2D819532C6AF /* Build configuration list for PBXNativeTarget "CryptoSwift-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				35FE90C4321FAFFDC78AB8AAA38B1ABA /* Debug */,
-				47384531706EF84966CA26E5D7B959C7 /* Release */,
+				5E58219303AF58D5281BFD2F2B3693FE /* Debug */,
+				C530FF0FFD1131F95AC2397E1BF00EC5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3689,8 +3654,8 @@
 		6FBBA029AFB86EC5F02D2B578121B307 /* Build configuration list for PBXNativeTarget "CryptoSwift-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6532888DD4B4FA3AB86C68A86E46EA3F /* Debug */,
-				B126933F20D893DEA9C786FE63964623 /* Release */,
+				21AAE967C2221C4CAECE3D6A43ECA427 /* Debug */,
+				0902B98C3C916108C745F45E9A520460 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3698,8 +3663,8 @@
 		9EB03DEB7DAA39073E416C3759759F9A /* Build configuration list for PBXNativeTarget "Pods-web3swift-iOS_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CCCE764E8BA04A9CDF5DAA7560AB0260 /* Debug */,
-				75043C8F40164C98B31D82E931DDF45C /* Release */,
+				D96BC9B107182050510601BBB33B7656 /* Debug */,
+				0A2CCA140A2C258126D48B92C2645854 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3707,8 +3672,8 @@
 		A1A3D7F09A5AFD2BD4DA3D3CDACBBCFC /* Build configuration list for PBXNativeTarget "BigInt-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7B61B812F61A884768B1B880A1FC3F07 /* Debug */,
-				CC43036955A34BA502243A63BC978DFD /* Release */,
+				85116D1E39F69E413C8326BA99FB53D2 /* Debug */,
+				3085431705F1057839B3C35014B0644B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3725,8 +3690,8 @@
 		BF89DF65932F2513A8A69123356FB967 /* Build configuration list for PBXNativeTarget "PromiseKit.root-CorePromise-Foundation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A6D13C7DC60A1881E8B8F7A0752F12E4 /* Debug */,
-				230216165473EA6FF8AF6395195C1C28 /* Release */,
+				0D40868D0462DB78E4EF8181E2E22B25 /* Debug */,
+				BC44C9609A74C9C1310A1646F73BD3A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3743,8 +3708,8 @@
 		F8A195F0CD637B21B4FABEA84B502663 /* Build configuration list for PBXNativeTarget "SipHash-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3553CDD6493DFEA34F4C6021140F41C8 /* Debug */,
-				3C82BE886085424D51EE9862BC47C246 /* Release */,
+				177CEE05472969D8C7F5A55D2B58AB24 /* Debug */,
+				400AC42BAFACBCF29F4C49914AE61492 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3752,8 +3717,8 @@
 		F9FCC7D4A4664D8EECE8A27E7EE380C9 /* Build configuration list for PBXNativeTarget "PromiseKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8433D0A48DA650345E96E8DE78A53D44 /* Debug */,
-				40D3A4BA9BA6FDE6281B701347C9FA05 /* Release */,
+				0AB6336F39652684C80C43AD2F11B44D /* Debug */,
+				68D9B835EBFAA5E74CF32340B6FE73F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

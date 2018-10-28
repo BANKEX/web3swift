@@ -13,6 +13,13 @@ import PromiseKit
 public enum Web3ResponseError: Error {
     case notFound
     case wrongType
+    case overflows
+}
+
+private extension Int {
+    var solidityFormatted: Int {
+        return (self / 32 + 1) * 32
+    }
 }
 
 public class Web3DataResponse {
@@ -22,22 +29,23 @@ public class Web3DataResponse {
         self.data = data
     }
     public func uint256() throws -> BigUInt {
-        return try BigUInt(data(32))
+        return try BigUInt(next(32))
     }
     public func address() throws -> EthereumAddress {
         try skip(12)
-        return try EthereumAddress(data(20))
+        return try EthereumAddress(next(20))
     }
     public func bool() throws -> Bool {
-        let value = try BigUInt(data(32))
+        let value = try BigUInt(next(32))
         guard value < 2 else { throw Web3ResponseError.wrongType }
         return value == 1
     }
     public func string() throws -> String {
         return try pointer {
-            let length = try uint256()
-            guard length <= Int.max else { throw Web3ResponseError.wrongType }
-            guard let string = try String(data: data(Int(length)), encoding: .utf8) else { throw Web3ResponseError.wrongType }
+            let length = try intCount()
+            guard length > 0 else { return "" }
+            let data = try self.next(length)
+            guard let string = String(data: data, encoding: .utf8) else { throw Web3ResponseError.wrongType }
             return string
         }
     }
@@ -47,17 +55,63 @@ public class Web3DataResponse {
         guard end <= data.count else { throw Web3ResponseError.notFound }
         position = end
     }
-    public func data(_ size: Int) throws -> Data {
+    public func next(_ size: Int) throws -> Data {
         let range = position..<position+size
         guard range.upperBound <= data.count else { throw Web3ResponseError.notFound }
         position = range.upperBound
         return self.data[range]
     }
     public func pointer<T>(block: ()throws->T) throws -> T {
-        let pointer = try uint256()
+        let pointer = try intCount()
         let pos = position
+        position = pointer
         defer { position = pos }
         return try block()
+    }
+}
+public extension Web3DataResponse {
+    private func unsigned<T: BinaryInteger>(max: BigUInt) throws -> T {
+        let number = try uint256()
+        guard number <= max else { throw Web3ResponseError.overflows }
+        return T(number)
+    }
+    private func signed<T: BinaryInteger>(min: BigInt, max: BigInt) throws -> T {
+        let number = try uint256()
+        guard number >= min && number <= max else { throw Web3ResponseError.overflows }
+        return T(number)
+    }
+    func uint8() throws -> UInt8 {
+        return try unsigned(max: 0xff)
+    }
+    func uint16() throws -> UInt16 {
+        return try unsigned(max: 0xffff)
+    }
+    func uint32() throws -> UInt32 {
+        return try unsigned(max: 0xffffffff)
+    }
+    func uint64() throws -> UInt64 {
+        return try unsigned(max: 0xffffffffffffffff)
+    }
+    func uint() throws -> Int64 {
+        return try unsigned(max: BigUInt(UInt.max))
+    }
+    func int8() throws -> Int8 {
+        return try signed(min: -0x80, max: 0x7f)
+    }
+    func int16() throws -> Int16 {
+        return try signed(min: -0x8000, max: 0x7fff)
+    }
+    func int32() throws -> Int32 {
+        return try signed(min: -0x80000000, max: 0x7fffffff)
+    }
+    func int64() throws -> Int64 {
+        return try signed(min: -0x8000000000000000, max: 0x7fffffffffffffff)
+    }
+    func int() throws -> Int64 {
+        return try signed(min: BigInt(Int.min), max: BigInt(Int.max))
+    }
+    func intCount() throws -> Int {
+        return try signed(min: 0, max: BigInt(Int.max))
     }
 }
 

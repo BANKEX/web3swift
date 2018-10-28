@@ -9,7 +9,10 @@
 import Foundation
 import BigInt
 
-/* abandoned for some period
+public enum AbiError: Error {
+    /// Unsupported types: function, tuple
+    case unsupportedType
+}
 
 /*
  types:
@@ -31,12 +34,6 @@ public enum ArraySize { // bytes for convenience
     case notArray
 }
 
-private extension String {
-    subscript(range: PartialRangeUpTo<Int>) -> Substring {
-        return self[..<self.index(self.startIndex, offsetBy: range.upperBound)]
-    }
-}
-
 public class SolidityType: Equatable, CustomStringConvertible {
     public var isStatic: Bool { return true }
     public var isArray: Bool { return false }
@@ -44,9 +41,10 @@ public class SolidityType: Equatable, CustomStringConvertible {
     public var arraySize: ArraySize { return .notArray }
     public var subtype: SolidityType? { return nil }
     public var memoryUsage: Int { return 32 }
-    public var `default`: Any { return Data() }
+    public var `default`: Data { return Data(count: memoryUsage) }
     public var description: String { return "" }
     public var isValid: Bool { return true }
+    public var isSupported: Bool { return true }
     public static func == (lhs: SolidityType, rhs: SolidityType) -> Bool {
         return lhs.description == rhs.description
     }
@@ -61,7 +59,6 @@ public class SolidityType: Equatable, CustomStringConvertible {
             super.init()
         }
         public override var description: String { return "uint\(bits)" }
-        public override var `default`: Any { return BigUInt(0) }
         public override var isValid: Bool {
             switch bits {
             case 8,16,32,64,128,256: return true
@@ -74,19 +71,18 @@ public class SolidityType: Equatable, CustomStringConvertible {
     }
     public class SolidityAddress: SolidityType {
         public override var description: String { return "address" }
-        public override var `default`: Any { return EthereumAddress("0x0000000000000000000000000000000000000000") }
     }
+    
+    /// Unsupported
     public class SolidityFunctionType: SolidityType {
         public override var description: String { return "function" }
-        public override var `default`: Any { return Data(repeating: 0, count: 24) }
+        public override var isSupported: Bool { return false }
     }
     public class SolidityBool: SolidityType {
         public override var description: String { return "bool" }
-        public override var `default`: Any { return false }
     }
     public class SolidityBytes: SolidityType {
         public override var description: String { return "bytes\(count)" }
-        public override var `default`: Any { return Data(repeating: 0, count: count) }
         public override var isValid: Bool { return count > 0 && count <= 32 }
         var count: Int
         init(count: Int) {
@@ -96,14 +92,12 @@ public class SolidityType: Equatable, CustomStringConvertible {
     }
     public class SolidityStaticArray: SolidityType {
         public override var description: String { return "\(type)[\(count)]" }
-        public override var `default`: Any { return Array(repeating: type.default, count: count) }
         public override var isStatic: Bool { return type.isStatic }
         public override var isArray: Bool { return true }
         public override var subtype: SolidityType? { return type }
         public override var arraySize: ArraySize { return .static(count) }
         public override var isValid: Bool { return type.isValid }
         public override var memoryUsage: Int {
-            guard isStatic else { return 32 }
             return 32 * count
         }
         var count: Int
@@ -116,17 +110,17 @@ public class SolidityType: Equatable, CustomStringConvertible {
     }
     public class SolidityDynamicBytes: SolidityType {
         public override var description: String { return "bytes" }
-        public override var `default`: Any { return Data() }
+        public override var memoryUsage: Int { return 0 }
         public override var isStatic: Bool { return false }
     }
     public class SolidityString: SolidityType {
         public override var description: String { return "string" }
-        public override var `default`: Any { return "" }
         public override var isStatic: Bool { return false }
+        public override var memoryUsage: Int { return 0 }
     }
     public class SolidityDynamicArray: SolidityType {
         public override var description: String { return "\(type)[]" }
-        public override var `default`: Any { return [] }
+        public override var memoryUsage: Int { return 0 }
         public override var isStatic: Bool { return type.isStatic }
         public override var isArray: Bool { return true }
         public override var subtype: SolidityType? { return type }
@@ -138,11 +132,13 @@ public class SolidityType: Equatable, CustomStringConvertible {
             super.init()
         }
     }
+    
+    /// Unsupported
     public class SolidityTuple: SolidityType {
         public override var description: String { return "tuple(\(types.map { $0.description }.joined(separator: ",")))" }
-        public override var `default`: Any { return [] }
         public override var isStatic: Bool { return types.allSatisfy { $0.isStatic } }
         public override var isTuple: Bool { return true }
+        public override var isSupported: Bool { return false }
         public override var memoryUsage: Int {
             guard isStatic else { return 32 }
             return types.reduce(0, { $0 + $1.memoryUsage })
@@ -232,7 +228,6 @@ extension SolidityType {
         return type
     }
     public static func scan(type string: String) throws -> SolidityType {
-        let string = string.trimmingCharacters(in: .whitespacesAndNewlines)
         for (index,character) in string.enumerated() {
             switch character {
             case "(":
@@ -258,5 +253,62 @@ extension SolidityType {
         }
     }
 }
- 
-*/
+
+
+/// Converts:
+///     "balanceOf(address)"
+///     "transfer(address,address,uint256)"
+///     "transfer(address, address, uint256)"
+///     "transfer(address, address, uint256)"
+///     "transfer (address, address, uint)"
+///     "  transfer  (  address  ,  address  ,  uint256  )  "
+/// To:
+///     function.name: String
+///     function.types: [SolidityType]
+///
+/// Mainthread-friendly
+/// Performance:
+///     transfer(uint256,address) // ~184k ops
+///     transfer(uint256,address,address,bytes32,uint256[32]) // performance ~100k ops
+
+public class SolidityFunction: CustomStringConvertible {
+    public enum Error: Swift.Error {
+        case corrupted
+        case emptyFunctionName
+    }
+    public let name: String
+    public let types: [SolidityType]
+    public let function: String
+    public lazy var hash: Data = self.function.keccak256()[0..<4]
+    public init(function: String) throws {
+        let function = function.replacingOccurrences(of: " ", with: "")
+        self.function = function
+        guard let index = function.index(of: "(") else { throw Error.corrupted }
+        name = String(function[..<index])
+        guard name.count > 0 else { throw Error.emptyFunctionName }
+        guard function.hasSuffix(")") else { throw Error.corrupted }
+        let arguments = function[function.index(after: index)..<function.index(before: function.endIndex)]
+        self.types = try arguments.split(separator: ",").map { try SolidityType.scan(type: String($0)) }
+    }
+    public var functionHash: Data {
+        return name.keccak256()[0..<4]
+    }
+    public func encode(_ arguments: SolidityDataRepresentable...) -> Data {
+        return encode(arguments)
+    }
+    public func encode(_ arguments: [SolidityDataRepresentable]) -> Data {
+        let data = SolidityDataWriter()
+        for i in 0..<types.count {
+            let type = types[i]
+            if i < arguments.count {
+                data.write(value: arguments[i], type: type)
+            } else {
+                data.write(type: type)
+            }
+        }
+        return data.done()
+    }
+    public var description: String {
+        return "\(name)(\(types.map{ $0.description }.joined(separator: ",")))"
+    }
+}

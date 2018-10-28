@@ -83,7 +83,7 @@ class Tests: XCTestCase {
     }
 
     func testMakePrivateKey() {
-        let privateKey = SECP256K1.generatePrivateKey()
+        let privateKey = Data.random(length: 32)
         let publicKey = try? SECP256K1.privateToPublic(privateKey: privateKey)
         XCTAssert(publicKey != nil, "Failed to create new private key")
     }
@@ -99,18 +99,23 @@ class Tests: XCTestCase {
         XCTAssert(pres.count == 1)
     }
 
-    func testIBANcreation() {
+    func testIBANCreation() {
         let iban = "XE7338O073KYGTWWZN0F2WZ0R8PX5ZPPZS"
-        let native = Web3.Utils.Iban(iban)
+        let native = IBAN(iban)
         XCTAssert(native != nil)
         let expectedAddress = "0x00c5496aEe77C1bA1f0854206A26DdA82a81D6D8"
         let createdAddress = native?.toEthereumAddress()?.address
         XCTAssert(createdAddress == expectedAddress)
 
         let address = EthereumAddress("0x03c5496aee77c1ba1f0854206a26dda82a81d6d8")
-        let fromAddress = Web3.Utils.Iban(address)
-        let ibn = fromAddress?.iban
+        let fromAddress = IBAN(address)
+        let ibn = fromAddress.iban
         XCTAssert(ibn == "XE83FUTTUNPK7WZJSGGCWVEBARQWQ8YML4")
+    }
+    
+    func testIBANCheckAddress() {
+        XCTAssertFalse(IBAN.check("0x9e87448bff240dace7cea2e90670b8d6c2c73a6e"))
+        XCTAssertTrue(IBAN.check("0x00c5496aEe77C1bA1f0854206A26DdA82a81D6D8"))
     }
 
     func testGenericRPCresponse() {

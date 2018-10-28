@@ -71,6 +71,16 @@ public struct JSONRPCresponse: Decodable {
     public var result: Any?
     public var error: ErrorMessage?
     public var message: String?
+    
+    public func response() throws -> DictionaryReader {
+        if let error = error {
+            throw Web3Error.nodeError(error.message)
+        } else if let result = result {
+            return DictionaryReader(result)
+        } else {
+            throw Web3Error.nodeError("No response found")
+        }
+    }
 
     enum JSONRPCresponseKeys: String, CodingKey {
         case id
@@ -91,23 +101,6 @@ public struct JSONRPCresponse: Decodable {
         public var message: String
     }
 
-    internal var decodableTypes: [Decodable.Type] = [[EventLog].self,
-                                                     [TransactionDetails].self,
-                                                     [TransactionReceipt].self,
-                                                     [Block].self,
-                                                     [String].self,
-                                                     [Int].self,
-                                                     [Bool].self,
-                                                     EventLog.self,
-                                                     TransactionDetails.self,
-                                                     TransactionReceipt.self,
-                                                     Block.self,
-                                                     String.self,
-                                                     Int.self,
-                                                     Bool.self,
-                                                     [String: String].self,
-                                                     [String: Int].self]
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: JSONRPCresponseKeys.self)
         let id: Int = try container.decode(Int.self, forKey: .id)
@@ -118,6 +111,7 @@ public struct JSONRPCresponse: Decodable {
             return
         }
         var result: Any?
+        
         if let rawValue = try? container.decodeIfPresent(String.self, forKey: .result) {
             result = rawValue
         } else if let rawValue = try? container.decodeIfPresent(Int.self, forKey: .result) {
@@ -149,6 +143,8 @@ public struct JSONRPCresponse: Decodable {
         } else if let rawValue = try? container.decodeIfPresent([String: String].self, forKey: .result) {
             result = rawValue
         } else if let rawValue = try? container.decodeIfPresent([String: Int].self, forKey: .result) {
+            result = rawValue
+        } else if let rawValue = try? container.decodeIfPresent([String: Any].self, forKey: .result) {
             result = rawValue
         }
         self.init(id: id, jsonrpc: jsonrpc, result: result, error: nil)

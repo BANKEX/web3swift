@@ -16,43 +16,55 @@ import XCTest
 class NumberFormattingUtilTests: XCTestCase {
     func testNumberFormattingUtil() {
         let balance = BigInt("-1000000000000000000")!
-        let formatted = Web3.Utils.formatToPrecision(balance, numberDecimals: 18, formattingDecimals: 4, decimalSeparator: ",")
-        XCTAssert(formatted == "-1")
+        let formatted = balance.string(unitDecimals: 18, decimals: 4, decimalSeparator: ",")
+        XCTAssertEqual(formatted, "-1")
     }
 
     func testNumberFormattingUtil2() {
         let balance = BigInt("-1000000000000000")!
-        let formatted = Web3.Utils.formatToPrecision(balance, numberDecimals: 18, formattingDecimals: 4, decimalSeparator: ",")
-        XCTAssert(formatted == "-0,0010")
+        let formatted = balance.string(unitDecimals: 18, decimals: 4, decimalSeparator: ",")
+        XCTAssertEqual(formatted, "-0,001")
     }
 
     func testNumberFormattingUtil3() {
         let balance = BigInt("-1000000000000")!
-        let formatted = Web3.Utils.formatToPrecision(balance, numberDecimals: 18, formattingDecimals: 4, decimalSeparator: ",")
-        XCTAssert(formatted == "-0,0000")
+        let formatted = balance.string(unitDecimals: 18, decimals: 4, decimalSeparator: ",")
+        XCTAssertEqual(formatted, "-0")
     }
 
     func testNumberFormattingUtil4() {
         let balance = BigInt("-1000000000000")!
-        let formatted = Web3.Utils.formatToPrecision(balance, numberDecimals: 18, formattingDecimals: 9, decimalSeparator: ",")
-        XCTAssert(formatted == "-0,000001000")
+        let formatted = balance.string(unitDecimals: 18, decimals: 9, decimalSeparator: ",")
+        XCTAssertEqual(formatted, "-0,000001")
     }
 
     func testNumberFormattingUtil5() {
         let balance = BigInt("-1")!
-        let formatted = Web3.Utils.formatToPrecision(balance, numberDecimals: 18, formattingDecimals: 9, decimalSeparator: ",", fallbackToScientific: true)
-        XCTAssert(formatted == "-1e-18")
+        let formatted = balance.string(unitDecimals: 18, decimals: 9, decimalSeparator: ",", options: [.stripZeroes,.fallbackToScientific])
+        XCTAssertEqual(formatted, "-1e-18")
     }
 
     func testNumberFormattingUtil6() {
         let balance = BigInt("0")!
-        let formatted = Web3.Utils.formatToPrecision(balance, numberDecimals: 18, formattingDecimals: 9, decimalSeparator: ",")
-        XCTAssert(formatted == "0")
+        let formatted = balance.string(unitDecimals: 18, decimals: 9, decimalSeparator: ",")
+        XCTAssertEqual(formatted, "0")
     }
 
     func testNumberFormattingUtil7() {
         let balance = BigInt("-1100000000000000000")!
-        let formatted = Web3.Utils.formatToPrecision(balance, numberDecimals: 18, formattingDecimals: 4, decimalSeparator: ",")
-        XCTAssert(formatted == "-1,1000")
+        let formatted = balance.string(unitDecimals: 18, decimals: 4, decimalSeparator: ",")
+        XCTAssertEqual(formatted, "-1,1")
+    }
+    
+    func testNumberFormattingUtil8() {
+        let balance = BigInt("100")!
+        let formatted = balance.string(unitDecimals: 18, decimals: 4, decimalSeparator: ",", options: [.stripZeroes,.fallbackToScientific])
+        XCTAssertEqual(formatted, "1,00e-16")
+    }
+    
+    func testNumberFormattingUtil9() {
+        let balance = BigInt("1000000")!
+        let formatted = balance.string(unitDecimals: 18, decimals: 4, decimalSeparator: ",", options: [.stripZeroes,.fallbackToScientific])
+        XCTAssertEqual(formatted, "1,0000e-12")
     }
 }

@@ -14,8 +14,8 @@ class InfuraTests: XCTestCase {
         let web3 = Web3(infura: .mainnet)
         let address = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
         let balance = try web3.eth.getBalance(address: address)
-        let balString = Web3.Utils.formatToEthereumUnits(balance, toUnits: .eth, decimals: 3)
-        print(balString ?? "nil")
+        let balString = balance.string(units: .eth, decimals: 3)
+        print(balString)
     }
 
     func testGetBlockByHash() throws {

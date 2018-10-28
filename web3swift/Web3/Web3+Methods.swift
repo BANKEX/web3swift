@@ -28,6 +28,10 @@ public enum JSONRPCmethod: String, Encodable {
     case personalSign = "eth_sign"
     case unlockAccount = "personal_unlockAccount"
     case getLogs = "eth_getLogs"
+    
+    case txPoolStatus = "txpool_status"
+    case txPoolInspect = "txpool_inspect"
+    case txPoolContent = "txpool_content"
 
     public var requiredNumOfParameters: Int {
         switch self {
@@ -52,6 +56,12 @@ public enum JSONRPCmethod: String, Encodable {
         case .getNetwork:
             return 0
         case .getAccounts:
+            return 0
+        case .txPoolStatus:
+            return 0
+        case .txPoolInspect:
+            return 0
+        case .txPoolContent:
             return 0
         default:
             return 1

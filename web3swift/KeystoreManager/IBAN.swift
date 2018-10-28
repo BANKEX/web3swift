@@ -120,18 +120,23 @@ public struct IBAN {
         guard IBAN.isValidIBANaddress(matched) else { return nil }
         iban = matched
     }
-
-    public init?(_ address: EthereumAddress) {
-        let addressString = address.address.lowercased().withoutHex
-        guard let bigNumber = BigUInt(addressString, radix: 16) else { return nil }
-        let base36EncodedString = String(bigNumber, radix: 36)
-        guard base36EncodedString.count <= 30 else { return nil }
-        let padded = base36EncodedString.leftPadding(toLength: 30, withPad: "0")
+    public static func check(_ address: EthereumAddress) -> Bool {
+        return address.addressData.base36.count <= 30
+    }
+    public init(_ address: EthereumAddress) {
+        let padded = address.addressData.base36.leftPadding(toLength: 30, withPad: "0")
         let prefix = "XE"
         let remainder = IBAN.calculateChecksumMod97(IBAN.decodeToInts(prefix + "00" + padded))
         let checkDigits = "0" + String(98 - remainder)
         let twoDigits = checkDigits[checkDigits.count - 2 ..< checkDigits.count]
         let fullIban = prefix + twoDigits + padded
         iban = fullIban.uppercased()
+    }
+}
+
+private extension Data {
+    var base36: String {
+        let bigNumber = BigUInt(self)
+        return String(bigNumber, radix: 36)
     }
 }

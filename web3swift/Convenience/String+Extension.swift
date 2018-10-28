@@ -9,6 +9,16 @@
 import Foundation
 
 extension String {
+    subscript(range: PartialRangeUpTo<Int>) -> Substring {
+        return self[..<index(range.upperBound)]
+    }
+    @inline(__always)
+    func index(_ i: Int) -> String.Index {
+        return index(startIndex, offsetBy: i)
+    }
+}
+
+extension String {
     public func keccak256() -> Data {
         return data.keccak256()
     }
