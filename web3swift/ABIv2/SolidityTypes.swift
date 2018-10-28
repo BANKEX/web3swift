@@ -34,12 +34,6 @@ public enum ArraySize { // bytes for convenience
     case notArray
 }
 
-private extension String {
-    subscript(range: PartialRangeUpTo<Int>) -> Substring {
-        return self[..<self.index(self.startIndex, offsetBy: range.upperBound)]
-    }
-}
-
 public class SolidityType: Equatable, CustomStringConvertible {
     public var isStatic: Bool { return true }
     public var isArray: Bool { return false }

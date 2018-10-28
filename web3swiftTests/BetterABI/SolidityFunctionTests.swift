@@ -97,13 +97,13 @@ class SolidityFunctionTests: XCTestCase {
     func testEncodeAndDecodeString() throws {
         let user: EthereumAddress = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
         
-        let function = try! SolidityFunction(function: "send(address,string,uint256)")
+        let function = try SolidityFunction(function: "send(address,string,uint256)")
         let data = function.encode(user, "hello world", 800)
 
         let reader = Web3DataResponse(data)
-        let a = try! reader.address()
-        let message = try! reader.string()
-        let b = try! reader.uint256()
+        let a = try reader.address()
+        let message = try reader.string()
+        let b = try reader.uint256()
         XCTAssertEqual(a, user)
         XCTAssertEqual(message, "hello world")
         XCTAssertEqual(b, 800)
@@ -114,13 +114,13 @@ class SolidityFunctionTests: XCTestCase {
         let user: EthereumAddress = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
         let bigString = "mfiejrh9183yrnv190y3r0m9x17yc90172ymr093 daosjdokamsfl vopadsjnfmowedfoiwlfknlkvkdmf omfp qejfpiqwejfop[w mfewfm qmef fe"
         
-        let function = try! SolidityFunction(function: "  send  (  address, string ,uint256 ) ")
+        let function = try SolidityFunction(function: "  send  (  address, string ,uint256 ) ")
         let data = function.encode(user, bigString, 800)
         
         let reader = Web3DataResponse(data)
-        let a = try! reader.address()
-        let message = try! reader.string()
-        let b = try! reader.uint256()
+        let a = try reader.address()
+        let message = try reader.string()
+        let b = try reader.uint256()
         XCTAssertEqual(a, user)
         XCTAssertEqual(message, bigString)
         XCTAssertEqual(b, 800)

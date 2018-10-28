@@ -116,6 +116,7 @@ class TransactionsTests: XCTestCase {
         let transactionString = "0xa9059cbb00000000000000000000000083b0b52a887a4c05429ee6d4619afeb8007c1a330000000000000000000000000000000000000000000000000001c6bf52634000"
         let transactionData = Data.fromHex(transactionString)!
         let rawTransaction = EthereumTransaction.fromRaw(transactionData)
+        XCTAssertNil(rawTransaction)
     }
 
 //    func testTokenBalanceTransferOnMainNetUsingConvenience() throws {

@@ -83,7 +83,7 @@ struct RLP {
 
     internal static func encodeLength(_ length: BigUInt, offset: UInt8) -> Data? {
         if length < length56 {
-            let encodedLength = length + BigUInt(UInt(offset))
+            let encodedLength = length + BigUInt(offset)
             guard encodedLength.bitWidth <= 8 else { return nil }
             return encodedLength.serialize()
         } else if length < lengthMax {
@@ -116,7 +116,7 @@ struct RLP {
         encoded.append(prefixData)
         encoded.append(suffixData)
         guard encoded.count == 1 else { return nil }
-        return encoded.bytes[0]
+        return encoded.first!
     }
 
     public static func encode(_ elements: Array<AnyObject>) -> Data? {

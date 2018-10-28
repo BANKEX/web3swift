@@ -34,6 +34,13 @@
 		13A24E52216365A4004C48A0 /* EthURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A24E50216365A4004C48A0 /* EthURL.swift */; };
 		13A24EE7216F988C004C48A0 /* UInt256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A24EE6216F988C004C48A0 /* UInt256.swift */; };
 		13A24EE8216F9899004C48A0 /* UInt256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A24EE6216F988C004C48A0 /* UInt256.swift */; };
+		13A691612185B7AC00F2D9A9 /* TxPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A691602185B7AC00F2D9A9 /* TxPool.swift */; };
+		13A691672185CA6300F2D9A9 /* DictionaryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A691662185CA6300F2D9A9 /* DictionaryReader.swift */; };
+		13A6916921860A1900F2D9A9 /* DecoderExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A6916821860A1900F2D9A9 /* DecoderExtensions.swift */; };
+		13A6916A21860A1B00F2D9A9 /* DecoderExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A6916821860A1900F2D9A9 /* DecoderExtensions.swift */; };
+		13A6916B21860A1D00F2D9A9 /* DictionaryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A691662185CA6300F2D9A9 /* DictionaryReader.swift */; };
+		13A6916C21860A1F00F2D9A9 /* TxPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A691602185B7AC00F2D9A9 /* TxPool.swift */; };
+		13A6916D21860F3100F2D9A9 /* TxPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A691622185B90000F2D9A9 /* TxPoolTests.swift */; };
 		13FD60DF21821A1100D73D4E /* SolidityFunctionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD60DE21821A1100D73D4E /* SolidityFunctionTests.swift */; };
 		13FD60F521822FAE00D73D4E /* SolidityDataWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD60F421822FAE00D73D4E /* SolidityDataWriter.swift */; };
 		13FD60F621822FAE00D73D4E /* SolidityDataWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD60F421822FAE00D73D4E /* SolidityDataWriter.swift */; };
@@ -265,6 +272,10 @@
 		134B10CE2182447600113663 /* Int+Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Sequence.swift"; sourceTree = "<group>"; };
 		13A24E50216365A4004C48A0 /* EthURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthURL.swift; sourceTree = "<group>"; };
 		13A24EE6216F988C004C48A0 /* UInt256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UInt256.swift; sourceTree = "<group>"; };
+		13A691602185B7AC00F2D9A9 /* TxPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxPool.swift; sourceTree = "<group>"; };
+		13A691622185B90000F2D9A9 /* TxPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxPoolTests.swift; sourceTree = "<group>"; };
+		13A691662185CA6300F2D9A9 /* DictionaryReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryReader.swift; sourceTree = "<group>"; };
+		13A6916821860A1900F2D9A9 /* DecoderExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoderExtensions.swift; sourceTree = "<group>"; };
 		13FD60DE21821A1100D73D4E /* SolidityFunctionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidityFunctionTests.swift; sourceTree = "<group>"; };
 		13FD60F421822FAE00D73D4E /* SolidityDataWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidityDataWriter.swift; sourceTree = "<group>"; };
 		1CD91AFC1FD76910007BFB45 /* web3swift_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = web3swift_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -465,12 +476,14 @@
 			path = Contracts;
 			sourceTree = "<group>";
 		};
-		13FD60F321822F9700D73D4E /* DataManagers */ = {
+		13A6915F2185B78E00F2D9A9 /* TxPool */ = {
 			isa = PBXGroup;
 			children = (
-				13FD60F421822FAE00D73D4E /* SolidityDataWriter.swift */,
+				13A691602185B7AC00F2D9A9 /* TxPool.swift */,
+				13A691662185CA6300F2D9A9 /* DictionaryReader.swift */,
+				13A6916821860A1900F2D9A9 /* DecoderExtensions.swift */,
 			);
-			path = DataManagers;
+			path = TxPool;
 			sourceTree = "<group>";
 		};
 		1CD91AF21FD76910007BFB45 = {
@@ -500,7 +513,7 @@
 		1CD91AFE1FD76910007BFB45 /* web3swift */ = {
 			isa = PBXGroup;
 			children = (
-				13FD60F321822F9700D73D4E /* DataManagers */,
+				13A6915F2185B78E00F2D9A9 /* TxPool */,
 				13A24EDF216E4BF5004C48A0 /* Contracts */,
 				13A24E4F21636541004C48A0 /* EthURL */,
 				81FECD43211ADE20006DA367 /* ObjectiveCbridge */,
@@ -546,6 +559,7 @@
 				E23B5AE220EA69B900DC7F32 /* NumberFormattingUtilTests.swift */,
 				E23B5AE420EA6A0A00DC7F32 /* ContractV2Tests.swift */,
 				1323B7F32174BB1E00306BBB /* Support.swift */,
+				13A691622185B90000F2D9A9 /* TxPoolTests.swift */,
 				1CD91B331FD769A6007BFB45 /* Info.plist */,
 			);
 			path = web3swiftTests;
@@ -684,6 +698,7 @@
 				81C5DA2A2074CA1400424CD6 /* ABIv2Decoding.swift */,
 				1323B7F62176255900306BBB /* SolidityTypes.swift */,
 				1323B7AC2170E1ED00306BBB /* SolidityFunction.swift */,
+				13FD60F421822FAE00D73D4E /* SolidityDataWriter.swift */,
 			);
 			path = ABIv2;
 			sourceTree = "<group>";
@@ -1038,11 +1053,13 @@
 				8113D2CA1FD7E1590074282C /* KeystoreManager.swift in Sources */,
 				817EBB1F2006265400E02EAA /* Base58.swift in Sources */,
 				817EBB2520066E2B00E02EAA /* AbstractKeystore.swift in Sources */,
+				13A691612185B7AC00F2D9A9 /* TxPool.swift in Sources */,
 				81C0FCF720441A1D00D82FAF /* TransactionSigner.swift in Sources */,
 				8125F06920499AC300A0F2FE /* BloomFilter.swift in Sources */,
 				810B0F9A1FEC446B00CF0DA2 /* Web3+JSONRPC.swift in Sources */,
 				81195AB020D7FF8500ABC6B1 /* Promise+Web3+Contract+GetIndexedEvents.swift in Sources */,
 				1323B8052177B85F00306BBB /* ERC721.swift in Sources */,
+				13A6916921860A1900F2D9A9 /* DecoderExtensions.swift in Sources */,
 				8113D2C61FD7E1590074282C /* LibSecp256k1Extension.swift in Sources */,
 				81EB1E4B208173D7003BD47F /* Web3+Personal.swift in Sources */,
 				81A1824B20D7DF1B0016741F /* Promise+Web3+Personal+UnlockAccount.swift in Sources */,
@@ -1055,6 +1072,7 @@
 				81C5DA252072E14E00424CD6 /* ABIv2Encoding.swift in Sources */,
 				81A1824220D7AA750016741F /* Promise+Web3+Eth+SendTransaction.swift in Sources */,
 				817EBB2920075D2E00E02EAA /* BIP39.swift in Sources */,
+				13A691672185CA6300F2D9A9 /* DictionaryReader.swift in Sources */,
 				81FECD49211ADEB1006DA367 /* Web3+Instance+ObjC.swift in Sources */,
 				815630022007B53C00A0EC2F /* BIP32Keystore.swift in Sources */,
 				818ABD5B1FE95F8F002657BB /* Web3+Instance.swift in Sources */,
@@ -1146,6 +1164,7 @@
 				81A1821D20D5C6C10016741F /* PromiseTests.swift in Sources */,
 				81FECD5E211AEFCE006DA367 /* ObjectiveCTests.swift in Sources */,
 				E23B5ADD20EA685D00DC7F32 /* EIP67Tests.swift in Sources */,
+				13A6916D21860F3100F2D9A9 /* TxPoolTests.swift in Sources */,
 				00E5FE8220EA3FF40030E0D6 /* InfuraTests.swift in Sources */,
 				1CD91B321FD769A6007BFB45 /* MainTests.swift in Sources */,
 				E23B5ADF20EA68FA00DC7F32 /* SECP256K1Tests.swift in Sources */,
@@ -1163,6 +1182,7 @@
 				4194811E203630530065A83B /* Web3.swift in Sources */,
 				134B10D02182447600113663 /* Int+Sequence.swift in Sources */,
 				4194811F203630530065A83B /* Web3+Instance.swift in Sources */,
+				13A6916C21860A1F00F2D9A9 /* TxPool.swift in Sources */,
 				41948120203630530065A83B /* Web3+Contract.swift in Sources */,
 				41948121203630530065A83B /* Web3+Utils.swift in Sources */,
 				8125F06A20499AC300A0F2FE /* BloomFilter.swift in Sources */,
@@ -1173,6 +1193,7 @@
 				1323B8062177B85F00306BBB /* ERC721.swift in Sources */,
 				41948125203630530065A83B /* Web3+Methods.swift in Sources */,
 				81EB1E4C208173D7003BD47F /* Web3+Personal.swift in Sources */,
+				13A6916B21860A1D00F2D9A9 /* DictionaryReader.swift in Sources */,
 				81FECD4D211ADF70006DA367 /* Web3+HttpProvider+ObjC.swift in Sources */,
 				81D7D97620A3240900A193EC /* EthereumFilterEncodingExtensions.swift in Sources */,
 				41948126203630530065A83B /* Web3+Eth.swift in Sources */,
@@ -1201,6 +1222,7 @@
 				8160E5CF20B8245A0070070B /* IBAN.swift in Sources */,
 				41948131203630530065A83B /* BIP32KeystoreJSONStructure.swift in Sources */,
 				41948132203630530065A83B /* BIP32HDNode.swift in Sources */,
+				13A6916A21860A1B00F2D9A9 /* DecoderExtensions.swift in Sources */,
 				81A1824920D7DDA20016741F /* Promise+Web3+Personal+Sign.swift in Sources */,
 				81A1822620D678590016741F /* Promise+Web3+Eth+GetGasPrice.swift in Sources */,
 				13A24E52216365A4004C48A0 /* EthURL.swift in Sources */,
@@ -1421,6 +1443,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = web3swift/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1460,6 +1483,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = web3swift/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

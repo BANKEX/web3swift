@@ -9,6 +9,10 @@
 import BigInt
 import Foundation
 
+public enum AddressError: Error {
+    case invalidAddress(String)
+}
+
 public struct EthereumAddress: Equatable {
     public enum AddressType {
         case normal
@@ -87,6 +91,9 @@ public struct EthereumAddress: Equatable {
     public init(_ addressData: Data, type: AddressType = .normal) {
         _address = addressData.toHexString().withHex
         self.type = type
+    }
+    public func check() throws {
+        guard isValid else { throw AddressError.invalidAddress(_address) }
     }
 
     public static var contractDeployment: EthereumAddress {
