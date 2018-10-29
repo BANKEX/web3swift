@@ -42,7 +42,7 @@ public struct JsonRpcMethod: Encodable, Equatable {
 public struct JsonRpcRequestFabric {
     public static func prepareRequest(_ method: JsonRpcMethod, parameters: [Encodable]) -> JsonRpcRequest {
         var request = JsonRpcRequest(method: method)
-        let pars = JSONRPCparams(params: parameters)
+        let pars = JsonRpcParams(params: parameters)
         request.params = pars
         return request
     }

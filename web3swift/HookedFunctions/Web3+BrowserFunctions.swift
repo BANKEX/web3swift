@@ -60,9 +60,9 @@ extension Web3.BrowserFunctions {
         return try Web3.Utils.publicToAddressString(publicKey)
     }
 
-    public func sendTransaction(_ transactionJSON: [String: Any], password: String = "BANKEXFOUNDATION") throws -> String {
-        let transaction = try EthereumTransaction(transactionJSON)
-        let options = try Web3Options(transactionJSON)
+    public func sendTransaction(_ json: [String: Any], password: String = "BANKEXFOUNDATION") throws -> String {
+        let transaction = try EthereumTransaction(json)
+        let options = try Web3Options(json)
         return try sendTransaction(transaction, options: options, password: password)
     }
 
@@ -70,9 +70,9 @@ extension Web3.BrowserFunctions {
         return try web3.eth.sendTransaction(transaction, options: options, password: password).hash
     }
 
-    public func estimateGas(_ transactionJSON: [String: Any]) throws -> BigUInt {
-        let transaction = try EthereumTransaction(transactionJSON)
-        let options = try Web3Options(transactionJSON)
+    public func estimateGas(_ json: [String: Any]) throws -> BigUInt {
+        let transaction = try EthereumTransaction(json)
+        let options = try Web3Options(json)
         return try estimateGas(transaction, options: options)
     }
 
@@ -80,9 +80,9 @@ extension Web3.BrowserFunctions {
         return try web3.eth.estimateGas(transaction, options: options)
     }
 
-    public func prepareTxForApproval(_ transactionJSON: [String: Any]) throws -> (transaction: EthereumTransaction, options: Web3Options) {
-        let transaction = try EthereumTransaction(transactionJSON)
-        let options = try Web3Options(transactionJSON)
+    public func prepareTxForApproval(_ json: [String: Any]) throws -> (transaction: EthereumTransaction, options: Web3Options) {
+        let transaction = try EthereumTransaction(json)
+        let options = try Web3Options(json)
         return try prepareTxForApproval(transaction, options: options)
     }
 
@@ -107,9 +107,9 @@ extension Web3.BrowserFunctions {
         return (transaction, options)
     }
 
-    public func signTransaction(_ transactionJSON: [String: Any], password: String = "BANKEXFOUNDATION") throws -> String {
-        let transaction = try EthereumTransaction(transactionJSON)
-        let options = try Web3Options(transactionJSON)
+    public func signTransaction(_ json: [String: Any], password: String = "BANKEXFOUNDATION") throws -> String {
+        let transaction = try EthereumTransaction(json)
+        let options = try Web3Options(json)
         return try signTransaction(transaction, options: options, password: password)
     }
 

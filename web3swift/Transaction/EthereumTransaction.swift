@@ -9,51 +9,6 @@
 import BigInt
 import Foundation
 
-public enum DictionaryError: Error {
-    case keyNotFound(dictionary: [String: Any], key: String)
-    case bigUInt(dictionary: [String: Any], key: String, value: String)
-    case string(dictionary: [String: Any], key: String, value: Any)
-    case address(dictionary: [String: Any], key: String, value: String)
-}
-
-extension Dictionary where Key == String, Value == Any {
-    func address(_ key: String) throws -> EthereumAddress {
-        let string = try self.string(key)
-        guard string != "0x" && string == "0x0" else { return .contractDeployment }
-        let address = EthereumAddress(string)
-        guard address.isValid else { throw DictionaryError.address(dictionary: self, key: key, value: string) }
-        return address
-    }
-
-    func bigUInt(_ bigUInt: inout BigUInt, _ key: String) throws {
-        guard self[key] != nil else { return }
-        bigUInt = try self.bigUInt(key)
-    }
-
-    func value(_ key: String) throws -> Any {
-        guard let value = self[key] else { throw DictionaryError.keyNotFound(dictionary: self, key: key) }
-        return value
-    }
-
-    func string(_ key: String) throws -> String {
-        let value = try self.value(key)
-        guard let string = value as? String else { throw DictionaryError.string(dictionary: self, key: key, value: value) }
-        return string
-    }
-
-    func bigUInt(_ key: String) throws -> BigUInt {
-        let string = try self.string(key)
-        guard let number = BigUInt(string.withoutHex, radix: 16) else { throw DictionaryError.bigUInt(dictionary: self, key: key, value: string) }
-        return number
-    }
-
-    func hexData(_ key: String) throws -> Data {
-        let string = try self.string(key)
-        guard let data = try? string.dataFromHex() else { throw DictionaryError.bigUInt(dictionary: self, key: key, value: string) }
-        return data
-    }
-}
-
 public struct EthereumTransaction: CustomStringConvertible {
     public var nonce: BigUInt
     public var gasPrice: BigUInt = 0
@@ -259,21 +214,21 @@ public struct EthereumTransaction: CustomStringConvertible {
 
     init(_ json: [String: Any]) throws {
         let options = try Web3Options(json)
-        let to = try json.address("to")
+        let to = try json.at("to").address()
         let data: Data
-        if json["data"] != nil {
-            data = try json.hexData("data")
-        } else if json["input"] != nil {
-            data = try json.hexData("input")
+        if let value = try? json.at("data") {
+            data = try value.data()
+        } else if let value = try? json.at("input") {
+            data = try value.data()
         } else {
-            throw DictionaryError.keyNotFound(dictionary: json, key: "data")
+            throw json.notFoundError
         }
         self.init(to: to, data: data, options: options)
-        try json.bigUInt(&nonce, "nonce")
-        try json.bigUInt(&v, "v")
-        try json.bigUInt(&r, "r")
-        try json.bigUInt(&s, "s")
-        try json.bigUInt(&value, "value")
+        nonce = try json.at("nonce").uint256()
+        v = try json.at("v").uint256()
+        r = try json.at("r").uint256()
+        s = try json.at("s").uint256()
+        value = try json.at("value").uint256()
         if let inferedChainID = inferedChainID, v >= 37 {
             chainID = inferedChainID
         }
