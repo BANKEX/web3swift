@@ -704,8 +704,8 @@
 				81C5DA212072DFE600424CD6 /* ABIv2TypeParser.swift */,
 				81C5DA242072E14E00424CD6 /* ABIv2Encoding.swift */,
 				81C5DA2A2074CA1400424CD6 /* ABIv2Decoding.swift */,
-				1323B7F62176255900306BBB /* SolidityTypes.swift */,
 				1323B7AC2170E1ED00306BBB /* SolidityFunction.swift */,
+				1323B7F62176255900306BBB /* SolidityTypes.swift */,
 				13FD60F421822FAE00D73D4E /* SolidityDataWriter.swift */,
 			);
 			path = ABIv2;
