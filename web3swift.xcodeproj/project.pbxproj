@@ -41,6 +41,7 @@
 		13A6916B21860A1D00F2D9A9 /* DictionaryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A691662185CA6300F2D9A9 /* DictionaryReader.swift */; };
 		13A6916C21860A1F00F2D9A9 /* TxPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A691602185B7AC00F2D9A9 /* TxPool.swift */; };
 		13A6916D21860F3100F2D9A9 /* TxPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A691622185B90000F2D9A9 /* TxPoolTests.swift */; };
+		13AF58FB21873F3C002C28F1 /* Merge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AF58FA21873F3C002C28F1 /* Merge.swift */; };
 		13FD60DF21821A1100D73D4E /* SolidityFunctionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD60DE21821A1100D73D4E /* SolidityFunctionTests.swift */; };
 		13FD60F521822FAE00D73D4E /* SolidityDataWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD60F421822FAE00D73D4E /* SolidityDataWriter.swift */; };
 		13FD60F621822FAE00D73D4E /* SolidityDataWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD60F421822FAE00D73D4E /* SolidityDataWriter.swift */; };
@@ -276,6 +277,7 @@
 		13A691622185B90000F2D9A9 /* TxPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxPoolTests.swift; sourceTree = "<group>"; };
 		13A691662185CA6300F2D9A9 /* DictionaryReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryReader.swift; sourceTree = "<group>"; };
 		13A6916821860A1900F2D9A9 /* DecoderExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoderExtensions.swift; sourceTree = "<group>"; };
+		13AF58FA21873F3C002C28F1 /* Merge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Merge.swift; sourceTree = "<group>"; };
 		13FD60DE21821A1100D73D4E /* SolidityFunctionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidityFunctionTests.swift; sourceTree = "<group>"; };
 		13FD60F421822FAE00D73D4E /* SolidityDataWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidityDataWriter.swift; sourceTree = "<group>"; };
 		1CD91AFC1FD76910007BFB45 /* web3swift_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = web3swift_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -513,6 +515,7 @@
 		1CD91AFE1FD76910007BFB45 /* web3swift */ = {
 			isa = PBXGroup;
 			children = (
+				13AF58FA21873F3C002C28F1 /* Merge.swift */,
 				13A6915F2185B78E00F2D9A9 /* TxPool */,
 				13A24EDF216E4BF5004C48A0 /* Contracts */,
 				13A24E4F21636541004C48A0 /* EthURL */,
@@ -1125,6 +1128,7 @@
 				13A24EE7216F988C004C48A0 /* UInt256.swift in Sources */,
 				817EBB162004FE4200E02EAA /* Web3+HttpProvider.swift in Sources */,
 				8103BBCC2077B84400499769 /* PlainKeystore.swift in Sources */,
+				13AF58FB21873F3C002C28F1 /* Merge.swift in Sources */,
 				81DFB3FF210775320011DC85 /* Web3+Infura.swift in Sources */,
 				81C0FCF220440EB500D82FAF /* Web3+Protocols.swift in Sources */,
 				81C0FCF420440F0900D82FAF /* Web3+Options.swift in Sources */,

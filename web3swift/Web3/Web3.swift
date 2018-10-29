@@ -39,32 +39,6 @@ public extension Web3 {
         guard let provider = Web3HttpProvider(url) else { return nil }
         self.init(provider: provider)
     }
-    @available(*,deprecated: 2.0, message: "use Web3(url: URL)")
-    public static func new(_ providerURL: URL) -> Web3? {
-        guard let provider = Web3HttpProvider(providerURL) else { return nil }
-        return Web3(provider: provider)
-    }
-    
-    /// Initialized Web3 instance bound to Infura's mainnet provider.
-    @available(*,deprecated: 2.0, message: "use Web3(infura: .mainnet, accessToken: String?)")
-    public static func InfuraMainnetWeb3(accessToken: String? = nil) -> Web3 {
-        let infura = InfuraProvider(.mainnet, accessToken: accessToken)!
-        return Web3(provider: infura)
-    }
-
-    /// Initialized Web3 instance bound to Infura's rinkeby provider.
-    @available(*,deprecated: 2.0, message: "use Web3(infura: .rinkeby, accessToken: String?)")
-    public static func InfuraRinkebyWeb3(accessToken: String? = nil) -> Web3 {
-        let infura = InfuraProvider(.rinkeby, accessToken: accessToken)!
-        return Web3(provider: infura)
-    }
-
-    /// Initialized Web3 instance bound to Infura's ropsten provider.
-    @available(*,deprecated: 2.0, message: "use Web3(infura: .ropsten, accessToken: String?)")
-    public static func InfuraRopstenWeb3(accessToken: String? = nil) -> Web3 {
-        let infura = InfuraProvider(.ropsten, accessToken: accessToken)!
-        return Web3(provider: infura)
-    }
 }
 
 struct ResultUnwrapper {

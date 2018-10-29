@@ -60,9 +60,6 @@ extension Web3.Utils {
         return EthereumAddress(Data(contractAddressData))
     }
 
-    @available(*, deprecated, message: "Use Web3Units")
-    public struct Units {}
-
     /// Precoded "cold wallet" (private key controlled) address. Basically - only a payable fallback function.
     public static var coldWalletABI = """
     [{"payable":true,"type":"fallback"}]
@@ -188,56 +185,6 @@ extension Web3.Utils {
             mainPart = mainPart + extraPart
         }
         return mainPart
-    }
-
-    /// Formats a BigInt object to String. The supplied number is first divided into integer and decimal part based on "toUnits",
-    /// then limit the decimal part to "decimals" symbols and uses a "decimalSeparator" as a separator.
-    ///
-    /// Returns nil of formatting is not possible to satisfy.
-    @available(*,deprecated: 2.0,message: "Use number.string(units:decimals:decimalSeparator:options:)")
-    public static func formatToEthereumUnits(_ bigNumber: BigInt, toUnits: Web3Units = .eth, decimals: Int = 4, decimalSeparator: String = ".") -> String {
-        return bigNumber.string(units: toUnits, decimals: decimals, decimalSeparator: decimalSeparator)
-    }
-
-    /// Formats a BigInt object to String. The supplied number is first divided into integer and decimal part based on "toUnits",
-    /// then limit the decimal part to "decimals" symbols and uses a "decimalSeparator" as a separator.
-    /// Fallbacks to scientific format if higher precision is required.
-    ///
-    /// Returns nil of formatting is not possible to satisfy.
-    @available(*,deprecated: 2.0,message: "Use number.string(unitDecimals:formattingDecimals:decimalSeparator:options:)")
-    public static func formatToPrecision(_ bigNumber: BigInt, numberDecimals: Int = 18, formattingDecimals: Int = 4, decimalSeparator: String = ".", fallbackToScientific: Bool = false) -> String {
-        var options = BigUInt.StringOptions.default
-        if fallbackToScientific {
-            options.insert(.fallbackToScientific)
-        }
-        return bigNumber.string(unitDecimals: numberDecimals, decimals: formattingDecimals, decimalSeparator: decimalSeparator, options: options)
-    }
-
-    /// Formats a BigUInt object to String. The supplied number is first divided into integer and decimal part based on "toUnits",
-    /// then limit the decimal part to "decimals" symbols and uses a "decimalSeparator" as a separator.
-    ///
-    /// Returns nil of formatting is not possible to satisfy.
-    @available(*,deprecated: 2.0,message: "Use number.string(units:formattingDecimals:decimalSeparator:options:)")
-    public static func formatToEthereumUnits(_ bigNumber: BigUInt, toUnits: Web3Units = .eth, decimals: Int = 4, decimalSeparator: String = ".", fallbackToScientific: Bool = false) -> String {
-        var options = BigUInt.StringOptions.default
-        if fallbackToScientific {
-            options.insert(.fallbackToScientific)
-        }
-        return bigNumber.string(units: toUnits, decimals: decimals, decimalSeparator: decimalSeparator, options: options)
-    }
-
-    /// Formats a BigUInt object to String. The supplied number is first divided into integer and decimal part based on "toUnits",
-    /// then limit the decimal part to "decimals" symbols and uses a "decimalSeparator" as a separator.
-    /// Fallbacks to scientific format if higher precision is required.
-    ///
-    /// Returns nil of formatting is not possible to satisfy.
-    @available(*,deprecated: 2.0,message: "Use number.string(unitDecimals:formattingDecimals:decimalSeparator:options:)")
-    public static func formatToPrecision(_ bigNumber: BigUInt, numberDecimals: Int = 18, formattingDecimals: Int = 4, decimalSeparator: String = ".", fallbackToScientific: Bool = false) -> String {
-        var options = BigUInt.StringOptions.default
-        if fallbackToScientific {
-            options.insert(.fallbackToScientific)
-        }
-        return bigNumber.string(unitDecimals: numberDecimals, decimals: formattingDecimals, decimalSeparator: decimalSeparator, options: options)
     }
 
     /// Recover the Ethereum address from recoverable secp256k1 signature. Message is first hashed using the "personal hash" protocol.

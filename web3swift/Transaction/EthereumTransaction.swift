@@ -322,32 +322,30 @@ public struct EthereumTransaction: CustomStringConvertible {
         }
     }
 
-    static func createRequest(method: JSONRPCmethod, transaction: EthereumTransaction, onBlock: String? = nil, options: Web3Options?) -> JSONRPCrequest? {
-        var request = JSONRPCrequest()
-        request.method = method
+    static func createRequest(method: JsonRpcMethod, transaction: EthereumTransaction, onBlock: String? = nil, options: Web3Options?) -> JsonRpcRequest? {
+        var request = JsonRpcRequest(method: method)
 //        guard let from = options?.from else { return nil }
         guard var txParams = transaction.encodeAsDictionary(from: options?.from) else { return nil }
         if method == .estimateGas || options?.gasLimit == nil {
             txParams.gas = nil
         }
         var params = [txParams] as Array<Encodable>
-        if method.requiredNumOfParameters == 2 && onBlock != nil {
+        if method.parameters == 2 && onBlock != nil {
             params.append(onBlock as Encodable)
         }
-        let pars = JSONRPCparams(params: params)
+        let pars = JsonRpcParams(params: params)
         request.params = pars
         if !request.isValid { return nil }
         return request
     }
 
-    static func createRawTransaction(transaction: EthereumTransaction) -> JSONRPCrequest? {
+    static func createRawTransaction(transaction: EthereumTransaction) -> JsonRpcRequest? {
         guard transaction.sender != nil else { return nil }
         guard let encodedData = transaction.encode() else { return nil }
         let hex = encodedData.toHexString().withHex.lowercased()
-        var request = JSONRPCrequest()
-        request.method = JSONRPCmethod.sendRawTransaction
+        var request = JsonRpcRequest(method: .sendRawTransaction)
         let params = [hex] as Array<Encodable>
-        let pars = JSONRPCparams(params: params)
+        let pars = JsonRpcParams(params: params)
         request.params = pars
         if !request.isValid { return nil }
         return request

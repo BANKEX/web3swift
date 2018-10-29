@@ -247,7 +247,7 @@ extension Web3.Web3Contract {
                 }
                 //                event = ev
             }
-            let request = JSONRPCRequestFabric.prepareRequest(.getLogs, parameters: [preEncoding])
+            let request = JsonRpcRequestFabric.prepareRequest(.getLogs, parameters: [preEncoding])
             let fetchLogsPromise = web3.dispatch(request).map(on: queue) { response throws -> [EventParserResult] in
                 guard let value: [EventLog] = response.getValue() else {
                     if response.error != nil {

@@ -20,21 +20,21 @@ public class TxPool {
     }
     
     public func status() -> Promise<TxPoolStatus> {
-        let request = JSONRPCRequestFabric.prepareRequest(.txPoolStatus, parameters: [])
+        let request = JsonRpcRequestFabric.prepareRequest(.txPoolStatus, parameters: [])
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue ) { try TxPoolStatus($0.response()) }
     }
     
     public func inspect() -> Promise<TxPoolInspect> {
-        let request = JSONRPCRequestFabric.prepareRequest(.txPoolInspect, parameters: [])
+        let request = JsonRpcRequestFabric.prepareRequest(.txPoolInspect, parameters: [])
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue ) { try TxPoolInspect($0.response()) }
     }
     
     public func content() -> Promise<TxPoolContent> {
-        let request = JSONRPCRequestFabric.prepareRequest(.txPoolContent, parameters: [])
+        let request = JsonRpcRequestFabric.prepareRequest(.txPoolContent, parameters: [])
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue ) { try TxPoolContent($0.response()) }

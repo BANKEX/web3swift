@@ -20,7 +20,7 @@ extension Web3.Personal {
         let queue = web3.requestDispatcher.queue
         do {
             if web3.provider.attachedKeystoreManager == nil {
-                let request = JSONRPCRequestFabric.prepareRequest(.unlockAccount, parameters: [account.lowercased(), password, seconds])
+                let request = JsonRpcRequestFabric.prepareRequest(.unlockAccount, parameters: [account.lowercased(), password, seconds])
                 return web3.dispatch(request).map(on: queue) { response in
                     guard let value: Bool = response.getValue() else {
                         if response.error != nil {

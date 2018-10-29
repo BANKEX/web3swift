@@ -48,8 +48,6 @@ public struct Web3Options {
         options.value = BigUInt(0)
         return options
     }
-    @available(*, unavailable, renamed: "default")
-    public static func defaultOptions() -> Web3Options { fatalError() }
 
     public init(_ json: [String: Any]) throws {
         gasLimit = try json.bigUInt("gasLimit")

@@ -17,7 +17,7 @@ extension Web3.Eth {
         let queue = web3.requestDispatcher.queue
         do {
             if web3.provider.attachedKeystoreManager == nil {
-                guard let request = EthereumTransaction.createRequest(method: JSONRPCmethod.sendTransaction, transaction: assembledTransaction, onBlock: nil, options: options) else {
+                guard let request = EthereumTransaction.createRequest(method: .sendTransaction, transaction: assembledTransaction, onBlock: nil, options: options) else {
                     throw Web3Error.processingError("Failed to create a request to send transaction")
                 }
                 return web3.dispatch(request).map(on: queue) { response in

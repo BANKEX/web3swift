@@ -25,7 +25,7 @@ extension Web3.Eth {
             }
             return promise.promise
         }
-        let request = JSONRPCRequestFabric.prepareRequest(.getAccounts, parameters: [])
+        let request = JsonRpcRequestFabric.prepareRequest(.getAccounts, parameters: [])
         let rp = web3.dispatch(request)
         return rp.map(on: queue) { response in
             guard let value: [EthereumAddress] = response.getValue() else {
