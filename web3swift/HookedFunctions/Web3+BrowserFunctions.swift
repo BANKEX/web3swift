@@ -131,7 +131,7 @@ extension Web3.BrowserFunctions {
         guard let keystore = keystoreManager.walletForAddress(from) else { throw TransactionError.privateKeyNotFound(forAddress: from) }
         try Web3Signer.signTX(transaction: &transaction, keystore: keystore, account: from, password: password)
         print(transaction)
-        guard let signedData = transaction.encode(forSignature: false, chainID: nil)?.toHexString().withHex else { throw TransactionError.cannotEncodeTransaction }
+        guard let signedData = transaction.encode(forSignature: false, chainId: nil)?.toHexString().withHex else { throw TransactionError.cannotEncodeTransaction }
         return signedData
     }
 }

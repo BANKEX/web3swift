@@ -290,14 +290,12 @@ public class SolidityFunction: CustomStringConvertible {
         let arguments = function[function.index(after: index)..<function.index(before: function.endIndex)]
         self.types = try arguments.split(separator: ",").map { try SolidityType.scan(type: String($0)) }
     }
-    public var functionHash: Data {
-        return name.keccak256()[0..<4]
-    }
     public func encode(_ arguments: SolidityDataRepresentable...) -> Data {
         return encode(arguments)
     }
     public func encode(_ arguments: [SolidityDataRepresentable]) -> Data {
         let data = SolidityDataWriter()
+        data.write(header: hash)
         for i in 0..<types.count {
             let type = types[i]
             if i < arguments.count {

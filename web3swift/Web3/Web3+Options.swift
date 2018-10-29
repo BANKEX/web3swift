@@ -50,7 +50,7 @@ public struct Web3Options {
     }
 
     public init(_ json: [String: Any]) throws {
-        gasLimit = try json.at("gasLimit").uint256()
+        gasLimit = try json.at("gas").uint256()
         gasPrice = try json.at("gasPrice").uint256()
         value = try json.at("value").uint256()
         from = try json.at("from").address()

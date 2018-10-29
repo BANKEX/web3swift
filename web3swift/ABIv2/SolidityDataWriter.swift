@@ -47,6 +47,10 @@ class SolidityDataWriter {
     init(count: Int) {
         data = Data(count: count)
     }
+    func write(header: Data) {
+        data.append(header)
+        offset += header.count
+    }
     func write(type: SolidityType) {
         var data = type.default
         data.extend(to: type.memoryUsage)
@@ -76,7 +80,7 @@ class SolidityDataWriter {
     }
     func done() -> Data {
         for pointer in dynamicData {
-            data.write(data: data.count.solidityData, at: pointer.position-offset)
+            data.write(data: (data.count - offset).solidityData, at: pointer.position)
             if pointer.data.count == 0 {
                 data.append(0.solidityData)
             } else {

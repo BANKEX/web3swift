@@ -52,8 +52,7 @@ class BetterERC20Tests: XCTestCase {
     }
     
     func testERC20Balance() throws {
-        let balance = try contract.call("balanceOf(address)",user).wait().uint256()
-        print(balance)
+        XCTAssertNoThrow(try contract.call("balanceOf(address)",user).wait().uint256())
     }
 
 }

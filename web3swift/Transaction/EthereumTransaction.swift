@@ -43,10 +43,10 @@ public struct EthereumTransaction: CustomStringConvertible {
         var encoded: Data
         let inferedChainID = self.inferedChainID
         if inferedChainID != nil {
-            guard let enc = self.self.encode(forSignature: false, chainID: inferedChainID) else { return nil }
+            guard let enc = self.encode(forSignature: false, chainId: inferedChainID) else { return nil }
             encoded = enc
         } else {
-            guard let enc = self.self.encode(forSignature: false, chainID: self.chainID) else { return nil }
+            guard let enc = self.encode(forSignature: false, chainId: self.chainID) else { return nil }
             encoded = enc
         }
         let hash = encoded.sha3(.keccak256)
@@ -164,13 +164,13 @@ public struct EthereumTransaction: CustomStringConvertible {
         return txhash
     }
 
-    public func encode(forSignature: Bool = false, chainID: NetworkId? = nil) -> Data? {
+    public func encode(forSignature: Bool = false, chainId: NetworkId? = nil) -> Data? {
         if forSignature {
-            if chainID != nil {
-                let fields = [nonce, gasPrice, gasLimit, to.addressData, value, data, chainID!, BigUInt(0), BigUInt(0)] as [AnyObject]
+            if let chainId = chainId {
+                let fields = [nonce, gasPrice, gasLimit, to.addressData, value, data, chainId.rawValue, BigUInt(0), BigUInt(0)] as [AnyObject]
                 return RLP.encode(fields)
-            } else if self.chainID != nil {
-                let fields = [nonce, gasPrice, gasLimit, to.addressData, value, data, chainID!, BigUInt(0), BigUInt(0)] as [AnyObject]
+            } else if let chainId = self.chainID {
+                let fields = [nonce, gasPrice, gasLimit, to.addressData, value, data, chainId.rawValue, BigUInt(0), BigUInt(0)] as [AnyObject]
                 return RLP.encode(fields)
             } else {
                 let fields = [nonce, gasPrice, gasLimit, to.addressData, value, data] as [AnyObject]
@@ -207,7 +207,7 @@ public struct EthereumTransaction: CustomStringConvertible {
     }
 
     public func hashForSignature(chainID: NetworkId? = nil) -> Data? {
-        guard let encoded = self.encode(forSignature: true, chainID: chainID) else { return nil }
+        guard let encoded = self.encode(forSignature: true, chainId: chainID) else { return nil }
         let hash = encoded.sha3(.keccak256)
         return hash
     }

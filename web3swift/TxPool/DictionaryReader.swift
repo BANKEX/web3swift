@@ -75,7 +75,7 @@ public class DictionaryReader {
         }
     }
     public func data() throws -> Data {
-        return try string().withoutHex.dataFromHex()
+        return try Data(hex: string().withoutHex)
     }
     public func uint256() throws -> BigUInt {
         if let value = raw as? String {
@@ -113,9 +113,16 @@ extension Dictionary where Key == String, Value == Any {
     var notFoundError: Error {
         return DictionaryReader.Error.notFound
     }
+    var json: Data {
+        return try! JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
+    }
+    var jsonDescription: String {
+        return json.string
+    }
     
     public func at(_ key: String) throws -> DictionaryReader {
         guard let value = self[key] else { throw DictionaryReader.Error.notFound }
         return DictionaryReader(value)
     }
 }
+

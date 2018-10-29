@@ -97,6 +97,9 @@ extension String {
         guard isHex else { return self }
         return String(self[2...])
     }
+    var hex: Data {
+        return Data(hex: withoutHex)
+    }
 
     func dataFromHex() throws -> Data {
         let data = Data(hex: self)

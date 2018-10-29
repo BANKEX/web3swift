@@ -25,6 +25,7 @@ private extension Int {
 public class Web3DataResponse {
     public let data: Data
     public var position = 0
+    public var headerSize = 0
     public init(_ data: Data) {
         self.data = data
     }
@@ -50,6 +51,13 @@ public class Web3DataResponse {
         }
     }
     
+    public func header(_ size: Int) throws -> Data {
+        let range = position..<position+size
+        guard range.upperBound <= data.count else { throw Web3ResponseError.notFound }
+        position = range.upperBound
+        headerSize = size
+        return self.data[range]
+    }
     public func skip(_ count: Int) throws {
         let end = position+count
         guard end <= data.count else { throw Web3ResponseError.notFound }
@@ -64,7 +72,7 @@ public class Web3DataResponse {
     public func pointer<T>(block: ()throws->T) throws -> T {
         let pointer = try intCount()
         let pos = position
-        position = pointer
+        position = pointer + headerSize
         defer { position = pos }
         return try block()
     }
