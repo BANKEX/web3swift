@@ -44,6 +44,7 @@
 		13AF58FB21873F3C002C28F1 /* Merge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AF58FA21873F3C002C28F1 /* Merge.swift */; };
 		13AF58FF2187796D002C28F1 /* HDPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AF58FC21876B38002C28F1 /* HDPath.swift */; };
 		13AF59002187796E002C28F1 /* HDPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AF58FC21876B38002C28F1 /* HDPath.swift */; };
+		13AF590121877BBA002C28F1 /* ScryptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8102F5C2211E00820032DF60 /* ScryptTests.swift */; };
 		13FD60DF21821A1100D73D4E /* SolidityFunctionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD60DE21821A1100D73D4E /* SolidityFunctionTests.swift */; };
 		13FD60F521822FAE00D73D4E /* SolidityDataWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD60F421822FAE00D73D4E /* SolidityDataWriter.swift */; };
 		13FD60F621822FAE00D73D4E /* SolidityDataWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD60F421822FAE00D73D4E /* SolidityDataWriter.swift */; };
@@ -1164,6 +1165,7 @@
 				1323B8002177A83000306BBB /* BetterERC20Tests.swift in Sources */,
 				E23B5ADB20EA67D800DC7F32 /* AdvancedABITests.swift in Sources */,
 				4EFFCB70208554EB008165FE /* RemoteParsingTests.swift in Sources */,
+				13AF590121877BBA002C28F1 /* ScryptTests.swift in Sources */,
 				00E5FE7C20EA37B50030E0D6 /* ERC20Tests.swift in Sources */,
 				E23B5AE320EA69B900DC7F32 /* NumberFormattingUtilTests.swift in Sources */,
 				00E5FE7A20EA355D0030E0D6 /* TransactionTests.swift in Sources */,
