@@ -158,24 +158,3 @@ extension Mnemonics: CustomStringConvertible {
     }
 }
 
-public class BIP39 {
-    @available(*, unavailable, message: "Use try Mnemonics(entropy:language:)")
-    public static func generateMnemonicsFromEntropy(entropy: Data, language: BIP39Language = BIP39Language.english) -> String? {
-        fatalError()
-    }
-
-    @available(*, unavailable, message: "Use Mnemonics(entropySize:language:)")
-    public static func generateMnemonics(bitsOfEntropy: Int, language: BIP39Language = BIP39Language.english) -> String? {
-        fatalError()
-    }
-
-    @available(*,deprecated: 2.0,message: "Use Mnemonics().entropy")
-    public static func mnemonicsToEntropy(_ mnemonics: String, language: BIP39Language = BIP39Language.english) -> Data? {
-        fatalError()
-    }
-
-    @available(*,deprecated: 2.0,message: "Use Mnemonics().seed(password:)")
-    public static func seedFromMmemonics(_ mnemonics: String, password: String = "", language: BIP39Language = BIP39Language.english) -> Data? {
-        fatalError()
-    }
-}

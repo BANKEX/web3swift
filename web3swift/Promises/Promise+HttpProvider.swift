@@ -10,7 +10,7 @@ import Foundation
 import PromiseKit
 
 extension Web3HttpProvider {
-    static func post(_ request: JSONRPCrequest, providerURL: URL, queue: DispatchQueue = .main, session: URLSession) -> Promise<JSONRPCresponse> {
+    static func post(_ request: JsonRpcRequest, providerURL: URL, queue: DispatchQueue = .main, session: URLSession) -> Promise<JsonRpcResponse> {
         let rp = Promise<Data>.pending()
         var task: URLSessionTask?
         queue.async {
@@ -44,8 +44,8 @@ extension Web3HttpProvider {
         }
         return rp.promise.ensure(on: queue) {
             task = nil
-        }.map(on: queue) { (data: Data) throws -> JSONRPCresponse in
-            let parsedResponse = try JSONDecoder().decode(JSONRPCresponse.self, from: data)
+            }.map(on: queue) { (data: Data) throws -> JsonRpcResponse in
+                let parsedResponse = try JSONDecoder().decode(JsonRpcResponse.self, from: data)
             if parsedResponse.error != nil {
                 throw Web3Error.nodeError("Received an error message from node\n" + String(describing: parsedResponse.error!))
             }
@@ -53,7 +53,7 @@ extension Web3HttpProvider {
         }
     }
 
-    static func post(_ request: JSONRPCrequestBatch, providerURL: URL, queue: DispatchQueue = .main, session: URLSession) -> Promise<JSONRPCresponseBatch> {
+    static func post(_ request: JsonRpcRequestBatch, providerURL: URL, queue: DispatchQueue = .main, session: URLSession) -> Promise<JsonRpcResponseBatch> {
         let rp = Promise<Data>.pending()
         var task: URLSessionTask?
         queue.async {
@@ -87,23 +87,19 @@ extension Web3HttpProvider {
         }
         return rp.promise.ensure(on: queue) {
             task = nil
-        }.map(on: queue) { (data: Data) throws -> JSONRPCresponseBatch in
+            }.map(on: queue) { (data: Data) throws -> JsonRpcResponseBatch in
 //                let debugValue = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0))
 //                print(debugValue)
-            let parsedResponse = try JSONDecoder().decode(JSONRPCresponseBatch.self, from: data)
+            let parsedResponse = try JSONDecoder().decode(JsonRpcResponseBatch.self, from: data)
             return parsedResponse
         }
     }
 
-    public func sendAsync(_ request: JSONRPCrequest, queue: DispatchQueue = .main) -> Promise<JSONRPCresponse> {
-        if request.method == nil {
-            return Promise(error: Web3Error.nodeError("RPC method is nill"))
-        }
-
+    public func sendAsync(_ request: JsonRpcRequest, queue: DispatchQueue = .main) -> Promise<JsonRpcResponse> {
         return Web3HttpProvider.post(request, providerURL: url, queue: queue, session: session)
     }
 
-    public func sendAsync(_ requests: JSONRPCrequestBatch, queue: DispatchQueue = .main) -> Promise<JSONRPCresponseBatch> {
+    public func sendAsync(_ requests: JsonRpcRequestBatch, queue: DispatchQueue = .main) -> Promise<JsonRpcResponseBatch> {
         return Web3HttpProvider.post(requests, providerURL: url, queue: queue, session: session)
     }
 }

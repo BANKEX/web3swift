@@ -120,7 +120,7 @@ class Tests: XCTestCase {
 
     func testGenericRPCresponse() {
         let hex = "0x1"
-        let rpcResponse = JSONRPCresponse(id: 1, jsonrpc: "2.0", result: hex, error: nil)
+        let rpcResponse = JsonRpcResponse(id: 1, jsonrpc: "2.0", result: hex, error: nil)
         let value: BigUInt? = rpcResponse.getValue()
         XCTAssert(value == 1)
     }

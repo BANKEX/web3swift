@@ -17,7 +17,7 @@ class InfuraTests: XCTestCase {
         let balString = balance.string(units: .eth, decimals: 3)
         print(balString)
     }
-
+ 
     func testGetBlockByHash() throws {
         let web3 = Web3(infura: .mainnet)
         let result = try web3.eth.getBlockByHash("0x6d05ba24da6b7a1af22dc6cc2a1fe42f58b2a5ea4c406b19c8cf672ed8ec0695", fullTransactions: true)
@@ -47,7 +47,7 @@ class InfuraTests: XCTestCase {
 
     func testGetBlockByNumber3() {
         let web3 = Web3(infura: .mainnet)
-        XCTAssertNoThrow(try web3.eth.getBlockByNumber(UInt64(1_000_000_000), fullTransactions: true))
+        XCTAssertNoThrow(try web3.eth.getBlockByNumber(UInt64(0x5BAD55), fullTransactions: true))
     }
 
     func testGasPrice() throws {

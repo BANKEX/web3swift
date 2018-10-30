@@ -11,23 +11,28 @@ import XCTest
 import BigInt
 
 class TxPoolTests: XCTestCase {
+    var localNodeFound = false
     override func setUp() {
         let url = URL(string: "http://127.0.0.1:8545")!
-        guard let provider = Web3HttpProvider(url, network: nil, keystoreManager: nil) else { return XCTFail("Please start your local test node") }
-        Web3.default = Web3(provider: provider)
+        if let provider = Web3HttpProvider(url, network: nil, keystoreManager: nil) {
+            localNodeFound = true
+            Web3.default = Web3(provider: provider)
+        } else {
+            localNodeFound = false
+        }
     }
     func testTxPoolStatus() throws {
-        let response = try TxPool.default.status().wait()
-        print(response)
+        guard localNodeFound else { return }
+        try XCTAssertNoThrow(TxPool.default.status().wait())
     }
     
     func testTxPoolInspect() throws {
-        let response = try TxPool.default.inspect().wait()
-        print(response)
+        guard localNodeFound else { return }
+        try XCTAssertNoThrow(TxPool.default.inspect().wait())
+        
     }
-    
     func testTxPoolContent() throws {
-        let response = try TxPool.default.content().wait()
-        print(response)
+        guard localNodeFound else { return }
+        try XCTAssertNoThrow(TxPool.default.content().wait())
     }
 }

@@ -162,15 +162,15 @@ public struct TransactionDetails: Decodable {
     }
 
     public init(_ json: [String: Any]) throws {
-        if json["blockHash"] != nil {
-            blockHash = try json.hexData("blockHash")
+        if let value = try? json.at("blockHash") {
+            blockHash = try value.data()
         }
         transaction = try EthereumTransaction(json)
-        if json["blockNumber"] != nil {
-            blockNumber = try json.bigUInt("blockNumber")
+        if let value = try? json.at("blockNumber") {
+            blockNumber = try value.uint256()
         }
-        if json["transactionIndex"] != nil {
-            transactionIndex = try json.bigUInt("transactionIndex")
+        if let value = try? json.at("transactionIndex") {
+            transactionIndex = try value.uint256()
         }
     }
 }

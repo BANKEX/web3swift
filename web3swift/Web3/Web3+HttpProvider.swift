@@ -12,8 +12,8 @@ import PromiseKit
 
 /// Providers abstraction for custom providers (websockets, other custom private key managers). At the moment should not be used.
 public protocol Web3Provider {
-    func sendAsync(_ request: JSONRPCrequest, queue: DispatchQueue) -> Promise<JSONRPCresponse>
-    func sendAsync(_ requests: JSONRPCrequestBatch, queue: DispatchQueue) -> Promise<JSONRPCresponseBatch>
+    func sendAsync(_ request: JsonRpcRequest, queue: DispatchQueue) -> Promise<JsonRpcResponse>
+    func sendAsync(_ requests: JsonRpcRequestBatch, queue: DispatchQueue) -> Promise<JsonRpcResponseBatch>
     var network: NetworkId? { get set }
     var attachedKeystoreManager: KeystoreManager? { get set }
     var url: URL { get }
@@ -36,7 +36,7 @@ public class Web3HttpProvider: Web3Provider {
             guard httpProviderURL.scheme == "http" || httpProviderURL.scheme == "https" else { return nil }
             url = httpProviderURL
             if net == nil {
-                let request = JSONRPCRequestFabric.prepareRequest(.getNetwork, parameters: [])
+                let request = JsonRpcRequestFabric.prepareRequest(.getNetwork, parameters: [])
                 let response = try Web3HttpProvider.post(request, providerURL: httpProviderURL, queue: DispatchQueue.global(qos: .userInteractive), session: session).wait()
                 if response.error != nil {
                     if response.message != nil {

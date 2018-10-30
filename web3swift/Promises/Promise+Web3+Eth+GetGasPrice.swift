@@ -12,7 +12,7 @@ import PromiseKit
 
 extension Web3.Eth {
     public func getGasPricePromise() -> Promise<BigUInt> {
-        let request = JSONRPCRequestFabric.prepareRequest(.gasPrice, parameters: [])
+        let request = JsonRpcRequestFabric.prepareRequest(.gasPrice, parameters: [])
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue) { response in

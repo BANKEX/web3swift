@@ -48,14 +48,12 @@ public struct Web3Options {
         options.value = BigUInt(0)
         return options
     }
-    @available(*, unavailable, renamed: "default")
-    public static func defaultOptions() -> Web3Options { fatalError() }
 
     public init(_ json: [String: Any]) throws {
-        gasLimit = try json.bigUInt("gasLimit")
-        gasPrice = try json.bigUInt("gasPrice")
-        value = try json.bigUInt("value")
-        from = try json.address("from")
+        gasLimit = try json.at("gas").uint256()
+        gasPrice = try json.at("gasPrice").uint256()
+        value = try json.at("value").uint256()
+        from = try json.at("from").address()
     }
 
     /// Merges two sets of topions by overriding the parameters from the first set by parameters from the second

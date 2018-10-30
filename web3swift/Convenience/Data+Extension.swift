@@ -98,6 +98,9 @@ public extension Data {
         }
         return Data(array)
     }
+    var string: String {
+        return String(data: self, encoding: .utf8) ?? hex
+    }
     public func keccak256() -> Data {
         return sha3(.keccak256)
     }

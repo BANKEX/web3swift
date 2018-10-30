@@ -84,8 +84,10 @@ class SolidityFunctionTests: XCTestCase {
         let data = function.encode(user, 800)
         
         let reader = Web3DataResponse(data)
+        let hash = try reader.header(4)
         let a = try reader.address()
         let b = try reader.uint256()
+        XCTAssertEqual(hash, "a9059cbb".hex)
         XCTAssertEqual(a, user)
         XCTAssertEqual(b, 800)
     }
@@ -99,11 +101,13 @@ class SolidityFunctionTests: XCTestCase {
         
         let function = try SolidityFunction(function: "send(address,string,uint256)")
         let data = function.encode(user, "hello world", 800)
-
+        
         let reader = Web3DataResponse(data)
+        let hash = try reader.header(4)
         let a = try reader.address()
         let message = try reader.string()
         let b = try reader.uint256()
+        XCTAssertEqual(hash, function.hash)
         XCTAssertEqual(a, user)
         XCTAssertEqual(message, "hello world")
         XCTAssertEqual(b, 800)
@@ -118,9 +122,11 @@ class SolidityFunctionTests: XCTestCase {
         let data = function.encode(user, bigString, 800)
         
         let reader = Web3DataResponse(data)
+        let hash = try reader.header(4)
         let a = try reader.address()
         let message = try reader.string()
         let b = try reader.uint256()
+        XCTAssertEqual(hash, function.hash)
         XCTAssertEqual(a, user)
         XCTAssertEqual(message, bigString)
         XCTAssertEqual(b, 800)

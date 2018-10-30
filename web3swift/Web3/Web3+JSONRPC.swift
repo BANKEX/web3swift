@@ -23,11 +23,12 @@ public struct Counter {
     }
 }
 
+
 /// JSON RPC request structure for serialization and deserialization purposes.
-public struct JSONRPCrequest: Encodable {
+public struct JsonRpcRequest: Encodable {
     var jsonrpc: String = "2.0"
-    var method: JSONRPCmethod?
-    var params: JSONRPCparams?
+    var method: JsonRpcMethod
+    var params: JsonRpcParams?
     var id: UInt64 = Counter.increment()
 
     enum CodingKeys: String, CodingKey {
@@ -36,27 +37,25 @@ public struct JSONRPCrequest: Encodable {
         case params
         case id
     }
-
+    public init(method: JsonRpcMethod) {
+        self.method = method
+    }
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(jsonrpc, forKey: .jsonrpc)
-        try container.encode(method?.rawValue, forKey: .method)
+        try container.encode(method.api, forKey: .method)
         try container.encode(params, forKey: .params)
         try container.encode(id, forKey: .id)
     }
 
     public var isValid: Bool {
-        if self.method == nil {
-            return false
-        }
-        guard let method = self.method else { return false }
-        return method.requiredNumOfParameters == params?.params.count
+        return method.parameters == params?.params.count
     }
 }
 
 /// JSON RPC batch request structure for serialization and deserialization purposes.
-public struct JSONRPCrequestBatch: Encodable {
-    var requests: [JSONRPCrequest]
+public struct JsonRpcRequestBatch: Encodable {
+    var requests: [JsonRpcRequest]
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
@@ -65,7 +64,7 @@ public struct JSONRPCrequestBatch: Encodable {
 }
 
 /// JSON RPC response structure for serialization and deserialization purposes.
-public struct JSONRPCresponse: Decodable {
+public struct JsonRpcResponse: Decodable {
     public var id: Int
     public var jsonrpc = "2.0"
     public var result: Any?
@@ -205,12 +204,12 @@ public struct JSONRPCresponse: Decodable {
 }
 
 /// JSON RPC batch response structure for serialization and deserialization purposes.
-public struct JSONRPCresponseBatch: Decodable {
-    var responses: [JSONRPCresponse]
+public struct JsonRpcResponseBatch: Decodable {
+    var responses: [JsonRpcResponse]
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        let responses = try container.decode([JSONRPCresponse].self)
+        let responses = try container.decode([JsonRpcResponse].self)
         self.responses = responses
     }
 }
@@ -239,7 +238,7 @@ public struct EventFilterParameters: Codable {
 }
 
 /// Raw JSON RCP 2.0 internal flattening wrapper.
-public struct JSONRPCparams: Encodable {
+public struct JsonRpcParams: Encodable {
     public var params = [Any]()
 
     public func encode(to encoder: Encoder) throws {

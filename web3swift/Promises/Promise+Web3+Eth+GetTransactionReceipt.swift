@@ -17,7 +17,7 @@ extension Web3.Eth {
     }
 
     public func getTransactionReceiptPromise(_ txhash: String) -> Promise<TransactionReceipt> {
-        let request = JSONRPCRequestFabric.prepareRequest(.getTransactionReceipt, parameters: [txhash])
+        let request = JsonRpcRequestFabric.prepareRequest(.getTransactionReceipt, parameters: [txhash])
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue) { response in

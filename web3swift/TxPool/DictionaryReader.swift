@@ -59,6 +59,7 @@ public class DictionaryReader {
     public func address() throws -> EthereumAddress {
         let string = try self.string()
         guard string.count >= 42 else { throw Error.unconvertable }
+        guard string != "0x" && string != "0x0" else { return .contractDeployment }
         let address = EthereumAddress(String(string[..<42]))
         // already checked for size. so don't need to check again for address.isValid
         // guard address.isValid else { throw Error.unconvertable }
@@ -74,7 +75,7 @@ public class DictionaryReader {
         }
     }
     public func data() throws -> Data {
-        return try string().withoutHex.dataFromHex()
+        return try Data(hex: string().withoutHex)
     }
     public func uint256() throws -> BigUInt {
         if let value = raw as? String {
@@ -107,3 +108,21 @@ public class DictionaryReader {
         }
     }
 }
+
+extension Dictionary where Key == String, Value == Any {
+    var notFoundError: Error {
+        return DictionaryReader.Error.notFound
+    }
+    var json: Data {
+        return try! JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
+    }
+    var jsonDescription: String {
+        return json.string
+    }
+    
+    public func at(_ key: String) throws -> DictionaryReader {
+        guard let value = self[key] else { throw DictionaryReader.Error.notFound }
+        return DictionaryReader(value)
+    }
+}
+

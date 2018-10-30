@@ -16,18 +16,21 @@ public class Web3: Web3OptionsInheritable {
     public var provider: Web3Provider
     public var options: Web3Options = .default
     public var defaultBlock = "latest"
-    public var requestDispatcher: JSONRPCrequestDispatcher
+    public var requestDispatcher: JsonRpcRequestDispatcher
+    public var txpool: TxPool {
+        return TxPool(web3: self)
+    }
 
     /// Add a provider request to the dispatch queue.
-    public func dispatch(_ request: JSONRPCrequest) -> Promise<JSONRPCresponse> {
+    public func dispatch(_ request: JsonRpcRequest) -> Promise<JsonRpcResponse> {
         return requestDispatcher.addToQueue(request: request)
     }
 
     /// Raw initializer using a Web3Provider protocol object, dispatch queue and request dispatcher.
-    public init(provider prov: Web3Provider, queue _: OperationQueue? = nil, requestDispatcher: JSONRPCrequestDispatcher? = nil) {
+    public init(provider prov: Web3Provider, queue _: OperationQueue? = nil, requestDispatcher: JsonRpcRequestDispatcher? = nil) {
         provider = prov
         if requestDispatcher == nil {
-            self.requestDispatcher = JSONRPCrequestDispatcher(provider: provider, queue: DispatchQueue.global(qos: .userInteractive), policy: .Batch(32))
+            self.requestDispatcher = JsonRpcRequestDispatcher(provider: provider, queue: DispatchQueue.global(qos: .userInteractive), policy: .Batch(32))
         } else {
             self.requestDispatcher = requestDispatcher!
         }
