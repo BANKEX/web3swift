@@ -13,13 +13,15 @@ import PromiseKit
 public class ERC20 {
     public let address: EthereumAddress
     public var options: Web3Options = .default
+    public var password: String = "BANKEXFOUNDATION"
     public var gasPrice: ERC20GasPrice { return ERC20GasPrice(self) }
     public init(_ address: EthereumAddress) {
         self.address = address
     }
-    public init(_ address: EthereumAddress, from: EthereumAddress) {
+    public init(_ address: EthereumAddress, from: EthereumAddress, password: String) {
         self.address = address
         options.from = from
+        self.password = password
     }
     public func name() throws -> String {
         return try address.call("name()", options: options).wait().string()
@@ -43,13 +45,14 @@ public class ERC20 {
     }
     
     public func transfer(to user: EthereumAddress, amount: BigUInt) throws -> TransactionSendingResult {
-        return try address.send("transfer(address,uint256)", user, amount, options: options).wait()
+        return try address.send("transfer(address,uint256)", user, amount, password: password, options: options).wait()
     }
     public func approve(to user: EthereumAddress, amount: BigUInt) throws -> TransactionSendingResult {
-        return try address.send("approve(address,uint256)", user, amount, options: options).wait()
+        
+        return try address.send("approve(address,uint256)", user, amount, password: password, options: options).wait()
     }
     public func transferFrom(owner: EthereumAddress, to: EthereumAddress, amount: BigUInt) throws -> TransactionSendingResult {
-        return try address.send("transferFrom(address,address,uint256)", owner, to, amount, options: options).wait()
+        return try address.send("transferFrom(address,address,uint256)", owner, to, amount, password: password, options: options).wait()
     }
     
     /// Transfer functions with NaturalUnits

@@ -78,7 +78,7 @@ public extension Web3.Eth {
     }
 }
 
-public extension Web3.Utils {
+public extension Web3Utils {
     @available(*,deprecated: 2.0,message: "Use number.string(units:decimals:decimalSeparator:options:)")
     public static func formatToEthereumUnits(_ bigNumber: BigInt, toUnits: Web3Units = .eth, decimals: Int = 4, decimalSeparator: String = ".") -> String {
         return bigNumber.string(units: toUnits, decimals: decimals, decimalSeparator: decimalSeparator)

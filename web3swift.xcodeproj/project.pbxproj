@@ -45,6 +45,7 @@
 		13AF58FF2187796D002C28F1 /* HDPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AF58FC21876B38002C28F1 /* HDPath.swift */; };
 		13AF59002187796E002C28F1 /* HDPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AF58FC21876B38002C28F1 /* HDPath.swift */; };
 		13AF590121877BBA002C28F1 /* ScryptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8102F5C2211E00820032DF60 /* ScryptTests.swift */; };
+		13AF59202188677B002C28F1 /* Merge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AF58FA21873F3C002C28F1 /* Merge.swift */; };
 		13FD60DF21821A1100D73D4E /* SolidityFunctionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD60DE21821A1100D73D4E /* SolidityFunctionTests.swift */; };
 		13FD60F521822FAE00D73D4E /* SolidityDataWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD60F421822FAE00D73D4E /* SolidityDataWriter.swift */; };
 		13FD60F621822FAE00D73D4E /* SolidityDataWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD60F421822FAE00D73D4E /* SolidityDataWriter.swift */; };
@@ -1194,6 +1195,7 @@
 				134B10D02182447600113663 /* Int+Sequence.swift in Sources */,
 				4194811F203630530065A83B /* Web3+Instance.swift in Sources */,
 				13A6916C21860A1F00F2D9A9 /* TxPool.swift in Sources */,
+				13AF59202188677B002C28F1 /* Merge.swift in Sources */,
 				41948120203630530065A83B /* Web3+Contract.swift in Sources */,
 				41948121203630530065A83B /* Web3+Utils.swift in Sources */,
 				8125F06A20499AC300A0F2FE /* BloomFilter.swift in Sources */,
