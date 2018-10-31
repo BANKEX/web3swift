@@ -31,27 +31,30 @@ public typealias JSONRPCresponseBatch = JsonRpcResponseBatch
 public extension Web3 {
     @available (*, deprecated: 2.0, message: "Use Web3Units")
     typealias Units = Web3Units
-    
+    // @available (*, deprecated: 2.0, message: "Use Web3Utils")
+    // i'll leave it here
+    typealias Utils = Web3Utils
+
     @available (*, deprecated: 2.0, message: "use Web3(url: URL)")
     static func new(_ providerURL: URL) -> Web3? {
         guard let provider = Web3HttpProvider(providerURL) else { return nil }
         return Web3(provider: provider)
     }
-    
+
     /// Initialized Web3 instance bound to Infura's mainnet provider.
     @available (*, deprecated: 2.0, message: "use Web3(infura: .mainnet, accessToken: String?)")
     static func InfuraMainnetWeb3(accessToken: String? = nil) -> Web3 {
         let infura = InfuraProvider(.mainnet, accessToken: accessToken)!
         return Web3(provider: infura)
     }
-    
+
     /// Initialized Web3 instance bound to Infura's rinkeby provider.
     @available (*, deprecated: 2.0, message: "use Web3(infura: .rinkeby, accessToken: String?)")
     static func InfuraRinkebyWeb3(accessToken: String? = nil) -> Web3 {
         let infura = InfuraProvider(.rinkeby, accessToken: accessToken)!
         return Web3(provider: infura)
     }
-    
+
     /// Initialized Web3 instance bound to Infura's ropsten provider.
     @available (*, deprecated: 2.0, message: "use Web3(infura: .ropsten, accessToken: String?)")
     static func InfuraRopstenWeb3(accessToken: String? = nil) -> Web3 {
@@ -63,22 +66,22 @@ public extension Web3 {
 public extension Web3.Eth {
     @available(*, unavailable, message: "Use sendETH with BigUInt(\"1.01\",units: .eth)")
     public func sendETH(to _: EthereumAddress, amount _: String, units _: Web3Units = .eth, extraData _: Data = Data(), options _: Web3Options? = nil) throws -> TransactionIntermediate { fatalError() }
-    
+
     @available(*, unavailable, message: "Use sendETH BigUInt(\"some\",units: .eth)")
     public func sendETH(from _: EthereumAddress, to _: EthereumAddress, amount _: String, units _: Web3Units = .eth, extraData _: Data = Data(), options _: Web3Options? = nil) -> TransactionIntermediate? { fatalError() }
-    
+
     @available(*, unavailable, message: "Use ERC20 class instead")
     public func sendERC20tokensWithKnownDecimals(tokenAddress _: EthereumAddress, from _: EthereumAddress, to _: EthereumAddress, amount _: BigUInt, options _: Web3Options? = nil) throws -> TransactionIntermediate {
         fatalError("")
     }
-    
+
     @available(*, unavailable, message: "Use ERC20 class instead")
     public func sendERC20tokensWithNaturalUnits(tokenAddress _: EthereumAddress, from _: EthereumAddress, to _: EthereumAddress, amount _: String, options _: Web3Options? = nil) throws -> TransactionIntermediate {
         fatalError("")
     }
 }
 
-public extension Web3Utils {
+extension Web3Utils {
     @available(*,deprecated: 2.0,message: "Use number.string(units:decimals:decimalSeparator:options:)")
     public static func formatToEthereumUnits(_ bigNumber: BigInt, toUnits: Web3Units = .eth, decimals: Int = 4, decimalSeparator: String = ".") -> String {
         return bigNumber.string(units: toUnits, decimals: decimals, decimalSeparator: decimalSeparator)
@@ -120,17 +123,17 @@ public struct BIP39 {
     static func generateMnemonicsFromEntropy(entropy: Data, language: BIP39Language = BIP39Language.english) -> String? {
         fatalError()
     }
-    
+
     @available(*, unavailable, message: "Use Mnemonics(entropySize:language:)")
     static func generateMnemonics(bitsOfEntropy: Int, language: BIP39Language = BIP39Language.english) -> String? {
         fatalError()
     }
-    
+
     @available(*,deprecated: 2.0,message: "Use Mnemonics().entropy")
     static func mnemonicsToEntropy(_ mnemonics: String, language: BIP39Language = BIP39Language.english) -> Data? {
         fatalError()
     }
-    
+
     @available(*,deprecated: 2.0,message: "Use Mnemonics().seed(password:)")
     static func seedFromMmemonics(_ mnemonics: String, password: String = "", language: BIP39Language = BIP39Language.english) -> Data? {
         fatalError()

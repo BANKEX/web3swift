@@ -26,8 +26,8 @@ public class PlainKeystore: AbstractKeystore {
     
     public init?(privateKey: Data) {
         guard SECP256K1.verifyPrivateKey(privateKey: privateKey) else {return nil}
-        guard let publicKey = Web3.Utils.privateToPublic(privateKey, compressed: false) else {return nil}
-        guard let address = Web3.Utils.publicToAddress(publicKey) else {return nil}
+        guard let publicKey = Web3Utils.privateToPublic(privateKey, compressed: false) else {return nil}
+        guard let address = Web3Utils.publicToAddress(publicKey) else {return nil}
         self.addresses = [address]
         self.privateKey = privateKey
     }

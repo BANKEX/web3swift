@@ -26,8 +26,8 @@ class TransactionsTests: XCTestCase {
                                                   r: 0,
                                                   s: 0)
             let privateKeyData = Data.fromHex("0x4646464646464646464646464646464646464646464646464646464646464646")!
-            let publicKey = try Web3.Utils.privateToPublic(privateKeyData, compressed: false)
-            let sender = try Web3.Utils.publicToAddress(publicKey)
+            let publicKey = try Web3Utils.privateToPublic(privateKeyData, compressed: false)
+            let sender = try Web3Utils.publicToAddress(publicKey)
             transaction.chainID = 1
             print(transaction)
             let hash = transaction.hashForSignature(chainID: 1)
@@ -49,9 +49,9 @@ class TransactionsTests: XCTestCase {
         let tempKeystore = try! EthereumKeystoreV3(password: "")
         let keystoreManager = KeystoreManager([tempKeystore!])
         web3.addKeystoreManager(keystoreManager)
-        let contract = try web3.contract(Web3.Utils.coldWalletABI, at: sendToAddress)
+        let contract = try web3.contract(Web3Utils.coldWalletABI, at: sendToAddress)
         var options = Web3Options.default
-        options.value = Web3.Utils.parseToBigUInt("1.0", units: .eth)
+        options.value = Web3Utils.parseToBigUInt("1.0", units: .eth)
         options.from = keystoreManager.addresses.first
         let intermediate = try contract.method("fallback", options: options)
         do {
@@ -108,7 +108,7 @@ class TransactionsTests: XCTestCase {
         let tempKeystore = try! EthereumKeystoreV3(password: "")
         let keystoreManager = KeystoreManager([tempKeystore!])
         web3.addKeystoreManager(keystoreManager)
-        let contract = try web3.contract(Web3.Utils.erc20ABI, at: contractAddress)
+        let contract = try web3.contract(Web3Utils.erc20ABI, at: contractAddress)
         try contract.method("transfer", args: coldWalletAddress, BigUInt(1), options: options).call(options: nil)
     }
     

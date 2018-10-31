@@ -38,6 +38,11 @@ public class ERC20 {
     public func balance(of user: EthereumAddress) throws -> BigUInt {
         return try address.call("balanceOf(address)", user, options: options).wait().uint256()
     }
+    public func naturalBalance(of user: EthereumAddress) throws -> String {
+        let balance = try address.call("balanceOf(address)", user, options: options).wait().uint256()
+        let decimals = try self.decimals()
+        return balance.string(unitDecimals: Int(decimals))
+    }
     
     public func allowance(from owner: EthereumAddress, to spender: EthereumTransaction) throws -> BigUInt {
         

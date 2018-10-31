@@ -41,9 +41,9 @@ class PromisesTests: XCTestCase {
         let tempKeystore = try EthereumKeystoreV3(password: "")
         let keystoreManager = KeystoreManager([tempKeystore!])
         web3.addKeystoreManager(keystoreManager)
-        let contract = try web3.contract(Web3.Utils.coldWalletABI, at: sendToAddress)
+        let contract = try web3.contract(Web3Utils.coldWalletABI, at: sendToAddress)
         var options = Web3Options.default
-        options.value = Web3.Utils.parseToBigUInt("1.0", units: .eth)
+        options.value = Web3Utils.parseToBigUInt("1.0", units: .eth)
         options.from = keystoreManager.addresses.first
         let intermediate = try contract.method("fallback", options: options)
         let esimate = try intermediate.estimateGasPromise(options: nil).wait()
@@ -69,7 +69,7 @@ class PromisesTests: XCTestCase {
 
     func testERC20tokenBalancePromise() throws {
         let web3 = Web3(infura: .mainnet)
-        let contract = try web3.contract(Web3.Utils.erc20ABI, at: "0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")
+        let contract = try web3.contract(Web3Utils.erc20ABI, at: "0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")
         let addressOfUser = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
         let tokenBalance = try contract.method("balanceOf", args: addressOfUser, options: nil).callPromise(options: nil).wait().uint256()
         print(tokenBalance)

@@ -1,6 +1,8 @@
 module SipHash {
   umbrella header "SipHash-iOS-umbrella.h"
   exclude header "SipHash-macOS-umbrella.h"
+  exclude header "SipHash-tvOS-umbrella.h"
+  exclude header "SipHash-watchOS-umbrella.h"
 
   export *
   module * { export * }

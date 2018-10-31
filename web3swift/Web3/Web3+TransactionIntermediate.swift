@@ -10,6 +10,8 @@ import BigInt
 import Foundation
 import PromiseKit
 
+public typealias TransactionIntermediate = Web3Contract.TransactionIntermediate
+
 public enum Web3ResponseError: Error {
     case notFound
     case wrongType
@@ -183,7 +185,7 @@ public class Web3Response {
     }
 }
 
-extension Web3.Web3Contract {
+extension Web3Contract {
     /// TransactionIntermediate is an almost-ready transaction or a smart-contract function call. It bears all the required information
     /// to call the smart-contract and decode the returned information, or estimate gas required for transaction, or send a transaciton
     /// to the blockchain.
@@ -279,7 +281,7 @@ extension Web3.Web3Contract {
     }
 }
 
-extension Web3.Web3Contract.TransactionIntermediate {
+extension TransactionIntermediate {
     public func assemblePromise(options: Web3Options? = nil, onBlock: String = "pending") -> Promise<EthereumTransaction> {
         var assembledTransaction: EthereumTransaction = transaction
         let queue = web3.requestDispatcher.queue
@@ -376,8 +378,8 @@ extension Web3.Web3Contract.TransactionIntermediate {
     }
 
     public func estimateGasPromise(options: Web3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
-        let assembledTransaction: EthereumTransaction = transaction
-        let queue = web3.requestDispatcher.queue
+        let assembledTransaction: EthereumTransaction = self.transaction
+        let queue = self.web3.requestDispatcher.queue
         let returnPromise = Promise<BigUInt> { seal in
             let mergedOptions = self.options.merge(with: options)
             var optionsForGasEstimation = Web3Options()

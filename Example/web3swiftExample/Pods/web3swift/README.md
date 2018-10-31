@@ -167,7 +167,7 @@ guard case .success(let gasPrice) = gasPriceResult else {return}
 ### Getting ERC20 token balance
 ```bash
 let contractAddress = EthereumAddress("0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")! // BKX token on Ethereum mainnet
-let contract = web3.contract(Web3.Utils.erc20ABI, at: contractAddress, abiVersion: 2)! // utilize precompiled ERC20 ABI for your concenience
+let contract = web3.contract(Web3Utils.erc20ABI, at: contractAddress, abiVersion: 2)! // utilize precompiled ERC20 ABI for your concenience
 guard let bkxBalanceResult = contract.method("balanceOf", parameters: [coldWalletAddress] as [AnyObject], options: options)?.call(options: nil) else {return} // encode parameters for transaction
 guard case .success(let bkxBalance) = bkxBalanceResult, let bal = bkxBalance["0"] as? BigUInt else {return} // bkxBalance is [String: Any], and parameters are enumerated as "0", "1", etc in order of being returned. If returned parameter has a name in ABI, it is also duplicated
 print("BKX token balance = " + String(bal))
@@ -178,7 +178,7 @@ print("BKX token balance = " + String(bal))
 let web3Rinkeby = Web3.InfuraRinkebyWeb3()
 web3Rinkeby.addKeystoreManager(bip32keystoreManager) // attach a keystore if you want to sign locally. Otherwise unsigned request will be sent to remote node
 options.from = bip32ks?.addresses?.first! // specify from what address you want to send it
-intermediateSend = web3Rinkeby.contract(Web3.Utils.coldWalletABI, at: coldWalletAddress, abiVersion: 2)!.method(options: options)! // an address with a private key attached in not different from any other address, just has very simple ABI
+intermediateSend = web3Rinkeby.contract(Web3Utils.coldWalletABI, at: coldWalletAddress, abiVersion: 2)!.method(options: options)! // an address with a private key attached in not different from any other address, just has very simple ABI
 let sendResultBip32 = intermediateSend.send(password: "BANKEXFOUNDATION")
 ```
 

@@ -122,7 +122,7 @@ public struct EthereumTransaction: CustomStringConvertible {
 
     public var sender: EthereumAddress? {
         guard let publicKey = self.recoverPublicKey() else { return nil }
-        return try? Web3.Utils.publicToAddress(publicKey)
+        return try? Web3Utils.publicToAddress(publicKey)
     }
 
     public func recoverPublicKey() -> Data? {

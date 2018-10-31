@@ -43,9 +43,9 @@ class LocalNodeTests: XCTestCase {
         guard let web3 = web3 else { return }
         let allAddresses = try web3.eth.getAccounts()
         let sendToAddress = EthereumAddress("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
-        let contract = try web3.contract(Web3.Utils.coldWalletABI, at: sendToAddress)
+        let contract = try web3.contract(Web3Utils.coldWalletABI, at: sendToAddress)
         var options = Web3Options.default
-        options.value = Web3.Utils.parseToBigUInt("1.0", units: .eth)
+        options.value = Web3Utils.parseToBigUInt("1.0", units: .eth)
         options.from = allAddresses[0]
         let intermediate = try contract.method("fallback", options: options)
         try intermediate.send(password: "")

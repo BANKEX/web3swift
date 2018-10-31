@@ -42,7 +42,7 @@
 - convenience methods in web3.eth to send ETH using either raw BigUInt value in Wei, or parsing a decimal string of arbitrary units [\#72](https://github.com/BANKEX/web3swift/pull/72) ([shamatar](https://github.com/shamatar))
 - improve BIP32 serialization to disk [\#71](https://github.com/BANKEX/web3swift/pull/71) ([shamatar](https://github.com/shamatar))
 - Fix BIP32 keystore when used through Manager [\#70](https://github.com/BANKEX/web3swift/pull/70) ([shamatar](https://github.com/shamatar))
-- add marshalling and unmarshalling signature as a part of Web3.Utils [\#69](https://github.com/BANKEX/web3swift/pull/69) ([shamatar](https://github.com/shamatar))
+- add marshalling and unmarshalling signature as a part of Web3Utils [\#69](https://github.com/BANKEX/web3swift/pull/69) ([shamatar](https://github.com/shamatar))
 - Event parsing example from user case [\#67](https://github.com/BANKEX/web3swift/pull/67) ([shamatar](https://github.com/shamatar))
 
 ## [0.5.5](https://github.com/bankex/web3swift/tree/0.5.5) (2018-04-18)

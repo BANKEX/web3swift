@@ -7,10 +7,10 @@
 <img src="https://img.shields.io/badge/Swift-4.2-orange.svg?style=flat" alt="Swift 4.2">
 </a>
 <a href="https://developer.apple.com/swift/" target="_blank">
-<img src="https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20-orange.svg?style=flat" alt="Platforms iOS | macOS">
+<img src="https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20%7C%20watchOS%20%7C%20tvOS%20%7C%20Linux%20-lightgray.svg?style=flat" alt="Platforms iOS | macOS">
 </a>
 <a target="_blank">
-<img src="https://img.shields.io/badge/Compatible-cocoapods%20%7C%20carthage%20%7C%20swiftpm%20-orange.svg?style=flat" alt="Compatible">
+<img src="https://img.shields.io/badge/Supports-CocoaPods%20%7C%20SwiftPM%20-orange.svg?style=flat" alt="Compatible">
 </a>
 </p>
 
@@ -167,7 +167,7 @@ Ethereum addresses are checksum checked if they are not lowercased and always le
 ### Setting options
 
 ```bash
-var options = Web3Options.defaultOptions()
+var options = Web3Options.default
 // public var to: EthereumAddress? = nil - to what address transaction is aimed
 // public var from: EthereumAddress? = nil - form what address it should be sent (either signed locally or on the node)
 // public var gasLimit: BigUInt? = BigUInt(90000) - default gas limit
@@ -213,7 +213,7 @@ let web3Rinkeby = Web3(infura: .rinkeby)
 web3Rinkeby.addKeystoreManager(keystoreManager) // attach a keystore if you want to sign locally. Otherwise unsigned request will be sent to remote node
 var options = Web3Options.default
 options.from = keystore.addresses.first! // specify from what address you want to send it
-let intermediateSend = try web3Rinkeby.contract(Web3.Utils.coldWalletABI, at: coldWalletAddress).method(options: options) // an address with a private key attached in not different from any other address, just has very simple ABI
+let intermediateSend = try web3Rinkeby.contract(Web3Utils.coldWalletABI, at: coldWalletAddress).method(options: options) // an address with a private key attached in not different from any other address, just has very simple ABI
 let sendResultBip32 = try intermediateSend.send(password: "BANKEXFOUNDATION")
 ```
 
@@ -254,11 +254,6 @@ Changes made to this branch will be merged into the [master](https://github.com/
 
 ## Appreciation
 When using this pod, references to this repo, [BANKEX](https://bankex.com) and [BANKEX Foundation](https://new.bankexfoundation.org/) are appreciated.
-
-## Contributors
-Alex Vlasov, [@shamatar](https://github.com/shamatar)
-
-Petr Korolev, [@skywinder](https://github.com/skywinder)
 
 ## License
 web3swift is available under the Apache License 2.0 license. See the [LICENSE](https://github.com/BankEx/web3swift/blob/master/LICENSE) file for more info.

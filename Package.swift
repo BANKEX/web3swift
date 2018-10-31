@@ -21,10 +21,11 @@ let package = Package(
     // Targets can depend on other targets in this package, and on products in packages which this package depends on.
     .target(
       name: "web3swift",
-      dependencies: ["BigInt", "CryptoSwift", "secp256k1", "PromiseKit", "Result"],
+      dependencies: ["BigInt", "CryptoSwift", "secp256k1", "PromiseKit"],
       path: "web3swift",
       exclude: [
-        "Utils/Classes/EIP67Code.swift",
+        "ObjCSupport",
+        "Utils/EIP67Code.swift",
         "Info.plist",
         "webswift-Bridging-Header.h",
         "web3swift.h",

@@ -53,10 +53,23 @@ public extension Data {
 
     public static func random(length: Int) -> Data {
         var data = Data(repeating: 0, count: length)
+        var success = false
+        #if !os(Linux)
         let result = data.withUnsafeMutableBytes {
             SecRandomCopyBytes(kSecRandomDefault, length, $0)
         }
-        assert(result == errSecSuccess, "SecRandomCopyBytes crashed")
+        success = result == errSecSuccess
+        #endif
+        guard !success else { return data }
+        data.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<UInt32>) in
+            for i in 0..<length/4+1 {
+                #if canImport(Darwin)
+                bytes[i] = arc4random()
+                #else
+                bytes[i] = UInt32(bitPattern: rand())
+                #endif
+            }
+        }
         return data
     }
     

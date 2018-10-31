@@ -945,27 +945,27 @@ extension web3.Eth {
 //    }
     
     public func sendETH(to: EthereumAddress, amount: BigUInt, extraData: Data = Data(), options: Web3Options? = nil) -> TransactionIntermediate? {
-        let contract = self.web3.contract(Web3.Utils.coldWalletABI, at: to, abiVersion: 2)
+        let contract = self.web3.contract(Web3Utils.coldWalletABI, at: to, abiVersion: 2)
         guard var mergedOptions = Web3Options.merge(self.options, with: options) else {return nil}
         mergedOptions.value = amount
         let intermediate = contract?.method("fallback", extraData: extraData, options: mergedOptions)
         return intermediate
     }
     
-    public func sendETH(to: EthereumAddress, amount: String, units: Web3.Utils.Units = .eth, extraData: Data = Data(), options: Web3Options? = nil) -> TransactionIntermediate? {
-        guard let value = Web3.Utils.parseToBigUInt(amount, units: .eth) else {return nil}
+    public func sendETH(to: EthereumAddress, amount: String, units: Web3Utils.Units = .eth, extraData: Data = Data(), options: Web3Options? = nil) -> TransactionIntermediate? {
+        guard let value = Web3Utils.parseToBigUInt(amount, units: .eth) else {return nil}
         return sendETH(to: to, amount: value, extraData: extraData, options: options)
     }
     
-    public func sendETH(from: EthereumAddress, to: EthereumAddress, amount: String, units: Web3.Utils.Units = .eth, extraData: Data = Data(), options: Web3Options? = nil) -> TransactionIntermediate? {
-        guard let value = Web3.Utils.parseToBigUInt(amount, units: .eth) else {return nil}
+    public func sendETH(from: EthereumAddress, to: EthereumAddress, amount: String, units: Web3Utils.Units = .eth, extraData: Data = Data(), options: Web3Options? = nil) -> TransactionIntermediate? {
+        guard let value = Web3Utils.parseToBigUInt(amount, units: .eth) else {return nil}
         guard var mergedOptions = Web3Options.merge(self.options, with: options) else {return nil}
         mergedOptions.from = from
         return sendETH(to: to, amount: value, extraData: extraData, options: mergedOptions)
     }
     
     public func sendERC20tokensWithKnownDecimals(tokenAddress: EthereumAddress, from: EthereumAddress, to: EthereumAddress, amount: BigUInt, options: Web3Options? = nil) -> TransactionIntermediate? {
-        let contract = self.web3.contract(Web3.Utils.erc20ABI, at: tokenAddress, abiVersion: 2)
+        let contract = self.web3.contract(Web3Utils.erc20ABI, at: tokenAddress, abiVersion: 2)
         guard var mergedOptions = Web3Options.merge(self.options, with: options) else {return nil}
         mergedOptions.from = from
         guard let intermediate = contract?.method("transfer", parameters: [to, amount] as [AnyObject], options: mergedOptions) else {return nil}
@@ -973,7 +973,7 @@ extension web3.Eth {
     }
     
     public func sendERC20tokensWithNaturalUnits(tokenAddress: EthereumAddress, from: EthereumAddress, to: EthereumAddress, amount: String, options: Web3Options? = nil) -> TransactionIntermediate? {
-        let contract = self.web3.contract(Web3.Utils.erc20ABI, at: tokenAddress, abiVersion: 2)
+        let contract = self.web3.contract(Web3Utils.erc20ABI, at: tokenAddress, abiVersion: 2)
         guard var mergedOptions = Web3Options.merge(self.options, with: options) else {return nil}
         mergedOptions.from = from
         guard let intermediate = contract?.method("decimals", options: mergedOptions) else {return nil}
@@ -988,7 +988,7 @@ extension web3.Eth {
             break
         }
         let intDecimals = Int(decimals)
-        guard let value = Web3.Utils.parseToBigUInt(amount, decimals: intDecimals) else {return nil}
+        guard let value = Web3Utils.parseToBigUInt(amount, decimals: intDecimals) else {return nil}
         return sendERC20tokensWithKnownDecimals(tokenAddress: tokenAddress, from: from, to: to, amount: value, options: options)
     }
     

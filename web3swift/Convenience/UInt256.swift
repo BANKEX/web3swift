@@ -146,10 +146,13 @@ public struct NaturalUnits {
             }
         }
     }
-    public let string: String = ""
+    public let string: String
     public init(_ string: String) throws {
         guard BigUInt("0.1", decimals: 18) != nil else { throw Error.cannotConvert(string) }
-        
+        self.string = string
+    }
+    public init(_ int: Int) {
+        self.string = int.description
     }
     public func number(with decimals: Int) -> BigUInt {
         return BigUInt(string, decimals: decimals) ?? 0

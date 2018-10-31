@@ -24,12 +24,12 @@ class Tests: XCTestCase {
 
     func testCombiningPublicKeys() {
         let priv1 = Data(repeating: 0x01, count: 32)
-        let pub1 = try! Web3.Utils.privateToPublic(priv1, compressed: true)
+        let pub1 = try! Web3Utils.privateToPublic(priv1, compressed: true)
         let priv2 = Data(repeating: 0x02, count: 32)
-        let pub2 = try! Web3.Utils.privateToPublic(priv2, compressed: true)
+        let pub2 = try! Web3Utils.privateToPublic(priv2, compressed: true)
         let combined = try! SECP256K1.combineSerializedPublicKeys(keys: [pub1, pub2], outputCompressed: true)
         let compinedPriv = Data(repeating: 0x03, count: 32)
-        let compinedPub = try! Web3.Utils.privateToPublic(compinedPriv, compressed: true)
+        let compinedPub = try! Web3Utils.privateToPublic(compinedPriv, compressed: true)
         XCTAssert(compinedPub == combined)
     }
 
