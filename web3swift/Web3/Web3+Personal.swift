@@ -58,7 +58,7 @@ extension Web3.Personal {
 
      */
     public func ecrecover(personalMessage: Data, signature: Data) throws -> EthereumAddress {
-        return try Web3.Utils.personalECRecover(personalMessage, signature: signature)
+        return try Web3Utils.personalECRecover(personalMessage, signature: signature)
     }
 
     /**
@@ -73,6 +73,6 @@ extension Web3.Personal {
 
      */
     public func ecrecover(hash: Data, signature: Data) throws -> EthereumAddress {
-        return try Web3.Utils.hashECRecover(hash: hash, signature: signature)
+        return try Web3Utils.hashECRecover(hash: hash, signature: signature)
     }
 }

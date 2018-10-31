@@ -98,7 +98,7 @@ class KeystoresTests: XCTestCase {
         let keystore = try BIP32Keystore(mnemonics: mnemonics, password: "")
         let account = keystore.addresses[0]
         let key = try keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
-        let pubKey = try Web3.Utils.privateToPublic(key, compressed: true)
+        let pubKey = try Web3Utils.privateToPublic(key, compressed: true)
         XCTAssertEqual(pubKey.toHexString(), "027160bd3a4d938cac609ff3a11fe9233de7b76c22a80d2b575e202cbf26631659")
     }
 
@@ -119,7 +119,7 @@ class KeystoresTests: XCTestCase {
         XCTAssertNotNil(keystore)
         let account = keystore.addresses[0]
         let key = try keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
-        let pubKey = try Web3.Utils.privateToPublic(key, compressed: true)
+        let pubKey = try Web3Utils.privateToPublic(key, compressed: true)
         XCTAssertEqual(pubKey.toHexString(), "027160bd3a4d938cac609ff3a11fe9233de7b76c22a80d2b575e202cbf26631659")
     }
 

@@ -11,7 +11,7 @@ import Foundation
 import PromiseKit
 fileprivate typealias PromiseResult = PromiseKit.Result
 
-extension Web3.Web3Contract {
+extension Web3Contract {
     /// An event parser to fetch events produced by smart-contract related transactions. Should not be constructed manually, but rather by calling the corresponding function on the Web3Contract object.
     public struct EventParser: EventParserProtocol {
         public var contract: ContractProtocol
@@ -92,7 +92,7 @@ extension Web3.Web3Contract {
     }
 }
 
-extension Web3.Web3Contract.EventParser {
+extension Web3Contract.EventParser {
     public func parseTransactionPromise(_ transaction: EthereumTransaction) -> Promise<[EventParserResultProtocol]> {
         let queue = web3.requestDispatcher.queue
         do {
@@ -210,7 +210,7 @@ extension Web3.Web3Contract.EventParser {
     }
 }
 
-extension Web3.Web3Contract {
+extension Web3Contract {
     /**
      *Fetches events by doing a lookup on "indexed" parameters of the event. Smart-contract developer can make some of event values "indexed" for such fast queries.*
 
@@ -230,7 +230,7 @@ extension Web3.Web3Contract {
     }
 }
 
-extension Web3.Web3Contract {
+extension Web3Contract {
     public func getIndexedEventsPromise(eventName: String?, filter: EventFilter, joinWithReceipts: Bool = false) -> Promise<[EventParserResultProtocol]> {
         let queue = web3.requestDispatcher.queue
         do {

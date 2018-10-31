@@ -10,13 +10,11 @@ import BigInt
 import CryptoSwift
 import Foundation
 
-public typealias Web3Utils = Web3.Utils
+// public typealias Web3Utils = Web3Utils
 
-extension Web3 {
-    /// Namespaced Utils functions. Are not bound to particular web3 instance, so capitalization matters.
-    public struct Utils {
-        typealias Iban = IBAN
-    }
+/// Namespaced Utils functions. Are not bound to particular web3 instance, so capitalization matters.
+public class Web3Utils {
+
 }
 
 /// Various units used in Ethereum ecosystem
@@ -49,13 +47,13 @@ public enum Web3Units {
     }
 }
 
-extension Web3.Utils {
+extension Web3Utils {
     /// Calculate address of deployed contract deterministically based on the address of the deploying Ethereum address
     /// and the nonce of this address
     public static func calcualteContractAddress(from: EthereumAddress, nonce: BigUInt) -> EthereumAddress? {
         guard let normalizedAddress = from.addressData.setLengthLeft(32) else { return nil }
         guard let data = RLP.encode([normalizedAddress, nonce] as [Any]) else { return nil }
-        guard let contractAddressData = Web3.Utils.sha3(data)?[12 ..< 32] else { return nil }
+        guard let contractAddressData = Web3Utils.sha3(data)?[12 ..< 32] else { return nil }
         // contractAddressData == 20 so we don't need to check for EthereumAddress.isValid
         return EthereumAddress(Data(contractAddressData))
     }
@@ -89,7 +87,7 @@ public enum PublicKeyToAddressError: Error {
     case invalidPublicKeySize
 }
 
-extension Web3.Utils {
+extension Web3Utils {
     /// Convert the private key (32 bytes of Data) to compressed (33 bytes) or non-compressed (65 bytes) public key.
     public static func privateToPublic(_ privateKey: Data, compressed: Bool = false) throws -> Data {
         return try SECP256K1.privateToPublic(privateKey: privateKey, compressed: compressed)
@@ -121,7 +119,7 @@ extension Web3.Utils {
     ///
     /// Returns the EthereumAddress object.
     public static func publicToAddress(_ publicKey: Data) throws -> EthereumAddress {
-        let addressData = try Web3.Utils.publicToAddressData(publicKey)
+        let addressData = try Web3Utils.publicToAddressData(publicKey)
         let address = addressData.toHexString().withHex.lowercased()
         return EthereumAddress(address)
     }
@@ -131,7 +129,7 @@ extension Web3.Utils {
     ///
     /// Returns a 0x prefixed hex string.
     public static func publicToAddressString(_ publicKey: Data) throws -> String {
-        let addressData = try Web3.Utils.publicToAddressData(publicKey)
+        let addressData = try Web3Utils.publicToAddressData(publicKey)
         let address = addressData.toHexString().withHex.lowercased()
         return address
     }
@@ -192,7 +190,7 @@ extension Web3.Utils {
     ///
     /// Input parameters should be hex Strings.
     public static func personalECRecover(_ personalMessage: String, signature: String) throws -> EthereumAddress {
-        return try Web3.Utils.personalECRecover(personalMessage.dataFromHex(), signature: signature.dataFromHex())
+        return try Web3Utils.personalECRecover(personalMessage.dataFromHex(), signature: signature.dataFromHex())
     }
 
     /// Recover the Ethereum address from recoverable secp256k1 signature. Message is first hashed using the "personal hash" protocol.
@@ -201,9 +199,9 @@ extension Web3.Utils {
     /// Input parameters should be Data objects.
     public static func personalECRecover(_ personalMessage: Data, signature: Data) throws -> EthereumAddress {
         guard signature.count == 65 else { throw Web3UtilsError.invalidSignatureLength }
-        let hash = try Web3.Utils.hashPersonalMessage(personalMessage)
+        let hash = try Web3Utils.hashPersonalMessage(personalMessage)
         let publicKey = try SECP256K1.recoverPublicKey(hash: hash, signature: signature)
-        return try Web3.Utils.publicToAddress(publicKey)
+        return try Web3Utils.publicToAddress(publicKey)
     }
 
     /// Recover the Ethereum address from recoverable secp256k1 signature.
@@ -217,7 +215,7 @@ extension Web3.Utils {
         let vData = signature[64]
         let signatureData = try SECP256K1.marshalSignature(v: vData, r: rData, s: sData)
         let publicKey = try SECP256K1.recoverPublicKey(hash: hash, signature: signatureData)
-        return try Web3.Utils.publicToAddress(publicKey)
+        return try Web3Utils.publicToAddress(publicKey)
     }
 
     /// returns Ethereum variant of sha3 (keccak256) of data. Returns nil is data is empty

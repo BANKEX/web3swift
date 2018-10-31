@@ -26,3 +26,17 @@ target 'web3swift-iOS' do
     inherit! :search_paths
   end
 end
+
+target 'web3swift-tvOS' do
+    platform :tvos, '9.0'
+    #  use_frameworks!
+    use_modular_headers!
+    import_pods
+end
+
+target 'web3swift-watchOS' do
+    platform :watchos, '2.0'
+    #  use_frameworks!
+    use_modular_headers!
+    import_pods
+end

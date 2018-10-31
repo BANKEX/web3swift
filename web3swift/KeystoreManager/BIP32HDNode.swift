@@ -95,7 +95,7 @@ public class HDNode {
         chaincode = data[13 ..< 45]
         if serializePrivate {
             privateKey = data[46 ..< 78]
-            guard let pubKey = try? Web3.Utils.privateToPublic(privateKey!, compressed: true) else { return nil }
+            guard let pubKey = try? Web3Utils.privateToPublic(privateKey!, compressed: true) else { return nil }
             guard pubKey[0] == 0x02 || pubKey[0] == 0x03 else { return nil }
             publicKey = pubKey
         } else {

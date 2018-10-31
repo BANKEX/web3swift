@@ -6,6 +6,7 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
+#if canImport(CoreImage)
 import BigInt
 import CoreImage
 import Foundation
@@ -131,3 +132,4 @@ extension Web3 {
         }
     }
 }
+#endif

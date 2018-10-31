@@ -108,8 +108,8 @@ public class EthereumKeystoreV3: AbstractKeystore {
         let kdfparams = KdfParamsV3(salt: saltData.toHexString(), dklen: dkLen, n: N, p: P, r: R, c: nil, prf: nil)
         let cipherparams = CipherParamsV3(iv: IV.toHexString())
         let crypto = CryptoParamsV3(ciphertext: encryptedKeyData.toHexString(), cipher: aesMode, cipherparams: cipherparams, kdf: "scrypt", kdfparams: kdfparams, mac: mac.toHexString(), version: nil)
-        guard let pubKey = Web3.Utils.privateToPublic(keyData!) else {throw AbstractKeystoreError.keyDerivationError}
-        guard let addr = Web3.Utils.publicToAddress(pubKey) else {throw AbstractKeystoreError.keyDerivationError}
+        guard let pubKey = Web3Utils.privateToPublic(keyData!) else {throw AbstractKeystoreError.keyDerivationError}
+        guard let addr = Web3Utils.publicToAddress(pubKey) else {throw AbstractKeystoreError.keyDerivationError}
         self.address = addr
         let keystoreparams = KeystoreParamsV3(address: addr.address.lowercased(), crypto: crypto, id: UUID().uuidString.lowercased(), version: 3)
         self.keystoreParams = keystoreparams

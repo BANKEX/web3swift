@@ -36,7 +36,7 @@ public struct Web3Signer {
     public static func signPersonalMessage(_ personalMessage: Data, keystore: AbstractKeystore, account: EthereumAddress, password: String, useExtraEntropy: Bool = false) throws -> Data {
         var privateKey = try keystore.UNSAFE_getPrivateKeyData(password: password, account: account)
         defer { Data.zero(&privateKey) }
-        let hash = try Web3.Utils.hashPersonalMessage(personalMessage)
+        let hash = try Web3Utils.hashPersonalMessage(personalMessage)
         return try SECP256K1.signForRecovery(hash: hash, privateKey: privateKey, useExtraEntropy: useExtraEntropy).serializedSignature
     }
 

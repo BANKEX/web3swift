@@ -11,13 +11,12 @@ import CoreImage
 import BigInt
 
 extension Web3 {
-
     public struct EIP67Code {
         public var address: EthereumAddress
         public var gasLimit: BigUInt?
         public var amount: BigUInt?
         public var data: DataType?
-        
+
         public enum DataType {
             case data(Data)
             case function(Function)
@@ -25,7 +24,7 @@ extension Web3 {
         public struct Function {
             public var method: String
             public var parameters: [(ABIv2.Element.ParameterType, AnyObject)]
-            
+
             public func toString() -> String? {
                 let encoding = method + "(" + parameters.map({ (el) -> String in
                     if let string = el.1 as? String {
@@ -42,16 +41,16 @@ extension Web3 {
                 return encoding
             }
         }
-        
+
         public init (address : EthereumAddress) {
             self.address = address
         }
-        
+
         public init? (address : String) {
             guard let addr = EthereumAddress(address) else {return nil}
             self.address = addr
         }
-        
+
         public func toString() -> String {
             var urlComponents = URLComponents()
             let mainPart = "ethereum:"+self.address.address.lowercased()
@@ -78,14 +77,14 @@ extension Web3 {
             }
             return mainPart
         }
-        
+
         public func toImage(scale: Double = 1.0) -> CIImage {
             return EIP67CodeGenerator.createImage(from: self, scale: scale)
         }
     }
 
     public struct EIP67CodeGenerator {
-        
+
         public static func createImage(from: EIP67Code, scale: Double = 1.0) -> CIImage {
             guard let string = from.toString().addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return CIImage()}
             guard let data = string.data(using: .utf8, allowLossyConversion: false) else {return CIImage()}
@@ -102,7 +101,7 @@ extension Web3 {
             guard let string = String(data: data, encoding: .utf8) else {return nil}
             return parse(string)
         }
-        
+
         public static func parse(_ string: String) -> EIP67Code? {
             guard string.hasPrefix("ethereum:") else {return nil}
             let striped = string.components(separatedBy: "ethereum:")

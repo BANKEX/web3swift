@@ -71,11 +71,11 @@ extension web3.BrowserFunctions {
             print("Most likely it's hash already, allow for now")
             hash = personalMessage
         } else {
-            guard let h = Web3.Utils.hashPersonalMessage(personalMessage) else {return nil}
+            guard let h = Web3Utils.hashPersonalMessage(personalMessage) else {return nil}
             hash = h
         }
         guard let publicKey = SECP256K1.recoverPublicKey(hash: hash, signature: signatureData) else {return nil}
-        return Web3.Utils.publicToAddressString(publicKey)
+        return Web3Utils.publicToAddressString(publicKey)
     }
     
     

@@ -104,6 +104,12 @@ public struct EthereumAddress: Equatable {
     //    }
 }
 
+extension EthereumAddress: CustomStringConvertible {
+    public var description: String {
+        return address
+    }
+}
+
 extension EthereumAddress: ExpressibleByStringLiteral {
     public typealias StringLiteralType = String
     public init(stringLiteral value: StringLiteralType) {

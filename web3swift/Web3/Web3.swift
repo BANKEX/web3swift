@@ -24,6 +24,10 @@ public enum Web3Error: Error {
 /// An arbitary Web3 object. Is used only to construct provider bound fully functional object by either supplying provider URL
 /// or using pre-coded Infura nodes
 public extension Web3 {
+    public static func local(port: Int = 8545) throws -> Web3 {
+        guard let web3 = Web3(url: URL(string: "http://127.0.0.1:\(port)")!) else { throw Web3Error.connectionError }
+        return web3
+    }
     convenience init(infura networkId: NetworkId) {
         let infura = InfuraProvider(networkId, accessToken: nil)!
         self.init(provider: infura)

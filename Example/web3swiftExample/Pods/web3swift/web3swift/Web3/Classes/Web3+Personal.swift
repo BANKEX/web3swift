@@ -119,14 +119,14 @@ extension web3.Personal {
 //    }
     
     public func ecrecover(personalMessage: Data, signature: Data) -> Result<EthereumAddress, Web3Error> {
-        guard let recovered = Web3.Utils.personalECRecover(personalMessage, signature: signature) else {
+        guard let recovered = Web3Utils.personalECRecover(personalMessage, signature: signature) else {
             return Result.failure(Web3Error.dataError)
         }
         return Result(recovered)
     }
     
     public func ecrecover(hash: Data, signature: Data) -> Result<EthereumAddress, Web3Error> {
-        guard let recovered = Web3.Utils.hashECRecover(hash: hash, signature: signature) else {
+        guard let recovered = Web3Utils.hashECRecover(hash: hash, signature: signature) else {
             return Result.failure(Web3Error.dataError)
         }
         return Result(recovered)

@@ -54,10 +54,10 @@ extension Web3.BrowserFunctions {
             print("Most likely it's hash already, allow for now")
             hash = personalMessage
         } else {
-            hash = try Web3.Utils.hashPersonalMessage(personalMessage)
+            hash = try Web3Utils.hashPersonalMessage(personalMessage)
         }
         let publicKey = try SECP256K1.recoverPublicKey(hash: hash, signature: signatureData)
-        return try Web3.Utils.publicToAddressString(publicKey)
+        return try Web3Utils.publicToAddressString(publicKey)
     }
 
     public func sendTransaction(_ json: [String: Any], password: String = "BANKEXFOUNDATION") throws -> String {

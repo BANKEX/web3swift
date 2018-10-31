@@ -214,7 +214,7 @@ extension Web3.Eth {
 
      */
     public func sendETH(to: EthereumAddress, amount: BigUInt, extraData: Data = Data(), options: Web3Options? = nil) throws -> TransactionIntermediate {
-        let contract = try web3.contract(Web3.Utils.coldWalletABI, at: to)
+        let contract = try web3.contract(Web3Utils.coldWalletABI, at: to)
         var mergedOptions = self.options.merge(with: options)
         mergedOptions.value = amount
         return try contract.method("fallback", extraData: extraData, options: mergedOptions)

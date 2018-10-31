@@ -71,6 +71,10 @@ public class Mnemonics {
     public let string: String
     public let language: BIP39Language
     public var entropy: Data
+    
+    /// Mnemonics password affects on privateKey generation
+    /// WARNING: User cannot use mnemonics generated with password in metamask or some other services that doesn't support mnemonics password
+    /// With different password you will generate different address
     public var password: String = ""
     
     public static func seed(from mnemonics: String, password: String) -> Data {
