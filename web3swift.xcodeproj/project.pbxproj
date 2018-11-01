@@ -470,6 +470,7 @@
 		00E5FE8120EA3FF40030E0D6 /* InfuraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfuraTests.swift; sourceTree = "<group>"; };
 		0594C6BD71C38D76B03EB9A9 /* Pods-web3swift-iOS_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-web3swift-iOS_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-web3swift-iOS_Tests/Pods-web3swift-iOS_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		071E273DC0406F330FA4C4FC /* Pods-web3swift-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-web3swift-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-web3swift-iOS/Pods-web3swift-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		1317BC98218B368D00D6D095 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		1323B7AA2170CB4400306BBB /* ERC20.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC20.swift; sourceTree = "<group>"; };
 		1323B7AC2170E1ED00306BBB /* SolidityFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidityFunction.swift; sourceTree = "<group>"; };
 		1323B7F32174BB1E00306BBB /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
@@ -729,6 +730,7 @@
 				13D3C5192189E939004C0D33 /* Package.swift */,
 				1323B80D2178C16700306BBB /* README.md */,
 				13D3C51A2189E948004C0D33 /* web3swift.podspec */,
+				1317BC98218B368D00D6D095 /* .gitignore */,
 				1CD91AFE1FD76910007BFB45 /* web3swift */,
 				1CD91B301FD769A6007BFB45 /* web3swiftTests */,
 				81FA43F42044097100EE14D5 /* web3swift-macOS_Tests */,

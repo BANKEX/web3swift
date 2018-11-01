@@ -15,9 +15,6 @@
 </p>
 
 <p align="center">
-<a href="https://github.com/BANKEX/web3swift/blob/master/LICENSE" target="_blank">
-<img src="https://img.shields.io/badge/License-Apache-lightgrey.svg?style=flat" alt="License Apache">
-</a>
 <a href="https://brianmacdonald.github.io/Ethonate/address#0x47FC2e245b983A92EB3359F06E31F34B107B6EF6" target="_blank">
 <img src="https://brianmacdonald.github.io/Ethonate/svg/eth-support-blue.svg" alt="Support">
 </a>
@@ -107,7 +104,7 @@ $ sudo gem install cocoapods
 
 To integrate web3swift into your Xcode project using CocoaPods, specify it in your `Podfile`:
 ```ruby
-pod 'web3swift', :git => 'https://github.com/bankex/web3swift.git', :branch => 'master'
+pod 'web3swift', :git => 'https://github.com/bankex/web3swift.git'
 ```
 
 Then, run the following command:
@@ -125,7 +122,7 @@ $ brew install carthage
 ```
 To integrate web3swift into your Xcode project using Carthage, specify it in your `Cartfile`:
 ```
-github "BANKEX/web3swift" ~> 1.1
+github "BANKEX/web3swift" ~> 2.0
 ```
 Run `carthage update` to build the framework and drag the built `web3swift.framework` into your Xcode project.
 
@@ -136,7 +133,7 @@ Once you have your Swift package set up, adding web3swift as a dependency is as 
 
 ```swift
 dependencies: [
-.package(url: "https://github.com/BANKEX/web3swift.git", from: "1.1.7")
+.package(url: "https://github.com/BANKEX/web3swift.git", from: "2.0.0")
 ]
 ```
 

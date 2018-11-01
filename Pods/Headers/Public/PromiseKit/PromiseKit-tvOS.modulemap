@@ -1,0 +1,9 @@
+module PromiseKit {
+  umbrella header "PromiseKit-tvOS-umbrella.h"
+  exclude header "PromiseKit.root-CorePromise-Foundation-macOS-umbrella.h"
+  exclude header "PromiseKit-iOS-umbrella.h"
+  exclude header "PromiseKit.root-CorePromise-Foundation-watchOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+module Pods_web3swift_tvOS {
+  umbrella header "Pods-web3swift-tvOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

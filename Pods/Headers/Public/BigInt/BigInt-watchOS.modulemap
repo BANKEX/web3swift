@@ -1,0 +1,9 @@
+module BigInt {
+  umbrella header "BigInt-watchOS-umbrella.h"
+  exclude header "BigInt-macOS-umbrella.h"
+  exclude header "BigInt-iOS-umbrella.h"
+  exclude header "BigInt-tvOS-umbrella.h"
+
+  export *
+  module * { export * }
+}
