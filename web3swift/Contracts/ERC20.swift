@@ -10,11 +10,20 @@ import Foundation
 import BigInt
 import PromiseKit
 
+/**
+ Native implementation of ERC20 token
+ */
 public class ERC20 {
     public let address: EthereumAddress
     public var options: Web3Options = .default
     public var password: String = "BANKEXFOUNDATION"
     public var gasPrice: ERC20GasPrice { return ERC20GasPrice(self) }
+    
+    /**
+     Native implementation of ERC20 token
+     - important: NOT main thread friendly
+     - returns: full information for all pending and queued transactions
+     */
     public init(_ address: EthereumAddress) {
         self.address = address
     }
@@ -49,28 +58,70 @@ public class ERC20 {
         return try address.call("allowance(address,address)", owner, spender, options: options).wait().uint256()
     }
     
+    /**
+     transfers to user \(amount)
+     - important: Transaction | Requires password | Contract owner only.
+     - returns: TransactionSendingResult
+     - parameter user: recepient address
+     - parameter amount: amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
+     */
     public func transfer(to user: EthereumAddress, amount: BigUInt) throws -> TransactionSendingResult {
         return try address.send("transfer(address,uint256)", user, amount, password: password, options: options).wait()
     }
+    /**
+     approves user to take \(amount) tokens from your account
+     NaturalUnits is user readable representaion of tokens (like "0.01" / "1.543634")
+     - important: Transaction | Requires password
+     - returns: TransactionSendingResult
+     */
     public func approve(to user: EthereumAddress, amount: BigUInt) throws -> TransactionSendingResult {
         
         return try address.send("approve(address,uint256)", user, amount, password: password, options: options).wait()
     }
+    
+    /**
+     transfers from user1 to user2
+     NaturalUnits is user readable representaion of tokens (like "0.01" / "1.543634")
+     - important: Transaction | Requires password | Contract owner only.
+     ERC20(address, from: me).transfer(to: user, amount: NaturalUnits(0.1)) is not the same as
+     ERC20(address).transferFrom(owner: me, to: user, amount: NaturalUnits(0.1))
+     - returns: TransactionSendingResult
+     */
     public func transferFrom(owner: EthereumAddress, to: EthereumAddress, amount: BigUInt) throws -> TransactionSendingResult {
         return try address.send("transferFrom(address,address,uint256)", owner, to, amount, password: password, options: options).wait()
     }
     
-    /// Transfer functions with NaturalUnits
+    /**
+     transfers to user \(amount)
+     NaturalUnits is user readable representaion of tokens (like "0.01" / "1.543634")
+     - important: Transaction | Requires password | Contract owner only.
+     - returns: TransactionSendingResult
+     */
     public func transfer(to user: EthereumAddress, amount: NaturalUnits) throws -> TransactionSendingResult {
         let decimals = try Int(self.decimals())
         let amount = amount.number(with: decimals)
         return try transfer(to: user, amount: amount)
     }
+    /**
+     approves user to take \(amount) tokens from your account
+     NaturalUnits is user readable representaion of tokens (like "0.01" / "1.543634")
+     - important: Transaction | Requires password
+     - returns: TransactionSendingResult
+     */
     public func approve(to user: EthereumAddress, amount: NaturalUnits) throws -> TransactionSendingResult {
         let decimals = try Int(self.decimals())
         let amount = amount.number(with: decimals)
         return try transfer(to: user, amount: amount)
     }
+    
+    /**
+     transfers from user1 to user2
+     NaturalUnits is user readable representaion of tokens (like "0.01" / "1.543634")
+     - important: Transaction | Requires password | Contract owner only.
+     ERC20(address, from: me).transfer(to: user, amount: NaturalUnits(0.1)) is not the same as
+     ERC20(address).transferFrom(owner: me, to: user, amount: NaturalUnits(0.1))
+     - returns: TransactionSendingResult
+     */
     public func transferFrom(owner: EthereumAddress, to: EthereumAddress, amount: NaturalUnits) throws -> TransactionSendingResult {
         let decimals = try Int(self.decimals())
         let amount = amount.number(with: decimals)
@@ -102,11 +153,15 @@ public struct ERC20GasPrice {
         let amount = amount.number(with: decimals)
         return try transfer(to: user, amount: amount)
     }
+    
     public func approve(to user: EthereumAddress, amount: NaturalUnits) throws -> BigUInt {
         let decimals = try Int(erc20.decimals())
         let amount = amount.number(with: decimals)
         return try transfer(to: user, amount: amount)
     }
+    
+    /// contract owner only
+    /// transfers from owner to recepient
     public func transferFrom(owner: EthereumAddress, to: EthereumAddress, amount: NaturalUnits) throws -> BigUInt {
         let decimals = try Int(erc20.decimals())
         let amount = amount.number(with: decimals)

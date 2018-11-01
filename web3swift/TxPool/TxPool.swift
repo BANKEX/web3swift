@@ -10,15 +10,33 @@ import Foundation
 import PromiseKit
 import BigInt
 
+/**
+ Native realisation of txpool
+ - important: Doesn't works with Infura provider
+ */
 public class TxPool {
+    /**
+     - important: Doesn't works with Infura provider
+     */
     public static var `default`: TxPool {
         return TxPool(web3: .default)
     }
     var web3: Web3
+    /**
+     - important: Doesn't works with Infura provider
+     */
     public init(web3: Web3) {
         self.web3 = web3
     }
     
+    /**
+     - important: Doesn't works with Infura provider | main thread friendly
+     - returns: number of pending and queued transactions
+     - throws:
+     DictionaryReader.Error if server has different response than expected |
+     Web3Error.nodeError for node error |
+     Any URLSession.dataTask Error
+     */
     public func status() -> Promise<TxPoolStatus> {
         let request = JsonRpcRequestFabric.prepareRequest(.txPoolStatus, parameters: [])
         let rp = web3.dispatch(request)
@@ -26,6 +44,14 @@ public class TxPool {
         return rp.map(on: queue ) { try TxPoolStatus($0.response()) }
     }
     
+    /**
+     - important: Doesn't works with Infura provider | main thread friendly
+     - returns: main information about pending and queued transactions
+     - throws:
+     DictionaryReader.Error if server has different response than expected |
+     Web3Error.nodeError for node error |
+     Any URLSession.dataTask Error
+     */
     public func inspect() -> Promise<TxPoolInspect> {
         let request = JsonRpcRequestFabric.prepareRequest(.txPoolInspect, parameters: [])
         let rp = web3.dispatch(request)
@@ -33,6 +59,14 @@ public class TxPool {
         return rp.map(on: queue ) { try TxPoolInspect($0.response()) }
     }
     
+    /**
+     - important: Doesn't works with Infura provider | main thread friendly
+     - returns: full information for all pending and queued transactions
+     - throws:
+     DictionaryReader.Error if server has different response than expected |
+     Web3Error.nodeError for node error |
+     Any URLSession.dataTask Error
+     */
     public func content() -> Promise<TxPoolContent> {
         let request = JsonRpcRequestFabric.prepareRequest(.txPoolContent, parameters: [])
         let rp = web3.dispatch(request)
@@ -155,20 +189,6 @@ public struct TxPoolTransaction {
         transactionIndex = try reader.at("transactionIndex").uint256()
         r = try reader.at("r").uint256()
         blockHash = try reader.at("blockHash").data()
-        /* some response:
-         "input" : "0xa9059cbb000000000000000000000000c85780130f5877a501c24702440c9e0bb65dea680000000000000000000000000000000000000000000000000000000000000064",
-         "gasPrice" : "0x1",
-         "s" : "0x224219cd7eefea7a6a4affbf85ca96b4183af5b049bed1c0f9c428b31935bac6",
-         "nonce" : "0xea80",
-         "to" : "0xd65ef7346144e9ad3b53c69a58b7cb27d02c0ded",
-         "value" : "0x0",
-         "gas" : "0xc952",
-         "from" : "0xa607f816acce53552afb0098d8b0750890b48fbd",
-         "hash" : "0x403bd25aec9c86593bc8993b1510b55aa17f2c7bff896ef4a71bf2aa7958b14f",
-         "v" : "0xbf9",
-         "transactionIndex" : "0x0",
-         "r" : "0x30caf905be371d4088b9e7a22d940350ff3d7f22fb36a24b558bea7ace6de66e",
-         "blockHash" : "0x0000000000000000000000000000000000000000000000000000000000000000" */
     }
 }
 
