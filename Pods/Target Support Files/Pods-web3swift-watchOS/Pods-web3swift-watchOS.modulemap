@@ -1,6 +1,0 @@
-module Pods_web3swift_watchOS {
-  umbrella header "Pods-web3swift-watchOS-umbrella.h"
-
-  export *
-  module * { export * }
-}

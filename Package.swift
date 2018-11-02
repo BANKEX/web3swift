@@ -7,8 +7,7 @@ let package = Package(
   name: "web3swift",
   products: [
     // Products define the executables and libraries produced by a package, and make them visible to other packages.
-    .library(name: "web3swift", targets: ["web3swift"]),
-    .executable(name: "web3app", targets: ["web3app"]),
+    .library(name: "web3swift", targets: ["web3swift"])
     ],
   dependencies: [
     .package(url: "https://github.com/attaswift/BigInt.git", from: "3.1.0"),
@@ -22,7 +21,7 @@ let package = Package(
     .target(
       name: "web3swift",
       dependencies: ["BigInt", "CryptoSwift", "secp256k1", "PromiseKit"],
-      path: "web3swift",
+      path: "Sources",
       exclude: [
         "ObjCSupport",
         "Utils/EIP67Code.swift",
@@ -30,6 +29,5 @@ let package = Package(
         "webswift-Bridging-Header.h",
         "web3swift.h",
         ]),
-    .target(name: "web3app", dependencies: ["web3swift"]),
     ]
 )

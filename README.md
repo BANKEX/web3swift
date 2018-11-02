@@ -1,4 +1,4 @@
-# We just created a [Discord Channel](https://discord.gg/3ETv2ST)
+# We just released web3swift 2.0 [check it out](https://github.com/BANKEX/web3swift/releases/tag/2.0.0)
 
 ![bkx-foundation-github-swift](https://user-images.githubusercontent.com/3356474/34412791-5b58962c-ebf0-11e7-8460-5592b12e6e9d.png)
 
@@ -10,7 +10,7 @@
 <img src="https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20%7C%20watchOS%20%7C%20tvOS%20%7C%20Linux%20-lightgray.svg?style=flat" alt="Platforms iOS | macOS">
 </a>
 <a target="_blank">
-<img src="https://img.shields.io/badge/Supports-CocoaPods%20%7C%20SwiftPM%20-orange.svg?style=flat" alt="Compatible">
+<img src="https://img.shields.io/badge/Supports-CocoaPods%20%7C%20Carthage%20%7C%20SwiftPM%20-orange.svg?style=flat" alt="Compatible">
 </a>
 </p>
 
@@ -39,6 +39,35 @@
 -  [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) (Seed phrases)
 -  [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) (Key generation prefixes)
 -  [EIP-155](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md) (Replay attacks protection) *_enforced!_*
+
+
+## Requirements
+Web3swift requires Swift 4.2 and deploys to `macOS 10.10`, `iOS 9`, `watchOS 2` and `tvOS 9` and `linux`. 
+
+Don't forget to set the iOS version in a Podfile, otherwise you get an error if the deployment target is less than the latest SDK.
+
+## Installation
+
+- **Swift Package Manager:**
+  Although the Package Manager is still in its infancy, web3swift provides full support for it.
+  Add this to the dependency section of your `Package.swift` manifest:
+
+    ```Swift
+    .package(url: "https://github.com/BANKEX/web3swift.git", from: "2.0.0")
+    ```
+
+- **CocoaPods:** Put this in your `Podfile`:
+
+    ```Ruby
+    pod 'web3swift', :git => 'https://github.com/bankex/web3swift.git', '~> 2.0'
+    ```
+
+- **Carthage:** Put this in your `Cartfile`:
+
+    ```
+    github "BANKEX/web3swift" ~> 2.0
+    ```
+
 
 ## Check this out
 - Private key and transaction were created directly on an iOS device and sent directly to [Infura](https://infura.io) node
@@ -70,7 +99,7 @@ r: 73059897783840535708732471549376620878882680550447969052675399628060606060727
 s: 12280625377431973240236065453692843538037349746280474092545114784968542260859
 Intrinsic chainID: Optional(4)
 Infered chainID: Optional(4)
-sender: Optional(web3swift.EthereumAddress(_address: "0x855adf524273c14b7260a188af0ae30e82e91959"))
+sender: Optional(web3swift.Address(_address: "0x855adf524273c14b7260a188af0ae30e82e91959"))
 
 
 ["id": 1514485925, "result": 0xc6eca60ecac004a1501a4323a10edb7fa4cd1a0896675f6b51704c84dedad056, "jsonrpc": 2.0]
@@ -83,59 +112,13 @@ You can try it yourself by running the example project:
 -  `cd Example/web3swiftExample`
 - run `pod install` from the `Example/web3swiftExample` directory.
 -  `open ./web3swiftExample.xcworkspace`
-
-## Requirements
-Web3swift requires Swift 4.1 and iOS 9.0 or macOS 10.13 although we recommend to use the latest iOS and MacOS versions for your own safety. Don't forget to set the iOS version in a Podfile, otherwise you get an error if the deployment target is less than the latest SDK.
-
+-  
 ## Communication
 - if you ****need help****, use [Stack Overflow](https://stackoverflow.com/questions/tagged/web3swift) (tag 'web3swift')
 - If you'd like to ****ask a general question****, use [Stack Overflow](https://stackoverflow.com/questions/tagged/web3swift).
 - If you ****found a bug****, [open an issue](https://github.com/BANKEX/web3swift/issues).
 - If you ****have a feature request****, [open an issue](https://github.com/BANKEX/web3swift/issues).
 - If you ****want to contribute****, [submit a pull request](https://github.com/BANKEX/web3swift/pulls).
-
-## Installation
-### CocoaPods
-[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
-
-```bash
-$ sudo gem install cocoapods
-```
-
-To integrate web3swift into your Xcode project using CocoaPods, specify it in your `Podfile`:
-```ruby
-pod 'web3swift', :git => 'https://github.com/bankex/web3swift.git'
-```
-
-Then, run the following command:
-```bash
-$ pod install
-```
-
-### Carthage
-[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
-
-You can install Carthage with [Homebrew](https://brew.sh/) using the following command:
-```bash
-$ brew update
-$ brew install carthage
-```
-To integrate web3swift into your Xcode project using Carthage, specify it in your `Cartfile`:
-```
-github "BANKEX/web3swift" ~> 2.0
-```
-Run `carthage update` to build the framework and drag the built `web3swift.framework` into your Xcode project.
-
-### Swift Package Manager
-The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. It is in early development, but web3swift does support its use on supported platforms.
-
-Once you have your Swift package set up, adding web3swift as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
-
-```swift
-dependencies: [
-.package(url: "https://github.com/BANKEX/web3swift.git", from: "2.0.0")
-]
-```
 
 ## Features
 - [x] Create Account
@@ -165,8 +148,8 @@ Ethereum addresses are checksum checked if they are not lowercased and always le
 
 ```bash
 var options = Web3Options.default
-// public var to: EthereumAddress? = nil - to what address transaction is aimed
-// public var from: EthereumAddress? = nil - form what address it should be sent (either signed locally or on the node)
+// public var to: Address? = nil - to what address transaction is aimed
+// public var from: Address? = nil - form what address it should be sent (either signed locally or on the node)
 // public var gasLimit: BigUInt? = BigUInt(90000) - default gas limit
 // public var gasPrice: BigUInt? = BigUInt(5000000000) - default gas price, quite small
 // public var value: BigUInt? = BigUInt(0) - amount of WEI sent along the transaction
@@ -178,7 +161,7 @@ options.from = "0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d"
 ### Getting ETH balance
 
 ```bash
-let address: EthereumAddress = "0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d"
+let address: Address = "0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d"
 let web3Main = Web3(infura: .mainnet)
 let balance: BigUInt = try web3Main.eth.getBalance(address)
 ```
@@ -193,7 +176,7 @@ let gasPrice: BigUInt = try web3Main.eth.getGasPrice()
 ### Getting ERC20 token balance
 
 ```bash
-let contractAddress: EthereumAddress = "0x45245bc59219eeaaf6cd3f382e078a461ff9de7b" // BKX token on Ethereum mainnet
+let contractAddress: Address = "0x45245bc59219eeaaf6cd3f382e078a461ff9de7b" // BKX token on Ethereum mainnet
 let balance = try ERC20(contractAddress).balance(of: "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
 print("BKX token balance = " + String(bal))
 ```

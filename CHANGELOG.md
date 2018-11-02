@@ -83,7 +83,7 @@
 
 - Signing identical transaction results in different raw tx [\#53](https://github.com/BANKEX/web3swift/issues/53)
 - I can not use my contract ? [\#43](https://github.com/BANKEX/web3swift/issues/43)
-- Use of unresolved identifier 'EthereumAddress' [\#14](https://github.com/BANKEX/web3swift/issues/14)
+- Use of unresolved identifier 'Address' [\#14](https://github.com/BANKEX/web3swift/issues/14)
 
 **Closed issues:**
 
