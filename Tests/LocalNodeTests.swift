@@ -17,7 +17,8 @@ class LocalNodeTests: XCTestCase {
     let url = URL(string: "http://127.0.0.1:8545")!
     var web3: Web3?
     override func setUp() {
-        web3 = Web3(url: url)
+        let url = URL(string: "http://127.0.0.1:8545")!
+        Web3.default = Web3(url: url)
     }
     func testDeployWithRemoteSigning() throws {
         guard let web3 = web3 else { return }

@@ -9,7 +9,20 @@
 import BigInt
 import Foundation
 
-extension Web3.BrowserFunctions {
+/// Browser functions
+public class Web3BrowserFunctions: Web3OptionsInheritable {
+    /// provider for some functions
+    var provider: Web3Provider
+    unowned var web3: Web3
+    public var options: Web3Options {
+        return web3.options
+    }
+    
+    public init(provider prov: Web3Provider, web3 web3instance: Web3) {
+        provider = prov
+        web3 = web3instance
+    }
+    
     public func getAccounts() -> [String]? {
         do {
             return try web3.eth.getAccounts().compactMap { $0.address }

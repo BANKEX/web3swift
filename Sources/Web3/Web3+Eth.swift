@@ -8,8 +8,21 @@
 
 import BigInt
 import Foundation
+import PromiseKit
 
-extension Web3.Eth {
+/// Extension located
+public class Web3Eth: Web3OptionsInheritable {
+    /// provider for some functions
+    var provider: Web3Provider
+    unowned var web3: Web3
+    public var options: Web3Options {
+        return web3.options
+    }
+    
+    public init(provider prov: Web3Provider, web3 web3instance: Web3) {
+        provider = prov
+        web3 = web3instance
+    }
     /// Send an EthereumTransaction object to the network. Transaction is either signed locally if there is a KeystoreManager
     /// object bound to the web3 instance, or sent unsigned to the node. For local signing the password is required.
     ///
@@ -218,5 +231,320 @@ extension Web3.Eth {
         var mergedOptions = self.options.merge(with: options)
         mergedOptions.value = amount
         return try contract.method("fallback", extraData: extraData, options: mergedOptions)
+    }
+    
+    public func getBlockNumberPromise() -> Promise<BigUInt> {
+        let request = JsonRpcRequestFabric.prepareRequest(.blockNumber, parameters: [])
+        let rp = web3.dispatch(request)
+        let queue = web3.requestDispatcher.queue
+        return rp.map(on: queue) { response in
+            guard let value: BigUInt = response.getValue() else {
+                if response.error != nil {
+                    throw Web3Error.nodeError(response.error!.message)
+                }
+                throw Web3Error.nodeError("Invalid value from Ethereum node")
+            }
+            return value
+        }
+    }
+    
+    public func getGasPricePromise() -> Promise<BigUInt> {
+        let request = JsonRpcRequestFabric.prepareRequest(.gasPrice, parameters: [])
+        let rp = web3.dispatch(request)
+        let queue = web3.requestDispatcher.queue
+        return rp.map(on: queue) { response in
+            guard let value: BigUInt = response.getValue() else {
+                if response.error != nil {
+                    throw Web3Error.nodeError(response.error!.message)
+                }
+                throw Web3Error.nodeError("Invalid value from Ethereum node")
+            }
+            return value
+        }
+    }
+    
+    
+    public func getBlockByHashPromise(_ hash: Data, fullTransactions: Bool = false) -> Promise<Block> {
+        let hashString = hash.toHexString().withHex
+        return getBlockByHashPromise(hashString, fullTransactions: fullTransactions)
+    }
+    
+    public func getBlockByHashPromise(_ hash: String, fullTransactions: Bool = false) -> Promise<Block> {
+        let request = JsonRpcRequestFabric.prepareRequest(.getBlockByHash, parameters: [hash, fullTransactions])
+        let rp = web3.dispatch(request)
+        let queue = web3.requestDispatcher.queue
+        return rp.map(on: queue) { response in
+            guard let value: Block = response.getValue() else {
+                if response.error != nil {
+                    throw Web3Error.nodeError(response.error!.message)
+                }
+                throw Web3Error.nodeError("Invalid value from Ethereum node")
+            }
+            return value
+        }
+    }
+    
+    
+    public func getTransactionDetailsPromise(_ txhash: Data) -> Promise<TransactionDetails> {
+        let hashString = txhash.toHexString().withHex
+        return getTransactionDetailsPromise(hashString)
+    }
+    
+    public func getTransactionDetailsPromise(_ txhash: String) -> Promise<TransactionDetails> {
+        let request = JsonRpcRequestFabric.prepareRequest(.getTransactionByHash, parameters: [txhash])
+        let rp = web3.dispatch(request)
+        let queue = web3.requestDispatcher.queue
+        return rp.map(on: queue) { response in
+            guard let value: TransactionDetails = response.getValue() else {
+                if response.error != nil {
+                    throw Web3Error.nodeError(response.error!.message)
+                }
+                throw Web3Error.nodeError("Invalid value from Ethereum node")
+            }
+            return value
+        }
+    }
+    
+    
+    func sendTransactionPromise(_ transaction: EthereumTransaction, options: Web3Options, password: String = "BANKEXFOUNDATION") -> Promise<TransactionSendingResult> {
+        //        print(transaction)
+        var assembledTransaction: EthereumTransaction = transaction.mergedWithOptions(options)
+        let queue = web3.requestDispatcher.queue
+        do {
+            if web3.provider.attachedKeystoreManager == nil {
+                guard let request = EthereumTransaction.createRequest(method: .sendTransaction, transaction: assembledTransaction, onBlock: nil, options: options) else {
+                    throw Web3Error.processingError("Failed to create a request to send transaction")
+                }
+                return web3.dispatch(request).map(on: queue) { response in
+                    guard let value: String = response.getValue() else {
+                        if response.error != nil {
+                            throw Web3Error.nodeError(response.error!.message)
+                        }
+                        throw Web3Error.nodeError("Invalid value from Ethereum node")
+                    }
+                    let result = TransactionSendingResult(transaction: assembledTransaction, hash: value)
+                    return result
+                }
+            }
+            guard let from = options.from else {
+                throw Web3Error.inputError("No 'from' field provided")
+            }
+            do {
+                try Web3Signer.signTX(transaction: &assembledTransaction, keystore: web3.provider.attachedKeystoreManager!, account: from, password: password)
+            } catch {
+                throw Web3Error.inputError("Failed to locally sign a transaction")
+            }
+            return web3.eth.sendRawTransactionPromise(assembledTransaction)
+        } catch {
+            let returnPromise = Promise<TransactionSendingResult>.pending()
+            queue.async {
+                returnPromise.resolver.reject(error)
+            }
+            return returnPromise.promise
+        }
+    }
+    
+    
+    public func getBalancePromise(address: Address, onBlock: String = "latest") -> Promise<BigUInt> {
+        let addr = address.address
+        return getBalancePromise(address: addr, onBlock: onBlock)
+    }
+    
+    public func getBalancePromise(address: String, onBlock: String = "latest") -> Promise<BigUInt> {
+        let request = JsonRpcRequestFabric.prepareRequest(.getBalance, parameters: [address.lowercased(), onBlock])
+        let rp = web3.dispatch(request)
+        let queue = web3.requestDispatcher.queue
+        return rp.map(on: queue) { response in
+            guard let value: BigUInt = response.getValue() else {
+                if response.error != nil {
+                    throw Web3Error.nodeError(response.error!.message)
+                }
+                throw Web3Error.nodeError("Invalid value from Ethereum node")
+            }
+            return value
+        }
+    }
+    
+    
+    public func getTransactionReceiptPromise(_ txhash: Data) -> Promise<TransactionReceipt> {
+        let hashString = txhash.toHexString().withHex
+        return getTransactionReceiptPromise(hashString)
+    }
+    
+    public func getTransactionReceiptPromise(_ txhash: String) -> Promise<TransactionReceipt> {
+        let request = JsonRpcRequestFabric.prepareRequest(.getTransactionReceipt, parameters: [txhash])
+        let rp = web3.dispatch(request)
+        let queue = web3.requestDispatcher.queue
+        return rp.map(on: queue) { response in
+            guard let value: TransactionReceipt = response.getValue() else {
+                if response.error != nil {
+                    throw Web3Error.nodeError(response.error!.message)
+                }
+                throw Web3Error.nodeError("Invalid value from Ethereum node")
+            }
+            return value
+        }
+    }
+    
+    func estimateGasPromise(_ transaction: EthereumTransaction, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
+        let queue = web3.requestDispatcher.queue
+        do {
+            guard let request = EthereumTransaction.createRequest(method: .estimateGas, transaction: transaction, onBlock: onBlock, options: options) else {
+                throw Web3Error.processingError("Transaction is invalid")
+            }
+            let rp = web3.dispatch(request)
+            return rp.map(on: queue) { response in
+                guard let value: BigUInt = response.getValue() else {
+                    if response.error != nil {
+                        throw Web3Error.nodeError(response.error!.message)
+                    }
+                    throw Web3Error.nodeError("Invalid value from Ethereum node")
+                }
+                return value
+            }
+        } catch {
+            let returnPromise = Promise<BigUInt>.pending()
+            queue.async {
+                returnPromise.resolver.reject(error)
+            }
+            return returnPromise.promise
+        }
+    }
+    
+    
+    public func getBlockByNumberPromise(_ number: UInt64, fullTransactions: Bool = false) -> Promise<Block> {
+        let block = String(number, radix: 16).withHex
+        return getBlockByNumberPromise(block, fullTransactions: fullTransactions)
+    }
+    
+    public func getBlockByNumberPromise(_ number: BigUInt, fullTransactions: Bool = false) -> Promise<Block> {
+        let block = String(number, radix: 16).withHex
+        return getBlockByNumberPromise(block, fullTransactions: fullTransactions)
+    }
+    
+    public func getBlockByNumberPromise(_ number: String, fullTransactions: Bool = false) -> Promise<Block> {
+        let request = JsonRpcRequestFabric.prepareRequest(.getBlockByNumber, parameters: [number, fullTransactions])
+        let rp = web3.dispatch(request)
+        let queue = web3.requestDispatcher.queue
+        return rp.map(on: queue) { response in
+            guard let value: Block = response.getValue() else {
+                if response.error != nil {
+                    throw Web3Error.nodeError(response.error!.message)
+                }
+                throw Web3Error.nodeError("Invalid value from Ethereum node")
+            }
+            return value
+        }
+    }
+    
+    func sendRawTransactionPromise(_ transaction: Data) -> Promise<TransactionSendingResult> {
+        guard let deserializedTX = EthereumTransaction.fromRaw(transaction) else {
+            let promise = Promise<TransactionSendingResult>.pending()
+            promise.resolver.reject(Web3Error.processingError("Serialized TX is invalid"))
+            return promise.promise
+        }
+        return sendRawTransactionPromise(deserializedTX)
+    }
+    
+    func sendRawTransactionPromise(_ transaction: EthereumTransaction) -> Promise<TransactionSendingResult> {
+        //        print(transaction)
+        let queue = web3.requestDispatcher.queue
+        do {
+            guard let request = EthereumTransaction.createRawTransaction(transaction: transaction) else {
+                throw Web3Error.processingError("Transaction is invalid")
+            }
+            let rp = web3.dispatch(request)
+            return rp.map(on: queue) { response in
+                guard let value: String = response.getValue() else {
+                    if response.error != nil {
+                        throw Web3Error.nodeError(response.error!.message)
+                    }
+                    throw Web3Error.nodeError("Invalid value from Ethereum node")
+                }
+                let result = TransactionSendingResult(transaction: transaction, hash: value)
+                return result
+            }
+        } catch {
+            let returnPromise = Promise<TransactionSendingResult>.pending()
+            queue.async {
+                returnPromise.resolver.reject(error)
+            }
+            return returnPromise.promise
+        }
+    }
+    
+    
+    public func getTransactionCountPromise(address: Address, onBlock: String = "latest") -> Promise<BigUInt> {
+        let addr = address.address
+        return getTransactionCountPromise(address: addr, onBlock: onBlock)
+    }
+    
+    public func getTransactionCountPromise(address: String, onBlock: String = "latest") -> Promise<BigUInt> {
+        let request = JsonRpcRequestFabric.prepareRequest(.getTransactionCount, parameters: [address.lowercased(), onBlock])
+        let rp = web3.dispatch(request)
+        let queue = web3.requestDispatcher.queue
+        return rp.map(on: queue) { response in
+            guard let value: BigUInt = response.getValue() else {
+                if response.error != nil {
+                    throw Web3Error.nodeError(response.error!.message)
+                }
+                throw Web3Error.nodeError("Invalid value from Ethereum node")
+            }
+            return value
+        }
+    }
+    
+    
+    public func getAccountsPromise() -> Promise<[Address]> {
+        let queue = web3.requestDispatcher.queue
+        if web3.provider.attachedKeystoreManager != nil {
+            let promise = Promise<[Address]>.pending()
+            queue.async {
+                do {
+                    let accounts = try self.web3.wallet.getAccounts()
+                    promise.resolver.fulfill(accounts)
+                } catch {
+                    promise.resolver.reject(error)
+                }
+            }
+            return promise.promise
+        }
+        let request = JsonRpcRequestFabric.prepareRequest(.getAccounts, parameters: [])
+        let rp = web3.dispatch(request)
+        return rp.map(on: queue) { response in
+            guard let value: [Address] = response.getValue() else {
+                if response.error != nil {
+                    throw Web3Error.nodeError(response.error!.message)
+                }
+                throw Web3Error.nodeError("Invalid value from Ethereum node")
+            }
+            return value
+        }
+    }
+    
+    
+    func callPromise(_ transaction: EthereumTransaction, options: Web3Options, onBlock: String = "latest") -> Promise<Data> {
+        let queue = web3.requestDispatcher.queue
+        do {
+            guard let request = EthereumTransaction.createRequest(method: .call, transaction: transaction, onBlock: onBlock, options: options) else {
+                throw Web3Error.processingError("Transaction is invalid")
+            }
+            let rp = web3.dispatch(request)
+            return rp.map(on: queue) { response in
+                guard let value: Data = response.getValue() else {
+                    if response.error != nil {
+                        throw Web3Error.nodeError(response.error!.message)
+                    }
+                    throw Web3Error.nodeError("Invalid value from Ethereum node")
+                }
+                return value
+            }
+        } catch {
+            let returnPromise = Promise<Data>.pending()
+            queue.async {
+                returnPromise.resolver.reject(error)
+            }
+            return returnPromise.promise
+        }
     }
 }

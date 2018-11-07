@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           web3swift Docs
         </a>
-         (15% documented)
+         (21% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -69,7 +69,13 @@
                 <a class="nav-group-task-link" href="../Classes/ERC20.html">ERC20</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ERC20/GasPrice.html">– GasPrice</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/ERC721.html">ERC721</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ERC721/GasPrice.html">– GasPrice</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/ERC777.html">ERC777</a>
@@ -180,18 +186,6 @@
                 <a class="nav-group-task-link" href="../Classes/Web3.html">Web3</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/Web3/Eth.html">– Eth</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/Web3/Personal.html">– Personal</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/Web3/Web3Wallet.html">– Web3Wallet</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/Web3/BrowserFunctions.html">– BrowserFunctions</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Web3/EIP67Code.html">– EIP67Code</a>
               </li>
               <li class="nav-group-task">
@@ -199,6 +193,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Web3/EIP67CodeParser.html">– EIP67CodeParser</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Web3BrowserFunctions.html">Web3BrowserFunctions</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Web3BrowserFunctions/TransactionError.html">– TransactionError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Web3Contract.html">Web3Contract</a>
@@ -213,13 +213,22 @@
                 <a class="nav-group-task-link" href="../Classes/Web3DataResponse.html">Web3DataResponse</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Web3Eth.html">Web3Eth</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Web3HttpProvider.html">Web3HttpProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Web3Personal.html">Web3Personal</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Web3Response.html">Web3Response</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Web3Utils.html">Web3Utils</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Web3Wallet.html">Web3Wallet</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/_ObjCAddress.html">_ObjCAddress</a>
@@ -457,16 +466,7 @@
                 <a class="nav-group-task-link" href="../Structs/ContractV2/MethodError.html">– MethodError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/Counter.html">Counter</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs.html#/s:9web3swift14CryptoParamsV3V">CryptoParamsV3</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/ERC20GasPrice.html">ERC20GasPrice</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/ERC721GasPrice.html">ERC721GasPrice</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/EthereumBloomFilter.html">EthereumBloomFilter</a>
@@ -655,9 +655,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:St4next7ElementQzSgyF"></a>
+                    <a name="/s:Sn9web3swiftSiRszrlE4nextSiSgyF"></a>
                     <a name="//apple_ref/swift/Method/next()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:St4next7ElementQzSgyF">next()</a>
+                    <a class="token" href="#/s:Sn9web3swiftSiRszrlE4nextSiSgyF">next()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -665,7 +665,31 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Advances to the next element and returns it, or <code>nil</code> if no next element
+exists.</p>
+
+<p>Repeatedly calling this method returns, in order, all the elements of the
+underlying sequence. As soon as the sequence has run out of elements, all
+subsequent calls return <code>nil</code>.</p>
+
+<p>You must not call this method if any other copy of this iterator has been
+advanced with a call to its <code>next()</code> method.</p>
+
+<p>The following example shows how an iterator can be used explicitly to
+emulate a <code>for</code>-<code>in</code> loop. First, retrieve a sequence&rsquo;s iterator, and
+then call the iterator&rsquo;s <code>next()</code> method until it returns <code>nil</code>.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="k">var</span> <span class="nv">numbersIterator</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">.</span><span class="nf">makeIterator</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="k">let</span> <span class="nv">num</span> <span class="o">=</span> <span class="n">numbersIterator</span><span class="o">.</span><span class="nf">next</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="c1">// Prints "2"</span>
+<span class="c1">// Prints "3"</span>
+<span class="c1">// Prints "5"</span>
+<span class="c1">// Prints "7"</span>
+</code></pre>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -674,6 +698,11 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">next</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bound</span><span class="p">?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The next element in the underlying sequence, if a next element
+exists; otherwise, <code>nil</code>.</p>
                       </div>
                     </section>
                   </div>
@@ -686,7 +715,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="https://github.com/bankex/web3swift" target="_blank" rel="external">Bankex Foundation</a>. All rights reserved. (Last updated: 2018-11-02)</p>
+      <p>&copy; 2018 <a class="link" href="https://github.com/bankex/web3swift" target="_blank" rel="external">Bankex Foundation</a>. All rights reserved. (Last updated: 2018-11-07)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

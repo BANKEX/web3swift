@@ -23,7 +23,7 @@
         <a class="header-link" href="../../index.html">
           web3swift Docs
         </a>
-         (15% documented)
+         (21% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -69,7 +69,13 @@
                 <a class="nav-group-task-link" href="../../Classes/ERC20.html">ERC20</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/ERC20/GasPrice.html">– GasPrice</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Classes/ERC721.html">ERC721</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/ERC721/GasPrice.html">– GasPrice</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Classes/ERC777.html">ERC777</a>
@@ -457,16 +463,7 @@
                 <a class="nav-group-task-link" href="../../Structs/ContractV2/MethodError.html">– MethodError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Structs/Counter.html">Counter</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Structs.html#/s:9web3swift14CryptoParamsV3V">CryptoParamsV3</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Structs/ERC20GasPrice.html">ERC20GasPrice</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Structs/ERC721GasPrice.html">ERC721GasPrice</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Structs/EthereumBloomFilter.html">EthereumBloomFilter</a>
@@ -725,13 +722,9 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p><em>Locally or remotely sign a message (arbitrary data) with the private key. To avoid potential signing of a transaction the message is first prepended by a special header and then hashed.</em></p>
-<li>message: Message Data</li>
-<li>from: Use a private key that corresponds to this account</li>
-<li><p>password: Password for account if signing locally</p></li>
-<li><p>Result object</p></li>
 <div class="aside aside-important">
     <p class="aside-title">Important</p>
-    <p>This call is synchronous</p>
+    This call is synchronous
 
 </div>
 
@@ -745,8 +738,51 @@
                         </div>
                       </div>
                       <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>message</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Message Data</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Use a private key that corresponds to this account</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Password for account if signing locally</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
                         <h4>Return Value</h4>
-                        <p></p>
+                        <p>signed message data</p>
                       </div>
                     </section>
                   </div>
@@ -765,13 +801,9 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p><em>Unlock an account on the remote node to be able to send transactions and sign messages.</em></p>
-<li>account: Address of the account to unlock</li>
-<li>password: Password to use for the account</li>
-<li><p>seconds: Time inteval before automatic account lock by Ethereum node</p></li>
-<li><p>Result object</p></li>
 <div class="aside aside-important">
     <p class="aside-title">Important</p>
-    <p>This call is synchronous. Does nothing if private keys are stored locally.</p>
+    This call is synchronous. Does nothing if private keys are stored locally.
 
 </div>
 
@@ -785,8 +817,51 @@
                         </div>
                       </div>
                       <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>account</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Address of the account to unlock</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Password to use for the account</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>seconds</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Time inteval before automatic account lock by Ethereum node</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
                         <h4>Return Value</h4>
-                        <p></p>
+                        <p>isUnlocked</p>
                       </div>
                     </section>
                   </div>
@@ -806,12 +881,6 @@
                       <div class="abstract">
                         <p><em>Recovers a signer of some message. Message is first prepended by special prefix (check the <q>signPersonalMessage</q> method description) and then hashed.</em></p>
 
-<ul>
-<li>personalMessage: Message Data</li>
-<li><p>signature: Serialized signature, 65 bytes</p></li>
-<li><p>Result object</p></li>
-</ul>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -822,8 +891,39 @@
                         </div>
                       </div>
                       <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>personalMessage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Message Data</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>signature</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Serialized signature, 65 bytes</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
                         <h4>Return Value</h4>
-                        <p></p>
+                        <p>signer address</p>
                       </div>
                     </section>
                   </div>
@@ -843,12 +943,6 @@
                       <div class="abstract">
                         <p><em>Recovers a signer of some hash. Checking what is under this hash is on behalf of the user.</em></p>
 
-<ul>
-<li>hash: Signed hash</li>
-<li><p>signature: Serialized signature, 65 bytes</p></li>
-<li><p>Result object</p></li>
-</ul>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -859,8 +953,39 @@
                         </div>
                       </div>
                       <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>hash</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Signed hash</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>signature</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Serialized signature, 65 bytes</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
                         <h4>Return Value</h4>
-                        <p></p>
+                        <p>signer address</p>
                       </div>
                     </section>
                   </div>
@@ -873,7 +998,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="https://github.com/bankex/web3swift" target="_blank" rel="external">Bankex Foundation</a>. All rights reserved. (Last updated: 2018-11-02)</p>
+      <p>&copy; 2018 <a class="link" href="https://github.com/bankex/web3swift" target="_blank" rel="external">Bankex Foundation</a>. All rights reserved. (Last updated: 2018-11-07)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

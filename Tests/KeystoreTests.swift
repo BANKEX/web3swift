@@ -233,4 +233,22 @@ class KeystoresTests: XCTestCase {
         XCTAssert(treeNode.serializeToString() == "xpub6FnCn6nSzZAw5Tw7cgR9bi15UV96gLZhjDstkXXxvCLsUXBGXPdSnLFbdpq8p9HmGsApME5hQTZ3emM2rnY5agb9rXpVGyy3bdW6EEgAtqt")
         XCTAssert(treeNode.serializeToString(serializePublic: false) == "xprvA2nrNbFZABcdryreWet9Ea4LvTJcGsqrMzxHx98MMrotbir7yrKCEXw7nadnHM8Dq38EGfSh6dqA9QWTyefMLEcBYJUuekgW4BYPJcr9E7j")
     }
+    
+    
+    func testKeystoreThrows() throws {
+        // 13 words
+        XCTAssertThrowsError(try Mnemonics("fruit wave dwarf banana earth journey tattoo true farm silk olive fence fruit"))
+        // 8 words
+        XCTAssertThrowsError(try Mnemonics("fruit wave dwarf banana earth journey tattoo true"))
+        // no words
+        XCTAssertThrowsError(try Mnemonics(""))
+        // invalid 12 words
+        XCTAssertThrowsError(try Mnemonics("a b c d a b c d a b c d"))
+        let validMnemonics = try Mnemonics("fruit wave dwarf banana earth journey tattoo true farm silk olive fence")
+        validMnemonics.password = "banana"
+        let keystore = try BIP32Keystore(mnemonics: validMnemonics, password: "", prefixPath: "m/44'/60'/0'/0")
+        XCTAssertThrowsError(try keystore.UNSAFE_getPrivateKeyData(password: "some password", account: account))
+        let key = try keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
+        XCTAssertNoThrow(try Web3Utils.privateToPublic(key, compressed: true))
+    }
 }

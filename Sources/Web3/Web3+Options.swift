@@ -37,7 +37,8 @@ public struct Web3Options {
     ///
     /// If set to nil it's equal to zero
     public var value: BigUInt?
-
+    
+    /// inits Web3Options with all nil parameters
     public init() {}
 
     /// Default options filler. Sets gas limit, gas price and value to zeroes.
@@ -48,7 +49,8 @@ public struct Web3Options {
         options.value = BigUInt(0)
         return options
     }
-
+    
+    /// Inits Web3Options from dictionary
     public init(_ json: [String: Any]) throws {
         gasLimit = try json.at("gas").uint256()
         gasPrice = try json.at("gasPrice").uint256()
@@ -60,7 +62,7 @@ public struct Web3Options {
     /// set if those are not nil.
     ///
     /// Returns default options if both parameters are nil.
-    func merge(with options: Web3Options?) -> Web3Options {
+    public func merge(with options: Web3Options?) -> Web3Options {
         guard let old = options else { return self }
         var new = self
         merge(&new.to, old.to)
@@ -104,6 +106,9 @@ public struct Web3Options {
         }
     }
 
+    /// merges two sets of options along with a gas estimate to try to guess the final gas price value required by user.
+    ///
+    /// Please refer to the source code for a logic.
     public static func smartMergeGasPrice(originalOptions: Web3Options?, extraOptions: Web3Options?, priceEstimate: BigUInt) -> BigUInt {
         let originalOptions = originalOptions ?? .default
         let mergedOptions = originalOptions.merge(with: extraOptions)

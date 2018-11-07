@@ -40,25 +40,7 @@
 		1317BD8C218C526300D6D095 /* DictionaryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD22218C526300D6D095 /* DictionaryReader.swift */; };
 		1317BD8D218C526300D6D095 /* TxPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD23218C526300D6D095 /* TxPool.swift */; };
 		1317BD8E218C526300D6D095 /* DecoderExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD24218C526300D6D095 /* DecoderExtensions.swift */; };
-		1317BD8F218C526300D6D095 /* Promise+Web3+Eth+GetBlockNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD26218C526300D6D095 /* Promise+Web3+Eth+GetBlockNumber.swift */; };
-		1317BD90218C526300D6D095 /* Promise+Web3+Personal+Sign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD27218C526300D6D095 /* Promise+Web3+Personal+Sign.swift */; };
-		1317BD91218C526300D6D095 /* Promise+Web3+Eth+GetGasPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD28218C526300D6D095 /* Promise+Web3+Eth+GetGasPrice.swift */; };
-		1317BD92218C526300D6D095 /* Promise+Web3+Eth+GetBlockByHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD29218C526300D6D095 /* Promise+Web3+Eth+GetBlockByHash.swift */; };
-		1317BD93218C526300D6D095 /* Promise+Web3+Eth+GetTransactionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD2A218C526300D6D095 /* Promise+Web3+Eth+GetTransactionDetails.swift */; };
-		1317BD94218C526300D6D095 /* Promise+HttpProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD2B218C526300D6D095 /* Promise+HttpProvider.swift */; };
-		1317BD95218C526300D6D095 /* Promise+Web3+Eth+SendTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD2C218C526300D6D095 /* Promise+Web3+Eth+SendTransaction.swift */; };
-		1317BD96218C526300D6D095 /* Promise+Web3+Eth+GetBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD2D218C526300D6D095 /* Promise+Web3+Eth+GetBalance.swift */; };
-		1317BD97218C526300D6D095 /* Promise+Batching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD2E218C526300D6D095 /* Promise+Batching.swift */; };
-		1317BD98218C526300D6D095 /* Promise+Web3+Eth+GetTransactionReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD2F218C526300D6D095 /* Promise+Web3+Eth+GetTransactionReceipt.swift */; };
-		1317BD99218C526300D6D095 /* Promise+Web3+Eth+EstimateGas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD30218C526300D6D095 /* Promise+Web3+Eth+EstimateGas.swift */; };
-		1317BD9A218C526300D6D095 /* Promise+Web3+Eth+GetBlockByNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD31218C526300D6D095 /* Promise+Web3+Eth+GetBlockByNumber.swift */; };
-		1317BD9B218C526300D6D095 /* Promise+Web3+Eth+SendRawTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD32218C526300D6D095 /* Promise+Web3+Eth+SendRawTransaction.swift */; };
-		1317BD9C218C526300D6D095 /* Promise+Web3+Eth+GetTransactionCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD33218C526300D6D095 /* Promise+Web3+Eth+GetTransactionCount.swift */; };
-		1317BD9D218C526300D6D095 /* Promise+Web3+Contract+GetIndexedEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD34218C526300D6D095 /* Promise+Web3+Contract+GetIndexedEvents.swift */; };
-		1317BD9E218C526300D6D095 /* Promise+Web3+Eth+GetAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD35218C526300D6D095 /* Promise+Web3+Eth+GetAccounts.swift */; };
-		1317BD9F218C526300D6D095 /* Promise+Web3+Intermediate+Send.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD36218C526300D6D095 /* Promise+Web3+Intermediate+Send.swift */; };
-		1317BDA0218C526300D6D095 /* Promise+Web3+Personal+UnlockAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD37218C526300D6D095 /* Promise+Web3+Personal+UnlockAccount.swift */; };
-		1317BDA1218C526300D6D095 /* Promise+Web3+Eth+Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD38218C526300D6D095 /* Promise+Web3+Eth+Call.swift */; };
+		1317BD97218C526300D6D095 /* Batching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD2E218C526300D6D095 /* Batching.swift */; };
 		1317BDA2218C526300D6D095 /* Web3+Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD3A218C526300D6D095 /* Web3+Wallet.swift */; };
 		1317BDA3218C526300D6D095 /* Web3+BrowserFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD3B218C526300D6D095 /* Web3+BrowserFunctions.swift */; };
 		1317BDA4218C526300D6D095 /* ABIv2Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD3D218C526300D6D095 /* ABIv2Parsing.swift */; };
@@ -178,25 +160,7 @@
 		1317BD22218C526300D6D095 /* DictionaryReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryReader.swift; sourceTree = "<group>"; };
 		1317BD23218C526300D6D095 /* TxPool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxPool.swift; sourceTree = "<group>"; };
 		1317BD24218C526300D6D095 /* DecoderExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecoderExtensions.swift; sourceTree = "<group>"; };
-		1317BD26218C526300D6D095 /* Promise+Web3+Eth+GetBlockNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Eth+GetBlockNumber.swift"; sourceTree = "<group>"; };
-		1317BD27218C526300D6D095 /* Promise+Web3+Personal+Sign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Personal+Sign.swift"; sourceTree = "<group>"; };
-		1317BD28218C526300D6D095 /* Promise+Web3+Eth+GetGasPrice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Eth+GetGasPrice.swift"; sourceTree = "<group>"; };
-		1317BD29218C526300D6D095 /* Promise+Web3+Eth+GetBlockByHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Eth+GetBlockByHash.swift"; sourceTree = "<group>"; };
-		1317BD2A218C526300D6D095 /* Promise+Web3+Eth+GetTransactionDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Eth+GetTransactionDetails.swift"; sourceTree = "<group>"; };
-		1317BD2B218C526300D6D095 /* Promise+HttpProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+HttpProvider.swift"; sourceTree = "<group>"; };
-		1317BD2C218C526300D6D095 /* Promise+Web3+Eth+SendTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Eth+SendTransaction.swift"; sourceTree = "<group>"; };
-		1317BD2D218C526300D6D095 /* Promise+Web3+Eth+GetBalance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Eth+GetBalance.swift"; sourceTree = "<group>"; };
-		1317BD2E218C526300D6D095 /* Promise+Batching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Batching.swift"; sourceTree = "<group>"; };
-		1317BD2F218C526300D6D095 /* Promise+Web3+Eth+GetTransactionReceipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Eth+GetTransactionReceipt.swift"; sourceTree = "<group>"; };
-		1317BD30218C526300D6D095 /* Promise+Web3+Eth+EstimateGas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Eth+EstimateGas.swift"; sourceTree = "<group>"; };
-		1317BD31218C526300D6D095 /* Promise+Web3+Eth+GetBlockByNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Eth+GetBlockByNumber.swift"; sourceTree = "<group>"; };
-		1317BD32218C526300D6D095 /* Promise+Web3+Eth+SendRawTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Eth+SendRawTransaction.swift"; sourceTree = "<group>"; };
-		1317BD33218C526300D6D095 /* Promise+Web3+Eth+GetTransactionCount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Eth+GetTransactionCount.swift"; sourceTree = "<group>"; };
-		1317BD34218C526300D6D095 /* Promise+Web3+Contract+GetIndexedEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Contract+GetIndexedEvents.swift"; sourceTree = "<group>"; };
-		1317BD35218C526300D6D095 /* Promise+Web3+Eth+GetAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Eth+GetAccounts.swift"; sourceTree = "<group>"; };
-		1317BD36218C526300D6D095 /* Promise+Web3+Intermediate+Send.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Intermediate+Send.swift"; sourceTree = "<group>"; };
-		1317BD37218C526300D6D095 /* Promise+Web3+Personal+UnlockAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Personal+UnlockAccount.swift"; sourceTree = "<group>"; };
-		1317BD38218C526300D6D095 /* Promise+Web3+Eth+Call.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Web3+Eth+Call.swift"; sourceTree = "<group>"; };
+		1317BD2E218C526300D6D095 /* Batching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Batching.swift; sourceTree = "<group>"; };
 		1317BD3A218C526300D6D095 /* Web3+Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Web3+Wallet.swift"; sourceTree = "<group>"; };
 		1317BD3B218C526300D6D095 /* Web3+BrowserFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Web3+BrowserFunctions.swift"; sourceTree = "<group>"; };
 		1317BD3D218C526300D6D095 /* ABIv2Parsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABIv2Parsing.swift; sourceTree = "<group>"; };
@@ -323,6 +287,7 @@
 		1317BCFD218C526300D6D095 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				1317BD58218C526300D6D095 /* Migration.swift */,
 				1317BCFE218C526300D6D095 /* Transaction */,
 				1317BD02218C526300D6D095 /* EthURL */,
 				1317BD04218C526300D6D095 /* Contract */,
@@ -330,12 +295,10 @@
 				1317BD0E218C526300D6D095 /* Web3 */,
 				1317BD1E218C526300D6D095 /* Utils */,
 				1317BD21218C526300D6D095 /* TxPool */,
-				1317BD25218C526300D6D095 /* Promises */,
 				1317BD39218C526300D6D095 /* HookedFunctions */,
 				1317BD3C218C526300D6D095 /* ABIv2 */,
 				1317BD47218C526300D6D095 /* BlockExplorer */,
 				1317BD4A218C526300D6D095 /* KeystoreManager */,
-				1317BD58218C526300D6D095 /* Migration.swift */,
 				1317BD59218C526300D6D095 /* Convenience */,
 				1317BD66218C526300D6D095 /* ObjCSupport */,
 			);
@@ -400,6 +363,7 @@
 				1317BD1B218C526300D6D095 /* Web3+Infura.swift */,
 				1317BD1C218C526300D6D095 /* Web3+Structures.swift */,
 				1317BD1D218C526300D6D095 /* Web3+Options.swift */,
+				1317BD2E218C526300D6D095 /* Batching.swift */,
 			);
 			path = Web3;
 			sourceTree = "<group>";
@@ -421,32 +385,6 @@
 				1317BD24218C526300D6D095 /* DecoderExtensions.swift */,
 			);
 			path = TxPool;
-			sourceTree = "<group>";
-		};
-		1317BD25218C526300D6D095 /* Promises */ = {
-			isa = PBXGroup;
-			children = (
-				1317BD26218C526300D6D095 /* Promise+Web3+Eth+GetBlockNumber.swift */,
-				1317BD27218C526300D6D095 /* Promise+Web3+Personal+Sign.swift */,
-				1317BD28218C526300D6D095 /* Promise+Web3+Eth+GetGasPrice.swift */,
-				1317BD29218C526300D6D095 /* Promise+Web3+Eth+GetBlockByHash.swift */,
-				1317BD2A218C526300D6D095 /* Promise+Web3+Eth+GetTransactionDetails.swift */,
-				1317BD2B218C526300D6D095 /* Promise+HttpProvider.swift */,
-				1317BD2C218C526300D6D095 /* Promise+Web3+Eth+SendTransaction.swift */,
-				1317BD2D218C526300D6D095 /* Promise+Web3+Eth+GetBalance.swift */,
-				1317BD2E218C526300D6D095 /* Promise+Batching.swift */,
-				1317BD2F218C526300D6D095 /* Promise+Web3+Eth+GetTransactionReceipt.swift */,
-				1317BD30218C526300D6D095 /* Promise+Web3+Eth+EstimateGas.swift */,
-				1317BD31218C526300D6D095 /* Promise+Web3+Eth+GetBlockByNumber.swift */,
-				1317BD32218C526300D6D095 /* Promise+Web3+Eth+SendRawTransaction.swift */,
-				1317BD33218C526300D6D095 /* Promise+Web3+Eth+GetTransactionCount.swift */,
-				1317BD34218C526300D6D095 /* Promise+Web3+Contract+GetIndexedEvents.swift */,
-				1317BD35218C526300D6D095 /* Promise+Web3+Eth+GetAccounts.swift */,
-				1317BD36218C526300D6D095 /* Promise+Web3+Intermediate+Send.swift */,
-				1317BD37218C526300D6D095 /* Promise+Web3+Personal+UnlockAccount.swift */,
-				1317BD38218C526300D6D095 /* Promise+Web3+Eth+Call.swift */,
-			);
-			path = Promises;
 			sourceTree = "<group>";
 		};
 		1317BD39218C526300D6D095 /* HookedFunctions */ = {
@@ -598,7 +536,7 @@
 				1317BCDF218C50D100D6D095 /* Sources */,
 				1317BCE0218C50D100D6D095 /* Frameworks */,
 				1317BCE1218C50D100D6D095 /* Resources */,
-				1317BE04218C5D1B00D6D095 /* ShellScript */,
+				1317BE04218C5D1B00D6D095 /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -616,6 +554,7 @@
 				1317BCE8218C50D100D6D095 /* Sources */,
 				1317BCE9218C50D100D6D095 /* Frameworks */,
 				1317BCEA218C50D100D6D095 /* Resources */,
+				13DFB97A219193480019B8CB /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -682,7 +621,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1317BE04218C5D1B00D6D095 /* ShellScript */ = {
+		1317BE04218C5D1B00D6D095 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -691,6 +630,25 @@
 			);
 			inputPaths = (
 			);
+			name = Carthage;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nfor path in $FRAMEWORK_SEARCH_PATHS\ndo\nif [ -d \"${path}/Dip.framework\" ] && [[ $path == *\"Carthage\"* ]]; then\nexport SCRIPT_INPUT_FILE_COUNT=1\nexport SCRIPT_INPUT_FILE_0=\"${path}/Dip.framework\"\n/usr/local/bin/carthage copy-frameworks\nbreak\nfi\ndone\n";
+		};
+		13DFB97A219193480019B8CB /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Carthage;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -707,8 +665,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1317BDBF218C526300D6D095 /* UInt256.swift in Sources */,
-				1317BD9F218C526300D6D095 /* Promise+Web3+Intermediate+Send.swift in Sources */,
-				1317BD92218C526300D6D095 /* Promise+Web3+Eth+GetBlockByHash.swift in Sources */,
 				1317BDC4218C526300D6D095 /* Dictionary+Extension.swift in Sources */,
 				1317BDCE218C526300D6D095 /* Web3+ObjC.swift in Sources */,
 				1317BD87218C526300D6D095 /* Web3+Infura.swift in Sources */,
@@ -718,38 +674,30 @@
 				1317BDCC218C526300D6D095 /* BigUInt+ObjC.swift in Sources */,
 				1317BDCD218C526300D6D095 /* EthereumAddress+ObjC.swift in Sources */,
 				1317BD78218C526300D6D095 /* ERC20.swift in Sources */,
-				1317BD9A218C526300D6D095 /* Promise+Web3+Eth+GetBlockByNumber.swift in Sources */,
 				1317BD84218C526300D6D095 /* Web3+Methods.swift in Sources */,
 				1317BDC9218C526300D6D095 /* Array+Extension.swift in Sources */,
 				1317BD7F218C526300D6D095 /* Web3+JSONRPC.swift in Sources */,
-				1317BD90218C526300D6D095 /* Promise+Web3+Personal+Sign.swift in Sources */,
 				1317BDCA218C526300D6D095 /* PlainKeystore+ObjC.swift in Sources */,
 				1317BDC8218C526300D6D095 /* Base58.swift in Sources */,
-				1317BDA1218C526300D6D095 /* Promise+Web3+Eth+Call.swift in Sources */,
 				1317BDB0218C526300D6D095 /* KeystoreManager.swift in Sources */,
 				1317BDB3218C526300D6D095 /* BIP32HDNode.swift in Sources */,
-				1317BD97218C526300D6D095 /* Promise+Batching.swift in Sources */,
+				1317BD97218C526300D6D095 /* Batching.swift in Sources */,
 				1317BD8D218C526300D6D095 /* TxPool.swift in Sources */,
 				1317BD7D218C526300D6D095 /* Web3+Personal.swift in Sources */,
-				1317BD98218C526300D6D095 /* Promise+Web3+Eth+GetTransactionReceipt.swift in Sources */,
 				1317BD75218C526300D6D095 /* EthereumFilterEncodingExtensions.swift in Sources */,
 				1317BD82218C526300D6D095 /* Web3+EventParser.swift in Sources */,
 				1317BDB1218C526300D6D095 /* IBAN.swift in Sources */,
 				1317BDD0218C526300D6D095 /* Web3+HttpProvider+ObjC.swift in Sources */,
 				1317BD7B218C526300D6D095 /* Web3+HttpProvider.swift in Sources */,
-				1317BD9B218C526300D6D095 /* Promise+Web3+Eth+SendRawTransaction.swift in Sources */,
 				1317BDA5218C526300D6D095 /* ABIv2Elements.swift in Sources */,
 				1317BD8C218C526300D6D095 /* DictionaryReader.swift in Sources */,
 				1317BD7A218C526300D6D095 /* ERC777.swift in Sources */,
 				1317BDB6218C526300D6D095 /* EthereumKeystoreV3.swift in Sources */,
 				1317BDC6218C526300D6D095 /* NativeTypesEncoding+Extensions.swift in Sources */,
-				1317BD91218C526300D6D095 /* Promise+Web3+Eth+GetGasPrice.swift in Sources */,
 				1317BD76218C526300D6D095 /* ContractProtocol.swift in Sources */,
 				1317BDBC218C526300D6D095 /* KeystoreV3JSONStructure.swift in Sources */,
 				1317BDA2218C526300D6D095 /* Web3+Wallet.swift in Sources */,
 				1317BDCB218C526300D6D095 /* Web3+Eth+ObjC.swift in Sources */,
-				1317BD8F218C526300D6D095 /* Promise+Web3+Eth+GetBlockNumber.swift in Sources */,
-				1317BD9D218C526300D6D095 /* Promise+Web3+Contract+GetIndexedEvents.swift in Sources */,
 				1317BD74218C526300D6D095 /* ComparisonExtensions.swift in Sources */,
 				1317BD86218C526300D6D095 /* Web3+TransactionIntermediate.swift in Sources */,
 				1317BDA3218C526300D6D095 /* Web3+BrowserFunctions.swift in Sources */,
@@ -765,15 +713,12 @@
 				1317BD85218C526300D6D095 /* Web3+Eth.swift in Sources */,
 				1317BD70218C526300D6D095 /* TransactionSigner.swift in Sources */,
 				1317BDB8218C526300D6D095 /* HDPath.swift in Sources */,
-				1317BD9E218C526300D6D095 /* Promise+Web3+Eth+GetAccounts.swift in Sources */,
-				1317BD9C218C526300D6D095 /* Promise+Web3+Eth+GetTransactionCount.swift in Sources */,
 				1317BDAA218C526300D6D095 /* SolidityFunction.swift in Sources */,
 				1317BDA6218C526300D6D095 /* ABIv2.swift in Sources */,
 				1317BD7E218C526300D6D095 /* Web3+Utils.swift in Sources */,
 				1317BDC7218C526300D6D095 /* Int+Sequence.swift in Sources */,
 				1317BD77218C526300D6D095 /* ContractABIv2.swift in Sources */,
 				1317BDBA218C526300D6D095 /* PlainKeystore.swift in Sources */,
-				1317BD95218C526300D6D095 /* Promise+Web3+Eth+SendTransaction.swift in Sources */,
 				1317BDC1218C526300D6D095 /* String+Extension.swift in Sources */,
 				1317BDA8218C526300D6D095 /* ABIv2Decoding.swift in Sources */,
 				1317BDC0218C526300D6D095 /* CryptoExtensions.swift in Sources */,
@@ -782,12 +727,9 @@
 				1317BD73218C526300D6D095 /* EventFiltering.swift in Sources */,
 				1317BD79218C526300D6D095 /* ERC721.swift in Sources */,
 				1317BDC5218C526300D6D095 /* Data+Extension.swift in Sources */,
-				1317BD99218C526300D6D095 /* Promise+Web3+Eth+EstimateGas.swift in Sources */,
 				1317BDCF218C526300D6D095 /* KeystoreManager+ObjC.swift in Sources */,
-				1317BDA0218C526300D6D095 /* Promise+Web3+Personal+UnlockAccount.swift in Sources */,
 				1317BD8E218C526300D6D095 /* DecoderExtensions.swift in Sources */,
 				1317BD8A218C526300D6D095 /* RLP.swift in Sources */,
-				1317BD94218C526300D6D095 /* Promise+HttpProvider.swift in Sources */,
 				1317BDBE218C526300D6D095 /* RIPEMD160+StackOveflow.swift in Sources */,
 				1317BDC2218C526300D6D095 /* LibSecp256k1Extension.swift in Sources */,
 				1317BD71218C526300D6D095 /* EthereumTransaction.swift in Sources */,
@@ -795,12 +737,10 @@
 				1317BD88218C526300D6D095 /* Web3+Structures.swift in Sources */,
 				1317BD81218C526300D6D095 /* Web3+Contract.swift in Sources */,
 				1317BDB2218C526300D6D095 /* BIP39.swift in Sources */,
-				1317BD96218C526300D6D095 /* Promise+Web3+Eth+GetBalance.swift in Sources */,
 				1317BDD1218C526300D6D095 /* Web3+Instance+ObjC.swift in Sources */,
 				1317BDB5218C526300D6D095 /* BIP32Keystore.swift in Sources */,
 				1317BD7C218C526300D6D095 /* Web3.swift in Sources */,
 				1317BDAB218C526300D6D095 /* ABIv2Encoding.swift in Sources */,
-				1317BD93218C526300D6D095 /* Promise+Web3+Eth+GetTransactionDetails.swift in Sources */,
 				1317BDBB218C526300D6D095 /* AbstractKeystore.swift in Sources */,
 				1317BDC3218C526300D6D095 /* NSRegularExpressionExtension.swift in Sources */,
 				1317BD72218C526300D6D095 /* EthURL.swift in Sources */,
@@ -1046,7 +986,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = web3swiftTests/Info.plist;
+				"FRAMEWORK_SEARCH_PATHS[sdk=appletvos*]" = "$(SRCROOT)/Carthage/Build/tvOS";
+				"FRAMEWORK_SEARCH_PATHS[sdk=appletvsimulator*]" = "$(SRCROOT)/Carthage/Build/tvOS";
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/Carthage/Build/iOS";
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(SRCROOT)/Carthage/Build/iOS";
+				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = "$(SRCROOT)/Carthage/Build/Mac";
+				"FRAMEWORK_SEARCH_PATHS[sdk=watchos*]" = "$(SRCROOT)/Carthage/Build/watchOS";
+				"FRAMEWORK_SEARCH_PATHS[sdk=watchsimulator*]" = "$(SRCROOT)/Carthage/Build/watchOS";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1064,7 +1010,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = web3swiftTests/Info.plist;
+				"FRAMEWORK_SEARCH_PATHS[sdk=appletvos*]" = "$(SRCROOT)/Carthage/Build/tvOS";
+				"FRAMEWORK_SEARCH_PATHS[sdk=appletvsimulator*]" = "$(SRCROOT)/Carthage/Build/tvOS";
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/Carthage/Build/iOS";
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(SRCROOT)/Carthage/Build/iOS";
+				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = "$(SRCROOT)/Carthage/Build/Mac";
+				"FRAMEWORK_SEARCH_PATHS[sdk=watchos*]" = "$(SRCROOT)/Carthage/Build/watchOS";
+				"FRAMEWORK_SEARCH_PATHS[sdk=watchsimulator*]" = "$(SRCROOT)/Carthage/Build/watchOS";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

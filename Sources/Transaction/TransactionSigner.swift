@@ -14,6 +14,15 @@ public enum TransactionSignerError: Error {
 }
 
 public struct Web3Signer {
+    /**
+     Signs transaction. Uses ERP155Signer if you specified chainID otherwise it uses FallbackSigner
+     - parameter transaction: transaction to sign
+     - parameter keystore: keystore that stores account private key
+     - parameter account: account that signs message
+     - parameter password: password to decrypt private key
+     - parameter useExtraEntropy: add random data to signed message. default: false
+     - throws: Web3UtilsError.cannotConvertDataToAscii, SECP256K1Error, AbstractKeystoreError
+     */
     public static func signTX(transaction: inout EthereumTransaction, keystore: AbstractKeystore, account: Address, password: String, useExtraEntropy: Bool = false) throws {
         var privateKey = try keystore.UNSAFE_getPrivateKeyData(password: password, account: account)
         defer { Data.zero(&privateKey) }
@@ -24,15 +33,30 @@ public struct Web3Signer {
         }
     }
 
+    /**
+     Signs transaction
+     - parameter intermediate: transaction to sign
+     - parameter keystore: keystore that stores account private key
+     - parameter account: account that signs message
+     - parameter password: password to decrypt private key
+     - parameter useExtraEntropy: add random data to signed message. default: false
+     - throws: Web3UtilsError.cannotConvertDataToAscii, SECP256K1Error, AbstractKeystoreError
+     */
     public static func signIntermediate(intermediate: inout TransactionIntermediate, keystore: AbstractKeystore, account: Address, password: String, useExtraEntropy: Bool = false) throws {
         var tx = intermediate.transaction
         try Web3Signer.signTX(transaction: &tx, keystore: keystore, account: account, password: password, useExtraEntropy: useExtraEntropy)
         intermediate.transaction = tx
     }
 
-    /// throws Web3UtilsError.cannotConvertDataToAscii
-    /// throws SECP256K1Error
-    /// throws AbstractKeystoreError
+    /**
+     Signs personal message
+     - parameter personalMessage: message data
+     - parameter keystore: keystore that stores account private key
+     - parameter account: account that signs message
+     - parameter password: password to decrypt private key
+     - parameter useExtraEntropy: add random data to signed message. default: false
+     - throws: Web3UtilsError.cannotConvertDataToAscii, SECP256K1Error, AbstractKeystoreError
+     */
     public static func signPersonalMessage(_ personalMessage: Data, keystore: AbstractKeystore, account: Address, password: String, useExtraEntropy: Bool = false) throws -> Data {
         var privateKey = try keystore.UNSAFE_getPrivateKeyData(password: password, account: account)
         defer { Data.zero(&privateKey) }
@@ -83,11 +107,10 @@ public struct Web3Signer {
         }
 
         public enum Error: Swift.Error {
-            case chainIdNotFound
             case hashNotFound
             case recoveredPublicKeyCorrupted
         }
-
+        
         private static func attemptSignature(transaction: inout EthereumTransaction, privateKey: Data, useExtraEntropy: Bool = false) throws {
             guard let hash = transaction.hashForSignature(chainID: nil) else { throw Error.hashNotFound }
             let signature = try SECP256K1.signForRecovery(hash: hash, privateKey: privateKey, useExtraEntropy: useExtraEntropy)

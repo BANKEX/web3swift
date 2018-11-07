@@ -10,14 +10,14 @@ import BigInt
 import Foundation
 
 /// Global counter object to enumerate JSON RPC requests.
-public struct Counter {
-    public static var counter = UInt64(1)
-    public static var lockQueue = DispatchQueue(label: "counterQueue")
-    public static func increment() -> UInt64 {
+private struct Counter {
+    static var current = UInt64(1)
+    static var lockQueue = DispatchQueue(label: "counterQueue")
+    static func increment() -> UInt64 {
         var c: UInt64 = 0
         lockQueue.sync {
-            c = Counter.counter
-            Counter.counter = Counter.counter + 1
+            c = Counter.current
+            Counter.current = Counter.current + 1
         }
         return c
     }
@@ -26,20 +26,36 @@ public struct Counter {
 
 /// JSON RPC request structure for serialization and deserialization purposes.
 public struct JsonRpcRequest: Encodable {
+    /// jsonrpc version
     var jsonrpc: String = "2.0"
+    /// node api
     var method: JsonRpcMethod
+    /// node input
     var params: JsonRpcParams?
+    /// request local id
     var id: UInt64 = Counter.increment()
-
+    
+    /// A type that can be used as a key for encoding and decoding.
     enum CodingKeys: String, CodingKey {
         case jsonrpc
         case method
         case params
         case id
     }
+    /// init with api method
     public init(method: JsonRpcMethod) {
         self.method = method
     }
+    
+    /// Encodes this value into the given encoder.
+    ///
+    /// If the value fails to encode anything, `encoder` will encode an empty
+    /// keyed container in its place.
+    ///
+    /// This function throws an error if any values are invalid for the given
+    /// encoder's format.
+    ///
+    /// - Parameter encoder: The encoder to write data to.
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(jsonrpc, forKey: .jsonrpc)
@@ -47,7 +63,8 @@ public struct JsonRpcRequest: Encodable {
         try container.encode(params, forKey: .params)
         try container.encode(id, forKey: .id)
     }
-
+    
+    /// checks if input parameters.count is equal to method.parameters
     public var isValid: Bool {
         return method.parameters == params?.params.count
     }
@@ -57,6 +74,15 @@ public struct JsonRpcRequest: Encodable {
 public struct JsonRpcRequestBatch: Encodable {
     var requests: [JsonRpcRequest]
 
+    /// Encodes this value into the given encoder.
+    ///
+    /// If the value fails to encode anything, `encoder` will encode an empty
+    /// keyed container in its place.
+    ///
+    /// This function throws an error if any values are invalid for the given
+    /// encoder's format.
+    ///
+    /// - Parameter encoder: The encoder to write data to.
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encode(requests)
@@ -99,7 +125,13 @@ public struct JsonRpcResponse: Decodable {
         public var code: Int
         public var message: String
     }
-
+    
+    /// Creates a new instance by decoding from the given decoder.
+    ///
+    /// This initializer throws an error if reading from the decoder fails, or
+    /// if the data read is corrupted or otherwise invalid.
+    ///
+    /// - Parameter decoder: The decoder to read data from.
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: JSONRPCresponseKeys.self)
         let id: Int = try container.decode(Int.self, forKey: .id)
@@ -204,9 +236,17 @@ public struct JsonRpcResponse: Decodable {
 }
 
 /// JSON RPC batch response structure for serialization and deserialization purposes.
+/// Stores response for each request in the same order as it sent
 public struct JsonRpcResponseBatch: Decodable {
+    /// response for each request. stores in the same order as sent
     var responses: [JsonRpcResponse]
-
+    
+    /// Creates a new instance by decoding from the given decoder.
+    ///
+    /// This initializer throws an error if reading from the decoder fails, or
+    /// if the data read is corrupted or otherwise invalid.
+    ///
+    /// - Parameter decoder: The decoder to read data from.
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let responses = try container.decode([JsonRpcResponse].self)
@@ -216,13 +256,20 @@ public struct JsonRpcResponseBatch: Decodable {
 
 /// Transaction parameters JSON structure for interaction with Ethereum node.
 public struct TransactionParameters: Codable {
+    /// transaction parameters
     public var data: String?
+    /// transaction sender
     public var from: String?
+    /// gas limit
     public var gas: String?
+    /// gas price
     public var gasPrice: String?
+    /// transaction recipient
     public var to: String?
+    /// ether value
     public var value: String? = "0x0"
-
+    
+    /// init with sender and recipient
     public init(from _from: String?, to _to: String?) {
         from = _from
         to = _to
@@ -239,8 +286,18 @@ public struct EventFilterParameters: Codable {
 
 /// Raw JSON RCP 2.0 internal flattening wrapper.
 public struct JsonRpcParams: Encodable {
+    /// Raw parameters
     public var params = [Any]()
 
+    /// Encodes this value into the given encoder.
+    ///
+    /// If the value fails to encode anything, `encoder` will encode an empty
+    /// keyed container in its place.
+    ///
+    /// This function throws an error if any values are invalid for the given
+    /// encoder's format.
+    ///
+    /// - Parameter encoder: The encoder to write data to.
     public func encode(to encoder: Encoder) throws {
         var container = encoder.unkeyedContainer()
         for par in params {

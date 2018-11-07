@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           web3swift Docs
         </a>
-         (15% documented)
+         (21% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -69,7 +69,13 @@
                 <a class="nav-group-task-link" href="../Classes/ERC20.html">ERC20</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ERC20/GasPrice.html">– GasPrice</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/ERC721.html">ERC721</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ERC721/GasPrice.html">– GasPrice</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/ERC777.html">ERC777</a>
@@ -180,18 +186,6 @@
                 <a class="nav-group-task-link" href="../Classes/Web3.html">Web3</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/Web3/Eth.html">– Eth</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/Web3/Personal.html">– Personal</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/Web3/Web3Wallet.html">– Web3Wallet</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/Web3/BrowserFunctions.html">– BrowserFunctions</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Web3/EIP67Code.html">– EIP67Code</a>
               </li>
               <li class="nav-group-task">
@@ -199,6 +193,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Web3/EIP67CodeParser.html">– EIP67CodeParser</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Web3BrowserFunctions.html">Web3BrowserFunctions</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Web3BrowserFunctions/TransactionError.html">– TransactionError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Web3Contract.html">Web3Contract</a>
@@ -213,13 +213,22 @@
                 <a class="nav-group-task-link" href="../Classes/Web3DataResponse.html">Web3DataResponse</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Web3Eth.html">Web3Eth</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Web3HttpProvider.html">Web3HttpProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Web3Personal.html">Web3Personal</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Web3Response.html">Web3Response</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Web3Utils.html">Web3Utils</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Web3Wallet.html">Web3Wallet</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/_ObjCAddress.html">_ObjCAddress</a>
@@ -457,16 +466,7 @@
                 <a class="nav-group-task-link" href="../Structs/ContractV2/MethodError.html">– MethodError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/Counter.html">Counter</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs.html#/s:9web3swift14CryptoParamsV3V">CryptoParamsV3</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/ERC20GasPrice.html">ERC20GasPrice</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/ERC721GasPrice.html">ERC721GasPrice</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/EthereumBloomFilter.html">EthereumBloomFilter</a>
@@ -737,9 +737,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:Se4fromxs7Decoder_p_tKcfc"></a>
+                    <a name="/s:9web3swift18TransactionInBlockO4fromACs7Decoder_p_tKcfc"></a>
                     <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Se4fromxs7Decoder_p_tKcfc">init(from:)</a>
+                    <a class="token" href="#/s:9web3swift18TransactionInBlockO4fromACs7Decoder_p_tKcfc">init(from:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -747,7 +747,11 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Creates a new instance by decoding from the given decoder.</p>
+
+<p>This initializer throws an error if reading from the decoder fails, or
+if the data read is corrupted or otherwise invalid.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -756,6 +760,25 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">from</span> <span class="nv">decoder</span><span class="p">:</span> <span class="kt">Decoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>decoder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The decoder to read data from.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -795,7 +818,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="https://github.com/bankex/web3swift" target="_blank" rel="external">Bankex Foundation</a>. All rights reserved. (Last updated: 2018-11-02)</p>
+      <p>&copy; 2018 <a class="link" href="https://github.com/bankex/web3swift" target="_blank" rel="external">Bankex Foundation</a>. All rights reserved. (Last updated: 2018-11-07)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

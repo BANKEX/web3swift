@@ -37,6 +37,13 @@ public extension Web3 {
     // @available (*, deprecated: 2.0, message: "Use Web3Utils")
     // i'll leave it here
     typealias Utils = Web3Utils
+    @available (*, deprecated: 2.0, message: "Use Web3Eth")
+    typealias Eth = Web3Eth
+    @available (*, deprecated: 2.0, message: "Use Web3Eth")
+    typealias Personal = Web3Personal
+    @available (*, deprecated: 2.0, message: "Use Web3Eth")
+    typealias BrowserFunctions = Web3BrowserFunctions
+    typealias Web3Wallet = web3swift.Web3Wallet
 
     @available (*, deprecated: 2.0, message: "use Web3(url: URL)")
     static func new(_ providerURL: URL) -> Web3? {
@@ -66,7 +73,7 @@ public extension Web3 {
     }
 }
 
-public extension Web3.Eth {
+public extension Web3Eth {
     @available(*, unavailable, message: "Use sendETH with BigUInt(\"1.01\",units: .eth)")
     public func sendETH(to _: Address, amount _: String, units _: Web3Units = .eth, extraData _: Data = Data(), options _: Web3Options? = nil) throws -> TransactionIntermediate { fatalError() }
 

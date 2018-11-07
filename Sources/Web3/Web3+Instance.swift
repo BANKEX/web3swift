@@ -43,66 +43,18 @@ public class Web3: Web3OptionsInheritable {
     }
 
     /// Public web3.eth.* namespace.
-    public lazy var eth = Web3.Eth(provider: self.provider, web3: self)
-
-    public class Eth: Web3OptionsInheritable {
-        var provider: Web3Provider
-//        weak var web3: web3?
-        var web3: Web3
-        public var options: Web3Options {
-            return web3.options
-        }
-
-        public init(provider prov: Web3Provider, web3 web3instance: Web3) {
-            provider = prov
-            web3 = web3instance
-        }
-    }
+    public lazy var eth = Web3Eth(provider: self.provider, web3: self)
+    
 
     /// Public web3.personal.* namespace.
-    public lazy var personal = Web3.Personal(provider: self.provider, web3: self)
-
-    public class Personal: Web3OptionsInheritable {
-        var provider: Web3Provider
-        //        weak var web3: web3?
-        var web3: Web3
-        public var options: Web3Options {
-            return web3.options
-        }
-
-        public init(provider prov: Web3Provider, web3 web3instance: Web3) {
-            provider = prov
-            web3 = web3instance
-        }
-    }
+    public lazy var personal = Web3Personal(provider: self.provider, web3: self)
+    
+    
 
     /// Public web3.wallet.* namespace.
-    public lazy var wallet = Web3.Web3Wallet(provider: self.provider, web3: self)
+    public lazy var wallet = Web3Wallet(provider: self.provider, web3: self)
 
-    public class Web3Wallet {
-        var provider: Web3Provider
-//        weak var web3: web3?
-        var web3: Web3
-        public init(provider prov: Web3Provider, web3 web3instance: Web3) {
-            provider = prov
-            web3 = web3instance
-        }
-    }
 
     /// Public web3.browserFunctions.* namespace.
-    public lazy var browserFunctions = Web3.BrowserFunctions(provider: self.provider, web3: self)
-
-    public class BrowserFunctions: Web3OptionsInheritable {
-        var provider: Web3Provider
-        //        weak var web3: web3?
-        var web3: Web3
-        public var options: Web3Options {
-            return web3.options
-        }
-
-        public init(provider prov: Web3Provider, web3 web3instance: Web3) {
-            provider = prov
-            web3 = web3instance
-        }
-    }
+    public lazy var browserFunctions = Web3BrowserFunctions(provider: self.provider, web3: self)
 }

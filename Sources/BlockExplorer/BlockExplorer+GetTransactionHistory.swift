@@ -78,6 +78,12 @@ public struct TransactionHistoryRecord: Decodable {
     public let gasUsed: BigUInt // in wei
     public let gasCost: BigUInt // in wei
 
+    /// Creates a new instance by decoding from the given decoder.
+    ///
+    /// This initializer throws an error if reading from the decoder fails, or
+    /// if the data read is corrupted or otherwise invalid.
+    ///
+    /// - Parameter decoder: The decoder to read data from.
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(String.self, forKey: CodingKeys.id)
@@ -171,6 +177,12 @@ public struct Token: Decodable {
         case decimal = "dcm"
     }
 
+    /// Creates a new instance by decoding from the given decoder.
+    ///
+    /// This initializer throws an error if reading from the decoder fails, or
+    /// if the data read is corrupted or otherwise invalid.
+    ///
+    /// - Parameter decoder: The decoder to read data from.
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let stringAddress = try container.decode(String.self, forKey: CodingKeys.address)

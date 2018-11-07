@@ -42,7 +42,7 @@
 
 
 ## Requirements
-Web3swift requires Swift 4.2 and deploys to `macOS 10.10`, `iOS 9`, `watchOS 2` and `tvOS 9` and `linux`. 
+Web3swift requires Swift 4.2 and deploys to `macOS 10.10`, `iOS 9`, `watchOS 2` and `tvOS 9` and `linux`.
 
 Don't forget to set the iOS version in a Podfile, otherwise you get an error if the deployment target is less than the latest SDK.
 
@@ -59,7 +59,7 @@ Don't forget to set the iOS version in a Podfile, otherwise you get an error if 
 - **CocoaPods:** Put this in your `Podfile`:
 
     ```Ruby
-    pod 'web3swift', :git => 'https://github.com/bankex/web3swift.git', '~> 2.0'
+    pod 'web3swift', :git => 'https://github.com/bankex/web3swift.git'
     ```
 
 - **Carthage:** Put this in your `Cartfile`:
@@ -139,8 +139,8 @@ Here's a few use cases of our library
 ### Initializing Ethereum address
 
 ```bash
-let coldWalletAddress = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
-let constractAddress = "0x45245bc59219eeaaf6cd3f382e078a461ff9de7b"
+let coldWalletAddress: Address = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
+let constractAddress: Address = "0x45245bc59219eeaaf6cd3f382e078a461ff9de7b"
 ```
 Ethereum addresses are checksum checked if they are not lowercased and always length checked
 

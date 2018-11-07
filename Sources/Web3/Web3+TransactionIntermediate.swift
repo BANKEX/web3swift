@@ -210,16 +210,12 @@ extension Web3Contract {
         /**
          *Send a prepared transaction to the blockchain. Internally checks the nonce for a sending account, assigns it, get a gas estimate and signs a transaction either locally or on the remote node.*
 
-         - parameters:
-         - password: Password for a private key if transaction is signed locally
-         - options: Web3Options to override the previously assigned gas price, gas limit and value.
-         - onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
+         - parameter password: Password for a private key if transaction is signed locally
+         - parameter options: Web3Options to override the previously assigned gas price, gas limit and value.
+         - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
 
-         - returns:
-         - Result object
-
+         - returns: TransactionSendingResult
          - important: This call is synchronous
-
          */
         @discardableResult
         public func send(password: String = "BANKEXFOUNDATION", options: Web3Options? = nil, onBlock: String = "pending") throws -> TransactionSendingResult {
@@ -229,13 +225,10 @@ extension Web3Contract {
         /**
          *Calls a function of the smart-contract and parses the returned data to native objects.*
 
-         - parameters:
-         - options: Web3Options to override the previously assigned gas price, gas limit and value.
-         - onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
+         - parameter options: Web3Options to override the previously assigned gas price, gas limit and value.
+         - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
 
-         - returns:
-         - Result object
-
+         - returns: Web3Response from node
          - important: This call is synchronous
 
          */
@@ -248,13 +241,10 @@ extension Web3Contract {
         /**
          *Estimates gas required to execute the transaction. Setting a gas limit lower than the estimate will most likely result in a failed transaction. If this call returns an error it can also indicate that transaction is invalid as itself.*
 
-         - parameters:
-         - options: Web3Options to override the previously assigned gas price, gas limit and value.
-         - onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
+         - parameter options: Web3Options to override the previously assigned gas price, gas limit and value.
+         - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
 
-         - returns:
-         - Result object
-
+         - returns: gas price
          - important: This call is synchronous
 
          */
@@ -265,13 +255,10 @@ extension Web3Contract {
         /**
          *Assembles (but does not sign!) a transaction by fetching the nonce value and applying provided options.*
 
-         - parameters:
-         - options: Web3Options to override the previously assigned gas price, gas limit and value.
-         - onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
+         - parameter options: Web3Options to override the previously assigned gas price, gas limit and value.
+         - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
 
-         - returns:
-         - Result object
-
+         - returns: transaction
          - important: This call is synchronous
 
          */
@@ -282,6 +269,14 @@ extension Web3Contract {
 }
 
 extension TransactionIntermediate {
+    /**
+     *Assembles (but does not sign!) a transaction by fetching the nonce value and applying provided options.*
+     
+     - parameter options: Web3Options to override the previously assigned gas price, gas limit and value.
+     - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
+     
+     - returns: Promise for ethereum transaction
+     */
     public func assemblePromise(options: Web3Options? = nil, onBlock: String = "pending") -> Promise<EthereumTransaction> {
         var assembledTransaction: EthereumTransaction = transaction
         let queue = web3.requestDispatcher.queue
@@ -333,6 +328,15 @@ extension TransactionIntermediate {
         return returnPromise
     }
 
+    /**
+     *Send a prepared transaction to the blockchain. Internally checks the nonce for a sending account, assigns it, get a gas estimate and signs a transaction either locally or on the remote node.*
+     
+     - parameter password: Password for a private key if transaction is signed locally
+     - parameter options: Web3Options to override the previously assigned gas price, gas limit and value.
+     - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
+     
+     - returns: Promise for TransactionResult which contains transaction hash and other info
+     */
     public func sendPromise(password: String = "BANKEXFOUNDATION", options: Web3Options? = nil, onBlock: String = "pending") -> Promise<TransactionSendingResult> {
         let queue = web3.requestDispatcher.queue
         return assemblePromise(options: options, onBlock: onBlock).then(on: queue) { transaction throws -> Promise<TransactionSendingResult> in
@@ -343,6 +347,15 @@ extension TransactionIntermediate {
             return self.web3.eth.sendTransactionPromise(transaction, options: cleanedOptions, password: password)
         }
     }
+
+    /**
+     *Calls a function of the smart-contract and parses the returned data to native objects.*
+     
+     - parameter options: Web3Options to override the previously assigned gas price, gas limit and value.
+     - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
+     
+     - returns: Promise for Web3Response from node
+     */
 
     public func callPromise(options: Web3Options? = nil, onBlock: String = "latest") -> Promise<Web3Response> {
         let assembledTransaction: EthereumTransaction = transaction
@@ -377,6 +390,14 @@ extension TransactionIntermediate {
         return returnPromise
     }
 
+    /**
+     *Estimates gas required to execute the transaction. Setting a gas limit lower than the estimate will most likely result in a failed transaction. If this call returns an error it can also indicate that transaction is invalid as itself.*
+     
+     - parameter options: Web3Options to override the previously assigned gas price, gas limit and value.
+     - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
+     
+     - returns: Promise for gas price
+     */
     public func estimateGasPromise(options: Web3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
         let assembledTransaction: EthereumTransaction = self.transaction
         let queue = self.web3.requestDispatcher.queue

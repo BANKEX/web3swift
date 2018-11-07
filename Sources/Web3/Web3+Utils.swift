@@ -69,6 +69,7 @@ extension Web3Utils {
     """
 }
 
+/// Errors from Web3Utils
 public enum Web3UtilsError: Error {
     case cannotConvertDataToAscii
     case invalidSignatureLength
@@ -82,6 +83,7 @@ public enum Web3UtilsError: Error {
     }
 }
 
+/// Errors for function Web3Utils.publicToAddressData
 public enum PublicKeyToAddressError: Error {
     case shouldStartWith4
     case invalidPublicKeySize

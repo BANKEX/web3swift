@@ -102,22 +102,22 @@ public struct EthereumTransaction: CustomStringConvertible {
     }
 
     public var description: String {
-        var toReturn = ""
-        toReturn = toReturn + "Transaction" + "\n"
-        toReturn = toReturn + "Nonce: " + String(nonce) + "\n"
-        toReturn = toReturn + "Gas price: " + String(gasPrice) + "\n"
-        toReturn = toReturn + "Gas limit: " + String(describing: gasLimit) + "\n"
-        toReturn = toReturn + "To: " + to.address + "\n"
-        toReturn = toReturn + "Value: " + String(value) + "\n"
-        toReturn = toReturn + "Data: " + data.toHexString().withHex.lowercased() + "\n"
-        toReturn = toReturn + "v: " + String(v) + "\n"
-        toReturn = toReturn + "r: " + String(r) + "\n"
-        toReturn = toReturn + "s: " + String(s) + "\n"
-        toReturn = toReturn + "Intrinsic chainID: " + String(describing: chainID) + "\n"
-        toReturn = toReturn + "Infered chainID: " + String(describing: inferedChainID) + "\n"
-        toReturn = toReturn + "sender: " + String(describing: sender?.address) + "\n"
-        toReturn = toReturn + "hash: " + String(describing: hash?.toHexString().withHex) + "\n"
-        return toReturn
+        return """
+Transaction
+Nonce: \(nonce)
+Gas price: \(gasPrice)
+Gas limit: \(gasLimit)
+To: \(to.address)
+Value: \(value)
+Data: \(data.hex)
+v: \(v)
+r: \(r)
+s: \(s)
+Intrinsic chainID: \(String(describing: chainID))
+Infered chainID: \(String(describing: inferedChainID))
+sender: \(String(describing: sender?.address))
+hash: \(String(describing: hash))
+"""
     }
 
     public var sender: Address? {
@@ -233,7 +233,12 @@ public struct EthereumTransaction: CustomStringConvertible {
             chainID = inferedChainID
         }
     }
-
+    
+    /**
+     Initializes EthereumTransaction from RLP encoded data
+     - parameter raw: RLP encoded data
+     - returns: EthereumTransaction if data wasn't not corrupted
+     */
     public static func fromRaw(_ raw: Data) -> EthereumTransaction? {
         guard let totalItem = RLP.decode(raw) else { return nil }
         guard let rlpItem = totalItem[0] else { return nil }
