@@ -405,8 +405,8 @@
 				1317BD40218C526300D6D095 /* ABIv2TypeParser.swift */,
 				1317BD41218C526300D6D095 /* ABIv2Decoding.swift */,
 				1317BD42218C526300D6D095 /* ABIv2ParameterTypes.swift */,
-				1317BD43218C526300D6D095 /* SolidityFunction.swift */,
 				1317BD44218C526300D6D095 /* ABIv2Encoding.swift */,
+				1317BD43218C526300D6D095 /* SolidityFunction.swift */,
 				1317BD45218C526300D6D095 /* SolidityDataWriter.swift */,
 				1317BD46218C526300D6D095 /* SolidityTypes.swift */,
 			);

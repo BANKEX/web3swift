@@ -97,9 +97,9 @@ class KeystoresTests: XCTestCase {
         mnemonics.password = "banana"
         let keystore = try BIP32Keystore(mnemonics: mnemonics, password: "")
         let account = keystore.addresses[0]
-        let key = try keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
-        let pubKey = try Web3Utils.privateToPublic(key, compressed: true)
-        XCTAssertEqual(pubKey.toHexString(), "027160bd3a4d938cac609ff3a11fe9233de7b76c22a80d2b575e202cbf26631659")
+        let privateKey = try keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
+        let publicKey = try Web3Utils.privateToPublic(privateKey, compressed: true)
+        XCTAssertEqual(publicKey.toHexString(), "027160bd3a4d938cac609ff3a11fe9233de7b76c22a80d2b575e202cbf26631659")
     }
 
     func testBIP32keystoreMatchingRootNode() throws {
@@ -250,5 +250,16 @@ class KeystoresTests: XCTestCase {
         XCTAssertThrowsError(try keystore.UNSAFE_getPrivateKeyData(password: "some password", account: account))
         let key = try keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
         XCTAssertNoThrow(try Web3Utils.privateToPublic(key, compressed: true))
+        
+        let address = keystore.addresses[0]
+        
+        let options = Web3Options.default
+        
+        let function = try! SolidityFunction(function: "some(address)")
+        let data = function.encode([address])
+        var transaction = EthereumTransaction(to: address, data: data, options: options)
+        
+        XCTAssertNoThrow(try Web3Signer.signTX(transaction: &transaction, keystore: keystore, account: address, password: ""))
+        XCTAssertThrowsError(try Web3Signer.signTX(transaction: &transaction, keystore: keystore, account: address, password: "some password"))
     }
 }
