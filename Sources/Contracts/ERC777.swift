@@ -31,7 +31,7 @@ public class ERC777 {
         return try address.call("balanceOf(address)",user).wait().uint256()
     }
     
-    public func allowance(from owner: Address, to spender: EthereumTransaction) throws -> BigUInt {
+    public func allowance(from owner: Address, to spender: Address) throws -> BigUInt {
         return try address.call("allowance(address,address)",owner,spender).wait().uint256()
     }
     public func transfer(to user: Address, amount: BigUInt) throws -> TransactionSendingResult {

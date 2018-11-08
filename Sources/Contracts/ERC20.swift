@@ -70,7 +70,7 @@ public class ERC20 {
     /// - returns: balance that one user can take from another user
     /// - parameter owner: balance holder
     /// - parameter spender: recepient
-    public func allowance(from owner: Address, to spender: EthereumTransaction) throws -> BigUInt {
+    public func allowance(from owner: Address, to spender: Address) throws -> BigUInt {
         return try address.call("allowance(address,address)", owner, spender, options: options).wait().uint256()
     }
     
