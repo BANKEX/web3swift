@@ -57,34 +57,34 @@ public class ERC777 {
         return try address.call("allowance(address,address)",owner,spender).wait().uint256()
     }
     public func transfer(to user: Address, amount: BigUInt) throws -> TransactionSendingResult {
-        return try address.send("transfer(address,uint256)",user,amount).wait()
+		return try address.send("transfer(address,uint256)",user,amount, password: password, options: options).wait()
     }
     public func approve(to user: Address, amount: BigUInt) throws -> TransactionSendingResult {
-        return try address.send("approve(address,uint256)",user,amount).wait()
+        return try address.send("approve(address,uint256)",user,amount, password: password, options: options).wait()
     }
     public func transfer(from: Address, to: Address, amount: BigUInt) throws -> TransactionSendingResult {
-        return try address.send("transferFrom(address,address,uint256)",from,to,amount).wait()
+        return try address.send("transferFrom(address,address,uint256)",from,to,amount, password: password, options: options).wait()
     }
     
     public func send(to user: Address, amount: BigUInt) throws -> TransactionSendingResult {
-        return try address.send("send(address,uint256)",user,amount).wait()
+        return try address.send("send(address,uint256)",user,amount, password: password, options: options).wait()
     }
     public func send(to user: Address, amount: BigUInt, userData: Data) throws -> TransactionSendingResult {
-        return try address.send("send(address,uint256,bytes)",user,amount,userData).wait()
+        return try address.send("send(address,uint256,bytes)",user,amount,userData, password: password, options: options).wait()
     }
     
     public func authorize(operator user: Address) throws -> TransactionSendingResult {
-        return try address.send("authorizeOperator(address)",user).wait()
+        return try address.send("authorizeOperator(address)",user, password: password, options: options).wait()
     }
     public func revoke(operator user: Address) throws -> TransactionSendingResult {
-        return try address.send("revokeOperator(address)",user).wait()
+        return try address.send("revokeOperator(address)",user, password: password, options: options).wait()
     }
     
     public func isOperatorFor(operator user: Address, tokenHolder: Address) throws -> Bool {
         return try address.call("isOperatorFor(address,address)",user,tokenHolder).wait().bool()
     }
     public func operatorSend(from: Address, to: Address, amount: BigUInt, userData: Data) throws -> TransactionSendingResult {
-        return try address.send("operatorSend(address,address,uint256,bytes)",from,to,amount,userData).wait()
+        return try address.send("operatorSend(address,address,uint256,bytes)",from,to,amount,userData, password: password, options: options).wait()
     }
 	
 	/**

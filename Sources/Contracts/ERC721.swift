@@ -53,7 +53,7 @@ public class ERC721 {
     
     /// Sending approve that another user can take your token
     public func approve(to user: Address, token: BigUInt) throws -> TransactionSendingResult {
-        return try address.send("approve(address,uint256)",user,token).wait()
+        return try address.send("approve(address,uint256)",user,token, password: password, options: options).wait()
     }
     
     /// - returns: address
@@ -62,7 +62,7 @@ public class ERC721 {
     }
     /// sets operator for all your tokens
     public func setApproveForAll(operator: Address, approved: Bool) throws -> TransactionSendingResult {
-        return try address.send("setApprovalForAll(address,bool)",`operator`,approved).wait()
+        return try address.send("setApprovalForAll(address,bool)",`operator`,approved, password: password, options: options).wait()
     }
     /// checks if user is approved to manager your tokens
     public func isApprovedForAll(owner: Address, operator: Address) throws -> Bool {
@@ -71,11 +71,11 @@ public class ERC721 {
     /// transfers token from one address to another
     /// - important: admin only
     public func transfer(from: Address, to: Address, token: BigUInt) throws -> TransactionSendingResult {
-        return try address.send("transferFrom(address,address,uint256)",from,to,token).wait()
+        return try address.send("transferFrom(address,address,uint256)",from,to,token, password: password, options: options).wait()
     }
     
     public func safeTransfer(from: Address, to: Address, token: BigUInt) throws -> TransactionSendingResult {
-        return try address.send("safeTransferFrom(address,address,uint256)",from,to,token).wait()
+        return try address.send("safeTransferFrom(address,address,uint256)",from,to,token, password: password, options: options).wait()
     }
     
     /**
