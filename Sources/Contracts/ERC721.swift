@@ -97,19 +97,19 @@ public class ERC721 {
         
         /// - returns: gas price for approve(address,uint256) transaction
         public func approve(to user: Address, token: BigUInt) throws -> BigUInt {
-            return try address.estimateGas("approve(address,uint256)",user,token).wait()
+            return try address.estimateGas("approve(address,uint256)",user,token, options: options).wait()
         }
         /// - returns: gas price for setApprovalForAll(address,bool) transaction
         public func setApproveForAll(operator: Address, approved: Bool) throws -> BigUInt {
-            return try address.estimateGas("setApprovalForAll(address,bool)",`operator`,approved).wait()
+            return try address.estimateGas("setApprovalForAll(address,bool)",`operator`,approved, options: options).wait()
         }
         /// - returns: gas price for transferFrom(address,address,uint256) transaction
         public func transfer(from: Address, to: Address, token: BigUInt) throws -> BigUInt {
-            return try address.estimateGas("transferFrom(address,address,uint256)",from,to,token).wait()
+            return try address.estimateGas("transferFrom(address,address,uint256)",from,to,token, options: options).wait()
         }
         /// - returns: gas price for safeTransferFrom(address,address,uint256) transaction
         public func safeTransfer(from: Address, to: Address, token: BigUInt) throws -> BigUInt {
-            return try address.estimateGas("safeTransferFrom(address,address,uint256)",from,to,token).wait()
+            return try address.estimateGas("safeTransferFrom(address,address,uint256)",from,to,token, options: options).wait()
         }
     }
 }
