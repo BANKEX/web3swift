@@ -23,11 +23,8 @@ let package = Package(
       dependencies: ["BigInt", "CryptoSwift", "secp256k1", "PromiseKit"],
       path: "Sources",
       exclude: [
-        "ObjCSupport",
-        "Utils/EIP67Code.swift",
-        "Info.plist",
-        "webswift-Bridging-Header.h",
-        "web3swift.h",
+        "ObjectiveC",
+        "Utils/EIP67Code.swift"
         ]),
     ]
 )
