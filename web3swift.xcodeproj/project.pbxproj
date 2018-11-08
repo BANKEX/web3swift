@@ -105,15 +105,7 @@
 		1317BE01218C526C00D6D095 /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE9218C526C00D6D095 /* TransactionTests.swift */; };
 		1317BE02218C526C00D6D095 /* SECP256K1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDEA218C526C00D6D095 /* SECP256K1Tests.swift */; };
 		1317BE03218C526C00D6D095 /* ObjectiveCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDEB218C526C00D6D095 /* ObjectiveCTests.swift */; };
-		1353A30621945AE000B4E6D0 /* Web3+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1353A2FD21945AE000B4E6D0 /* Web3+ObjC.swift */; };
-		1353A30721945AE000B4E6D0 /* Web3+HttpProvider+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1353A2FE21945AE000B4E6D0 /* Web3+HttpProvider+ObjC.swift */; };
-		1353A30821945AE000B4E6D0 /* PlainKeystore+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1353A2FF21945AE000B4E6D0 /* PlainKeystore+ObjC.swift */; };
-		1353A30921945AE000B4E6D0 /* Web3+Instance+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1353A30021945AE000B4E6D0 /* Web3+Instance+ObjC.swift */; };
-		1353A30A21945AE000B4E6D0 /* EthereumAddress+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1353A30121945AE000B4E6D0 /* EthereumAddress+ObjC.swift */; };
-		1353A30B21945AE000B4E6D0 /* BigUInt+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1353A30221945AE000B4E6D0 /* BigUInt+ObjC.swift */; };
 		1353A30C21945AE000B4E6D0 /* web3swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 1353A30321945AE000B4E6D0 /* web3swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1353A30D21945AE000B4E6D0 /* KeystoreManager+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1353A30421945AE000B4E6D0 /* KeystoreManager+ObjC.swift */; };
-		1353A30E21945AE000B4E6D0 /* Web3+Eth+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1353A30521945AE000B4E6D0 /* Web3+Eth+ObjC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -232,15 +224,7 @@
 		1317BE25218C8A9F00D6D095 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		1317BE26218C8A9F00D6D095 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		1317BE27218C8A9F00D6D095 /* web3swift.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = web3swift.podspec; sourceTree = "<group>"; };
-		1353A2FD21945AE000B4E6D0 /* Web3+ObjC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Web3+ObjC.swift"; path = "Sources/ObjectiveC/Web3+ObjC.swift"; sourceTree = SOURCE_ROOT; };
-		1353A2FE21945AE000B4E6D0 /* Web3+HttpProvider+ObjC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Web3+HttpProvider+ObjC.swift"; path = "Sources/ObjectiveC/Web3+HttpProvider+ObjC.swift"; sourceTree = SOURCE_ROOT; };
-		1353A2FF21945AE000B4E6D0 /* PlainKeystore+ObjC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PlainKeystore+ObjC.swift"; path = "Sources/ObjectiveC/PlainKeystore+ObjC.swift"; sourceTree = SOURCE_ROOT; };
-		1353A30021945AE000B4E6D0 /* Web3+Instance+ObjC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Web3+Instance+ObjC.swift"; path = "Sources/ObjectiveC/Web3+Instance+ObjC.swift"; sourceTree = SOURCE_ROOT; };
-		1353A30121945AE000B4E6D0 /* EthereumAddress+ObjC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "EthereumAddress+ObjC.swift"; path = "Sources/ObjectiveC/EthereumAddress+ObjC.swift"; sourceTree = SOURCE_ROOT; };
-		1353A30221945AE000B4E6D0 /* BigUInt+ObjC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "BigUInt+ObjC.swift"; path = "Sources/ObjectiveC/BigUInt+ObjC.swift"; sourceTree = SOURCE_ROOT; };
 		1353A30321945AE000B4E6D0 /* web3swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = web3swift.h; path = Sources/ObjectiveC/web3swift.h; sourceTree = SOURCE_ROOT; };
-		1353A30421945AE000B4E6D0 /* KeystoreManager+ObjC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KeystoreManager+ObjC.swift"; path = "Sources/ObjectiveC/KeystoreManager+ObjC.swift"; sourceTree = SOURCE_ROOT; };
-		1353A30521945AE000B4E6D0 /* Web3+Eth+ObjC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Web3+Eth+ObjC.swift"; path = "Sources/ObjectiveC/Web3+Eth+ObjC.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -466,18 +450,9 @@
 		1317BD66218C526300D6D095 /* ObjectiveC */ = {
 			isa = PBXGroup;
 			children = (
-				1353A30221945AE000B4E6D0 /* BigUInt+ObjC.swift */,
-				1353A30121945AE000B4E6D0 /* EthereumAddress+ObjC.swift */,
-				1353A30421945AE000B4E6D0 /* KeystoreManager+ObjC.swift */,
-				1353A2FF21945AE000B4E6D0 /* PlainKeystore+ObjC.swift */,
-				1353A30521945AE000B4E6D0 /* Web3+Eth+ObjC.swift */,
-				1353A2FE21945AE000B4E6D0 /* Web3+HttpProvider+ObjC.swift */,
-				1353A30021945AE000B4E6D0 /* Web3+Instance+ObjC.swift */,
-				1353A2FD21945AE000B4E6D0 /* Web3+ObjC.swift */,
 				1353A30321945AE000B4E6D0 /* web3swift.h */,
 			);
-			name = ObjectiveC;
-			path = ObjCSupport;
+			path = ObjectiveC;
 			sourceTree = "<group>";
 		};
 		1317BDD2218C526C00D6D095 /* Tests */ = {
@@ -682,10 +657,8 @@
 				1317BD7F218C526300D6D095 /* Web3+JSONRPC.swift in Sources */,
 				1317BDC8218C526300D6D095 /* Base58.swift in Sources */,
 				1317BDB0218C526300D6D095 /* KeystoreManager.swift in Sources */,
-				1353A30621945AE000B4E6D0 /* Web3+ObjC.swift in Sources */,
 				1317BDB3218C526300D6D095 /* BIP32HDNode.swift in Sources */,
 				1317BD97218C526300D6D095 /* Batching.swift in Sources */,
-				1353A30D21945AE000B4E6D0 /* KeystoreManager+ObjC.swift in Sources */,
 				1317BD8D218C526300D6D095 /* TxPool.swift in Sources */,
 				1317BD7D218C526300D6D095 /* Web3+Personal.swift in Sources */,
 				1317BD75218C526300D6D095 /* EthereumFilterEncodingExtensions.swift in Sources */,
@@ -706,14 +679,10 @@
 				1317BDB7218C526300D6D095 /* BIP32KeystoreJSONStructure.swift in Sources */,
 				1317BDB4218C526300D6D095 /* BIP39+WordLists.swift in Sources */,
 				1317BDB9218C526300D6D095 /* EthereumAddress.swift in Sources */,
-				1353A30921945AE000B4E6D0 /* Web3+Instance+ObjC.swift in Sources */,
-				1353A30721945AE000B4E6D0 /* Web3+HttpProvider+ObjC.swift in Sources */,
 				1317BDA9218C526300D6D095 /* ABIv2ParameterTypes.swift in Sources */,
 				1317BD89218C526300D6D095 /* Web3+Options.swift in Sources */,
-				1353A30B21945AE000B4E6D0 /* BigUInt+ObjC.swift in Sources */,
 				1317BDA7218C526300D6D095 /* ABIv2TypeParser.swift in Sources */,
 				1317BDAF218C526300D6D095 /* BlockExplorer.swift in Sources */,
-				1353A30E21945AE000B4E6D0 /* Web3+Eth+ObjC.swift in Sources */,
 				1317BDAC218C526300D6D095 /* SolidityDataWriter.swift in Sources */,
 				1317BD83218C526300D6D095 /* Web3+Protocols.swift in Sources */,
 				1317BD85218C526300D6D095 /* Web3+Eth.swift in Sources */,
@@ -728,13 +697,11 @@
 				1317BDC1218C526300D6D095 /* String+Extension.swift in Sources */,
 				1317BDA8218C526300D6D095 /* ABIv2Decoding.swift in Sources */,
 				1317BDC0218C526300D6D095 /* CryptoExtensions.swift in Sources */,
-				1353A30821945AE000B4E6D0 /* PlainKeystore+ObjC.swift in Sources */,
 				1317BD80218C526300D6D095 /* Web3+Instance.swift in Sources */,
 				1317BD6F218C526300D6D095 /* BloomFilter.swift in Sources */,
 				1317BD73218C526300D6D095 /* EventFiltering.swift in Sources */,
 				1317BD79218C526300D6D095 /* ERC721.swift in Sources */,
 				1317BDC5218C526300D6D095 /* Data+Extension.swift in Sources */,
-				1353A30A21945AE000B4E6D0 /* EthereumAddress+ObjC.swift in Sources */,
 				1317BD8E218C526300D6D095 /* DecoderExtensions.swift in Sources */,
 				1317BD8A218C526300D6D095 /* RLP.swift in Sources */,
 				1317BDBE218C526300D6D095 /* RIPEMD160+StackOveflow.swift in Sources */,
