@@ -106,6 +106,21 @@
 		1317BE02218C526C00D6D095 /* SECP256K1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDEA218C526C00D6D095 /* SECP256K1Tests.swift */; };
 		1317BE03218C526C00D6D095 /* ObjectiveCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDEB218C526C00D6D095 /* ObjectiveCTests.swift */; };
 		1353A30C21945AE000B4E6D0 /* web3swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 1353A30321945AE000B4E6D0 /* web3swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		135945AB2195952600975EE3 /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135945AA2195952600975EE3 /* Bridging.swift */; };
+		13765D6A21964A9B005C483C /* W3TxPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D5B21964A95005C483C /* W3TxPool.swift */; };
+		13765D6B21964A9B005C483C /* W3Contracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D5C21964A95005C483C /* W3Contracts.swift */; };
+		13765D6C21964A9B005C483C /* W3Keystore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D5D21964A96005C483C /* W3Keystore.swift */; };
+		13765D6D21964A9B005C483C /* W3Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D5E21964A96005C483C /* W3Wallet.swift */; };
+		13765D6E21964A9B005C483C /* W3TransactionIntermediate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D5F21964A97005C483C /* W3TransactionIntermediate.swift */; };
+		13765D6F21964A9B005C483C /* W3Web3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D6021964A97005C483C /* W3Web3.swift */; };
+		13765D7021964A9B005C483C /* W3Eth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D6121964A97005C483C /* W3Eth.swift */; };
+		13765D7121964A9B005C483C /* W3Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D6221964A98005C483C /* W3Contract.swift */; };
+		13765D7221964A9B005C483C /* W3UInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D6321964A98005C483C /* W3UInt.swift */; };
+		13765D7321964A9B005C483C /* W3Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D6421964A98005C483C /* W3Structs.swift */; };
+		13765D7421964A9B005C483C /* W3Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D6521964A99005C483C /* W3Provider.swift */; };
+		13765D7521964A9B005C483C /* W3JsonRpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D6621964A99005C483C /* W3JsonRpc.swift */; };
+		13765D7621964A9B005C483C /* W3Personal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D6721964A9A005C483C /* W3Personal.swift */; };
+		13765D7821964A9B005C483C /* W3Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D6921964A9B005C483C /* W3Transaction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -225,6 +240,21 @@
 		1317BE26218C8A9F00D6D095 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		1317BE27218C8A9F00D6D095 /* web3swift.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = web3swift.podspec; sourceTree = "<group>"; };
 		1353A30321945AE000B4E6D0 /* web3swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = web3swift.h; path = Sources/ObjectiveC/web3swift.h; sourceTree = SOURCE_ROOT; };
+		135945AA2195952600975EE3 /* Bridging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridging.swift; sourceTree = "<group>"; };
+		13765D5B21964A95005C483C /* W3TxPool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3TxPool.swift; sourceTree = "<group>"; };
+		13765D5C21964A95005C483C /* W3Contracts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3Contracts.swift; sourceTree = "<group>"; };
+		13765D5D21964A96005C483C /* W3Keystore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3Keystore.swift; sourceTree = "<group>"; };
+		13765D5E21964A96005C483C /* W3Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3Wallet.swift; sourceTree = "<group>"; };
+		13765D5F21964A97005C483C /* W3TransactionIntermediate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3TransactionIntermediate.swift; sourceTree = "<group>"; };
+		13765D6021964A97005C483C /* W3Web3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3Web3.swift; sourceTree = "<group>"; };
+		13765D6121964A97005C483C /* W3Eth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3Eth.swift; sourceTree = "<group>"; };
+		13765D6221964A98005C483C /* W3Contract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3Contract.swift; sourceTree = "<group>"; };
+		13765D6321964A98005C483C /* W3UInt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3UInt.swift; sourceTree = "<group>"; };
+		13765D6421964A98005C483C /* W3Structs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3Structs.swift; sourceTree = "<group>"; };
+		13765D6521964A99005C483C /* W3Provider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3Provider.swift; sourceTree = "<group>"; };
+		13765D6621964A99005C483C /* W3JsonRpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3JsonRpc.swift; sourceTree = "<group>"; };
+		13765D6721964A9A005C483C /* W3Personal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3Personal.swift; sourceTree = "<group>"; };
+		13765D6921964A9B005C483C /* W3Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3Transaction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -451,6 +481,21 @@
 			isa = PBXGroup;
 			children = (
 				1353A30321945AE000B4E6D0 /* web3swift.h */,
+				135945AA2195952600975EE3 /* Bridging.swift */,
+				13765D6421964A98005C483C /* W3Structs.swift */,
+				13765D5D21964A96005C483C /* W3Keystore.swift */,
+				13765D5C21964A95005C483C /* W3Contracts.swift */,
+				13765D6321964A98005C483C /* W3UInt.swift */,
+				13765D6921964A9B005C483C /* W3Transaction.swift */,
+				13765D6621964A99005C483C /* W3JsonRpc.swift */,
+				13765D6021964A97005C483C /* W3Web3.swift */,
+				13765D6521964A99005C483C /* W3Provider.swift */,
+				13765D5B21964A95005C483C /* W3TxPool.swift */,
+				13765D5F21964A97005C483C /* W3TransactionIntermediate.swift */,
+				13765D6221964A98005C483C /* W3Contract.swift */,
+				13765D6121964A97005C483C /* W3Eth.swift */,
+				13765D6721964A9A005C483C /* W3Personal.swift */,
+				13765D5E21964A96005C483C /* W3Wallet.swift */,
 			);
 			path = ObjectiveC;
 			sourceTree = "<group>";
@@ -647,6 +692,8 @@
 			files = (
 				1317BDBF218C526300D6D095 /* UInt256.swift in Sources */,
 				1317BDC4218C526300D6D095 /* Dictionary+Extension.swift in Sources */,
+				13765D6F21964A9B005C483C /* W3Web3.swift in Sources */,
+				13765D7121964A9B005C483C /* W3Contract.swift in Sources */,
 				1317BD87218C526300D6D095 /* Web3+Infura.swift in Sources */,
 				1317BDAE218C526300D6D095 /* BlockExplorer+GetTransactionHistory.swift in Sources */,
 				1317BDAD218C526300D6D095 /* SolidityTypes.swift in Sources */,
@@ -655,13 +702,18 @@
 				1317BD84218C526300D6D095 /* Web3+Methods.swift in Sources */,
 				1317BDC9218C526300D6D095 /* Array+Extension.swift in Sources */,
 				1317BD7F218C526300D6D095 /* Web3+JSONRPC.swift in Sources */,
+				13765D6E21964A9B005C483C /* W3TransactionIntermediate.swift in Sources */,
 				1317BDC8218C526300D6D095 /* Base58.swift in Sources */,
+				13765D7621964A9B005C483C /* W3Personal.swift in Sources */,
 				1317BDB0218C526300D6D095 /* KeystoreManager.swift in Sources */,
 				1317BDB3218C526300D6D095 /* BIP32HDNode.swift in Sources */,
 				1317BD97218C526300D6D095 /* Batching.swift in Sources */,
+				13765D7521964A9B005C483C /* W3JsonRpc.swift in Sources */,
 				1317BD8D218C526300D6D095 /* TxPool.swift in Sources */,
 				1317BD7D218C526300D6D095 /* Web3+Personal.swift in Sources */,
+				13765D7421964A9B005C483C /* W3Provider.swift in Sources */,
 				1317BD75218C526300D6D095 /* EthereumFilterEncodingExtensions.swift in Sources */,
+				13765D6A21964A9B005C483C /* W3TxPool.swift in Sources */,
 				1317BD82218C526300D6D095 /* Web3+EventParser.swift in Sources */,
 				1317BDB1218C526300D6D095 /* IBAN.swift in Sources */,
 				1317BD7B218C526300D6D095 /* Web3+HttpProvider.swift in Sources */,
@@ -669,6 +721,7 @@
 				1317BD8C218C526300D6D095 /* DictionaryReader.swift in Sources */,
 				1317BD7A218C526300D6D095 /* ERC777.swift in Sources */,
 				1317BDB6218C526300D6D095 /* EthereumKeystoreV3.swift in Sources */,
+				13765D7821964A9B005C483C /* W3Transaction.swift in Sources */,
 				1317BDC6218C526300D6D095 /* NativeTypesEncoding+Extensions.swift in Sources */,
 				1317BD76218C526300D6D095 /* ContractProtocol.swift in Sources */,
 				1317BDBC218C526300D6D095 /* KeystoreV3JSONStructure.swift in Sources */,
@@ -687,11 +740,15 @@
 				1317BD83218C526300D6D095 /* Web3+Protocols.swift in Sources */,
 				1317BD85218C526300D6D095 /* Web3+Eth.swift in Sources */,
 				1317BD70218C526300D6D095 /* TransactionSigner.swift in Sources */,
+				13765D6B21964A9B005C483C /* W3Contracts.swift in Sources */,
 				1317BDB8218C526300D6D095 /* HDPath.swift in Sources */,
+				13765D7021964A9B005C483C /* W3Eth.swift in Sources */,
 				1317BDAA218C526300D6D095 /* SolidityFunction.swift in Sources */,
 				1317BDA6218C526300D6D095 /* ABIv2.swift in Sources */,
+				13765D7221964A9B005C483C /* W3UInt.swift in Sources */,
 				1317BD7E218C526300D6D095 /* Web3+Utils.swift in Sources */,
 				1317BDC7218C526300D6D095 /* Int+Sequence.swift in Sources */,
+				13765D6C21964A9B005C483C /* W3Keystore.swift in Sources */,
 				1317BD77218C526300D6D095 /* ContractABIv2.swift in Sources */,
 				1317BDBA218C526300D6D095 /* PlainKeystore.swift in Sources */,
 				1317BDC1218C526300D6D095 /* String+Extension.swift in Sources */,
@@ -702,7 +759,9 @@
 				1317BD73218C526300D6D095 /* EventFiltering.swift in Sources */,
 				1317BD79218C526300D6D095 /* ERC721.swift in Sources */,
 				1317BDC5218C526300D6D095 /* Data+Extension.swift in Sources */,
+				13765D6D21964A9B005C483C /* W3Wallet.swift in Sources */,
 				1317BD8E218C526300D6D095 /* DecoderExtensions.swift in Sources */,
+				135945AB2195952600975EE3 /* Bridging.swift in Sources */,
 				1317BD8A218C526300D6D095 /* RLP.swift in Sources */,
 				1317BDBE218C526300D6D095 /* RIPEMD160+StackOveflow.swift in Sources */,
 				1317BDC2218C526300D6D095 /* LibSecp256k1Extension.swift in Sources */,
@@ -715,6 +774,7 @@
 				1317BD7C218C526300D6D095 /* Web3.swift in Sources */,
 				1317BDAB218C526300D6D095 /* ABIv2Encoding.swift in Sources */,
 				1317BDBB218C526300D6D095 /* AbstractKeystore.swift in Sources */,
+				13765D7321964A9B005C483C /* W3Structs.swift in Sources */,
 				1317BDC3218C526300D6D095 /* NSRegularExpressionExtension.swift in Sources */,
 				1317BD72218C526300D6D095 /* EthURL.swift in Sources */,
 				1317BDA4218C526300D6D095 /* ABIv2Parsing.swift in Sources */,
