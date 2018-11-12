@@ -9,27 +9,36 @@
 import BigInt
 import Foundation
 
+/**
+ Interexchange Client Address Protocol, an IBAN-compatible system for referencing and transacting to client accounts aimed to streamline the process of transferring funds, worry-free between exchanges and, ultimately, making KYC and AML concerns a thing of the past.
+ */
 public struct ICAP {
     public var asset: String
     public var institution: String
     public var client: String
 }
 
+/// [International Bank Account Number](https://en.wikipedia.org/wiki/International_Bank_Account_Number)
 public struct IBAN {
+    /// Iban string
     public var iban: String
 
+    /// Iban isDirect iban.count == 32 || iban.count == 35
     public var isDirect: Bool {
         return iban.count == 34 || iban.count == 35
     }
 
+    /// Iban isIndirect iban.count == 2
     public var isIndirect: Bool {
         return iban.count == 20
     }
-
+    
+    /// Iban checksum iban[2..<2+2]
     public var checksum: String {
         return iban[2 ..< 4]
     }
 
+    /// Iban asset iban[4..<4+3]
     public var asset: String {
         if isIndirect {
             return iban[4 ..< 7]
@@ -37,7 +46,8 @@ public struct IBAN {
             return ""
         }
     }
-
+    
+    /// IBan insitution iban(7..<7+4)
     public var institution: String {
         if isIndirect {
             return iban[7 ..< 11]
@@ -46,6 +56,7 @@ public struct IBAN {
         }
     }
 
+    /// Iban client
     public var client: String {
         if isIndirect {
             return iban[11...]
@@ -53,7 +64,8 @@ public struct IBAN {
             return ""
         }
     }
-
+    
+    /// Converts iban string to address
     public func toAddress() -> Address? {
         if isDirect {
             let base36 = iban[4...]
@@ -100,6 +112,7 @@ public struct IBAN {
         return m
     }
 
+    /// Checks if string is iban address
     public static func isValidIBANaddress(_ iban: String, noValidityCheck: Bool = false) -> Bool {
         let regex = "^XE[0-9]{2}(ETH[0-9A-Z]{13}|[0-9A-Z]{30,31})$"
         let matcher = try! NSRegularExpression(pattern: regex, options: NSRegularExpression.Options.dotMatchesLineSeparators)
@@ -115,14 +128,26 @@ public struct IBAN {
         }
     }
 
+    /**
+    init with iban string
+    - parameter ibanString: iban string like
+    - returns: nil if invalid address is not convertable to iban
+    To skip 30 symbol check, just init it with address.
+     ```
+     let iban = IBAN("XE7338O073KYGTWWZN0F2WZ0R8PX5ZPPZS")
+     ```
+    */
     public init?(_ ibanString: String) {
         let matched = ibanString.replacingOccurrences(of: " ", with: "").uppercased()
         guard IBAN.isValidIBANaddress(matched) else { return nil }
         iban = matched
     }
+    /// checks if address.base36.count <= 30
     public static func check(_ address: Address) -> Bool {
         return address.addressData.base36.count <= 30
     }
+    /// init with address
+    /// - important: [Not every address is IBAN compatible](https://github.com/BANKEX/web3swift/issues/137)
     public init(_ address: Address) {
         let padded = address.addressData.base36.leftPadding(toLength: 30, withPad: "0")
         let prefix = "XE"
