@@ -41,13 +41,50 @@ public class Web3DataResponse {
         guard value < 2 else { throw Web3ResponseError.wrongType }
         return value == 1
     }
+    public func string32() throws -> String {
+        var data = try next(32)
+        let index = data.withUnsafeBytes { (pointer: UnsafePointer<UInt8>) -> Int? in
+            for i in 0..<data.count where pointer[i] == 0 {
+                return i
+            }
+            return nil
+        }
+        if let index = index {
+            data = data[0..<index]
+        }
+        guard let string = String(data: data, encoding: .utf8) else { throw Web3ResponseError.wrongType }
+        return string
+    }
     public func string() throws -> String {
+        let pointer = try view { try uint256() }
+        if pointer == 0 {
+            // we already checked next 32 bytes so this shouldn't crash
+            try! skip(32)
+            return ""
+        } else if pointer < Int.max {
+            return try stringPointer()
+        } else {
+            return try string32()
+        }
+    }
+    public func stringPointer() throws -> String {
         return try pointer {
             let length = try intCount()
             guard length > 0 else { return "" }
             let data = try self.next(length)
             guard let string = String(data: data, encoding: .utf8) else { throw Web3ResponseError.wrongType }
             return string
+        }
+    }
+    public func array<T>(builder: (Web3DataResponse)throws->(T)) throws -> [T] {
+        return try pointer {
+            let count = try intCount()
+            var array = [T]()
+            array.reserveCapacity(count)
+            for _ in 0..<count {
+                try array.append(builder(self))
+            }
+            return array
         }
     }
     
@@ -69,10 +106,21 @@ public class Web3DataResponse {
         position = range.upperBound
         return self.data[range]
     }
+    public func pointer<T>(at: Int, block: ()throws->T) throws -> T {
+        let pos = position
+        position = at + headerSize
+        defer { position = pos }
+        return try block()
+    }
     public func pointer<T>(block: ()throws->T) throws -> T {
         let pointer = try intCount()
         let pos = position
         position = pointer + headerSize
+        defer { position = pos }
+        return try block()
+    }
+    public func view<T>(block: ()throws->T) throws -> T {
+        let pos = position
         defer { position = pos }
         return try block()
     }

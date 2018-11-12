@@ -17,7 +17,6 @@ extension NSNumber {
 	}
 }
 extension BigUInt {
-    
     public var objc: W3UInt {
 		return W3UInt(value: self)
 	}
