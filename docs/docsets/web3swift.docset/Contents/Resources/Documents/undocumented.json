@@ -2676,141 +2676,155 @@
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 13,
-      "symbol": "Web3.BrowserFunctions.getAccounts()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "line": 17,
+      "symbol": "Web3BrowserFunctions.options",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
       "line": 21,
-      "symbol": "Web3.BrowserFunctions.getCoinbase()",
+      "symbol": "Web3BrowserFunctions.init(provider:web3:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 27,
-      "symbol": "Web3.BrowserFunctions.personalSign(_:account:password:)",
+      "line": 26,
+      "symbol": "Web3BrowserFunctions.getAccounts()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 31,
-      "symbol": "Web3.BrowserFunctions.sign(_:account:password:)",
+      "line": 34,
+      "symbol": "Web3BrowserFunctions.getCoinbase()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 36,
-      "symbol": "Web3.BrowserFunctions.sign(_:account:password:)",
+      "line": 40,
+      "symbol": "Web3BrowserFunctions.personalSign(_:account:password:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 42,
-      "symbol": "Web3.BrowserFunctions.personalECRecover(_:signature:)",
+      "line": 44,
+      "symbol": "Web3BrowserFunctions.sign(_:account:password:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 46,
-      "symbol": "Web3.BrowserFunctions.personalECRecover(_:signature:)",
+      "line": 49,
+      "symbol": "Web3BrowserFunctions.sign(_:account:password:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 63,
-      "symbol": "Web3.BrowserFunctions.sendTransaction(_:password:)",
+      "line": 55,
+      "symbol": "Web3BrowserFunctions.personalECRecover(_:signature:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 69,
-      "symbol": "Web3.BrowserFunctions.sendTransaction(_:options:password:)",
+      "line": 59,
+      "symbol": "Web3BrowserFunctions.personalECRecover(_:signature:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 73,
-      "symbol": "Web3.BrowserFunctions.estimateGas(_:)",
+      "line": 76,
+      "symbol": "Web3BrowserFunctions.sendTransaction(_:password:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 79,
-      "symbol": "Web3.BrowserFunctions.estimateGas(_:options:)",
+      "line": 82,
+      "symbol": "Web3BrowserFunctions.sendTransaction(_:options:password:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 83,
-      "symbol": "Web3.BrowserFunctions.prepareTxForApproval(_:)",
+      "line": 86,
+      "symbol": "Web3BrowserFunctions.estimateGas(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 89,
-      "symbol": "Web3.BrowserFunctions.TransactionError",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 90,
-      "symbol": "Web3.BrowserFunctions.TransactionError.optionsFromNotFound",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 91,
-      "symbol": "Web3.BrowserFunctions.TransactionError.keystoreManagerNotFound",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
       "line": 92,
-      "symbol": "Web3.BrowserFunctions.TransactionError.privateKeyNotFound(forAddress:)",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 93,
-      "symbol": "Web3.BrowserFunctions.TransactionError.cannotEncodeTransaction",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "symbol": "Web3BrowserFunctions.estimateGas(_:options:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
       "line": 96,
-      "symbol": "Web3.BrowserFunctions.prepareTxForApproval(_:options:)",
+      "symbol": "Web3BrowserFunctions.prepareTxForApproval(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 110,
-      "symbol": "Web3.BrowserFunctions.signTransaction(_:password:)",
+      "line": 102,
+      "symbol": "Web3BrowserFunctions.TransactionError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
+      "line": 103,
+      "symbol": "Web3BrowserFunctions.TransactionError.optionsFromNotFound",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
+      "line": 104,
+      "symbol": "Web3BrowserFunctions.TransactionError.keystoreManagerNotFound",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
+      "line": 105,
+      "symbol": "Web3BrowserFunctions.TransactionError.privateKeyNotFound(forAddress:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
+      "line": 106,
+      "symbol": "Web3BrowserFunctions.TransactionError.cannotEncodeTransaction",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
+      "line": 109,
+      "symbol": "Web3BrowserFunctions.prepareTxForApproval(_:options:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
-      "line": 116,
-      "symbol": "Web3.BrowserFunctions.signTransaction(_:options:password:)",
+      "line": 123,
+      "symbol": "Web3BrowserFunctions.signTransaction(_:password:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+BrowserFunctions.swift",
+      "line": 129,
+      "symbol": "Web3BrowserFunctions.signTransaction(_:options:password:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -2833,6 +2847,13 @@
       "line": 13,
       "symbol": "Web3WalletError.noAccounts",
       "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/HookedFunctions/Web3+Wallet.swift",
+      "line": 21,
+      "symbol": "Web3Wallet.init(provider:web3:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -4300,21 +4321,49 @@
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
-      "line": 42,
+      "line": 41,
+      "symbol": "Web3.Eth",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
+      "line": 43,
+      "symbol": "Web3.Personal",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
+      "line": 45,
+      "symbol": "Web3.BrowserFunctions",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
+      "line": 46,
+      "symbol": "Web3.Web3Wallet",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
+      "line": 49,
       "symbol": "Web3.new(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
-      "line": 120,
+      "line": 127,
       "symbol": "Web3Options.defaultOptions()",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
-      "line": 124,
+      "line": 131,
       "symbol": "BIP39",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
@@ -4443,181 +4492,6 @@
       "line": 23,
       "symbol": "_ObjCWeb3.new(providerURL:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Batching.swift",
-      "line": 12,
-      "symbol": "JsonRpcRequestDispatcher",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Batching.swift",
-      "line": 13,
-      "symbol": "JsonRpcRequestDispatcher.MAX_WAIT_TIME",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Batching.swift",
-      "line": 14,
-      "symbol": "JsonRpcRequestDispatcher.policy",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Batching.swift",
-      "line": 15,
-      "symbol": "JsonRpcRequestDispatcher.queue",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Batching.swift",
-      "line": 110,
-      "symbol": "JsonRpcRequestDispatcher.DispatchPolicy",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Batching.swift",
-      "line": 111,
-      "symbol": "JsonRpcRequestDispatcher.DispatchPolicy.Batch(_:)",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Batching.swift",
-      "line": 112,
-      "symbol": "JsonRpcRequestDispatcher.DispatchPolicy.NoBatching",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+HttpProvider.swift",
-      "line": 98,
-      "symbol": "Web3HttpProvider.sendAsync(_:queue:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+HttpProvider.swift",
-      "line": 102,
-      "symbol": "Web3HttpProvider.sendAsync(_:queue:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Web3+Eth+GetAccounts.swift",
-      "line": 14,
-      "symbol": "Web3.Eth.getAccountsPromise()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Web3+Eth+GetBalance.swift",
-      "line": 14,
-      "symbol": "Web3.Eth.getBalancePromise(address:onBlock:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Web3+Eth+GetBalance.swift",
-      "line": 19,
-      "symbol": "Web3.Eth.getBalancePromise(address:onBlock:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Web3+Eth+GetBlockByHash.swift",
-      "line": 14,
-      "symbol": "Web3.Eth.getBlockByHashPromise(_:fullTransactions:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Web3+Eth+GetBlockByHash.swift",
-      "line": 19,
-      "symbol": "Web3.Eth.getBlockByHashPromise(_:fullTransactions:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Web3+Eth+GetBlockByNumber.swift",
-      "line": 14,
-      "symbol": "Web3.Eth.getBlockByNumberPromise(_:fullTransactions:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Web3+Eth+GetBlockByNumber.swift",
-      "line": 19,
-      "symbol": "Web3.Eth.getBlockByNumberPromise(_:fullTransactions:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Web3+Eth+GetBlockByNumber.swift",
-      "line": 24,
-      "symbol": "Web3.Eth.getBlockByNumberPromise(_:fullTransactions:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Web3+Eth+GetBlockNumber.swift",
-      "line": 14,
-      "symbol": "Web3.Eth.getBlockNumberPromise()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Web3+Eth+GetGasPrice.swift",
-      "line": 14,
-      "symbol": "Web3.Eth.getGasPricePromise()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Web3+Eth+GetTransactionCount.swift",
-      "line": 14,
-      "symbol": "Web3.Eth.getTransactionCountPromise(address:onBlock:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Web3+Eth+GetTransactionCount.swift",
-      "line": 19,
-      "symbol": "Web3.Eth.getTransactionCountPromise(address:onBlock:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Web3+Eth+GetTransactionDetails.swift",
-      "line": 14,
-      "symbol": "Web3.Eth.getTransactionDetailsPromise(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Web3+Eth+GetTransactionDetails.swift",
-      "line": 19,
-      "symbol": "Web3.Eth.getTransactionDetailsPromise(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Web3+Eth+GetTransactionReceipt.swift",
-      "line": 14,
-      "symbol": "Web3.Eth.getTransactionReceiptPromise(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Promises/Promise+Web3+Eth+GetTransactionReceipt.swift",
-      "line": 19,
-      "symbol": "Web3.Eth.getTransactionReceiptPromise(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -5461,6 +5335,55 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Batching.swift",
+      "line": 12,
+      "symbol": "JsonRpcRequestDispatcher",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Batching.swift",
+      "line": 13,
+      "symbol": "JsonRpcRequestDispatcher.MAX_WAIT_TIME",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Batching.swift",
+      "line": 14,
+      "symbol": "JsonRpcRequestDispatcher.policy",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Batching.swift",
+      "line": 15,
+      "symbol": "JsonRpcRequestDispatcher.queue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Batching.swift",
+      "line": 110,
+      "symbol": "JsonRpcRequestDispatcher.DispatchPolicy",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Batching.swift",
+      "line": 111,
+      "symbol": "JsonRpcRequestDispatcher.DispatchPolicy.Batch(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Batching.swift",
+      "line": 112,
+      "symbol": "JsonRpcRequestDispatcher.DispatchPolicy.NoBatching",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Contract.swift",
       "line": 23,
       "symbol": "Web3Contract.options",
@@ -5478,6 +5401,132 @@
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Contract.swift",
       "line": 65,
       "symbol": "Web3Contract.method(_:parameters:extraData:options:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 18,
+      "symbol": "Web3Eth.options",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 22,
+      "symbol": "Web3Eth.init(provider:web3:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 236,
+      "symbol": "Web3Eth.getBlockNumberPromise()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 251,
+      "symbol": "Web3Eth.getGasPricePromise()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 267,
+      "symbol": "Web3Eth.getBlockByHashPromise(_:fullTransactions:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 272,
+      "symbol": "Web3Eth.getBlockByHashPromise(_:fullTransactions:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 288,
+      "symbol": "Web3Eth.getTransactionDetailsPromise(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 293,
+      "symbol": "Web3Eth.getTransactionDetailsPromise(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 348,
+      "symbol": "Web3Eth.getBalancePromise(address:onBlock:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 353,
+      "symbol": "Web3Eth.getBalancePromise(address:onBlock:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 369,
+      "symbol": "Web3Eth.getTransactionReceiptPromise(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 374,
+      "symbol": "Web3Eth.getTransactionReceiptPromise(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 415,
+      "symbol": "Web3Eth.getBlockByNumberPromise(_:fullTransactions:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 420,
+      "symbol": "Web3Eth.getBlockByNumberPromise(_:fullTransactions:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 425,
+      "symbol": "Web3Eth.getBlockByNumberPromise(_:fullTransactions:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 477,
+      "symbol": "Web3Eth.getTransactionCountPromise(address:onBlock:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 482,
+      "symbol": "Web3Eth.getTransactionCountPromise(address:onBlock:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Eth.swift",
+      "line": 498,
+      "symbol": "Web3Eth.getAccountsPromise()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -5545,94 +5594,17 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": null,
-      "symbol": "Web3.BrowserFunctions",
-      "symbol_kind": "source.lang.swift.decl.extension",
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+HttpProvider.swift",
+      "line": 151,
+      "symbol": "Web3HttpProvider.sendAsync(_:queue:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": null,
-      "symbol": "Web3.Eth",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": null,
-      "symbol": "Web3.Eth",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": null,
-      "symbol": "Web3.Eth",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": null,
-      "symbol": "Web3.Eth",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": null,
-      "symbol": "Web3.Eth",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": null,
-      "symbol": "Web3.Eth",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": null,
-      "symbol": "Web3.Eth",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": null,
-      "symbol": "Web3.Eth",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": null,
-      "symbol": "Web3.Eth",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": null,
-      "symbol": "Web3.Eth",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": null,
-      "symbol": "Web3.Personal",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": null,
-      "symbol": "Web3.Web3Wallet",
-      "symbol_kind": "source.lang.swift.decl.extension",
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+HttpProvider.swift",
+      "line": 155,
+      "symbol": "Web3HttpProvider.sendAsync(_:queue:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -5675,83 +5647,6 @@
       "line": 20,
       "symbol": "Web3.txpool",
       "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": 48,
-      "symbol": "Web3.Eth",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": 52,
-      "symbol": "Web3.Eth.options",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": 56,
-      "symbol": "Web3.Eth.init(provider:web3:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": 65,
-      "symbol": "Web3.Personal",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": 69,
-      "symbol": "Web3.Personal.options",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": 73,
-      "symbol": "Web3.Personal.init(provider:web3:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": 82,
-      "symbol": "Web3.Web3Wallet",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": 86,
-      "symbol": "Web3.Web3Wallet.init(provider:web3:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": 95,
-      "symbol": "Web3.BrowserFunctions",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": 99,
-      "symbol": "Web3.BrowserFunctions.options",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": 103,
-      "symbol": "Web3.BrowserFunctions.init(provider:web3:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -6060,6 +5955,20 @@
       "line": 13,
       "symbol": "Web3OptionsInheritable.options",
       "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Personal.swift",
+      "line": 18,
+      "symbol": "Web3Personal.options",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Personal.swift",
+      "line": 22,
+      "symbol": "Web3Personal.init(provider:web3:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
