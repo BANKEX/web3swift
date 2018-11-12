@@ -9,6 +9,7 @@
 import CryptoSwift
 import Foundation
 
+/// Mnemonics language
 public enum BIP39Language {
     case english
     case chinese_simplified
@@ -49,6 +50,7 @@ public enum BIP39Language {
     }
 }
 
+/// Mnemonics entropy size
 public enum EntropySize: Int {
     case b128 = 128
     case b160 = 160
@@ -57,10 +59,38 @@ public enum EntropySize: Int {
     case b256 = 256
 }
 
+/**
+ Mnemonics class. Used to generate/create/import ethereum account
+ 
+ To generate mnemonics use:
+ ```
+ let mnemonics = Mnemonics()
+ print(mnemonics)
+ ```
+ 
+ To import mnemonics:
+ ```
+ let string = "normal dune pole key case cradle unfold require tornado mercy hospital buyer"
+ let mnemonics = try Mnemonics(string)
+ print(mnemonics)
+ ```
+ 
+ To get private key from mnemonics:
+ ```
+ let mnemonics = Mnemonics()
+ let keystore = try BIP32Keystore(mnemonics: mnemonics)
+ let address = keystore.addresses[0]
+ let privateKey = try keystore.UNSAFE_getPrivateKeyData(password: "", account: address)
+ let publicKey = try Web3Utils.privateToPublic(privateKey, compressed: true)
+ ```
+ In the most cases you don't need to manager your public and private keys. web3swift doing this for you.
+ */
 public class Mnemonics {
+    /// Mnemonics init with data error
     public enum Error: Swift.Error {
         case invalidEntropySize
     }
+    /// Mnemonics init with string error
     public enum EntropyError: Swift.Error {
         case notEnoughtWords
         case invalidNumberOfWords
@@ -68,15 +98,24 @@ public class Mnemonics {
         case invalidOrderOfWords
         case checksumFailed(String,String)
     }
+    /// Mnemonics string
     public let string: String
+    
+    /// Language. default: .english
     public let language: BIP39Language
+    
+    /// Entropy data
     public var entropy: Data
     
-    /// Mnemonics password affects on privateKey generation
-    /// WARNING: User cannot use mnemonics generated with password in metamask or some other services that doesn't support mnemonics password
-    /// With different password you will generate different address
+    /**
+     Mnemonics password
+     - important: Mnemonics password affects on privateKey generation
+     - important: WARNING: User cannot use mnemonics generated with password in metamask or some other services that doesn't support mnemonics password
+     - important: With different password you will generate different address
+     */
     public var password: String = ""
     
+    /// Generate seed from mnemonics string. This function will ignore dictionary and won't check for mnemonics error
     public static func seed(from mnemonics: String, password: String) -> Data {
         let mnemData = Array(mnemonics.decomposedStringWithCompatibilityMapping.utf8)
         let salt = "mnemonic" + password
@@ -90,6 +129,16 @@ public class Mnemonics {
         return Data(bytes: seed)
     }
     
+    /**
+    Init with imported mnemonics string and specific language
+    - throws: An error of type Mnemonics.EntropyError
+     Requirements:
+     1. Minimum 12 words
+     2. Words.count % 4 == 0
+     3. Every word must be in [our dictionary](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md)
+     4. Words must be in valid order
+     5. Checksum bits should match (should never throw on that)
+     */
     public init(_ string: String, language: BIP39Language = .english) throws {
         // checking entropy
         let wordList = string.components(separatedBy: " ")
@@ -115,6 +164,12 @@ public class Mnemonics {
         self.language = language
         self.entropy = entropy
     }
+    
+    /**
+     Generate mnemonics with entropy size and language
+     - parameter entropySize: mnemonics seed size. default: .b256
+     - parameter language: mnemonics dictionary language. default: .english
+     */
     public init(entropySize: EntropySize = .b256, language: BIP39Language = .english) {
         self.entropy = Data.random(length: entropySize.rawValue / 8)
         let checksum = entropy.sha256()
@@ -132,6 +187,13 @@ public class Mnemonics {
         self.string = wordList.joined(separator: language.separator)
         self.language = language
     }
+    
+    /**
+     Generate mnemonics with pregenerated entropy data
+     - parameter entropy: seed which generates mnemonics string
+     - parameter language: mnemonics dictionary language. default: .english
+     - throws: Error.invalidEntropySize if entropy data has invalid size (< 16 || % 4 != 0)
+     */
     public init(entropy: Data, language: BIP39Language = .english) throws {
         guard entropy.count >= 16, entropy.count % 4 == 0 else { throw Error.invalidEntropySize }
         let checksum = entropy.sha256()
@@ -151,12 +213,18 @@ public class Mnemonics {
         self.string = wordList.joined(separator: separator)
         self.language = language
     }
+    
+    /// - returns: seed from mnemonics
     public func seed() -> Data {
         return Mnemonics.seed(from: string, password: password)
     }
 }
 
 extension Mnemonics: CustomStringConvertible {
+    /**
+     mnemonics description
+     - returns: .string
+     */
     public var description: String {
         return string
     }
