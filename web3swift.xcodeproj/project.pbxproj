@@ -53,7 +53,6 @@
 		1317BDAB218C526300D6D095 /* ABIv2Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD44218C526300D6D095 /* ABIv2Encoding.swift */; };
 		1317BDAC218C526300D6D095 /* SolidityDataWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD45218C526300D6D095 /* SolidityDataWriter.swift */; };
 		1317BDAD218C526300D6D095 /* SolidityTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD46218C526300D6D095 /* SolidityTypes.swift */; };
-		1317BDAE218C526300D6D095 /* BlockExplorer+GetTransactionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD48218C526300D6D095 /* BlockExplorer+GetTransactionHistory.swift */; };
 		1317BDAF218C526300D6D095 /* BlockExplorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD49218C526300D6D095 /* BlockExplorer.swift */; };
 		1317BDB0218C526300D6D095 /* KeystoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD4B218C526300D6D095 /* KeystoreManager.swift */; };
 		1317BDB1218C526300D6D095 /* IBAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD4C218C526300D6D095 /* IBAN.swift */; };
@@ -183,7 +182,6 @@
 		1317BD44218C526300D6D095 /* ABIv2Encoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABIv2Encoding.swift; sourceTree = "<group>"; };
 		1317BD45218C526300D6D095 /* SolidityDataWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolidityDataWriter.swift; sourceTree = "<group>"; };
 		1317BD46218C526300D6D095 /* SolidityTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolidityTypes.swift; sourceTree = "<group>"; };
-		1317BD48218C526300D6D095 /* BlockExplorer+GetTransactionHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlockExplorer+GetTransactionHistory.swift"; sourceTree = "<group>"; };
 		1317BD49218C526300D6D095 /* BlockExplorer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockExplorer.swift; sourceTree = "<group>"; };
 		1317BD4B218C526300D6D095 /* KeystoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeystoreManager.swift; sourceTree = "<group>"; };
 		1317BD4C218C526300D6D095 /* IBAN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBAN.swift; sourceTree = "<group>"; };
@@ -307,6 +305,7 @@
 		1317BCFD218C526300D6D095 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				133970582199D22A0027E27C /* Deprecated */,
 				1317BD58218C526300D6D095 /* Migration.swift */,
 				1317BCFE218C526300D6D095 /* Transaction */,
 				1317BD02218C526300D6D095 /* EthURL */,
@@ -317,7 +316,6 @@
 				1317BD21218C526300D6D095 /* TxPool */,
 				1317BD39218C526300D6D095 /* HookedFunctions */,
 				1317BD3C218C526300D6D095 /* ABIv2 */,
-				1317BD47218C526300D6D095 /* BlockExplorer */,
 				1317BD4A218C526300D6D095 /* KeystoreManager */,
 				1317BD59218C526300D6D095 /* Convenience */,
 				1317BD66218C526300D6D095 /* ObjectiveC */,
@@ -435,15 +433,6 @@
 			path = ABIv2;
 			sourceTree = "<group>";
 		};
-		1317BD47218C526300D6D095 /* BlockExplorer */ = {
-			isa = PBXGroup;
-			children = (
-				1317BD48218C526300D6D095 /* BlockExplorer+GetTransactionHistory.swift */,
-				1317BD49218C526300D6D095 /* BlockExplorer.swift */,
-			);
-			path = BlockExplorer;
-			sourceTree = "<group>";
-		};
 		1317BD4A218C526300D6D095 /* KeystoreManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -543,6 +532,14 @@
 				1317BDE0218C526C00D6D095 /* BetterERC20Tests.swift */,
 			);
 			path = BetterABI;
+			sourceTree = "<group>";
+		};
+		133970582199D22A0027E27C /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				1317BD49218C526300D6D095 /* BlockExplorer.swift */,
+			);
+			path = Deprecated;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -701,7 +698,6 @@
 				13765D6F21964A9B005C483C /* W3Web3.swift in Sources */,
 				13765D7121964A9B005C483C /* W3Contract.swift in Sources */,
 				1317BD87218C526300D6D095 /* Web3+Infura.swift in Sources */,
-				1317BDAE218C526300D6D095 /* BlockExplorer+GetTransactionHistory.swift in Sources */,
 				1317BDAD218C526300D6D095 /* SolidityTypes.swift in Sources */,
 				1317BDBD218C526300D6D095 /* Migration.swift in Sources */,
 				1317BD78218C526300D6D095 /* ERC20.swift in Sources */,
