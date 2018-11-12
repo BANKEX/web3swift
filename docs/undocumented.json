@@ -2101,6 +2101,83 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Contracts/SecurityToken.swift",
+      "line": 49,
+      "symbol": "SecurityToken.decimals()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Contracts/SecurityToken.swift",
+      "line": 53,
+      "symbol": "SecurityToken.totalSupply()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Contracts/SecurityToken.swift",
+      "line": 57,
+      "symbol": "SecurityToken.balance(of:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Contracts/SecurityToken.swift",
+      "line": 61,
+      "symbol": "SecurityToken.allowance(owner:spender:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Contracts/SecurityToken.swift",
+      "line": 65,
+      "symbol": "SecurityToken.transfer(to:value:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Contracts/SecurityToken.swift",
+      "line": 69,
+      "symbol": "SecurityToken.transfer(from:to:spender:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Contracts/SecurityToken.swift",
+      "line": 73,
+      "symbol": "SecurityToken.approve(spender:value:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Contracts/SecurityToken.swift",
+      "line": 77,
+      "symbol": "SecurityToken.decreaseApproval(spender:subtractedValue:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Contracts/SecurityToken.swift",
+      "line": 81,
+      "symbol": "SecurityToken.increaseApproval(spender:addedValue:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Contracts/SecurityToken.swift",
+      "line": 173,
+      "symbol": "SecurityToken.Module",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Contracts/SecurityToken.swift",
+      "line": 188,
+      "symbol": "SecurityToken.Module.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Convenience/CryptoExtensions.swift",
       "line": 17,
       "symbol": "scrypt(password:salt:length:N:R:P:)",

@@ -23,7 +23,7 @@
         <a class="header-link" href="index.html">
           web3swift Docs
         </a>
-         (19% documented)
+         (20% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -145,6 +145,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/PlainKeystore.html">PlainKeystore</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/SecurityToken.html">SecurityToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/SecurityToken/Module.html">– Module</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/SolidityFunction.html">SolidityFunction</a>
@@ -1101,6 +1107,49 @@ mapping (uint256 =&gt; mapping (address =&gt; uint)) internal balances;</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ERC888</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9web3swift13SecurityTokenC"></a>
+                    <a name="//apple_ref/swift/Class/SecurityToken" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9web3swift13SecurityTokenC">SecurityToken</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>ISecurityToken.sol</p>
+
+<ul>
+<li><p>ERC20 events</p>
+<pre class="highlight plaintext"><code>event Transfer(address indexed from, address indexed to, uint256 value);
+event Approval(address indexed owner, address indexed spender, uint256 value);
+</code></pre></li>
+<li><p>Mint events</p>
+<pre class="highlight plaintext"><code>event Minted(address indexed _to, uint256 _value);
+event Burnt(address indexed _burner, uint256 _value);
+</code></pre></li>
+</ul>
+
+                        <a href="Classes/SecurityToken.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SecurityToken</span></code></pre>
 
                         </div>
                       </div>

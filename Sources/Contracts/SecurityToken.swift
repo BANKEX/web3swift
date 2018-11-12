@@ -23,7 +23,7 @@ import BigInt
  event Burnt(address indexed _burner, uint256 _value);
  ```
  */
-class SecurityToken {
+public class SecurityToken {
     /// Token address
     public let address: Address
     /// Transaction Options
