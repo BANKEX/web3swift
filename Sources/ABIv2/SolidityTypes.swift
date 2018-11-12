@@ -158,7 +158,9 @@ extension SolidityType {
         "function": SolidityFunctionType(),
         "address": SolidityAddress(),
         "string": SolidityString(),
-        "bool": SolidityBool()
+        "bool": SolidityBool(),
+        "uint": SolidityUInt(bits: 256),
+        "int": SolidityInt(bits: 256)
     ]
     private static func scan(tuple string: String, from index: Int) throws -> SolidityType {
         guard string.last! == ")" else { throw Error.corrupted }

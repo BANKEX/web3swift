@@ -23,7 +23,7 @@ class SolidityFunctionTests: XCTestCase {
         try XCTAssertNoThrow(scan(type: "uint32"))
         try XCTAssertNoThrow(scan(type: "uint16"))
         try XCTAssertNoThrow(scan(type: "uint8"))
-        try XCTAssertThrowsError(scan(type: "uint"))
+        try XCTAssertNoThrow(scan(type: "uint"))
         try XCTAssertThrowsError(scan(type: "uint0"))
         try XCTAssertThrowsError(scan(type: "uint1"))
         try XCTAssertThrowsError(scan(type: "uint257"))
@@ -35,7 +35,7 @@ class SolidityFunctionTests: XCTestCase {
         try XCTAssertNoThrow(scan(type: "int32"))
         try XCTAssertNoThrow(scan(type: "int16"))
         try XCTAssertNoThrow(scan(type: "int8"))
-        try XCTAssertThrowsError(scan(type: "int"))
+        try XCTAssertNoThrow(scan(type: "int"))
         try XCTAssertThrowsError(scan(type: "int0"))
         try XCTAssertThrowsError(scan(type: "int1"))
         try XCTAssertThrowsError(scan(type: "int257"))
@@ -76,6 +76,12 @@ class SolidityFunctionTests: XCTestCase {
         try XCTAssertThrowsError(scan(type: "string(uint256,address,tuple(address,bytes32,uint256[64]))"))
         
         try XCTAssertThrowsError(scan(type: "tuple(tuple))"))
+    }
+    
+    func testAliases() throws {
+        let function1 = try SolidityFunction(function: "transfer(address,uint256)")
+        let function2 = try SolidityFunction(function: "transfer(address,uint)")
+        XCTAssertEqual(function1.hash, function2.hash)
     }
     
     func testEncodeAndDecode() throws {
