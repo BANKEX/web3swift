@@ -8,10 +8,9 @@
 
 import BigInt
 import CryptoSwift
-import secp256k1
 import XCTest
 
-@testable import web3swift_iOS
+@testable import web3swift
 
 class RemoteParsingTests: XCTestCase {
     func testEventParsing1usingABIv2() throws {
@@ -74,7 +73,7 @@ class RemoteParsingTests: XCTestCase {
         XCTAssert(present.count == 1)
         // TODO: - Make following assert
 //        with filter would be
-//            [web3swift_iOS.EventLog(address: web3swift_iOS.Address(_address: "0x53066cddbc0099eb6c96785d9b3df2aaeede5da3", type: web3swift_iOS.Address.AddressType.normal), data: 32 bytes, logIndex: 132, removed: false, topics: [32 bytes, 32 bytes, 32 bytes])], status: web3swift_iOS.TransactionReceipt.TXStatus.ok, logsBloom: Optional(web3swift_iOS.EthereumBloomFilter(bytes: 256 bytes))), contractAddress: web3swift_iOS.Address(_address: "0x53066cddbc0099eb6c96785d9b3df2aaeede5da3", type: web3swift_iOS.Address.AddressType.normal), decodedResult: ["name": "Transfer", "1": web3swift_iOS.Address(_address: "0xd5395c132c791a7f46fa8fc27f0ab6bacd824484", type: web3swift_iOS.Address.AddressType.normal), "_from": web3swift_iOS.Address(_address: "0xefdcf2c36f3756ce7247628afdb632fa4ee12ec5", type: web3swift_iOS.Address.AddressType.normal), "_to": web3swift_iOS.Address(_address: "0xd5395c132c791a7f46fa8fc27f0ab6bacd824484", type: web3swift_iOS.Address.AddressType.normal), "2": 5000000000000000000, "0": web3swift_iOS.Address(_address: "0xefdcf2c36f3756ce7247628afdb632fa4ee12ec5", type: web3swift_iOS.Address.AddressType.normal), "_value": 5000000000000000000])]
+//            [web3swift.EventLog(address: web3swift.Address(_address: "0x53066cddbc0099eb6c96785d9b3df2aaeede5da3", type: web3swift.Address.AddressType.normal), data: 32 bytes, logIndex: 132, removed: false, topics: [32 bytes, 32 bytes, 32 bytes])], status: web3swift.TransactionReceipt.TXStatus.ok, logsBloom: Optional(web3swift.EthereumBloomFilter(bytes: 256 bytes))), contractAddress: web3swift.Address(_address: "0x53066cddbc0099eb6c96785d9b3df2aaeede5da3", type: web3swift.Address.AddressType.normal), decodedResult: ["name": "Transfer", "1": web3swift.Address(_address: "0xd5395c132c791a7f46fa8fc27f0ab6bacd824484", type: web3swift.Address.AddressType.normal), "_from": web3swift.Address(_address: "0xefdcf2c36f3756ce7247628afdb632fa4ee12ec5", type: web3swift.Address.AddressType.normal), "_to": web3swift.Address(_address: "0xd5395c132c791a7f46fa8fc27f0ab6bacd824484", type: web3swift.Address.AddressType.normal), "2": 5000000000000000000, "0": web3swift.Address(_address: "0xefdcf2c36f3756ce7247628afdb632fa4ee12ec5", type: web3swift.Address.AddressType.normal), "_value": 5000000000000000000])]
     }
 
     func testEventParsing5usingABIv2() throws {

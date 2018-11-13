@@ -9,7 +9,10 @@
 import BigInt
 import Foundation
 
-/// Custom Web3 HTTP provider of Infura nodes.
+/**
+ Custom Web3 HTTP provider of Infura nodes.
+ web3swift uses Infura mainnet as default provider
+ */
 public final class InfuraProvider: Web3HttpProvider {
     /**
      - parameter net: defines network id. applies to address "https://\(net).infura.io/"

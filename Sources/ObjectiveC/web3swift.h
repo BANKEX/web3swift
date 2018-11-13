@@ -6,7 +6,7 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for web3swift.
 FOUNDATION_EXPORT double web3swiftVersionNumber;

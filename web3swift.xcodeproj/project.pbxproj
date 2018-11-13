@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1317BCED218C50D100D6D095 /* web3swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1317BCE3218C50D100D6D095 /* web3swift.framework */; };
 		1317BD6F218C526300D6D095 /* BloomFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BCFF218C526300D6D095 /* BloomFilter.swift */; };
 		1317BD70218C526300D6D095 /* TransactionSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD00218C526300D6D095 /* TransactionSigner.swift */; };
 		1317BD71218C526300D6D095 /* EthereumTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD01218C526300D6D095 /* EthereumTransaction.swift */; };
@@ -80,30 +79,6 @@
 		1317BDC7218C526300D6D095 /* Int+Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD63218C526300D6D095 /* Int+Sequence.swift */; };
 		1317BDC8218C526300D6D095 /* Base58.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD64218C526300D6D095 /* Base58.swift */; };
 		1317BDC9218C526300D6D095 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD65218C526300D6D095 /* Array+Extension.swift */; };
-		1317BDEC218C526C00D6D095 /* MainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD3218C526C00D6D095 /* MainTests.swift */; };
-		1317BDED218C526C00D6D095 /* EIP67Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD4218C526C00D6D095 /* EIP67Tests.swift */; };
-		1317BDEE218C526C00D6D095 /* ABITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD5218C526C00D6D095 /* ABITests.swift */; };
-		1317BDEF218C526C00D6D095 /* NumberFormattingUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD6218C526C00D6D095 /* NumberFormattingUtilTests.swift */; };
-		1317BDF0218C526C00D6D095 /* InfuraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD7218C526C00D6D095 /* InfuraTests.swift */; };
-		1317BDF1218C526C00D6D095 /* ContractV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD8218C526C00D6D095 /* ContractV2Tests.swift */; };
-		1317BDF2218C526C00D6D095 /* PromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD9218C526C00D6D095 /* PromiseTests.swift */; };
-		1317BDF3218C526C00D6D095 /* RLPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDDA218C526C00D6D095 /* RLPTests.swift */; };
-		1317BDF4218C526C00D6D095 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDDB218C526C00D6D095 /* Support.swift */; };
-		1317BDF5218C526C00D6D095 /* ScryptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDDC218C526C00D6D095 /* ScryptTests.swift */; };
-		1317BDF6218C526C00D6D095 /* UserCasesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDDD218C526C00D6D095 /* UserCasesTests.swift */; };
-		1317BDF7218C526C00D6D095 /* SolidityFunctionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDDF218C526C00D6D095 /* SolidityFunctionTests.swift */; };
-		1317BDF8218C526C00D6D095 /* BetterERC20Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE0218C526C00D6D095 /* BetterERC20Tests.swift */; };
-		1317BDF9218C526C00D6D095 /* TxPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE1218C526C00D6D095 /* TxPoolTests.swift */; };
-		1317BDFA218C526C00D6D095 /* AdvancedABITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE2218C526C00D6D095 /* AdvancedABITests.swift */; };
-		1317BDFB218C526C00D6D095 /* RinkebyPersonalSignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE3218C526C00D6D095 /* RinkebyPersonalSignatureTests.swift */; };
-		1317BDFC218C526C00D6D095 /* LocalNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE4218C526C00D6D095 /* LocalNodeTests.swift */; };
-		1317BDFD218C526C00D6D095 /* RemoteParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE5218C526C00D6D095 /* RemoteParsingTests.swift */; };
-		1317BDFE218C526C00D6D095 /* KeystoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE6218C526C00D6D095 /* KeystoreTests.swift */; };
-		1317BDFF218C526C00D6D095 /* ERC20Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE7218C526C00D6D095 /* ERC20Tests.swift */; };
-		1317BE00218C526C00D6D095 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1317BDE8218C526C00D6D095 /* Info.plist */; };
-		1317BE01218C526C00D6D095 /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE9218C526C00D6D095 /* TransactionTests.swift */; };
-		1317BE02218C526C00D6D095 /* SECP256K1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDEA218C526C00D6D095 /* SECP256K1Tests.swift */; };
-		1317BE03218C526C00D6D095 /* ObjectiveCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDEB218C526C00D6D095 /* ObjectiveCTests.swift */; };
 		13397055219984480027E27C /* SecurityToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13397054219984480027E27C /* SecurityToken.swift */; };
 		133970572199876A0027E27C /* ERC888.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133970562199876A0027E27C /* ERC888.swift */; };
 		1353A30C21945AE000B4E6D0 /* web3swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 1353A30321945AE000B4E6D0 /* web3swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -122,21 +97,33 @@
 		13765D7521964A9B005C483C /* W3JsonRpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D6621964A99005C483C /* W3JsonRpc.swift */; };
 		13765D7621964A9B005C483C /* W3Personal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D6721964A9A005C483C /* W3Personal.swift */; };
 		13765D7821964A9B005C483C /* W3Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D6921964A9B005C483C /* W3Transaction.swift */; };
+		139751EA219AF9CE0044D2B0 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139751B9219AF76D0044D2B0 /* Tests.swift */; };
+		139751F1219AFA6D0044D2B0 /* SolidityFunctionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDDF218C526C00D6D095 /* SolidityFunctionTests.swift */; };
+		139751F2219AFA6D0044D2B0 /* BetterERC20Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE0218C526C00D6D095 /* BetterERC20Tests.swift */; };
+		139751F3219AFA6D0044D2B0 /* MainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD3218C526C00D6D095 /* MainTests.swift */; };
+		139751F4219AFA6D0044D2B0 /* EIP67Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD4218C526C00D6D095 /* EIP67Tests.swift */; };
+		139751F5219AFA6D0044D2B0 /* ABITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD5218C526C00D6D095 /* ABITests.swift */; };
+		139751F6219AFA6D0044D2B0 /* NumberFormattingUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD6218C526C00D6D095 /* NumberFormattingUtilTests.swift */; };
+		139751F7219AFA6D0044D2B0 /* InfuraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD7218C526C00D6D095 /* InfuraTests.swift */; };
+		139751F8219AFA6D0044D2B0 /* ContractV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD8218C526C00D6D095 /* ContractV2Tests.swift */; };
+		139751F9219AFA6D0044D2B0 /* PromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD9218C526C00D6D095 /* PromiseTests.swift */; };
+		139751FA219AFA6D0044D2B0 /* RLPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDDA218C526C00D6D095 /* RLPTests.swift */; };
+		139751FB219AFA6D0044D2B0 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDDB218C526C00D6D095 /* Support.swift */; };
+		139751FC219AFA6D0044D2B0 /* ScryptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDDC218C526C00D6D095 /* ScryptTests.swift */; };
+		139751FD219AFA6D0044D2B0 /* UserCasesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDDD218C526C00D6D095 /* UserCasesTests.swift */; };
+		139751FE219AFA6D0044D2B0 /* TxPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE1218C526C00D6D095 /* TxPoolTests.swift */; };
+		139751FF219AFA6D0044D2B0 /* AdvancedABITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE2218C526C00D6D095 /* AdvancedABITests.swift */; };
+		13975200219AFA6D0044D2B0 /* RinkebyPersonalSignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE3218C526C00D6D095 /* RinkebyPersonalSignatureTests.swift */; };
+		13975201219AFA6D0044D2B0 /* LocalNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE4218C526C00D6D095 /* LocalNodeTests.swift */; };
+		13975202219AFA6D0044D2B0 /* RemoteParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE5218C526C00D6D095 /* RemoteParsingTests.swift */; };
+		13975203219AFA6D0044D2B0 /* KeystoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE6218C526C00D6D095 /* KeystoreTests.swift */; };
+		13975204219AFA6D0044D2B0 /* ERC20Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE7218C526C00D6D095 /* ERC20Tests.swift */; };
+		13975205219AFA6D0044D2B0 /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE9218C526C00D6D095 /* TransactionTests.swift */; };
+		13975206219AFA6D0044D2B0 /* SECP256K1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDEA218C526C00D6D095 /* SECP256K1Tests.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		1317BCEE218C50D100D6D095 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1317BCDA218C50D100D6D095 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1317BCE2218C50D100D6D095;
-			remoteInfo = web3swift;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1317BCE3218C50D100D6D095 /* web3swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = web3swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1317BCEC218C50D100D6D095 /* web3swiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = web3swiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1317BCFF218C526300D6D095 /* BloomFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BloomFilter.swift; sourceTree = "<group>"; };
 		1317BD00218C526300D6D095 /* TransactionSigner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionSigner.swift; sourceTree = "<group>"; };
 		1317BD01218C526300D6D095 /* EthereumTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumTransaction.swift; sourceTree = "<group>"; };
@@ -232,7 +219,6 @@
 		1317BDE8218C526C00D6D095 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1317BDE9218C526C00D6D095 /* TransactionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTests.swift; sourceTree = "<group>"; };
 		1317BDEA218C526C00D6D095 /* SECP256K1Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SECP256K1Tests.swift; sourceTree = "<group>"; };
-		1317BDEB218C526C00D6D095 /* ObjectiveCTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveCTests.swift; sourceTree = "<group>"; };
 		1317BE22218C8A9E00D6D095 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		1317BE23218C8A9E00D6D095 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
 		1317BE24218C8A9E00D6D095 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
@@ -257,6 +243,8 @@
 		13765D6621964A99005C483C /* W3JsonRpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3JsonRpc.swift; sourceTree = "<group>"; };
 		13765D6721964A9A005C483C /* W3Personal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3Personal.swift; sourceTree = "<group>"; };
 		13765D6921964A9B005C483C /* W3Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3Transaction.swift; sourceTree = "<group>"; };
+		139751B7219AF76D0044D2B0 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		139751B9219AF76D0044D2B0 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,11 +255,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1317BCE9218C50D100D6D095 /* Frameworks */ = {
+		139751B4219AF76D0044D2B0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1317BCED218C50D100D6D095 /* web3swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				1317BCE3218C50D100D6D095 /* web3swift.framework */,
-				1317BCEC218C50D100D6D095 /* web3swiftTests.xctest */,
+				139751B7219AF76D0044D2B0 /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -517,10 +504,10 @@
 				1317BDE5218C526C00D6D095 /* RemoteParsingTests.swift */,
 				1317BDE6218C526C00D6D095 /* KeystoreTests.swift */,
 				1317BDE7218C526C00D6D095 /* ERC20Tests.swift */,
-				1317BDE8218C526C00D6D095 /* Info.plist */,
 				1317BDE9218C526C00D6D095 /* TransactionTests.swift */,
 				1317BDEA218C526C00D6D095 /* SECP256K1Tests.swift */,
-				1317BDEB218C526C00D6D095 /* ObjectiveCTests.swift */,
+				139751B9219AF76D0044D2B0 /* Tests.swift */,
+				1317BDE8218C526C00D6D095 /* Info.plist */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -575,23 +562,22 @@
 			productReference = 1317BCE3218C50D100D6D095 /* web3swift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		1317BCEB218C50D100D6D095 /* web3swiftTests */ = {
+		139751B6219AF76D0044D2B0 /* Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1317BCFA218C50D100D6D095 /* Build configuration list for PBXNativeTarget "web3swiftTests" */;
+			buildConfigurationList = 139751BC219AF76D0044D2B0 /* Build configuration list for PBXNativeTarget "Tests" */;
 			buildPhases = (
-				1317BCE8218C50D100D6D095 /* Sources */,
-				1317BCE9218C50D100D6D095 /* Frameworks */,
-				1317BCEA218C50D100D6D095 /* Resources */,
-				13DFB97A219193480019B8CB /* Carthage */,
+				139751B3219AF76D0044D2B0 /* Sources */,
+				139751B4219AF76D0044D2B0 /* Frameworks */,
+				139751B5219AF76D0044D2B0 /* Resources */,
+				139751F0219AFA500044D2B0 /* Carthage */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				1317BCEF218C50D100D6D095 /* PBXTargetDependency */,
 			);
-			name = web3swiftTests;
-			productName = web3swiftTests;
-			productReference = 1317BCEC218C50D100D6D095 /* web3swiftTests.xctest */;
+			name = Tests;
+			productName = Tests;
+			productReference = 139751B7219AF76D0044D2B0 /* Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -607,9 +593,8 @@
 					1317BCE2218C50D100D6D095 = {
 						CreatedOnToolsVersion = 10.1;
 					};
-					1317BCEB218C50D100D6D095 = {
+					139751B6219AF76D0044D2B0 = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -626,7 +611,7 @@
 			projectRoot = "";
 			targets = (
 				1317BCE2218C50D100D6D095 /* web3swift */,
-				1317BCEB218C50D100D6D095 /* web3swiftTests */,
+				139751B6219AF76D0044D2B0 /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -639,11 +624,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1317BCEA218C50D100D6D095 /* Resources */ = {
+		139751B5219AF76D0044D2B0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1317BE00218C526C00D6D095 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,7 +652,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nfor path in $FRAMEWORK_SEARCH_PATHS\ndo\nif [ -d \"${path}/Dip.framework\" ] && [[ $path == *\"Carthage\"* ]]; then\nexport SCRIPT_INPUT_FILE_COUNT=1\nexport SCRIPT_INPUT_FILE_0=\"${path}/Dip.framework\"\n/usr/local/bin/carthage copy-frameworks\nbreak\nfi\ndone\n";
 		};
-		13DFB97A219193480019B8CB /* Carthage */ = {
+		139751F0219AFA500044D2B0 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -785,45 +769,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1317BCE8218C50D100D6D095 /* Sources */ = {
+		139751B3219AF76D0044D2B0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1317BDFD218C526C00D6D095 /* RemoteParsingTests.swift in Sources */,
-				1317BDF7218C526C00D6D095 /* SolidityFunctionTests.swift in Sources */,
-				1317BDF2218C526C00D6D095 /* PromiseTests.swift in Sources */,
-				1317BDF0218C526C00D6D095 /* InfuraTests.swift in Sources */,
-				1317BE01218C526C00D6D095 /* TransactionTests.swift in Sources */,
-				1317BDFB218C526C00D6D095 /* RinkebyPersonalSignatureTests.swift in Sources */,
-				1317BE02218C526C00D6D095 /* SECP256K1Tests.swift in Sources */,
-				1317BDFC218C526C00D6D095 /* LocalNodeTests.swift in Sources */,
-				1317BDFF218C526C00D6D095 /* ERC20Tests.swift in Sources */,
-				1317BDF9218C526C00D6D095 /* TxPoolTests.swift in Sources */,
-				1317BDF3218C526C00D6D095 /* RLPTests.swift in Sources */,
-				1317BE03218C526C00D6D095 /* ObjectiveCTests.swift in Sources */,
-				1317BDF1218C526C00D6D095 /* ContractV2Tests.swift in Sources */,
-				1317BDF6218C526C00D6D095 /* UserCasesTests.swift in Sources */,
-				1317BDEE218C526C00D6D095 /* ABITests.swift in Sources */,
-				1317BDEC218C526C00D6D095 /* MainTests.swift in Sources */,
-				1317BDF5218C526C00D6D095 /* ScryptTests.swift in Sources */,
-				1317BDED218C526C00D6D095 /* EIP67Tests.swift in Sources */,
-				1317BDEF218C526C00D6D095 /* NumberFormattingUtilTests.swift in Sources */,
-				1317BDFA218C526C00D6D095 /* AdvancedABITests.swift in Sources */,
-				1317BDF4218C526C00D6D095 /* Support.swift in Sources */,
-				1317BDF8218C526C00D6D095 /* BetterERC20Tests.swift in Sources */,
-				1317BDFE218C526C00D6D095 /* KeystoreTests.swift in Sources */,
+				13975200219AFA6D0044D2B0 /* RinkebyPersonalSignatureTests.swift in Sources */,
+				139751FD219AFA6D0044D2B0 /* UserCasesTests.swift in Sources */,
+				139751F6219AFA6D0044D2B0 /* NumberFormattingUtilTests.swift in Sources */,
+				13975201219AFA6D0044D2B0 /* LocalNodeTests.swift in Sources */,
+				139751F9219AFA6D0044D2B0 /* PromiseTests.swift in Sources */,
+				13975202219AFA6D0044D2B0 /* RemoteParsingTests.swift in Sources */,
+				13975205219AFA6D0044D2B0 /* TransactionTests.swift in Sources */,
+				139751F8219AFA6D0044D2B0 /* ContractV2Tests.swift in Sources */,
+				13975206219AFA6D0044D2B0 /* SECP256K1Tests.swift in Sources */,
+				139751F5219AFA6D0044D2B0 /* ABITests.swift in Sources */,
+				139751F4219AFA6D0044D2B0 /* EIP67Tests.swift in Sources */,
+				139751FF219AFA6D0044D2B0 /* AdvancedABITests.swift in Sources */,
+				13975204219AFA6D0044D2B0 /* ERC20Tests.swift in Sources */,
+				139751FE219AFA6D0044D2B0 /* TxPoolTests.swift in Sources */,
+				139751FB219AFA6D0044D2B0 /* Support.swift in Sources */,
+				139751F2219AFA6D0044D2B0 /* BetterERC20Tests.swift in Sources */,
+				139751F7219AFA6D0044D2B0 /* InfuraTests.swift in Sources */,
+				139751F1219AFA6D0044D2B0 /* SolidityFunctionTests.swift in Sources */,
+				13975203219AFA6D0044D2B0 /* KeystoreTests.swift in Sources */,
+				139751FA219AFA6D0044D2B0 /* RLPTests.swift in Sources */,
+				139751F3219AFA6D0044D2B0 /* MainTests.swift in Sources */,
+				139751FC219AFA6D0044D2B0 /* ScryptTests.swift in Sources */,
+				139751EA219AF9CE0044D2B0 /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		1317BCEF218C50D100D6D095 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1317BCE2218C50D100D6D095 /* web3swift */;
-			targetProxy = 1317BCEE218C50D100D6D095 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1317BCF5218C50D100D6D095 /* Debug */ = {
@@ -950,10 +926,11 @@
 		1317BCF8218C50D100D6D095 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = AUCR797TMH;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -988,6 +965,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = AUCR797TMH;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1015,13 +993,16 @@
 			};
 			name = Release;
 		};
-		1317BCFB218C50D100D6D095 /* Debug */ = {
+		139751BD219AF76D0044D2B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = AUCR797TMH;
 				"FRAMEWORK_SEARCH_PATHS[sdk=appletvos*]" = "$(SRCROOT)/Carthage/Build/tvOS";
 				"FRAMEWORK_SEARCH_PATHS[sdk=appletvsimulator*]" = "$(SRCROOT)/Carthage/Build/tvOS";
 				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/Carthage/Build/iOS";
@@ -1029,25 +1010,34 @@
 				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = "$(SRCROOT)/Carthage/Build/Mac";
 				"FRAMEWORK_SEARCH_PATHS[sdk=watchos*]" = "$(SRCROOT)/Carthage/Build/watchOS";
 				"FRAMEWORK_SEARCH_PATHS[sdk=watchsimulator*]" = "$(SRCROOT)/Carthage/Build/watchOS";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
+					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.bankexfoundation.web3swiftTests;
+				PRODUCT_BUNDLE_IDENTIFIER = org.bankexfoundation.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos appletvsimulator appletvos watchos watchsimulator";
 				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		1317BCFC218C50D100D6D095 /* Release */ = {
+		139751BE219AF76D0044D2B0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = AUCR797TMH;
 				"FRAMEWORK_SEARCH_PATHS[sdk=appletvos*]" = "$(SRCROOT)/Carthage/Build/tvOS";
 				"FRAMEWORK_SEARCH_PATHS[sdk=appletvsimulator*]" = "$(SRCROOT)/Carthage/Build/tvOS";
 				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/Carthage/Build/iOS";
@@ -1055,14 +1045,22 @@
 				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = "$(SRCROOT)/Carthage/Build/Mac";
 				"FRAMEWORK_SEARCH_PATHS[sdk=watchos*]" = "$(SRCROOT)/Carthage/Build/watchOS";
 				"FRAMEWORK_SEARCH_PATHS[sdk=watchsimulator*]" = "$(SRCROOT)/Carthage/Build/watchOS";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
+					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.bankexfoundation.web3swiftTests;
+				PRODUCT_BUNDLE_IDENTIFIER = org.bankexfoundation.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos appletvsimulator appletvos watchos watchsimulator";
 				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -1087,11 +1085,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1317BCFA218C50D100D6D095 /* Build configuration list for PBXNativeTarget "web3swiftTests" */ = {
+		139751BC219AF76D0044D2B0 /* Build configuration list for PBXNativeTarget "Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1317BCFB218C50D100D6D095 /* Debug */,
-				1317BCFC218C50D100D6D095 /* Release */,
+				139751BD219AF76D0044D2B0 /* Debug */,
+				139751BE219AF76D0044D2B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

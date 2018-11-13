@@ -14,45 +14,65 @@ public enum AbiError: Error {
     case unsupportedType
 }
 
-/*
- types:
- uint8, uint16, uint32, uint64, uint128, uint256
- int8, int16, int32, int64, int128, int256
+/**
+ Solidity types bridge
+ Used to generate solidity function input from swift types
+ 
+ Types:
+ ```
+ uint8, uint16, uint24, uint32 ... uint248, uint256
+ int8, int16, int24, int32 ... int248, int256
  function, address, bool, string
  bytes
- bytes1...32
+ bytes1, bytes2, bytes3 ... bytes31, bytes32
  
  array: type[]
  array: type[1...]
  tuple(type1,type2,type3...)
  example: tuple(uint256,address,tuple(address,bytes32,uint256[64]))
+ ```
  */
-
-public enum ArraySize { // bytes for convenience
-    case `static`(Int)
-    case dynamic
-    case notArray
-}
-
 public class SolidityType: Equatable, CustomStringConvertible {
+    /// SolidityType array size
+    public enum ArraySize {
+        /// returns number of elements in a static array
+        case `static`(Int)
+        /// dynamic array
+        case dynamic
+        /// for non array types
+        case notArray
+    }
+    /// returns true if type is static (not not uses data pointer in abi). default: true
     public var isStatic: Bool { return true }
+    /// returns true if type is array. default: false
     public var isArray: Bool { return false }
+    /// returns true if type is tuple. default: false
+    /// - important: tuples are not supported at this moment
     public var isTuple: Bool { return false }
+    /// returns number of elements in array if it static. default: .notArray
     public var arraySize: ArraySize { return .notArray }
+    /// returns type's subtype used in array types. default: nil
     public var subtype: SolidityType? { return nil }
+    /// returns type memory usage. default: 32
     public var memoryUsage: Int { return 32 }
+    /// returns default data for empty value. default: Data(repeating: 0, count: memoryUsage)
     public var `default`: Data { return Data(count: memoryUsage) }
+    /// - returns string representation of solidity type
     public var description: String { return "" }
+    /// returns true if type input parameters is valid: default true
     public var isValid: Bool { return true }
+    /// returns true if type is supported in web3swift
     public var isSupported: Bool { return true }
+    
     public static func == (lhs: SolidityType, rhs: SolidityType) -> Bool {
         return lhs.description == rhs.description
     }
+    
+    /// Type conversion error
     public enum Error: Swift.Error {
         case corrupted
     }
-    
-    public class SolidityUInt: SolidityType {
+    public class SUInt: SolidityType {
         var bits: Int
         init(bits: Int) {
             self.bits = bits
@@ -60,28 +80,25 @@ public class SolidityType: Equatable, CustomStringConvertible {
         }
         public override var description: String { return "uint\(bits)" }
         public override var isValid: Bool {
-            switch bits {
-            case 8,16,32,64,128,256: return true
-            default: return false
-            }
+            return (8...256).contains(bits) && (bits & 0b111 == 0)
         }
     }
-    public class SolidityInt: SolidityUInt {
+    public class SInt: SUInt {
         public override var description: String { return "int\(bits)" }
     }
-    public class SolidityAddress: SolidityType {
+    public class SAddress: SolidityType {
         public override var description: String { return "address" }
     }
     
     /// Unsupported
-    public class SolidityFunctionType: SolidityType {
+    public class SFunction: SolidityType {
         public override var description: String { return "function" }
         public override var isSupported: Bool { return false }
     }
-    public class SolidityBool: SolidityType {
+    public class SBool: SolidityType {
         public override var description: String { return "bool" }
     }
-    public class SolidityBytes: SolidityType {
+    public class SBytes: SolidityType {
         public override var description: String { return "bytes\(count)" }
         public override var isValid: Bool { return count > 0 && count <= 32 }
         var count: Int
@@ -90,7 +107,18 @@ public class SolidityType: Equatable, CustomStringConvertible {
             super.init()
         }
     }
-    public class SolidityStaticArray: SolidityType {
+    public class SDynamicBytes: SolidityType {
+        public override var description: String { return "bytes" }
+        public override var memoryUsage: Int { return 0 }
+        public override var isStatic: Bool { return false }
+    }
+    public class SString: SolidityType {
+        public override var description: String { return "string" }
+        public override var isStatic: Bool { return false }
+        public override var memoryUsage: Int { return 0 }
+    }
+    
+    public class SStaticArray: SolidityType {
         public override var description: String { return "\(type)[\(count)]" }
         public override var isStatic: Bool { return type.isStatic }
         public override var isArray: Bool { return true }
@@ -108,17 +136,7 @@ public class SolidityType: Equatable, CustomStringConvertible {
             super.init()
         }
     }
-    public class SolidityDynamicBytes: SolidityType {
-        public override var description: String { return "bytes" }
-        public override var memoryUsage: Int { return 0 }
-        public override var isStatic: Bool { return false }
-    }
-    public class SolidityString: SolidityType {
-        public override var description: String { return "string" }
-        public override var isStatic: Bool { return false }
-        public override var memoryUsage: Int { return 0 }
-    }
-    public class SolidityDynamicArray: SolidityType {
+    public class SDynamicArray: SolidityType {
         public override var description: String { return "\(type)[]" }
         public override var memoryUsage: Int { return 0 }
         public override var isStatic: Bool { return type.isStatic }
@@ -133,7 +151,12 @@ public class SolidityType: Equatable, CustomStringConvertible {
         }
     }
     
-    /// Unsupported
+    /**
+     Unsupported. But you can still parse it using
+     ```
+     let type = SolidityType.scan("tuple(uint256,uint256")
+     ```
+     */
     public class SolidityTuple: SolidityType {
         public override var description: String { return "tuple(\(types.map { $0.description }.joined(separator: ",")))" }
         public override var isStatic: Bool { return types.allSatisfy { $0.isStatic } }
@@ -155,12 +178,12 @@ public class SolidityType: Equatable, CustomStringConvertible {
 // MARK:- String to SolidityType
 extension SolidityType {
     private static var knownTypes: [String: SolidityType] = [
-        "function": SolidityFunctionType(),
-        "address": SolidityAddress(),
-        "string": SolidityString(),
-        "bool": SolidityBool(),
-        "uint": SolidityUInt(bits: 256),
-        "int": SolidityInt(bits: 256)
+        "function": SFunction(),
+        "address": SAddress(),
+        "string": SString(),
+        "bool": SBool(),
+        "uint": SUInt(bits: 256),
+        "int": SInt(bits: 256)
     ]
     private static func scan(tuple string: String, from index: Int) throws -> SolidityType {
         guard string.last! == ")" else { throw Error.corrupted }
@@ -176,16 +199,16 @@ extension SolidityType {
         // type.isValid == true
         let string = string[index+1..<string.count-1]
         if string.isEmpty {
-            return SolidityDynamicArray(type: type)
+            return SDynamicArray(type: type)
         } else {
             guard let count = Int(string) else { throw Error.corrupted }
             guard count > 0 else { throw Error.corrupted }
-            return SolidityStaticArray(count: count, type: type)
+            return SStaticArray(count: count, type: type)
         }
     }
     private static func scan(bytesArray string: String, from index: Int) throws -> SolidityType {
         guard let count = Int(string[index...]) else { throw Error.corrupted }
-        let type = SolidityBytes(count: count)
+        let type = SBytes(count: count)
         guard type.isValid else { throw Error.corrupted }
         return type
     }
@@ -204,17 +227,17 @@ extension SolidityType {
             switch character {
             case "[":
                 guard let number = Int(string[index...index+index2]) else { throw Error.corrupted }
-                let type = isSigned ? SolidityInt(bits: number) : SolidityUInt(bits: number)
+                let type = isSigned ? SInt(bits: number) : SUInt(bits: number)
                 guard type.isValid else { throw Error.corrupted }
                 guard string.last! == "]" else { throw Error.corrupted }
                 // type.isValid == true
                 let string = string[index+index2+2..<string.count-1]
                 if string.isEmpty {
-                    return SolidityDynamicArray(type: type)
+                    return SDynamicArray(type: type)
                 } else {
                     guard let count = Int(string) else { throw Error.corrupted }
                     guard count > 0 else { throw Error.corrupted }
-                    let array = SolidityStaticArray(count: count, type: type)
+                    let array = SStaticArray(count: count, type: type)
                     guard array.isValid else { throw Error.corrupted }
                     return array
                 }
@@ -225,10 +248,21 @@ extension SolidityType {
             }
         }
         guard let number = Int(string[index...]) else { throw Error.corrupted }
-        let type = isSigned ? SolidityInt(bits: number) : SolidityUInt(bits: number)
+        let type = isSigned ? SInt(bits: number) : SUInt(bits: number)
         guard type.isValid else { throw Error.corrupted }
         return type
     }
+    /**
+     converts single solidity type to native type:
+     SolidityFunction uses this method to parse the whole function to name and input types
+     example:
+     ```
+     let type = try! SolidityType.parse("uint256")
+     print(type) // prints uint256
+     print(type is SolidityType.SUInt) // prints true
+     print((type as! SolidityType.SUInt).bits) // prints 256
+     ```
+     */
     public static func scan(type string: String) throws -> SolidityType {
         for (index,character) in string.enumerated() {
             switch character {
@@ -247,7 +281,7 @@ extension SolidityType {
             }
         }
         if string == "bytes" {
-            return SolidityDynamicBytes()
+            return SDynamicBytes()
         } else if let type = knownTypes[String(string)] {
             return type
         } else {
@@ -257,21 +291,47 @@ extension SolidityType {
 }
 
 
-/// Converts:
-///     "balanceOf(address)"
-///     "transfer(address,address,uint256)"
-///     "transfer(address, address, uint256)"
-///     "transfer(address, address, uint256)"
-///     "transfer (address, address, uint)"
-///     "  transfer  (  address  ,  address  ,  uint256  )  "
-/// To:
-///     function.name: String
-///     function.types: [SolidityType]
-///
-/// Mainthread-friendly
-/// Performance:
-///     transfer(uint256,address) // ~184k ops
-///     transfer(uint256,address,address,bytes32,uint256[32]) // performance ~100k ops
+/**
+ Solidity function to native type parser.
+ 
+ • Mainthread-friendly
+ 
+Converts:
+ ```
+ "balanceOf(address)"
+ "transfer(address,address,uint256)"
+ "transfer(address, address, uint256)"
+ "transfer(address, address, uint256)"
+ "transfer (address, address, uint)"
+ "  transfer  (  address  ,  address  ,  uint256  )  "
+ ```
+To:
+ ```
+ function.name: String
+ function.types: [SolidityType]
+ ```
+ 
+ 
+ Automatically converts uint to uint256.
+ So return the same hash for
+ ```
+ "transfer(address,address,uint256)"
+ ```
+ and
+ ```
+ "transfer(address,address,uint)"
+ ```
+
+ 
+Performance:
+ ```
+  // ~184k operations per second
+ var function = try! SolidityFunction("transfer(uint256,address)")
+ 
+ // ~100k operations per second
+ function = try! SolidityFunction("transfer(uint256,address,address,bytes32,uint256[32])")
+ ```
+ */
 
 public class SolidityFunction: CustomStringConvertible {
     public enum Error: Swift.Error {
@@ -284,13 +344,13 @@ public class SolidityFunction: CustomStringConvertible {
     public lazy var hash: Data = self.function.keccak256()[0..<4]
     public init(function: String) throws {
         let function = function.replacingOccurrences(of: " ", with: "")
-        self.function = function
         guard let index = function.index(of: "(") else { throw Error.corrupted }
         name = String(function[..<index])
         guard name.count > 0 else { throw Error.emptyFunctionName }
         guard function.hasSuffix(")") else { throw Error.corrupted }
         let arguments = function[function.index(after: index)..<function.index(before: function.endIndex)]
         self.types = try arguments.split(separator: ",").map { try SolidityType.scan(type: String($0)) }
+        self.function = "\(name)(\(types.map { $0.description }.joined(separator: ",")))"
     }
     public func encode(_ arguments: SolidityDataRepresentable...) -> Data {
         return encode(arguments)

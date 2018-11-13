@@ -10,7 +10,7 @@ import BigInt
 import PromiseKit
 import XCTest
 
-@testable import web3swift_iOS
+@testable import web3swift
 
 class PromisesTests: XCTestCase {
     var urlSession: URLSession?

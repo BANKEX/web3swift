@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import web3swift_iOS
+@testable import web3swift
 import BigInt
 
 class TxPoolTests: XCTestCase {

@@ -8,7 +8,7 @@
 
 import XCTest
 import BigInt
-@testable import web3swift_iOS
+@testable import web3swift
 
 class BetterERC20Tests: XCTestCase {
     let contract: Address = "0x45245bc59219eeaaf6cd3f382e078a461ff9de7b"

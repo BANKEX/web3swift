@@ -9,7 +9,7 @@
 import BigInt
 import XCTest
 
-@testable import web3swift_iOS
+@testable import web3swift
 
 class ERC20Tests: XCTestCase {
     func testERC20EncodeUsingABIv2() throws {

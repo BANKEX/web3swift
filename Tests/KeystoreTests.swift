@@ -9,7 +9,7 @@
 import CryptoSwift
 import XCTest
 
-@testable import web3swift_iOS
+@testable import web3swift
 
 class KeystoresTests: XCTestCase {
 
@@ -247,6 +247,7 @@ class KeystoresTests: XCTestCase {
         let validMnemonics = try Mnemonics("fruit wave dwarf banana earth journey tattoo true farm silk olive fence")
         validMnemonics.password = "banana"
         let keystore = try BIP32Keystore(mnemonics: validMnemonics, password: "", prefixPath: "m/44'/60'/0'/0")
+        let account = keystore.addresses[0]
         XCTAssertThrowsError(try keystore.UNSAFE_getPrivateKeyData(password: "some password", account: account))
         let key = try keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
         XCTAssertNoThrow(try Web3Utils.privateToPublic(key, compressed: true))

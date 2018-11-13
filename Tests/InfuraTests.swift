@@ -8,7 +8,7 @@
 
 import XCTest
 
-@testable import web3swift_iOS
+@testable import web3swift
 class InfuraTests: XCTestCase {
     func testGetBalance() throws {
         let web3 = Web3(infura: .mainnet)

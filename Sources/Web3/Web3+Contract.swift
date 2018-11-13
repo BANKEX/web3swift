@@ -76,7 +76,6 @@ public class Web3Contract {
     
     /// Creates an "EventParserProtocol" compliant object to use it for parsing particular block or transaction for events.
     public func createEventParser(_ eventName: String, filter: EventFilter?) -> EventParserProtocol? {
-        let parser = EventParser(web3: web3, eventName: eventName, contract: contract, filter: filter)
-        return parser
+        return EventParser(web3: web3, eventName: eventName, contract: contract, filter: filter)
     }
 }

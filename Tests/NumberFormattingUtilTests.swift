@@ -8,10 +8,9 @@
 
 import BigInt
 import CryptoSwift
-import secp256k1
 import XCTest
 
-@testable import web3swift_iOS
+@testable import web3swift
 
 class NumberFormattingUtilTests: XCTestCase {
     func testNumberFormattingUtil() {

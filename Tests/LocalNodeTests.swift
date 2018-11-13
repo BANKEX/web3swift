@@ -8,17 +8,17 @@
 
 import BigInt
 import CryptoSwift
-import secp256k1
 import XCTest
 
-@testable import web3swift_iOS
+@testable import web3swift
 
 class LocalNodeTests: XCTestCase {
-    let url = URL(string: "http://127.0.0.1:8545")!
     var web3: Web3?
     override func setUp() {
-        let url = URL(string: "http://127.0.0.1:8545")!
-        Web3.default = Web3(url: url)
+        web3 = try? .local(port: 8545)
+        if let web3 = web3 {
+            Web3.default = web3
+        }
     }
     func testDeployWithRemoteSigning() throws {
         guard let web3 = web3 else { return }

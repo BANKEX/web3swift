@@ -8,7 +8,7 @@
 
 import XCTest
 import BigInt
-@testable import web3swift_iOS
+@testable import web3swift
 
 private func scan(type: String) throws -> SolidityType {
     return try SolidityType.scan(type: type)
@@ -82,6 +82,7 @@ class SolidityFunctionTests: XCTestCase {
         let function1 = try SolidityFunction(function: "transfer(address,uint256)")
         let function2 = try SolidityFunction(function: "transfer(address,uint)")
         XCTAssertEqual(function1.hash, function2.hash)
+        XCTAssertEqual(function2.function, "transfer(address,uint256)")
     }
     
     func testEncodeAndDecode() throws {
