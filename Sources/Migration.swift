@@ -32,6 +32,7 @@ public typealias JSONRPCresponseBatch = JsonRpcResponseBatch
 public typealias EthereumAddress = Address
 
 public extension Web3 {
+    typealias EIP67Code = web3swift.EIP67Code
     @available (*, deprecated: 2.0, message: "Use Web3Units")
     typealias Units = Web3Units
     // @available (*, deprecated: 2.0, message: "Use Web3Utils")
@@ -130,22 +131,49 @@ public extension Web3Options {
 
 public struct BIP39 {
     @available(*, unavailable, message: "Use try Mnemonics(entropy:language:)")
-    static func generateMnemonicsFromEntropy(entropy: Data, language: BIP39Language = BIP39Language.english) -> String? {
+    public static func generateMnemonicsFromEntropy(entropy: Data, language: BIP39Language = BIP39Language.english) -> String? {
         fatalError()
     }
 
     @available(*, unavailable, message: "Use Mnemonics(entropySize:language:)")
-    static func generateMnemonics(bitsOfEntropy: Int, language: BIP39Language = BIP39Language.english) -> String? {
+    public static func generateMnemonics(bitsOfEntropy: Int, language: BIP39Language = BIP39Language.english) -> String? {
         fatalError()
     }
 
     @available(*,deprecated: 2.0,message: "Use Mnemonics().entropy")
-    static func mnemonicsToEntropy(_ mnemonics: String, language: BIP39Language = BIP39Language.english) -> Data? {
+    public static func mnemonicsToEntropy(_ mnemonics: String, language: BIP39Language = BIP39Language.english) -> Data? {
         fatalError()
     }
 
     @available(*,deprecated: 2.0,message: "Use Mnemonics().seed(password:)")
-    static func seedFromMmemonics(_ mnemonics: String, password: String = "", language: BIP39Language = BIP39Language.english) -> Data? {
+    public static func seedFromMmemonics(_ mnemonics: String, password: String = "", language: BIP39Language = BIP39Language.english) -> Data? {
         fatalError()
+    }
+}
+
+extension EIP67Code {
+    @available (*, deprecated: 2.0, message: "Use init with address")
+    public init(address: String) {
+        self.init(address: Address(address))
+    }
+}
+extension KeystoreManager {
+    @available (*, deprecated: 2.0, renamed: "default")
+    static var defaultManager: KeystoreManager? {
+        return KeystoreManager.default
+    }
+}
+
+extension Web3 {
+    @available (*, deprecated: 2.0, message: "Renamed Web3.web3contract to Web3Contract")
+    typealias web3contract = Web3Contract
+}
+
+extension BIP32Keystore {
+    @available (*, deprecated: 2.0, message: "Use init with Mnemonics")
+    public convenience init(mnemonics: String, password: String = "BANKEXFOUNDATION", mnemonicsPassword: String = "", language: BIP39Language = .english, prefixPath: String = HDNode.defaultPathMetamaskPrefix) throws {
+        let mnemonics = try Mnemonics(mnemonics, language: language)
+        mnemonics.password = mnemonicsPassword
+        try self.init(mnemonics: mnemonics, password: password, prefixPath: prefixPath)
     }
 }
