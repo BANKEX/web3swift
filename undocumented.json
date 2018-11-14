@@ -625,13 +625,6 @@
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": null,
-      "symbol": "SolidityType",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
       "line": 12,
       "symbol": "AbiError",
       "symbol_kind": "source.lang.swift.decl.enum",
@@ -639,806 +632,141 @@
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 31,
-      "symbol": "ArraySize",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 32,
-      "symbol": "ArraySize.static(_:)",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 33,
-      "symbol": "ArraySize.dynamic",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 34,
-      "symbol": "ArraySize.notArray",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 37,
-      "symbol": "SolidityType",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 38,
-      "symbol": "SolidityType.isStatic",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 39,
-      "symbol": "SolidityType.isArray",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 40,
-      "symbol": "SolidityType.isTuple",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 41,
-      "symbol": "SolidityType.arraySize",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 42,
-      "symbol": "SolidityType.subtype",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 43,
-      "symbol": "SolidityType.memoryUsage",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 44,
-      "symbol": "SolidityType.default",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 46,
-      "symbol": "SolidityType.isValid",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 47,
-      "symbol": "SolidityType.isSupported",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 51,
-      "symbol": "SolidityType.Error",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 52,
+      "line": 73,
       "symbol": "SolidityType.Error.corrupted",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 55,
-      "symbol": "SolidityType.SolidityUInt",
+      "line": 75,
+      "symbol": "SolidityType.SUInt",
       "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 61,
-      "symbol": "SolidityType.SolidityUInt.description",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 62,
-      "symbol": "SolidityType.SolidityUInt.isValid",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 69,
-      "symbol": "SolidityType.SolidityInt",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 70,
-      "symbol": "SolidityType.SolidityInt.description",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 72,
-      "symbol": "SolidityType.SolidityAddress",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 73,
-      "symbol": "SolidityType.SolidityAddress.description",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 78,
-      "symbol": "SolidityType.SolidityFunctionType.description",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 79,
-      "symbol": "SolidityType.SolidityFunctionType.isSupported",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 81,
-      "symbol": "SolidityType.SolidityBool",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 82,
-      "symbol": "SolidityType.SolidityBool.description",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 84,
-      "symbol": "SolidityType.SolidityBytes",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 85,
-      "symbol": "SolidityType.SolidityBytes.description",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
       "line": 86,
-      "symbol": "SolidityType.SolidityBytes.isValid",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 93,
-      "symbol": "SolidityType.SolidityStaticArray",
+      "symbol": "SolidityType.SInt",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 94,
-      "symbol": "SolidityType.SolidityStaticArray.description",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 95,
-      "symbol": "SolidityType.SolidityStaticArray.isStatic",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 96,
-      "symbol": "SolidityType.SolidityStaticArray.isArray",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 97,
-      "symbol": "SolidityType.SolidityStaticArray.subtype",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "line": 89,
+      "symbol": "SolidityType.SAddress",
+      "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
       "line": 98,
-      "symbol": "SolidityType.SolidityStaticArray.arraySize",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 99,
-      "symbol": "SolidityType.SolidityStaticArray.isValid",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 100,
-      "symbol": "SolidityType.SolidityStaticArray.memoryUsage",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 111,
-      "symbol": "SolidityType.SolidityDynamicBytes",
+      "symbol": "SolidityType.SBool",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 112,
-      "symbol": "SolidityType.SolidityDynamicBytes.description",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 113,
-      "symbol": "SolidityType.SolidityDynamicBytes.memoryUsage",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 114,
-      "symbol": "SolidityType.SolidityDynamicBytes.isStatic",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 116,
-      "symbol": "SolidityType.SolidityString",
+      "line": 101,
+      "symbol": "SolidityType.SBytes",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 117,
-      "symbol": "SolidityType.SolidityString.description",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "line": 110,
+      "symbol": "SolidityType.SDynamicBytes",
+      "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 118,
-      "symbol": "SolidityType.SolidityString.isStatic",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 119,
-      "symbol": "SolidityType.SolidityString.memoryUsage",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "line": 115,
+      "symbol": "SolidityType.SString",
+      "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
       "line": 121,
-      "symbol": "SolidityType.SolidityDynamicArray",
+      "symbol": "SolidityType.SStaticArray",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 122,
-      "symbol": "SolidityType.SolidityDynamicArray.description",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 123,
-      "symbol": "SolidityType.SolidityDynamicArray.memoryUsage",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 124,
-      "symbol": "SolidityType.SolidityDynamicArray.isStatic",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 125,
-      "symbol": "SolidityType.SolidityDynamicArray.isArray",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 126,
-      "symbol": "SolidityType.SolidityDynamicArray.subtype",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 127,
-      "symbol": "SolidityType.SolidityDynamicArray.arraySize",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 128,
-      "symbol": "SolidityType.SolidityDynamicArray.isValid",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 138,
-      "symbol": "SolidityType.SolidityTuple.description",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
       "line": 139,
-      "symbol": "SolidityType.SolidityTuple.isStatic",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "symbol": "SolidityType.SDynamicArray",
+      "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 140,
-      "symbol": "SolidityType.SolidityTuple.isTuple",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 141,
-      "symbol": "SolidityType.SolidityTuple.isSupported",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 142,
-      "symbol": "SolidityType.SolidityTuple.memoryUsage",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 146,
-      "symbol": "SolidityType.SolidityTuple.isValid",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 232,
-      "symbol": "SolidityType.scan(type:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 277,
+      "line": 337,
       "symbol": "SolidityFunction.Error",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 278,
+      "line": 338,
       "symbol": "SolidityFunction.Error.corrupted",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 279,
+      "line": 339,
       "symbol": "SolidityFunction.Error.emptyFunctionName",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 281,
+      "line": 341,
       "symbol": "SolidityFunction.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 282,
+      "line": 342,
       "symbol": "SolidityFunction.types",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 283,
+      "line": 343,
       "symbol": "SolidityFunction.function",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 284,
+      "line": 344,
       "symbol": "SolidityFunction.hash",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 285,
+      "line": 345,
       "symbol": "SolidityFunction.init(function:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 295,
+      "line": 355,
       "symbol": "SolidityFunction.encode(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ABIv2/SolidityTypes.swift",
-      "line": 298,
+      "line": 358,
       "symbol": "SolidityFunction.encode(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 14,
-      "symbol": "BlockExplorer.getTransactionHistory(address:tokenName:page:size:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 19,
-      "symbol": "BlockExplorer.getTransactionsHistory(address:tokenName:page:size:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 58,
-      "symbol": "Response",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 63,
-      "symbol": "TransactionHistoryRecord",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 64,
-      "symbol": "TransactionHistoryRecord.id",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 65,
-      "symbol": "TransactionHistoryRecord.hash",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 66,
-      "symbol": "TransactionHistoryRecord.block",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 67,
-      "symbol": "TransactionHistoryRecord.addressFrom",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 68,
-      "symbol": "TransactionHistoryRecord.addressTo",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 69,
-      "symbol": "TransactionHistoryRecord.isoTime",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 70,
-      "symbol": "TransactionHistoryRecord.type",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 71,
-      "symbol": "TransactionHistoryRecord.status",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 72,
-      "symbol": "TransactionHistoryRecord.error",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 73,
-      "symbol": "TransactionHistoryRecord.isContract",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 74,
-      "symbol": "TransactionHistoryRecord.isInner",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 75,
-      "symbol": "TransactionHistoryRecord.value",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 76,
-      "symbol": "TransactionHistoryRecord.token",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 77,
-      "symbol": "TransactionHistoryRecord.txFee",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 78,
-      "symbol": "TransactionHistoryRecord.gasUsed",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 79,
-      "symbol": "TransactionHistoryRecord.gasCost",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 167,
-      "symbol": "Token",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 168,
-      "symbol": "Token.address",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 169,
-      "symbol": "Token.name",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 170,
-      "symbol": "Token.symbol",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 171,
-      "symbol": "Token.decimal",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 202,
-      "symbol": "Head",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 214,
-      "symbol": "TransactionType",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 215,
-      "symbol": "TransactionType.call",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 215,
-      "symbol": "TransactionType.create",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 215,
-      "symbol": "TransactionType.suicide",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 215,
-      "symbol": "TransactionType.token",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 215,
-      "symbol": "TransactionType.tx",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 218,
-      "symbol": "TransactionStatus",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 219,
-      "symbol": "TransactionStatus.failed",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 219,
-      "symbol": "TransactionStatus.succeeded",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 222,
-      "symbol": "ListId",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 223,
-      "symbol": "ListId.listOfETH",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 224,
-      "symbol": "ListId.listOfTokens",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 229,
-      "symbol": "Body",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer+GetTransactionHistory.swift",
-      "line": 235,
-      "symbol": "InternalParam",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer.swift",
-      "line": null,
-      "symbol": "BlockExplorer",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer.swift",
-      "line": 11,
-      "symbol": "BlockExplorer",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer.swift",
-      "line": 12,
-      "symbol": "BlockExplorer.urlStringList",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/BlockExplorer/BlockExplorer.swift",
-      "line": 14,
-      "symbol": "BlockExplorer.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -2668,6 +1996,307 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 16,
+      "symbol": "BlockExplorer",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 17,
+      "symbol": "BlockExplorer.urlStringList",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 19,
+      "symbol": "BlockExplorer.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 23,
+      "symbol": "BlockExplorer.Response",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 27,
+      "symbol": "BlockExplorer.getTransactionHistory(address:tokenName:page:size:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 32,
+      "symbol": "BlockExplorer.getTransactionsHistory(address:tokenName:page:size:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 68,
+      "symbol": "BlockExplorer.Token",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 69,
+      "symbol": "BlockExplorer.Token.address",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 70,
+      "symbol": "BlockExplorer.Token.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 71,
+      "symbol": "BlockExplorer.Token.symbol",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 72,
+      "symbol": "BlockExplorer.Token.decimal",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 103,
+      "symbol": "BlockExplorer.Head",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 115,
+      "symbol": "BlockExplorer.TransactionType",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 116,
+      "symbol": "BlockExplorer.TransactionType.call",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 116,
+      "symbol": "BlockExplorer.TransactionType.create",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 116,
+      "symbol": "BlockExplorer.TransactionType.suicide",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 116,
+      "symbol": "BlockExplorer.TransactionType.token",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 116,
+      "symbol": "BlockExplorer.TransactionType.tx",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 119,
+      "symbol": "BlockExplorer.TransactionStatus",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 120,
+      "symbol": "BlockExplorer.TransactionStatus.failed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 120,
+      "symbol": "BlockExplorer.TransactionStatus.succeeded",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 123,
+      "symbol": "BlockExplorer.ListId",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 124,
+      "symbol": "BlockExplorer.ListId.listOfETH",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 125,
+      "symbol": "BlockExplorer.ListId.listOfTokens",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 130,
+      "symbol": "BlockExplorer.Body",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 136,
+      "symbol": "BlockExplorer.InternalParam",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 141,
+      "symbol": "BlockExplorer.TransactionHistoryRecord",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 142,
+      "symbol": "BlockExplorer.TransactionHistoryRecord.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 143,
+      "symbol": "BlockExplorer.TransactionHistoryRecord.hash",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 144,
+      "symbol": "BlockExplorer.TransactionHistoryRecord.block",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 145,
+      "symbol": "BlockExplorer.TransactionHistoryRecord.addressFrom",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 146,
+      "symbol": "BlockExplorer.TransactionHistoryRecord.addressTo",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 147,
+      "symbol": "BlockExplorer.TransactionHistoryRecord.isoTime",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 148,
+      "symbol": "BlockExplorer.TransactionHistoryRecord.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 149,
+      "symbol": "BlockExplorer.TransactionHistoryRecord.status",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 150,
+      "symbol": "BlockExplorer.TransactionHistoryRecord.error",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 151,
+      "symbol": "BlockExplorer.TransactionHistoryRecord.isContract",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 152,
+      "symbol": "BlockExplorer.TransactionHistoryRecord.isInner",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 153,
+      "symbol": "BlockExplorer.TransactionHistoryRecord.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 154,
+      "symbol": "BlockExplorer.TransactionHistoryRecord.token",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 155,
+      "symbol": "BlockExplorer.TransactionHistoryRecord.txFee",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 156,
+      "symbol": "BlockExplorer.TransactionHistoryRecord.gasUsed",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Deprecated/BlockExplorer.swift",
+      "line": 157,
+      "symbol": "BlockExplorer.TransactionHistoryRecord.gasCost",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/EthURL/EthURL.swift",
       "line": 12,
       "symbol": "EthURL",
@@ -3327,6 +2956,13 @@
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP32Keystore.swift",
+      "line": null,
+      "symbol": "BIP32Keystore",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP32Keystore.swift",
       "line": 12,
       "symbol": "BIP32Keystore",
       "symbol_kind": "source.lang.swift.decl.class",
@@ -3460,296 +3096,135 @@
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": null,
-      "symbol": "BIP39Language",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": null,
-      "symbol": "Mnemonics",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 12,
-      "symbol": "BIP39Language",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 13,
+      "line": 14,
       "symbol": "BIP39Language.english",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 14,
+      "line": 15,
       "symbol": "BIP39Language.chinese_simplified",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 15,
+      "line": 16,
       "symbol": "BIP39Language.chinese_traditional",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 16,
+      "line": 17,
       "symbol": "BIP39Language.japanese",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 17,
+      "line": 18,
       "symbol": "BIP39Language.korean",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 18,
+      "line": 19,
       "symbol": "BIP39Language.french",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 19,
+      "line": 20,
       "symbol": "BIP39Language.italian",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 20,
+      "line": 21,
       "symbol": "BIP39Language.spanish",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 52,
-      "symbol": "EntropySize",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 53,
+      "line": 55,
       "symbol": "EntropySize.b128",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 54,
+      "line": 56,
       "symbol": "EntropySize.b160",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 55,
+      "line": 57,
       "symbol": "EntropySize.b192",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 56,
+      "line": 58,
       "symbol": "EntropySize.b224",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 57,
+      "line": 59,
       "symbol": "EntropySize.b256",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 60,
-      "symbol": "Mnemonics",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 61,
-      "symbol": "Mnemonics.Error",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 62,
+      "line": 91,
       "symbol": "Mnemonics.Error.invalidEntropySize",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 64,
-      "symbol": "Mnemonics.EntropyError",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 65,
+      "line": 95,
       "symbol": "Mnemonics.EntropyError.notEnoughtWords",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 66,
+      "line": 96,
       "symbol": "Mnemonics.EntropyError.invalidNumberOfWords",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 67,
+      "line": 97,
       "symbol": "Mnemonics.EntropyError.wordNotFound(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 68,
+      "line": 98,
       "symbol": "Mnemonics.EntropyError.invalidOrderOfWords",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 69,
+      "line": 99,
       "symbol": "Mnemonics.EntropyError.checksumFailed(_:_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 71,
-      "symbol": "Mnemonics.string",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 72,
-      "symbol": "Mnemonics.language",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 73,
-      "symbol": "Mnemonics.entropy",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 80,
-      "symbol": "Mnemonics.seed(from:password:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 93,
-      "symbol": "Mnemonics.init(_:language:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 118,
-      "symbol": "Mnemonics.init(entropySize:language:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 135,
-      "symbol": "Mnemonics.init(entropy:language:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/BIP39.swift",
-      "line": 154,
-      "symbol": "Mnemonics.seed()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": null,
-      "symbol": "Address",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": null,
-      "symbol": "Address",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": null,
-      "symbol": "Address",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": null,
-      "symbol": "Address",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": null,
-      "symbol": "Address",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": null,
-      "symbol": "Address",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": null,
-      "symbol": "Address",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": null,
-      "symbol": "Address",
-      "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
@@ -3761,128 +3236,30 @@
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 12,
-      "symbol": "AddressError",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 13,
+      "line": 14,
       "symbol": "AddressError.invalidAddress(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 16,
-      "symbol": "Address",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 17,
+      "line": 52,
       "symbol": "Address.AddressType",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 18,
+      "line": 53,
       "symbol": "Address.AddressType.normal",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 19,
+      "line": 54,
       "symbol": "Address.AddressType.contractDeployment",
       "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 22,
-      "symbol": "Address.isValid",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 32,
-      "symbol": "Address.type",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 37,
-      "symbol": "Address.addressData",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 49,
-      "symbol": "Address.address",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 58,
-      "symbol": "Address.toChecksumAddress(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 78,
-      "symbol": "Address.init(_:type:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 90,
-      "symbol": "Address.init(_:type:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 94,
-      "symbol": "Address.check()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 98,
-      "symbol": "Address.contractDeployment",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 121,
-      "symbol": "String.isContractAddress",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 125,
-      "symbol": "String.isAddress",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/EthereumAddress.swift",
-      "line": 129,
-      "symbol": "String.contractAddress",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -4118,121 +3495,23 @@
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 12,
-      "symbol": "ICAP",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 13,
+      "line": 16,
       "symbol": "ICAP.asset",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 14,
+      "line": 17,
       "symbol": "ICAP.institution",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 15,
+      "line": 18,
       "symbol": "ICAP.client",
       "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 18,
-      "symbol": "IBAN",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 19,
-      "symbol": "IBAN.iban",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 21,
-      "symbol": "IBAN.isDirect",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 25,
-      "symbol": "IBAN.isIndirect",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 29,
-      "symbol": "IBAN.checksum",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 33,
-      "symbol": "IBAN.asset",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 41,
-      "symbol": "IBAN.institution",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 49,
-      "symbol": "IBAN.client",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 57,
-      "symbol": "IBAN.toAddress()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 103,
-      "symbol": "IBAN.isValidIBANaddress(_:noValidityCheck:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 118,
-      "symbol": "IBAN.init(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 123,
-      "symbol": "IBAN.check(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/KeystoreManager/IBAN.swift",
-      "line": 126,
-      "symbol": "IBAN.init(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -4468,65 +3747,142 @@
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
+      "line": 35,
+      "symbol": "Web3.EIP67Code",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
       "line": 36,
-      "symbol": "Web3.Units",
+      "symbol": "Web3.EIP67CodeGenerator",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
+      "line": 37,
+      "symbol": "Web3.EIP67CodeParser",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
       "line": 39,
+      "symbol": "Web3.Units",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
+      "line": 42,
       "symbol": "Web3.Utils",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
-      "line": 41,
+      "line": 44,
       "symbol": "Web3.Eth",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
-      "line": 43,
+      "line": 46,
       "symbol": "Web3.Personal",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
-      "line": 45,
+      "line": 48,
       "symbol": "Web3.BrowserFunctions",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
-      "line": 46,
+      "line": 49,
       "symbol": "Web3.Web3Wallet",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
-      "line": 49,
+      "line": 52,
       "symbol": "Web3.new(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
-      "line": 127,
+      "line": 99,
+      "symbol": "Web3Utils.formatToEthereumUnits(_:toUnits:decimals:decimalSeparator:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
+      "line": 103,
+      "symbol": "Web3Utils.formatToPrecision(_:numberDecimals:formattingDecimals:decimalSeparator:fallbackToScientific:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
+      "line": 111,
+      "symbol": "Web3Utils.formatToEthereumUnits(_:toUnits:decimals:decimalSeparator:fallbackToScientific:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
+      "line": 119,
+      "symbol": "Web3Utils.formatToPrecision(_:numberDecimals:formattingDecimals:decimalSeparator:fallbackToScientific:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
+      "line": 130,
       "symbol": "Web3Options.defaultOptions()",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
-      "line": 131,
+      "line": 134,
       "symbol": "BIP39",
       "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
+      "line": 146,
+      "symbol": "BIP39.mnemonicsToEntropy(_:language:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
+      "line": 151,
+      "symbol": "BIP39.seedFromMmemonics(_:password:language:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
+      "line": 158,
+      "symbol": "EIP67Code.init(address:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Migration.swift",
+      "line": 176,
+      "symbol": "BIP32Keystore.init(mnemonics:password:mnemonicsPassword:language:prefixPath:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -9907,141 +9263,148 @@
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
-      "line": 15,
-      "symbol": "Web3.EIP67Code",
+      "line": null,
+      "symbol": "EIP67Code",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
+      "line": 14,
+      "symbol": "EIP67Code",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
+      "line": 15,
+      "symbol": "EIP67Code.address",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
       "line": 16,
-      "symbol": "Web3.EIP67Code.address",
+      "symbol": "EIP67Code.gasLimit",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
       "line": 17,
-      "symbol": "Web3.EIP67Code.gasLimit",
+      "symbol": "EIP67Code.amount",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
       "line": 18,
-      "symbol": "Web3.EIP67Code.amount",
+      "symbol": "EIP67Code.data",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
-      "line": 19,
-      "symbol": "Web3.EIP67Code.data",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
-      "line": 21,
-      "symbol": "Web3.EIP67Code.DataType",
+      "line": 20,
+      "symbol": "EIP67Code.DataType",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
-      "line": 22,
-      "symbol": "Web3.EIP67Code.DataType.data(_:)",
+      "line": 21,
+      "symbol": "EIP67Code.DataType.data(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
-      "line": 23,
-      "symbol": "Web3.EIP67Code.DataType.function(_:)",
+      "line": 22,
+      "symbol": "EIP67Code.DataType.function(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
+      "line": 25,
+      "symbol": "EIP67Code.Function",
+      "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
       "line": 26,
-      "symbol": "Web3.EIP67Code.Function",
-      "symbol_kind": "source.lang.swift.decl.struct",
+      "symbol": "EIP67Code.Function.method",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
       "line": 27,
-      "symbol": "Web3.EIP67Code.Function.method",
+      "symbol": "EIP67Code.Function.parameters",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
-      "line": 28,
-      "symbol": "Web3.EIP67Code.Function.parameters",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
-      "line": 30,
-      "symbol": "Web3.EIP67Code.Function.toString()",
+      "line": 29,
+      "symbol": "EIP67Code.Function.toString()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
-      "line": 47,
-      "symbol": "Web3.EIP67Code.init(address:)",
+      "line": 46,
+      "symbol": "EIP67Code.init(address:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
-      "line": 51,
-      "symbol": "Web3.EIP67Code.toString()",
+      "line": 50,
+      "symbol": "EIP67Code.toString()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
-      "line": 78,
-      "symbol": "Web3.EIP67Code.toImage(scale:)",
+      "line": 77,
+      "symbol": "EIP67Code.toImage(scale:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
+      "line": 82,
+      "symbol": "EIP67CodeGenerator",
+      "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
       "line": 83,
-      "symbol": "Web3.EIP67CodeGenerator",
-      "symbol_kind": "source.lang.swift.decl.struct",
+      "symbol": "EIP67CodeGenerator.createImage(from:scale:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
-      "line": 84,
-      "symbol": "Web3.EIP67CodeGenerator.createImage(from:scale:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "line": 94,
+      "symbol": "EIP67CodeParser",
+      "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
       "line": 95,
-      "symbol": "Web3.EIP67CodeParser",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
-      "line": 96,
-      "symbol": "Web3.EIP67CodeParser.parse(_:)",
+      "symbol": "EIP67CodeParser.parse(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Utils/EIP67Code.swift",
-      "line": 101,
-      "symbol": "Web3.EIP67CodeParser.parse(_:)",
+      "line": 100,
+      "symbol": "EIP67CodeParser.parse(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
@@ -10250,78 +9613,29 @@
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+EventParser.swift",
-      "line": 17,
+      "line": 16,
       "symbol": "Web3Contract.EventParser.contract",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+EventParser.swift",
-      "line": 18,
+      "line": 17,
       "symbol": "Web3Contract.EventParser.eventName",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+EventParser.swift",
-      "line": 19,
+      "line": 18,
       "symbol": "Web3Contract.EventParser.filter",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+EventParser.swift",
-      "line": 21,
+      "line": 20,
       "symbol": "Web3Contract.EventParser.init(web3:eventName:contract:filter:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+EventParser.swift",
-      "line": 96,
-      "symbol": "Web3Contract.EventParser.parseTransactionPromise(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+EventParser.swift",
-      "line": 111,
-      "symbol": "Web3Contract.EventParser.parseTransactionByHashPromise(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+EventParser.swift",
-      "line": 121,
-      "symbol": "Web3Contract.EventParser.parseBlockByNumberPromise(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+EventParser.swift",
-      "line": 139,
-      "symbol": "Web3Contract.EventParser.parseBlockPromise(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+EventParser.swift",
-      "line": 234,
-      "symbol": "Web3Contract.getIndexedEventsPromise(eventName:filter:joinWithReceipts:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+HttpProvider.swift",
-      "line": 151,
-      "symbol": "Web3HttpProvider.sendAsync(_:queue:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+HttpProvider.swift",
-      "line": 155,
-      "symbol": "Web3HttpProvider.sendAsync(_:queue:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -10362,7 +9676,14 @@
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
-      "line": 20,
+      "line": 21,
+      "symbol": "Web3.keystoreManager",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Instance.swift",
+      "line": 26,
       "symbol": "Web3.txpool",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -10796,20 +10117,6 @@
     },
     {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Protocols.swift",
-      "line": 37,
-      "symbol": "NetworkId.rawValue",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Protocols.swift",
-      "line": 38,
-      "symbol": "NetworkId.init(rawValue:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Protocols.swift",
       "line": 42,
       "symbol": "NetworkId.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
@@ -10862,69 +10169,6 @@
       "line": 62,
       "symbol": "NetworkId.kovan",
       "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Protocols.swift",
-      "line": 75,
-      "symbol": "NetworkId.Magnitude",
-      "symbol_kind": "source.lang.swift.decl.typealias",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Protocols.swift",
-      "line": 76,
-      "symbol": "NetworkId.magnitude",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Protocols.swift",
-      "line": 80,
-      "symbol": "NetworkId.init(exactly:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Protocols.swift",
-      "line": 84,
-      "symbol": "NetworkId.*(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Protocols.swift",
-      "line": 88,
-      "symbol": "NetworkId.*=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Protocols.swift",
-      "line": 92,
-      "symbol": "NetworkId.+(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Protocols.swift",
-      "line": 96,
-      "symbol": "NetworkId.+=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Protocols.swift",
-      "line": 100,
-      "symbol": "NetworkId.-(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/Web3/Web3+Protocols.swift",
-      "line": 104,
-      "symbol": "NetworkId.-=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
