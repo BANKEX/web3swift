@@ -276,7 +276,6 @@
 				1317BE24218C8A9E00D6D095 /* Package.swift */,
 				1317BE25218C8A9F00D6D095 /* README.md */,
 				1317BE27218C8A9F00D6D095 /* web3swift.podspec */,
-				133E6737219ED2580054758F /* Documentation */,
 				1317BCFD218C526300D6D095 /* Sources */,
 				1317BDD2218C526C00D6D095 /* Tests */,
 				1317BCE4218C50D100D6D095 /* Products */,
@@ -531,13 +530,6 @@
 				1317BD49218C526300D6D095 /* BlockExplorer.swift */,
 			);
 			path = Deprecated;
-			sourceTree = "<group>";
-		};
-		133E6737219ED2580054758F /* Documentation */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Documentation;
 			sourceTree = "<group>";
 		};
 		133E6739219EFE510054758F /* Guides */ = {

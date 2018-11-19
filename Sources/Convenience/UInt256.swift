@@ -11,8 +11,6 @@ import Foundation
 
 
 extension BigUInt {
-    
-    
     public init?(_ string: String, units: Web3Units) {
         self.init(string, decimals: units.decimals)
     }
