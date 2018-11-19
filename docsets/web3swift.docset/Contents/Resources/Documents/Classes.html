@@ -51,6 +51,35 @@
       <nav class="navigation">
         <ul class="nav-groups">
           <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Guides.html">Guides</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="accounts.html">Accounts</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="erc20.html">ERC20</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="ganache.html">Ganache</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="geth.html">Geth</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="read-documentation-using-xcode.html">Read Documentation Using Xcode</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="remix.html">Remix</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="security.html">Security</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="transactions.html">Transactions</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a class="nav-group-name-link" href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -127,6 +156,21 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/EthereumKeystoreV3.html">EthereumKeystoreV3</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Guide.html">Guide</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Guide.html#/s:9web3swift5GuideC5UsageV">– Usage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Guide.html#/s:9web3swift5GuideC06Using_A13_with_GanacheV">– Using_web3swift_with_Ganache</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Guide.html#/s:9web3swift5GuideC06Using_A10_with_GethV">– Using_web3swift_with_Geth</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Guide.html#/s:9web3swift5GuideC25Create_and_import_accountV">– Create_and_import_account</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/HDNode.html">HDNode</a>
@@ -593,12 +637,6 @@
                 <a class="nav-group-task-link" href="Protocols/SolidityDataRepresentable.html">SolidityDataRepresentable</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/SwiftBridgeable.html">SwiftBridgeable</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/SwiftContainer.html">SwiftContainer</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/W3AbstractKeystore.html">W3AbstractKeystore</a>
               </li>
               <li class="nav-group-task">
@@ -916,7 +954,7 @@ Used to generate solidity function input from swift types</p>
 </code></pre>
 
 <p>Automatically converts uint to uint256.
- So return the same hash for</p>
+ So it will return the same hash for</p>
 <pre class="highlight swift"><code> <span class="s">"transfer(address,address,uint256)"</span>
 </code></pre>
 
@@ -1234,6 +1272,38 @@ event Burnt(address indexed _burner, uint256 _value);
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9web3swift5GuideC"></a>
+                    <a name="//apple_ref/swift/Class/Guide" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9web3swift5GuideC">Guide</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='web3swift-guides' class='heading'>web3swift guides</h1>
+
+                        <a href="Classes/Guide.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Guide</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9web3swift20Web3BrowserFunctionsC"></a>
                     <a name="//apple_ref/swift/Class/Web3BrowserFunctions" class="dashAnchor"></a>
                     <a class="token" href="#/s:9web3swift20Web3BrowserFunctionsC">Web3BrowserFunctions</a>
@@ -1393,7 +1463,7 @@ event Burnt(address indexed _burner, uint256 _value);
 <span class="k">let</span> <span class="nv">publicKey</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">Web3Utils</span><span class="o">.</span><span class="nf">privateToPublic</span><span class="p">(</span><span class="n">privateKey</span><span class="p">,</span> <span class="nv">compressed</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
 </code></pre>
 
-<p>In the most cases you don&rsquo;t need to manager your public and private keys. web3swift doing this for you.</p>
+<p>In the most cases you don&rsquo;t need to manage your public and private keys. web3swift doing this for you.</p>
 
                         <a href="Classes/Mnemonics.html" class="slightly-smaller">See more</a>
                       </div>
@@ -1626,7 +1696,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3ContractEventFilter</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3ContractEventFilter</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -1684,7 +1754,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3Contract</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">W3OptionsInheritable</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3Contract</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">W3OptionsInheritable</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -1717,7 +1787,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3ERC20</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftBridgeable.html">SwiftBridgeable</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3ERC20</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftBridgeable</span></code></pre>
 
                         </div>
                       </div>
@@ -1928,7 +1998,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3JsonRpcMethod</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftBridgeable.html">SwiftBridgeable</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3JsonRpcMethod</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">SwiftBridgeable</span></code></pre>
 
                         </div>
                       </div>
@@ -1986,7 +2056,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3JsonRpcRequest</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3JsonRpcRequest</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2015,7 +2085,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3ErrorMessage</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3ErrorMessage</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2044,7 +2114,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3JsonRpcResponse</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3JsonRpcResponse</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2073,7 +2143,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3JsonRpcResponseBatch</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3JsonRpcResponseBatch</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2102,7 +2172,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3JsonRpcParams</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3JsonRpcParams</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2131,7 +2201,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3JsonRpcRequestDispatcher</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3JsonRpcRequestDispatcher</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2196,7 +2266,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3Mnemonics</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3Mnemonics</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2225,7 +2295,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3HDVersion</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3HDVersion</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2254,7 +2324,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3HDNode</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3HDNode</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2283,7 +2353,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3BIP32Keystore</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/W3AbstractKeystore.html">W3AbstractKeystore</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3BIP32Keystore</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/W3AbstractKeystore.html">W3AbstractKeystore</a></span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2312,7 +2382,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3PlainKeystore</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/W3AbstractKeystore.html">W3AbstractKeystore</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3PlainKeystore</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/W3AbstractKeystore.html">W3AbstractKeystore</a></span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2341,7 +2411,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3EthereumKeystoreV3</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/W3AbstractKeystore.html">W3AbstractKeystore</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3EthereumKeystoreV3</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/W3AbstractKeystore.html">W3AbstractKeystore</a></span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2370,7 +2440,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3KeystoreManager</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/W3AbstractKeystore.html">W3AbstractKeystore</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3KeystoreManager</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/W3AbstractKeystore.html">W3AbstractKeystore</a></span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2468,7 +2538,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3Web3HttpProvider</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3Web3HttpProvider</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2530,7 +2600,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3Address</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3Address</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2559,7 +2629,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3Options</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3Options</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2588,7 +2658,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3NetworkId</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftBridgeable.html">SwiftBridgeable</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3NetworkId</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftBridgeable</span></code></pre>
 
                         </div>
                       </div>
@@ -2617,7 +2687,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TransactionSendingResult</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftBridgeable.html">SwiftBridgeable</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TransactionSendingResult</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftBridgeable</span></code></pre>
 
                         </div>
                       </div>
@@ -2646,7 +2716,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TransactionParameters</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TransactionParameters</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2675,7 +2745,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TransactionDetails</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TransactionDetails</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2704,7 +2774,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TransactionReceipt</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TransactionReceipt</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2733,7 +2803,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3EventLog</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3EventLog</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2762,7 +2832,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TransactionInBlock</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TransactionInBlock</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2791,7 +2861,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3Block</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3Block</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2820,7 +2890,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3EventParserResult</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3EventParserResult</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2849,7 +2919,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3EthereumBloomFilter</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3EthereumBloomFilter</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -2882,7 +2952,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3EthereumTransaction</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3EthereumTransaction</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -3003,7 +3073,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3DataResponse</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3DataResponse</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -3032,7 +3102,7 @@ event Burnt(address indexed _burner, uint256 _value);
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3Response</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3Response</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -3063,7 +3133,7 @@ to the blockchain.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TransactionIntermediate</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">W3OptionsInheritable</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TransactionIntermediate</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">W3OptionsInheritable</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -3125,7 +3195,7 @@ to the blockchain.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TxPoolStatus</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TxPoolStatus</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -3154,7 +3224,7 @@ to the blockchain.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TxPoolInspect</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TxPoolInspect</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -3183,7 +3253,7 @@ to the blockchain.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3InspectedTransaction</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3InspectedTransaction</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -3212,7 +3282,7 @@ to the blockchain.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TxPoolContent</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TxPoolContent</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -3241,7 +3311,7 @@ to the blockchain.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TxPoolTransaction</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3TxPoolTransaction</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -3274,7 +3344,7 @@ to the blockchain.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3UInt</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftBridgeable.html">SwiftBridgeable</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3UInt</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SwiftBridgeable</span></code></pre>
 
                         </div>
                       </div>
@@ -3427,7 +3497,7 @@ to the blockchain.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3Web3</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">W3OptionsInheritable</span><span class="p">,</span> <span class="kt"><a href="Protocols/SwiftContainer.html">SwiftContainer</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">W3Web3</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">W3OptionsInheritable</span><span class="p">,</span> <span class="kt">SwiftContainer</span></code></pre>
 
                         </div>
                       </div>
@@ -3640,7 +3710,7 @@ web3swift uses Infura mainnet as default provider</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="https://github.com/bankex/web3swift" target="_blank" rel="external">Bankex Foundation</a>. All rights reserved. (Last updated: 2018-11-14)</p>
+      <p>&copy; 2018 <a class="link" href="https://github.com/bankex/web3swift" target="_blank" rel="external">Bankex Foundation</a>. All rights reserved. (Last updated: 2018-11-19)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

@@ -50,6 +50,35 @@
       <nav class="navigation">
         <ul class="nav-groups">
           <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Guides.html">Guides</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="accounts.html">Accounts</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="erc20.html">ERC20</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="ganache.html">Ganache</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="geth.html">Geth</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="read-documentation-using-xcode.html">Read Documentation Using Xcode</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="remix.html">Remix</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="security.html">Security</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="transactions.html">Transactions</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a class="nav-group-name-link" href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -126,6 +155,21 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/EthereumKeystoreV3.html">EthereumKeystoreV3</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Guide.html">Guide</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Guide.html#/s:9web3swift5GuideC5UsageV">– Usage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Guide.html#/s:9web3swift5GuideC06Using_A13_with_GanacheV">– Using_web3swift_with_Ganache</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Guide.html#/s:9web3swift5GuideC06Using_A10_with_GethV">– Using_web3swift_with_Geth</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Guide.html#/s:9web3swift5GuideC25Create_and_import_accountV">– Create_and_import_account</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/HDNode.html">HDNode</a>
@@ -592,12 +636,6 @@
                 <a class="nav-group-task-link" href="Protocols/SolidityDataRepresentable.html">SolidityDataRepresentable</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/SwiftBridgeable.html">SwiftBridgeable</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/SwiftContainer.html">SwiftContainer</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/W3AbstractKeystore.html">W3AbstractKeystore</a>
               </li>
               <li class="nav-group-task">
@@ -899,6 +937,16 @@ Add this to the dependency section of your <code>Package.swift</code> manifest:<
 <pre class="highlight plaintext"><code>github "BANKEX/web3swift" ~&gt; 2.0
 </code></pre></li>
 </ul>
+<h2 id='documentation' class='heading'>Documentation</h2>
+
+<blockquote>
+<p>Hi. We spend a lot of time working on documentation. If you have some questions after reading it just <a href="https://github.com/bankex/web3swift/issues">open an issue</a> or ask in our <a href="https://discord.gg/3ETv2ST">discord channel</a>. We would be happy to answer you.</p>
+</blockquote>
+
+<p>Most of the classes are documented and have some examples on how to use it. </p>
+<h3 id='a-href-documentation-read-20documentation-20using-20xcode-md-read-documentation-in-using-xcode-a' class='heading'><a href="Documentation/Read%20Documentation%20Using%20Xcode.md">Read documentation in using Xcode</a></h3>
+<h3 id='a-href-https-bankex-github-io-web3swift-github-pages-a' class='heading'><a href="https://bankex.github.io/web3swift">Github Pages</a></h3>
+<h4 id='we-would-appreciate-it-if-you-translate-our-documentation-into-another-language-and-will-be-happy-to-provide-you-with-all-the-necessary-information-on-how-to-do-this-we-will-compensate-you-for-translations-that-will-be-included-in-the-master-branch' class='heading'>We would appreciate it if you translate our documentation into another language, and will be happy to provide you with all the necessary information on how to do this. We will compensate you for translations that will be included in the master branch.</h4>
 <h2 id='check-this-out' class='heading'>Check this out</h2>
 
 <ul>
@@ -946,8 +994,8 @@ On Rinkeby TXid = 0xc6eca60ecac004a1501a4323a10edb7fa4cd1a0896675f6b51704c84deda
 <li>Clone the repo</li>
 <li><code>cd Example/web3swiftExample</code></li>
 <li>run <code>pod install</code> from the <code>Example/web3swiftExample</code> directory.</li>
+<li><code>open ./web3swiftExample.xcworkspace</code></li>
 </ul>
-<h2 id='code-open-web3swiftexample-xcworkspace-code' class='heading'>-  <code>open ./web3swiftExample.xcworkspace</code></h2>
 <h2 id='communication' class='heading'>Communication</h2>
 
 <ul>
@@ -971,57 +1019,6 @@ On Rinkeby TXid = 0xc6eca60ecac004a1501a4323a10edb7fa4cd1a0896675f6b51704c84deda
 <li>[x] Manage user&rsquo;s private keys through encrypted keystore abstractions</li>
 <li>[x] Batched requests in concurrent mode, checks balances of 580 tokens (from the latest MyEtherWallet repo) over 3 seconds</li>
 </ul>
-<h2 id='usage' class='heading'>Usage</h2>
-
-<p>Here&rsquo;s a few use cases of our library</p>
-<h3 id='initializing-ethereum-address' class='heading'>Initializing Ethereum address</h3>
-<pre class="highlight shell"><code><span class="nb">let </span>coldWalletAddress: Address <span class="o">=</span> <span class="s2">"0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"</span>
-<span class="nb">let </span>constractAddress: Address <span class="o">=</span> <span class="s2">"0x45245bc59219eeaaf6cd3f382e078a461ff9de7b"</span>
-</code></pre>
-
-<p>Ethereum addresses are checksum checked if they are not lowercased and always length checked</p>
-<h3 id='setting-options' class='heading'>Setting options</h3>
-<pre class="highlight shell"><code>var options <span class="o">=</span> Web3Options.default
-// public var to: Address? <span class="o">=</span> nil - to what address transaction is aimed
-// public var from: Address? <span class="o">=</span> nil - form what address it should be sent <span class="o">(</span>either signed locally or on the node<span class="o">)</span>
-// public var gasLimit: BigUInt? <span class="o">=</span> BigUInt<span class="o">(</span>90000<span class="o">)</span> - default gas limit
-// public var gasPrice: BigUInt? <span class="o">=</span> BigUInt<span class="o">(</span>5000000000<span class="o">)</span> - default gas price, quite small
-// public var value: BigUInt? <span class="o">=</span> BigUInt<span class="o">(</span>0<span class="o">)</span> - amount of WEI sent along the transaction
-options.gasPrice <span class="o">=</span> gasPrice
-options.gasLimit <span class="o">=</span> gasLimit
-options.from <span class="o">=</span> <span class="s2">"0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d"</span>
-</code></pre>
-<h3 id='getting-eth-balance' class='heading'>Getting ETH balance</h3>
-<pre class="highlight shell"><code><span class="nb">let </span>address: Address <span class="o">=</span> <span class="s2">"0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d"</span>
-<span class="nb">let </span>web3Main <span class="o">=</span> Web3<span class="o">(</span>infura: .mainnet<span class="o">)</span>
-<span class="nb">let </span>balance: BigUInt <span class="o">=</span> try web3Main.eth.getBalance<span class="o">(</span>address<span class="o">)</span>
-</code></pre>
-<h3 id='getting-gas-price' class='heading'>Getting gas price</h3>
-<pre class="highlight shell"><code><span class="nb">let </span>web3Main <span class="o">=</span> Web3<span class="o">(</span>infura: .mainnet<span class="o">)</span>
-<span class="nb">let </span>gasPrice: BigUInt <span class="o">=</span> try web3Main.eth.getGasPrice<span class="o">()</span>
-</code></pre>
-<h3 id='getting-erc20-token-balance' class='heading'>Getting ERC20 token balance</h3>
-<pre class="highlight shell"><code><span class="nb">let </span>contractAddress: Address <span class="o">=</span> <span class="s2">"0x45245bc59219eeaaf6cd3f382e078a461ff9de7b"</span> // BKX token on Ethereum mainnet
-<span class="nb">let </span>balance <span class="o">=</span> try ERC20<span class="o">(</span>contractAddress<span class="o">)</span>.balance<span class="o">(</span>of: <span class="s2">"0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"</span><span class="o">)</span>
-print<span class="o">(</span><span class="s2">"BKX token balance = "</span> + String<span class="o">(</span>bal<span class="o">))</span>
-</code></pre>
-<h3 id='sending-eth' class='heading'>Sending ETH</h3>
-<pre class="highlight shell"><code><span class="nb">let </span>mnemonics <span class="o">=</span> Mnemonics<span class="o">()</span>
-<span class="nb">let </span>keystore <span class="o">=</span> try BIP32Keystore<span class="o">(</span>mnemonics: mnemonics<span class="o">)</span>
-<span class="nb">let </span>keystoreManager <span class="o">=</span> KeystoreManager<span class="o">([</span>keystore]<span class="o">)</span>
-<span class="nb">let </span>web3Rinkeby <span class="o">=</span> Web3<span class="o">(</span>infura: .rinkeby<span class="o">)</span>
-web3Rinkeby.addKeystoreManager<span class="o">(</span>keystoreManager<span class="o">)</span> // attach a keystore <span class="k">if </span>you want to sign locally. Otherwise unsigned request will be sent to remote node
-var options <span class="o">=</span> Web3Options.default
-options.from <span class="o">=</span> keystore.addresses.first! // specify from what address you want to send it
-<span class="nb">let </span>intermediateSend <span class="o">=</span> try web3Rinkeby.contract<span class="o">(</span>Web3Utils.coldWalletABI, at: coldWalletAddress<span class="o">)</span>.method<span class="o">(</span>options: options<span class="o">)</span> // an address with a private key attached <span class="k">in </span>not different from any other address, just has very simple ABI
-<span class="nb">let </span>sendResultBip32 <span class="o">=</span> try intermediateSend.send<span class="o">(</span>password: <span class="s2">"BANKEXFOUNDATION"</span><span class="o">)</span>
-</code></pre>
-<h3 id='sending-erc20' class='heading'>Sending ERC20</h3>
-<pre class="highlight shell"><code><span class="nb">let </span>web3 <span class="o">=</span> Web3<span class="o">(</span>infura: .rinkeby<span class="o">)</span>
-<span class="nb">let </span>erc20 <span class="o">=</span> ERC20<span class="o">(</span><span class="s2">"0xa407dd0cbc9f9d20cdbd557686625e586c85b20a"</span>, from: yourAddress<span class="o">)</span>
-<span class="nb">let </span>result <span class="o">=</span> try erc20.transfer<span class="o">(</span>to: <span class="s2">"0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"</span>, amount: NaturalUnits<span class="o">(</span><span class="s2">"0.0001"</span><span class="o">))</span>
-<span class="o">}</span>
-</code></pre>
 <h2 id='global-plans' class='heading'>Global plans</h2>
 
 <ul>
@@ -1067,7 +1064,7 @@ options.from <span class="o">=</span> keystore.addresses.first! // specify from 
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="https://github.com/bankex/web3swift" target="_blank" rel="external">Bankex Foundation</a>. All rights reserved. (Last updated: 2018-11-14)</p>
+      <p>&copy; 2018 <a class="link" href="https://github.com/bankex/web3swift" target="_blank" rel="external">Bankex Foundation</a>. All rights reserved. (Last updated: 2018-11-19)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
