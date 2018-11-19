@@ -29,9 +29,9 @@ extension Web3HttpProvider {
 		set { swift.network = newValue?.swift }
 	}
 	
-	@objc public var attachedKeystoreManager: W3KeystoreManager? {
-		get { return swift.attachedKeystoreManager?.objc }
-		set { swift.attachedKeystoreManager = newValue?.swift }
+	@objc public var attachedKeystoreManager: W3KeystoreManager {
+		get { return swift.attachedKeystoreManager.objc }
+        set { swift.attachedKeystoreManager = newValue.swift }
 	}
 	
 	@objc public var session: URLSession {
@@ -39,16 +39,16 @@ extension Web3HttpProvider {
 		set { swift.session = newValue }
 	}
 	
-	@objc public init?(_ httpProviderURL: URL, network net: W3NetworkId? = nil, keystoreManager manager: W3KeystoreManager? = nil) {
-		guard let swift = Web3HttpProvider(httpProviderURL, network: net?.swift, keystoreManager: manager?.swift) else { return nil }
+	@objc public init?(_ httpProviderURL: URL, network net: W3NetworkId? = nil, keystoreManager manager: W3KeystoreManager = W3KeystoreManager()) {
+		guard let swift = Web3HttpProvider(httpProviderURL, network: net?.swift, keystoreManager: manager.swift) else { return nil }
 		self.swift = swift
 	}
 }
 
 
 @objc public class W3InfuraProvider: W3Web3HttpProvider {
-	@objc public init?(_ net: W3NetworkId, accessToken token: String? = nil, keystoreManager manager: W3KeystoreManager? = nil) {
-		guard let swift = InfuraProvider(net.swift, accessToken: token, keystoreManager: manager?.swift) else { return nil }
+	@objc public init?(_ net: W3NetworkId, accessToken token: String? = nil, keystoreManager manager: W3KeystoreManager = W3KeystoreManager()) {
+		guard let swift = InfuraProvider(net.swift, accessToken: token, keystoreManager: manager.swift) else { return nil }
 		super.init(swift)
 	}
     

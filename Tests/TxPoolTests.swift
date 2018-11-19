@@ -14,7 +14,7 @@ class TxPoolTests: XCTestCase {
     var localNodeFound = false
     override func setUp() {
         let url = URL(string: "http://127.0.0.1:8545")!
-        if let provider = Web3HttpProvider(url, network: nil, keystoreManager: nil) {
+        if let provider = Web3HttpProvider(url, network: nil) {
             localNodeFound = true
             Web3.default = Web3(provider: provider)
         } else {
@@ -22,6 +22,7 @@ class TxPoolTests: XCTestCase {
         }
     }
     func testTxPoolStatus() throws {
+        
         guard localNodeFound else { return }
         try XCTAssertNoThrow(TxPool.default.status().wait())
     }

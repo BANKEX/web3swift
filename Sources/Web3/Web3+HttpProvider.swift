@@ -19,7 +19,7 @@ public protocol Web3Provider {
     /// network id which used for local signing
     var network: NetworkId? { get set }
     /// keystore manager which contains private keys
-    var attachedKeystoreManager: KeystoreManager? { get set }
+    var attachedKeystoreManager: KeystoreManager { get set }
     /// node url address
     var url: URL { get }
     /// url session
@@ -33,12 +33,12 @@ public class Web3HttpProvider: Web3Provider {
     /// network id which used for local signing
     public var network: NetworkId?
     /// keystore manager which contains private keys
-    public var attachedKeystoreManager: KeystoreManager?
+    public var attachedKeystoreManager: KeystoreManager
     /// url session
     public var session = URLSession(configuration: .default)
     
     /// default init with any address and network id. works with infura, localnode and any other node
-    public init?(_ httpProviderURL: URL, network net: NetworkId? = nil, keystoreManager manager: KeystoreManager? = nil) {
+    public init?(_ httpProviderURL: URL, network net: NetworkId? = nil, keystoreManager manager: KeystoreManager = KeystoreManager()) {
         do {
             guard httpProviderURL.scheme == "http" || httpProviderURL.scheme == "https" else { return nil }
             url = httpProviderURL

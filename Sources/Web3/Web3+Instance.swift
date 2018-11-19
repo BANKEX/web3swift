@@ -18,7 +18,7 @@ public class Web3: Web3OptionsInheritable {
     public var defaultBlock = "latest"
     public var requestDispatcher: JsonRpcRequestDispatcher
     
-    public var keystoreManager: KeystoreManager? {
+    public var keystoreManager: KeystoreManager {
         get { return provider.attachedKeystoreManager }
         set { provider.attachedKeystoreManager = newValue }
     }
@@ -59,7 +59,7 @@ public class Web3: Web3OptionsInheritable {
      as account listing, transaction signing, etc.
      are done locally using private keys and accounts found in a manager.
      */
-    public func addKeystoreManager(_ manager: KeystoreManager?) {
+    public func addKeystoreManager(_ manager: KeystoreManager) {
         provider.attachedKeystoreManager = manager
     }
 }

@@ -425,11 +425,6 @@ extension KeystoreManager {
 		return KeystoreManager.managerForPath(path, scanForHDwallets: scanForHDWallets, suffix: suffix)?.objc
 	}
 	
-	@objc public var path: String {
-		get { return swift.path }
-		set { swift.path = newValue }
-	}
-	
 	@objc public func walletForAddress(_ address: W3Address) -> W3AbstractKeystore? {
 		guard let keystore = swift.walletForAddress(address.swift) else { return nil }
 		switch keystore {
@@ -464,4 +459,7 @@ extension KeystoreManager {
 	@objc public init(plainKeystores: [W3PlainKeystore]) {
 		swift = KeystoreManager(plainKeystores.map { $0.swift })
 	}
+    @objc public override init() {
+        swift = KeystoreManager()
+    }
 }

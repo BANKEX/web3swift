@@ -19,8 +19,8 @@ import Foundation
     }
     
     /// - throws: Web3WalletError.attachadKeystoreNotFound
-    @objc public func getAccounts() throws -> [W3Address] {
-        return try swift.getAccounts().map { $0.objc }
+    @objc public func getAccounts() -> [W3Address] {
+        return swift.getAccounts().map { $0.objc }
     }
     
     /// - throws:

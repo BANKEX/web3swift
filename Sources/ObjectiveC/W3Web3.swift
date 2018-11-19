@@ -50,9 +50,9 @@ extension Web3 {
 		get { return swift.requestDispatcher.objc }
 		set { swift.requestDispatcher = newValue.swift }
 	}
-	@objc public var keystoreManager: W3KeystoreManager? {
-		get { return swift.provider.attachedKeystoreManager?.objc }
-		set { swift.provider.attachedKeystoreManager = newValue?.swift }
+	@objc public var keystoreManager: W3KeystoreManager {
+		get { return swift.provider.attachedKeystoreManager.objc }
+		set { swift.provider.attachedKeystoreManager = newValue.swift }
 	}
 	@objc public var txpool: W3TxPool {
 		return W3TxPool(web3: self)

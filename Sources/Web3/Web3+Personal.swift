@@ -78,7 +78,7 @@ public class Web3Personal: Web3OptionsInheritable {
     func signPersonalMessagePromise(message: Data, from: Address, password: String = "BANKEXFOUNDATION") -> Promise<Data> {
         let queue = web3.requestDispatcher.queue
         do {
-            if web3.provider.attachedKeystoreManager == nil {
+            if web3.provider.attachedKeystoreManager.isEmpty {
                 let hexData = message.toHexString().withHex
                 let request = JsonRpcRequestFabric.prepareRequest(.personalSign, parameters: [from.address.lowercased(), hexData])
                 return web3.dispatch(request).map(on: queue) { response in
@@ -91,7 +91,7 @@ public class Web3Personal: Web3OptionsInheritable {
                     return value
                 }
             }
-            let signature = try Web3Signer.signPersonalMessage(message, keystore: web3.provider.attachedKeystoreManager!, account: from, password: password)
+            let signature = try Web3Signer.signPersonalMessage(message, keystore: web3.provider.attachedKeystoreManager, account: from, password: password)
             let returnPromise = Promise<Data>.pending()
             queue.async {
                 returnPromise.resolver.fulfill(signature)
@@ -115,7 +115,7 @@ public class Web3Personal: Web3OptionsInheritable {
     func unlockAccountPromise(account: String, password: String = "BANKEXFOUNDATION", seconds: UInt64 = 300) -> Promise<Bool> {
         let queue = web3.requestDispatcher.queue
         do {
-            if web3.provider.attachedKeystoreManager == nil {
+            if web3.provider.attachedKeystoreManager.isEmpty {
                 let request = JsonRpcRequestFabric.prepareRequest(.unlockAccount, parameters: [account.lowercased(), password, seconds])
                 return web3.dispatch(request).map(on: queue) { response in
                     guard let value: Bool = response.getValue() else {

@@ -83,7 +83,7 @@ public enum EntropySize: Int {
  let privateKey = try keystore.UNSAFE_getPrivateKeyData(password: "", account: address)
  let publicKey = try Web3Utils.privateToPublic(privateKey, compressed: true)
  ```
- In the most cases you don't need to manager your public and private keys. web3swift doing this for you.
+ In the most cases you don't need to manage your public and private keys. web3swift doing this for you.
  */
 public class Mnemonics {
     /// Mnemonics init with data error
@@ -130,14 +130,18 @@ public class Mnemonics {
     }
     
     /**
-    Init with imported mnemonics string and specific language
-    - throws: An error of type Mnemonics.EntropyError
+     Init with imported mnemonics string and specific language
+     - throws: An error of type Mnemonics.EntropyError
+     - parameter string: mnemonics string
+     - parameter language: mnemonics language. default: .english
+     
      Requirements:
      1. Minimum 12 words
      2. Words.count % 4 == 0
      3. Every word must be in [our dictionary](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md)
      4. Words must be in valid order
      5. Checksum bits should match (should never throw on that)
+     
      */
     public init(_ string: String, language: BIP39Language = .english) throws {
         // checking entropy

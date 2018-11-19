@@ -19,7 +19,7 @@ public final class InfuraProvider: Web3HttpProvider {
      - parameter token: your infura token. appends to url address
      - parameter manager: KeystoreManager for this provider
      */
-    public init?(_ net: NetworkId, accessToken token: String? = nil, keystoreManager manager: KeystoreManager? = nil) {
+    public init?(_ net: NetworkId, accessToken token: String? = nil, keystoreManager manager: KeystoreManager = KeystoreManager()) {
         var requestURLstring = "https://\(net).infura.io/"
         if token != nil {
             requestURLstring = requestURLstring + token!

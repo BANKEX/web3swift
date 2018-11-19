@@ -313,7 +313,7 @@ To:
  
  
  Automatically converts uint to uint256.
- So return the same hash for
+ So it will return the same hash for
  ```
  "transfer(address,address,uint256)"
  ```

@@ -47,7 +47,7 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
     }
 
     public func sign(_ personalMessage: Data, account: String, password: String = "BANKEXFOUNDATION") -> String? {
-        guard let keystoreManager = self.web3.provider.attachedKeystoreManager else { return nil }
+        let keystoreManager = self.web3.provider.attachedKeystoreManager
         guard let signature = try? Web3Signer.signPersonalMessage(personalMessage, keystore: keystoreManager, account: Address(account), password: password) else { return nil }
         return signature.toHexString().withHex
     }
@@ -129,7 +129,7 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
     public func signTransaction(_ trans: EthereumTransaction, options: Web3Options, password: String = "BANKEXFOUNDATION") throws -> String {
         var transaction = trans
         guard let from = options.from else { throw TransactionError.optionsFromNotFound }
-        guard let keystoreManager = self.web3.provider.attachedKeystoreManager else { throw TransactionError.keystoreManagerNotFound }
+        let keystoreManager = self.web3.provider.attachedKeystoreManager
         let gasPrice = try web3.eth.getGasPrice()
         transaction.gasPrice = gasPrice
         let gasLimit = try estimateGas(transaction, options: options)

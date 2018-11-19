@@ -9,17 +9,17 @@
 import Foundation
 
 public class KeystoreManager: AbstractKeystore {
-    public var isHDKeystore: Bool = false
-
+    public var isEmpty: Bool { return bip32keystores.isEmpty && keystores.isEmpty && plainKeystores.isEmpty }
+    public var isHDKeystore: Bool { return !bip32keystores.isEmpty }
     public var addresses: [Address] {
         var toReturn = [Address]()
-        for keystore in _keystores {
+        for keystore in keystores {
             guard let key = keystore.addresses.first else { continue }
             if key.isValid {
                 toReturn.append(key)
             }
         }
-        for keystore in _bip32keystores {
+        for keystore in bip32keystores {
             let allAddresses = keystore.addresses
             for addr in allAddresses {
                 if addr.isValid {
@@ -27,7 +27,7 @@ public class KeystoreManager: AbstractKeystore {
                 }
             }
         }
-        for keystore in _plainKeystores {
+        for keystore in plainKeystores {
             guard let key = keystore.addresses.first else { continue }
             if key.isValid {
                 toReturn.append(key)
@@ -36,7 +36,7 @@ public class KeystoreManager: AbstractKeystore {
         return toReturn
     }
 
-    public func UNSAFE_getPrivateKeyData(password: String, account: Address) throws -> Data {
+    public func UNSAFE_getPrivateKeyData(password: String = "BANKEXFOUNDATION", account: Address) throws -> Data {
         guard let keystore = self.walletForAddress(account) else { throw AbstractKeystoreError.invalidAccountError }
         return try keystore.UNSAFE_getPrivateKeyData(password: password, account: account)
     }
@@ -54,16 +54,14 @@ public class KeystoreManager: AbstractKeystore {
         return manager
     }
 
-    public var path: String
-
     public func walletForAddress(_ address: Address) -> AbstractKeystore? {
-        for keystore in _keystores {
+        for keystore in keystores {
             guard let key = keystore.addresses.first else { continue }
             if key == address && key.isValid {
                 return keystore as AbstractKeystore?
             }
         }
-        for keystore in _bip32keystores {
+        for keystore in bip32keystores {
             let allAddresses = keystore.addresses
             for addr in allAddresses {
                 if addr == address && addr.isValid {
@@ -71,7 +69,7 @@ public class KeystoreManager: AbstractKeystore {
                 }
             }
         }
-        for keystore in _plainKeystores {
+        for keystore in plainKeystores {
             guard let key = keystore.addresses.first else { continue }
             if key == address && key.isValid {
                 return keystore as AbstractKeystore?
@@ -80,45 +78,34 @@ public class KeystoreManager: AbstractKeystore {
         return nil
     }
 
-    var _keystores: [EthereumKeystoreV3] = [EthereumKeystoreV3]()
-    var _bip32keystores: [BIP32Keystore] = [BIP32Keystore]()
-    var _plainKeystores: [PlainKeystore] = [PlainKeystore]()
-
-    public var keystores: [EthereumKeystoreV3] {
-        return _keystores
-    }
-
-    public var bip32keystores: [BIP32Keystore] {
-        return _bip32keystores
-    }
-
-    public var plainKeystores: [PlainKeystore] {
-        return _plainKeystores
-    }
+    public var keystores = [EthereumKeystoreV3]()
+    public var bip32keystores = [BIP32Keystore]()
+    public var plainKeystores = [PlainKeystore]()
 
     public init(_ keystores: [EthereumKeystoreV3]) {
-        isHDKeystore = false
-        _keystores = keystores
-        path = ""
+        self.keystores = keystores
     }
-
     public init(_ keystores: [BIP32Keystore]) {
-        isHDKeystore = true
-        _bip32keystores = keystores
-        path = "bip32"
+        bip32keystores = keystores
     }
-
     public init(_ keystores: [PlainKeystore]) {
-        isHDKeystore = false
-        _plainKeystores = keystores
-        path = "plain"
+        plainKeystores = keystores
+    }
+    public init() {
+        
+    }
+    
+    public func append(_ keystore: EthereumKeystoreV3) {
+        keystores.append(keystore)
+    }
+    public func append(_ keystore: BIP32Keystore) {
+        bip32keystores.append(keystore)
+    }
+    public func append(_ keystore: PlainKeystore) {
+        plainKeystores.append(keystore)
     }
 
     private init?(_ path: String, scanForHDwallets: Bool = false, suffix: String? = nil) throws {
-        if scanForHDwallets {
-            isHDKeystore = true
-        }
-        self.path = path
         let fileManager = FileManager.default
         var isDir: ObjCBool = false
         var exists = fileManager.fileExists(atPath: path, isDirectory: &isDir)
@@ -140,10 +127,10 @@ public class KeystoreManager: AbstractKeystore {
                 guard let content = fileManager.contents(atPath: filePath) else { continue }
                 if !scanForHDwallets {
                     guard let keystore = EthereumKeystoreV3(content) else { continue }
-                    _keystores.append(keystore)
+                    keystores.append(keystore)
                 } else {
                     guard let bipkeystore = BIP32Keystore(content) else { continue }
-                    _bip32keystores.append(bipkeystore)
+                    bip32keystores.append(bipkeystore)
                 }
             }
         } else {
@@ -156,10 +143,10 @@ public class KeystoreManager: AbstractKeystore {
                 guard let content = fileManager.contents(atPath: filePath) else { continue }
                 if !scanForHDwallets {
                     guard let keystore = EthereumKeystoreV3(content) else { continue }
-                    _keystores.append(keystore)
+                    keystores.append(keystore)
                 } else {
                     guard let bipkeystore = BIP32Keystore(content) else { continue }
-                    _bip32keystores.append(bipkeystore)
+                    bip32keystores.append(bipkeystore)
                 }
             }
         }

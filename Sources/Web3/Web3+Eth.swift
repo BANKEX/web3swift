@@ -311,7 +311,7 @@ public class Web3Eth: Web3OptionsInheritable {
         var assembledTransaction: EthereumTransaction = transaction.mergedWithOptions(options)
         let queue = web3.requestDispatcher.queue
         do {
-            if web3.provider.attachedKeystoreManager == nil {
+            if web3.provider.attachedKeystoreManager.isEmpty {
                 guard let request = EthereumTransaction.createRequest(method: .sendTransaction, transaction: assembledTransaction, onBlock: nil, options: options) else {
                     throw Web3Error.processingError("Failed to create a request to send transaction")
                 }
@@ -330,7 +330,7 @@ public class Web3Eth: Web3OptionsInheritable {
                 throw Web3Error.inputError("No 'from' field provided")
             }
             do {
-                try Web3Signer.signTX(transaction: &assembledTransaction, keystore: web3.provider.attachedKeystoreManager!, account: from, password: password)
+                try Web3Signer.signTX(transaction: &assembledTransaction, keystore: web3.provider.attachedKeystoreManager, account: from, password: password)
             } catch {
                 throw Web3Error.inputError("Failed to locally sign a transaction")
             }
@@ -497,15 +497,11 @@ public class Web3Eth: Web3OptionsInheritable {
     
     public func getAccountsPromise() -> Promise<[Address]> {
         let queue = web3.requestDispatcher.queue
-        if web3.provider.attachedKeystoreManager != nil {
+        if !web3.provider.attachedKeystoreManager.isEmpty {
             let promise = Promise<[Address]>.pending()
             queue.async {
-                do {
-                    let accounts = try self.web3.wallet.getAccounts()
-                    promise.resolver.fulfill(accounts)
-                } catch {
-                    promise.resolver.reject(error)
-                }
+                let accounts = self.web3.wallet.getAccounts()
+                promise.resolver.fulfill(accounts)
             }
             return promise.promise
         }
