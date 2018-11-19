@@ -3914,41 +3914,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ObjectiveC/Bridging.swift",
-      "line": 11,
-      "symbol": "SwiftBridgeable",
-      "symbol_kind": "source.lang.swift.decl.protocol",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ObjectiveC/Bridging.swift",
-      "line": 12,
-      "symbol": "SwiftBridgeable.SwiftType",
-      "symbol_kind": "source.lang.swift.decl.associatedtype",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ObjectiveC/Bridging.swift",
-      "line": 13,
-      "symbol": "SwiftBridgeable.swift",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ObjectiveC/Bridging.swift",
-      "line": 15,
-      "symbol": "SwiftContainer",
-      "symbol_kind": "source.lang.swift.decl.protocol",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ObjectiveC/Bridging.swift",
-      "line": 16,
-      "symbol": "SwiftContainer.init(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/dimas/Desktop/web3swift/web3swift/Sources/ObjectiveC/W3Contract.swift",
       "line": 12,
       "symbol": "ContractV2.EventFilter.objc",

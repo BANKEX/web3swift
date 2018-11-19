@@ -4,7 +4,7 @@ In this guide i will show you how to use web3swift with ganache
 
 Im running ganache on port 8545 with default hd path settings.
 
-![](https://github.com/bankex/web3swift/tree/gh-pages/Resources/Ganache1.png)
+![](https://raw.githubusercontent.com/BANKEX/web3swift/gh-pages/Resources/Ganache1.png)
  
 Connect to your ganache node
  
@@ -15,7 +15,7 @@ let web3 = Web3.default
 
 Copy your ganache mnemonics
 
-![](https://github.com/bankex/web3swift/tree/gh-pages/Resources/Ganache2.png)
+![](https://raw.githubusercontent.com/BANKEX/web3swift/gh-pages/Resources/Ganache2.png)
  
 Import account using mnemonics
 
@@ -129,7 +129,7 @@ print(details)
 ```
 
 Now you can check your balance in ganache:
-![](https://github.com/bankex/web3swift/tree/gh-pages/Resources/Ganache3.png)
+![](https://raw.githubusercontent.com/BANKEX/web3swift/gh-pages/Resources/Ganache3.png)
 
 ``` swift
 /* prints
