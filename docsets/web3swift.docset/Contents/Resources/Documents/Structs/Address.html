@@ -57,6 +57,9 @@
                 <a class="nav-group-task-link" href="../accounts.html">Accounts</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../calling-custom-methods.html">Calling Custom Methods</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../erc20.html">ERC20</a>
               </li>
               <li class="nav-group-task">
@@ -72,10 +75,7 @@
                 <a class="nav-group-task-link" href="../remix.html">Remix</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../security.html">Security</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../transactions.html">Transactions</a>
+                <a class="nav-group-task-link" href="../security-tips.html">Security Tips</a>
               </li>
             </ul>
           </li>
@@ -901,7 +901,7 @@
 
 <p>This is very usabe for test cases like if you want to test function (like read ERC20 balance)
 you can just run</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">balance</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">ERC20</span><span class="p">(</span><span class="s">"0x45245bc59219eeaaf6cd3f382e078a461ff9de7b"</span><span class="p">)</span><span class="o">.</span><span class="nf">balance</span><span class="p">(</span><span class="nv">of</span><span class="p">:</span> <span class="s">"0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">balance</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">ERC20</span><span class="p">(</span><span class="s">"0x45245bc59219eeaaf6cd3f382e078a461ff9de7b"</span><span class="p">)</span><span class="o">.</span><span class="nf">balance</span><span class="p">(</span><span class="nv">of</span><span class="p">:</span> <span class="s">"0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">balance</span><span class="p">)</span>
 
 </code></pre>
@@ -1299,9 +1299,9 @@ Automatically adds 0x prefix if its not found</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9web3swift7AddressV8assemble__4web37options7onBlock10PromiseKit0H0CyAA19EthereumTransactionVGSS_SayypGAA4Web3CAA0L7OptionsVSgSStF"></a>
+                    <a name="/"></a>
                     <a name="//apple_ref/swift/Method/assemble(_:_:web3:options:onBlock:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift7AddressV8assemble__4web37options7onBlock10PromiseKit0H0CyAA19EthereumTransactionVGSS_SayypGAA4Web3CAA0L7OptionsVSgSStF">assemble(_:_:web3:options:onBlock:)</a>
+                    <a class="token" href="#/">assemble(_:_:web3:options:onBlock:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1326,9 +1326,9 @@ Automatically adds 0x prefix if its not found</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9web3swift7AddressV4send__8password4web37options7onBlock10PromiseKit0I0CyAA24TransactionSendingResultVGSS_ypdSSAA4Web3CAA0N7OptionsVSgSStF"></a>
+                    <a name="/"></a>
                     <a name="//apple_ref/swift/Method/send(_:_:password:web3:options:onBlock:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift7AddressV4send__8password4web37options7onBlock10PromiseKit0I0CyAA24TransactionSendingResultVGSS_ypdSSAA4Web3CAA0N7OptionsVSgSStF">send(_:_:password:web3:options:onBlock:)</a>
+                    <a class="token" href="#/">send(_:_:password:web3:options:onBlock:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1353,36 +1353,9 @@ Automatically adds 0x prefix if its not found</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9web3swift7AddressV4send__8password4web37options7onBlock10PromiseKit0I0CyAA24TransactionSendingResultVGSS_SayypGSSAA4Web3CAA0N7OptionsVSgSStF"></a>
-                    <a name="//apple_ref/swift/Method/send(_:_:password:web3:options:onBlock:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift7AddressV4send__8password4web37options7onBlock10PromiseKit0I0CyAA24TransactionSendingResultVGSS_SayypGSSAA4Web3CAA0N7OptionsVSgSStF">send(_:_:password:web3:options:onBlock:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">send</span><span class="p">(</span><span class="n">_</span> <span class="nv">function</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">arguments</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">],</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"BANKEXFOUNDATION"</span><span class="p">,</span> <span class="nv">web3</span><span class="p">:</span> <span class="kt"><a href="../Classes/Web3.html">Web3</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">onBlock</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"pending"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a></span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9web3swift7AddressV4call__4web37options7onBlock10PromiseKit0H0CyAA16Web3DataResponseCGSS_ypdAA0J0CAA0J7OptionsVSgSStF"></a>
+                    <a name="/"></a>
                     <a name="//apple_ref/swift/Method/call(_:_:web3:options:onBlock:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift7AddressV4call__4web37options7onBlock10PromiseKit0H0CyAA16Web3DataResponseCGSS_ypdAA0J0CAA0J7OptionsVSgSStF">call(_:_:web3:options:onBlock:)</a>
+                    <a class="token" href="#/">call(_:_:web3:options:onBlock:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1407,36 +1380,9 @@ Automatically adds 0x prefix if its not found</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9web3swift7AddressV4call__4web37options7onBlock10PromiseKit0H0CyAA16Web3DataResponseCGSS_SayypGAA0J0CAA0J7OptionsVSgSStF"></a>
-                    <a name="//apple_ref/swift/Method/call(_:_:web3:options:onBlock:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift7AddressV4call__4web37options7onBlock10PromiseKit0H0CyAA16Web3DataResponseCGSS_SayypGAA0J0CAA0J7OptionsVSgSStF">call(_:_:web3:options:onBlock:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">call</span><span class="p">(</span><span class="n">_</span> <span class="nv">function</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">arguments</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">],</span> <span class="nv">web3</span><span class="p">:</span> <span class="kt"><a href="../Classes/Web3.html">Web3</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">onBlock</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"latest"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Web3DataResponse.html">Web3DataResponse</a></span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9web3swift7AddressV11estimateGas__4web37options7onBlock10PromiseKit0I0Cy6BigInt0K4UIntVGSS_ypdAA4Web3CAA0N7OptionsVSgSStF"></a>
+                    <a name="/"></a>
                     <a name="//apple_ref/swift/Method/estimateGas(_:_:web3:options:onBlock:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift7AddressV11estimateGas__4web37options7onBlock10PromiseKit0I0Cy6BigInt0K4UIntVGSS_ypdAA4Web3CAA0N7OptionsVSgSStF">estimateGas(_:_:web3:options:onBlock:)</a>
+                    <a class="token" href="#/">estimateGas(_:_:web3:options:onBlock:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1452,33 +1398,6 @@ Automatically adds 0x prefix if its not found</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">estimateGas</span><span class="p">(</span><span class="n">_</span> <span class="nv">function</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">arguments</span><span class="p">:</span> <span class="kt">Any</span><span class="o">...</span><span class="p">,</span> <span class="nv">web3</span><span class="p">:</span> <span class="kt"><a href="../Classes/Web3.html">Web3</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">onBlock</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"latest"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt">BigUInt</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9web3swift7AddressV11estimateGas__4web37options7onBlock10PromiseKit0I0Cy6BigInt0K4UIntVGSS_SayypGAA4Web3CAA0N7OptionsVSgSStF"></a>
-                    <a name="//apple_ref/swift/Method/estimateGas(_:_:web3:options:onBlock:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift7AddressV11estimateGas__4web37options7onBlock10PromiseKit0I0Cy6BigInt0K4UIntVGSS_SayypGAA4Web3CAA0N7OptionsVSgSStF">estimateGas(_:_:web3:options:onBlock:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">estimateGas</span><span class="p">(</span><span class="n">_</span> <span class="nv">function</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">arguments</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">],</span> <span class="nv">web3</span><span class="p">:</span> <span class="kt"><a href="../Classes/Web3.html">Web3</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">onBlock</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"latest"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt">BigUInt</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1812,7 +1731,7 @@ encoder&rsquo;s format.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="https://github.com/bankex/web3swift" target="_blank" rel="external">Bankex Foundation</a>. All rights reserved. (Last updated: 2018-11-19)</p>
+      <p>&copy; 2018 <a class="link" href="https://github.com/bankex/web3swift" target="_blank" rel="external">Bankex Foundation</a>. All rights reserved. (Last updated: 2018-11-21)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
