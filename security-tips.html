@@ -870,7 +870,27 @@
         <section class="section">
           <div class="section-content">
             
-            
+            <h1 id='security-tips' class='heading'>Security tips</h1>
+<h2 id='keeping-sensitive-information' class='heading'>Keeping sensitive information</h2>
+
+<p>You can store passwords, mnemonics and private keys in your keychain</p>
+
+<p>To securely store data on your drive use:</p>
+<pre class="highlight plaintext"><code>try data.write(to: url, options: .completeFileProtection)
+</code></pre>
+
+<blockquote>
+<p>Note: Data Protection should be enabled in your project</p>
+</blockquote>
+
+<p><img src="/Users/dimas/Desktop/web3swift/Documentation/Resources/Security1.png" alt=""></p>
+<h4 id='this-is-not-a-good-idea-to-send-mnemonics-or-private-keys-to-your-server' class='heading'>This is not a good idea to send mnemonics or private keys to your server.</h4>
+<h2 id='jailbroken-device' class='heading'>Jailbroken device</h2>
+
+<p>For jailbroken devices there is no place to hide. Virus can read data from your keystore, sandbox directory, core data and app memory. And they also can call and edit your functions. But hacker needs a lot of time to do that.</p>
+
+<p>You don&rsquo;t really need to care about jailbroken devices.</p>
+
           </div>
         </section>
 
