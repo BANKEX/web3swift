@@ -18,11 +18,13 @@ public class Web3Personal: Web3OptionsInheritable {
     public var options: Web3Options {
         return web3.options
     }
-    
+	
+	/// init with provider and web3 instanse
     public init(provider prov: Web3Provider, web3 web3instance: Web3) {
         provider = prov
         web3 = web3instance
     }
+	
     /**
      *Locally or remotely sign a message (arbitrary data) with the private key. To avoid potential signing of a transaction the message is first prepended by a special header and then hashed.*
 
@@ -80,7 +82,7 @@ public class Web3Personal: Web3OptionsInheritable {
         do {
             if web3.provider.attachedKeystoreManager.isEmpty {
                 let hexData = message.toHexString().withHex
-                let request = JsonRpcRequestFabric.prepareRequest(.personalSign, parameters: [from.address.lowercased(), hexData])
+				let request = JsonRpcRequest(method: .personalSign, parameters: from.address.lowercased(), hexData)
                 return web3.dispatch(request).map(on: queue) { response in
                     guard let value: Data = response.getValue() else {
                         if response.error != nil {
@@ -116,7 +118,7 @@ public class Web3Personal: Web3OptionsInheritable {
         let queue = web3.requestDispatcher.queue
         do {
             if web3.provider.attachedKeystoreManager.isEmpty {
-                let request = JsonRpcRequestFabric.prepareRequest(.unlockAccount, parameters: [account.lowercased(), password, seconds])
+				let request = JsonRpcRequest(method: .unlockAccount, parameters: account.lowercased(), password, seconds)
                 return web3.dispatch(request).map(on: queue) { response in
                     guard let value: Bool = response.getValue() else {
                         if response.error != nil {

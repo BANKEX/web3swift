@@ -10,240 +10,121 @@ import BigInt
 import Foundation
 import PromiseKit
 
+/// Parsing errors
 public enum Web3ResponseError: Error {
-    case notFound
-    case wrongType
-    case overflows
+	/// Not found error with response size and index
+    case notFound(Int, Int)
+	/// Error for unconvertable type
+    case wrongType(Any, String, Int)
+	public var localizedDescription: String {
+		switch self {
+		case let .notFound(index, responseSize):
+			if responseSize == 0 {
+				return "Trying to get value from response but response is empty"
+			} else {
+				return "Trying to get value at index \(index). But node response only have \(responseSize) parameters"
+			}
+		case let .wrongType(result, expected, index):
+			return "Cannot convert node response parameter \(index) from \(expected) to \(result)"
+		}
+	}
 }
 
-private extension Int {
-    var solidityFormatted: Int {
-        return (self / 32 + 1) * 32
-    }
-}
-
-public class Web3DataResponse {
-    public let data: Data
-    public var position = 0
-    public var headerSize = 0
-    public init(_ data: Data) {
-        self.data = data
-    }
-    public func uint256() throws -> BigUInt {
-        return try BigUInt(next(32))
-    }
-    public func address() throws -> Address {
-        try skip(12)
-        return try Address(next(20))
-    }
-    public func bool() throws -> Bool {
-        let value = try BigUInt(next(32))
-        guard value < 2 else { throw Web3ResponseError.wrongType }
-        return value == 1
-    }
-    public func string32() throws -> String {
-        var data = try next(32)
-        let index = data.withUnsafeBytes { (pointer: UnsafePointer<UInt8>) -> Int? in
-            for i in 0..<data.count where pointer[i] == 0 {
-                return i
-            }
-            return nil
-        }
-        if let index = index {
-            data = data[0..<index]
-        }
-        guard let string = String(data: data, encoding: .utf8) else { throw Web3ResponseError.wrongType }
-        return string
-    }
-    public func string() throws -> String {
-        let pointer = try view { try uint256() }
-        if pointer == 0 {
-            // we already checked next 32 bytes so this shouldn't crash
-            try! skip(32)
-            return ""
-        } else if pointer < Int.max {
-            return try stringPointer()
-        } else {
-            return try string32()
-        }
-    }
-    public func stringPointer() throws -> String {
-        return try pointer {
-            let length = try intCount()
-            guard length > 0 else { return "" }
-            let data = try self.next(length)
-            guard let string = String(data: data, encoding: .utf8) else { throw Web3ResponseError.wrongType }
-            return string
-        }
-    }
-    public func array<T>(builder: (Web3DataResponse)throws->(T)) throws -> [T] {
-        return try pointer {
-            let count = try intCount()
-            var array = [T]()
-            array.reserveCapacity(count)
-            for _ in 0..<count {
-                try array.append(builder(self))
-            }
-            return array
-        }
-    }
-    
-    public func header(_ size: Int) throws -> Data {
-        let range = position..<position+size
-        guard range.upperBound <= data.count else { throw Web3ResponseError.notFound }
-        position = range.upperBound
-        headerSize = size
-        return self.data[range]
-    }
-    public func skip(_ count: Int) throws {
-        let end = position+count
-        guard end <= data.count else { throw Web3ResponseError.notFound }
-        position = end
-    }
-    public func next(_ size: Int) throws -> Data {
-        let range = position..<position+size
-        guard range.upperBound <= data.count else { throw Web3ResponseError.notFound }
-        position = range.upperBound
-        return self.data[range]
-    }
-    public func pointer<T>(at: Int, block: ()throws->T) throws -> T {
-        let pos = position
-        position = at + headerSize
-        defer { position = pos }
-        return try block()
-    }
-    public func pointer<T>(block: ()throws->T) throws -> T {
-        let pointer = try intCount()
-        let pos = position
-        position = pointer + headerSize
-        defer { position = pos }
-        return try block()
-    }
-    public func view<T>(block: ()throws->T) throws -> T {
-        let pos = position
-        defer { position = pos }
-        return try block()
-    }
-}
-public extension Web3DataResponse {
-    private func unsigned<T: BinaryInteger>(max: BigUInt) throws -> T {
-        let number = try uint256()
-        guard number <= max else { throw Web3ResponseError.overflows }
-        return T(number)
-    }
-    private func signed<T: BinaryInteger>(min: BigInt, max: BigInt) throws -> T {
-        let number = try uint256()
-        guard number >= min && number <= max else { throw Web3ResponseError.overflows }
-        return T(number)
-    }
-    func uint8() throws -> UInt8 {
-        return try unsigned(max: 0xff)
-    }
-    func uint16() throws -> UInt16 {
-        return try unsigned(max: 0xffff)
-    }
-    func uint32() throws -> UInt32 {
-        return try unsigned(max: 0xffffffff)
-    }
-    func uint64() throws -> UInt64 {
-        return try unsigned(max: 0xffffffffffffffff)
-    }
-    func uint() throws -> Int64 {
-        return try unsigned(max: BigUInt(UInt.max))
-    }
-    func int8() throws -> Int8 {
-        return try signed(min: -0x80, max: 0x7f)
-    }
-    func int16() throws -> Int16 {
-        return try signed(min: -0x8000, max: 0x7fff)
-    }
-    func int32() throws -> Int32 {
-        return try signed(min: -0x80000000, max: 0x7fffffff)
-    }
-    func int64() throws -> Int64 {
-        return try signed(min: -0x8000000000000000, max: 0x7fffffffffffffff)
-    }
-    func int() throws -> Int64 {
-        return try signed(min: BigInt(Int.min), max: BigInt(Int.max))
-    }
-    func intCount() throws -> Int {
-        return try signed(min: 0, max: BigInt(Int.max))
-    }
-}
-
+/// ABIv2 response parser class
 public class Web3Response {
-    let dictionary: [String: Any]
+	/// Response dictionary
+    public let dictionary: [String: Any]
+	/// Current position in array
     public var position = 0
-    init(_ dictionary: [String: Any]) {
+	/// Number of arguments in response array
+	public var argumentsCount = 0
+	/// init with ABIv2 dictionary
+    public init(_ dictionary: [String: Any]) {
         self.dictionary = dictionary
+		var i = 0
+		while dictionary["\(i)"] != nil {
+			i += 1
+		}
+		argumentsCount = i
     }
-
+	
+	/// - returns: dictionary[key]
     public subscript(key: String) -> Any? {
         return dictionary[key]
     }
 
+	/// - returns: dictionary["\(index)"]
     public subscript(index: Int) -> Any? {
         return dictionary["\(index)"]
     }
+	
+	private var notFound: Web3ResponseError {
+		return .notFound(position, argumentsCount)
+	}
+	private func wrongType(_ expected: String) -> Web3ResponseError {
+		return .wrongType(self[position]!, expected, position)
+	}
+	private var nextIndex: String {
+		let p = position
+		position += 1
+		return String(p)
+	}
 
-    /// Returns next response argument as BigUInt (like self[n] as? BigUInt; n += 1)
-    /// throws Web3ResponseError.notFound if there is no value at self[n]
-    /// throws Web3ResponseError.wrongType if it cannot cast self[n] to BigUInt
+	/// - returns: next response argument as BigUInt (like self[n] as? BigUInt; n += 1)
+	/// - throws: Web3ResponseError.notFound if there is no value at self[n].
+    /// Web3ResponseError.wrongType if it cannot cast self[n] to BigUInt
     public func uint256() throws -> BigUInt {
-        guard let value = dictionary[nextIndex] else { throw Web3ResponseError.notFound }
+        let value = try next()
         if let value = value as? BigUInt {
             return value
         } else if let value = value as? String {
-            guard let value = BigUInt(value.withoutHex, radix: 16) else { throw Web3ResponseError.wrongType }
+            guard let value = BigUInt(value.withoutHex, radix: 16) else { throw wrongType("BigUInt") }
             return value
         } else {
-            throw Web3ResponseError.wrongType
+            throw wrongType("BigUInt")
         }
     }
 
-    /// Returns next response argument as Address (like self[n] as? Address; n += 1)
-    /// throws Web3ResponseError.notFound if there is no value at self[n]
-    /// throws Web3ResponseError.wrongType if it cannot cast self[n] to Address
+	/// - returns: next response argument as Address (like self[n] as? Address; n += 1)
+	/// - throws: Web3ResponseError.notFound if there is no value at self[n].
+    /// Web3ResponseError.wrongType if it cannot cast self[n] to Address
     public func address() throws -> Address {
-        guard let value = dictionary[nextIndex] else { throw Web3ResponseError.notFound }
-        guard let address = value as? Address else { throw Web3ResponseError.wrongType }
+        let value = try next()
+        guard let address = value as? Address else { throw wrongType("Address") }
         return address
     }
 
-    /// Returns next response argument as String (like self[n] as? String; n += 1)
-    /// throws Web3ResponseError.notFound if there is no value at self[n]
-    /// throws Web3ResponseError.wrongType if it cannot cast self[n] to String
+	/// - returns: next response argument as String (like self[n] as? String; n += 1)
+	/// - throws: Web3ResponseError.notFound if there is no value at self[n].
+	/// Web3ResponseError.wrongType if it cannot cast self[n] to String
     public func string() throws -> String {
-        guard let value = dictionary[nextIndex] else { throw Web3ResponseError.notFound }
-        guard let string = value as? String else { throw Web3ResponseError.wrongType }
+        let value = try next()
+        guard let string = value as? String else { throw wrongType("String") }
         return string
     }
-
+	
+	/// - returns: next value in response array
+	/// - throws: Web3ResponseError.notFound
     public func next() throws -> Any {
-        guard let value = dictionary[nextIndex] else { throw Web3ResponseError.notFound }
+        guard let value = dictionary[nextIndex] else { throw notFound }
         return value
     }
-
-    private var nextIndex: String {
-        let p = position
-        position += 1
-        return String(p)
-    }
 }
 
-extension Web3Contract {
-    public typealias TransactionIntermediate = web3swift.TransactionIntermediate
-    /// TransactionIntermediate is an almost-ready transaction or a smart-contract function call. It bears all the required information
-    /// to call the smart-contract and decode the returned information, or estimate gas required for transaction, or send a transaciton
-    /// to the blockchain.
-}
-
+/// TransactionIntermediate is an almost-ready transaction or a smart-contract function call. It bears all the required information
+/// to call the smart-contract and decode the returned information, or estimate gas required for transaction, or send a transaciton
+/// to the blockchain.
 public class TransactionIntermediate {
+	/// Transaction to send
     public var transaction: EthereumTransaction
+	/// Contract that contains ABI to parse the response
     public var contract: ContractProtocol
+	/// JsonRpc method
     public var method: String
+	/// Transaction options
     public var options: Web3Options = .default
     var web3: Web3
+	/// init with transaction, web3, contract, method and options
     public init(transaction: EthereumTransaction, web3 web3Instance: Web3, contract: ContractProtocol, method: String, options: Web3Options) {
         self.transaction = transaction
         web3 = web3Instance

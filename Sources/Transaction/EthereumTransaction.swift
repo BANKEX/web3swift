@@ -283,18 +283,18 @@ hash: \(String(describing: hash))
     }
 
     static func createRequest(method: JsonRpcMethod, transaction: EthereumTransaction, onBlock: String? = nil, options: Web3Options?) -> JsonRpcRequest? {
-        var request = JsonRpcRequest(method: method)
 //        guard let from = options?.from else { return nil }
         guard var txParams = transaction.encodeAsDictionary(from: options?.from) else { return nil }
         if method == .estimateGas || options?.gasLimit == nil {
             txParams.gas = nil
         }
+		
         var params = [txParams] as Array<Encodable>
+		let request = JsonRpcRequest(method: method, parametersArray: params)
         if method.parameters == 2 && onBlock != nil {
             params.append(onBlock as Encodable)
         }
-        let pars = JsonRpcParams(params: params)
-        request.params = pars
+		
         if !request.isValid { return nil }
         return request
     }

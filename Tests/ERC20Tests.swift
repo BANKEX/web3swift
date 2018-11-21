@@ -97,8 +97,8 @@ class ERC20Tests: XCTestCase {
 
         let contract = try web3.contract(Web3Utils.erc20ABI, at: "0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")
         var options = Web3Options()
-        options.from = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
-        let addressOfUser = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
+        options.from = "0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8"
+        let addressOfUser = "0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8"
         let tokenBalance = try contract.method("balanceOf", args: addressOfUser, options: options).call(options: nil).uint256()
         print(tokenBalance)
     }

@@ -12,7 +12,7 @@ import XCTest
 class InfuraTests: XCTestCase {
     func testGetBalance() throws {
         let web3 = Web3(infura: .mainnet)
-        let address = Address("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+        let address = Address("0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8")
         let balance = try web3.eth.getBalance(address: address)
         let balString = balance.string(units: .eth, decimals: 3)
         print(balString)

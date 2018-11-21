@@ -31,7 +31,7 @@ public struct JsonRpcRequest: Encodable {
     /// node api
     var method: JsonRpcMethod
     /// node input
-    var params: JsonRpcParams?
+    var params: JsonRpcParams
     /// request local id
     var id: UInt64 = Counter.increment()
     
@@ -42,10 +42,16 @@ public struct JsonRpcRequest: Encodable {
         case params
         case id
     }
-    /// init with api method
-    public init(method: JsonRpcMethod) {
-        self.method = method
-    }
+	
+	/// init with api method and parameters
+	public init(method: JsonRpcMethod, parameters: Encodable...) {
+		self.method = method
+		self.params = JsonRpcParams(params: parameters)
+	}
+	public init(method: JsonRpcMethod, parametersArray: [Encodable]) {
+		self.method = method
+		self.params = JsonRpcParams(params: parametersArray)
+	}
     
     /// Encodes this value into the given encoder.
     ///
@@ -66,7 +72,7 @@ public struct JsonRpcRequest: Encodable {
     
     /// checks if input parameters.count is equal to method.parameters
     public var isValid: Bool {
-        return method.parameters == params?.params.count
+        return method.parameters == params.params.count
     }
 }
 
@@ -91,12 +97,19 @@ public struct JsonRpcRequestBatch: Encodable {
 
 /// JSON RPC response structure for serialization and deserialization purposes.
 public struct JsonRpcResponse: Decodable {
+	/// Request id
     public var id: Int
+	/// JsonRpc version
     public var jsonrpc = "2.0"
+	/// JsonRpc optional result at "data" key
     public var result: Any?
+	/// JsonRpc optional error
     public var error: ErrorMessage?
+	/// JsonRpc optional error message
     public var message: String?
-    
+	
+	/// - returns: .result as DictionaryReader or throw .error
+	/// - throws: Web3Error.nodeError(error.message), Web3Error.nodeError("No response found")
     public func response() throws -> DictionaryReader {
         if let error = error {
             throw Web3Error.nodeError(error.message)
@@ -106,23 +119,27 @@ public struct JsonRpcResponse: Decodable {
             throw Web3Error.nodeError("No response found")
         }
     }
-
+	
     enum JSONRPCresponseKeys: String, CodingKey {
         case id
         case jsonrpc
         case result
         case error
     }
-
+	
+	/// Init with parameters (for testing purpose?)
     public init(id: Int, jsonrpc: String, result: Any?, error: ErrorMessage?) {
         self.id = id
         self.jsonrpc = jsonrpc
         self.result = result
         self.error = error
     }
-
+	
+	/// Error message from jsonrpc response
     public struct ErrorMessage: Decodable {
+		/// Error code
         public var code: Int
+		/// Error message
         public var message: String
     }
     
@@ -278,9 +295,13 @@ public struct TransactionParameters: Codable {
 
 /// Event filter parameters JSON structure for interaction with Ethereum node.
 public struct EventFilterParameters: Codable {
+	/// from
     public var fromBlock: String?
+	/// to
     public var toBlock: String?
+	/// topics array
     public var topics: [[String?]?]?
+	/// addresses
     public var address: [String?]?
 }
 

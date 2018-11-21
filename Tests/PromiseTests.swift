@@ -17,7 +17,7 @@ class PromisesTests: XCTestCase {
     func testGetBalancePromise() {
         do {
             let web3 = Web3(infura: .mainnet)
-            let balance = try web3.eth.getBalancePromise(address: "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B").wait()
+            let balance = try web3.eth.getBalancePromise(address: "0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8").wait()
             print(balance)
         } catch {
             print(error)
@@ -37,7 +37,7 @@ class PromisesTests: XCTestCase {
 
     func testEstimateGasPromise() throws {
         let web3 = Web3(infura: .mainnet)
-        let sendToAddress = Address("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+        let sendToAddress = Address("0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8")
         let tempKeystore = try EthereumKeystoreV3(password: "")
         let keystoreManager = KeystoreManager([tempKeystore!])
         web3.addKeystoreManager(keystoreManager)
@@ -58,7 +58,7 @@ class PromisesTests: XCTestCase {
         let keystoreManager = KeystoreManager([keystoreV3])
         web3Rinkeby.addKeystoreManager(keystoreManager)
         let gasPrice = try web3Rinkeby.eth.getGasPrice()
-        let sendToAddress = Address("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+        let sendToAddress = Address("0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8")
         let intermediate = try web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001")
         var options = Web3Options.default
         options.from = keystoreV3.addresses.first
@@ -70,7 +70,7 @@ class PromisesTests: XCTestCase {
     func testERC20tokenBalancePromise() throws {
         let web3 = Web3(infura: .mainnet)
         let contract = try web3.contract(Web3Utils.erc20ABI, at: "0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")
-        let addressOfUser = Address("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+        let addressOfUser = Address("0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8")
         let tokenBalance = try contract.method("balanceOf", args: addressOfUser, options: nil).callPromise(options: nil).wait().uint256()
         print(tokenBalance)
     }

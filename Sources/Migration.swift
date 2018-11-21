@@ -16,6 +16,22 @@ import BigInt
 /// 2. (ctrl + alt + cmd + f) to fix all issues in current file
 /// 3. repeat
 
+
+/// web3swift 2.1 changes
+
+@available (*,deprecated: 2.1, message: "Use JsonRpcRequest(method:parameters:)")
+public struct JsonRpcRequestFabric {
+	public static func prepareRequest(_ method: JsonRpcMethod, parameters: [Encodable]) -> JsonRpcRequest {
+		return JsonRpcRequest(method: method, parametersArray: parameters)
+	}
+}
+@available(*,deprecated: 2.1, renamed: "SolidityDataReader")
+public typealias Web3DataResponse = SolidityDataReader
+
+extension Web3Contract {
+	public typealias TransactionIntermediate = web3swift.TransactionIntermediate
+}
+
 /// web3swift 2.0 changes
 
 @available (*, deprecated: 2.0, renamed: "JsonRpcRequest")

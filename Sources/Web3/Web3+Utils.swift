@@ -7,10 +7,7 @@
 //
 
 import BigInt
-import CryptoSwift
 import Foundation
-
-// public typealias Web3Utils = Web3Utils
 
 /// Namespaced Utils functions. Are not bound to particular web3 instance, so capitalization matters.
 public class Web3Utils {
@@ -18,7 +15,6 @@ public class Web3Utils {
 }
 
 /// Various units used in Ethereum ecosystem
-//typealias Web3Units.kWei = Web3Units.Kwei
 public enum Web3Units: Int {
 	case eth = 18
 	case wei = 0

@@ -43,7 +43,7 @@ public class Web3HttpProvider: Web3Provider {
             guard httpProviderURL.scheme == "http" || httpProviderURL.scheme == "https" else { return nil }
             url = httpProviderURL
             if net == nil {
-                let request = JsonRpcRequestFabric.prepareRequest(.getNetwork, parameters: [])
+                let request = JsonRpcRequest(method: .getNetwork)
                 let response = try Web3HttpProvider.post(request, providerURL: httpProviderURL, queue: DispatchQueue.global(qos: .userInteractive), session: session).wait()
                 if response.error != nil {
                     if response.message != nil {

@@ -44,7 +44,7 @@ class TransactionsTests: XCTestCase {
 
     func testEthSendExample() throws {
         let web3 = Web3(infura: .mainnet)
-        let sendToAddress = Address("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+        let sendToAddress = Address("0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8")
         let tempKeystore = try! EthereumKeystoreV3(password: "")
         let keystoreManager = KeystoreManager([tempKeystore!])
         web3.addKeystoreManager(keystoreManager)
@@ -89,7 +89,7 @@ class TransactionsTests: XCTestCase {
         let keystoreManager = KeystoreManager([keystoreV3])
         web3Rinkeby.addKeystoreManager(keystoreManager)
         let gasPriceRinkeby = try web3Rinkeby.eth.getGasPrice()
-        let sendToAddress = Address("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+        let sendToAddress = Address("0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8")
         let intermediate = try web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001")
         var options = Web3Options.default
         options.from = keystoreV3.addresses.first
@@ -100,7 +100,7 @@ class TransactionsTests: XCTestCase {
     func testTokenBalanceTransferOnMainNet() throws {
         // BKX TOKEN
         let web3 = Web3(infura: .mainnet)
-        let coldWalletAddress = Address("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+        let coldWalletAddress = Address("0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8")
         let contractAddress = Address("0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")
         var options = Web3Options()
         options.from = coldWalletAddress
@@ -121,7 +121,7 @@ class TransactionsTests: XCTestCase {
 //    func testTokenBalanceTransferOnMainNetUsingConvenience() throws {
 //        // BKX TOKEN
 //        let web3 = Web3(infura: .mainnet)
-//        let coldWalletAddress = Address("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+//        let coldWalletAddress = Address("0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8")
 //        let contractAddress = Address("0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")
 //        let tempKeystore = try! EthereumKeystoreV3(password: "")
 //        let keystoreManager = KeystoreManager([tempKeystore!])

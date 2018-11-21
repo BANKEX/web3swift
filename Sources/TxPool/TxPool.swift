@@ -38,7 +38,7 @@ public class TxPool {
      Any URLSession.dataTask Error
      */
     public func status() -> Promise<TxPoolStatus> {
-        let request = JsonRpcRequestFabric.prepareRequest(.txPoolStatus, parameters: [])
+		let request = JsonRpcRequest(method: .txPoolStatus)
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue ) { try TxPoolStatus($0.response()) }
@@ -53,7 +53,7 @@ public class TxPool {
      Any URLSession.dataTask Error
      */
     public func inspect() -> Promise<TxPoolInspect> {
-        let request = JsonRpcRequestFabric.prepareRequest(.txPoolInspect, parameters: [])
+		let request = JsonRpcRequest(method: .txPoolInspect)
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue ) { try TxPoolInspect($0.response()) }
@@ -68,7 +68,7 @@ public class TxPool {
      Any URLSession.dataTask Error
      */
     public func content() -> Promise<TxPoolContent> {
-        let request = JsonRpcRequestFabric.prepareRequest(.txPoolContent, parameters: [])
+		let request = JsonRpcRequest(method: .txPoolContent)
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue ) { try TxPoolContent($0.response()) }

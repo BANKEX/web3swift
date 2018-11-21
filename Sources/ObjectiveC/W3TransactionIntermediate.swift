@@ -8,15 +8,15 @@
 
 import Foundation
 
-extension Web3DataResponse {
+extension SolidityDataReader {
     public var objc: W3DataResponse {
         return W3DataResponse(self)
     }
 }
 
 @objc public class W3DataResponse: NSObject, SwiftContainer {
-    public let swift: Web3DataResponse
-    public required init(_ swift: Web3DataResponse) {
+    public let swift: SolidityDataReader
+    public required init(_ swift: SolidityDataReader) {
         self.swift = swift
     }
     

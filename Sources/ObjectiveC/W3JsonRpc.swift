@@ -49,12 +49,6 @@ extension JsonRpcMethod {
     @objc public static let txPoolContent = JsonRpcMethod.txPoolContent.objc
 }
 
-@objc public class W3JsonRpcRequestFabric: NSObject {
-    @objc public static func prepareRequest(_ method: W3JsonRpcMethod, parameters: NSArray) -> W3JsonRpcRequest {
-		return JsonRpcRequestFabric.prepareRequest(method.swift, parameters: parameters.compactMap { $0 as? Encodable }).objc
-    }
-}
-
 
 extension JsonRpcRequest {
     public var objc: W3JsonRpcRequest {

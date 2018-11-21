@@ -43,7 +43,7 @@ class LocalNodeTests: XCTestCase {
     func testEthSendExampleWithRemoteSigning() throws {
         guard let web3 = web3 else { return }
         let allAddresses = try web3.eth.getAccounts()
-        let sendToAddress = Address("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+        let sendToAddress = Address("0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8")
         let contract = try web3.contract(Web3Utils.coldWalletABI, at: sendToAddress)
         var options = Web3Options.default
         options.value = Web3Utils.parseToBigUInt("1.0", units: .eth)

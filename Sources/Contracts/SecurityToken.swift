@@ -185,7 +185,7 @@ public class SecurityToken {
         public var index: BigUInt
         /// Name index
         public var nameIndex: BigUInt
-        public init(_ response: Web3DataResponse) throws {
+        public init(_ response: SolidityDataReader) throws {
             name = try response.string()
             address = try response.address()
             factoryAddress = try response.address()

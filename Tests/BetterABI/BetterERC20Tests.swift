@@ -12,10 +12,10 @@ import BigInt
 
 class BetterERC20Tests: XCTestCase {
     let contract: Address = "0x45245bc59219eeaaf6cd3f382e078a461ff9de7b"
-    let user: Address = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
+    let user: Address = "0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8"
     
     override func setUp() {
-        Web3.default.options.from = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
+        Web3.default.options.from = "0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8"
     }
     override func tearDown() {
         Web3.default.options.from = nil
@@ -27,7 +27,7 @@ class BetterERC20Tests: XCTestCase {
         XCTAssertEqual(request.toHexString(), "a9059cbb0000000000000000000000006394b37cf80a7358b38068f0ca4760ad49983a1b0000000000000000000000000000000000000000000000000de0b6b3a7640000")
         
         let response = BigUInt(1).solidityData
-        let success = try Web3DataResponse(response).bool()
+        let success = try SolidityDataReader(response).bool()
         XCTAssertTrue(success)
     }
     
@@ -42,7 +42,7 @@ class BetterERC20Tests: XCTestCase {
     
     func testERC20NameResponse() throws {
         let response = Data(hex: "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000a534f4e4d20546f6b656e00000000000000000000000000000000000000000000")
-        let name = try Web3DataResponse(response).string()
+        let name = try SolidityDataReader(response).string()
         XCTAssertEqual(name, "SONM Token")
     }
     

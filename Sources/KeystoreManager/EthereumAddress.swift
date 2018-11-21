@@ -43,7 +43,7 @@ public enum AddressError: Error {
  This is very usabe for test cases like if you want to test function (like read ERC20 balance)
  you can just run
  ```
- let balance = try ERC20("0x45245bc59219eeaaf6cd3f382e078a461ff9de7b").balance(of: "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+ let balance = try ERC20("0x45245bc59219eeaaf6cd3f382e078a461ff9de7b").balance(of: "0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8")
  print(balance)
  
  ```

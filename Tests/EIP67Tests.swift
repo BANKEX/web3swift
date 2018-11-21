@@ -13,7 +13,7 @@ import XCTest
 @testable import web3swift
 
 class EIP67Tests: XCTestCase {
-    let address: Address = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
+    let address: Address = "0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8"
     func testEIP67encoding() {
         var eip67Data = EIP67Code(address: address)
         eip67Data.gasLimit = BigUInt(21000)

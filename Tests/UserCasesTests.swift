@@ -45,7 +45,7 @@ class UserCases: XCTestCase {
 //        let keystoreManager = KeystoreManager([keystoreV3])
 //        web3Rinkeby.addKeystoreManager(keystoreManager)
 //        let gasPriceRinkeby = try web3Rinkeby.eth.getGasPrice()
-//        let sendToAddress: Address = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
+//        let sendToAddress: Address = "0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8"
 //        let intermediate = try web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001")
 //        var options = Web3Options.default
 //        options.from = keystoreV3.addresses.first
@@ -63,7 +63,7 @@ class UserCases: XCTestCase {
 //        let keystoreManager = KeystoreManager([keystoreV3])
 //        web3Rinkeby.addKeystoreManager(keystoreManager)
 //        let gasPriceRinkeby = try web3Rinkeby.eth.getGasPrice()
-//        let sendToAddress: Address = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
+//        let sendToAddress: Address = "0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8"
 //        let intermediate = try web3Rinkeby.eth.sendETH(to: sendToAddress, amount: "0.001")
 //        var options = Web3Options.default
 //        options.from = keystoreV3.addresses.first
@@ -88,7 +88,7 @@ class UserCases: XCTestCase {
     func testNonBatchedRequest() throws {
         let web3 = Web3(infura: .mainnet)
         web3.requestDispatcher.policy = .NoBatching
-        let balanceResult = try web3.eth.getBalance(address: "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
+        let balanceResult = try web3.eth.getBalance(address: "0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8")
         print(balanceResult)
     }
 }

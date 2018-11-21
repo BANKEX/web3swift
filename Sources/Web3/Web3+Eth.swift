@@ -15,10 +15,11 @@ public class Web3Eth: Web3OptionsInheritable {
     /// provider for some functions
     var provider: Web3Provider
     unowned var web3: Web3
-    public var options: Web3Options {
+	public var options: Web3Options {
         return web3.options
     }
-    
+	
+	/// init with web3 provider and web3
     public init(provider prov: Web3Provider, web3 web3instance: Web3) {
         provider = prov
         web3 = web3instance
@@ -26,109 +27,105 @@ public class Web3Eth: Web3OptionsInheritable {
     /// Send an EthereumTransaction object to the network. Transaction is either signed locally if there is a KeystoreManager
     /// object bound to the web3 instance, or sent unsigned to the node. For local signing the password is required.
     ///
-    /// "options" object can override the "to", "gasPrice", "gasLimit" and "value" parameters is pre-formed transaction.
+	/// - parameter transaction: Transaction to send
+	/// - parameter options: object can override the "to", "gasPrice", "gasLimit" and "value" parameters is pre-formed transaction.
     /// "from" field in "options" is mandatory for both local and remote signing.
-    ///
-    /// This function is synchronous!
+	/// - parameter password: Password to decrypt sender's private key
+    /// - important: This function is synchronous!
     public func sendTransaction(_ transaction: EthereumTransaction, options: Web3Options, password: String = "BANKEXFOUNDATION") throws -> TransactionSendingResult {
         return try sendTransactionPromise(transaction, options: options, password: password).wait()
     }
 
     /// Performs a non-mutating "call" to some smart-contract. EthereumTransaction bears all function parameters required for the call.
     /// Does NOT decode the data returned from the smart-contract.
-    /// "options" object can override the "to", "gasPrice", "gasLimit" and "value" parameters is pre-formed transaction.
+	/// - parameter transaction: Transaction to send
+	/// - parameter options: object can override the "to", "gasPrice", "gasLimit" and "value" parameters is pre-formed transaction.
     /// "from" field in "options" is mandatory for both local and remote signing.
-    ///
-    /// "onString" field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
+	/// - parameter onBlock: field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
     /// or the expected state after all the transactions in memory pool are applied ("pending").
-    ///
-    /// This function is synchronous!
-    func call(_ transaction: EthereumTransaction, options: Web3Options, onBlock: String = "latest") throws -> Data {
+	/// - important: This function is synchronous!
+	/// - returns: smart contract response
+    public func call(_ transaction: EthereumTransaction, options: Web3Options, onBlock: String = "latest") throws -> Data {
         return try callPromise(transaction, options: options, onBlock: onBlock).wait()
     }
 
     /// Send raw Ethereum transaction data to the network.
-    ///
-    /// This function is synchronous!
+	/// - parameter transaction: Transaction to send
+    /// - important: This function is synchronous!
+	/// - returns: TransactionSendingResult with transaction and its hash
     public func sendRawTransaction(_ transaction: Data) throws -> TransactionSendingResult {
         return try sendRawTransactionPromise(transaction).wait()
     }
 
     /// Send raw Ethereum transaction data to the network by first serializing the EthereumTransaction object.
-    ///
-    /// This function is synchronous!
+	/// - parameter transaction: Transaction to send
+    /// - important: This function is synchronous!
+	/// - returns: TransactionSendingResult with transaction and its hash
     public func sendRawTransaction(_ transaction: EthereumTransaction) throws -> TransactionSendingResult {
         return try sendRawTransactionPromise(transaction).wait()
     }
 
-    /// Returns a total number of transactions sent by the particular Ethereum address.
-    ///
-    /// "onBlock" field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
+	/// - parameter address: transaction sender address
+	/// - parameter onBlock: field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
     /// or the expected state after all the transactions in memory pool are applied ("pending").
-    ///
-    /// This function is synchronous!
+	/// - returns: a total number of transactions sent by the particular Ethereum address.
+    /// - important: This function is synchronous!
     public func getTransactionCount(address: Address, onBlock: String = "latest") throws -> BigUInt {
         return try getTransactionCountPromise(address: address, onBlock: onBlock).wait()
     }
-
-    /// Returns a balance of particular Ethereum address in Wei units (1 ETH = 10^18 Wei).
-    ///
-    /// "onString" field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
+	/// - parameter onBlock: field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
     /// or the expected state after all the transactions in memory pool are applied ("pending").
+	/// - returns: a balance of particular Ethereum address in Wei units (1 ETH = 10^18 Wei).
     ///
-    /// This function is synchronous!
+    /// - important: This function is synchronous!
     public func getBalance(address: Address, onBlock: String = "latest") throws -> BigUInt {
         return try getBalancePromise(address: address, onBlock: onBlock).wait()
     }
 
-    /// Returns a block number of the last mined block that Ethereum node knows about.
+    /// - returns: a block number of the last mined block that Ethereum node knows about.
     ///
-    /// This function is synchronous!
+    /// - important: This function is synchronous!
     public func getBlockNumber() throws -> BigUInt {
         return try getBlockNumberPromise().wait()
     }
 
-    /// Returns a current gas price in the units of Wei. The node has internal algorithms for averaging over the last few blocks.
+    /// - returns: a current gas price in the units of Wei. The node has internal algorithms for averaging over the last few blocks.
     ///
-    /// This function is synchronous!
+    /// - important: This function is synchronous!
     public func getGasPrice() throws -> BigUInt {
         return try getGasPricePromise().wait()
     }
 
-    /// Returns transaction details for particular transaction hash. Details indicate position of the transaction in a particular block,
+    /// - returns: transaction details for particular transaction hash. Details indicate position of the transaction in a particular block,
     /// as well as original transaction details such as value, gas limit, gas price, etc.
     ///
-    /// This function is synchronous!
+    /// - important: This function is synchronous!
     public func getTransactionDetails(_ txhash: Data) throws -> TransactionDetails {
         return try getTransactionDetailsPromise(txhash).wait()
     }
 
-    /// Returns transaction details for particular transaction hash. Details indicate position of the transaction in a particular block,
+    /// - returns: transaction details for particular transaction hash. Details indicate position of the transaction in a particular block,
     /// as well as original transaction details such as value, gas limit, gas price, etc.
     ///
-    /// This function is synchronous!
+    /// - important: This function is synchronous!
     ///
-    /// Returns the Result object that indicates either success of failure.
+    /// - returns: TransactionDetails object
     public func getTransactionDetails(_ txhash: String) throws -> TransactionDetails {
         return try getTransactionDetailsPromise(txhash).wait()
     }
 
-    /// Returns transaction receipt for particular transaction hash. Receipt indicate what has happened when the transaction
-    /// was included in block, so it contains logs and status, such as succesful or failed transaction.
-    ///
-    /// This function is synchronous!
-    ///
-    /// Returns the Result object that indicates either success of failure.
+    /// - parameter txhash: Transaction hash
+	/// - returns: transaction receipt for particular transaction hash. Receipt indicate what has happened when the transaction
+	/// was included in block, so it contains logs and status, such as succesful or failed transaction.
+	/// - important: This function is synchronous!
     public func getTransactionReceipt(_ txhash: Data) throws -> TransactionReceipt {
         return try getTransactionReceiptPromise(txhash).wait()
     }
 
-    /// Returns transaction receipt for particular transaction hash. Receipt indicate what has happened when the transaction
-    /// was included in block, so it contains logs and status, such as succesful or failed transaction.
-    ///
-    /// This function is synchronous!
-    ///
-    /// Returns the Result object that indicates either success of failure.
+	/// - parameter txhash: Transaction hash
+	/// - returns: transaction receipt for particular transaction hash. Receipt indicate what has happened when the transaction
+	/// was included in block, so it contains logs and status, such as succesful or failed transaction.
+	/// - important: This function is synchronous!
     public func getTransactionReceipt(_ txhash: String) throws -> TransactionReceipt {
         return try getTransactionReceiptPromise(txhash).wait()
     }
@@ -137,13 +134,12 @@ public class Web3Eth: Web3OptionsInheritable {
     /// how much gas it consumes for computations. Setting the transaction gas limit lower than the estimate will most likely
     /// result in a failing transaction.
     ///
-    /// "onString" field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
+	/// - parameter onBlock: field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
     /// or the expected state after all the transactions in memory pool are applied ("pending").
     ///
-    /// This function is synchronous!
-    ///
-    /// Returns the Result object that indicates either success of failure.
-    /// Error can also indicate that transaction is invalid in the current state, so formally it's gas limit is infinite.
+    /// - important: This function is synchronous!
+    /// - returns: Maximum amount of gas that would be used in the transaction
+	/// - throws: Error can also indicate that transaction is invalid in the current state, so formally it's gas limit is infinite.
     /// An example of such transaction can be sending an amount of ETH that is larger than the current account balance.
     public func estimateGas(_ transaction: EthereumTransaction, options: Web3Options?, onBlock: String = "latest") throws -> BigUInt {
         return try estimateGasPromise(transaction, options: options, onBlock: onBlock).wait()
@@ -151,10 +147,8 @@ public class Web3Eth: Web3OptionsInheritable {
 
     /// Get a list of Ethereum accounts that a node knows about.
     /// If one has attached a Keystore Manager to the web3 object it returns accounts known to the keystore.
-    ///
-    /// This function is synchronous!
-    ///
-    /// Returns the Result object that indicates either success of failure.
+    /// - important: This function is synchronous!
+    /// - returns: Array of addresses in the node
     public func getAccounts() throws -> [Address] {
         return try getAccountsPromise().wait()
     }
@@ -163,9 +157,8 @@ public class Web3Eth: Web3OptionsInheritable {
     /// this call fill do a virtual join and fetch not just transaction hashes from this block,
     /// but full decoded EthereumTransaction objects.
     ///
-    /// This function is synchronous!
-    ///
-    /// Returns the Result object that indicates either success of failure.
+    /// - important: This function is synchronous!
+    /// - returns: Found Block
     public func getBlockByHash(_ hash: String, fullTransactions: Bool = false) throws -> Block {
         return try getBlockByHashPromise(hash, fullTransactions: fullTransactions).wait()
     }
@@ -174,9 +167,9 @@ public class Web3Eth: Web3OptionsInheritable {
     /// this call fill do a virtual join and fetch not just transaction hashes from this block,
     /// but full decoded EthereumTransaction objects.
     ///
-    /// This function is synchronous!
+    /// - important: This function is synchronous!
     ///
-    /// Returns the Result object that indicates either success of failure.
+    /// - returns: Found Block
     public func getBlockByHash(_ hash: Data, fullTransactions: Bool = false) throws -> Block {
         return try getBlockByHashPromise(hash, fullTransactions: fullTransactions).wait()
     }
@@ -185,9 +178,9 @@ public class Web3Eth: Web3OptionsInheritable {
     /// this call fill do a virtual join and fetch not just transaction hashes from this block,
     /// but full decoded EthereumTransaction objects.
     ///
-    /// This function is synchronous!
+    /// - important: This function is synchronous!
     ///
-    /// Returns the Result object that indicates either success of failure.
+    /// - returns: Found Block
     public func getBlockByNumber(_ number: UInt64, fullTransactions: Bool = false) throws -> Block {
         return try getBlockByNumberPromise(number, fullTransactions: fullTransactions).wait()
     }
@@ -196,9 +189,9 @@ public class Web3Eth: Web3OptionsInheritable {
     /// this call fill do a virtual join and fetch not just transaction hashes from this block,
     /// but full decoded EthereumTransaction objects.
     ///
-    /// This function is synchronous!
+    /// - important: This function is synchronous!
     ///
-    /// Returns the Result object that indicates either success of failure.
+	/// - returns: Found Block
     public func getBlockByNumber(_ number: BigUInt, fullTransactions: Bool = false) throws -> Block {
         return try getBlockByNumberPromise(number, fullTransactions: fullTransactions).wait()
     }
@@ -207,24 +200,21 @@ public class Web3Eth: Web3OptionsInheritable {
     /// this call fill do a virtual join and fetch not just transaction hashes from this block,
     /// but full decoded EthereumTransaction objects.
     ///
-    /// This function is synchronous!
+    /// - important: This function is synchronous!
     ///
-    ///
+	/// - returns: Found Block
     public func getBlockByNumber(_ block: String, fullTransactions: Bool = false) throws -> Block {
         return try getBlockByNumberPromise(block, fullTransactions: fullTransactions).wait()
     }
 
     /**
      Convenience wrapper to send Ethereum to another address. Internally it creates a virtual contract and encodes all the options and data.
-     - Parameters:
-     - to: Address to send funds to
-     - amount: BigUInt indicating the amount in wei
-     - extraData: Additional data to attach to the transaction
-     - options: Web3Options to override the default gas price, gas limit. "Value" field of the options is ignored and the "amount" parameter is used instead
+     - parameter to: Address to send funds to
+     - parameter amount: BigUInt indicating the amount in wei
+     - parameter extraData: Additional data to attach to the transaction
+     - parameter options: Web3Options to override the default gas price, gas limit. "Value" field of the options is ignored and the "amount" parameter is used instead
 
-     - returns:
-     - TransactionIntermediate object
-
+     - returns: TransactionIntermediate object
      */
     public func sendETH(to: Address, amount: BigUInt, extraData: Data = Data(), options: Web3Options? = nil) throws -> TransactionIntermediate {
         let contract = try web3.contract(Web3Utils.coldWalletABI, at: to)
@@ -232,9 +222,14 @@ public class Web3Eth: Web3OptionsInheritable {
         mergedOptions.value = amount
         return try contract.method("fallback", extraData: extraData, options: mergedOptions)
     }
-    
+	
+	/// Get information about the particular block in Ethereum network. If "fullTransactions" parameter is set to "true"
+	/// this call fill do a virtual join and fetch not just transaction hashes from this block,
+	/// but full decoded EthereumTransaction objects.
+	///
+	/// - returns: Found Block
     public func getBlockNumberPromise() -> Promise<BigUInt> {
-        let request = JsonRpcRequestFabric.prepareRequest(.blockNumber, parameters: [])
+		let request = JsonRpcRequest(method: .blockNumber)
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue) { response in
@@ -247,9 +242,10 @@ public class Web3Eth: Web3OptionsInheritable {
             return value
         }
     }
-    
+	
+	/// - returns: a current gas price in the units of Wei. The node has internal algorithms for averaging over the last few blocks.
     public func getGasPricePromise() -> Promise<BigUInt> {
-        let request = JsonRpcRequestFabric.prepareRequest(.gasPrice, parameters: [])
+        let request = JsonRpcRequest(method: .gasPrice)
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue) { response in
@@ -263,14 +259,23 @@ public class Web3Eth: Web3OptionsInheritable {
         }
     }
     
-    
+	/// Get information about the particular block in Ethereum network. If "fullTransactions" parameter is set to "true"
+	/// this call fill do a virtual join and fetch not just transaction hashes from this block,
+	/// but full decoded EthereumTransaction objects.
+	///
+	/// - returns: Found Block
     public func getBlockByHashPromise(_ hash: Data, fullTransactions: Bool = false) -> Promise<Block> {
         let hashString = hash.toHexString().withHex
         return getBlockByHashPromise(hashString, fullTransactions: fullTransactions)
     }
-    
+	
+	/// Get information about the particular block in Ethereum network. If "fullTransactions" parameter is set to "true"
+	/// this call fill do a virtual join and fetch not just transaction hashes from this block,
+	/// but full decoded EthereumTransaction objects.
+	///
+	/// - returns: Found Block
     public func getBlockByHashPromise(_ hash: String, fullTransactions: Bool = false) -> Promise<Block> {
-        let request = JsonRpcRequestFabric.prepareRequest(.getBlockByHash, parameters: [hash, fullTransactions])
+        let request = JsonRpcRequest(method: .getBlockByHash, parameters: hash, fullTransactions)
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue) { response in
@@ -284,14 +289,18 @@ public class Web3Eth: Web3OptionsInheritable {
         }
     }
     
-    
+	
+	/// - returns: transaction details for particular transaction hash. Details indicate position of the transaction in a particular block,
+	/// as well as original transaction details such as value, gas limit, gas price, etc.
     public func getTransactionDetailsPromise(_ txhash: Data) -> Promise<TransactionDetails> {
         let hashString = txhash.toHexString().withHex
         return getTransactionDetailsPromise(hashString)
     }
-    
+	
+	/// - returns: transaction details for particular transaction hash. Details indicate position of the transaction in a particular block,
+	/// as well as original transaction details such as value, gas limit, gas price, etc.
     public func getTransactionDetailsPromise(_ txhash: String) -> Promise<TransactionDetails> {
-        let request = JsonRpcRequestFabric.prepareRequest(.getTransactionByHash, parameters: [txhash])
+        let request = JsonRpcRequest(method: .getTransactionByHash, parameters: txhash)
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue) { response in
@@ -305,7 +314,14 @@ public class Web3Eth: Web3OptionsInheritable {
         }
     }
     
-    
+	
+	/// Send an EthereumTransaction object to the network. Transaction is either signed locally if there is a KeystoreManager
+	/// object bound to the web3 instance, or sent unsigned to the node. For local signing the password is required.
+	///
+	/// - parameter transaction: Transaction to send
+	/// - parameter options: object can override the "to", "gasPrice", "gasLimit" and "value" parameters is pre-formed transaction.
+	/// "from" field in "options" is mandatory for both local and remote signing.
+	/// - parameter password: Password to decrypt sender's private key
     func sendTransactionPromise(_ transaction: EthereumTransaction, options: Web3Options, password: String = "BANKEXFOUNDATION") -> Promise<TransactionSendingResult> {
         //        print(transaction)
         var assembledTransaction: EthereumTransaction = transaction.mergedWithOptions(options)
@@ -343,36 +359,41 @@ public class Web3Eth: Web3OptionsInheritable {
             return returnPromise.promise
         }
     }
+	
+	/// - parameter onBlock: field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
+	/// or the expected state after all the transactions in memory pool are applied ("pending").
+	/// - returns: a balance of particular Ethereum address in Wei units (1 ETH = 10^18 Wei).
+	public func getBalancePromise(address: Address, onBlock: String = "latest") -> Promise<BigUInt> {
+		let request = JsonRpcRequest(method: .getBalance, parameters: address._address.lowercased(), onBlock)
+		let rp = web3.dispatch(request)
+		let queue = web3.requestDispatcher.queue
+		return rp.map(on: queue) { response in
+			guard let value: BigUInt = response.getValue() else {
+				if response.error != nil {
+					throw Web3Error.nodeError(response.error!.message)
+				}
+				throw Web3Error.nodeError("Invalid value from Ethereum node")
+			}
+			return value
+		}
+	}
     
-    
-    public func getBalancePromise(address: Address, onBlock: String = "latest") -> Promise<BigUInt> {
-        let addr = address.address
-        return getBalancePromise(address: addr, onBlock: onBlock)
-    }
-    
-    public func getBalancePromise(address: String, onBlock: String = "latest") -> Promise<BigUInt> {
-        let request = JsonRpcRequestFabric.prepareRequest(.getBalance, parameters: [address.lowercased(), onBlock])
-        let rp = web3.dispatch(request)
-        let queue = web3.requestDispatcher.queue
-        return rp.map(on: queue) { response in
-            guard let value: BigUInt = response.getValue() else {
-                if response.error != nil {
-                    throw Web3Error.nodeError(response.error!.message)
-                }
-                throw Web3Error.nodeError("Invalid value from Ethereum node")
-            }
-            return value
-        }
-    }
-    
-    
+	
+	/// - parameter txhash: Transaction hash
+	/// - returns: transaction receipt for particular transaction hash. Receipt indicate what has happened when the transaction
+	/// was included in block, so it contains logs and status, such as succesful or failed transaction.
+	/// - important: This function is synchronous!
     public func getTransactionReceiptPromise(_ txhash: Data) -> Promise<TransactionReceipt> {
         let hashString = txhash.toHexString().withHex
         return getTransactionReceiptPromise(hashString)
     }
-    
+	
+	/// - parameter txhash: Transaction hash
+	/// - returns: transaction receipt for particular transaction hash. Receipt indicate what has happened when the transaction
+	/// was included in block, so it contains logs and status, such as succesful or failed transaction.
+	/// - important: This function is synchronous!
     public func getTransactionReceiptPromise(_ txhash: String) -> Promise<TransactionReceipt> {
-        let request = JsonRpcRequestFabric.prepareRequest(.getTransactionReceipt, parameters: [txhash])
+        let request = JsonRpcRequest(method: .getTransactionReceipt, parameters: txhash)
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue) { response in
@@ -385,7 +406,17 @@ public class Web3Eth: Web3OptionsInheritable {
             return value
         }
     }
-    
+	/// Estimates a minimal amount of gas required to run a transaction. To do it the Ethereum node tries to run it and counts
+	/// how much gas it consumes for computations. Setting the transaction gas limit lower than the estimate will most likely
+	/// result in a failing transaction.
+	///
+	/// - parameter onBlock: field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
+	/// or the expected state after all the transactions in memory pool are applied ("pending").
+	///
+	/// - important: This function is synchronous!
+	/// - returns: Maximum amount of gas that would be used in the transaction
+	/// - throws: Error can also indicate that transaction is invalid in the current state, so formally it's gas limit is infinite.
+	/// An example of such transaction can be sending an amount of ETH that is larger than the current account balance.
     func estimateGasPromise(_ transaction: EthereumTransaction, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
         let queue = web3.requestDispatcher.queue
         do {
@@ -411,19 +442,39 @@ public class Web3Eth: Web3OptionsInheritable {
         }
     }
     
-    
+	/// Get information about the particular block in Ethereum network. If "fullTransactions" parameter is set to "true"
+	/// this call fill do a virtual join and fetch not just transaction hashes from this block,
+	/// but full decoded EthereumTransaction objects.
+	///
+	/// - important: This function is synchronous!
+	///
+	/// - returns: Found Block
     public func getBlockByNumberPromise(_ number: UInt64, fullTransactions: Bool = false) -> Promise<Block> {
         let block = String(number, radix: 16).withHex
         return getBlockByNumberPromise(block, fullTransactions: fullTransactions)
     }
-    
+	
+	/// Get information about the particular block in Ethereum network. If "fullTransactions" parameter is set to "true"
+	/// this call fill do a virtual join and fetch not just transaction hashes from this block,
+	/// but full decoded EthereumTransaction objects.
+	///
+	/// - important: This function is synchronous!
+	///
+	/// - returns: Found Block
     public func getBlockByNumberPromise(_ number: BigUInt, fullTransactions: Bool = false) -> Promise<Block> {
         let block = String(number, radix: 16).withHex
         return getBlockByNumberPromise(block, fullTransactions: fullTransactions)
     }
-    
+	
+	/// Get information about the particular block in Ethereum network. If "fullTransactions" parameter is set to "true"
+	/// this call fill do a virtual join and fetch not just transaction hashes from this block,
+	/// but full decoded EthereumTransaction objects.
+	///
+	/// - important: This function is synchronous!
+	///
+	/// - returns: Found Block
     public func getBlockByNumberPromise(_ number: String, fullTransactions: Bool = false) -> Promise<Block> {
-        let request = JsonRpcRequestFabric.prepareRequest(.getBlockByNumber, parameters: [number, fullTransactions])
+        let request = JsonRpcRequest(method: .getBlockByNumber, parameters: number, fullTransactions)
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue) { response in
@@ -436,7 +487,11 @@ public class Web3Eth: Web3OptionsInheritable {
             return value
         }
     }
-    
+	
+	/// Send raw Ethereum transaction data to the network.
+	/// - parameter transaction: Transaction to send
+	/// - important: This function is synchronous!
+	/// - returns: TransactionSendingResult with transaction and its hash
     func sendRawTransactionPromise(_ transaction: Data) -> Promise<TransactionSendingResult> {
         guard let deserializedTX = EthereumTransaction.fromRaw(transaction) else {
             let promise = Promise<TransactionSendingResult>.pending()
@@ -445,7 +500,11 @@ public class Web3Eth: Web3OptionsInheritable {
         }
         return sendRawTransactionPromise(deserializedTX)
     }
-    
+	
+	/// Send raw Ethereum transaction data to the network.
+	/// - parameter transaction: Transaction to send
+	/// - important: This function is synchronous!
+	/// - returns: TransactionSendingResult with transaction and its hash
     func sendRawTransactionPromise(_ transaction: EthereumTransaction) -> Promise<TransactionSendingResult> {
         //        print(transaction)
         let queue = web3.requestDispatcher.queue
@@ -473,14 +532,23 @@ public class Web3Eth: Web3OptionsInheritable {
         }
     }
     
-    
+	/// - parameter address: transaction sender address
+	/// - parameter onBlock: field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
+	/// or the expected state after all the transactions in memory pool are applied ("pending").
+	/// - returns: a total number of transactions sent by the particular Ethereum address.
+	/// - important: This function is synchronous!
     public func getTransactionCountPromise(address: Address, onBlock: String = "latest") -> Promise<BigUInt> {
         let addr = address.address
         return getTransactionCountPromise(address: addr, onBlock: onBlock)
     }
-    
+	
+	/// - parameter address: transaction sender address
+	/// - parameter onBlock: field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
+	/// or the expected state after all the transactions in memory pool are applied ("pending").
+	/// - returns: a total number of transactions sent by the particular Ethereum address.
+	/// - important: This function is synchronous!
     public func getTransactionCountPromise(address: String, onBlock: String = "latest") -> Promise<BigUInt> {
-        let request = JsonRpcRequestFabric.prepareRequest(.getTransactionCount, parameters: [address.lowercased(), onBlock])
+        let request = JsonRpcRequest(method: .getTransactionCount, parameters: address.lowercased(), onBlock)
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue) { response in
@@ -494,7 +562,10 @@ public class Web3Eth: Web3OptionsInheritable {
         }
     }
     
-    
+	/// Get a list of Ethereum accounts that a node knows about.
+	/// If one has attached a Keystore Manager to the web3 object it returns accounts known to the keystore.
+	/// - important: This function is synchronous!
+	/// - returns: Array of addresses in the node
     public func getAccountsPromise() -> Promise<[Address]> {
         let queue = web3.requestDispatcher.queue
         if !web3.provider.attachedKeystoreManager.isEmpty {
@@ -505,7 +576,7 @@ public class Web3Eth: Web3OptionsInheritable {
             }
             return promise.promise
         }
-        let request = JsonRpcRequestFabric.prepareRequest(.getAccounts, parameters: [])
+        let request = JsonRpcRequest(method: .getAccounts)
         let rp = web3.dispatch(request)
         return rp.map(on: queue) { response in
             guard let value: [Address] = response.getValue() else {
@@ -518,7 +589,15 @@ public class Web3Eth: Web3OptionsInheritable {
         }
     }
     
-    
+	/// Performs a non-mutating "call" to some smart-contract. EthereumTransaction bears all function parameters required for the call.
+	/// Does NOT decode the data returned from the smart-contract.
+	/// - parameter transaction: Transaction to send
+	/// - parameter options: object can override the "to", "gasPrice", "gasLimit" and "value" parameters is pre-formed transaction.
+	/// "from" field in "options" is mandatory for both local and remote signing.
+	/// - parameter onBlock: field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
+	/// or the expected state after all the transactions in memory pool are applied ("pending").
+	/// - important: This function is synchronous!
+	/// - returns: smart contract response
     func callPromise(_ transaction: EthereumTransaction, options: Web3Options, onBlock: String = "latest") -> Promise<Data> {
         let queue = web3.requestDispatcher.queue
         do {
