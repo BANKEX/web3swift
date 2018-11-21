@@ -79,7 +79,7 @@ Don't forget to set the iOS version in a Podfile, otherwise you get an error if 
 
 Most of the classes are documented and have some examples on how to use it. 
 
-### [Read documentation in using Xcode](Documentation/Read Documentation Using Xcode.md)
+### [Read documentation in using Xcode](https://bankex.github.io/web3swift/read-documentation-using-xcode.html)
 ### [Github Pages](https://bankex.github.io/web3swift)
 
 #### We would appreciate it if you translate our documentation into another language, and will be happy to provide you with all the necessary information on how to do this. We will compensate you for translations that will be included in the master branch.

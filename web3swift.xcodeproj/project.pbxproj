@@ -296,7 +296,7 @@
 		1317BCFD218C526300D6D095 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				133E6739219EFE510054758F /* Guides */,
+				133E673A219EFE630054758F /* Guides.swift */,
 				1317BD58218C526300D6D095 /* Migration.swift */,
 				133970582199D22A0027E27C /* Deprecated */,
 				1317BCFE218C526300D6D095 /* Transaction */,
@@ -533,14 +533,6 @@
 				1317BD49218C526300D6D095 /* BlockExplorer.swift */,
 			);
 			path = Deprecated;
-			sourceTree = "<group>";
-		};
-		133E6739219EFE510054758F /* Guides */ = {
-			isa = PBXGroup;
-			children = (
-				133E673A219EFE630054758F /* Guides.swift */,
-			);
-			path = Guides;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
