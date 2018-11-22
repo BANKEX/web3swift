@@ -640,8 +640,8 @@ public struct Block: Decodable {
     }
 }
 
-/// Event parser result
-public struct EventParserResult: EventParserResultProtocol {
+/// Ethereum event parsing results
+public struct EventParserResult {
 	/// Event name
     public var eventName: String
 	/// Transaction receipt

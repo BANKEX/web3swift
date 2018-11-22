@@ -493,11 +493,6 @@ extension EventParserResult {
 		return W3EventParserResult(self)
 	}
 }
-extension EventParserResultProtocol {
-    public var objc: W3EventParserResult {
-		return (self as! EventParserResult).objc
-	}
-}
 @objc public class W3EventParserResult: NSObject, SwiftContainer {
 	public let swift: EventParserResult
 	public required init(_ swift: EventParserResult) {

@@ -19,6 +19,9 @@ import BigInt
 
 /// web3swift 2.1 changes
 
+@available (*,deprecated: 2.1, renamed: "EventParserResult")
+public typealias EventParserResultProtocol = EventParserResult
+
 @available (*,deprecated: 2.1, message: "Use JsonRpcRequest(method:parameters:)")
 public struct JsonRpcRequestFabric {
 	public static func prepareRequest(_ method: JsonRpcMethod, parameters: [Encodable]) -> JsonRpcRequest {

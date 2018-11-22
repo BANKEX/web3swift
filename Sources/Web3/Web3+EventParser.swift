@@ -13,10 +13,14 @@ import PromiseKit
 extension Web3Contract {
     /// An event parser to fetch events produced by smart-contract related transactions. Should not be constructed manually, but rather by calling the corresponding function on the Web3Contract object.
     public struct EventParser: EventParserProtocol {
+        /// Contract for parsing
         public var contract: ContractProtocol
+        /// Event name
         public var eventName: String
+        /// Event filter
         public var filter: EventFilter?
         var web3: Web3
+        /// Init with event and contract. Returns nil if contract doesn't have that method
         public init? (web3 web3Instance: Web3, eventName: String, contract: ContractProtocol, filter: EventFilter? = nil) {
             guard let _ = contract.allEvents.index(of: eventName) else { return nil }
             self.eventName = eventName
@@ -31,7 +35,7 @@ extension Web3Contract {
          - returns: array of events
          - important: This call is synchronous
          */
-        public func parseTransaction(_ transaction: EthereumTransaction) throws -> [EventParserResultProtocol] {
+        public func parseTransaction(_ transaction: EthereumTransaction) throws -> [EventParserResult] {
             return try parseTransactionPromise(transaction).wait()
         }
 
@@ -41,7 +45,7 @@ extension Web3Contract {
          - returns: array of events
          - important: This call is synchronous
          */
-        public func parseTransactionByHash(_ hash: Data) throws -> [EventParserResultProtocol] {
+        public func parseTransactionByHash(_ hash: Data) throws -> [EventParserResult] {
             return try parseTransactionByHashPromise(hash).wait()
         }
         
@@ -51,7 +55,7 @@ extension Web3Contract {
          - returns: array of events
          - important: This call is synchronous
          */
-        public func parseBlockByNumber(_ blockNumber: UInt64) throws -> [EventParserResultProtocol] {
+        public func parseBlockByNumber(_ blockNumber: UInt64) throws -> [EventParserResult] {
             return try parseBlockByNumberPromise(blockNumber).wait()
         }
 
@@ -61,7 +65,7 @@ extension Web3Contract {
          - returns: array of events
          - important: This call is synchronous
          */
-        public func parseBlock(_ block: Block) throws -> [EventParserResultProtocol] {
+        public func parseBlock(_ block: Block) throws -> [EventParserResult] {
             return try parseBlockPromise(block).wait()
         }
     }
@@ -74,14 +78,14 @@ extension Web3Contract.EventParser {
      - returns: promise that returns array of events
      - important: This call is synchronous
      */
-    public func parseTransactionPromise(_ transaction: EthereumTransaction) -> Promise<[EventParserResultProtocol]> {
+    public func parseTransactionPromise(_ transaction: EthereumTransaction) -> Promise<[EventParserResult]> {
         let queue = web3.requestDispatcher.queue
         do {
             guard let hash = transaction.hash else {
                 throw Web3Error.processingError("Failed to get transaction hash") }
             return parseTransactionByHashPromise(hash)
         } catch {
-            let returnPromise = Promise<[EventParserResultProtocol]>.pending()
+            let returnPromise = Promise<[EventParserResult]>.pending()
             queue.async {
                 returnPromise.resolver.reject(error)
             }
@@ -95,9 +99,9 @@ extension Web3Contract.EventParser {
      - returns: promise that returns array of events
      - important: This call is synchronous
      */
-    public func parseTransactionByHashPromise(_ hash: Data) -> Promise<[EventParserResultProtocol]> {
+    public func parseTransactionByHashPromise(_ hash: Data) -> Promise<[EventParserResult]> {
         let queue = web3.requestDispatcher.queue
-        return web3.eth.getTransactionReceiptPromise(hash).map(on: queue) { receipt throws -> [EventParserResultProtocol] in
+        return web3.eth.getTransactionReceiptPromise(hash).map(on: queue) { receipt throws -> [EventParserResult] in
             guard let results = parseReceiptForLogs(receipt: receipt, contract: self.contract, eventName: self.eventName, filter: self.filter) else {
                 throw Web3Error.processingError("Failed to parse receipt for events")
             }
@@ -111,7 +115,7 @@ extension Web3Contract.EventParser {
      - returns: promise that returns array of events
      - important: This call is synchronous
      */
-    public func parseBlockByNumberPromise(_ blockNumber: UInt64) -> Promise<[EventParserResultProtocol]> {
+    public func parseBlockByNumberPromise(_ blockNumber: UInt64) -> Promise<[EventParserResult]> {
         let queue = web3.requestDispatcher.queue
         do {
             if filter != nil && (filter?.fromBlock != nil || filter?.toBlock != nil) {
@@ -121,7 +125,7 @@ extension Web3Contract.EventParser {
                 self.parseBlockPromise(res)
             }
         } catch {
-            let returnPromise = Promise<[EventParserResultProtocol]>.pending()
+            let returnPromise = Promise<[EventParserResult]>.pending()
             queue.async {
                 returnPromise.resolver.reject(error)
             }
@@ -135,7 +139,7 @@ extension Web3Contract.EventParser {
      - returns: promise that returns array of events
      - important: This call is synchronous
      */
-    public func parseBlockPromise(_ block: Block) -> Promise<[EventParserResultProtocol]> {
+    public func parseBlockPromise(_ block: Block) -> Promise<[EventParserResult]> {
         let queue = web3.requestDispatcher.queue
         do {
             guard let bloom = block.logsBloom else {
@@ -144,9 +148,9 @@ extension Web3Contract.EventParser {
             if contract.address != nil {
                 let addressPresent = block.logsBloom?.test(topic: contract.address!.addressData)
                 if addressPresent != true {
-                    let returnPromise = Promise<[EventParserResultProtocol]>.pending()
+                    let returnPromise = Promise<[EventParserResult]>.pending()
                     queue.async {
-                        returnPromise.resolver.fulfill([EventParserResultProtocol]())
+                        returnPromise.resolver.fulfill([EventParserResult]())
                     }
                     return returnPromise.promise
                 }
@@ -155,15 +159,15 @@ extension Web3Contract.EventParser {
                 throw Web3Error.processingError("Error processing bloom for events")
             }
             if !eventOfSuchTypeIsPresent {
-                let returnPromise = Promise<[EventParserResultProtocol]>.pending()
+                let returnPromise = Promise<[EventParserResult]>.pending()
                 queue.async {
-                    returnPromise.resolver.fulfill([EventParserResultProtocol]())
+                    returnPromise.resolver.fulfill([EventParserResult]())
                 }
                 return returnPromise.promise
             }
             return Promise { seal in
 
-                var pendingEvents: [Promise<[EventParserResultProtocol]>] = [Promise<[EventParserResultProtocol]>]()
+                var pendingEvents: [Promise<[EventParserResult]>] = [Promise<[EventParserResult]>]()
                 for transaction in block.transactions {
                     switch transaction {
                     case .null:
@@ -181,8 +185,8 @@ extension Web3Contract.EventParser {
                         pendingEvents.append(subresultPromise)
                     }
                 }
-                when(resolved: pendingEvents).done(on: queue) { (results: [Result<[EventParserResultProtocol]>]) throws in
-                    var allResults = [EventParserResultProtocol]()
+                when(resolved: pendingEvents).done(on: queue) { (results: [Result<[EventParserResult]>]) throws in
+                    var allResults = [EventParserResult]()
                     for res in results {
                         guard case let .fulfilled(subresult) = res else {
                             throw Web3Error.processingError("Failed to parse event for one transaction in block")
@@ -195,7 +199,7 @@ extension Web3Contract.EventParser {
                 }
             }
         } catch {
-            let returnPromise = Promise<[EventParserResultProtocol]>.pending()
+            let returnPromise = Promise<[EventParserResult]>.pending()
             queue.async {
                 returnPromise.resolver.reject(error)
             }
@@ -213,7 +217,7 @@ extension Web3Contract {
      - returns: array of events
      - important: This call is synchronous
      */
-    public func getIndexedEvents(eventName: String?, filter: EventFilter, joinWithReceipts: Bool = false) throws -> [EventParserResultProtocol] {
+    public func getIndexedEvents(eventName: String?, filter: EventFilter, joinWithReceipts: Bool = false) throws -> [EventParserResult] {
         return try getIndexedEventsPromise(eventName: eventName, filter: filter, joinWithReceipts: joinWithReceipts).wait()
     }
     
@@ -225,7 +229,7 @@ extension Web3Contract {
      - returns: promise that returns array of events
      - important: This call is synchronous
      */
-    public func getIndexedEventsPromise(eventName: String?, filter: EventFilter, joinWithReceipts: Bool = false) -> Promise<[EventParserResultProtocol]> {
+    public func getIndexedEventsPromise(eventName: String?, filter: EventFilter, joinWithReceipts: Bool = false) -> Promise<[EventParserResult]> {
         let queue = web3.requestDispatcher.queue
         do {
             guard let rawContract = self.contract as? ContractV2 else {
@@ -271,19 +275,17 @@ extension Web3Contract {
                 return decodedLogs
             }
             if !joinWithReceipts {
-                return fetchLogsPromise.mapValues(on: queue) { res -> EventParserResultProtocol in
-                    res as EventParserResultProtocol
-                }
+                return fetchLogsPromise
             }
             return fetchLogsPromise.thenMap(on: queue) { singleEvent in
                 self.web3.eth.getTransactionReceiptPromise(singleEvent.eventLog!.transactionHash).map(on: queue) { receipt in
                     var joinedEvent = singleEvent
                     joinedEvent.transactionReceipt = receipt
-                    return joinedEvent as EventParserResultProtocol
+                    return joinedEvent
                 }
             }
         } catch {
-            let returnPromise = Promise<[EventParserResultProtocol]>.pending()
+            let returnPromise = Promise<[EventParserResult]>.pending()
             queue.async {
                 returnPromise.resolver.reject(error)
             }

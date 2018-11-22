@@ -10,25 +10,72 @@ import BigInt
 import Foundation
 import class PromiseKit.Promise
 
-/// Protocol for generic Ethereum event parsing results
-public protocol EventParserResultProtocol {
-    var eventName: String { get }
-    var decodedResult: [String: Any] { get }
-    var contractAddress: Address { get }
-    var transactionReceipt: TransactionReceipt? { get }
-    var eventLog: EventLog? { get }
-}
-
 /// Protocol for generic Ethereum event parser
 public protocol EventParserProtocol {
-    func parseTransaction(_ transaction: EthereumTransaction) throws -> [EventParserResultProtocol]
-    func parseTransactionByHash(_ hash: Data) throws -> [EventParserResultProtocol]
-    func parseBlock(_ block: Block) throws -> [EventParserResultProtocol]
-    func parseBlockByNumber(_ blockNumber: UInt64) throws -> [EventParserResultProtocol]
-    func parseTransactionPromise(_ transaction: EthereumTransaction) -> Promise<[EventParserResultProtocol]>
-    func parseTransactionByHashPromise(_ hash: Data) -> Promise<[EventParserResultProtocol]>
-    func parseBlockByNumberPromise(_ blockNumber: UInt64) -> Promise<[EventParserResultProtocol]>
-    func parseBlockPromise(_ block: Block) -> Promise<[EventParserResultProtocol]>
+    /**
+     Parses the transaction for events matching the EventParser settings.
+     - parameter transaction: web3swift native EthereumTransaction object
+     - returns: array of events
+     - important: This call is synchronous
+     */
+    func parseTransaction(_ transaction: EthereumTransaction) throws -> [EventParserResult]
+    
+    /**
+     Parses the transaction for events matching the EventParser settings.
+     - parameter hash: Transaction hash
+     - returns: array of events
+     - important: This call is synchronous
+     */
+    func parseTransactionByHash(_ hash: Data) throws -> [EventParserResult]
+    
+    /**
+     Parses the block for events matching the EventParser settings.
+     - parameter block: Native web3swift block object
+     - returns: array of events
+     - important: This call is synchronous
+     */
+    func parseBlock(_ block: Block) throws -> [EventParserResult]
+    
+    /**
+     Parses the block for events matching the EventParser settings.
+     - parameter blockNumber: Ethereum network block number
+     - returns: array of events
+     - important: This call is synchronous
+     */
+    func parseBlockByNumber(_ blockNumber: UInt64) throws -> [EventParserResult]
+    
+    /**
+     Parses the transaction for events matching the EventParser settings.
+     - parameter transaction: web3swift native EthereumTransaction object
+     - returns: promise that returns array of events
+     - important: This call is synchronous
+     */
+    func parseTransactionPromise(_ transaction: EthereumTransaction) -> Promise<[EventParserResult]>
+    
+    /**
+     Parses the transaction for events matching the EventParser settings.
+     - parameter hash: Transaction hash
+     - returns: promise that returns array of events
+     - important: This call is synchronous
+     */
+    func parseTransactionByHashPromise(_ hash: Data) -> Promise<[EventParserResult]>
+    
+    /**
+     Parses the block for events matching the EventParser settings.
+     - parameter blockNumber: Ethereum network block number
+     - returns: promise that returns array of events
+     - important: This call is synchronous
+     */
+    func parseBlockByNumberPromise(_ blockNumber: UInt64) -> Promise<[EventParserResult]>
+    
+    /**
+     Parses the block for events matching the EventParser settings.
+     - parameter block: Native web3swift block object
+     - returns: promise that returns array of events
+     - important: This call is synchronous
+     */
+    func parseBlockPromise(_ block: Block) -> Promise<[EventParserResult]>
+    
 }
 
 /// Enum for the most-used Ethereum networks. Network ID is crucial for EIP155 support

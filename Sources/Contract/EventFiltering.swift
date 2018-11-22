@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal func filterLogs(decodedLogs: [EventParserResultProtocol], eventFilter: EventFilter) -> [EventParserResultProtocol] {
+internal func filterLogs(decodedLogs: [EventParserResult], eventFilter: EventFilter) -> [EventParserResult] {
     let filteredLogs = decodedLogs.filter { (result) -> Bool in
         if eventFilter.addresses == nil {
             return true
@@ -105,12 +105,12 @@ internal func encodeTopicToGetLogs(contract: ContractV2, eventName: String?, fil
     return preEncoding
 }
 
-internal func parseReceiptForLogs(receipt: TransactionReceipt, contract: ContractProtocol, eventName: String, filter: EventFilter?) -> [EventParserResultProtocol]? {
+internal func parseReceiptForLogs(receipt: TransactionReceipt, contract: ContractProtocol, eventName: String, filter: EventFilter?) -> [EventParserResult]? {
     guard let bloom = receipt.logsBloom else { return nil }
     if contract.address != nil {
         let addressPresent = bloom.test(topic: contract.address!.addressData)
         if addressPresent != true {
-            return [EventParserResultProtocol]()
+            return [EventParserResult]()
         }
     }
     if filter != nil, let filterAddresses = filter?.addresses {
@@ -123,12 +123,12 @@ internal func parseReceiptForLogs(receipt: TransactionReceipt, contract: Contrac
             }
         }
         if oneIsPresent != true {
-            return [EventParserResultProtocol]()
+            return [EventParserResult]()
         }
     }
     guard let eventOfSuchTypeIsPresent = contract.testBloomForEventPrecence(eventName: eventName, bloom: bloom) else { return nil }
     if !eventOfSuchTypeIsPresent {
-        return [EventParserResultProtocol]()
+        return [EventParserResult]()
     }
     var allLogs = receipt.logs
     if contract.address != nil {
@@ -136,16 +136,16 @@ internal func parseReceiptForLogs(receipt: TransactionReceipt, contract: Contrac
             log.address == contract.address
         })
     }
-    let decodedLogs = allLogs.compactMap({ (log) -> EventParserResultProtocol? in
+    let decodedLogs = allLogs.compactMap({ (log) -> EventParserResult? in
         let (n, d) = contract.parseEvent(log)
         guard let evName = n, let evData = d else { return nil }
         var result = EventParserResult(eventName: evName, transactionReceipt: receipt, contractAddress: log.address, decodedResult: evData)
         result.eventLog = log
         return result
-    }).filter { (res: EventParserResultProtocol?) -> Bool in
+    }).filter { (res: EventParserResult?) -> Bool in
         return res != nil && res?.eventName == eventName
     }
-    var allResults = [EventParserResultProtocol]()
+    var allResults = [EventParserResult]()
     if filter != nil {
         let eventFilter = filter!
         let filteredLogs = filterLogs(decodedLogs: decodedLogs, eventFilter: eventFilter)
