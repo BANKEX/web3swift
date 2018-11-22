@@ -10,6 +10,10 @@ import BigInt
 import Foundation
 
 public extension Data {
+    /// Sets data.count to toBytes and fills missing bytes at the start of the data
+    /// - parameter toBytes: Desired data size
+    /// - parameter isNegative: Fills with ff if negative. default: false
+    /// - returns: Data with desired size
     func setLengthLeft(_ toBytes: UInt64, isNegative: Bool = false) -> Data? {
         let existingLength = UInt64(count)
         if existingLength == toBytes {
@@ -27,6 +31,10 @@ public extension Data {
         return data
     }
 
+    /// Sets data.count to toBytes and fills missing bytes at the end of the data
+    /// - parameter toBytes: Desired data size
+    /// - parameter isNegative: Fills with ff if negative. default: false
+    /// - returns: Data with desired size
     func setLengthRight(_ toBytes: UInt64, isNegative: Bool = false) -> Data? {
         let existingLength = UInt64(count)
         if existingLength == toBytes {
@@ -46,6 +54,7 @@ public extension Data {
 }
 
 public extension BigInt {
+    /// Converts int to data
     func toTwosComplement() -> Data {
         if sign == BigInt.Sign.plus {
             return magnitude.serialize()
@@ -57,6 +66,7 @@ public extension BigInt {
         }
     }
 
+    /// - returns: Fixed size data of number
     func abiEncode(bits: UInt64) -> Data! {
         let isNegative = self < (BigInt(0))
         let data = toTwosComplement()
@@ -65,6 +75,7 @@ public extension BigInt {
         return padded
     }
 
+    /// Converts data to BigInt
     static func fromTwosComplement(data: Data) -> BigInt {
         let isPositive = ((data[0] & 128) >> 7) == 0
         if isPositive {
@@ -80,6 +91,7 @@ public extension BigInt {
 }
 
 public extension BigUInt {
+    /// - returns: Fixed size data of number
     func abiEncode(bits: UInt64) -> Data? {
         let data = serialize()
         let paddedLength = UInt64(ceil((Double(bits) / 8.0)))

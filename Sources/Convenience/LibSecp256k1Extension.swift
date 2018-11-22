@@ -44,23 +44,19 @@ extension Data {
     }
 }
 
-public struct SECP256K1 {
-    public struct UnmarshaledSignature {
-        var v: UInt8
-        var r = [UInt8](repeating: 0, count: 32)
-        var s = [UInt8](repeating: 0, count: 32)
-    }
-
-    static var secp256k1_N = BigUInt("fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141", radix: 16)!
-    static var secp256k1_halfN = secp256k1_N >> 2
-}
-
+/// Errors for secp256k1
 public enum SECP256K1Error: Error {
+    /// Signature required 1024 rounds and failed
     case signingFailed
+    /// Cannot verify private key
     case invalidPrivateKey
+    /// Hash size should be 32 bytes long
     case invalidHashSize
+    /// Private key size should be 32 bytes long
     case invalidPrivateKeySize
+    /// Signature size should be 65 bytes long
     case invalidSignatureSize
+    /// Public key size should be 65 bytes long
     case invalidPublicKeySize
     public var localizedDescription: String {
         switch self {
@@ -80,20 +76,64 @@ public enum SECP256K1Error: Error {
     }
 }
 
+/// Errors for secp256k1
 public enum SECP256DataError: Error {
+    /// Cannot recover public key
     case cannotRecoverPublicKey
+    /// Cannot extract public key from private key
     case cannotExtractPublicKeyFromPrivateKey
+    /// Cannot make recoverable signature
     case cannotMakeRecoverableSignature
+    /// Cannot parse signature
     case cannotParseSignature
+    /// Cannot parse public key
     case cannotParsePublicKey
+    /// Cannot serialize public key
     case cannotSerializePublicKey
+    /// Cannot combine public keys
     case cannotCombinePublicKeys
+    /// Cannot serialize signature
     case cannotSerializeSignature
+    /// Signature corrupted
     case signatureCorrupted
+    /// Invalid marshal signature size
     case invalidMarshalSignatureSize
+    public var localizedDescription: String {
+        switch self {
+        case .cannotRecoverPublicKey:
+            return "Cannot recover public key"
+        case .cannotExtractPublicKeyFromPrivateKey:
+            return "Cannot extract public key from private key"
+        case .cannotMakeRecoverableSignature:
+            return "Cannot make recoverable signature"
+        case .cannotParseSignature:
+            return "Cannot parse signature"
+        case .cannotParsePublicKey:
+            return "Cannot parse public key"
+        case .cannotSerializePublicKey:
+            return "Cannot serialize public key"
+        case .cannotCombinePublicKeys:
+            return "Cannot combine public keys"
+        case .cannotSerializeSignature:
+            return "Cannot serialize signature"
+        case .signatureCorrupted:
+            return "Signature corrupted"
+        case .invalidMarshalSignatureSize:
+            return "Invalid marshal signature size"
+        }
+    }
 }
 
-extension SECP256K1 {
+struct SECP256K1 {
+    struct UnmarshaledSignature {
+        var v: UInt8
+        var r = [UInt8](repeating: 0, count: 32)
+        var s = [UInt8](repeating: 0, count: 32)
+    }
+
+    static var secp256k1_N = BigUInt("fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141", radix: 16)!
+    static var secp256k1_halfN = secp256k1_N >> 2
+    
     static var context = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY))
 
     // throws SECP256K1Error

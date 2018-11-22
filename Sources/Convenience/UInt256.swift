@@ -11,10 +11,14 @@ import Foundation
 
 
 extension BigUInt {
+    /// - parameter string: String number. can be: "0.023", "123123123.12312312312"
+    /// - parameter units: Units that contains decimals
     public init?(_ string: String, units: Web3Units) {
         self.init(string, decimals: units.decimals)
     }
-
+    
+    /// - parameter string: String number. can be: "0.023", "123123123.12312312312"
+    /// - parameter decimals: Number of decimals that string should be multiplyed by
     public init?(_ string: String, decimals: Int) {
         let separators = CharacterSet(charactersIn: ".,")
         let components = string.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: separators)
@@ -32,14 +36,17 @@ extension BigUInt {
         self = mainPart
     }
     
-    
+    /// Number to string convertion options
     public struct StringOptions: OptionSet {
         public let rawValue: Int
         public init(rawValue: Int) {
             self.rawValue = rawValue
         }
+        /// Fallback to scientific number. (like `1.0e-16`)
         public static let fallbackToScientific = StringOptions(rawValue: 0b1)
+        /// Removes last zeroes (will print `1.123` instead of `1.12300000000000`)
         public static let stripZeroes = StringOptions(rawValue: 0b10)
+        /// Default options: [.stripZeroes]
         public static let `default`: StringOptions = [.stripZeroes]
     }
     /// Formats a BigUInt object to String. The supplied number is first divided into integer and decimal part based on "toUnits",
@@ -107,6 +114,7 @@ extension BigUInt {
 }
 
 extension BigInt {
+    /// Typealias
     public typealias StringOptions = BigUInt.StringOptions
     /// Returns .description to not confuse
     public func string() -> String {
@@ -134,7 +142,10 @@ extension BigInt {
     }
 }
 
+/// Represents human readable string as wei
+/// Used in requests, where it automatically converts to wei units
 public struct NaturalUnits {
+    /// Error for init with string
     public enum Error: Swift.Error {
         case cannotConvert(String)
         public var localizedDescription: String {
@@ -145,13 +156,18 @@ public struct NaturalUnits {
         }
     }
     public let string: String
+    /// Init with string like "0.1", "1123123123", "123123.123123123123"
+    /// - throws: Error.cannotConvert if it cannot convert to string to BigUInt with 18 decimals
     public init(_ string: String) throws {
-        guard BigUInt("0.1", decimals: 18) != nil else { throw Error.cannotConvert(string) }
+        guard BigUInt(string, decimals: 18) != nil else { throw Error.cannotConvert(string) }
         self.string = string
     }
+    /// Init with int value
     public init(_ int: Int) {
         self.string = int.description
     }
+    /// - parameter decimals: Number of decimals
+    /// - returns: Wei units with decimals
     public func number(with decimals: Int) -> BigUInt {
         return BigUInt(string, decimals: decimals) ?? 0
     }

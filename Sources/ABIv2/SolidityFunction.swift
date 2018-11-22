@@ -10,8 +10,14 @@ import Foundation
 import BigInt
 import PromiseKit
 
+/// Protocol thats allows to convert types to solidity data
 public protocol SolidityDataRepresentable {
+    /// - returns: Solidity compatible data
     var solidityData: Data { get }
+    /// - returns:
+    /// `true`: one element equals one byte.
+    /// `false`: one element equals 32 bytes.
+    /// default: false
     var isSolidityBinaryType: Bool { get }
 }
 public extension SolidityDataRepresentable {
@@ -19,6 +25,7 @@ public extension SolidityDataRepresentable {
 }
 
 extension BinaryInteger {
+    /// - returns: Solidity compatible data
     public var solidityData: Data { return BigInt(self).abiEncode(bits: 256) }
 }
 extension Int: SolidityDataRepresentable {}

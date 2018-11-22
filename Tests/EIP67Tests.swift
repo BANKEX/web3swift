@@ -38,7 +38,7 @@ class EIP67Tests: XCTestCase {
         eip67Data.amount = BigUInt("1000000000000000000")
         //        eip67Data.data =
         let encoding = eip67Data.toString()
-        guard let code = EIP67CodeParser.parse(encoding) else { return XCTFail() }
+        guard let code = EIP67Code(string: encoding) else { return XCTFail() }
         XCTAssert(code.address == eip67Data.address)
         XCTAssert(code.gasLimit == eip67Data.gasLimit)
         XCTAssert(code.amount == eip67Data.amount)

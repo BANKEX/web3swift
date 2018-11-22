@@ -11,17 +11,13 @@ import CryptoSwift
 import Foundation
 
 extension UInt32 {
+    /// - returns: Serialized bigEndian value as Data
     public func serialize32() -> Data {
-        let uint32 = UInt32(self)
-        var bigEndian = uint32.bigEndian
-        let count = MemoryLayout<UInt32>.size
-        let bytePtr = withUnsafePointer(to: &bigEndian) {
-            $0.withMemoryRebound(to: UInt8.self, capacity: count) {
-                UnsafeBufferPointer(start: $0, count: count)
-            }
+        var data = Data(count: 4)
+        data.withUnsafeMutableBytes { (body: UnsafeMutablePointer<UInt32>) in
+            body[0] = bigEndian
         }
-        let byteArray = Array(bytePtr)
-        return Data(byteArray)
+        return data
     }
 }
 
