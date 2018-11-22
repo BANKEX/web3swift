@@ -5,15 +5,18 @@
 //  Created by Alexander Vlasov on 10.01.2018.
 //
 
-// From https://stackoverflow.com/questions/43091858/swift-hash-a-string-using-hash-hmac-with-ripemd160/43191938
+
 
 import Foundation
 
+/// From https://stackoverflow.com/questions/43091858/swift-hash-a-string-using-hash-hmac-with-ripemd160/43191938
+/// This class contains hash functions for BIP32HDNode
 public struct RIPEMD160 {
     private var MDbuf: (UInt32, UInt32, UInt32, UInt32, UInt32)
     private var buffer: Data
     private var count: Int64 // Total # of bytes processed.
-
+    
+    /// Init with default params
     public init() {
         MDbuf = (0x6745_2301, 0xEFCD_AB89, 0x98BA_DCFE, 0x1032_5476, 0xC3D2_E1F0)
         buffer = Data()
@@ -366,21 +369,20 @@ public struct RIPEMD160 {
 
         return data
     }
-}
-
-public extension RIPEMD160 {
+    
+    /// Returns hash of the message
     public static func hash(message: Data) -> Data {
         var md = RIPEMD160()
         md.update(data: message)
         return md.finalize()
     }
 
+    /// Returns hash of the message
     public static func hash(message: String) -> Data {
         return RIPEMD160.hash(message: Data(message.utf8))
     }
-}
-
-public extension RIPEMD160 {
+    
+    /// Authentificates message with key
     public static func hmac(key: Data, message: Data) -> Data {
         var key = key
         key.count = 64 // Truncate to 64 bytes or fill-up with zeros.
@@ -399,10 +401,12 @@ public extension RIPEMD160 {
         return outerMd.finalize()
     }
 
+    /// Authentificates message with key
     public static func hmac(key: Data, message: String) -> Data {
         return RIPEMD160.hmac(key: key, message: message.data)
     }
 
+    /// Authentificates message with key
     public static func hmac(key: String, message: String) -> Data {
         return RIPEMD160.hmac(key: key.data, message: message)
     }
