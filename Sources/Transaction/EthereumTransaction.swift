@@ -221,7 +221,7 @@ hash: \(String(describing: hash))
         } else if let value = try? json.at("input") {
             data = try value.data()
         } else {
-            throw json.notFoundError
+            throw json.notFound(at: "(data or input)")
         }
         self.init(to: to, data: data, options: options)
         nonce = try json.at("nonce").uint256()

@@ -65,14 +65,14 @@ extension TxPoolInspect {
 	
 }
 
-extension InspectedTransaction {
+extension TxPoolInspect.Transaction {
     public var objc: W3InspectedTransaction {
 		return W3InspectedTransaction(self)
 	}
 }
 @objc public class W3InspectedTransaction: NSObject, SwiftContainer {
-	public let swift: InspectedTransaction
-	public required init(_ swift: InspectedTransaction) {
+	public let swift: TxPoolInspect.Transaction
+	public required init(_ swift: TxPoolInspect.Transaction) {
 		self.swift = swift
 	}
 	@objc public var from: W3Address { return swift.from.objc }
@@ -99,14 +99,14 @@ extension TxPoolContent {
 	
 }
 
-extension TxPoolTransaction {
+extension TxPoolContent.Transaction {
     public var objc: W3TxPoolTransaction {
 		return W3TxPoolTransaction(self)
 	}
 }
 @objc public class W3TxPoolTransaction: NSObject, SwiftContainer {
-	public let swift: TxPoolTransaction
-	public required init(_ swift: TxPoolTransaction) {
+	public let swift: TxPoolContent.Transaction
+	public required init(_ swift: TxPoolContent.Transaction) {
 		self.swift = swift
 	}
 	@objc public var from: W3Address { return swift.from.objc }

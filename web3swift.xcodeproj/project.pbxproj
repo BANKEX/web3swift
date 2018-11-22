@@ -82,6 +82,7 @@
 		13397055219984480027E27C /* SecurityToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13397054219984480027E27C /* SecurityToken.swift */; };
 		133970572199876A0027E27C /* ERC888.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133970562199876A0027E27C /* ERC888.swift */; };
 		133E673B219EFE630054758F /* Guides.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133E673A219EFE630054758F /* Guides.swift */; };
+		133E696621A6B8940054758F /* Migration-iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133E696521A6B8940054758F /* Migration-iOS.swift */; };
 		1353A30C21945AE000B4E6D0 /* web3swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 1353A30321945AE000B4E6D0 /* web3swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		135945AB2195952600975EE3 /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135945AA2195952600975EE3 /* Bridging.swift */; };
 		13765D6A21964A9B005C483C /* W3TxPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D5B21964A95005C483C /* W3TxPool.swift */; };
@@ -230,6 +231,7 @@
 		13397054219984480027E27C /* SecurityToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityToken.swift; sourceTree = "<group>"; };
 		133970562199876A0027E27C /* ERC888.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC888.swift; sourceTree = "<group>"; };
 		133E673A219EFE630054758F /* Guides.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guides.swift; sourceTree = "<group>"; };
+		133E696521A6B8940054758F /* Migration-iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Migration-iOS.swift"; sourceTree = "<group>"; };
 		1353A30321945AE000B4E6D0 /* web3swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = web3swift.h; path = Sources/ObjectiveC/web3swift.h; sourceTree = SOURCE_ROOT; };
 		135945AA2195952600975EE3 /* Bridging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridging.swift; sourceTree = "<group>"; };
 		13765D5B21964A95005C483C /* W3TxPool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3TxPool.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 			children = (
 				133E673A219EFE630054758F /* Guides.swift */,
 				1317BD58218C526300D6D095 /* Migration.swift */,
+				133E696521A6B8940054758F /* Migration-iOS.swift */,
 				133970582199D22A0027E27C /* Deprecated */,
 				1317BCFE218C526300D6D095 /* Transaction */,
 				1317BD02218C526300D6D095 /* EthURL */,
@@ -683,6 +686,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				133E696621A6B8940054758F /* Migration-iOS.swift in Sources */,
 				1317BDBF218C526300D6D095 /* UInt256.swift in Sources */,
 				1317BDC4218C526300D6D095 /* Dictionary+Extension.swift in Sources */,
 				13765D6F21964A9B005C483C /* W3Web3.swift in Sources */,

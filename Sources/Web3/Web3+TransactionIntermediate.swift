@@ -14,7 +14,7 @@ import PromiseKit
 public enum Web3ResponseError: Error {
 	/// Not found error with response size and index
     case notFound(Int, Int)
-	/// Error for unconvertable type
+	/// Error for unconvertible type
     case wrongType(Any, String, Int)
 	public var localizedDescription: String {
 		switch self {

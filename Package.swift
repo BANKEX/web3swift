@@ -24,7 +24,8 @@ let package = Package(
       path: "Sources",
       exclude: [
         "ObjectiveC",
-        "Utils/EIP67Code.swift"
+        "Utils/EIP67Code.swift",
+        "Migration-iOS.swift"
         ]),
     ]
 )

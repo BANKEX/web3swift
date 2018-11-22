@@ -12,106 +12,170 @@ import BigInt
 extension BigUInt {
     private typealias Error = DictionaryReader.Error
     init(dictionary value: Any) throws {
-        if let value = value as? String {
-            if value.isHex {
-                guard let value = BigUInt(value.withoutHex, radix: 16) else { throw Error.unconvertable }
-                self = value
+        if let string = value as? String {
+            if string.isHex {
+                guard let number = BigUInt(string.withoutHex, radix: 16) else { throw Error.unconvertible(value: string, expected: "BigInt") }
+                self = number
             } else {
-                guard let value = BigUInt(value) else { throw Error.unconvertable }
-                self = value
+                guard let number = BigUInt(string) else { throw Error.unconvertible(value: string, expected: "BigInt") }
+                self = number
             }
         } else if let value = value as? Int {
             self = BigUInt(value)
         } else {
-            throw Error.unconvertable
+            throw Error.unconvertible(value: value, expected: "BigInt")
         }
     }
 }
 
+/**
+ Dictionary Reader
+ 
+ Used for easy dictionary parsing
+ */
 public class DictionaryReader {
+    /// Errors
     public enum Error: Swift.Error {
-        case notFound
-        case unconvertable
+        /// Throws if key cannot be found in a dictionary
+        case notFound(key: String, dictionary: [String: Any])
+        /// Throws if value cannot be converted to desired type
+        case unconvertible(value: Any, expected: String)
+        public var localizedDescription: String {
+            switch self {
+            case let .notFound(key, dictionary):
+                return "Cannot find object at key \(key): \(dictionary)"
+            case let .unconvertible(value, expected):
+                return "Cannot convert \(value) to \(expected)"
+            }
+        }
     }
+    /// Raw value
     public var raw: Any
+    /// Init with any value
     public init(_ data: Any) {
         self.raw = data
     }
+    
+    func unconvertible(to expected: String) -> Error {
+        return Error.unconvertible(value: raw, expected: expected)
+    }
+    
+    /// tries to represent raw as dictionary and gets value at key from it
+    /// - parameter key: dictionary key
+    /// - returns: DictionaryReader with found value
+    /// - throws: DictionaryReader.Error(if unconvertible to [String: Any] or if key not found in dictionary)
     public func at(_ key: String) throws -> DictionaryReader {
-        guard let data = raw as? [String: Any] else { throw Error.unconvertable }
-        guard let value = data[key] else { throw Error.notFound }
+        guard let data = raw as? [String: Any] else { throw unconvertible(to: "[String: Any]") }
+        guard let value = data[key] else { throw Error.notFound(key: key, dictionary: data) }
         return DictionaryReader(value)
     }
-    public func dictionary(block: (DictionaryReader, DictionaryReader)throws->()) throws {
-        guard let data = raw as? [String: Any] else { throw Error.unconvertable }
+    
+    /// tries to represent raw as dictionary and calls forEach on it
+    /// same as [String: Any]().map { key, value in ... }
+    /// - parameter block: callback for every key and value of dictionary
+    /// - throws: DictionaryReader.Error(if unconvertible to [String: Any])
+    public func dictionary(body: (DictionaryReader, DictionaryReader) throws -> ()) throws {
+        guard let data = raw as? [String: Any] else { throw unconvertible(to: "[String: Any]") }
         try data.forEach {
-            try block(DictionaryReader($0),DictionaryReader($1))
+            try body(DictionaryReader($0), DictionaryReader($1))
         }
     }
-    public func array(block: (DictionaryReader)throws->()) throws {
-        guard let data = raw as? [Any] else { throw Error.unconvertable }
+    
+    /// tries to represent raw as array and calls forEach on it
+    /// same as [Any]().forEach { value in ... }
+    /// - parameter body: callback for every value in array
+    /// - throws: DictionaryReader.Error(if unconvertible to [Any])
+    public func array(body: (DictionaryReader)throws->()) throws {
+        guard let data = raw as? [Any] else { throw unconvertible(to: "[Any]") }
         try data.forEach {
-            try block(DictionaryReader($0))
+            try body(DictionaryReader($0))
         }
     }
 
-    
+    /// tries to represent raw as string then string as address
+    /// - returns: Address
+    /// - throws: DictionaryReader.Error.unconvertible
     public func address() throws -> Address {
         let string = try self.string()
-        guard string.count >= 42 else { throw Error.unconvertable }
+        guard string.count >= 42 else { throw unconvertible(to: "Address") }
         guard string != "0x" && string != "0x0" else { return .contractDeployment }
         let address = Address(String(string[..<42]))
         // already checked for size. so don't need to check again for address.isValid
-        // guard address.isValid else { throw Error.unconvertable }
+        // guard address.isValid else { throw Error.unconvertible }
         return address
     }
+    
+    /// tries to represent raw as string
+    /// - returns: Address
+    /// - throws: DictionaryReader.Error.unconvertible
     public func string() throws -> String {
         if let value = raw as? String {
             return value
         } else if let value = raw as? Int {
             return value.description
         } else {
-            throw Error.unconvertable
+            throw unconvertible(to: "String")
         }
     }
+    
+    /// tries to represent raw as data or as hex string then as data
+    /// - throws: DictionaryReader.Error.unconvertible
     public func data() throws -> Data {
-        return try Data(hex: string().withoutHex)
+        if let value = raw as? Data {
+            return value
+        } else {
+            return try Data(hex: string().withoutHex)
+        }
     }
+    
+    /// tries to represent raw as BigUInt
+    /// can convert:
+    /// - "0x12312312"
+    /// - 0x123123
+    /// - "123123123"
+    /// - throws: DictionaryReader.Error.unconvertible
     public func uint256() throws -> BigUInt {
         if let value = raw as? String {
             if value.isHex {
-                guard let value = BigUInt(value.withoutHex, radix: 16) else { throw Error.unconvertable }
+                guard let value = BigUInt(value.withoutHex, radix: 16) else { throw unconvertible(to: "BigUInt") }
                 return value
             } else {
-                guard let value = BigUInt(value) else { throw Error.unconvertable }
+                guard let value = BigUInt(value) else { throw unconvertible(to: "BigUInt") }
                 return value
             }
         } else if let value = raw as? Int {
             return BigUInt(value)
         } else {
-            throw Error.unconvertable
+            throw unconvertible(to: "BigUInt")
         }
     }
+    
+    /// tries to represent raw as Int
+    /// can convert:
+    /// - "0x12312312"
+    /// - 0x123123
+    /// - "123123123"
+    /// - throws: DictionaryReader.Error.unconvertible
     public func int() throws -> Int {
         if let value = raw as? Int {
             return value
         } else if let value = raw as? String {
             if value.isHex {
-                guard let value = Int(value.withoutHex, radix: 16) else { throw Error.unconvertable }
+                guard let value = Int(value.withoutHex, radix: 16) else { throw unconvertible(to: "Int") }
                 return value
             } else {
-                guard let value = Int(value) else { throw Error.unconvertable }
+                guard let value = Int(value) else { throw unconvertible(to: "Int") }
                 return value
             }
         } else {
-            throw Error.unconvertable
+            throw unconvertible(to: "Int")
         }
     }
 }
 
 extension Dictionary where Key == String, Value == Any {
-    var notFoundError: Error {
-        return DictionaryReader.Error.notFound
+    func notFound(at key: String) -> Error {
+        return DictionaryReader.Error.notFound(key: key, dictionary: self)
     }
     var json: Data {
         return try! JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
@@ -119,9 +183,11 @@ extension Dictionary where Key == String, Value == Any {
     var jsonDescription: String {
         return json.string
     }
-    
+    /// - parameter key: dictionary key
+    /// - returns: DictionaryReader with found value
+    /// - throws: DictionaryReader.Error(if key not found in dictionary)
     public func at(_ key: String) throws -> DictionaryReader {
-        guard let value = self[key] else { throw DictionaryReader.Error.notFound }
+        guard let value = self[key] else { throw notFound(at: key) }
         return DictionaryReader(value)
     }
 }

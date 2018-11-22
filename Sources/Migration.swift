@@ -48,9 +48,6 @@ public typealias JSONRPCresponseBatch = JsonRpcResponseBatch
 public typealias EthereumAddress = Address
 
 public extension Web3 {
-    typealias EIP67Code = web3swift.EIP67Code
-    typealias EIP67CodeGenerator = web3swift.EIP67CodeGenerator
-    typealias EIP67CodeParser = web3swift.EIP67CodeParser
     @available (*, deprecated: 2.0, message: "Use Web3Units")
     typealias Units = Web3Units
     // @available (*, deprecated: 2.0, message: "Use Web3Utils")

@@ -11,6 +11,13 @@ import BigInt
 import CoreImage
 import Foundation
 
+/**
+ QR Code representation of address or blockchain transaction
+ 
+ 
+ */
+
+public typealias EthereumQRCode = EIP67Code
 public struct EIP67Code {
     public var address: Address
     public var gasLimit: BigUInt?
@@ -46,6 +53,36 @@ public struct EIP67Code {
     public init(address: Address) {
         self.address = address
     }
+    public init?(string: String) {
+        guard string.hasPrefix("ethereum:") else { return nil }
+        let striped = string.components(separatedBy: "ethereum:")
+        guard striped.count == 2 else { return nil }
+        guard let encoding = striped[1].removingPercentEncoding else { return nil }
+        guard let url = URL(string: encoding) else { return nil }
+        address = Address(url.lastPathComponent)
+        guard address.isValid else { return nil }
+        guard let components = URLComponents(string: encoding)?.queryItems else { return }
+        for comp in components {
+            switch comp.name {
+            case "value":
+                guard let value = comp.value else { return nil }
+                guard let val = BigUInt(value, radix: 10) else { return nil }
+                amount = val
+            case "gas":
+                guard let value = comp.value else { return nil }
+                guard let val = BigUInt(value, radix: 10) else { return nil }
+                gasLimit = val
+            case "data":
+                guard let value = comp.value else { return nil }
+                guard let data = Data.fromHex(value) else { return nil }
+                self.data = EIP67Code.DataType.data(data)
+            case "function":
+                continue
+            default:
+                continue
+            }
+        }
+    }
 
     public func toString() -> String {
         var urlComponents = URLComponents()
@@ -75,12 +112,7 @@ public struct EIP67Code {
     }
 
     public func toImage(scale: Double = 1.0) -> CIImage {
-        return EIP67CodeGenerator.createImage(from: self, scale: scale)
-    }
-}
-
-public struct EIP67CodeGenerator {
-    public static func createImage(from: EIP67Code, scale: Double = 1.0) -> CIImage {
+        let from = self
         guard let string = from.toString().addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return CIImage() }
         guard let data = string.data(using: .utf8, allowLossyConversion: false) else { return CIImage() }
         let filter = CIFilter(name: "CIQRCodeGenerator", parameters: ["inputMessage": data, "inputCorrectionLevel": "L"])
@@ -91,43 +123,4 @@ public struct EIP67CodeGenerator {
     }
 }
 
-public struct EIP67CodeParser {
-    public static func parse(_ data: Data) -> EIP67Code? {
-        guard let string = String(data: data, encoding: .utf8) else { return nil }
-        return parse(string)
-    }
-
-    public static func parse(_ string: String) -> EIP67Code? {
-        guard string.hasPrefix("ethereum:") else { return nil }
-        let striped = string.components(separatedBy: "ethereum:")
-        guard striped.count == 2 else { return nil }
-        guard let encoding = striped[1].removingPercentEncoding else { return nil }
-        guard let url = URL(string: encoding) else { return nil }
-        let address = Address(url.lastPathComponent)
-        guard address.isValid else { return nil }
-        var code = EIP67Code(address: address)
-        guard let components = URLComponents(string: encoding)?.queryItems else { return code }
-        for comp in components {
-            switch comp.name {
-            case "value":
-                guard let value = comp.value else { return nil }
-                guard let val = BigUInt(value, radix: 10) else { return nil }
-                code.amount = val
-            case "gas":
-                guard let value = comp.value else { return nil }
-                guard let val = BigUInt(value, radix: 10) else { return nil }
-                code.gasLimit = val
-            case "data":
-                guard let value = comp.value else { return nil }
-                guard let data = Data.fromHex(value) else { return nil }
-                code.data = EIP67Code.DataType.data(data)
-            case "function":
-                continue
-            default:
-                continue
-            }
-        }
-        return code
-    }
-}
 #endif
