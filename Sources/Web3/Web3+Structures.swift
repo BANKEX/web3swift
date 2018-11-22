@@ -444,13 +444,21 @@ public struct EventLog: Decodable {
     }
 }
 
+/// TransactionInBlock errors
 public enum TransactionInBlockError: Error {
+	/// cannot parse (data: Any) to transaction hash or dictionary
     case corrupted
+	public var localizedDescription: String {
+		return "init(data:) failed beacause: Data corrupted"
+	}
 }
 
 public enum TransactionInBlock: Decodable {
+	/// Transaction with hash
     case hash(Data)
+	/// Transaction with transaction details
     case transaction(EthereumTransaction)
+	/// null transaction
     case null
 
     /// Creates a new instance by decoding from the given decoder.
@@ -472,7 +480,9 @@ public enum TransactionInBlock: Decodable {
             self = .null
         }
     }
-
+	
+	/// init with any object
+	/// - parameter data: Should be in hex or dictionary format
     public init(_ data: Any) throws {
         if let string = data as? String {
             guard let d = Data.fromHex(string) else { throw TransactionInBlockError.corrupted }
@@ -486,25 +496,46 @@ public enum TransactionInBlock: Decodable {
     }
 }
 
+/// Block object
+/// Contains all information about some blockchain block
 public struct Block: Decodable {
+	/// Block position in blockchain
     public var number: BigUInt
+	/// Block hash
     public var hash: Data
+	/// Block's parent hash
     public var parentHash: Data
+	/// Block nonce
     public var nonce: Data?
+	/// Block sha uncles
     public var sha3Uncles: Data
+	/// Logs bloom
     public var logsBloom: EthereumBloomFilter?
+	/// Transaction root
     public var transactionsRoot: Data
+	/// State root
     public var stateRoot: Data
+	/// Receipts root
     public var receiptsRoot: Data
+	/// Address of block creator
     public var miner: Address?
+	/// Block difficulty
     public var difficulty: BigUInt
+	/// Total difficulty
     public var totalDifficulty: BigUInt
+	/// Extra data
     public var extraData: Data
+	/// Block size
     public var size: BigUInt
+	/// Gas limit
     public var gasLimit: BigUInt
+	/// Gas used
     public var gasUsed: BigUInt
+	/// Timestamp
     public var timestamp: Date
+	/// Transactions in block
     public var transactions: [TransactionInBlock]
+	/// Block uncles
     public var uncles: [Data]
 
     enum CodingKeys: String, CodingKey {
