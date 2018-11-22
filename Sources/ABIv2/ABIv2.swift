@@ -26,4 +26,5 @@ protocol ABIv2Validation {
     var isValid: Bool { get }
 }
 
+/// Parses smart contract json abi to work with smart contract's functions
 public struct ABIv2 {}

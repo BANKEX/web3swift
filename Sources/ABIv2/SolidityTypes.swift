@@ -72,6 +72,8 @@ public class SolidityType: Equatable, CustomStringConvertible {
     public enum Error: Swift.Error {
         case corrupted
     }
+    
+    /// Represents solidity uintN type
     public class SUInt: SolidityType {
         var bits: Int
         init(bits: Int) {
@@ -83,9 +85,13 @@ public class SolidityType: Equatable, CustomStringConvertible {
             return (8...256).contains(bits) && (bits & 0b111 == 0)
         }
     }
+    
+    /// Represents solidity intN type
     public class SInt: SUInt {
         public override var description: String { return "int\(bits)" }
     }
+    
+    /// Represents solidity address type
     public class SAddress: SolidityType {
         public override var description: String { return "address" }
     }
@@ -95,9 +101,13 @@ public class SolidityType: Equatable, CustomStringConvertible {
         public override var description: String { return "function" }
         public override var isSupported: Bool { return false }
     }
+    
+    /// Represents solidity bool type
     public class SBool: SolidityType {
         public override var description: String { return "bool" }
     }
+    
+    /// Represents solidity bytes[N] type
     public class SBytes: SolidityType {
         public override var description: String { return "bytes\(count)" }
         public override var isValid: Bool { return count > 0 && count <= 32 }
@@ -107,17 +117,22 @@ public class SolidityType: Equatable, CustomStringConvertible {
             super.init()
         }
     }
+    
+    /// Represents solidity bool[] type
     public class SDynamicBytes: SolidityType {
         public override var description: String { return "bytes" }
         public override var memoryUsage: Int { return 0 }
         public override var isStatic: Bool { return false }
     }
+    
+    /// Represents solidity string type
     public class SString: SolidityType {
         public override var description: String { return "string" }
         public override var isStatic: Bool { return false }
         public override var memoryUsage: Int { return 0 }
     }
     
+    /// Represents solidity type[N] type
     public class SStaticArray: SolidityType {
         public override var description: String { return "\(type)[\(count)]" }
         public override var isStatic: Bool { return type.isStatic }
@@ -136,6 +151,8 @@ public class SolidityType: Equatable, CustomStringConvertible {
             super.init()
         }
     }
+    
+    /// Represents solidity type[] type
     public class SDynamicArray: SolidityType {
         public override var description: String { return "\(type)[]" }
         public override var memoryUsage: Int { return 0 }
@@ -334,27 +351,45 @@ Performance:
  */
 
 public class SolidityFunction: CustomStringConvertible {
+    /// Errors
     public enum Error: Swift.Error {
-        case corrupted
-        case emptyFunctionName
+        /// Throws if function is in invalid format
+        case invalidFormat(String)
+        /// Throws if function name is empty
+        case emptyFunctionName(String)
+        public var localizedDescription: String {
+            switch self {
+            case let .invalidFormat(function):
+                return "Invalid format for function \"\(function)\". Should be in format: \"functionName(type,type,type)\""
+            case let .emptyFunctionName(function):
+                return "Invalid format for function \"\(function)\". Cannot find its name"
+            }
+        }
     }
+    /// Function name
     public let name: String
+    /// Array of function arguments
     public let types: [SolidityType]
+    /// Formatted function
     public let function: String
+    /// Function hash (function.keccak256()[0..<4])
     public lazy var hash: Data = self.function.keccak256()[0..<4]
+    /// init with function name
     public init(function: String) throws {
-        let function = function.replacingOccurrences(of: " ", with: "")
-        guard let index = function.index(of: "(") else { throw Error.corrupted }
-        name = String(function[..<index])
-        guard name.count > 0 else { throw Error.emptyFunctionName }
-        guard function.hasSuffix(")") else { throw Error.corrupted }
-        let arguments = function[function.index(after: index)..<function.index(before: function.endIndex)]
+        let replaced = function.replacingOccurrences(of: " ", with: "")
+        guard let index = replaced.index(of: "(") else { throw Error.invalidFormat(function) }
+        name = String(replaced[..<index])
+        guard name.count > 0 else { throw Error.emptyFunctionName(function) }
+        guard replaced.hasSuffix(")") else { throw Error.invalidFormat(function) }
+        let arguments = replaced[replaced.index(after: index)..<replaced.index(before: replaced.endIndex)]
         self.types = try arguments.split(separator: ",").map { try SolidityType.scan(type: String($0)) }
         self.function = "\(name)(\(types.map { $0.description }.joined(separator: ",")))"
     }
+    /// Encodes arguments to data
     public func encode(_ arguments: SolidityDataRepresentable...) -> Data {
         return encode(arguments)
     }
+    /// Encodes arguments to data
     public func encode(_ arguments: [SolidityDataRepresentable]) -> Data {
         let data = SolidityDataWriter()
         data.write(header: hash)
@@ -368,6 +403,7 @@ public class SolidityFunction: CustomStringConvertible {
         }
         return data.done()
     }
+    /// Description in format: "\(name)(\(types.map{ $0.description }.joined(separator: ",")))"
     public var description: String {
         return "\(name)(\(types.map{ $0.description }.joined(separator: ",")))"
     }

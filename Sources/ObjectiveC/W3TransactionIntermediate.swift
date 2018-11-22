@@ -81,7 +81,7 @@ extension SolidityDataReader {
             try swift.uint64()
         }
     }
-    @objc public func uint(error: NSErrorPointer) -> Int64 {
+    @objc public func uint(error: NSErrorPointer) -> UInt {
         return throwNumber(default: 0, pointer: error) {
             try swift.uint()
         }
@@ -106,7 +106,7 @@ extension SolidityDataReader {
             try swift.int64()
         }
     }
-    @objc public func int(error: NSErrorPointer) -> Int64 {
+    @objc public func int(error: NSErrorPointer) -> Int {
         return throwNumber(default: 0, pointer: error) {
             try swift.int()
         }
