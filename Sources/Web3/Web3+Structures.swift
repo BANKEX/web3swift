@@ -146,10 +146,18 @@ extension EthereumTransaction: Decodable {
     }
 }
 
+/*
+# TransactionDetails
+Used as result of Web3.default.eth.getTransactionDetails
+*/
 public struct TransactionDetails: Decodable {
+	/// Block hash in a blockchain
     public var blockHash: Data?
+	/// Block number in a blockchain
     public var blockNumber: BigUInt?
+	/// Transaction index in a block
     public var transactionIndex: BigUInt?
+	/// Transaction info
     public var transaction: EthereumTransaction
 
     enum CodingKeys: String, CodingKey {
@@ -178,7 +186,8 @@ public struct TransactionDetails: Decodable {
         let transaction = try EthereumTransaction(from: decoder)
         self.transaction = transaction
     }
-
+	
+	/// init with jsonrpc response
     public init(_ json: [String: Any]) throws {
         if let value = try? json.at("blockHash") {
             blockHash = try value.data()
@@ -193,21 +202,40 @@ public struct TransactionDetails: Decodable {
     }
 }
 
+/*
+# Transaciton Receipt
+Used in Web3.default.eth.getTransactionReceipt()
+and in contract events
+*/
 public struct TransactionReceipt: Decodable {
+	/// Transaction hash
     public var transactionHash: Data
+	/// Block hash
     public var blockHash: Data
+	/// Block position in a block chain
     public var blockNumber: BigUInt
+	/// Transaction position in a block
     public var transactionIndex: BigUInt
+	/// Contract address
     public var contractAddress: Address?
+	/// Cumulative gas used for this transaction
     public var cumulativeGasUsed: BigUInt
+	/// Gas used for this transaction
     public var gasUsed: BigUInt
+	/// Smart contract logs
     public var logs: [EventLog]
+	/// Transaction current status
     public var status: TXStatus
+	/// Logs bloom
     public var logsBloom: EthereumBloomFilter?
-
+	
+	/// Transaction status
     public enum TXStatus {
+		/// Transaction processed
         case ok
+		/// Transaction failed
         case failed
+		/// Transaction is not proceessed yet
         case notYetProcessed
     }
 
@@ -272,7 +300,8 @@ public struct TransactionReceipt: Decodable {
         let logs = try container.decode([EventLog].self, forKey: .logs)
         self.logs = logs
     }
-
+	
+	/// Custom init. By default inits with decoder
     public init(transactionHash: Data, blockHash: Data, blockNumber: BigUInt, transactionIndex: BigUInt, contractAddress: Address?, cumulativeGasUsed: BigUInt, gasUsed: BigUInt, logs: [EventLog], status: TXStatus, logsBloom: EthereumBloomFilter?) {
         self.transactionHash = transactionHash
         self.blockHash = blockHash
@@ -321,15 +350,25 @@ extension Address: Decodable, Encodable {
     }
 }
 
+/// Event log
 public struct EventLog: Decodable {
+	/// Transaction address
     public var address: Address
+	/// Block hash
     public var blockHash: Data
+	/// Block number
     public var blockNumber: BigUInt
+	/// Data
     public var data: Data
+	/// Log index
     public var logIndex: BigUInt
+	/// isRemoved
     public var removed: Bool
+	/// Topics
     public var topics: [Data]
+	/// Transaction hash
     public var transactionHash: Data
+	/// Transaction index
     public var transactionIndex: BigUInt
 
 //    address = 0x53066cddbc0099eb6c96785d9b3df2aaeede5da3;
@@ -570,13 +609,20 @@ public struct Block: Decodable {
     }
 }
 
+/// Event parser result
 public struct EventParserResult: EventParserResultProtocol {
+	/// Event name
     public var eventName: String
+	/// Transaction receipt
     public var transactionReceipt: TransactionReceipt?
+	/// Contract Address
     public var contractAddress: Address
+	/// Decoded result
     public var decodedResult: [String: Any]
+	/// Event log
     public var eventLog: EventLog?
-
+	
+	//// Standart init with all parameters
     public init(eventName: String, transactionReceipt: TransactionReceipt?, contractAddress: Address, decodedResult: [String: Any]) {
         self.eventName = eventName
         self.transactionReceipt = transactionReceipt
@@ -586,7 +632,12 @@ public struct EventParserResult: EventParserResultProtocol {
     }
 }
 
+/// Transaction sending result
+/// Returns in every transaction
+/// Contains transaction hash and transaction details
 public struct TransactionSendingResult {
+	/// Transaction with all details
     public var transaction: EthereumTransaction
+	/// Transaction hash
     public var hash: String
 }
