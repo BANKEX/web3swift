@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           web3swift Docs
         </a>
-         (47% documented)
+         (68% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -236,6 +236,18 @@
                 <a class="nav-group-task-link" href="../Classes/TxPool.html">TxPool</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TxPoolContent.html">TxPoolContent</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TxPoolContent/Transaction.html">– Transaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TxPoolInspect.html">TxPoolInspect</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TxPoolInspect/Transaction.html">– Transaction</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Web3.html">Web3</a>
               </li>
               <li class="nav-group-task">
@@ -400,9 +412,6 @@
                 <a class="nav-group-task-link" href="../Protocols/EventParserProtocol.html">EventParserProtocol</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/EventParserResultProtocol.html">EventParserResultProtocol</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/SolidityDataRepresentable.html">SolidityDataRepresentable</a>
               </li>
               <li class="nav-group-task">
@@ -477,12 +486,6 @@
                 <a class="nav-group-task-link" href="../Structs/EIP67Code/Function.html">– Function</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/EIP67CodeGenerator.html">EIP67CodeGenerator</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/EIP67CodeParser.html">EIP67CodeParser</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/EthereumBloomFilter.html">EthereumBloomFilter</a>
               </li>
               <li class="nav-group-task">
@@ -508,9 +511,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/ICAP.html">ICAP</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/InspectedTransaction.html">InspectedTransaction</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/JsonRpcMethod.html">JsonRpcMethod</a>
@@ -555,12 +555,6 @@
                 <a class="nav-group-task-link" href="../Structs/RIPEMD160.html">RIPEMD160</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/SECP256K1.html">SECP256K1</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/SECP256K1.html#/s:9web3swift9SECP256K1V20UnmarshaledSignatureV">– UnmarshaledSignature</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/TransactionDetails.html">TransactionDetails</a>
               </li>
               <li class="nav-group-task">
@@ -576,16 +570,7 @@
                 <a class="nav-group-task-link" href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/TxPoolContent.html">TxPoolContent</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/TxPoolInspect.html">TxPoolInspect</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/TxPoolStatus.html">TxPoolStatus</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/TxPoolTransaction.html">TxPoolTransaction</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Web3Options.html">Web3Options</a>
@@ -598,6 +583,14 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Web3Signer/FallbackSigner.html">– FallbackSigner</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift14EthereumQRCodea">EthereumQRCode</a>
               </li>
             </ul>
           </li>
@@ -663,7 +656,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>init with provider and web3</p>
 
                       </div>
                       <div class="declaration">
@@ -690,7 +683,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Get a list of Ethereum accounts that a node knows about.
+If one has attached a Keystore Manager to the web3 object it returns accounts known to the keystore.</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    This function is synchronous!
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -700,6 +699,10 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getAccounts</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Array of addresses in the node</p>
                       </div>
                     </section>
                   </div>
@@ -717,8 +720,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -727,6 +729,10 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getCoinbase</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>First account from node</p>
                       </div>
                     </section>
                   </div>
@@ -744,7 +750,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Signs personal message</p>
 
                       </div>
                       <div class="declaration">
@@ -754,6 +760,49 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">personalSign</span><span class="p">(</span><span class="n">_</span> <span class="nv">personalMessage</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">account</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"BANKEXFOUNDATION"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>personalMessage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>message to sign</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>account</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>account that signs message</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>password to decrypt private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -771,7 +820,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Signs personal message</p>
 
                       </div>
                       <div class="declaration">
@@ -781,6 +830,49 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">sign</span><span class="p">(</span><span class="n">_</span> <span class="nv">personalMessage</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">account</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"BANKEXFOUNDATION"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>personalMessage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>message to sign</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>account</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>account that signs message</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>password to decrypt private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -798,7 +890,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Signs personal message</p>
 
                       </div>
                       <div class="declaration">
@@ -808,6 +900,49 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">sign</span><span class="p">(</span><span class="n">_</span> <span class="nv">personalMessage</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">account</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"BANKEXFOUNDATION"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>personalMessage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>message to sign</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>account</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>account that signs message</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>password to decrypt private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -825,7 +960,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Recovers address that signed personal message</p>
 
                       </div>
                       <div class="declaration">
@@ -835,6 +970,41 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">personalECRecover</span><span class="p">(</span><span class="n">_</span> <span class="nv">personalMessage</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">signature</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>personalMessage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>signed message</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>signature</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>signature</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>signer address</p>
                       </div>
                     </section>
                   </div>
@@ -852,7 +1022,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Recovers address that signed personal message</p>
 
                       </div>
                       <div class="declaration">
@@ -862,6 +1032,41 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">personalECRecover</span><span class="p">(</span><span class="n">_</span> <span class="nv">personalMessage</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">signature</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>personalMessage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>signed message</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>signature</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>signature</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>signer address</p>
                       </div>
                     </section>
                   </div>
@@ -879,7 +1084,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Sends transaction to the blockchain</p>
 
                       </div>
                       <div class="declaration">
@@ -889,6 +1094,41 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">sendTransaction</span><span class="p">(</span><span class="n">_</span> <span class="nv">json</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">],</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"BANKEXFOUNDATION"</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>json</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>transaction to send</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>password to decrypt sender&rsquo;s private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>transaction hash</p>
                       </div>
                     </section>
                   </div>
@@ -906,7 +1146,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Sends transaction to the blockchain</p>
 
                       </div>
                       <div class="declaration">
@@ -916,6 +1156,41 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">sendTransaction</span><span class="p">(</span><span class="n">_</span> <span class="nv">transaction</span><span class="p">:</span> <span class="kt"><a href="../Structs/EthereumTransaction.html">EthereumTransaction</a></span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"BANKEXFOUNDATION"</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transaction</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>transaction to send</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>password to decrypt sender&rsquo;s private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>transaction hash</p>
                       </div>
                     </section>
                   </div>
@@ -933,7 +1208,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Estimates gas that can be used for this transaction</p>
 
                       </div>
                       <div class="declaration">
@@ -943,6 +1218,29 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">estimateGas</span><span class="p">(</span><span class="n">_</span> <span class="nv">json</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">BigUInt</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>json</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>transaction to send</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>gas limit</p>
                       </div>
                     </section>
                   </div>
@@ -960,7 +1258,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Estimates gas that can be used for this transaction</p>
 
                       </div>
                       <div class="declaration">
@@ -970,6 +1268,41 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">estimateGas</span><span class="p">(</span><span class="n">_</span> <span class="nv">transaction</span><span class="p">:</span> <span class="kt"><a href="../Structs/EthereumTransaction.html">EthereumTransaction</a></span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">BigUInt</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transaction</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>transaction to send</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>options that will be send with the transaction</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>gas limit</p>
                       </div>
                     </section>
                   </div>
@@ -987,7 +1320,9 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Prepares transaction to send.
+Converts json to transaction and options.
+Gets gas price and estimates gas for this transaction from node</p>
 
                       </div>
                       <div class="declaration">
@@ -997,6 +1332,29 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">prepareTxForApproval</span><span class="p">(</span><span class="n">_</span> <span class="nv">json</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt"><a href="../Structs/EthereumTransaction.html">EthereumTransaction</a></span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>json</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Transaction to send</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>transaction and its options</p>
                       </div>
                     </section>
                   </div>
@@ -1014,7 +1372,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Transaction Errors</p>
 
                         <a href="../Classes/Web3BrowserFunctions/TransactionError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -1042,16 +1400,50 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Prepares transaction to send.
+Gets gas price and estimates gas for this transaction from node</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    you must set sender in <code>options.from</code>
+
+</div>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    TransactionError.optionsFromNotFound
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">prepareTxForApproval</span><span class="p">(</span><span class="n">_</span> <span class="nv">trans</span><span class="p">:</span> <span class="kt"><a href="../Structs/EthereumTransaction.html">EthereumTransaction</a></span><span class="p">,</span> <span class="n"><a href="../Classes/Web3BrowserFunctions.html#/s:9web3swift20Web3BrowserFunctionsC7optionsAA0B7OptionsVvp">options</a></span> <span class="nv">opts</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt"><a href="../Structs/EthereumTransaction.html">EthereumTransaction</a></span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">prepareTxForApproval</span><span class="p">(</span><span class="n">_</span> <span class="nv">transaction</span><span class="p">:</span> <span class="kt"><a href="../Structs/EthereumTransaction.html">EthereumTransaction</a></span><span class="p">,</span> <span class="n"><a href="../Classes/Web3BrowserFunctions.html#/s:9web3swift20Web3BrowserFunctionsC7optionsAA0B7OptionsVvp">options</a></span> <span class="nv">opts</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt"><a href="../Structs/EthereumTransaction.html">EthereumTransaction</a></span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transaction</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Transaction to send</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>transaction and its options</p>
                       </div>
                     </section>
                   </div>
@@ -1069,7 +1461,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Signs transaction</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    you must set sender in <code>options.from</code>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -1079,6 +1476,37 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">signTransaction</span><span class="p">(</span><span class="n">_</span> <span class="nv">json</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">],</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"BANKEXFOUNDATION"</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>personalMessage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>transaction to sign</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>password to decrypt private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1096,7 +1524,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Signs transaction</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    you must set sender in <code>options.from</code>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -1106,6 +1539,37 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">signTransaction</span><span class="p">(</span><span class="n">_</span> <span class="nv">trans</span><span class="p">:</span> <span class="kt"><a href="../Structs/EthereumTransaction.html">EthereumTransaction</a></span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"BANKEXFOUNDATION"</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>personalMessage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>transaction to sign</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>password to decrypt private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
