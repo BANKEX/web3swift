@@ -27,7 +27,7 @@ public class ERC721 {
      * Automatically calls if options.gasPrice == nil */
     public var gasPrice: GasPrice { return GasPrice(self) }
     
-    /// Represents Address as ERC721 token (with standart password and options)
+    /// Represents Address as ERC721 token (with standard password and options)
     /// - parameter address: Token address
     public init(_ address: Address) {
         self.address = address

@@ -653,7 +653,7 @@ public struct EventParserResult {
 	/// Event log
     public var eventLog: EventLog?
 	
-	//// Standart init with all parameters
+	/// standard init with all parameters
     public init(eventName: String, transactionReceipt: TransactionReceipt?, contractAddress: Address, decodedResult: [String: Any]) {
         self.eventName = eventName
         self.transactionReceipt = transactionReceipt

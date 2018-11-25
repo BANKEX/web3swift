@@ -9,21 +9,22 @@
 import CryptoSwift
 import Foundation
 
+/**
+# Web3 Secret Storage
+
+Used to store your account in json file safely
+
+[https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition](https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition)
+*/
 public class EthereumKeystoreV3: AbstractKeystore {
-    // Class
-
-    public func getAddress() -> Address? {
-        return address
-    }
-
-    // Protocol
-
+	/// - returns: array of single address or empty array
     public var addresses: [Address] {
         guard let address = address else { return [] }
         return [address]
     }
-
-    public var isHDKeystore: Bool = false
+	
+	/// - returns false
+    public var isHDKeystore = false
 
     /// throws AbstractKeystoreError.invalidPasswordError
     /// throws AbstractKeystoreError.invalidAccountError
@@ -36,19 +37,23 @@ public class EthereumKeystoreV3: AbstractKeystore {
         throw AbstractKeystoreError.invalidAccountError
     }
 
-    // --------------
-    private var address: Address?
+    /// Keystore address
+    public private(set) var address: Address?
+	/// Keystore Parameters (Json convertible)
     public var keystoreParams: KeystoreParamsV3?
 
+	/// Init with json file
     public convenience init?(_ jsonString: String) {
         self.init(jsonString.lowercased().data)
     }
-
+	
+	/// Init with json file
     public convenience init?(_ jsonData: Data) {
         guard let keystoreParams = try? JSONDecoder().decode(KeystoreParamsV3.self, from: jsonData) else { return nil }
         self.init(keystoreParams)
     }
-
+	
+	/// Init with decoded keystore parameters
     public init?(_ keystoreParams: KeystoreParamsV3) {
         if keystoreParams.version != 3 { return nil }
         if keystoreParams.crypto.version != nil && keystoreParams.crypto.version != "1" { return nil }
@@ -59,13 +64,29 @@ public class EthereumKeystoreV3: AbstractKeystore {
             return nil
         }
     }
-
+	
+	/**
+	Creates a new keystore with password and aesMode.
+	Clears the private key seed from memory after init
+	- parameter password: Password that would be used to encrypt private key
+	- parameter aesMode: Encryption mode. Allowed: "aes-128-cbc", "aes-128-ctr"
+	*/
     public init? (password: String = "BANKEXFOUNDATION", aesMode: String = "aes-128-cbc") throws {
         var newPrivateKey = Data.random(length: 32)
         defer { Data.zero(&newPrivateKey) }
         try encryptDataToStorage(password, keyData: newPrivateKey, aesMode: aesMode)
     }
-
+	
+	/**
+	Init with private key. Encrypts key but not clears it from memory.
+	- parameter password: Password that would be used to encrypt private key
+	- parameter aesMode: Encryption mode. Allowed: "aes-128-cbc", "aes-128-ctr"
+	
+	- important: Don't forget to clear your private key from memory using
+	```
+	Data.zero(&privateKey)
+	```
+	*/
     public init? (privateKey: Data, password: String = "BANKEXFOUNDATION", aesMode: String = "aes-128-cbc") throws {
         guard privateKey.count == 32 else { return nil }
         try SECP256K1.verifyPrivateKey(privateKey: privateKey)
@@ -108,6 +129,7 @@ public class EthereumKeystoreV3: AbstractKeystore {
         keystoreParams = keystoreparams
     }
 
+	/// Updates account password
     public func regenerate(oldPassword: String, newPassword: String, dkLen _: Int = 32, N _: Int = 4096, R _: Int = 6, P _: Int = 1) throws {
         var keyData = try getKeyData(oldPassword)
         if keyData == nil {
@@ -174,10 +196,73 @@ public class EthereumKeystoreV3: AbstractKeystore {
         guard decryptedPK != nil else { return nil }
         return Data(bytes: decryptedPK!)
     }
-
+	
+	/// Returns json file encoded with v3 standard
     public func serialize() throws -> Data? {
         guard let params = self.keystoreParams else { return nil }
         let data = try JSONEncoder().encode(params)
         return data
     }
+}
+
+/**
+ Keystore parameters [v3 compatible](https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition)
+ 
+ Json example:
+ ```
+ {
+ "crypto" : {
+ "cipher" : "aes-128-ctr",
+ "cipherparams" : {
+ "iv" : "6087dab2f9fdbbfaddc31a909735c1e6"
+ },
+ "ciphertext" : "5318b4d5bcd28de64ee5559e671353e16f075ecae9f99c7a79a38af5f869aa46",
+ "kdf" : "pbkdf2",
+ "kdfparams" : {
+ "c" : 262144,
+ "dklen" : 32,
+ "prf" : "hmac-sha256",
+ "salt" : "ae3cd4e7013836a3df6bd7241b12db061dbe2c6785853cce422d148a624ce0bd"
+ },
+ "mac" : "517ead924a9d0dc3124507e3393d175ce3ff7c1e96529c6c555ce9e51205e9b2"
+ },
+ "id" : "3198bc9c-6672-5ab3-d995-4942343ae5b6",
+ "version" : 3
+ }
+ ```
+ */
+public struct KeystoreParamsV3: Decodable, Encodable {
+    var address: String?
+    var crypto: CryptoParamsV3
+    var id: String?
+    var version: Int
+    
+    public init(address ad: String?, crypto cr: CryptoParamsV3, id i: String, version ver: Int) {
+        address = ad
+        crypto = cr
+        id = i
+        version = ver
+    }
+}
+/// Keystore encryption info
+public struct CryptoParamsV3: Decodable, Encodable {
+    var ciphertext: String
+    var cipher: String
+    var cipherparams: CipherParamsV3
+    var kdf: String
+    var kdfparams: KdfParamsV3
+    var mac: String
+    var version: String?
+}
+struct KdfParamsV3: Decodable, Encodable {
+    var salt: String
+    var dklen: Int
+    var n: Int?
+    var p: Int?
+    var r: Int?
+    var c: Int?
+    var prf: String?
+}
+struct CipherParamsV3: Decodable, Encodable {
+    var iv: String
 }

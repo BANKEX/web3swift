@@ -19,6 +19,13 @@ import BigInt
 
 /// web3swift 2.1 changes
 
+extension EthereumKeystoreV3 {
+	@available(*,deprecated: 2.1, message: "Use .address instead of .getAddress()")
+	public func getAddress() -> Address? {
+		return address
+	}
+}
+
 @available (*,deprecated: 2.1, renamed: "EventParserResult")
 public typealias EventParserResultProtocol = EventParserResult
 

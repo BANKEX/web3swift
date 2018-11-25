@@ -18,9 +18,12 @@ private extension Dictionary where Value: Equatable {
     }
 }
 
+/**
+ BIP32 Keystore (HDWallet)
+ 
+ */
 public class BIP32Keystore: AbstractKeystore {
-    // Protocol
-
+    /// Returns array of contained addresses
     public var addresses: [Address] {
         guard !paths.isEmpty else { return [] }
         var allAccounts = [Address]()
@@ -30,8 +33,14 @@ public class BIP32Keystore: AbstractKeystore {
         return allAccounts
     }
 
+    /// Returns true
     public var isHDKeystore: Bool = true
-
+    
+    /// Searches for the account's encrypted private key and decrypts it using password.
+    ///
+    /// - parameter password: Password that used to decrypt your key.
+    /// - parameter account: Account that you need
+    /// - returns: private key for given address
     public func UNSAFE_getPrivateKeyData(password: String, account: Address) throws -> Data {
         guard let key = self.paths.key(of: account) else { throw AbstractKeystoreError.invalidAccountError }
         guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else { throw AbstractKeystoreError.encryptionError("Failed to decrypt a keystore") }
@@ -46,14 +55,21 @@ public class BIP32Keystore: AbstractKeystore {
 
     // --------------
 
+    /// Json representation of the HDWallet
     public var keystoreParams: KeystoreParamsBIP32?
 //    public var mnemonics: String?
+    /// Paths dictionary in format "HDPath: Address"
     public var paths: [String: Address] = [String: Address]()
+    
+    /// HDPath prefix. default: "m/44'/60'/0'/0" (Metamask prefix)
     public var rootPrefix: String
+    
+    /// Init with json file
     public convenience init?(_ jsonString: String) {
         self.init(jsonString.lowercased().data)
     }
 
+    /// Init with json file
     public init?(_ jsonData: Data) {
         guard var keystorePars = try? JSONDecoder().decode(KeystoreParamsBIP32.self, from: jsonData) else { return nil }
         if keystorePars.version != 3 { return nil }
@@ -69,18 +85,35 @@ public class BIP32Keystore: AbstractKeystore {
         rootPrefix = keystoreParams!.rootPath!
     }
     
+    /// Init with mnemonics
+    /// - parameter mnemonics: Mnemonics that needs to generate your account
+    /// - parameter password: Password used to encrypt your private key
+    /// - parameter prefixPath: HDNode path. default: "m/44'/60'/0'/0" (Metamask prefix)
+    /// Shouldn't throw if you generate your mnemonics
     public convenience init(mnemonics: Mnemonics, password: String = "BANKEXFOUNDATION", prefixPath: String = HDNode.defaultPathMetamaskPrefix) throws {
         var seed = mnemonics.seed()
         defer { Data.zero(&seed) }
         try self.init(seed: seed, password: password, prefixPath: prefixPath)
     }
 
+    /// Init with seed
+    /// - parameter seed: Seed that need to generate your account
+    /// - parameter password: Password used to encrypt your private key
+    /// - parameter prefixPath: HDNode path. default: "m/44'/60'/0'/0" (Metamask prefix)
     public init(seed: Data, password: String = "BANKEXFOUNDATION", prefixPath: String = HDNode.defaultPathMetamaskPrefix) throws {
         let prefixNode = try HDNode(seed: seed).derive(path: prefixPath, derivePrivateKey: true)
         rootPrefix = prefixPath
         try createNewAccount(parentNode: prefixNode, password: password)
     }
-
+    
+    /**
+    Creates new sub account using the same seed (mnemonics)
+     
+     So for HDPath "m/44'/60'/0'/0". Will generate sub account "m/44'/60'/0'/1".
+     
+     Also automatically searches in current paths.
+     So it wouldn't skip any index or create an existing account.
+    */
     public func createNewChildAccount(password: String = "BANKEXFOUNDATION") throws {
         guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else { throw AbstractKeystoreError.encryptionError("Failed to decrypt a keystore") }
         guard let rootNode = HDNode(decryptedRootNode!) else { throw AbstractKeystoreError.encryptionError("Failed to deserialize a root node") }
@@ -88,7 +121,8 @@ public class BIP32Keystore: AbstractKeystore {
         guard rootNode.depth == prefixPath.components(separatedBy: "/").count - 1 else { throw AbstractKeystoreError.encryptionError("Derivation depth mismatch") }
         try createNewAccount(parentNode: rootNode, password: password)
     }
-
+    
+    /// Creates new account using custom HDNode
     public func createNewAccount(parentNode: HDNode, password: String = "BANKEXFOUNDATION", aesMode: String = "aes-128-cbc") throws {
         var newIndex = UInt32(0)
         for (p, _) in paths {
@@ -111,6 +145,7 @@ public class BIP32Keystore: AbstractKeystore {
         try encryptDataToStorage(password, data: serializedRootNode, aesMode: aesMode)
     }
 
+    /// Creates sub account using custom HDNode
     public func createNewCustomChildAccount(password: String = "BANKEXFOUNDATION", path: String) throws {
         guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else { throw AbstractKeystoreError.encryptionError("Failed to decrypt a keystore") }
         guard let rootNode = HDNode(decryptedRootNode!) else { throw AbstractKeystoreError.encryptionError("Failed to deserialize a root node") }
@@ -190,6 +225,7 @@ public class BIP32Keystore: AbstractKeystore {
         keystoreParams = keystorePars
     }
 
+    /// Update password for your private key
     public func regenerate(oldPassword: String, newPassword: String, dkLen _: Int = 32, N _: Int = 4096, R _: Int = 6, P _: Int = 1) throws {
         var keyData = try getPrefixNodeData(oldPassword)
         if keyData == nil {
@@ -257,17 +293,38 @@ public class BIP32Keystore: AbstractKeystore {
         guard decryptedPK?.count == 82 else { return nil }
         return Data(bytes: decryptedPK!)
     }
-
+    
+    /// Returns Json file that you can store and export
     public func serialize() throws -> Data? {
         guard let params = self.keystoreParams else { return nil }
         let data = try JSONEncoder().encode(params)
         return data
     }
 
+    /// Returns your root node string
     public func serializeRootNodeToString(password: String = "BANKEXFOUNDATION") throws -> String {
         guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else { throw AbstractKeystoreError.encryptionError("Failed to decrypt a keystore") }
         guard let rootNode = HDNode(decryptedRootNode!) else { throw AbstractKeystoreError.encryptionError("Failed to deserialize a root node") }
         guard let string = rootNode.serializeToString(serializePublic: false) else { throw AbstractKeystoreError.encryptionError("Failed to deserialize a root node") }
         return string
+    }
+}
+
+/// HDWallet Json parameters (Native representation)
+public struct KeystoreParamsBIP32: Decodable, Encodable {
+    var crypto: CryptoParamsV3
+    var id: String?
+    var version: Int = 32
+    var isHDWallet: Bool
+    var pathToAddress: [String: String]
+    var rootPath: String?
+    
+    init(crypto cr: CryptoParamsV3, id i: String, version ver: Int, rootPath: String? = nil) {
+        crypto = cr
+        id = i
+        version = ver
+        isHDWallet = true
+        pathToAddress = [String: String]()
+        self.rootPath = rootPath
     }
 }

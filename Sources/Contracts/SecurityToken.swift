@@ -31,7 +31,7 @@ public class SecurityToken {
     /// Password to unlock private key for sender address
     public var password: String = "BANKEXFOUNDATION"
     
-    /// Represents Address as ERC20 token (with standart password and options)
+    /// Represents Address as ERC20 token (with standard password and options)
     /// - parameter address: Token address
     public init(_ address: Address) {
         self.address = address

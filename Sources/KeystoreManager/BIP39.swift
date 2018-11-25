@@ -10,16 +10,25 @@ import CryptoSwift
 import Foundation
 
 /// Mnemonics language
-public enum BIP39Language {
+public enum BIP39Language: String {
+    /// English word list
     case english
+    /// Chinese simplified word list
     case chinese_simplified
+    /// Chinese traditional word list
     case chinese_traditional
+    /// Japanese word list
     case japanese
+    /// Korean word list
     case korean
+    /// French word list
     case french
+    /// Italian word list
     case italian
+    /// Spanish word list
     case spanish
-    var words: [String] {
+    
+    public var words: [String] {
         switch self {
         case .english:
             return englishWords

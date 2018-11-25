@@ -91,12 +91,17 @@ extension String: EventFilterable {}
 
 extension Address: EventFilterable {}
 
+/// Event filter parameters
 public struct EventFilter {
+    /// Block
     public enum Block {
+        /// Latest block
         case latest
+        /// Pending block
         case pending
+        /// Block with number
         case blockNumber(UInt64)
-
+        
         var encoded: String {
             switch self {
             case .latest:

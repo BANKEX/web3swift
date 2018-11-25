@@ -46,8 +46,11 @@ public extension Data {
         return difference == UInt8(0x00)
     }
 
-    /// Replaces all data bytes with zeroes
-    /// This one needs because if data deinits, it still will stay in the memory until the override
+    /// Replaces all data bytes with zeroes.
+	///
+    /// This one needs because if data deinits, it still will stay in the memory until the override.
+	///
+	/// webswift uses that to clear private key from memory.
     /// - parameter data: Data to be cleared
     static func zero(_ data: inout Data) {
         let count = data.count

@@ -49,8 +49,11 @@ public enum AddressError: Error {
  ```
  */
 public struct Address {
+    /// Address type
     public enum AddressType {
+        /// Any ethereum address
         case normal
+        /// Address for contract deployment
         case contractDeployment
     }
 
