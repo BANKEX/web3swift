@@ -9,16 +9,44 @@
 import Foundation
 
 extension ABIv2 {
+    /// Parsing errors
     public enum ParsingError: Error {
-        case invalidJsonFile
+        /// Cannot parse element type
         case elementTypeInvalid
+        /// Cannot parse element name
         case elementNameInvalid
+        /// Invalid function input
         case functionInputInvalid
+        /// Invalid function output
         case functionOutputInvalid
+        /// Invalid event input
         case eventInputInvalid
+        /// Invalid parameter type
         case parameterTypeInvalid
+        /// Parameter type not found
         case parameterTypeNotFound
+        /// Invalid ABI
         case abiInvalid
+        public var localizedDescription: String {
+            switch self {
+            case .elementTypeInvalid:
+                return "Cannot parse element type"
+            case .elementNameInvalid:
+                return "not parse element name"
+            case .functionInputInvalid:
+                return "Invalid function input"
+            case .functionOutputInvalid:
+                return "Invalid function output"
+            case .eventInputInvalid:
+                return "Invalid event input"
+            case .parameterTypeInvalid:
+                return "Invalid parameter type"
+            case .parameterTypeNotFound:
+                return "Parameter type not found"
+            case .abiInvalid:
+                return "Invalid ABI"
+            }
+        }
     }
 
     enum TypeParsingExpressions {
@@ -35,6 +63,7 @@ extension ABIv2 {
 }
 
 extension ABIv2.Record {
+    /// Parses record to ABIv2.Element
     public func parse() throws -> ABIv2.Element {
         let typeString = self.type != nil ? self.type! : "function"
         guard let type = ABIv2.ElementType(rawValue: typeString) else {

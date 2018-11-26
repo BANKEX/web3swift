@@ -9,9 +9,14 @@
 import BigInt
 import Foundation
 
-public struct ABIv2Decoder {}
-
-extension ABIv2Decoder {
+/// Decoding functions
+public struct ABIv2Decoder {
+    /// Decodes solidity data to swift types
+    ///
+    /// - Parameters:
+    ///   - types: Decoding scheme
+    ///   - data: Data to decode
+    /// - Returns: Array of decoded types
     public static func decode(types: [ABIv2.Element.InOut], data: Data) -> [AnyObject]? {
         let params = types.compactMap { (el) -> ABIv2.Element.ParameterType in
             return el.type
@@ -19,6 +24,12 @@ extension ABIv2Decoder {
         return decode(types: params, data: data)
     }
 
+    /// Decodes solidity data to swift types
+    ///
+    /// - Parameters:
+    ///   - types: Decoding scheme
+    ///   - data: Data to decode
+    /// - Returns: Array of decoded types
     public static func decode(types: [ABIv2.Element.ParameterType], data: Data) -> [AnyObject]? {
 //        print("Full data: \n" + data.toHexString())
         var toReturn = [AnyObject]()
@@ -34,6 +45,13 @@ extension ABIv2Decoder {
         return toReturn
     }
 
+    /// Decodes single solidity type to swift type
+    ///
+    /// - Parameters:
+    ///   - type: Decoding scheme
+    ///   - data: Data to decode
+    ///   - pointer: Data offset
+    /// - Returns: Decoded value and bytes used to decode
     public static func decodeSignleType(type: ABIv2.Element.ParameterType, data: Data, pointer: UInt64 = 0) -> (value: AnyObject?, bytesConsumed: UInt64?) {
         let (elData, nextPtr) = followTheData(type: type, data: data, pointer: pointer)
         guard let elementItself = elData, let nextElementPointer = nextPtr else {
@@ -218,6 +236,12 @@ extension ABIv2Decoder {
         }
     }
 
+    /// Decodes logs to swift types
+    ///
+    /// - Parameters:
+    ///   - event: Decoding scheme
+    ///   - eventLog: Event log
+    /// - Returns: Decoded logs
     public static func decodeLog(event: ABIv2.Element.Event, eventLog: EventLog) -> [String: Any]? {
         if event.topic != eventLog.topics[0] && !event.anonymous {
             return nil

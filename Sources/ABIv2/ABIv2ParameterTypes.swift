@@ -14,15 +14,25 @@ import Foundation
 extension ABIv2.Element {
     /// Specifies the type that parameters in a contract have.
     public enum ParameterType: ABIv2ElementPropertiesProtocol {
+        /// uintN type
         case uint(bits: UInt64)
+        /// intN type
         case int(bits: UInt64)
+        /// address type
         case address
+        /// function type
         case function
+        /// bool type
         case bool
+        /// bytesN type
         case bytes(length: UInt64)
+        /// array[N] or array[] type
         indirect case array(type: ParameterType, length: UInt64)
+        /// bytes type
         case dynamicBytes
+        /// string type
         case string
+        /// tuple type
         indirect case tuple(types: [ParameterType])
 
         var isStatic: Bool {
@@ -162,14 +172,17 @@ extension ABIv2.Element.ParameterType: Equatable {
 }
 
 extension ABIv2.Element.Function {
+    /// String representation of solidity function for hashing
     public var signature: String {
         return "\(name ?? "")(\(inputs.map { $0.type.abiRepresentation }.joined(separator: ",")))"
     }
 
+    /// Function hash in hex
     public var methodString: String {
         return String(signature.sha3(.keccak256).prefix(8))
     }
-
+    
+    /// Function hash
     public var methodEncoding: Data {
         return signature.data(using: .ascii)!.sha3(.keccak256)[0..<4]
     }
@@ -178,16 +191,19 @@ extension ABIv2.Element.Function {
 // MARK: - Event topic
 
 extension ABIv2.Element.Event {
+    /// String representation of solidity event for hashing
     public var signature: String {
         return "\(name)(\(inputs.map { $0.type.abiRepresentation }.joined(separator: ",")))"
     }
-
+    
+    /// Event hash
     public var topic: Data {
         return signature.data(using: .ascii)!.sha3(.keccak256)
     }
 }
 
 extension ABIv2.Element.ParameterType: ABIv2Encoding {
+    /// Solidity type representation
     public var abiRepresentation: String {
         switch self {
         case let .uint(bits):
@@ -220,6 +236,7 @@ extension ABIv2.Element.ParameterType: ABIv2Encoding {
 }
 
 extension ABIv2.Element.ParameterType: ABIv2Validation {
+    /// Returns true if type is valid (or false for types like uint257)
     public var isValid: Bool {
         switch self {
         case let .uint(bits), let .int(bits):

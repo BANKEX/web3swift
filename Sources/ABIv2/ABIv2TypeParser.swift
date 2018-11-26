@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Parses string to ParameterType
 public struct ABIv2TypeParser {
     private enum BaseParameterType: String {
         case address
@@ -45,13 +46,19 @@ public struct ABIv2TypeParser {
             return nil
         }
     }
-
+    
+    /// Parses string and returns parsed parameter type
+    ///
+    /// - Parameter string: String to parse
+    /// - Returns: Parsed parameter
+    /// - Throws: Web3Error.inputError
     public static func parseTypeString(_ string: String) throws -> ABIv2.Element.ParameterType {
         let (type, tail) = recursiveParseType(string)
         guard let t = type, tail == nil else { throw Web3Error.inputError("Failed to parse ABI element " + string) }
         return t
     }
 
+    /// Parses type
     public static func recursiveParseType(_ string: String) -> (type: ABIv2.Element.ParameterType?, tail: String?) {
         let matcher = try! NSRegularExpression(pattern: ABIv2.TypeParsingExpressions.typeEatingRegex, options: NSRegularExpression.Options.dotMatchesLineSeparators)
         let match = matcher.matches(in: string, options: NSRegularExpression.MatchingOptions.anchored, range: string.fullNSRange)
@@ -84,7 +91,8 @@ public struct ABIv2TypeParser {
         }
         return recursiveParseArray(baseType: type!, string: tail)
     }
-
+    
+    /// Parses array type
     public static func recursiveParseArray(baseType: ABIv2.Element.ParameterType, string: String) -> (type: ABIv2.Element.ParameterType?, tail: String?) {
         let matcher = try! NSRegularExpression(pattern: ABIv2.TypeParsingExpressions.arrayEatingRegex, options: NSRegularExpression.Options.dotMatchesLineSeparators)
         let match = matcher.matches(in: string, options: NSRegularExpression.MatchingOptions.anchored, range: string.fullNSRange)

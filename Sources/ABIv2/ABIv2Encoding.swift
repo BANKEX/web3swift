@@ -9,8 +9,10 @@
 import BigInt
 import Foundation
 
+/// Encoding functions
 public struct ABIv2Encoder {
     
+    /// Converts value to BigUInt
     public static func convertToBigUInt(_ value: AnyObject) -> BigUInt? {
         switch value {
         case let v as BigUInt:
@@ -58,6 +60,7 @@ public struct ABIv2Encoder {
         return nil
     }
 
+    /// Converts value to BigInt
     public static func convertToBigInt(_ value: AnyObject) -> BigInt? {
         switch value {
         case let v as BigUInt:
@@ -99,7 +102,8 @@ public struct ABIv2Encoder {
         }
         return nil
     }
-
+    
+    /// Converts data to value to solidity data
     public static func convertToData(_ value: AnyObject) -> Data? {
         switch value {
         case let d as Data:
@@ -125,7 +129,8 @@ public struct ABIv2Encoder {
             return nil
         }
     }
-
+    
+    /// Encodes values with provided scheme to solidity data
     public static func encode(types: [ABIv2.Element.InOut], values: [AnyObject]) -> Data? {
         guard types.count == values.count else { return nil }
         let params = types.compactMap { (el) -> ABIv2.Element.ParameterType in
@@ -133,7 +138,8 @@ public struct ABIv2Encoder {
         }
         return encode(types: params, values: values)
     }
-
+    
+    /// Encodes values with provided scheme to solidity data
     public static func encode(types: [ABIv2.Element.ParameterType], values: [AnyObject]) -> Data? {
         guard types.count == values.count else { return nil }
         var tails = [Data]()
@@ -171,7 +177,8 @@ public struct ABIv2Encoder {
         }
         return headsConcatenated + tailsConcatenated
     }
-
+    
+    /// Encodes single value with scheme to solidity data
     public static func encodeSingleType(type: ABIv2.Element.ParameterType, value: AnyObject) -> Data? {
         switch type {
         case .uint:

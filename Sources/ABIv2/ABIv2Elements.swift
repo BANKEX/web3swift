@@ -10,20 +10,22 @@ import BigInt
 import Foundation
 
 extension ABIv2 {
-    // JSON Decoding
+    /// Function input parameter
     public struct Input: Decodable {
         var name: String?
         var type: String
         var indexed: Bool?
         var components: [Input]?
     }
-
+    
+    /// Function output parameter
     public struct Output: Decodable {
         var name: String?
         var type: String
         var components: [Output]?
     }
-
+    
+    /// Function
     public struct Record: Decodable {
         var name: String?
         var type: String?
@@ -34,24 +36,35 @@ extension ABIv2 {
         var outputs: [ABIv2.Output]?
         var anonymous: Bool?
     }
-
+    
+    /// Abi Element
     public enum Element {
+        /// Array size
         public enum ArraySize { // bytes for convenience
+            /// Fixed size array or data
             case staticSize(UInt64)
+            /// Dynamic size for dynamic arrays or data
             case dynamicSize
+            /// Any other type
             case notArray
         }
-
+        
+        /// Function type
         case function(Function)
+        /// Constructor
         case constructor(Constructor)
+        /// Fallback
         case fallback(Fallback)
+        /// Event
         case event(Event)
-
+        
+        /// Input or output type
         public struct InOut {
             let name: String
             let type: ParameterType
         }
-
+        
+        /// Function type
         public struct Function {
             let name: String?
             let inputs: [InOut]
@@ -59,18 +72,21 @@ extension ABIv2 {
             let constant: Bool
             let payable: Bool
         }
-
+        
+        /// Constructor type
         public struct Constructor {
             let inputs: [InOut]
             let constant: Bool
             let payable: Bool
         }
-
+        
+        /// Fallback type
         public struct Fallback {
             let constant: Bool
             let payable: Bool
         }
-
+        
+        /// Event type
         public struct Event {
             let name: String
             let inputs: [Input]
