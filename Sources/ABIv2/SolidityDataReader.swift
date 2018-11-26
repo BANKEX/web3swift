@@ -17,9 +17,24 @@ private extension Int {
 
 /// SolidityDataReader errors
 public enum SolidityDataReaderError: Error {
+    /// Element not found
 	case notFound
+    /// Cannot get excepted type
 	case wrongType
+    /// Not enough data
 	case overflows
+    
+    /// Printable / user displayable description
+    public var localizedDescription: String {
+        switch self {
+        case .notFound:
+            return "Smart Contract response error: Element not found"
+        case .wrongType:
+            return "Smart Contract response error: Cannot get excepted type"
+        case .overflows:
+            return "Smart Contract response error: Not enough data"
+        }
+    }
 }
 
 /// Solidity data reader

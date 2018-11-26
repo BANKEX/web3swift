@@ -48,6 +48,7 @@ public struct JsonRpcRequest: Encodable {
 		self.method = method
 		self.params = JsonRpcParams(params: parameters)
 	}
+    /// init with api method and parameters
 	public init(method: JsonRpcMethod, parametersArray: [Encodable]) {
 		self.method = method
 		self.params = JsonRpcParams(params: parametersArray)

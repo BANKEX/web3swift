@@ -9,7 +9,9 @@
 import BigInt
 import Foundation
 
+/// Protocol of classes that contains options parameter
 public protocol Web3OptionsInheritable {
+    /// Default options
     var options: Web3Options { get }
 }
 

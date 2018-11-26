@@ -11,7 +11,15 @@ import Foundation
 
 /// Address error
 public enum AddressError: Error {
+    /// Provided address is not valid (\(string))
     case invalidAddress(String)
+    /// Printable / user displayable description
+    public var localizedDescription: String {
+        switch self {
+        case let .invalidAddress(string):
+            return "Provided address is not valid (\(string))"
+        }
+    }
 }
 
 /**

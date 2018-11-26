@@ -25,6 +25,7 @@ public class HDPath: ExpressibleByStringLiteral {
     public enum Error: Swift.Error {
         /// Invalid hdpath
         case invalidHDPath(String)
+        /// Printable / user displayable description
         public var localizedDescription: String {
             switch self {
             case let .invalidHDPath(path):
@@ -47,6 +48,7 @@ public class HDPath: ExpressibleByStringLiteral {
     
     /// Path starts with m/
     public var m: Bool
+    /// Array of indexes
     public private(set) var components: [Component]
     /// Parent path
     public var parent: HDPath?

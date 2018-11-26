@@ -8,8 +8,17 @@ import BigInt
 //
 import Foundation
 
+/// Web3Wallet errors
 public enum Web3WalletError: Error {
+    /// Wallet doesn't have any accounts
     case noAccounts
+    /// Printable / user displayable description
+    public var localizedDescription: String {
+        switch self {
+        case .noAccounts:
+            return "Wallet doesn't have any accounts"
+        }
+    }
 }
 
 /// Wallet functions

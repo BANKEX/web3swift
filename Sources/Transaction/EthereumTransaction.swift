@@ -55,7 +55,7 @@ public struct EthereumTransaction: CustomStringConvertible {
     /// Returns transaction data hash
     public var hash: Data? {
         let chainId = inferedChainID ?? self.chainID
-        guard let encoded = self.encode(forSignature: false, chainId: inferedChainID) else { return nil }
+        guard let encoded = self.encode(forSignature: false, chainId: chainId) else { return nil }
         return encoded.sha3(.keccak256)
     }
     

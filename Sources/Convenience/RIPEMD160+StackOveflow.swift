@@ -308,7 +308,8 @@ public struct RIPEMD160 {
                  MDbuf.4 &+ aa &+ bbb,
                  MDbuf.0 &+ bb &+ ccc)
     }
-
+    
+    /// Appends data to buffer
     public mutating func update(data: Data) {
         data.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) in
             var ptr = ptr
@@ -336,7 +337,8 @@ public struct RIPEMD160 {
         }
         count += Int64(data.count)
     }
-
+    
+    /// Returns hash result
     public mutating func finalize() -> Data {
         var X = [UInt32](repeating: 0, count: 16)
         /* append the bit m_n == 1 */

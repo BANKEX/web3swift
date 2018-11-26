@@ -16,13 +16,21 @@ public class Web3Utils {
 
 /// Various units used in Ethereum ecosystem
 public enum Web3Units: Int {
+    /// 18 decimals
 	case eth = 18
+    /// 0 decimals
 	case wei = 0
+    /// 3 decimals
 	case kWei = 3
+    /// 6 decimals
 	case mWei = 6
+    /// 9 decimals
 	case gWei = 9
+    /// 12 decimals
 	case microEther = 12
+    /// 15 decimals
 	case finney = 15
+    /// Returns number of decimals (same as .rawValue)
 	public var decimals: Int {
 		return rawValue
 	}
@@ -52,8 +60,11 @@ extension Web3Utils {
 
 /// Errors from Web3Utils
 public enum Web3UtilsError: Error {
+    /// Cannot convert provided data to ascii string
     case cannotConvertDataToAscii
+    /// Invalid signature length: Signature size should be 65 bytes
     case invalidSignatureLength
+    /// Printable / user displayable description
     public var localizedDescription: String {
         switch self {
         case .cannotConvertDataToAscii:
@@ -66,8 +77,19 @@ public enum Web3UtilsError: Error {
 
 /// Errors for function Web3Utils.publicToAddressData
 public enum PublicKeyToAddressError: Error {
+    /// Public key should start with 0x04
     case shouldStartWith4
+    /// Public key must be 64 bytes long
     case invalidPublicKeySize
+    /// Printable / user displayable description
+    public var localizedDescription: String {
+        switch self {
+        case .shouldStartWith4:
+            return "Public key should start with 0x04"
+        case .invalidPublicKeySize:
+            return "Public key must be 64 bytes long"
+        }
+    }
 }
 
 extension Web3Utils {

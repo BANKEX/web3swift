@@ -28,6 +28,7 @@ public enum BIP39Language: String {
     /// Spanish word list
     case spanish
     
+    /// Array of words in the language
     public var words: [String] {
         switch self {
         case .english:
@@ -49,7 +50,8 @@ public enum BIP39Language: String {
         }
     }
 
-    var separator: String {
+    /// Word separator ("\u{3000}") for japanese and " " for anyone else
+    public var separator: String {
         switch self {
         case .japanese:
             return "\u{3000}"
@@ -61,10 +63,15 @@ public enum BIP39Language: String {
 
 /// Mnemonics entropy size
 public enum EntropySize: Int {
+    /// 128 bit entropy
     case b128 = 128
+    /// 160 bit entropy
     case b160 = 160
+    /// 192 bit entropy
     case b192 = 192
+    /// 224 bit entropy
     case b224 = 224
+    /// 256 bit entropy
     case b256 = 256
 }
 
@@ -96,15 +103,40 @@ public enum EntropySize: Int {
 public class Mnemonics {
     /// Mnemonics init with data error
     public enum Error: Swift.Error {
+        /// Invalid entropy size. Entropy size should be at least 16 bytes long and a multiple of four
         case invalidEntropySize
+        /// Printable / user displayable description
+        public var localizedDescription: String {
+            return "Invalid entropy size. Entropy size should be greater than 15 and a multiple of four"
+        }
     }
     /// Mnemonics init with string error
     public enum EntropyError: Swift.Error {
+        /// Not enough words. Your mnemonics should have at least 12 words
         case notEnoughtWords
+        /// Invalid number of words. It is necessary that the number of words be a multiple of four
         case invalidNumberOfWords
+        /// Cannot find word \"\(string)\" in our dictionary
         case wordNotFound(String)
+        /// Invalid words order
         case invalidOrderOfWords
+        /// Checksum failed checksum: \(string1). expected: \(string2)
         case checksumFailed(String,String)
+        /// Printable / user displayable description
+        public var localizedDescription: String {
+            switch self {
+            case .notEnoughtWords:
+                return "Not enough words. Your mnemonics should have at least 12 words"
+            case .invalidNumberOfWords:
+                return "Invalid number of words. It is necessary that the number of words be a multiple of four"
+            case let .wordNotFound(string):
+                return "Cannot find word \"\(string)\" in our dictionary"
+            case .invalidOrderOfWords:
+                return "Invalid words order"
+            case let .checksumFailed(string1,string2):
+                return "Checksum failed checksum: \(string1). expected: \(string2)"
+            }
+        }
     }
     /// Mnemonics string
     public let string: String

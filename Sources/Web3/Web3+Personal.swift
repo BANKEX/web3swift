@@ -15,6 +15,7 @@ public class Web3Personal: Web3OptionsInheritable {
     /// provider for some functions
     var provider: Web3Provider
     unowned var web3: Web3
+    /// Default options
     public var options: Web3Options {
         return web3.options
     }

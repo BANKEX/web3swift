@@ -31,13 +31,13 @@ public class SecurityToken {
     /// Password to unlock private key for sender address
     public var password: String = "BANKEXFOUNDATION"
     
-    /// Represents Address as ERC20 token (with standard password and options)
+    /// Represents Address as SecurityToken token (with standard password and options)
     /// - Parameter address: Token address
     public init(_ address: Address) {
         self.address = address
     }
     
-    /// Represents Address as ERC20 token
+    /// Represents Address as SecurityToken token
     /// - Parameter address: Token address
     /// - Parameter from: Sender address
     /// - Parameter address: Password to decrypt sender's private key
@@ -46,38 +46,94 @@ public class SecurityToken {
         options.from = from
         self.password = password
     }
+    /// Returns token decimals
     public func decimals() throws -> BigUInt {
         return try address.call("decimals()").wait().uint256()
     }
     
+    /// Returns token total supply
     public func totalSupply() throws -> BigUInt {
         return try address.call("totalSupply()").wait().uint256()
     }
     
+    /// - Returns: User balance in wei
     public func balance(of owner: Address) throws -> BigUInt {
         return try address.call("balanceOf(address)", owner).wait().uint256()
     }
     
+    /**
+     Shows how much balance you approved spender to get from your account.
+     
+     - Returns: Balance that one user can take from another user
+     - Parameter owner: Balance holder
+     - Parameter spender: Spender address
+     
+     Solidity interface:
+     ``` solidity
+     allowance(address,address)
+     ```
+     */
     public func allowance(owner: Address, spender: Address) throws -> BigUInt {
         return try address.call("allowance(address,address)", owner, spender).wait().uint256()
     }
     
-    public func transfer(to: Address, value: BigUInt) throws -> TransactionSendingResult {
-        return try address.send("transfer(address,uint256)", to, value).wait()
+    /**
+     Transfers to user amount of balance
+     
+     - Important: Transaction | Requires password
+     - Returns: TransactionSendingResult
+     - Parameter user: Recipient address
+     - Parameter amount: Amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
+     
+     Solidity interface:
+     ``` solidity
+     transfer(address,uint256)
+     ```
+     */
+    public func transfer(to: Address, amount: BigUInt) throws -> TransactionSendingResult {
+        return try address.send("transfer(address,uint256)", to, amount).wait()
     }
     
-    public func transfer(from: Address, to: Address, spender: Address) throws -> TransactionSendingResult {
-        return try address.send("transferFrom(address,address,uint256)", from, to, spender).wait()
+    /**
+     Transfers from user1 to user2
+     NaturalUnits is user readable representaion of tokens (like "0.01" / "1.543634")
+     - Important: Transaction | Requires password | Contract owner only.
+     ```
+     SecurityToken(address, from: me).transfer(to: user, amount: NaturalUnits(0.1))
+     ```
+     is not the same as
+     ```
+     SecurityToken(address).transferFrom(owner: me, to: user, amount: NaturalUnits(0.1))
+     ```
+     - Returns: TransactionSendingResult
+     */
+    public func transfer(from: Address, to: Address, amount: BigUInt) throws -> TransactionSendingResult {
+        return try address.send("transferFrom(address,address,uint256)", from, to, amount).wait()
     }
     
-    public func approve(spender: Address, value: BigUInt) throws -> TransactionSendingResult {
-        return try address.send("approve(address,uint256)", spender, value).wait()
+    /**
+     Approves user to take \(amount) tokens from your account.
+     
+     - Important: Transaction | Requires password
+     - Returns: TransactionSendingResult
+     - Parameter user: Recipient address
+     - Parameter amount: Amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
+     
+     Solidity interface:
+     ``` solidity
+     approve(address,uint256)
+     ```
+     */
+    public func approve(spender: Address, amount: BigUInt) throws -> TransactionSendingResult {
+        return try address.send("approve(address,uint256)", spender, amount).wait()
     }
     
+    /// Decrease approved balance that spender can take from your address
     public func decreaseApproval(spender: Address, subtractedValue: BigUInt) throws -> TransactionSendingResult {
         return try address.send("decreaseApproval(address,uint256)", spender, subtractedValue).wait()
     }
     
+    /// Increase approved balance that spender can take from your address
     public func increaseApproval(spender: Address, addedValue: BigUInt) throws -> TransactionSendingResult {
         return try address.send("increaseApproval(address,uint256)", spender, addedValue).wait()
     }
@@ -165,11 +221,11 @@ public class SecurityToken {
      function checkPermission(address _delegate, address _module, bytes32 _perm) external view returns (bool);
      ```
      */
-    
     public func checkPermission(delegate: Address, module: Address, perm: Data) throws -> Bool {
         return try address.call("checkPermission(address,address,bytes32)", delegate, module, perm).wait().bool()
     }
     
+    /// Module
     public struct Module {
         /// Module name
         public var name: String
@@ -185,6 +241,7 @@ public class SecurityToken {
         public var index: BigUInt
         /// Name index
         public var nameIndex: BigUInt
+        /// Init with contract response
         public init(_ response: SolidityDataReader) throws {
             name = try response.string()
             address = try response.address()

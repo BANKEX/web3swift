@@ -27,6 +27,17 @@ enum ScryptError: Error {
     case nIsTooLarge
     case rIsTooLarge
     case nMustBeAPowerOf2GreaterThan1
+    
+    var localizedDescription: String {
+        switch self {
+        case .nIsTooLarge:
+            return "Scrypt error: N is too large"
+        case .rIsTooLarge:
+            return "Scrypt error: R is too large"
+        case .nMustBeAPowerOf2GreaterThan1:
+            return "Scrypt error: N must be a power of two and greater than 1"
+        }
+    }
 }
 
 /// Implementation of the scrypt key derivation function.
@@ -34,6 +45,14 @@ private class Scrypt {
     enum Error: Swift.Error {
         case invalidPassword
         case invalidSalt
+        var localizedDescription: String {
+            switch self {
+            case .invalidPassword:
+                return "Scrypt error: invalid password"
+            case .invalidSalt:
+                return "Scrypt error: invalid salt"
+            }
+        }
     }
 
     /// Configuration parameters.

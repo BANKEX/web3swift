@@ -31,6 +31,7 @@ public enum AbstractKeystoreError: Error {
     /// Some other encryption errors
     case encryptionError(String)
     
+    /// Printable / user displayable description
     public var localizedDescription: String {
         switch self {
         case .keyDerivationError:

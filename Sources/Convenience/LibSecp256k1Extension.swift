@@ -58,6 +58,7 @@ public enum SECP256K1Error: Error {
     case invalidSignatureSize
     /// Public key size should be 65 bytes long
     case invalidPublicKeySize
+    /// Printable / user displayable description
     public var localizedDescription: String {
         switch self {
         case .signingFailed:
@@ -98,6 +99,7 @@ public enum SECP256DataError: Error {
     case signatureCorrupted
     /// Invalid marshal signature size
     case invalidMarshalSignatureSize
+    /// Printable / user displayable description
     public var localizedDescription: String {
         switch self {
         case .cannotRecoverPublicKey:

@@ -75,12 +75,16 @@ public class ERC888 {
         self.password = password
     }
     
+    /// Returns token with given id
     public func token(id: BigUInt) -> Token {
         return Token(parent: self, id: id)
     }
     
+    /// Represents one token
     public class Token {
+        /// Token id
         public let id: BigUInt
+        /// Token parent
         public let parent: ERC888
         fileprivate var address: Address { return parent.address }
         fileprivate var options: Web3Options { return parent.options }

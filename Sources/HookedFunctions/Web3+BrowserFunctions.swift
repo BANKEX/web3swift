@@ -14,6 +14,8 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
     /// Provider for some functions
     var provider: Web3Provider
     unowned var web3: Web3
+    
+    /// Default options for transactions
     public var options: Web3Options {
         return web3.options
     }
@@ -167,12 +169,23 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
     
     /// Transaction Errors
     public enum TransactionError: Error {
-        /// Throws if sender (options.from) is not setted
+        /// You have to set transaction sender in options.from
         case optionsFromNotFound
-        /// Throws if address is not found in your keystoreManager
+        /// Cannot find private key for address \(address)
         case privateKeyNotFound(forAddress: Address)
-        /// Throws if transaction cannot be signed
+        /// Cannot encode transaction
         case cannotEncodeTransaction
+        /// Printable / user displayable description
+        public var localizedDescription: String {
+            switch self {
+            case .optionsFromNotFound:
+                return "You have to set transaction sender in options.from"
+            case let .privateKeyNotFound(forAddress: address):
+                return "Cannot find private key for address \(address) in the keystore manager"
+            case .cannotEncodeTransaction:
+                return "Cannot encode transaction"
+            }
+        }
     }
 
     /**

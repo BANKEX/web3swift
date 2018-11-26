@@ -27,6 +27,7 @@ extension ABIv2 {
         case parameterTypeNotFound
         /// Invalid ABI
         case abiInvalid
+        /// Printable / user displayable description
         public var localizedDescription: String {
             switch self {
             case .elementTypeInvalid:

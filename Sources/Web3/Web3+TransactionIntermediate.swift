@@ -16,6 +16,7 @@ public enum Web3ResponseError: Error {
     case notFound(Int, Int)
 	/// Error for unconvertible type
     case wrongType(Any, String, Int)
+    /// Printable / user displayable description
 	public var localizedDescription: String {
 		switch self {
 		case let .notFound(index, responseSize):

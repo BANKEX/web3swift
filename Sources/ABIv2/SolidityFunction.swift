@@ -59,26 +59,6 @@ extension Array: SolidityDataRepresentable where Element == SolidityDataRepresen
         }
         return data
     }
-    
-//    func dynamicSolidityData() -> Data {
-//        var data = Data(capacity: 32 * (count+1))
-//        data.append(count.solidityData)
-//        for element in self {
-//            data.append(element.solidityData)
-//        }
-//        return data
-//    }
-//    func staticSolidityData(count: Int) -> Data {
-//        let capacity = 32 * count
-//        var data = Data(capacity: capacity)
-//        for element in self {
-//            data.append(element.solidityData)
-//        }
-//        if data.count < capacity {
-//            data.append(Data(count: capacity - data.count))
-//        }
-//        return data
-//    }
     func data(function: String) -> Data {
         var data = Data(capacity: count * 32 + 4)
         data.append(function.keccak256()[0..<4])
@@ -90,6 +70,15 @@ extension Array: SolidityDataRepresentable where Element == SolidityDataRepresen
 }
 
 extension Address {
+    /// Prepares transaction to send. Estimates gas usage, nonce and gas price.
+    ///
+    /// - Parameters:
+    ///   - function: Smart contract function
+    ///   - arguments: Function arguments
+    ///   - web3: Node address. default: .default
+    ///   - options: Transaction options. default: nil
+    ///   - onBlock: Future transaction block. default: "pending"
+    /// - Returns: Promise for the assembled transaction
     public func assemble(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "pending") -> Promise<EthereumTransaction> {
         let options = web3.options.merge(with: options)
         
@@ -106,36 +95,57 @@ extension Address {
             optionsForGasEstimation.from = options.from
             optionsForGasEstimation.to = options.to
             optionsForGasEstimation.value = options.value
-            let getNoncePromise = web3.eth.getTransactionCountPromise(address: from, onBlock: onBlock)
-            let gasEstimatePromise = web3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
-            let gasPricePromise = web3.eth.getGasPricePromise()
-            var promisesToFulfill: [Promise<BigUInt>] = [getNoncePromise, gasPricePromise, gasPricePromise]
-            when(resolved: getNoncePromise, gasEstimatePromise, gasPricePromise).map(on: queue, { (results: [Result<BigUInt>]) throws -> EthereumTransaction in
-                
-                promisesToFulfill.removeAll()
-                guard case let .fulfilled(nonce) = results[0] else {
-                    throw Web3Error.processingError("Failed to fetch nonce")
-                }
-                guard case let .fulfilled(gasEstimate) = results[1] else {
-                    throw Web3Error.processingError("Failed to fetch gas estimate")
-                }
-                guard case let .fulfilled(gasPrice) = results[2] else {
-                    throw Web3Error.processingError("Failed to fetch gas price")
-                }
-                let estimate = Web3Options.smartMergeGasLimit(originalOptions: options, extraOptions: options, gasEstimate: gasEstimate)
-                assembledTransaction.nonce = nonce
+            let nonce = web3.eth.getTransactionCountPromise(address: from, onBlock: onBlock)
+            let gasEstimate = web3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
+            let gasPrice = web3.eth.getGasPricePromise()
+            nonce.catch { error in
+                seal.reject(Web3Error.processingError("Failed to fetch nonce"))
+            }
+            gasEstimate.catch { error in
+                seal.reject(Web3Error.processingError("Failed to fetch gas estimate"))
+            }
+            gasPrice.catch { error in
+                seal.reject(Web3Error.processingError("Failed to fetch gas price"))
+            }
+            
+            _ = when(fulfilled: nonce,gasEstimate,gasPrice).done(on: queue) { _ in
+                let estimate = Web3Options.smartMergeGasLimit(originalOptions: options, extraOptions: options, gasEstimate: gasEstimate.value!)
+                assembledTransaction.nonce = nonce.value!
                 assembledTransaction.gasLimit = estimate
-                let finalGasPrice = Web3Options.smartMergeGasPrice(originalOptions: options, extraOptions: options, priceEstimate: gasPrice)
+                let finalGasPrice = Web3Options.smartMergeGasPrice(originalOptions: options, extraOptions: options, priceEstimate: gasPrice.value!)
                 assembledTransaction.gasPrice = finalGasPrice
-                return assembledTransaction
-            }).done(on: queue, seal.fulfill).catch(on: queue, seal.reject)
+                seal.fulfill(assembledTransaction)
+            }
         }
         return returnPromise
     }
     
+    /// Sends transaction to call mutable smart contract function.
+    /// - Important: Set the sender in Web3Options.from
+    ///
+    /// - Parameters:
+    ///   - function: Smart contract function
+    ///   - arguments: Function arguments
+    ///   - password: Password do decrypt your private key
+    ///   - web3: Node address. default: .default
+    ///   - options: Web3Options. default: nil
+    ///   - onBlock: Future transaction block. default: "pending"
+    /// - Returns: Promise for sent transaction and its hash
     public func send(_ function: String, _ arguments: Any..., password: String = "BANKEXFOUNDATION", web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "pending") -> Promise<TransactionSendingResult> {
         return send(function, arguments, password: password, web3: web3, options: options, onBlock: onBlock)
     }
+    
+    /// Sends transaction to call mutable smart contract function.
+    /// - Important: Set the sender in Web3Options.from
+    ///
+    /// - Parameters:
+    ///   - function: Smart contract function
+    ///   - arguments: Function arguments
+    ///   - password: Password do decrypt your private key
+    ///   - web3: Node address. default: .default
+    ///   - options: Web3Options. default: nil
+    ///   - onBlock: Future transaction block. default: "pending"
+    /// - Returns: Promise for sent transaction and its hash
     public func send(_ function: String, _ arguments: [Any], password: String = "BANKEXFOUNDATION", web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "pending") -> Promise<TransactionSendingResult> {
         let options = web3.options.merge(with: options)
         let queue = web3.requestDispatcher.queue
@@ -146,9 +156,30 @@ extension Address {
             return web3.eth.sendTransactionPromise(transaction, options: cleanedOptions, password: password)
         }
     }
+    
+    
+    /// Call a smart contract function.
+    ///
+    /// - Parameters:
+    ///   - function: Function to call
+    ///   - arguments: Function arguments
+    ///   - web3: Node address. default: .default
+    ///   - options: Web3Options. default: nil
+    ///   - onBlock: Call block. default: "latest"
+    /// - Returns: Promise for function result
     public func call(_ function: String, _ arguments: Any..., web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<SolidityDataReader> {
         return call(function, arguments, web3: web3, options: options, onBlock: onBlock)
     }
+    
+    /// Call a smart contract function.
+    ///
+    /// - Parameters:
+    ///   - function: Function to call
+    ///   - arguments: Function arguments
+    ///   - web3: Node address. default: .default
+    ///   - options: Web3Options. default: nil
+    ///   - onBlock: Call block. default: "latest"
+    /// - Returns: Promise for function result
     public func call(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<SolidityDataReader> {
         let options = web3.options.merge(with: options)
         let function = try! SolidityFunction(function: function)
@@ -166,9 +197,29 @@ extension Address {
         }
     }
     
+    
+    /// Estimates gas price for transaction
+    ///
+    /// - Parameters:
+    ///   - function: Smart contract function
+    ///   - arguments: Function arguments
+    ///   - web3: Node address. default: .default
+    ///   - options: Web3Options. default: nil
+    ///   - onBlock: Gas estimation block. default: "latest"
+    /// - Returns: Promise for estimated gas
     public func estimateGas(_ function: String, _ arguments: Any..., web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
         return estimateGas(function, arguments, web3: web3, options: options, onBlock: onBlock)
     }
+    
+    /// Estimates gas price for transaction
+    ///
+    /// - Parameters:
+    ///   - function: Smart contract function
+    ///   - arguments: Function arguments
+    ///   - web3: Node address. default: .default
+    ///   - options: Web3Options. default: nil
+    ///   - onBlock: Gas estimation block. default: "latest"
+    /// - Returns: Promise for estimated gas
     public func estimateGas(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
         let options = web3.options.merge(with: options)
         let function = try! SolidityFunction(function: function)

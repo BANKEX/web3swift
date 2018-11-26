@@ -12,7 +12,7 @@ import PromiseKit
 
 
 /**
- Native implementation of ERC20 token
+ Native implementation of ERC721 token
  - Important: NOT main thread friendly
  */
 public class ERC721 {
@@ -42,7 +42,7 @@ public class ERC721 {
         self.password = password
         options.from = from
     }
-    
+    /// Returns current balance of user
     public func balance(of user: Address) throws -> BigUInt {
         return try address.call("balanceOf(address)",user).wait().uint256()
     }
@@ -87,11 +87,6 @@ public class ERC721 {
         var address: Address { return parent.address }
         var options: Web3Options { return parent.options }
         
-        /**
-         Native implementation of ERC20 token
-         - Important: NOT main thread friendly
-         - Returns: full information for all pending and queued transactions
-         */
         init(_ parent: ERC721) {
             self.parent = parent
         }

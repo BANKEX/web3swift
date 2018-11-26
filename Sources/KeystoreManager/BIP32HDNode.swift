@@ -44,6 +44,7 @@ public class HDNode {
         public var privatePrefix = Data(hex: "0x0488ADE4")
         /// Public key prefix. Default: 0x0488B21E
         public var publicPrefix = Data(hex: "0x0488B21E")
+        /// Init with default values
         public init() {}
     }
     
@@ -125,6 +126,7 @@ public class HDNode {
         case invalidEntropySize
         /// Public key should start with 0x02 or 0x03
         case invalidPublicKeyPrefix
+        /// Printable / user displayable description
         public var localizedDescription: String {
             switch self {
             case .invalidSeedSize:
@@ -186,6 +188,7 @@ public class HDNode {
         
         /// Cannot derive public key in hardened mode
         case pathComponentsShouldBeConvertibleToNumber
+        /// Printable / user displayable description
         public var localizedDescription: String {
             switch self {
             case .providePrivateKey:

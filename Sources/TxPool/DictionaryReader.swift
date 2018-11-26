@@ -40,6 +40,7 @@ public class DictionaryReader {
         case notFound(key: String, dictionary: [String: Any])
         /// Throws if value cannot be converted to desired type
         case unconvertible(value: Any, expected: String)
+        /// Printable / user displayable description
         public var localizedDescription: String {
             switch self {
             case let .notFound(key, dictionary):

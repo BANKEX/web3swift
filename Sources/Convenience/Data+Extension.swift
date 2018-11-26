@@ -12,6 +12,7 @@ import Foundation
 public enum DataError: Error {
     /// Throws if data cannot be converted to string
     case hexStringCorrupted(String)
+    /// Printable / user displayable description
     public var localizedDescription: String {
         switch self {
         case let .hexStringCorrupted(string):

@@ -119,6 +119,7 @@ public struct ContractV2: ContractProtocol {
         case notFound
         /// Cannot encode data with given parameters
         case cannotEncodeDataWithGivenParameters
+        /// Printable / user displayable description
         public var localizedDescription: String {
             switch self {
             case .noAddress:

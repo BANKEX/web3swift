@@ -146,7 +146,7 @@ extension EthereumTransaction: Decodable {
     }
 }
 
-/*
+/**
 # TransactionDetails
 Used as result of Web3.default.eth.getTransactionDetails
 */
@@ -202,7 +202,7 @@ public struct TransactionDetails: Decodable {
     }
 }
 
-/*
+/**
 # Transaciton Receipt
 Used in Web3.default.eth.getTransactionReceipt()
 and in contract events
@@ -448,11 +448,13 @@ public struct EventLog: Decodable {
 public enum TransactionInBlockError: Error {
 	/// cannot parse (data: Any) to transaction hash or dictionary
     case corrupted
+    /// Printable / user displayable description
 	public var localizedDescription: String {
 		return "init(data:) failed beacause: Data corrupted"
 	}
 }
 
+/// Transaction in block
 public enum TransactionInBlock: Decodable {
 	/// Transaction with hash
     case hash(Data)

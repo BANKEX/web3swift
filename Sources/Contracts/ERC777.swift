@@ -9,6 +9,10 @@
 import Foundation
 import BigInt
 
+/**
+ Native implementation of ERC777 token
+ - Important: NOT main thread friendly
+ */
 public class ERC777 {
 	/// Token address
 	public let address: Address
@@ -117,8 +121,8 @@ public class ERC777 {
      Transfers from user1 to user2.
      
      - Important: Transaction | Requires password | Contract owner only.
-     ERC20(address, from: me).transfer(to: user, amount: NaturalUnits(0.1)) is not the same as
-     ERC20(address).transferFrom(owner: me, to: user, amount: NaturalUnits(0.1))
+     ERC777(address, from: me).transfer(to: user, amount: NaturalUnits(0.1)) is not the same as
+     ERC777(address).transferFrom(owner: me, to: user, amount: NaturalUnits(0.1))
      - Returns: TransactionSendingResult
      - Parameter user: Recipient address
      - Parameter amount: Amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
@@ -237,7 +241,7 @@ public class ERC777 {
 		var options: Web3Options { return parent.options }
 		
 		/**
-		Native implementation of ERC20 token
+		Native implementation of ERC777 token
 		- Important: NOT main thread friendly
 		- Returns: full information for all pending and queued transactions
 		*/

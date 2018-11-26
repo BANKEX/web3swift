@@ -147,7 +147,10 @@ extension BigInt {
 public struct NaturalUnits {
     /// Error for init with string
     public enum Error: Swift.Error {
+        /// Cannot convert \(string) to number
         case cannotConvert(String)
+        
+        /// Printable / user displayable description
         public var localizedDescription: String {
             switch self {
             case let .cannotConvert(string):
@@ -155,6 +158,7 @@ public struct NaturalUnits {
             }
         }
     }
+    /// String value
     public let string: String
     /// Init with string like "0.1", "1123123123", "123123.123123123123"
     /// - Throws: Error.cannotConvert if it cannot convert to string to BigUInt with 18 decimals
