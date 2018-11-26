@@ -9,9 +9,8 @@
 import BigInt
 import Foundation
 
-public struct ABIv2Encoder {}
-
-extension ABIv2Encoder {
+public struct ABIv2Encoder {
+    
     public static func convertToBigUInt(_ value: AnyObject) -> BigUInt? {
         switch value {
         case let v as BigUInt:

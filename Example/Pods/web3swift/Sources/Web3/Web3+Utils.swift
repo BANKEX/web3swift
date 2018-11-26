@@ -7,10 +7,7 @@
 //
 
 import BigInt
-import CryptoSwift
 import Foundation
-
-// public typealias Web3Utils = Web3Utils
 
 /// Namespaced Utils functions. Are not bound to particular web3 instance, so capitalization matters.
 public class Web3Utils {
@@ -18,33 +15,17 @@ public class Web3Utils {
 }
 
 /// Various units used in Ethereum ecosystem
-public enum Web3Units {
-    case eth
-    case wei
-    case Kwei
-    case Mwei
-    case Gwei
-    case Microether
-    case Finney
-
-    var decimals: Int {
-        switch self {
-        case .eth:
-            return 18
-        case .wei:
-            return 0
-        case .Kwei:
-            return 3
-        case .Mwei:
-            return 6
-        case .Gwei:
-            return 9
-        case .Microether:
-            return 12
-        case .Finney:
-            return 15
-        }
-    }
+public enum Web3Units: Int {
+	case eth = 18
+	case wei = 0
+	case kWei = 3
+	case mWei = 6
+	case gWei = 9
+	case microEther = 12
+	case finney = 15
+	public var decimals: Int {
+		return rawValue
+	}
 }
 
 extension Web3Utils {
@@ -69,6 +50,7 @@ extension Web3Utils {
     """
 }
 
+/// Errors from Web3Utils
 public enum Web3UtilsError: Error {
     case cannotConvertDataToAscii
     case invalidSignatureLength
@@ -82,6 +64,7 @@ public enum Web3UtilsError: Error {
     }
 }
 
+/// Errors for function Web3Utils.publicToAddressData
 public enum PublicKeyToAddressError: Error {
     case shouldStartWith4
     case invalidPublicKeySize

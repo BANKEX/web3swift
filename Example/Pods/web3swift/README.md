@@ -1,4 +1,16 @@
 # We just released web3swift 2.0 [check it out](https://github.com/BANKEX/web3swift/releases/tag/2.0.0)
+### also check our [Discord Channel](https://discord.gg/3ETv2ST)
+<p align="right">
+<a href="https://brianmacdonald.github.io/Ethonate/address#0x47FC2e245b983A92EB3359F06E31F34B107B6EF6" target="_blank">
+<img src="https://brianmacdonald.github.io/Ethonate/svg/eth-support-blue.svg" alt="Support">
+</a>
+<a href="https://stackoverflow.com/questions/tagged/web3swift" target="_blank">
+<img src="https://img.shields.io/badge/stackoverflow-ask-blue.svg" alt="Stackoverflow">
+</a>
+<a href="https://discord.gg/3ETv2ST" target="_blank">
+<img src="https://img.shields.io/badge/discord-join%20chat-blue.svg" alt="Join Discord">
+</a>
+</p>
 
 ![bkx-foundation-github-swift](https://user-images.githubusercontent.com/3356474/34412791-5b58962c-ebf0-11e7-8460-5592b12e6e9d.png)
 
@@ -12,19 +24,11 @@
 <a target="_blank">
 <img src="https://img.shields.io/badge/Supports-CocoaPods%20%7C%20Carthage%20%7C%20SwiftPM%20-orange.svg?style=flat" alt="Compatible">
 </a>
+<a target="_blank">
+<img src="https://img.shields.io/badge/Supports-Objective%20C-blue.svg?style=flat" alt="Compatible">
+</a>
 </p>
 
-<p align="center">
-<a href="https://brianmacdonald.github.io/Ethonate/address#0x47FC2e245b983A92EB3359F06E31F34B107B6EF6" target="_blank">
-<img src="https://brianmacdonald.github.io/Ethonate/svg/eth-support-blue.svg" alt="Support">
-</a>
-<a href="https://stackoverflow.com/questions/tagged/web3swift" target="_blank">
-<img src="https://img.shields.io/badge/stackoverflow-ask-blue.svg" alt="Stackoverflow">
-</a>
-<a href="https://discord.gg/3ETv2ST" target="_blank">
-<img src="https://img.shields.io/badge/discord-join%20chat-blue.svg" alt="Join Discord">
-</a>
-</p>
 
 # web3swift
 - Swift implementation of [web3.js](https://github.com/ethereum/web3.js/) functionality :zap:
@@ -42,7 +46,7 @@
 
 
 ## Requirements
-Web3swift requires Swift 4.2 and deploys to `macOS 10.10`, `iOS 9`, `watchOS 2` and `tvOS 9` and `linux`. 
+Web3swift requires Swift 4.2 and deploys to `macOS 10.10`, `iOS 9`, `watchOS 2` and `tvOS 9` and `linux`.
 
 Don't forget to set the iOS version in a Podfile, otherwise you get an error if the deployment target is less than the latest SDK.
 
@@ -59,7 +63,7 @@ Don't forget to set the iOS version in a Podfile, otherwise you get an error if 
 - **CocoaPods:** Put this in your `Podfile`:
 
     ```Ruby
-    pod 'web3swift', :git => 'https://github.com/bankex/web3swift.git', '~> 2.0'
+    pod 'web3swift', :git => 'https://github.com/bankex/web3swift.git'
     ```
 
 - **Carthage:** Put this in your `Cartfile`:
@@ -68,6 +72,17 @@ Don't forget to set the iOS version in a Podfile, otherwise you get an error if 
     github "BANKEX/web3swift" ~> 2.0
     ```
 
+
+## Documentation
+
+> Hi. We spend a lot of time working on documentation. If you have some questions after reading it just [open an issue](https://github.com/bankex/web3swift/issues) or ask in our [discord channel](https://discord.gg/3ETv2ST). We would be happy to answer you.
+
+Most of the classes are documented and have some examples on how to use it. 
+
+### [Read documentation in using Xcode](https://bankex.github.io/web3swift/read-documentation-using-xcode.html)
+### [Github Pages](https://bankex.github.io/web3swift)
+
+#### We would appreciate it if you translate our documentation into another language, and will be happy to provide you with all the necessary information on how to do this. We will compensate you for translations that will be included in the master branch.
 
 ## Check this out
 - Private key and transaction were created directly on an iOS device and sent directly to [Infura](https://infura.io) node
@@ -108,11 +123,12 @@ On Rinkeby TXid = 0xc6eca60ecac004a1501a4323a10edb7fa4cd1a0896675f6b51704c84deda
 
 ## Example
 You can try it yourself by running the example project:
+
 - Clone the repo
 -  `cd Example/web3swiftExample`
 - run `pod install` from the `Example/web3swiftExample` directory.
 -  `open ./web3swiftExample.xcworkspace`
--  
+
 ## Communication
 - if you ****need help****, use [Stack Overflow](https://stackoverflow.com/questions/tagged/web3swift) (tag 'web3swift')
 - If you'd like to ****ask a general question****, use [Stack Overflow](https://stackoverflow.com/questions/tagged/web3swift).
@@ -131,82 +147,6 @@ You can try it yourself by running the example project:
 - [x] Parse event logs for transaction
 - [x] Manage user's private keys through encrypted keystore abstractions
 - [x] Batched requests in concurrent mode, checks balances of 580 tokens (from the latest MyEtherWallet repo) over 3 seconds
-
-## Usage
-
-Here's a few use cases of our library
-
-### Initializing Ethereum address
-
-```bash
-let coldWalletAddress = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"
-let constractAddress = "0x45245bc59219eeaaf6cd3f382e078a461ff9de7b"
-```
-Ethereum addresses are checksum checked if they are not lowercased and always length checked
-
-### Setting options
-
-```bash
-var options = Web3Options.default
-// public var to: Address? = nil - to what address transaction is aimed
-// public var from: Address? = nil - form what address it should be sent (either signed locally or on the node)
-// public var gasLimit: BigUInt? = BigUInt(90000) - default gas limit
-// public var gasPrice: BigUInt? = BigUInt(5000000000) - default gas price, quite small
-// public var value: BigUInt? = BigUInt(0) - amount of WEI sent along the transaction
-options.gasPrice = gasPrice
-options.gasLimit = gasLimit
-options.from = "0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d"
-```
-
-### Getting ETH balance
-
-```bash
-let address: Address = "0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d"
-let web3Main = Web3(infura: .mainnet)
-let balance: BigUInt = try web3Main.eth.getBalance(address)
-```
-
-### Getting gas price
-
-```bash
-let web3Main = Web3(infura: .mainnet)
-let gasPrice: BigUInt = try web3Main.eth.getGasPrice()
-```
-
-### Getting ERC20 token balance
-
-```bash
-let contractAddress: Address = "0x45245bc59219eeaaf6cd3f382e078a461ff9de7b" // BKX token on Ethereum mainnet
-let balance = try ERC20(contractAddress).balance(of: "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
-print("BKX token balance = " + String(bal))
-```
-
-
-
-### Sending ETH
-
-```bash
-let mnemonics = Mnemonics()
-let keystore = try BIP32Keystore(mnemonics: mnemonics)
-let keystoreManager = KeystoreManager([keystore])
-let web3Rinkeby = Web3(infura: .rinkeby)
-web3Rinkeby.addKeystoreManager(keystoreManager) // attach a keystore if you want to sign locally. Otherwise unsigned request will be sent to remote node
-var options = Web3Options.default
-options.from = keystore.addresses.first! // specify from what address you want to send it
-let intermediateSend = try web3Rinkeby.contract(Web3Utils.coldWalletABI, at: coldWalletAddress).method(options: options) // an address with a private key attached in not different from any other address, just has very simple ABI
-let sendResultBip32 = try intermediateSend.send(password: "BANKEXFOUNDATION")
-```
-
-
-
-### Sending ERC20
-
-```bash
-let web3 = Web3(infura: .rinkeby)
-let erc20 = ERC20("0xa407dd0cbc9f9d20cdbd557686625e586c85b20a", from: yourAddress)
-let result = try erc20.transfer(to: "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B", amount: NaturalUnits("0.0001"))
-}
-```
 
 ## Global plans
 - Full reference `web3js` functionality
@@ -236,4 +176,4 @@ Changes made to this branch will be merged into the [master](https://github.com/
 When using this pod, references to this repo, [BANKEX](https://bankex.com) and [BANKEX Foundation](https://new.bankexfoundation.org/) are appreciated.
 
 ## License
-web3swift is available under the Apache License 2.0 license. See the [LICENSE](https://github.com/BankEx/web3swift/blob/master/LICENSE) file for more info.
+web3swift is available under the Apache License 2.0 license. See the [LICENSE](https://github.com/BankEx/web3swift/blob/master/LICENSE.md) file for more info.

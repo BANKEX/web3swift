@@ -1,6 +1,6 @@
 {
   "name": "web3swift",
-  "version": "2.0.1",
+  "version": "2.0.5",
   "platforms": {
     "ios": "8.0",
     "osx": "10.9",
@@ -16,7 +16,7 @@
   "authors": "Bankex Foundation",
   "source": {
     "git": "https://github.com/bankex/web3swift.git",
-    "tag": "v2.0.1"
+    "tag": "v2.0.5"
   },
   "source_files": "Sources/**/*.swift",
   "dependencies": {

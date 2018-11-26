@@ -46,7 +46,13 @@ extension Web3Options: Decodable {
         case gas
         case value
     }
-
+    
+    /// Creates a new instance by decoding from the given decoder.
+    ///
+    /// This initializer throws an error if reading from the decoder fails, or
+    /// if the data read is corrupted or otherwise invalid.
+    ///
+    /// - Parameter decoder: The decoder to read data from.
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let gasLimit = try decodeHexToBigUInt(container, key: .gas)
@@ -90,7 +96,13 @@ extension EthereumTransaction: Decodable {
         case s
         case value
     }
-
+    
+    /// Creates a new instance by decoding from the given decoder.
+    ///
+    /// This initializer throws an error if reading from the decoder fails, or
+    /// if the data read is corrupted or otherwise invalid.
+    ///
+    /// - Parameter decoder: The decoder to read data from.
     public init(from decoder: Decoder) throws {
         let options = try Web3Options(from: decoder)
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -134,10 +146,18 @@ extension EthereumTransaction: Decodable {
     }
 }
 
+/*
+# TransactionDetails
+Used as result of Web3.default.eth.getTransactionDetails
+*/
 public struct TransactionDetails: Decodable {
+	/// Block hash in a blockchain
     public var blockHash: Data?
+	/// Block number in a blockchain
     public var blockNumber: BigUInt?
+	/// Transaction index in a block
     public var transactionIndex: BigUInt?
+	/// Transaction info
     public var transaction: EthereumTransaction
 
     enum CodingKeys: String, CodingKey {
@@ -145,7 +165,13 @@ public struct TransactionDetails: Decodable {
         case blockNumber
         case transactionIndex
     }
-
+    
+    /// Creates a new instance by decoding from the given decoder.
+    ///
+    /// This initializer throws an error if reading from the decoder fails, or
+    /// if the data read is corrupted or otherwise invalid.
+    ///
+    /// - Parameter decoder: The decoder to read data from.
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let blockNumber = try decodeHexToBigUInt(container, key: .blockNumber, allowOptional: true)
@@ -160,7 +186,8 @@ public struct TransactionDetails: Decodable {
         let transaction = try EthereumTransaction(from: decoder)
         self.transaction = transaction
     }
-
+	
+	/// init with jsonrpc response
     public init(_ json: [String: Any]) throws {
         if let value = try? json.at("blockHash") {
             blockHash = try value.data()
@@ -175,21 +202,40 @@ public struct TransactionDetails: Decodable {
     }
 }
 
+/*
+# Transaciton Receipt
+Used in Web3.default.eth.getTransactionReceipt()
+and in contract events
+*/
 public struct TransactionReceipt: Decodable {
+	/// Transaction hash
     public var transactionHash: Data
+	/// Block hash
     public var blockHash: Data
+	/// Block position in a block chain
     public var blockNumber: BigUInt
+	/// Transaction position in a block
     public var transactionIndex: BigUInt
+	/// Contract address
     public var contractAddress: Address?
+	/// Cumulative gas used for this transaction
     public var cumulativeGasUsed: BigUInt
+	/// Gas used for this transaction
     public var gasUsed: BigUInt
+	/// Smart contract logs
     public var logs: [EventLog]
+	/// Transaction current status
     public var status: TXStatus
+	/// Logs bloom
     public var logsBloom: EthereumBloomFilter?
-
+	
+	/// Transaction status
     public enum TXStatus {
+		/// Transaction processed
         case ok
+		/// Transaction failed
         case failed
+		/// Transaction is not proceessed yet
         case notYetProcessed
     }
 
@@ -205,7 +251,13 @@ public struct TransactionReceipt: Decodable {
         case logsBloom
         case status
     }
-
+    
+    /// Creates a new instance by decoding from the given decoder.
+    ///
+    /// This initializer throws an error if reading from the decoder fails, or
+    /// if the data read is corrupted or otherwise invalid.
+    ///
+    /// - Parameter decoder: The decoder to read data from.
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard let blockNumber = try decodeHexToBigUInt(container, key: .blockNumber) else { throw Web3Error.dataError }
@@ -248,7 +300,8 @@ public struct TransactionReceipt: Decodable {
         let logs = try container.decode([EventLog].self, forKey: .logs)
         self.logs = logs
     }
-
+	
+	/// Custom init. By default inits with decoder
     public init(transactionHash: Data, blockHash: Data, blockNumber: BigUInt, transactionIndex: BigUInt, contractAddress: Address?, cumulativeGasUsed: BigUInt, gasUsed: BigUInt, logs: [EventLog], status: TXStatus, logsBloom: EthereumBloomFilter?) {
         self.transactionHash = transactionHash
         self.blockHash = blockHash
@@ -269,12 +322,27 @@ public struct TransactionReceipt: Decodable {
 }
 
 extension Address: Decodable, Encodable {
+    /// Creates a new instance by decoding from the given decoder.
+    ///
+    /// This initializer throws an error if reading from the decoder fails, or
+    /// if the data read is corrupted or otherwise invalid.
+    ///
+    /// - Parameter decoder: The decoder to read data from.
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let stringValue = try container.decode(String.self)
         self.init(stringValue)
     }
-
+    
+    /// Encodes this value into the given encoder.
+    ///
+    /// If the value fails to encode anything, `encoder` will encode an empty
+    /// keyed container in its place.
+    ///
+    /// This function throws an error if any values are invalid for the given
+    /// encoder's format.
+    ///
+    /// - Parameter encoder: The encoder to write data to.
     public func encode(to encoder: Encoder) throws {
         let value = address.lowercased()
         var signleValuedCont = encoder.singleValueContainer()
@@ -282,15 +350,25 @@ extension Address: Decodable, Encodable {
     }
 }
 
+/// Event log
 public struct EventLog: Decodable {
+	/// Transaction address
     public var address: Address
+	/// Block hash
     public var blockHash: Data
+	/// Block number
     public var blockNumber: BigUInt
+	/// Data
     public var data: Data
+	/// Log index
     public var logIndex: BigUInt
+	/// isRemoved
     public var removed: Bool
+	/// Topics
     public var topics: [Data]
+	/// Transaction hash
     public var transactionHash: Data
+	/// Transaction index
     public var transactionIndex: BigUInt
 
 //    address = 0x53066cddbc0099eb6c96785d9b3df2aaeede5da3;
@@ -318,7 +396,13 @@ public struct EventLog: Decodable {
         case transactionHash
         case transactionIndex
     }
-
+    
+    /// Creates a new instance by decoding from the given decoder.
+    ///
+    /// This initializer throws an error if reading from the decoder fails, or
+    /// if the data read is corrupted or otherwise invalid.
+    ///
+    /// - Parameter decoder: The decoder to read data from.
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -360,15 +444,29 @@ public struct EventLog: Decodable {
     }
 }
 
+/// TransactionInBlock errors
 public enum TransactionInBlockError: Error {
+	/// cannot parse (data: Any) to transaction hash or dictionary
     case corrupted
+	public var localizedDescription: String {
+		return "init(data:) failed beacause: Data corrupted"
+	}
 }
 
 public enum TransactionInBlock: Decodable {
+	/// Transaction with hash
     case hash(Data)
+	/// Transaction with transaction details
     case transaction(EthereumTransaction)
+	/// null transaction
     case null
 
+    /// Creates a new instance by decoding from the given decoder.
+    ///
+    /// This initializer throws an error if reading from the decoder fails, or
+    /// if the data read is corrupted or otherwise invalid.
+    ///
+    /// - Parameter decoder: The decoder to read data from.
     public init(from decoder: Decoder) throws {
         let value = try decoder.singleValueContainer()
         if let string = try? value.decode(String.self) {
@@ -382,7 +480,9 @@ public enum TransactionInBlock: Decodable {
             self = .null
         }
     }
-
+	
+	/// init with any object
+	/// - parameter data: Should be in hex or dictionary format
     public init(_ data: Any) throws {
         if let string = data as? String {
             guard let d = Data.fromHex(string) else { throw TransactionInBlockError.corrupted }
@@ -396,25 +496,46 @@ public enum TransactionInBlock: Decodable {
     }
 }
 
+/// Block object
+/// Contains all information about some blockchain block
 public struct Block: Decodable {
+	/// Block position in blockchain
     public var number: BigUInt
+	/// Block hash
     public var hash: Data
+	/// Block's parent hash
     public var parentHash: Data
+	/// Block nonce
     public var nonce: Data?
+	/// Block sha uncles
     public var sha3Uncles: Data
+	/// Logs bloom
     public var logsBloom: EthereumBloomFilter?
+	/// Transaction root
     public var transactionsRoot: Data
+	/// State root
     public var stateRoot: Data
+	/// Receipts root
     public var receiptsRoot: Data
+	/// Address of block creator
     public var miner: Address?
+	/// Block difficulty
     public var difficulty: BigUInt
+	/// Total difficulty
     public var totalDifficulty: BigUInt
+	/// Extra data
     public var extraData: Data
+	/// Block size
     public var size: BigUInt
+	/// Gas limit
     public var gasLimit: BigUInt
+	/// Gas used
     public var gasUsed: BigUInt
+	/// Timestamp
     public var timestamp: Date
+	/// Transactions in block
     public var transactions: [TransactionInBlock]
+	/// Block uncles
     public var uncles: [Data]
 
     enum CodingKeys: String, CodingKey {
@@ -439,6 +560,12 @@ public struct Block: Decodable {
         case uncles
     }
 
+    /// Creates a new instance by decoding from the given decoder.
+    ///
+    /// This initializer throws an error if reading from the decoder fails, or
+    /// if the data read is corrupted or otherwise invalid.
+    ///
+    /// - Parameter decoder: The decoder to read data from.
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard let number = try decodeHexToBigUInt(container, key: .number) else { throw Web3Error.dataError }
@@ -513,13 +640,20 @@ public struct Block: Decodable {
     }
 }
 
-public struct EventParserResult: EventParserResultProtocol {
+/// Ethereum event parsing results
+public struct EventParserResult {
+	/// Event name
     public var eventName: String
+	/// Transaction receipt
     public var transactionReceipt: TransactionReceipt?
+	/// Contract Address
     public var contractAddress: Address
+	/// Decoded result
     public var decodedResult: [String: Any]
+	/// Event log
     public var eventLog: EventLog?
-
+	
+	//// Standart init with all parameters
     public init(eventName: String, transactionReceipt: TransactionReceipt?, contractAddress: Address, decodedResult: [String: Any]) {
         self.eventName = eventName
         self.transactionReceipt = transactionReceipt
@@ -529,7 +663,12 @@ public struct EventParserResult: EventParserResultProtocol {
     }
 }
 
+/// Transaction sending result
+/// Returns in every transaction
+/// Contains transaction hash and transaction details
 public struct TransactionSendingResult {
+	/// Transaction with all details
     public var transaction: EthereumTransaction
+	/// Transaction hash
     public var hash: String
 }

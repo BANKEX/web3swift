@@ -9,6 +9,15 @@
 import CryptoSwift
 import Foundation
 
+private extension Dictionary where Value: Equatable {
+    func key(of value: Value) -> Key? {
+        for (key,_value) in self where _value == value {
+            return key
+        }
+        return nil
+    }
+}
+
 public class BIP32Keystore: AbstractKeystore {
     // Protocol
 
@@ -24,17 +33,15 @@ public class BIP32Keystore: AbstractKeystore {
     public var isHDKeystore: Bool = true
 
     public func UNSAFE_getPrivateKeyData(password: String, account: Address) throws -> Data {
-        if let key = self.paths.keyForValue(value: account) {
-            guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else { throw AbstractKeystoreError.encryptionError("Failed to decrypt a keystore") }
-            guard let rootNode = HDNode(decryptedRootNode!) else { throw AbstractKeystoreError.encryptionError("Failed to deserialize a root node") }
-            guard rootNode.depth == (rootPrefix.components(separatedBy: "/").count - 1) else { throw AbstractKeystoreError.encryptionError("Derivation depth mismatch") }
-//            guard rootNode.depth == HDNode.defaultPathPrefix.components(separatedBy: "/").count - 1 else { throw AbstractKeystoreError.encryptionError("Derivation depth mismatch") }
-            guard let index = UInt32(key.components(separatedBy: "/").last!) else { throw AbstractKeystoreError.encryptionError("Derivation depth mismatch") }
-            let keyNode = try rootNode.derive(index: index, derivePrivateKey: true)
-            guard let privateKey = keyNode.privateKey else { throw AbstractKeystoreError.invalidAccountError }
-            return privateKey
-        }
-        throw AbstractKeystoreError.invalidAccountError
+        guard let key = self.paths.key(of: account) else { throw AbstractKeystoreError.invalidAccountError }
+        guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else { throw AbstractKeystoreError.encryptionError("Failed to decrypt a keystore") }
+        guard let rootNode = HDNode(decryptedRootNode!) else { throw AbstractKeystoreError.encryptionError("Failed to deserialize a root node") }
+        guard rootNode.depth == (rootPrefix.components(separatedBy: "/").count - 1) else { throw AbstractKeystoreError.encryptionError("Derivation depth mismatch") }
+        //            guard rootNode.depth == HDNode.defaultPathPrefix.components(separatedBy: "/").count - 1 else { throw AbstractKeystoreError.encryptionError("Derivation depth mismatch") }
+        guard let index = UInt32(key.components(separatedBy: "/").last!) else { throw AbstractKeystoreError.encryptionError("Derivation depth mismatch") }
+        let keyNode = try rootNode.derive(index: index, derivePrivateKey: true)
+        guard let privateKey = keyNode.privateKey else { throw AbstractKeystoreError.invalidAccountError }
+        return privateKey
     }
 
     // --------------

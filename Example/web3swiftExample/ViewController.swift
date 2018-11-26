@@ -33,30 +33,30 @@ class ViewController: UIViewController {
         // create normal keystore
         
         let userDir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let keystoreManager = KeystoreManager.managerForPath(userDir + "/keystore")
+        guard let keystoreManager = KeystoreManager.managerForPath(userDir + "/keystore") else { return }
         var ks: EthereumKeystoreV3?
-        if (keystoreManager?.addresses.count == 0) {
+        if (keystoreManager.addresses.count == 0) {
             ks = try! EthereumKeystoreV3(password: "BANKEXFOUNDATION")
             let keydata = try! JSONEncoder().encode(ks!.keystoreParams)
             FileManager.default.createFile(atPath: userDir + "/keystore"+"/key.json", contents: keydata, attributes: nil)
         } else {
-            ks = keystoreManager?.walletForAddress((keystoreManager?.addresses[0])!) as? EthereumKeystoreV3
+            ks = keystoreManager.walletForAddress((keystoreManager.addresses[0])) as? EthereumKeystoreV3
         }
-        guard let sender = ks?.addresses.first else {return}
+        guard let sender = ks?.addresses.first else { return }
         print(sender)
         
         //create BIP32 keystore
-        let bip32keystoreManager = KeystoreManager.managerForPath(userDir + "/bip32_keystore", scanForHDwallets: true)
-        var bip32ks: BIP32Keystore?
-        if (bip32keystoreManager?.addresses.count == 0) {
+        guard let bip32keystoreManager = KeystoreManager.managerForPath(userDir + "/bip32_keystore", scanForHDwallets: true) else { return }
+        var bip32ks: BIP32Keystore!
+        if (bip32keystoreManager.addresses.count == 0) {
             let mnemonics = try Mnemonics("normal dune pole key case cradle unfold require tornado mercy hospital buyer")
             bip32ks = try BIP32Keystore(mnemonics: mnemonics, password: "BANKEXFOUNDATION")
             let keydata = try! JSONEncoder().encode(bip32ks!.keystoreParams)
             FileManager.default.createFile(atPath: userDir + "/bip32_keystore"+"/key.json", contents: keydata, attributes: nil)
         } else {
-            bip32ks = bip32keystoreManager?.walletForAddress((bip32keystoreManager?.addresses[0])!) as? BIP32Keystore
+            bip32ks = bip32keystoreManager.walletForAddress((bip32keystoreManager.addresses[0])) as? BIP32Keystore
         }
-        guard let bip32sender = bip32ks?.addresses.first else {return}
+        guard let bip32sender = bip32ks?.addresses.first else { return }
         print(bip32sender)
         
         
@@ -69,7 +69,7 @@ class ViewController: UIViewController {
         options.gasPrice = gasPrice
         options.from = Address("0xE6877A4d8806e9A9F12eB2e8561EA6c1db19978d")
         
-        web3Main.addKeystoreManager(keystoreManager)
+        web3Main.keystoreManager = keystoreManager
         let contract = ERC20(constractAddress)
         let tokenName = try contract.name()
         print("BKX token name = \(tokenName)")
@@ -77,8 +77,7 @@ class ViewController: UIViewController {
         print("BKX token balance = \(balance)")
         
         // Test token transfer on Rinkeby
-
-        var eip67Data = Web3.EIP67Code.init(address: Address("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"))
+        var eip67Data = EIP67Code(address: Address("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"))
         eip67Data.gasLimit = BigUInt(21000)
         eip67Data.amount = BigUInt("1000000000000000000")
         //        eip67Data.data =
@@ -93,7 +92,7 @@ class ViewController: UIViewController {
         print("Rinkeby")
         Web3.default = Web3(infura: .rinkeby)
         let web3Rinkeby = Web3.default
-        web3Rinkeby.addKeystoreManager(keystoreManager)
+        web3Rinkeby.keystoreManager = keystoreManager
         let coldWalletABI = "[{\"payable\":true,\"type\":\"fallback\"}]"
         options = Web3Options.default
         options.gasLimit = BigUInt(21000)
@@ -108,7 +107,7 @@ class ViewController: UIViewController {
         print("On Rinkeby TXid = " + txid)
         
         //Send ETH on Rinkeby using BIP32 keystore. Should fail due to insufficient balance
-        web3Rinkeby.addKeystoreManager(bip32keystoreManager)
+        web3Rinkeby.keystoreManager = bip32keystoreManager
         options.from = bip32ks?.addresses.first!
         intermediateSend = try web3Rinkeby.contract(coldWalletABI, at: coldWalletAddress).method(options: options)
         let transaction = try intermediateSend.send(password: "BANKEXFOUNDATION")

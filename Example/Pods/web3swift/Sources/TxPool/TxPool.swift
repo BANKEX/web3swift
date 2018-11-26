@@ -38,7 +38,7 @@ public class TxPool {
      Any URLSession.dataTask Error
      */
     public func status() -> Promise<TxPoolStatus> {
-        let request = JsonRpcRequestFabric.prepareRequest(.txPoolStatus, parameters: [])
+		let request = JsonRpcRequest(method: .txPoolStatus)
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue ) { try TxPoolStatus($0.response()) }
@@ -53,7 +53,7 @@ public class TxPool {
      Any URLSession.dataTask Error
      */
     public func inspect() -> Promise<TxPoolInspect> {
-        let request = JsonRpcRequestFabric.prepareRequest(.txPoolInspect, parameters: [])
+		let request = JsonRpcRequest(method: .txPoolInspect)
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue ) { try TxPoolInspect($0.response()) }
@@ -68,7 +68,7 @@ public class TxPool {
      Any URLSession.dataTask Error
      */
     public func content() -> Promise<TxPoolContent> {
-        let request = JsonRpcRequestFabric.prepareRequest(.txPoolContent, parameters: [])
+		let request = JsonRpcRequest(method: .txPoolContent)
         let rp = web3.dispatch(request)
         let queue = web3.requestDispatcher.queue
         return rp.map(on: queue ) { try TxPoolContent($0.response()) }
@@ -79,13 +79,16 @@ extension DictionaryReader {
     func split(_ separator: String, _ expectedSize: Int) throws -> [DictionaryReader] {
         let string = try self.string()
         let array = string.components(separatedBy: separator)
-        guard array.count >= expectedSize else { throw Error.unconvertable }
+        guard array.count >= expectedSize else { throw unconvertible(to: "[Any]") }
         return array.map { DictionaryReader($0) }
     }
 }
 
+/// txPool.status() response
 public struct TxPoolStatus {
+    /// Number of pending transactions
     public var pending: Int
+    /// Number of queued transactions
     public var queued: Int
     init(_ dictionary: DictionaryReader) throws {
         pending = try dictionary.at("pending").int()
@@ -93,9 +96,12 @@ public struct TxPoolStatus {
     }
 }
 
-public struct TxPoolInspect {
-    public let pending: [InspectedTransaction]
-    public let queued: [InspectedTransaction]
+/// txPool.inspect() response
+public class TxPoolInspect {
+    /// array of pending transactions
+    public let pending: [Transaction]
+    /// array of queued transactions
+    public let queued: [Transaction]
     init(_ dictionary: DictionaryReader) throws {
         pending = try TxPoolInspect.parse(dictionary.at("pending"))
         queued = try TxPoolInspect.parse(dictionary.at("queued"))
@@ -104,41 +110,52 @@ public struct TxPoolInspect {
         pending = []
         queued = []
     }
-    private static func parse(_ reader: DictionaryReader) throws -> [InspectedTransaction] {
-        var array = [InspectedTransaction]()
+    private static func parse(_ reader: DictionaryReader) throws -> [Transaction] {
+        var array = [Transaction]()
         try reader.dictionary {
             let from = try $0.address()
             try $1.dictionary {
                 let nonce = try $0.int()
-                let transaction = try InspectedTransaction($1, from: from, nonce: nonce)
+                let transaction = try Transaction($1, from: from, nonce: nonce)
                 array.append(transaction)
             }
         }
         return array
     }
-}
-
-public struct InspectedTransaction {
-    public let from: Address
-    public let nonce: Int
-    public let to: Address
-    public let value: BigUInt
-    public let gasLimit: BigUInt
-    public let gasPrice: BigUInt
-    init(_ reader: DictionaryReader, from: Address, nonce: Int) throws {
-        self.from = from
-        self.nonce = nonce
-        let string = try reader.split(" ", 7)
-        to = try string[0].address()
-        value = try string[1].uint256()
-        gasLimit = try string[4].uint256()
-        gasPrice = try string[7].uint256()
+    
+    /// TxPoolInspect Transaction
+    /// Contains main information about transaction
+    public class Transaction {
+        /// Transaction sender address
+        public let from: Address
+        /// Nonce
+        public let nonce: Int
+        /// Recipient address (user or smart contract)
+        public let to: Address
+        /// Number of ether sended to recipient
+        public let value: BigUInt
+        /// Transaction gas limit
+        public let gasLimit: BigUInt
+        /// Transaction gas price
+        public let gasPrice: BigUInt
+        init(_ reader: DictionaryReader, from: Address, nonce: Int) throws {
+            self.from = from
+            self.nonce = nonce
+            let string = try reader.split(" ", 7)
+            to = try string[0].address()
+            value = try string[1].uint256()
+            gasLimit = try string[4].uint256()
+            gasPrice = try string[7].uint256()
+        }
     }
 }
 
-public struct TxPoolContent {
-    public let pending: [TxPoolTransaction]
-    public let queued: [TxPoolTransaction]
+/// txPool.content() response
+public class TxPoolContent {
+    /// Array of pending transactions
+    public let pending: [Transaction]
+    /// Array of queued transactions
+    public let queued: [Transaction]
     init(_ dictionary: DictionaryReader) throws {
         pending = try TxPoolContent.parse(dictionary.at("pending"))
         queued = try TxPoolContent.parse(dictionary.at("queued"))
@@ -147,48 +164,63 @@ public struct TxPoolContent {
         pending = []
         queued = []
     }
-    private static func parse(_ reader: DictionaryReader) throws -> [TxPoolTransaction] {
-        var array = [TxPoolTransaction]()
+    private static func parse(_ reader: DictionaryReader) throws -> [Transaction] {
+        var array = [Transaction]()
         try reader.dictionary {
             let from = try $0.address()
             try $1.dictionary {
                 let nonce = try $0.int()
-                let transaction = try TxPoolTransaction($1, from: from, nonce: nonce)
+                let transaction = try Transaction($1, from: from, nonce: nonce)
                 array.append(transaction)
             }
         }
         return array
     }
-}
-
-public struct TxPoolTransaction {
-    public let from: Address
-    public let nonce: Int
-    public let to: Address
-    public let value: BigUInt
-    public let gasLimit: BigUInt
-    public let gasPrice: BigUInt
-    public let input: Data
-    public let hash: Data
-    public let v: BigUInt
-    public let r: BigUInt
-    public let s: BigUInt
-    public let blockHash: Data
-    public let transactionIndex: BigUInt
-    init(_ reader: DictionaryReader, from: Address, nonce: Int) throws {
-        self.from = from
-        self.nonce = nonce
-        input = try reader.at("input").data()
-        gasPrice = try reader.at("gasPrice").uint256()
-        s = try reader.at("s").uint256()
-        to = try reader.at("to").address()
-        value = try reader.at("value").uint256()
-        gasLimit = try reader.at("gas").uint256()
-        hash = try reader.at("hash").data()
-        v = try reader.at("v").uint256()
-        transactionIndex = try reader.at("transactionIndex").uint256()
-        r = try reader.at("r").uint256()
-        blockHash = try reader.at("blockHash").data()
+    
+    /// Transaction object from TxPoolContent
+    /// Contains full information about transaction
+    public class Transaction {
+        /// Transaction sender address
+        public let from: Address
+        /// Nonce
+        public let nonce: Int
+        /// Recipient address (user or smart contract)
+        public let to: Address
+        /// Number of ether sended to recipient
+        public let value: BigUInt
+        /// Transaction gas limit
+        public let gasLimit: BigUInt
+        /// Transaction gas price
+        public let gasPrice: BigUInt
+        /// Transaction input data
+        public let input: Data
+        /// Transaction hash
+        public let hash: Data
+        /// v value
+        public let v: BigUInt
+        /// r value
+        public let r: BigUInt
+        /// s value
+        public let s: BigUInt
+        /// block hash
+        public let blockHash: Data
+        /// trnsaction index
+        public let transactionIndex: BigUInt
+        init(_ reader: DictionaryReader, from: Address, nonce: Int) throws {
+            self.from = from
+            self.nonce = nonce
+            input = try reader.at("input").data()
+            gasPrice = try reader.at("gasPrice").uint256()
+            s = try reader.at("s").uint256()
+            to = try reader.at("to").address()
+            value = try reader.at("value").uint256()
+            gasLimit = try reader.at("gas").uint256()
+            hash = try reader.at("hash").data()
+            v = try reader.at("v").uint256()
+            transactionIndex = try reader.at("transactionIndex").uint256()
+            r = try reader.at("r").uint256()
+            blockHash = try reader.at("blockHash").data()
+        }
     }
 }
 

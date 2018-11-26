@@ -9,9 +9,17 @@
 import BigInt
 import Foundation
 
-/// Custom Web3 HTTP provider of Infura nodes.
+/**
+ Custom Web3 HTTP provider of Infura nodes.
+ web3swift uses Infura mainnet as default provider
+ */
 public final class InfuraProvider: Web3HttpProvider {
-    public init?(_ net: NetworkId, accessToken token: String? = nil, keystoreManager manager: KeystoreManager? = nil) {
+    /**
+     - parameter net: defines network id. applies to address "https://\(net).infura.io/"
+     - parameter token: your infura token. appends to url address
+     - parameter manager: KeystoreManager for this provider
+     */
+    public init?(_ net: NetworkId, accessToken token: String? = nil, keystoreManager manager: KeystoreManager = KeystoreManager()) {
         var requestURLstring = "https://\(net).infura.io/"
         if token != nil {
             requestURLstring = requestURLstring + token!

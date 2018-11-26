@@ -10,8 +10,14 @@ import Foundation
 import BigInt
 import PromiseKit
 
+/// Protocol thats allows to convert types to solidity data
 public protocol SolidityDataRepresentable {
+    /// - returns: Solidity compatible data
     var solidityData: Data { get }
+    /// - returns:
+    /// `true`: one element equals one byte.
+    /// `false`: one element equals 32 bytes.
+    /// default: false
     var isSolidityBinaryType: Bool { get }
 }
 public extension SolidityDataRepresentable {
@@ -19,8 +25,8 @@ public extension SolidityDataRepresentable {
 }
 
 extension BinaryInteger {
+    /// - returns: Solidity compatible data
     public var solidityData: Data { return BigInt(self).abiEncode(bits: 256) }
-    
 }
 extension Int: SolidityDataRepresentable {}
 extension Int8: SolidityDataRepresentable {}
@@ -140,22 +146,22 @@ extension Address {
             return web3.eth.sendTransactionPromise(transaction, options: cleanedOptions, password: password)
         }
     }
-    public func call(_ function: String, _ arguments: Any..., web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<Web3DataResponse> {
+    public func call(_ function: String, _ arguments: Any..., web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<SolidityDataReader> {
         return call(function, arguments, web3: web3, options: options, onBlock: onBlock)
     }
-    public func call(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<Web3DataResponse> {
+    public func call(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<SolidityDataReader> {
         let options = web3.options.merge(with: options)
         let function = try! SolidityFunction(function: function)
         let data = function.encode(arguments as! [SolidityDataRepresentable])
         let assembledTransaction = EthereumTransaction(to: self, data: data, options: options)
         let queue = web3.requestDispatcher.queue
-        return Promise<Web3DataResponse> { seal in
+        return Promise<SolidityDataReader> { seal in
             var optionsForCall = Web3Options()
             optionsForCall.from = options.from
             optionsForCall.to = options.to
             optionsForCall.value = options.value
             web3.eth.callPromise(assembledTransaction, options: optionsForCall, onBlock: onBlock)
-                .done(on: queue) { seal.fulfill(Web3DataResponse($0)) }
+                .done(on: queue) { seal.fulfill(SolidityDataReader($0)) }
                 .catch(on: queue, seal.reject)
         }
     }

@@ -9,46 +9,67 @@ import BigInt
 import Foundation
 
 public enum Web3WalletError: Error {
-    case attachadKeystoreNotFound
     case noAccounts
 }
 
-extension Web3.Web3Wallet {
-    /// throws Web3WalletError.attachadKeystoreNotFound
-    public func getAccounts() throws -> [Address] {
-        guard let keystoreManager = self.web3.provider.attachedKeystoreManager else { throw Web3WalletError.attachadKeystoreNotFound }
-        return keystoreManager.addresses
+/// Wallet functions
+public class Web3Wallet {
+    /// provider for some functions
+    var provider: Web3Provider
+    unowned var web3: Web3
+    
+    /// init with provider and web3 instance
+    public init(provider prov: Web3Provider, web3 web3instance: Web3) {
+        provider = prov
+        web3 = web3instance
     }
-
-    /// throws Web3WalletError.attachadKeystoreNotFound
-    /// throws Web3WalletError.noAccounts
+    
+    /// - returns: all accounts in your keystoreManager
+    public func getAccounts() -> [Address] {
+        return web3.provider.attachedKeystoreManager.addresses
+    }
+    
+    /// - returns: returns first account in your keystoreManager
+    /// - throws:
+    /// Web3WalletError.noAccounts
     public func getCoinbase() throws -> Address {
-        let accounts = try getAccounts()
-        guard let account = accounts.first else { throw Web3WalletError.noAccounts }
+        guard let account = getAccounts().first else { throw Web3WalletError.noAccounts }
         return account
     }
 
-    /// throws Web3WalletError.attachadKeystoreNotFound
-    /// throws AbstractKeystoreError
-    /// throws Error
+    /// Signs transaction with account
+    /// - parameter transaction: transaction to sign
+    /// - parameter account: Address that signs message
+    /// - parameter password: Password to decrypt account's private key
+    /// - throws:
+    /// AbstractKeystoreError
+    /// Error
     public func signTX(transaction: inout EthereumTransaction, account: Address, password: String = "BANKEXFOUNDATION") throws {
-        guard let keystoreManager = self.web3.provider.attachedKeystoreManager else { throw Web3WalletError.attachadKeystoreNotFound }
+        let keystoreManager = self.web3.provider.attachedKeystoreManager
         try Web3Signer.signTX(transaction: &transaction, keystore: keystoreManager, account: account, password: password)
     }
 
-    // from personalMessage.dataFromHex()
-    /// throws DataError.hexStringCorrupted(String)
-    // from self.signPersonalMessage()
-    /// throws Web3WalletError.attachadKeystoreNotFound
-    /// throws
+    
+    /// Signs personalMessage with account
+    /// - parameter personalMessage: Message to sign
+    /// - parameter account: Address that signs message
+    /// - parameter password: Password to decrypt account's private key
+    /// - returns: signed message
+    /// - throws: SECP256K1Error
+    /// DataError.hexStringCorrupted(String)
     public func signPersonalMessage(_ personalMessage: String, account: Address, password: String = "BANKEXFOUNDATION") throws -> Data {
         let data = try personalMessage.dataFromHex()
         return try signPersonalMessage(data, account: account, password: password)
     }
-
-    /// throws SECP256K1Error
+    
+    /// Signs personalMessage with account
+    /// - parameter personalMessage: Message to sign
+    /// - parameter account: Address that signs message
+    /// - parameter password: Password to decrypt account's private key
+    /// - returns: signed message
+    /// - throws: SECP256K1Error
     public func signPersonalMessage(_ personalMessage: Data, account: Address, password: String = "BANKEXFOUNDATION") throws -> Data {
-        guard let keystoreManager = self.web3.provider.attachedKeystoreManager else { throw Web3WalletError.attachadKeystoreNotFound }
+        let keystoreManager = self.web3.provider.attachedKeystoreManager
         return try Web3Signer.signPersonalMessage(personalMessage, keystore: keystoreManager, account: account, password: password)
     }
 }

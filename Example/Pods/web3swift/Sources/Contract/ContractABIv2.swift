@@ -11,15 +11,11 @@ import Foundation
 
 public struct ContractV2: ContractProtocol {
     public var allEvents: [String] {
-        return events.keys.compactMap({ (s) -> String in
-            s
-        })
+		return events.keys.compactMap { $0 }
     }
 
     public var allMethods: [String] {
-        return methods.keys.compactMap({ (s) -> String in
-            s
-        })
+		return methods.keys.compactMap { $0 }
     }
 
     public struct EventFilter {

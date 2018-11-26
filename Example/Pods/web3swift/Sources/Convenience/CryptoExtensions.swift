@@ -9,15 +9,18 @@
 import CryptoSwift
 import Foundation
 
-func toByteArray<T>(_ value: T) -> [UInt8] {
-    var value = value
-    return withUnsafeBytes(of: &value) { Array($0) }
-}
-
+/**
+ Scrypt function. Used to generate derivedKey from password, salt, n, r, p
+ */
 public func scrypt(password: String, salt: Data, length: Int, N: Int, R: Int, P: Int) -> Data? {
     guard let deriver = try? Scrypt(password: Array(password.utf8), salt: salt.bytes, dkLen: length, N: N, r: R, p: P) else { return nil }
     guard let result = try? deriver.calculate() else { return nil }
     return Data(result)
+}
+
+func toByteArray<T>(_ value: T) -> [UInt8] {
+    var value = value
+    return withUnsafeBytes(of: &value) { Array($0) }
 }
 
 enum ScryptError: Error {
