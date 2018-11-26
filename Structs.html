@@ -23,7 +23,7 @@
         <a class="header-link" href="index.html">
           web3swift Docs
         </a>
-         (68% documented)
+         (73% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -462,9 +462,6 @@
                 <a class="nav-group-task-link" href="Structs/Block.html">Block</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs.html#/s:9web3swift14CipherParamsV3V">CipherParamsV3</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/ContractV2.html">ContractV2</a>
               </li>
               <li class="nav-group-task">
@@ -534,10 +531,7 @@
                 <a class="nav-group-task-link" href="Structs/JsonRpcResponseBatch.html">JsonRpcResponseBatch</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs.html#/s:9web3swift11KdfParamsV3V">KdfParamsV3</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/KeystoreParamsBIP32.html">KeystoreParamsBIP32</a>
+                <a class="nav-group-task-link" href="Structs.html#/s:9web3swift19KeystoreParamsBIP32V">KeystoreParamsBIP32</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/KeystoreParamsV3.html">KeystoreParamsV3</a>
@@ -940,15 +934,95 @@ Used in requests, where it automatically converts to wei units</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>HDWallet Json parameters (Native representation)</p>
 
-                        <a href="Structs/KeystoreParamsBIP32.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KeystoreParamsBIP32</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Encodable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9web3swift16KeystoreParamsV3V"></a>
+                    <a name="//apple_ref/swift/Struct/KeystoreParamsV3" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9web3swift16KeystoreParamsV3V">KeystoreParamsV3</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Keystore parameters <a href="https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition">v3 compatible</a></p>
+
+<p>Json example:</p>
+<pre class="highlight swift"><code><span class="p">{</span>
+<span class="s">"crypto"</span> <span class="p">:</span> <span class="p">{</span>
+<span class="s">"cipher"</span> <span class="p">:</span> <span class="s">"aes-128-ctr"</span><span class="p">,</span>
+<span class="s">"cipherparams"</span> <span class="p">:</span> <span class="p">{</span>
+<span class="s">"iv"</span> <span class="p">:</span> <span class="s">"6087dab2f9fdbbfaddc31a909735c1e6"</span>
+<span class="p">},</span>
+<span class="s">"ciphertext"</span> <span class="p">:</span> <span class="s">"5318b4d5bcd28de64ee5559e671353e16f075ecae9f99c7a79a38af5f869aa46"</span><span class="p">,</span>
+<span class="s">"kdf"</span> <span class="p">:</span> <span class="s">"pbkdf2"</span><span class="p">,</span>
+<span class="s">"kdfparams"</span> <span class="p">:</span> <span class="p">{</span>
+<span class="s">"c"</span> <span class="p">:</span> <span class="mi">262144</span><span class="p">,</span>
+<span class="s">"dklen"</span> <span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+<span class="s">"prf"</span> <span class="p">:</span> <span class="s">"hmac-sha256"</span><span class="p">,</span>
+<span class="s">"salt"</span> <span class="p">:</span> <span class="s">"ae3cd4e7013836a3df6bd7241b12db061dbe2c6785853cce422d148a624ce0bd"</span>
+<span class="p">},</span>
+<span class="s">"mac"</span> <span class="p">:</span> <span class="s">"517ead924a9d0dc3124507e3393d175ce3ff7c1e96529c6c555ce9e51205e9b2"</span>
+<span class="p">},</span>
+<span class="s">"id"</span> <span class="p">:</span> <span class="s">"3198bc9c-6672-5ab3-d995-4942343ae5b6"</span><span class="p">,</span>
+<span class="s">"version"</span> <span class="p">:</span> <span class="mi">3</span>
+<span class="p">}</span>
+</code></pre>
+
+                        <a href="Structs/KeystoreParamsV3.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KeystoreParamsV3</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Encodable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9web3swift14CryptoParamsV3V"></a>
+                    <a name="//apple_ref/swift/Struct/CryptoParamsV3" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9web3swift14CryptoParamsV3V">CryptoParamsV3</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Keystore encryption info</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CryptoParamsV3</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Encodable</span></code></pre>
 
                         </div>
                       </div>
@@ -1009,119 +1083,6 @@ Used in requests, where it automatically converts to wei units</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">IBAN</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9web3swift11KdfParamsV3V"></a>
-                    <a name="//apple_ref/swift/Struct/KdfParamsV3" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift11KdfParamsV3V">KdfParamsV3</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KdfParamsV3</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Encodable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9web3swift14CipherParamsV3V"></a>
-                    <a name="//apple_ref/swift/Struct/CipherParamsV3" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift14CipherParamsV3V">CipherParamsV3</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CipherParamsV3</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Encodable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9web3swift14CryptoParamsV3V"></a>
-                    <a name="//apple_ref/swift/Struct/CryptoParamsV3" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift14CryptoParamsV3V">CryptoParamsV3</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CryptoParamsV3</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Encodable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9web3swift16KeystoreParamsV3V"></a>
-                    <a name="//apple_ref/swift/Struct/KeystoreParamsV3" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift16KeystoreParamsV3V">KeystoreParamsV3</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                        <a href="Structs/KeystoreParamsV3.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KeystoreParamsV3</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Encodable</span></code></pre>
 
                         </div>
                       </div>
@@ -1768,7 +1729,7 @@ Contains transaction hash and transaction details</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="https://github.com/bankex/web3swift" target="_blank" rel="external">Bankex Foundation</a>. All rights reserved. (Last updated: 2018-11-22)</p>
+      <p>&copy; 2018 <a class="link" href="https://github.com/bankex/web3swift" target="_blank" rel="external">Bankex Foundation</a>. All rights reserved. (Last updated: 2018-11-26)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
