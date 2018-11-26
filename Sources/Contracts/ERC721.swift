@@ -74,6 +74,7 @@ public class ERC721 {
         return try address.send("transferFrom(address,address,uint256)",from,to,token, password: password, options: options).wait()
     }
     
+    /// Transfers token from one address to another safely
     public func safeTransfer(from: Address, to: Address, token: BigUInt) throws -> TransactionSendingResult {
         return try address.send("safeTransferFrom(address,address,uint256)",from,to,token, password: password, options: options).wait()
     }

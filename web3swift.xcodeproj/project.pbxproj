@@ -297,7 +297,6 @@
 				133E696521A6B8940054758F /* Migration-iOS.swift */,
 				133970582199D22A0027E27C /* Deprecated */,
 				1317BCFE218C526300D6D095 /* Transaction */,
-				1317BD02218C526300D6D095 /* EthURL */,
 				1317BD04218C526300D6D095 /* Contract */,
 				1317BD0A218C526300D6D095 /* Contracts */,
 				1317BD0E218C526300D6D095 /* Web3 */,
@@ -320,14 +319,6 @@
 				1317BD01218C526300D6D095 /* EthereumTransaction.swift */,
 			);
 			path = Transaction;
-			sourceTree = "<group>";
-		};
-		1317BD02218C526300D6D095 /* EthURL */ = {
-			isa = PBXGroup;
-			children = (
-				1317BD03218C526300D6D095 /* EthURL.swift */,
-			);
-			path = EthURL;
 			sourceTree = "<group>";
 		};
 		1317BD04218C526300D6D095 /* Contract */ = {
@@ -380,6 +371,7 @@
 		1317BD1E218C526300D6D095 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1317BD03218C526300D6D095 /* EthURL.swift */,
 				1317BD1F218C526300D6D095 /* RLP.swift */,
 				1317BD20218C526300D6D095 /* EIP67Code.swift */,
 			);

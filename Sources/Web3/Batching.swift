@@ -9,9 +9,13 @@
 import Foundation
 import PromiseKit
 
+/// Request dispatcher. Allows you to send multiple JsonRpcRequests in one URLRequest
 public class JsonRpcRequestDispatcher {
+    /// Time that dispatcher waits before send the request
     public var MAX_WAIT_TIME: TimeInterval = 0.1
+    /// Dispatch policy
     public var policy: DispatchPolicy
+    /// Dispatch queue for responses
     public var queue: DispatchQueue
 
     private var provider: Web3Provider
@@ -106,9 +110,12 @@ public class JsonRpcRequestDispatcher {
         }
         return currentBatch
     }
-
+    
+    /// Dispatch policy
     public enum DispatchPolicy {
+        /// Sends up to N JsonRpcRequests in one URLRequest
         case Batch(Int)
+        /// Sends one JsonRpcRequest in one URLRequest
         case NoBatching
     }
 

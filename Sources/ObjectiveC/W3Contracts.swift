@@ -109,7 +109,7 @@ protocol W3OptionsInheritable: class {
 	}
 	
 	/// contract owner only
-	/// transfers from owner to recepient
+	/// transfers from owner to recipient
 	@objc public func transferFrom(owner: W3Address, to: W3Address, naturalUnits: W3NaturalUnits) throws -> W3UInt {
 		return try contract.swift.gasPrice.transferFrom(owner: owner.swift, to: to.swift, amount: naturalUnits.swift).objc
 	}

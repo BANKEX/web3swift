@@ -19,6 +19,22 @@ import BigInt
 
 /// web3swift 2.1 changes
 
+extension EthereumBloomFilter {
+    @available(*, deprecated: 2.1, renamed: "test(topic:)")
+    public func lookup(_ topic: Data) -> Bool {
+        return test(topic: topic)
+    }
+    @available(*, deprecated: 2.1, message: "Use bloom.test(topic:)")
+    public static func bloomLookup(_ bloom: EthereumBloomFilter, topic: Data) -> Bool {
+        return bloom.test(topic: topic)
+    }
+    
+    @available(*, deprecated: 2.1, message: "Use bloom.test(topic:)")
+    public static func bloomLookup(_ bloom: EthereumBloomFilter, topic: BigUInt) -> Bool {
+        return bloom.test(topic: topic)
+    }
+}
+
 extension EthereumKeystoreV3 {
 	@available(*,deprecated: 2.1, message: "Use .address instead of .getAddress()")
 	public func getAddress() -> Address? {

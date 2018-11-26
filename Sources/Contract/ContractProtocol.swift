@@ -113,9 +113,11 @@ public struct EventFilter {
             }
         }
     }
-
+    
+    /// Init with all nils
     public init() {}
-
+    
+    /// Init with known parameters
     public init(fromBlock: Block?, toBlock: Block?,
                 addresses: [Address]? = nil,
                 parameterFilters: [[EventFilterable]?]? = nil) {
@@ -124,12 +126,17 @@ public struct EventFilter {
         self.addresses = addresses
         self.parameterFilters = parameterFilters
     }
-
+    
+    /// Started block
     public var fromBlock: Block?
+    /// Ended block
     public var toBlock: Block?
+    /// Addresses
     public var addresses: [Address]?
+    /// Filters
     public var parameterFilters: [[EventFilterable]?]?
-
+    
+    /// Returns Filter parameters
     public func rpcPreEncode() -> EventFilterParameters {
         var encoding = EventFilterParameters()
         if fromBlock != nil {

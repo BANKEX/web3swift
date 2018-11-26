@@ -68,6 +68,8 @@ public class ERC20 {
         return balance.string(unitDecimals: Int(decimals))
     }
     /**
+     Shows how much balance you approved spender to get from your account.
+     
      - Returns: Balance that one user can take from another user
      - Parameter owner: Balance holder
      - Parameter spender: Spender address
@@ -78,20 +80,20 @@ public class ERC20 {
     
     /**
      Transfers to user \(amount)
-     - Important: Transaction | Requires password | Contract owner only.
+     - Important: Transaction | Requires password
      - Returns: TransactionSendingResult
-     - Parameter user: Recepient address
+     - Parameter user: Recipient address
      - Parameter amount: Amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
      */
     public func transfer(to user: Address, amount: BigUInt) throws -> TransactionSendingResult {
         return try address.send("transfer(address,uint256)", user, amount, password: password, options: options).wait()
     }
     /**
-     Approves user to take \(amount) tokens from your account
-     NaturalUnits is user readable representaion of tokens (like "0.01" / "1.543634")\
+     Approves user to take \(amount) tokens from your account.
+     
      - Important: Transaction | Requires password
      - Returns: TransactionSendingResult
-     - Parameter user: Recepient address
+     - Parameter user: Recipient address
      - Parameter amount: Amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
      */
     public func approve(to user: Address, amount: BigUInt) throws -> TransactionSendingResult {
@@ -100,13 +102,13 @@ public class ERC20 {
     }
     
     /**
-     Transfers from user1 to user2
-     NaturalUnits is user readable representaion of tokens (like "0.01" / "1.543634")
+     Transfers from user1 to user2.
+     
      - Important: Transaction | Requires password | Contract owner only.
      ERC20(address, from: me).transfer(to: user, amount: NaturalUnits(0.1)) is not the same as
      ERC20(address).transferFrom(owner: me, to: user, amount: NaturalUnits(0.1))
      - Returns: TransactionSendingResult
-     - Parameter user: Recepient address
+     - Parameter user: Recipient address
      - Parameter amount: Amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
      */
     public func transferFrom(owner: Address, to: Address, amount: BigUInt) throws -> TransactionSendingResult {

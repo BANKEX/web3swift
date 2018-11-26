@@ -9,7 +9,9 @@
 import BigInt
 import Foundation
 
+/// Transaction signer errors
 public enum TransactionSignerError: Error {
+    /// Cannot sign
     case signatureError(String)
 }
 

@@ -122,7 +122,7 @@ public class ERC888 {
          transfers to user \(amount)
          - Important: Transaction | Requires password | Contract owner only.
          - Returns: TransactionSendingResult
-         - Parameter user: Recepient address
+         - Parameter user: Recipient address
          - Parameter amount: Amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
          */
         public func transfer(to user: Address, amount: BigUInt) throws -> TransactionSendingResult {
