@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           web3swift Docs
         </a>
-         (73% documented)
+         (100% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -584,6 +584,9 @@
             <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift6EIP681a">EIP681</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift14EthereumQRCodea">EthereumQRCode</a>
               </li>
             </ul>
@@ -715,7 +718,7 @@ event Burnt(address indexed _burner, uint256 _value);
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Represents Address as ERC20 token (with standard password and options)</p>
+                        <p>Represents Address as SecurityToken token (with standard password and options)</p>
 
                       </div>
                       <div class="declaration">
@@ -761,7 +764,7 @@ event Burnt(address indexed _burner, uint256 _value);
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Represents Address as ERC20 token</p>
+                        <p>Represents Address as SecurityToken token</p>
 
                       </div>
                       <div class="declaration">
@@ -831,7 +834,7 @@ event Burnt(address indexed _burner, uint256 _value);
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Returns token decimals</p>
 
                       </div>
                       <div class="declaration">
@@ -858,7 +861,7 @@ event Burnt(address indexed _burner, uint256 _value);
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Returns token total supply</p>
 
                       </div>
                       <div class="declaration">
@@ -885,8 +888,7 @@ event Burnt(address indexed _burner, uint256 _value);
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -895,6 +897,10 @@ event Burnt(address indexed _burner, uint256 _value);
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">balance</span><span class="p">(</span><span class="n">of</span> <span class="nv">owner</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">BigUInt</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>User balance in wei</p>
                       </div>
                     </section>
                   </div>
@@ -912,7 +918,11 @@ event Burnt(address indexed _burner, uint256 _value);
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Shows how much balance you approved spender to get from your account.</p>
+
+<p>Solidity interface:</p>
+<pre class="highlight plaintext"><code>allowance(address,address)
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -923,59 +933,40 @@ event Burnt(address indexed _burner, uint256 _value);
 
                         </div>
                       </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9web3swift13SecurityTokenC8transfer2to5valueAA24TransactionSendingResultVAA7AddressV_6BigInt0K4UIntVtKF"></a>
-                    <a name="//apple_ref/swift/Method/transfer(to:value:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift13SecurityTokenC8transfer2to5valueAA24TransactionSendingResultVAA7AddressV_6BigInt0K4UIntVtKF">transfer(to:value:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>owner</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Balance holder</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>spender</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Spender address</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">transfer</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">BigUInt</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9web3swift13SecurityTokenC8transfer4from2to7spenderAA24TransactionSendingResultVAA7AddressV_A2KtKF"></a>
-                    <a name="//apple_ref/swift/Method/transfer(from:to:spender:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift13SecurityTokenC8transfer4from2to7spenderAA24TransactionSendingResultVAA7AddressV_A2KtKF">transfer(from:to:spender:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">transfer</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">to</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">spender</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a></span></code></pre>
-
-                        </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Balance that one user can take from another user</p>
                       </div>
                     </section>
                   </div>
@@ -983,9 +974,9 @@ event Burnt(address indexed _burner, uint256 _value);
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9web3swift13SecurityTokenC7approve7spender5valueAA24TransactionSendingResultVAA7AddressV_6BigInt0K4UIntVtKF"></a>
-                    <a name="//apple_ref/swift/Method/approve(spender:value:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift13SecurityTokenC7approve7spender5valueAA24TransactionSendingResultVAA7AddressV_6BigInt0K4UIntVtKF">approve(spender:value:)</a>
+                    <a name="/s:9web3swift13SecurityTokenC8transfer2to6amountAA24TransactionSendingResultVAA7AddressV_6BigInt0K4UIntVtKF"></a>
+                    <a name="//apple_ref/swift/Method/transfer(to:amount:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9web3swift13SecurityTokenC8transfer2to6amountAA24TransactionSendingResultVAA7AddressV_6BigInt0K4UIntVtKF">transfer(to:amount:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -993,16 +984,175 @@ event Burnt(address indexed _burner, uint256 _value);
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Transfers to user amount of balance</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Transaction | Requires password
+
+</div>
+
+<p>Solidity interface:</p>
+<pre class="highlight plaintext"><code>transfer(address,uint256)
+</code></pre>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">approve</span><span class="p">(</span><span class="nv">spender</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">BigUInt</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">transfer</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">BigUInt</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>user</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Recipient address</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>TransactionSendingResult</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9web3swift13SecurityTokenC8transfer4from2to6amountAA24TransactionSendingResultVAA7AddressV_AK6BigInt0L4UIntVtKF"></a>
+                    <a name="//apple_ref/swift/Method/transfer(from:to:amount:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9web3swift13SecurityTokenC8transfer4from2to6amountAA24TransactionSendingResultVAA7AddressV_AK6BigInt0L4UIntVtKF">transfer(from:to:amount:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Transfers from user1 to user2
+NaturalUnits is user readable representaion of tokens (like <q>0.01</q> / <q>1.543634</q>)</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Transaction | Requires password | Contract owner only.
+<code>
+SecurityToken(address, from: me).transfer(to: user, amount: NaturalUnits(0.1))
+</code>
+is not the same as
+<code>
+SecurityToken(address).transferFrom(owner: me, to: user, amount: NaturalUnits(0.1))
+</code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">transfer</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">to</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">BigUInt</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>TransactionSendingResult</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9web3swift13SecurityTokenC7approve7spender6amountAA24TransactionSendingResultVAA7AddressV_6BigInt0K4UIntVtKF"></a>
+                    <a name="//apple_ref/swift/Method/approve(spender:amount:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9web3swift13SecurityTokenC7approve7spender6amountAA24TransactionSendingResultVAA7AddressV_6BigInt0K4UIntVtKF">approve(spender:amount:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Approves user to take (amount) tokens from your account.</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Transaction | Requires password
+
+</div>
+
+<p>Solidity interface:</p>
+<pre class="highlight plaintext"><code>approve(address,uint256)
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">approve</span><span class="p">(</span><span class="nv">spender</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">BigUInt</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>user</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Recipient address</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>TransactionSendingResult</p>
                       </div>
                     </section>
                   </div>
@@ -1020,7 +1170,7 @@ event Burnt(address indexed _burner, uint256 _value);
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Decrease approved balance that spender can take from your address</p>
 
                       </div>
                       <div class="declaration">
@@ -1047,7 +1197,7 @@ event Burnt(address indexed _burner, uint256 _value);
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Increase approved balance that spender can take from your address</p>
 
                       </div>
                       <div class="declaration">
@@ -1075,7 +1225,7 @@ event Burnt(address indexed _burner, uint256 _value);
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>transfer, transferFrom must respect the result of verifyTransfer
-solidity interface:</p>
+Solidity interface:</p>
 <pre class="highlight plaintext"><code>function verifyTransfer(address _from, address _to, uint256 _value) external returns (bool success);
 </code></pre>
 
@@ -1107,7 +1257,7 @@ solidity interface:</p>
                         <p>Mints new tokens and assigns them to the target _investor.
 Can only be called by the STO attached to the token (Or by the ST owner if there&rsquo;s no STO attached yet)</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function mint(address _investor, uint256 _value) external returns (bool success);
 </code></pre>
 
@@ -1170,7 +1320,7 @@ Can only be called by the STO attached to the token (Or by the ST owner if there
                         <p>Mints new tokens and assigns them to the target _investor.
 Can only be called by the STO attached to the token (Or by the ST owner if there&rsquo;s no STO attached yet)</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function mintWithData(address _investor, uint256 _value, bytes _data) external returns (bool success);
 </code></pre>
 
@@ -1244,7 +1394,7 @@ Can only be called by the STO attached to the token (Or by the ST owner if there
                       <div class="abstract">
                         <p>Used to burn the securityToken on behalf of someone else</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function burnFromWithData(address _from, uint256 _value, bytes _data) external;
 </code></pre>
 
@@ -1318,7 +1468,7 @@ Can only be called by the STO attached to the token (Or by the ST owner if there
                       <div class="abstract">
                         <p>Used to burn the securityToken</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function burnWithData(uint256 _value, bytes _data) external;
 </code></pre>
 
@@ -1382,7 +1532,7 @@ Can only be called by the STO attached to the token (Or by the ST owner if there
 If no Permission return false - note that IModule withPerm will allow ST owner all permissions anyway
 this allows individual modules to override this logic if needed (to not allow ST owner all permissions)</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function checkPermission(address _delegate, address _module, bytes32 _perm) external view returns (bool);
 </code></pre>
 
@@ -1411,7 +1561,7 @@ this allows individual modules to override this logic if needed (to not allow ST
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Module</p>
 
                         <a href="../Classes/SecurityToken/Module.html" class="slightly-smaller">See more</a>
                       </div>
@@ -1441,7 +1591,7 @@ this allows individual modules to override this logic if needed (to not allow ST
                       <div class="abstract">
                         <p>Returns module list for a module type</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function getModule(address _module) external view returns(bytes32, address, address, bool, uint8, uint256, uint256);
 </code></pre>
 
@@ -1491,7 +1641,7 @@ this allows individual modules to override this logic if needed (to not allow ST
                       <div class="abstract">
                         <p>Returns module list for a module name</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function getModulesByName(bytes32 _name) external view returns (address[]);
 </code></pre>
 
@@ -1545,7 +1695,7 @@ this allows individual modules to override this logic if needed (to not allow ST
                       <div class="abstract">
                         <p>Returns module list for a module type</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function getModulesByType(uint8 _type) external view returns (address[]);
 </code></pre>
 
@@ -1599,7 +1749,7 @@ this allows individual modules to override this logic if needed (to not allow ST
                       <div class="abstract">
                         <p>Queries totalSupply at a specified checkpoint</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function totalSupplyAt(uint256 _checkpointId) external view returns (uint256);
 </code></pre>
 
@@ -1649,7 +1799,7 @@ this allows individual modules to override this logic if needed (to not allow ST
                       <div class="abstract">
                         <p>Queries balance at a specified checkpoint</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function balanceOfAt(address _investor, uint256 _checkpointId) external view returns (uint256);
 </code></pre>
 
@@ -1711,7 +1861,7 @@ this allows individual modules to override this logic if needed (to not allow ST
                       <div class="abstract">
                         <p>Creates a checkpoint that can be used to query historical balances / totalSuppy</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function createCheckpoint() external returns (uint256);
 </code></pre>
 
@@ -1743,7 +1893,7 @@ this allows individual modules to override this logic if needed (to not allow ST
                         <p>Gets length of investors array
 NB - this length may differ from investorCount if the list has not been pruned of zero-balance investors</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function getInvestors() external view returns (address[]);
 </code></pre>
 
@@ -1779,7 +1929,7 @@ NB - this length may differ from investorCount if the list has not been pruned o
                         <p>returns an array of investors at a given checkpoint
 NB - this length may differ from investorCount as it contains all investors that ever held tokens</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function getInvestorsAt(uint256 _checkpointId) external view returns(address[]);
 </code></pre>
 
@@ -1834,7 +1984,7 @@ NB - this length may differ from investorCount as it contains all investors that
                         <p>generates subset of investors
 NB - can be used in batches if investor list is large</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function iterateInvestors(uint256 _start, uint256 _end) external view returns(address[]);
 </code></pre>
 
@@ -1900,7 +2050,7 @@ NB - can be used in batches if investor list is large</p>
                       <div class="abstract">
                         <p>Gets current checkpoint ID</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function currentCheckpointId() external view returns (uint256);
 </code></pre>
 
@@ -1935,7 +2085,7 @@ NB - can be used in batches if investor list is large</p>
                       <div class="abstract">
                         <p>Gets an investor at a particular index</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function investors(uint256 _index) external view returns (address);
 </code></pre>
 
@@ -1990,7 +2140,7 @@ NB - can be used in batches if investor list is large</p>
                         <p>Allows the owner to withdraw unspent POLY stored by them on the ST or any ERC20 token.
 @dev Owner can transfer POLY to the ST which will be used to pay for modules that require a POLY fee.</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function withdrawERC20(address _tokenContract, uint256 _value) external;
 </code></pre>
 
@@ -2052,7 +2202,7 @@ NB - can be used in batches if investor list is large</p>
                       <div class="abstract">
                         <p>Allows owner to approve more POLY to one of the modules</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function changeModuleBudget(address _module, uint256 _budget) external;
 </code></pre>
 
@@ -2114,7 +2264,7 @@ NB - can be used in batches if investor list is large</p>
                       <div class="abstract">
                         <p>Changes the tokenDetails</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function updateTokenDetails(string _newTokenDetails) external;
 </code></pre>
 
@@ -2164,7 +2314,7 @@ NB - can be used in batches if investor list is large</p>
                       <div class="abstract">
                         <p>Allows the owner to change token granularity</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function changeGranularity(uint256 _granularity) external;
 </code></pre>
 
@@ -2214,7 +2364,7 @@ NB - can be used in batches if investor list is large</p>
                       <div class="abstract">
                         <p>Removes addresses with zero balances from the investors list</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function pruneInvestors(uint256 _start, uint256 _iters) external;
 </code></pre>
 
@@ -2277,7 +2427,7 @@ NB - pruning this list will mean you may not be able to iterate over investors o
                       <div class="abstract">
                         <p>Freezes all the transfers</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function freezeTransfers() external;
 </code></pre>
 
@@ -2308,7 +2458,7 @@ NB - pruning this list will mean you may not be able to iterate over investors o
                       <div class="abstract">
                         <p>Un-freezes all the transfers</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function unfreezeTransfers() external;
 </code></pre>
 
@@ -2339,7 +2489,7 @@ NB - pruning this list will mean you may not be able to iterate over investors o
                       <div class="abstract">
                         <p>Ends token minting period permanently</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function freezeMinting() external;
 </code></pre>
 
@@ -2371,7 +2521,7 @@ NB - pruning this list will mean you may not be able to iterate over investors o
                         <p>Mints new tokens and assigns them to the target investors.
 Can only be called by the STO attached to the token or by the Issuer (Security Token contract owner)</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function mintMulti(address[] _investors, uint256[] _values) external returns (bool success);
 </code></pre>
 
@@ -2445,7 +2595,7 @@ You are allowed to add a new moduleType if:</p>
 <li>the last member of the module list is replacable</li>
 </ul>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function addModule(
 address _moduleFactory,
 bytes _data,
@@ -2475,7 +2625,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>is the address of the module factory to be added</p>
+                                  <p>Is the address of the module factory to be added</p>
                                 </div>
                               </td>
                             </tr>
@@ -2487,7 +2637,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>is data packed into bytes used to further configure the module (See STO usage)</p>
+                                  <p>Is data packed into bytes used to further configure the module (See STO usage)</p>
                                 </div>
                               </td>
                             </tr>
@@ -2499,7 +2649,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>max amount of POLY willing to pay to module. (WIP)</p>
+                                  <p>Max amount of POLY willing to pay to module. (WIP)</p>
                                 </div>
                               </td>
                             </tr>
@@ -2524,7 +2674,7 @@ uint256 _budget
                       <div class="abstract">
                         <p>Archives a module attached to the SecurityToken</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function archiveModule(address _module) external;
 </code></pre>
 
@@ -2549,7 +2699,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>address of module to archive</p>
+                                  <p>Address of module to archive</p>
                                 </div>
                               </td>
                             </tr>
@@ -2574,7 +2724,7 @@ uint256 _budget
                       <div class="abstract">
                         <p>Unarchives a module attached to the SecurityToken</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function unarchiveModule(address _module) external;
 </code></pre>
 
@@ -2599,7 +2749,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>address of module to unarchive</p>
+                                  <p>Address of module to unarchive</p>
                                 </div>
                               </td>
                             </tr>
@@ -2624,7 +2774,7 @@ uint256 _budget
                       <div class="abstract">
                         <p>Removes a module attached to the SecurityToken</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function removeModule(address _module) external;
 </code></pre>
 
@@ -2649,7 +2799,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>address of module to archive</p>
+                                  <p>Address of module to archive</p>
                                 </div>
                               </td>
                             </tr>
@@ -2674,7 +2824,7 @@ uint256 _budget
                       <div class="abstract">
                         <p>Used by the issuer to set the controller addresses</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function setController(address _controller) external;
 </code></pre>
 
@@ -2699,7 +2849,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>address of the controller</p>
+                                  <p>Address of the controller</p>
                                 </div>
                               </td>
                             </tr>
@@ -2724,7 +2874,7 @@ uint256 _budget
                       <div class="abstract">
                         <p>Used by a controller to execute a forced transfer</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function forceTransfer(address _from, address _to, uint256 _value, bytes _data, bytes _log) external;
 </code></pre>
 
@@ -2749,7 +2899,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>address from which to take tokens</p>
+                                  <p>Address from which to take tokens</p>
                                 </div>
                               </td>
                             </tr>
@@ -2761,7 +2911,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>address where to send tokens</p>
+                                  <p>Address where to send tokens</p>
                                 </div>
                               </td>
                             </tr>
@@ -2773,7 +2923,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>amount of tokens to transfer</p>
+                                  <p>Amount of tokens to transfer</p>
                                 </div>
                               </td>
                             </tr>
@@ -2785,7 +2935,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>data to indicate validation</p>
+                                  <p>Data to indicate validation</p>
                                 </div>
                               </td>
                             </tr>
@@ -2797,7 +2947,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>data attached to the transfer by controller to emit in event</p>
+                                  <p>Data attached to the transfer by controller to emit in event</p>
                                 </div>
                               </td>
                             </tr>
@@ -2822,7 +2972,7 @@ uint256 _budget
                       <div class="abstract">
                         <p>Used by a controller to execute a foced burn</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function forceBurn(address _from, uint256 _value, bytes _data, bytes _log) external;
 </code></pre>
 
@@ -2847,7 +2997,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>address from which to take tokens</p>
+                                  <p>Address from which to take tokens</p>
                                 </div>
                               </td>
                             </tr>
@@ -2859,7 +3009,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>amount of tokens to transfer</p>
+                                  <p>Amount of tokens to transfer</p>
                                 </div>
                               </td>
                             </tr>
@@ -2871,7 +3021,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>data to indicate validation</p>
+                                  <p>Data to indicate validation</p>
                                 </div>
                               </td>
                             </tr>
@@ -2883,7 +3033,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>data attached to the transfer by controller to emit in event</p>
+                                  <p>Data attached to the transfer by controller to emit in event</p>
                                 </div>
                               </td>
                             </tr>
@@ -2909,7 +3059,7 @@ uint256 _budget
                         <p>Used by the issuer to permanently disable controller functionality
 @dev enabled via feature switch <q>disableControllerAllowed</q></p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function disableController() external;
 </code></pre>
 
@@ -2940,7 +3090,7 @@ uint256 _budget
                       <div class="abstract">
                         <p>Used to get the version of the securityToken</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function getVersion() external view returns(uint8[]);
 </code></pre>
 
@@ -2971,7 +3121,7 @@ uint256 _budget
                       <div class="abstract">
                         <p>Gets the investor count</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function getInvestorCount() external view returns(uint256);
 </code></pre>
 
@@ -3002,7 +3152,7 @@ uint256 _budget
                       <div class="abstract">
                         <p>Overloaded version of the transfer function</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function transferWithData(address _to, uint256 _value, bytes _data) external returns (bool success);
 </code></pre>
 
@@ -3027,7 +3177,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>receiver of transfer</p>
+                                  <p>Receiver of transfer</p>
                                 </div>
                               </td>
                             </tr>
@@ -3039,7 +3189,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>value of transfer</p>
+                                  <p>Value of transfer</p>
                                 </div>
                               </td>
                             </tr>
@@ -3051,7 +3201,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>data to indicate validation</p>
+                                  <p>Data to indicate validation</p>
                                 </div>
                               </td>
                             </tr>
@@ -3060,7 +3210,7 @@ uint256 _budget
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>bool success</p>
+                        <p>Bool success</p>
                       </div>
                     </section>
                   </div>
@@ -3080,7 +3230,7 @@ uint256 _budget
                       <div class="abstract">
                         <p>Overloaded version of the transferFrom function</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function transferFromWithData(address _from, address _to, uint256 _value, bytes _data) external returns(bool);
 </code></pre>
 
@@ -3105,7 +3255,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>sender of transfer</p>
+                                  <p>Sender of transfer</p>
                                 </div>
                               </td>
                             </tr>
@@ -3117,7 +3267,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>receiver of transfer</p>
+                                  <p>Receiver of transfer</p>
                                 </div>
                               </td>
                             </tr>
@@ -3129,7 +3279,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>value of transfer</p>
+                                  <p>Value of transfer</p>
                                 </div>
                               </td>
                             </tr>
@@ -3141,7 +3291,7 @@ uint256 _budget
                               </td>
                               <td>
                                 <div>
-                                  <p>data to indicate validation</p>
+                                  <p>Data to indicate validation</p>
                                 </div>
                               </td>
                             </tr>
@@ -3150,7 +3300,7 @@ uint256 _budget
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>bool success</p>
+                        <p>Bool success</p>
                       </div>
                     </section>
                   </div>
@@ -3170,7 +3320,7 @@ uint256 _budget
                       <div class="abstract">
                         <p>Provides the granularity of the token</p>
 
-<p>solidity interface:</p>
+<p>Solidity interface:</p>
 <pre class="highlight plaintext"><code>function granularity() external view returns(uint256);
 </code></pre>
 
@@ -3185,7 +3335,7 @@ uint256 _budget
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>uint256</p>
+                        <p>Token granularity</p>
                       </div>
                     </section>
                   </div>

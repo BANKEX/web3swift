@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           web3swift Docs
         </a>
-         (73% documented)
+         (100% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -584,6 +584,9 @@
             <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift6EIP681a">EIP681</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift14EthereumQRCodea">EthereumQRCode</a>
               </li>
             </ul>
@@ -815,7 +818,7 @@ returns 0x for contractDeployment address</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>init with addressString and type</p>
+                        <p>Init with addressString and type</p>
 
                       </div>
                       <div class="declaration">
@@ -838,7 +841,7 @@ returns 0x for contractDeployment address</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>hex string of address</p>
+                                  <p>Hex string of address</p>
                                 </div>
                               </td>
                             </tr>
@@ -850,7 +853,7 @@ returns 0x for contractDeployment address</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>address type. default: .normal
+                                  <p>Address type. default: .normal
 Automatically adds 0x prefix if its not found</p>
                                 </div>
                               </td>
@@ -901,7 +904,7 @@ Automatically adds 0x prefix if its not found</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>address data</p>
+                                  <p>Address data</p>
                                 </div>
                               </td>
                             </tr>
@@ -913,7 +916,7 @@ Automatically adds 0x prefix if its not found</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>address type. default: .normal</p>
+                                  <p>Address type. default: .normal</p>
                                 </div>
                               </td>
                             </tr>
@@ -1022,9 +1025,9 @@ Automatically adds 0x prefix if its not found</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:9web3swift7AddressV8assemble__4web37options7onBlock10PromiseKit0H0CyAA19EthereumTransactionVGSS_SayypGAA4Web3CAA0L7OptionsVSgSStF"></a>
                     <a name="//apple_ref/swift/Method/assemble(_:_:web3:options:onBlock:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">assemble(_:_:web3:options:onBlock:)</a>
+                    <a class="token" href="#/s:9web3swift7AddressV8assemble__4web37options7onBlock10PromiseKit0H0CyAA19EthereumTransactionVGSS_SayypGAA4Web3CAA0L7OptionsVSgSStF">assemble(_:_:web3:options:onBlock:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1032,7 +1035,7 @@ Automatically adds 0x prefix if its not found</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Prepares transaction to send. Estimates gas usage, nonce and gas price.</p>
 
                       </div>
                       <div class="declaration">
@@ -1043,15 +1046,86 @@ Automatically adds 0x prefix if its not found</p>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>function</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Smart contract function</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>arguments</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Function arguments</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>web3</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Node address. default: .default</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Transaction options. default: nil</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>onBlock</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Future transaction block. default: <q>pending</q></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Promise for the assembled transaction</p>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:9web3swift7AddressV4send__8password4web37options7onBlock10PromiseKit0I0CyAA24TransactionSendingResultVGSS_ypdSSAA4Web3CAA0N7OptionsVSgSStF"></a>
                     <a name="//apple_ref/swift/Method/send(_:_:password:web3:options:onBlock:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">send(_:_:password:web3:options:onBlock:)</a>
+                    <a class="token" href="#/s:9web3swift7AddressV4send__8password4web37options7onBlock10PromiseKit0I0CyAA24TransactionSendingResultVGSS_ypdSSAA4Web3CAA0N7OptionsVSgSStF">send(_:_:password:web3:options:onBlock:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1059,7 +1133,12 @@ Automatically adds 0x prefix if its not found</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Sends transaction to call mutable smart contract function.</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    <p>Set the sender in Web3Options.from</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -1070,15 +1149,98 @@ Automatically adds 0x prefix if its not found</p>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>function</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Smart contract function</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>arguments</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Function arguments</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Password do decrypt your private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>web3</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Node address. default: .default</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Web3Options. default: nil</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>onBlock</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Future transaction block. default: <q>pending</q></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Promise for sent transaction and its hash</p>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Method/call(_:_:web3:options:onBlock:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">call(_:_:web3:options:onBlock:)</a>
+                    <a name="/s:9web3swift7AddressV4send__8password4web37options7onBlock10PromiseKit0I0CyAA24TransactionSendingResultVGSS_SayypGSSAA4Web3CAA0N7OptionsVSgSStF"></a>
+                    <a name="//apple_ref/swift/Method/send(_:_:password:web3:options:onBlock:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9web3swift7AddressV4send__8password4web37options7onBlock10PromiseKit0I0CyAA24TransactionSendingResultVGSS_SayypGSSAA4Web3CAA0N7OptionsVSgSStF">send(_:_:password:web3:options:onBlock:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1086,7 +1248,122 @@ Automatically adds 0x prefix if its not found</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Sends transaction to call mutable smart contract function.</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    <p>Set the sender in Web3Options.from</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">send</span><span class="p">(</span><span class="n">_</span> <span class="nv">function</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">arguments</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">],</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"BANKEXFOUNDATION"</span><span class="p">,</span> <span class="nv">web3</span><span class="p">:</span> <span class="kt"><a href="../Classes/Web3.html">Web3</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">onBlock</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"pending"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>function</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Smart contract function</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>arguments</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Function arguments</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Password do decrypt your private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>web3</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Node address. default: .default</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Web3Options. default: nil</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>onBlock</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Future transaction block. default: <q>pending</q></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Promise for sent transaction and its hash</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9web3swift7AddressV4call__4web37options7onBlock10PromiseKit0H0CyAA18SolidityDataReaderCGSS_ypdAA4Web3CAA0M7OptionsVSgSStF"></a>
+                    <a name="//apple_ref/swift/Method/call(_:_:web3:options:onBlock:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9web3swift7AddressV4call__4web37options7onBlock10PromiseKit0H0CyAA18SolidityDataReaderCGSS_ypdAA4Web3CAA0M7OptionsVSgSStF">call(_:_:web3:options:onBlock:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Call a smart contract function.</p>
 
                       </div>
                       <div class="declaration">
@@ -1097,15 +1374,86 @@ Automatically adds 0x prefix if its not found</p>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>function</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Function to call</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>arguments</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Function arguments</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>web3</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Node address. default: .default</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Web3Options. default: nil</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>onBlock</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Call block. default: <q>latest</q></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Promise for function result</p>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Method/estimateGas(_:_:web3:options:onBlock:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">estimateGas(_:_:web3:options:onBlock:)</a>
+                    <a name="/s:9web3swift7AddressV4call__4web37options7onBlock10PromiseKit0H0CyAA18SolidityDataReaderCGSS_SayypGAA4Web3CAA0M7OptionsVSgSStF"></a>
+                    <a name="//apple_ref/swift/Method/call(_:_:web3:options:onBlock:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9web3swift7AddressV4call__4web37options7onBlock10PromiseKit0H0CyAA18SolidityDataReaderCGSS_SayypGAA4Web3CAA0M7OptionsVSgSStF">call(_:_:web3:options:onBlock:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1113,7 +1461,105 @@ Automatically adds 0x prefix if its not found</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Call a smart contract function.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">call</span><span class="p">(</span><span class="n">_</span> <span class="nv">function</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">arguments</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">],</span> <span class="nv">web3</span><span class="p">:</span> <span class="kt"><a href="../Classes/Web3.html">Web3</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">onBlock</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"latest"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/SolidityDataReader.html">SolidityDataReader</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>function</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Function to call</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>arguments</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Function arguments</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>web3</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Node address. default: .default</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Web3Options. default: nil</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>onBlock</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Call block. default: <q>latest</q></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Promise for function result</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9web3swift7AddressV11estimateGas__4web37options7onBlock10PromiseKit0I0Cy6BigInt0K4UIntVGSS_ypdAA4Web3CAA0N7OptionsVSgSStF"></a>
+                    <a name="//apple_ref/swift/Method/estimateGas(_:_:web3:options:onBlock:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9web3swift7AddressV11estimateGas__4web37options7onBlock10PromiseKit0I0Cy6BigInt0K4UIntVGSS_ypdAA4Web3CAA0N7OptionsVSgSStF">estimateGas(_:_:web3:options:onBlock:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Estimates gas price for transaction</p>
 
                       </div>
                       <div class="declaration">
@@ -1123,6 +1569,175 @@ Automatically adds 0x prefix if its not found</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">estimateGas</span><span class="p">(</span><span class="n">_</span> <span class="nv">function</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">arguments</span><span class="p">:</span> <span class="kt">Any</span><span class="o">...</span><span class="p">,</span> <span class="nv">web3</span><span class="p">:</span> <span class="kt"><a href="../Classes/Web3.html">Web3</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">onBlock</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"latest"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt">BigUInt</span><span class="o">&gt;</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>function</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Smart contract function</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>arguments</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Function arguments</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>web3</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Node address. default: .default</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Web3Options. default: nil</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>onBlock</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Gas estimation block. default: <q>latest</q></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Promise for estimated gas</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9web3swift7AddressV11estimateGas__4web37options7onBlock10PromiseKit0I0Cy6BigInt0K4UIntVGSS_SayypGAA4Web3CAA0N7OptionsVSgSStF"></a>
+                    <a name="//apple_ref/swift/Method/estimateGas(_:_:web3:options:onBlock:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9web3swift7AddressV11estimateGas__4web37options7onBlock10PromiseKit0I0Cy6BigInt0K4UIntVGSS_SayypGAA4Web3CAA0N7OptionsVSgSStF">estimateGas(_:_:web3:options:onBlock:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Estimates gas price for transaction</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">estimateGas</span><span class="p">(</span><span class="n">_</span> <span class="nv">function</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">arguments</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">],</span> <span class="nv">web3</span><span class="p">:</span> <span class="kt"><a href="../Classes/Web3.html">Web3</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">onBlock</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"latest"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt">BigUInt</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>function</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Smart contract function</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>arguments</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Function arguments</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>web3</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Node address. default: .default</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Web3Options. default: nil</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>onBlock</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Gas estimation block. default: <q>latest</q></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Promise for estimated gas</p>
                       </div>
                     </section>
                   </div>
@@ -1247,7 +1862,7 @@ Automatically adds 0x prefix if its not found</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>address hex string formatted to checksum</p>
+                        <p>Address hex string formatted to checksum</p>
                       </div>
                     </section>
                   </div>

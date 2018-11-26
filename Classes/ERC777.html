@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           web3swift Docs
         </a>
-         (73% documented)
+         (100% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -584,6 +584,9 @@
             <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift6EIP681a">EIP681</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift14EthereumQRCodea">EthereumQRCode</a>
               </li>
             </ul>
@@ -601,7 +604,12 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Native implementation of ERC777 token</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    NOT main thread friendly
+
+</div>
 
           </div>
         </section>
@@ -848,7 +856,7 @@ Automatically calls if options.gasPrice == nil</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Returns token name / description</p>
 
                       </div>
                       <div class="declaration">
@@ -875,7 +883,7 @@ Automatically calls if options.gasPrice == nil</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Returns token symbol</p>
 
                       </div>
                       <div class="declaration">
@@ -902,7 +910,7 @@ Automatically calls if options.gasPrice == nil</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Returns token total supply</p>
 
                       </div>
                       <div class="declaration">
@@ -929,7 +937,7 @@ Automatically calls if options.gasPrice == nil</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Returns token decimals</p>
 
                       </div>
                       <div class="declaration">
@@ -956,8 +964,7 @@ Automatically calls if options.gasPrice == nil</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -966,6 +973,10 @@ Automatically calls if options.gasPrice == nil</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">balance</span><span class="p">(</span><span class="n">of</span> <span class="nv">user</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">BigUInt</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>User balance in wei</p>
                       </div>
                     </section>
                   </div>
@@ -983,7 +994,11 @@ Automatically calls if options.gasPrice == nil</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Shows how much balance you approved spender to get from your account.</p>
+
+<p>Solidity interface:</p>
+<pre class="highlight plaintext"><code>allowance(address,address)
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -993,6 +1008,41 @@ Automatically calls if options.gasPrice == nil</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">allowance</span><span class="p">(</span><span class="n">from</span> <span class="nv">owner</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="n">to</span> <span class="nv">spender</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">BigUInt</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>owner</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Balance holder</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>spender</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Spender address</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Balance that one user can take from another user</p>
                       </div>
                     </section>
                   </div>
@@ -1010,7 +1060,16 @@ Automatically calls if options.gasPrice == nil</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Transfers to user amount of balance</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Transaction | Requires password
+
+</div>
+
+<p>Solidity interface:</p>
+<pre class="highlight plaintext"><code>transfer(address,uint256)
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -1020,6 +1079,41 @@ Automatically calls if options.gasPrice == nil</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">transfer</span><span class="p">(</span><span class="n">to</span> <span class="nv">user</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">BigUInt</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>user</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Recipient address</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>TransactionSendingResult</p>
                       </div>
                     </section>
                   </div>
@@ -1037,7 +1131,16 @@ Automatically calls if options.gasPrice == nil</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Approves user to take (amount) tokens from your account.</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Transaction | Requires password
+
+</div>
+
+<p>Solidity interface:</p>
+<pre class="highlight plaintext"><code>approve(address,uint256)
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -1047,6 +1150,41 @@ Automatically calls if options.gasPrice == nil</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">approve</span><span class="p">(</span><span class="n">to</span> <span class="nv">user</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">BigUInt</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>user</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Recipient address</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>TransactionSendingResult</p>
                       </div>
                     </section>
                   </div>
@@ -1064,7 +1202,18 @@ Automatically calls if options.gasPrice == nil</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Transfers from user1 to user2.</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Transaction | Requires password | Contract owner only.
+ERC777(address, from: me).transfer(to: user, amount: NaturalUnits(0.1)) is not the same as
+ERC777(address).transferFrom(owner: me, to: user, amount: NaturalUnits(0.1))
+
+</div>
+
+<p>Solidity interface:</p>
+<pre class="highlight plaintext"><code>transferFrom(address,address,uint256)
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -1074,6 +1223,41 @@ Automatically calls if options.gasPrice == nil</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">transfer</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">to</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">BigUInt</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>user</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Recipient address</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>TransactionSendingResult</p>
                       </div>
                     </section>
                   </div>
@@ -1091,7 +1275,16 @@ Automatically calls if options.gasPrice == nil</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Sends to user some amount of tokens</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Transaction | Requires password
+
+</div>
+
+<p>Solidity interface:</p>
+<pre class="highlight plaintext"><code>send(address,uint256)
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -1101,6 +1294,37 @@ Automatically calls if options.gasPrice == nil</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">send</span><span class="p">(</span><span class="n">to</span> <span class="nv">user</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">BigUInt</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>user</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Recipient address</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Amount in wei to send</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1118,7 +1342,16 @@ Automatically calls if options.gasPrice == nil</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Sends to user some amount of tokens and call some function</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Transaction | Requires password
+
+</div>
+
+<p>Solidity interface:</p>
+<pre class="highlight plaintext"><code>send(address,uint256,bytes)
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -1128,6 +1361,49 @@ Automatically calls if options.gasPrice == nil</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">send</span><span class="p">(</span><span class="n">to</span> <span class="nv">user</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">BigUInt</span><span class="p">,</span> <span class="nv">userData</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>user</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Recipient address</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Amount in wei to send</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>userData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Encoded function that contract calls</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1145,7 +1421,16 @@ Automatically calls if options.gasPrice == nil</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Authorize user to manager your tokens</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Transaction | Requires password
+
+</div>
+
+<p>Solidity interface:</p>
+<pre class="highlight plaintext"><code>authorizeOperator(address)
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -1155,6 +1440,25 @@ Automatically calls if options.gasPrice == nil</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">authorize</span><span class="p">(</span><span class="k">operator</span> <span class="nv">user</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>user</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Operator address</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1172,7 +1476,16 @@ Automatically calls if options.gasPrice == nil</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Revokes operator</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Transaction | Requires password
+
+</div>
+
+<p>Solidity interface:</p>
+<pre class="highlight plaintext"><code>revokeOperator(address)
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -1182,6 +1495,25 @@ Automatically calls if options.gasPrice == nil</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">revoke</span><span class="p">(</span><span class="k">operator</span> <span class="nv">user</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>user</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Operator address</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1199,7 +1531,16 @@ Automatically calls if options.gasPrice == nil</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Returns true if user is operator of tokenHolder</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Transaction | Requires password
+
+</div>
+
+<p>Solidity interface:</p>
+<pre class="highlight plaintext"><code>isOperatorFor(address,address)
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -1209,6 +1550,37 @@ Automatically calls if options.gasPrice == nil</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">isOperatorFor</span><span class="p">(</span><span class="k">operator</span> <span class="nv">user</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">tokenHolder</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>user</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Operator</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>tokenHolder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Token holder</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1226,7 +1598,16 @@ Automatically calls if options.gasPrice == nil</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Sends from one user to another some amount of tokens and call some function</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Transaction | Requires password
+
+</div>
+
+<p>Solidity interface:</p>
+<pre class="highlight plaintext"><code>operatorSend(address,address,uint256,bytes)
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -1236,6 +1617,61 @@ Automatically calls if options.gasPrice == nil</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">operatorSend</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">to</span><span class="p">:</span> <span class="kt"><a href="../Structs/Address.html">Address</a></span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">BigUInt</span><span class="p">,</span> <span class="nv">userData</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TransactionSendingResult.html">TransactionSendingResult</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Token holder address</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>to</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Recipient address</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Amount in wei to send</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>userData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Encoded function that contract calls</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>

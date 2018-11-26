@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           web3swift Docs
         </a>
-         (73% documented)
+         (100% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -584,6 +584,9 @@
             <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift6EIP681a">EIP681</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift14EthereumQRCodea">EthereumQRCode</a>
               </li>
             </ul>
@@ -601,7 +604,27 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Represents <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-681.md">EIP681</a> url</p>
+
+<p>Syntax:</p>
+<pre class="highlight swift"><code><span class="n">request</span>                 <span class="o">=</span> <span class="n">erc831_part</span> <span class="n">target_address</span> <span class="p">[</span> <span class="s">"@"</span> <span class="n">chain_id</span> <span class="p">]</span> <span class="p">[</span> <span class="s">"/"</span> <span class="n">function_name</span> <span class="p">]</span> <span class="p">[</span> <span class="s">"?"</span> <span class="n">parameters</span> <span class="p">]</span>
+<span class="n">erc831_part</span>             <span class="o">=</span> <span class="n">schema</span> <span class="n">and</span> <span class="kd">optional</span> <span class="k">prefix</span> <span class="k">as</span> <span class="n">defined</span> <span class="k">in</span> <span class="err">#</span><span class="mi">831</span> <span class="o">-</span> <span class="n">typically</span> <span class="s">"ethereum"</span> <span class="s">":"</span> <span class="p">[</span> <span class="s">"pay-"</span> <span class="p">]</span> <span class="k">in</span> <span class="n">this</span> <span class="k">case</span>
+<span class="n">target_address</span>          <span class="o">=</span> <span class="n">ethereum_address</span>
+<span class="n">chain_id</span>                <span class="o">=</span> <span class="mf">1*</span><span class="kt">DIGIT</span>
+<span class="n">function_name</span>           <span class="o">=</span> <span class="kt">STRING</span>
+<span class="n">ethereum_address</span>        <span class="o">=</span> <span class="p">(</span> <span class="s">"0x"</span> <span class="mf">40*</span><span class="mi">40</span><span class="kt">HEXDIG</span> <span class="p">)</span> <span class="o">/</span> <span class="kt">ENS_NAME</span>
+<span class="n">parameters</span>              <span class="o">=</span> <span class="n">parameter</span> <span class="o">*</span><span class="p">(</span> <span class="s">"&amp;"</span> <span class="n">parameter</span> <span class="p">)</span>
+<span class="n">parameter</span>               <span class="o">=</span> <span class="n">key</span> <span class="s">"="</span> <span class="n">value</span>
+<span class="n">key</span>                     <span class="o">=</span> <span class="s">"value"</span> <span class="o">/</span> <span class="s">"gas"</span> <span class="o">/</span> <span class="s">"gasLimit"</span> <span class="o">/</span> <span class="s">"gasPrice"</span> <span class="o">/</span> <span class="kt">TYPE</span>
+<span class="n">value</span>                   <span class="o">=</span> <span class="n">number</span> <span class="o">/</span> <span class="n">ethereum_address</span> <span class="o">/</span> <span class="kt">STRING</span>
+<span class="n">number</span>                  <span class="o">=</span> <span class="p">[</span> <span class="s">"-"</span> <span class="o">/</span> <span class="s">"+"</span> <span class="p">]</span> <span class="o">*</span><span class="kt">DIGIT</span> <span class="p">[</span> <span class="s">"."</span> <span class="mf">1*</span><span class="kt">DIGIT</span> <span class="p">]</span> <span class="p">[</span> <span class="p">(</span> <span class="s">"e"</span> <span class="o">/</span> <span class="s">"E"</span> <span class="p">)</span> <span class="p">[</span> <span class="mf">1*</span><span class="kt">DIGIT</span> <span class="p">]</span> <span class="p">[</span> <span class="s">"+"</span> <span class="kt">UNIT</span> <span class="p">]</span>
+</code></pre>
+
+<p>Example urls:</p>
+<pre class="highlight swift"><code><span class="nv">ethereum</span><span class="p">:</span><span class="mh">0xfb6916095ca1df60bb79Ce92ce3ea74c37c5d359</span><span class="p">?</span><span class="n">value</span><span class="o">=</span><span class="mf">2.014e18</span>
+
+<span class="nv">ethereum</span><span class="p">:</span><span class="mh">0x89205a3a3b2a69de6dbf7f01ed13b2108b2c43e7</span><span class="o">/</span><span class="n">transfer</span><span class="p">?</span><span class="n">address</span><span class="o">=</span><span class="mh">0x8e23ee67d1332ad560396262c48ffbb01f93d052</span><span class="o">&amp;</span><span class="n">uint256</span><span class="o">=</span><span class="mi">1</span>
+</code></pre>
 
           </div>
         </section>
@@ -623,7 +646,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Errors</p>
 
                         <a href="../Classes/EthURL/Error.html" class="slightly-smaller">See more</a>
                       </div>
@@ -651,7 +674,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Is pay transaction</p>
 
                       </div>
                       <div class="declaration">
@@ -678,7 +701,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Contract / recipient address</p>
 
                       </div>
                       <div class="declaration">
@@ -705,7 +728,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Chain id</p>
 
                       </div>
                       <div class="declaration">
@@ -732,7 +755,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Function name</p>
 
                       </div>
                       <div class="declaration">
@@ -759,7 +782,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Function arguments</p>
 
                       </div>
                       <div class="declaration">
@@ -786,7 +809,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>String representation of url</p>
 
                       </div>
                       <div class="declaration">
@@ -813,7 +836,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Url representation</p>
 
                       </div>
                       <div class="declaration">
@@ -840,7 +863,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Init with target address</p>
 
                       </div>
                       <div class="declaration">
@@ -867,7 +890,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Init with url string</p>
 
                       </div>
                       <div class="declaration">

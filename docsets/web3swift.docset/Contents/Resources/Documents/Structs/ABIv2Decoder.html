@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           web3swift Docs
         </a>
-         (73% documented)
+         (100% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -584,6 +584,9 @@
             <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift6EIP681a">EIP681</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift14EthereumQRCodea">EthereumQRCode</a>
               </li>
             </ul>
@@ -601,7 +604,7 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Decoding functions</p>
 
           </div>
         </section>
@@ -623,7 +626,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Decodes solidity data to swift types</p>
 
                       </div>
                       <div class="declaration">
@@ -633,6 +636,41 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">decode</span><span class="p">(</span><span class="nv">types</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/ABIv2.html">ABIv2</a></span><span class="o">.</span><span class="kt">Element</span><span class="o">.</span><span class="kt">InOut</span><span class="p">],</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">AnyObject</span><span class="p">]?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>types</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Decoding scheme</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Data to decode</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Array of decoded types</p>
                       </div>
                     </section>
                   </div>
@@ -650,7 +688,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Decodes solidity data to swift types</p>
 
                       </div>
                       <div class="declaration">
@@ -660,6 +698,41 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">decode</span><span class="p">(</span><span class="nv">types</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/ABIv2.html">ABIv2</a></span><span class="o">.</span><span class="kt">Element</span><span class="o">.</span><span class="kt">ParameterType</span><span class="p">],</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">AnyObject</span><span class="p">]?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>types</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Decoding scheme</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Data to decode</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Array of decoded types</p>
                       </div>
                     </section>
                   </div>
@@ -677,7 +750,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Decodes single solidity type to swift type</p>
 
                       </div>
                       <div class="declaration">
@@ -687,6 +760,53 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">decodeSignleType</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="kt"><a href="../Structs/ABIv2.html">ABIv2</a></span><span class="o">.</span><span class="kt">Element</span><span class="o">.</span><span class="kt">ParameterType</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">pointer</span><span class="p">:</span> <span class="kt">UInt64</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?,</span> <span class="nv">bytesConsumed</span><span class="p">:</span> <span class="kt">UInt64</span><span class="p">?)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Decoding scheme</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Data to decode</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pointer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Data offset</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Decoded value and bytes used to decode</p>
                       </div>
                     </section>
                   </div>
@@ -704,7 +824,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Decodes logs to swift types</p>
 
                       </div>
                       <div class="declaration">
@@ -714,6 +834,41 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">decodeLog</span><span class="p">(</span><span class="nv">event</span><span class="p">:</span> <span class="kt"><a href="../Structs/ABIv2.html">ABIv2</a></span><span class="o">.</span><span class="kt">Element</span><span class="o">.</span><span class="kt">Event</span><span class="p">,</span> <span class="nv">eventLog</span><span class="p">:</span> <span class="kt"><a href="../Structs/EventLog.html">EventLog</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>event</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Decoding scheme</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>eventLog</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Event log</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Decoded logs</p>
                       </div>
                     </section>
                   </div>

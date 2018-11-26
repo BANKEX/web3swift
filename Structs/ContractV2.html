@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           web3swift Docs
         </a>
-         (73% documented)
+         (100% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -584,6 +584,9 @@
             <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift6EIP681a">EIP681</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift14EthereumQRCodea">EthereumQRCode</a>
               </li>
             </ul>
@@ -601,7 +604,7 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Swift class that represents a solidity smart contract</p>
 
           </div>
         </section>
@@ -675,7 +678,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Filter for contract events</p>
 
                         <a href="../Structs/ContractV2/EventFilter.html" class="slightly-smaller">See more</a>
                       </div>
@@ -729,7 +732,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Smart contract methods</p>
 
                       </div>
                       <div class="declaration">
@@ -756,7 +759,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Smart contract init arguments</p>
 
                       </div>
                       <div class="declaration">
@@ -783,7 +786,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Smart contract events</p>
 
                       </div>
                       <div class="declaration">
@@ -826,9 +829,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9web3swift16ContractProtocolP_2atxSS_AA7AddressVSgtKcfc"></a>
+                    <a name="/s:9web3swift10ContractV2V_2atACSS_AA7AddressVSgtKcfc"></a>
                     <a name="//apple_ref/swift/Method/init(_:at:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift16ContractProtocolP_2atxSS_AA7AddressVSgtKcfc">init(_:at:)</a>
+                    <a class="token" href="#/s:9web3swift10ContractV2V_2atACSS_AA7AddressVSgtKcfc">init(_:at:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -836,7 +839,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Init with json ABI</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -862,7 +866,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Init with abi array</p>
 
                       </div>
                       <div class="declaration">
@@ -889,7 +893,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Init with abi array and address</p>
 
                       </div>
                       <div class="declaration">
@@ -916,7 +920,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Method errors</p>
 
                         <a href="../Structs/ContractV2/MethodError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -944,7 +948,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Deploy smart contract with provided bytecode</p>
 
                       </div>
                       <div class="declaration">
@@ -955,15 +959,74 @@
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bytecode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Smart contract bytecode</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>args</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Init arguments</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>extraData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Extra data</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Transaction options</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Transaction and its hash</p>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9web3swift16ContractProtocolP6deploy8bytecode10parameters9extraData7optionsAA19EthereumTransactionV10Foundation0H0V_SayypGAmA11Web3OptionsVSgtKF"></a>
+                    <a name="/s:9web3swift10ContractV2V6deploy8bytecode10parameters9extraData7optionsAA19EthereumTransactionV10Foundation0H0V_SayypGAmA11Web3OptionsVSgtKF"></a>
                     <a name="//apple_ref/swift/Method/deploy(bytecode:parameters:extraData:options:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift16ContractProtocolP6deploy8bytecode10parameters9extraData7optionsAA19EthereumTransactionV10Foundation0H0V_SayypGAmA11Web3OptionsVSgtKF">deploy(bytecode:parameters:extraData:options:)</a>
+                    <a class="token" href="#/s:9web3swift10ContractV2V6deploy8bytecode10parameters9extraData7optionsAA19EthereumTransactionV10Foundation0H0V_SayypGAmA11Web3OptionsVSgtKF">deploy(bytecode:parameters:extraData:options:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -971,7 +1034,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Deploy smart contract with provided bytecode</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -980,6 +1044,65 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">deploy</span><span class="p">(</span><span class="nv">bytecode</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">],</span> <span class="nv">extraData</span><span class="p">:</span> <span class="kt">Data</span> <span class="o">=</span> <span class="kt">Data</span><span class="p">(),</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">?)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/EthereumTransaction.html">EthereumTransaction</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bytecode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Smart contract bytecode</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>args</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Init arguments</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>extraData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Extra data</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Transaction options</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Transaction and its hash</p>
                       </div>
                     </section>
                   </div>
@@ -997,7 +1120,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Returns smart contract method with provided name</p>
 
                       </div>
                       <div class="declaration">
@@ -1008,15 +1131,74 @@
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bytecode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Smart contract bytecode</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>args</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Init arguments</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>extraData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Extra data</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Transaction options</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Transaction</p>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9web3swift16ContractProtocolP6method_10parameters9extraData7optionsAA19EthereumTransactionVSS_SayypG10Foundation0G0VAA11Web3OptionsVSgtKF"></a>
+                    <a name="/s:9web3swift10ContractV2V6method_10parameters9extraData7optionsAA19EthereumTransactionVSS_SayypG10Foundation0G0VAA11Web3OptionsVSgtKF"></a>
                     <a name="//apple_ref/swift/Method/method(_:parameters:extraData:options:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift16ContractProtocolP6method_10parameters9extraData7optionsAA19EthereumTransactionVSS_SayypG10Foundation0G0VAA11Web3OptionsVSgtKF">method(_:parameters:extraData:options:)</a>
+                    <a class="token" href="#/s:9web3swift10ContractV2V6method_10parameters9extraData7optionsAA19EthereumTransactionVSS_SayypG10Foundation0G0VAA11Web3OptionsVSgtKF">method(_:parameters:extraData:options:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1024,15 +1206,75 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Returns smart contract method with provided name</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">method</span><span class="p">(</span><span class="n">_</span> <span class="nv">method</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">],</span> <span class="nv">extraData</span><span class="p">:</span> <span class="kt">Data</span> <span class="o">=</span> <span class="kt">Data</span><span class="p">(),</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">?)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/EthereumTransaction.html">EthereumTransaction</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">method</span><span class="p">(</span><span class="n">_</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">],</span> <span class="nv">extraData</span><span class="p">:</span> <span class="kt">Data</span> <span class="o">=</span> <span class="kt">Data</span><span class="p">(),</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/Web3Options.html">Web3Options</a></span><span class="p">?)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/EthereumTransaction.html">EthereumTransaction</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bytecode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Smart contract bytecode</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>args</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Init arguments</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>extraData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Extra data</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Transaction options</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Transaction</p>
                       </div>
                     </section>
                   </div>
@@ -1040,9 +1282,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9web3swift16ContractProtocolP10parseEventySSSg9eventName_SDySSypGSg0F4DatatAA0E3LogVF"></a>
+                    <a name="/s:9web3swift10ContractV2V10parseEventySSSg9eventName_SDySSypGSg0F4DatatAA0E3LogVF"></a>
                     <a name="//apple_ref/swift/Method/parseEvent(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift16ContractProtocolP10parseEventySSSg9eventName_SDySSypGSg0F4DatatAA0E3LogVF">parseEvent(_:)</a>
+                    <a class="token" href="#/s:9web3swift10ContractV2V10parseEventySSSg9eventName_SDySSypGSg0F4DatatAA0E3LogVF">parseEvent(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1050,7 +1292,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Parses smart contract event</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -1060,15 +1303,38 @@
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>eventLog</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>encoded event</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Event name and its data</p>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9web3swift16ContractProtocolP25testBloomForEventPrecence9eventName5bloomSbSgSS_AA08EthereumE6FilterVtF"></a>
+                    <a name="/s:9web3swift10ContractV2V25testBloomForEventPrecence9eventName5bloomSbSgSS_AA08EthereumE6FilterVtF"></a>
                     <a name="//apple_ref/swift/Method/testBloomForEventPrecence(eventName:bloom:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift16ContractProtocolP25testBloomForEventPrecence9eventName5bloomSbSgSS_AA08EthereumE6FilterVtF">testBloomForEventPrecence(eventName:bloom:)</a>
+                    <a class="token" href="#/s:9web3swift10ContractV2V25testBloomForEventPrecence9eventName5bloomSbSgSS_AA08EthereumE6FilterVtF">testBloomForEventPrecence(eventName:bloom:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1076,7 +1342,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Returns nil if there is no event with that name.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>

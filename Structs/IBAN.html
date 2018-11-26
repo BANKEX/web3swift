@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           web3swift Docs
         </a>
-         (73% documented)
+         (100% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -584,6 +584,9 @@
             <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift6EIP681a">EIP681</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift14EthereumQRCodea">EthereumQRCode</a>
               </li>
             </ul>
@@ -898,8 +901,8 @@
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>nil if invalid address is not convertable to iban
-To skip 30 symbol check, just init it with address.
+                        <p>nil if invalid address is not convertible to iban
+To skip check for invalid address, just init it with Address.
 <code>
 let iban = IBAN(&quot;XE7338O073KYGTWWZN0F2WZ0R8PX5ZPPZS&quot;)
 </code></p>
@@ -920,7 +923,7 @@ let iban = IBAN(&quot;XE7338O073KYGTWWZN0F2WZ0R8PX5ZPPZS&quot;)
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>checks if address.base36.count &lt;= 30</p>
+                        <p>Checks if address.base36.count &lt;= 30</p>
 
                       </div>
                       <div class="declaration">
@@ -947,7 +950,7 @@ let iban = IBAN(&quot;XE7338O073KYGTWWZN0F2WZ0R8PX5ZPPZS&quot;)
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>init with address</p>
+                        <p>Init with address</p>
 <div class="aside aside-important">
     <p class="aside-title">Important</p>
     <a href="https://github.com/BANKEX/web3swift/issues/137">Not every address is IBAN compatible</a>

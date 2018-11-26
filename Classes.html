@@ -23,7 +23,7 @@
         <a class="header-link" href="index.html">
           web3swift Docs
         </a>
-         (73% documented)
+         (100% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -584,6 +584,9 @@
             <a class="nav-group-name-link" href="Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9web3swift6EIP681a">EIP681</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9web3swift14EthereumQRCodea">EthereumQRCode</a>
               </li>
             </ul>
@@ -793,7 +796,7 @@ Used to generate solidity function input from swift types</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Native implementation of ERC20 token</p>
+                        <p>Native implementation of ERC721 token</p>
 <div class="aside aside-important">
     <p class="aside-title">Important</p>
     NOT main thread friendly
@@ -830,7 +833,12 @@ Used to generate solidity function input from swift types</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Native implementation of ERC777 token</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    NOT main thread friendly
+
+</div>
 
                         <a href="Classes/ERC777.html" class="slightly-smaller">See more</a>
                       </div>
@@ -964,38 +972,6 @@ event Burnt(address indexed _burner, uint256 _value);
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9web3swift6EthURLC"></a>
-                    <a name="//apple_ref/swift/Class/EthURL" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9web3swift6EthURLC">EthURL</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                        <a href="Classes/EthURL.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">EthURL</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:9web3swift20Web3BrowserFunctionsC"></a>
                     <a name="//apple_ref/swift/Class/Web3BrowserFunctions" class="dashAnchor"></a>
                     <a class="token" href="#/s:9web3swift20Web3BrowserFunctionsC">Web3BrowserFunctions</a>
@@ -1070,7 +1046,7 @@ event Burnt(address indexed _burner, uint256 _value);
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Represents</p>
 
                         <a href="Classes/HDNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -1137,22 +1113,22 @@ event Burnt(address indexed _burner, uint256 _value);
                         <p>Mnemonics class. Used to generate/create/import ethereum account</p>
 
 <p>To generate mnemonics use:</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">mnemonics</span> <span class="o">=</span> <span class="kt">Mnemonics</span><span class="p">()</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">mnemonics</span><span class="p">)</span>
+<pre class="highlight swift"><code> <span class="k">let</span> <span class="nv">mnemonics</span> <span class="o">=</span> <span class="kt">Mnemonics</span><span class="p">()</span>
+ <span class="nf">print</span><span class="p">(</span><span class="n">mnemonics</span><span class="p">)</span>
 </code></pre>
 
 <p>To import mnemonics:</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">string</span> <span class="o">=</span> <span class="s">"normal dune pole key case cradle unfold require tornado mercy hospital buyer"</span>
-<span class="k">let</span> <span class="nv">mnemonics</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">Mnemonics</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">mnemonics</span><span class="p">)</span>
+<pre class="highlight swift"><code> <span class="k">let</span> <span class="nv">string</span> <span class="o">=</span> <span class="s">"normal dune pole key case cradle unfold require tornado mercy hospital buyer"</span>
+ <span class="k">let</span> <span class="nv">mnemonics</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">Mnemonics</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+ <span class="nf">print</span><span class="p">(</span><span class="n">mnemonics</span><span class="p">)</span>
 </code></pre>
 
 <p>To get private key from mnemonics:</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">mnemonics</span> <span class="o">=</span> <span class="kt">Mnemonics</span><span class="p">()</span>
-<span class="k">let</span> <span class="nv">keystore</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">BIP32Keystore</span><span class="p">(</span><span class="nv">mnemonics</span><span class="p">:</span> <span class="n">mnemonics</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">address</span> <span class="o">=</span> <span class="n">keystore</span><span class="o">.</span><span class="n">addresses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="k">let</span> <span class="nv">privateKey</span> <span class="o">=</span> <span class="k">try</span> <span class="n">keystore</span><span class="o">.</span><span class="kt">UNSAFE_getPrivateKeyData</span><span class="p">(</span><span class="nv">password</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span> <span class="nv">account</span><span class="p">:</span> <span class="n">address</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">publicKey</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">Web3Utils</span><span class="o">.</span><span class="nf">privateToPublic</span><span class="p">(</span><span class="n">privateKey</span><span class="p">,</span> <span class="nv">compressed</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+<pre class="highlight swift"><code> <span class="k">let</span> <span class="nv">mnemonics</span> <span class="o">=</span> <span class="kt">Mnemonics</span><span class="p">()</span>
+ <span class="k">let</span> <span class="nv">keystore</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">BIP32Keystore</span><span class="p">(</span><span class="nv">mnemonics</span><span class="p">:</span> <span class="n">mnemonics</span><span class="p">)</span>
+ <span class="k">let</span> <span class="nv">address</span> <span class="o">=</span> <span class="n">keystore</span><span class="o">.</span><span class="n">addresses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+ <span class="k">let</span> <span class="nv">privateKey</span> <span class="o">=</span> <span class="k">try</span> <span class="n">keystore</span><span class="o">.</span><span class="kt">UNSAFE_getPrivateKeyData</span><span class="p">(</span><span class="nv">password</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span> <span class="nv">account</span><span class="p">:</span> <span class="n">address</span><span class="p">)</span>
+ <span class="k">let</span> <span class="nv">publicKey</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">Web3Utils</span><span class="o">.</span><span class="nf">privateToPublic</span><span class="p">(</span><span class="n">privateKey</span><span class="p">,</span> <span class="nv">compressed</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
 </code></pre>
 
 <p>In the most cases you don&rsquo;t need to manage your public and private keys. web3swift doing this for you.</p>
@@ -1255,7 +1231,7 @@ event Burnt(address indexed _burner, uint256 _value);
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Manager for your keystores.</p>
 
                         <a href="Classes/KeystoreManager.html" class="slightly-smaller">See more</a>
                       </div>
@@ -1436,6 +1412,58 @@ event Burnt(address indexed _burner, uint256 _value);
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9web3swift6EthURLC"></a>
+                    <a name="//apple_ref/swift/Class/EthURL" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9web3swift6EthURLC">EthURL</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-681.md">EIP681</a> url</p>
+
+<p>Syntax:</p>
+<pre class="highlight swift"><code><span class="n">request</span>                 <span class="o">=</span> <span class="n">erc831_part</span> <span class="n">target_address</span> <span class="p">[</span> <span class="s">"@"</span> <span class="n">chain_id</span> <span class="p">]</span> <span class="p">[</span> <span class="s">"/"</span> <span class="n">function_name</span> <span class="p">]</span> <span class="p">[</span> <span class="s">"?"</span> <span class="n">parameters</span> <span class="p">]</span>
+<span class="n">erc831_part</span>             <span class="o">=</span> <span class="n">schema</span> <span class="n">and</span> <span class="kd">optional</span> <span class="k">prefix</span> <span class="k">as</span> <span class="n">defined</span> <span class="k">in</span> <span class="err">#</span><span class="mi">831</span> <span class="o">-</span> <span class="n">typically</span> <span class="s">"ethereum"</span> <span class="s">":"</span> <span class="p">[</span> <span class="s">"pay-"</span> <span class="p">]</span> <span class="k">in</span> <span class="n">this</span> <span class="k">case</span>
+<span class="n">target_address</span>          <span class="o">=</span> <span class="n">ethereum_address</span>
+<span class="n">chain_id</span>                <span class="o">=</span> <span class="mf">1*</span><span class="kt">DIGIT</span>
+<span class="n">function_name</span>           <span class="o">=</span> <span class="kt">STRING</span>
+<span class="n">ethereum_address</span>        <span class="o">=</span> <span class="p">(</span> <span class="s">"0x"</span> <span class="mf">40*</span><span class="mi">40</span><span class="kt">HEXDIG</span> <span class="p">)</span> <span class="o">/</span> <span class="kt">ENS_NAME</span>
+<span class="n">parameters</span>              <span class="o">=</span> <span class="n">parameter</span> <span class="o">*</span><span class="p">(</span> <span class="s">"&amp;"</span> <span class="n">parameter</span> <span class="p">)</span>
+<span class="n">parameter</span>               <span class="o">=</span> <span class="n">key</span> <span class="s">"="</span> <span class="n">value</span>
+<span class="n">key</span>                     <span class="o">=</span> <span class="s">"value"</span> <span class="o">/</span> <span class="s">"gas"</span> <span class="o">/</span> <span class="s">"gasLimit"</span> <span class="o">/</span> <span class="s">"gasPrice"</span> <span class="o">/</span> <span class="kt">TYPE</span>
+<span class="n">value</span>                   <span class="o">=</span> <span class="n">number</span> <span class="o">/</span> <span class="n">ethereum_address</span> <span class="o">/</span> <span class="kt">STRING</span>
+<span class="n">number</span>                  <span class="o">=</span> <span class="p">[</span> <span class="s">"-"</span> <span class="o">/</span> <span class="s">"+"</span> <span class="p">]</span> <span class="o">*</span><span class="kt">DIGIT</span> <span class="p">[</span> <span class="s">"."</span> <span class="mf">1*</span><span class="kt">DIGIT</span> <span class="p">]</span> <span class="p">[</span> <span class="p">(</span> <span class="s">"e"</span> <span class="o">/</span> <span class="s">"E"</span> <span class="p">)</span> <span class="p">[</span> <span class="mf">1*</span><span class="kt">DIGIT</span> <span class="p">]</span> <span class="p">[</span> <span class="s">"+"</span> <span class="kt">UNIT</span> <span class="p">]</span>
+</code></pre>
+
+<p>Example urls:</p>
+<pre class="highlight swift"><code><span class="nv">ethereum</span><span class="p">:</span><span class="mh">0xfb6916095ca1df60bb79Ce92ce3ea74c37c5d359</span><span class="p">?</span><span class="n">value</span><span class="o">=</span><span class="mf">2.014e18</span>
+
+<span class="nv">ethereum</span><span class="p">:</span><span class="mh">0x89205a3a3b2a69de6dbf7f01ed13b2108b2c43e7</span><span class="o">/</span><span class="n">transfer</span><span class="p">?</span><span class="n">address</span><span class="o">=</span><span class="mh">0x8e23ee67d1332ad560396262c48ffbb01f93d052</span><span class="o">&amp;</span><span class="n">uint256</span><span class="o">=</span><span class="mi">1</span>
+</code></pre>
+
+                        <a href="Classes/EthURL.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">EthURL</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9web3swift24JsonRpcRequestDispatcherC"></a>
                     <a name="//apple_ref/swift/Class/JsonRpcRequestDispatcher" class="dashAnchor"></a>
                     <a class="token" href="#/s:9web3swift24JsonRpcRequestDispatcherC">JsonRpcRequestDispatcher</a>
@@ -1446,7 +1474,7 @@ event Burnt(address indexed _burner, uint256 _value);
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Request dispatcher. Allows you to send multiple JsonRpcRequests in one URLRequest</p>
 
                         <a href="Classes/JsonRpcRequestDispatcher.html" class="slightly-smaller">See more</a>
                       </div>

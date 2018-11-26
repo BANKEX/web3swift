@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           web3swift Docs
         </a>
-         (73% documented)
+         (100% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -584,6 +584,9 @@
             <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift6EIP681a">EIP681</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9web3swift14EthereumQRCodea">EthereumQRCode</a>
               </li>
             </ul>
@@ -623,7 +626,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Default options</p>
 
                       </div>
                       <div class="declaration">
@@ -709,7 +712,10 @@ If extraData is supplied it is appended to encoded bytecode and constructor para
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Deploys a constact instance using the previously provided (at initialization) ABI, some bytecode, constructor parameters and options.
+If extraData is supplied it is appended to encoded bytecode and constructor parameters.</p>
+
+<p>Returns a <q>Transaction intermediate</q> object.</p>
 
                       </div>
                       <div class="declaration">
@@ -736,7 +742,7 @@ If extraData is supplied it is appended to encoded bytecode and constructor para
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates and object responsible for calling a particular function of the contract. If method name is not found in ABI - returns nil.
+                        <p>Creates and object responsible for calling a particular function of the contract. If method name is not found in ABI - Returns nil.
 If extraData is supplied it is appended to encoded function parameters. Can be usefull if one wants to call
 the function not listed in ABI. <q>Parameters</q> should be an array corresponding to the list of parameters of the function.
 Elements of <q>parameters</q> can be other arrays or instances of String, Data, BigInt, BigUInt, Int or Address.</p>
@@ -768,7 +774,12 @@ Elements of <q>parameters</q> can be other arrays or instances of String, Data, 
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Creates and object responsible for calling a particular function of the contract. If method name is not found in ABI - Returns nil.
+If extraData is supplied it is appended to encoded function parameters. Can be usefull if one wants to call
+the function not listed in ABI. <q>Parameters</q> should be an array corresponding to the list of parameters of the function.
+Elements of <q>parameters</q> can be other arrays or instances of String, Data, BigInt, BigUInt, Int or Address.</p>
+
+<p>Returns a <q>Transaction intermediate</q> object.</p>
 
                       </div>
                       <div class="declaration">
@@ -946,7 +957,7 @@ Elements of <q>parameters</q> can be other arrays or instances of String, Data, 
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>array of events</p>
+                        <p>Array of events</p>
                       </div>
                     </section>
                   </div>
@@ -954,9 +965,9 @@ Elements of <q>parameters</q> can be other arrays or instances of String, Data, 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:9web3swift12Web3ContractC23getIndexedEventsPromise9eventName6filter16joinWithReceipts0G3Kit0G0CySayAA17EventParserResultVGGSSSg_AA0O6FilterVSbtF"></a>
                     <a name="//apple_ref/swift/Method/getIndexedEventsPromise(eventName:filter:joinWithReceipts:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">getIndexedEventsPromise(eventName:filter:joinWithReceipts:)</a>
+                    <a class="token" href="#/s:9web3swift12Web3ContractC23getIndexedEventsPromise9eventName6filter16joinWithReceipts0G3Kit0G0CySayAA17EventParserResultVGGSSSg_AA0O6FilterVSbtF">getIndexedEventsPromise(eventName:filter:joinWithReceipts:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1025,7 +1036,7 @@ Elements of <q>parameters</q> can be other arrays or instances of String, Data, 
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>promise that returns array of events</p>
+                        <p>Promise that returns array of events</p>
                       </div>
                     </section>
                   </div>
