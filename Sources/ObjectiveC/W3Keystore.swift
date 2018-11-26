@@ -349,7 +349,7 @@ extension EthereumKeystoreV3 {
 	}
 	
 	@objc public func getAddress() -> W3Address? {
-		return swift.getAddress()?.objc
+		return swift.address?.objc
 	}
 	
 	@objc public var addresses: [W3Address] {
