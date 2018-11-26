@@ -482,7 +482,7 @@ public enum TransactionInBlock: Decodable {
     }
 	
 	/// init with any object
-	/// - parameter data: Should be in hex or dictionary format
+	/// - Parameter data: Should be in hex or dictionary format
     public init(_ data: Any) throws {
         if let string = data as? String {
             guard let d = Data.fromHex(string) else { throw TransactionInBlockError.corrupted }

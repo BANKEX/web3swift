@@ -141,7 +141,7 @@ extension Web3Utils {
     }
 
     /// Parse a user-supplied string using the number of decimals for particular Ethereum unit.
-    /// If input is non-numeric or precision is not sufficient - returns nil.
+    /// If input is non-numeric or precision is not sufficient - Returns nil.
     /// Allowed decimal separators are ".", ",".
     public static func parseToBigUInt(_ amount: String, units: Web3Units = .eth) -> BigUInt? {
         let unitDecimals = units.decimals
@@ -149,7 +149,7 @@ extension Web3Utils {
     }
 
     /// Parse a user-supplied string using the number of decimals.
-    /// If input is non-numeric or precision is not sufficient - returns nil.
+    /// If input is non-numeric or precision is not sufficient - Returns nil.
     /// Allowed decimal separators are ".", ",".
     public static func parseToBigUInt(_ amount: String, decimals: Int = 18) -> BigUInt? {
         let separators = CharacterSet(charactersIn: ".,")

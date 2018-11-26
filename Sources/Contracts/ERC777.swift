@@ -22,15 +22,15 @@ public class ERC777 {
 	public var gasPrice: GasPrice { return GasPrice(self) }
 	
 	/// Represents Address as ERC777 token (with standard password and options)
-	/// - parameter address: Token address
+	/// - Parameter address: Token address
 	public init(_ address: Address) {
 		self.address = address
 	}
 	
 	/// Represents Address as ERC777 token
-	/// - parameter address: Token address
-	/// - parameter from: Sender address
-	/// - parameter address: Password to decrypt sender's private key
+	/// - Parameter address: Token address
+	/// - Parameter from: Sender address
+	/// - Parameter address: Password to decrypt sender's private key
 	public init(_ address: Address, from: Address, password: String) {
 		self.address = address
 		self.password = password
@@ -97,45 +97,45 @@ public class ERC777 {
 		
 		/**
 		Native implementation of ERC20 token
-		- important: NOT main thread friendly
-		- returns: full information for all pending and queued transactions
+		- Important: NOT main thread friendly
+		- Returns: full information for all pending and queued transactions
 		*/
 		init(_ parent: ERC777) {
 			self.parent = parent
 		}
 		
-		/// - returns: gas price for transfer(address,uint256) transaction
+		/// - Returns: gas price for transfer(address,uint256) transaction
 		public func transfer(to user: Address, amount: BigUInt) throws -> BigUInt {
 			return try address.estimateGas("transfer(address,uint256)",user,amount, options: options).wait()
 		}
-		/// - returns: gas price for approve(address,uint256) transaction
+		/// - Returns: gas price for approve(address,uint256) transaction
 		public func approve(to user: Address, amount: BigUInt) throws -> BigUInt {
 			return try address.estimateGas("approve(address,uint256)",user,amount, options: options).wait()
 		}
-		/// - returns: gas price for transferFrom(address,address,uint256) transaction
+		/// - Returns: gas price for transferFrom(address,address,uint256) transaction
 		public func transfer(from: Address, to: Address, amount: BigUInt) throws -> BigUInt {
 			return try address.estimateGas("transferFrom(address,address,uint256)",from,to,amount, options: options).wait()
 		}
 		
-		/// - returns: gas price for send(address,uint256) transaction
+		/// - Returns: gas price for send(address,uint256) transaction
 		public func send(to user: Address, amount: BigUInt) throws -> BigUInt {
 			return try address.estimateGas("send(address,uint256)",user,amount, options: options).wait()
 		}
-		/// - returns: gas price for send(address,uint256,bytes) transaction
+		/// - Returns: gas price for send(address,uint256,bytes) transaction
 		public func send(to user: Address, amount: BigUInt, userData: Data) throws -> BigUInt {
 			return try address.estimateGas("send(address,uint256,bytes)",user,amount,userData, options: options).wait()
 		}
 		
-		/// - returns: gas price for authorizeOperator(address) transaction
+		/// - Returns: gas price for authorizeOperator(address) transaction
 		public func authorize(operator user: Address) throws -> BigUInt {
 			return try address.estimateGas("authorizeOperator(address)",user, options: options).wait()
 		}
-		/// - returns: gas price for revokeOperator(address) transaction
+		/// - Returns: gas price for revokeOperator(address) transaction
 		public func revoke(operator user: Address) throws -> BigUInt {
 			return try address.estimateGas("revokeOperator(address)",user, options: options).wait()
 		}
 		
-		/// - returns: gas price for operatorSend(address,address,uint256,bytes) transaction
+		/// - Returns: gas price for operatorSend(address,address,uint256,bytes) transaction
 		public func operatorSend(from: Address, to: Address, amount: BigUInt, userData: Data) throws -> BigUInt {
 			return try address.estimateGas("operatorSend(address,address,uint256,bytes)",from,to,amount,userData, options: options).wait()
 		}

@@ -191,7 +191,7 @@ import Foundation
     - extraData: Additional data to attach to the transaction
     - options: W3Options to override the default gas price, gas limit. "Value" field of the options is ignored and the "amount" parameter is used instead
 
-    - returns:
+    - Returns:
     - W3TransactionIntermediate object
 
     */

@@ -236,8 +236,8 @@ hash: \(String(describing: hash))
     
     /**
      Initializes EthereumTransaction from RLP encoded data
-     - parameter raw: RLP encoded data
-     - returns: EthereumTransaction if data wasn't not corrupted
+     - Parameter raw: RLP encoded data
+     - Returns: EthereumTransaction if data wasn't not corrupted
      */
     public static func fromRaw(_ raw: Data) -> EthereumTransaction? {
         guard let totalItem = RLP.decode(raw) else { return nil }

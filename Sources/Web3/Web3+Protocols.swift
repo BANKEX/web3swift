@@ -14,65 +14,65 @@ import class PromiseKit.Promise
 public protocol EventParserProtocol {
     /**
      Parses the transaction for events matching the EventParser settings.
-     - parameter transaction: web3swift native EthereumTransaction object
-     - returns: array of events
-     - important: This call is synchronous
+     - Parameter transaction: web3swift native EthereumTransaction object
+     - Returns: array of events
+     - Important: This call is synchronous
      */
     func parseTransaction(_ transaction: EthereumTransaction) throws -> [EventParserResult]
     
     /**
      Parses the transaction for events matching the EventParser settings.
-     - parameter hash: Transaction hash
-     - returns: array of events
-     - important: This call is synchronous
+     - Parameter hash: Transaction hash
+     - Returns: array of events
+     - Important: This call is synchronous
      */
     func parseTransactionByHash(_ hash: Data) throws -> [EventParserResult]
     
     /**
      Parses the block for events matching the EventParser settings.
-     - parameter block: Native web3swift block object
-     - returns: array of events
-     - important: This call is synchronous
+     - Parameter block: Native web3swift block object
+     - Returns: array of events
+     - Important: This call is synchronous
      */
     func parseBlock(_ block: Block) throws -> [EventParserResult]
     
     /**
      Parses the block for events matching the EventParser settings.
-     - parameter blockNumber: Ethereum network block number
-     - returns: array of events
-     - important: This call is synchronous
+     - Parameter blockNumber: Ethereum network block number
+     - Returns: array of events
+     - Important: This call is synchronous
      */
     func parseBlockByNumber(_ blockNumber: UInt64) throws -> [EventParserResult]
     
     /**
      Parses the transaction for events matching the EventParser settings.
-     - parameter transaction: web3swift native EthereumTransaction object
-     - returns: promise that returns array of events
-     - important: This call is synchronous
+     - Parameter transaction: web3swift native EthereumTransaction object
+     - Returns: promise that returns array of events
+     - Important: This call is synchronous
      */
     func parseTransactionPromise(_ transaction: EthereumTransaction) -> Promise<[EventParserResult]>
     
     /**
      Parses the transaction for events matching the EventParser settings.
-     - parameter hash: Transaction hash
-     - returns: promise that returns array of events
-     - important: This call is synchronous
+     - Parameter hash: Transaction hash
+     - Returns: promise that returns array of events
+     - Important: This call is synchronous
      */
     func parseTransactionByHashPromise(_ hash: Data) -> Promise<[EventParserResult]>
     
     /**
      Parses the block for events matching the EventParser settings.
-     - parameter blockNumber: Ethereum network block number
-     - returns: promise that returns array of events
-     - important: This call is synchronous
+     - Parameter blockNumber: Ethereum network block number
+     - Returns: promise that returns array of events
+     - Important: This call is synchronous
      */
     func parseBlockByNumberPromise(_ blockNumber: UInt64) -> Promise<[EventParserResult]>
     
     /**
      Parses the block for events matching the EventParser settings.
-     - parameter block: Native web3swift block object
-     - returns: promise that returns array of events
-     - important: This call is synchronous
+     - Parameter block: Native web3swift block object
+     - Returns: promise that returns array of events
+     - Important: This call is synchronous
      */
     func parseBlockPromise(_ block: Block) -> Promise<[EventParserResult]>
     

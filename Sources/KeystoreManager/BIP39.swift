@@ -68,8 +68,7 @@ public enum EntropySize: Int {
     case b256 = 256
 }
 
-/**
- Mnemonics class. Used to generate/create/import ethereum account
+/** Mnemonics class. Used to generate/create/import ethereum account
  
  To generate mnemonics use:
  ```
@@ -118,9 +117,9 @@ public class Mnemonics {
     
     /**
      Mnemonics password
-     - important: Mnemonics password affects on privateKey generation
-     - important: WARNING: User cannot use mnemonics generated with password in metamask or some other services that doesn't support mnemonics password
-     - important: With different password you will generate different address
+     - Important: Mnemonics password affects on privateKey generation
+     - Important: WARNING: User cannot use mnemonics generated with password in metamask or some other services that doesn't support mnemonics password
+     - Important: With different password you will generate different address
      */
     public var password: String = ""
     
@@ -140,9 +139,9 @@ public class Mnemonics {
     
     /**
      Init with imported mnemonics string and specific language
-     - throws: An error of type Mnemonics.EntropyError
-     - parameter string: mnemonics string
-     - parameter language: mnemonics language. default: .english
+     - Throws: An error of type Mnemonics.EntropyError
+     - Parameter string: Mnemonics string
+     - Parameter language: Mnemonics language. default: .english
      
      Requirements:
      1. Minimum 12 words
@@ -180,8 +179,8 @@ public class Mnemonics {
     
     /**
      Generate mnemonics with entropy size and language
-     - parameter entropySize: mnemonics seed size. default: .b256
-     - parameter language: mnemonics dictionary language. default: .english
+     - Parameter entropySize: Mnemonics seed size. default: .b256
+     - Parameter language: Mnemonics dictionary language. default: .english
      */
     public init(entropySize: EntropySize = .b256, language: BIP39Language = .english) {
         self.entropy = Data.random(length: entropySize.rawValue / 8)
@@ -203,9 +202,9 @@ public class Mnemonics {
     
     /**
      Generate mnemonics with pregenerated entropy data
-     - parameter entropy: seed which generates mnemonics string
-     - parameter language: mnemonics dictionary language. default: .english
-     - throws: Error.invalidEntropySize if entropy data has invalid size (< 16 || % 4 != 0)
+     - Parameter entropy: Seed which generates mnemonics string
+     - Parameter language: Mnemonics dictionary language. default: .english
+     - Throws: Error.invalidEntropySize if entropy data has invalid size (< 16 || % 4 != 0)
      */
     public init(entropy: Data, language: BIP39Language = .english) throws {
         guard entropy.count >= 16, entropy.count % 4 == 0 else { throw Error.invalidEntropySize }
@@ -227,7 +226,7 @@ public class Mnemonics {
         self.language = language
     }
     
-    /// - returns: seed from mnemonics
+    /// - Returns: Seed from mnemonics
     public func seed() -> Data {
         return Mnemonics.seed(from: string, password: password)
     }
@@ -235,8 +234,8 @@ public class Mnemonics {
 
 extension Mnemonics: CustomStringConvertible {
     /**
-     mnemonics description
-     - returns: .string
+     Mnemonics description
+     - Returns: .string
      */
     public var description: String {
         return string

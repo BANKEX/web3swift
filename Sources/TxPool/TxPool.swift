@@ -12,27 +12,27 @@ import BigInt
 
 /**
  Native realisation of txpool
- - important: Doesn't works with Infura provider
+ - Important: Doesn't works with Infura provider
  */
 public class TxPool {
     /**
-     - important: Doesn't works with Infura provider
+     - Important: Doesn't works with Infura provider
      */
     public static var `default`: TxPool {
         return TxPool(web3: .default)
     }
     var web3: Web3
     /**
-     - important: Doesn't works with Infura provider
+     - Important: Doesn't works with Infura provider
      */
     public init(web3: Web3) {
         self.web3 = web3
     }
     
     /**
-     - important: Doesn't works with Infura provider | main thread friendly
-     - returns: number of pending and queued transactions
-     - throws:
+     - Important: Doesn't works with Infura provider | main thread friendly
+     - Returns: number of pending and queued transactions
+     - Throws:
      DictionaryReader.Error if server has different response than expected |
      Web3Error.nodeError for node error |
      Any URLSession.dataTask Error
@@ -45,9 +45,9 @@ public class TxPool {
     }
     
     /**
-     - important: Doesn't works with Infura provider | main thread friendly
-     - returns: main information about pending and queued transactions
-     - throws:
+     - Important: Doesn't works with Infura provider | main thread friendly
+     - Returns: main information about pending and queued transactions
+     - Throws:
      DictionaryReader.Error if server has different response than expected |
      Web3Error.nodeError for node error |
      Any URLSession.dataTask Error
@@ -60,9 +60,9 @@ public class TxPool {
     }
     
     /**
-     - important: Doesn't works with Infura provider | main thread friendly
-     - returns: full information for all pending and queued transactions
-     - throws:
+     - Important: Doesn't works with Infura provider | main thread friendly
+     - Returns: full information for all pending and queued transactions
+     - Throws:
      DictionaryReader.Error if server has different response than expected |
      Web3Error.nodeError for node error |
      Any URLSession.dataTask Error

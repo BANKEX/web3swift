@@ -52,7 +52,7 @@ public class Web3Contract {
         return TransactionIntermediate(transaction: tx, web3: web3, contract: contract, method: "fallback", options: mergedOptions)
     }
     
-    /// Creates and object responsible for calling a particular function of the contract. If method name is not found in ABI - returns nil.
+    /// Creates and object responsible for calling a particular function of the contract. If method name is not found in ABI - Returns nil.
     /// If extraData is supplied it is appended to encoded function parameters. Can be usefull if one wants to call
     /// the function not listed in ABI. "Parameters" should be an array corresponding to the list of parameters of the function.
     /// Elements of "parameters" can be other arrays or instances of String, Data, BigInt, BigUInt, Int or Address.

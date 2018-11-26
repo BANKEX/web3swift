@@ -15,12 +15,12 @@ public class PlainKeystore: AbstractKeystore {
     /// Always returns array with one address
     public var addresses: [Address]
 
-    /// default: false
+    /// Default: false
     public var isHDKeystore: Bool = false
 
     /// Returns keystore private key.
-    /// - parameter password: We already have unencrypted private. So password doing nothing here
-    /// - parameter address: We have only one address. So account will be ignored too
+    /// - Parameter password: We already have unencrypted private. So password doing nothing here
+    /// - Parameter address: We have only one address. So account will be ignored too
     public func UNSAFE_getPrivateKeyData(password _: String = "", account _: Address) throws -> Data {
         return privateKey
     }

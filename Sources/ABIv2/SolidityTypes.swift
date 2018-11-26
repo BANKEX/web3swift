@@ -47,7 +47,7 @@ public class SolidityType: Equatable, CustomStringConvertible {
     /// returns true if type is array. default: false
     public var isArray: Bool { return false }
     /// returns true if type is tuple. default: false
-    /// - important: tuples are not supported at this moment
+    /// - Important: tuples are not supported at this moment
     public var isTuple: Bool { return false }
     /// returns number of elements in array if it static. default: .notArray
     public var arraySize: ArraySize { return .notArray }
@@ -57,7 +57,7 @@ public class SolidityType: Equatable, CustomStringConvertible {
     public var memoryUsage: Int { return 32 }
     /// returns default data for empty value. default: Data(repeating: 0, count: memoryUsage)
     public var `default`: Data { return Data(count: memoryUsage) }
-    /// - returns string representation of solidity type
+    /// - Returns string representation of solidity type
     public var description: String { return "" }
     /// returns true if type input parameters is valid: default true
     public var isValid: Bool { return true }

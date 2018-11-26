@@ -108,8 +108,8 @@ public struct JsonRpcResponse: Decodable {
 	/// JsonRpc optional error message
     public var message: String?
 	
-	/// - returns: .result as DictionaryReader or throw .error
-	/// - throws: Web3Error.nodeError(error.message), Web3Error.nodeError("No response found")
+	/// - Returns: .result as DictionaryReader or throw .error
+	/// - Throws: Web3Error.nodeError(error.message), Web3Error.nodeError("No response found")
     public func response() throws -> DictionaryReader {
         if let error = error {
             throw Web3Error.nodeError(error.message)

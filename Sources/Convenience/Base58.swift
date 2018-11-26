@@ -116,7 +116,7 @@ struct Base58 {
 
 extension Array where Element == UInt8 {
     /**
-     - returns: base58 encoded string from byte array
+     - Returns: base58 encoded string from byte array
      */
     public var base58EncodedString: String {
         guard !isEmpty else { return "" }
@@ -124,7 +124,7 @@ extension Array where Element == UInt8 {
     }
     
     /**
-     - returns: base58 encoded string with checksum its hash at the end
+     - Returns: base58 encoded string with checksum its hash at the end
      */
     public var base58CheckEncodedString: String {
         var bytes = self
@@ -138,14 +138,14 @@ extension Array where Element == UInt8 {
 
 extension String {
     /**
-     - returns: base 58 encoded string of its utf8 representation
+     - Returns: base 58 encoded string of its utf8 representation
     */
     public var base58EncodedString: String {
         return [UInt8](utf8).base58EncodedString
     }
 
     /**
-     - returns: data converted from base58 string
+     - Returns: data converted from base58 string
      */
     public var base58DecodedData: Data? {
         let bytes = Base58.bytesFromBase58(self)
@@ -153,7 +153,7 @@ extension String {
     }
 
     /**
-     - returns: data converted from base58 string encoded with hash
+     - Returns: data converted from base58 string encoded with hash
      */
     public var base58CheckDecodedData: Data? {
         guard let bytes = self.base58CheckDecodedBytes else { return nil }
@@ -162,7 +162,7 @@ extension String {
 
     
     /**
-     - returns: data converted from base58 string encoded with hash
+     - Returns: data converted from base58 string encoded with hash
      */
     public var base58CheckDecodedBytes: [UInt8]? {
         var bytes = Base58.bytesFromBase58(self)

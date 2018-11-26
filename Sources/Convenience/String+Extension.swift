@@ -19,7 +19,7 @@ extension String {
 }
 
 extension String {
-    /// - returns: keccak256 hash of string
+    /// - Returns: keccak256 hash of string
     public func keccak256() -> Data {
         return data.keccak256()
     }

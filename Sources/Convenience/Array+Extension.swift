@@ -10,7 +10,7 @@ import Foundation
 
 extension Array {
     /// Splits array by chunks
-    /// - parameter chunkSize: size of each subarray
+    /// - Parameter chunkSize: Size of each subarray
     public func split(intoChunksOf chunkSize: Int) -> [[Element]] {
         return stride(from: 0, to: count, by: chunkSize).map {
             let endIndex = ($0.advanced(by: chunkSize) > self.count) ? self.count - $0 : chunkSize

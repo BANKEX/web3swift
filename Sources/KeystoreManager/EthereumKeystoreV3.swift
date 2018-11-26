@@ -17,13 +17,13 @@ Used to store your account in json file safely
 [https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition](https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition)
 */
 public class EthereumKeystoreV3: AbstractKeystore {
-	/// - returns: array of single address or empty array
+	/// - Returns: array of single address or empty array
     public var addresses: [Address] {
         guard let address = address else { return [] }
         return [address]
     }
 	
-	/// - returns false
+	/// - Returns false
     public var isHDKeystore = false
 
     /// throws AbstractKeystoreError.invalidPasswordError
@@ -68,25 +68,26 @@ public class EthereumKeystoreV3: AbstractKeystore {
 	/**
 	Creates a new keystore with password and aesMode.
 	Clears the private key seed from memory after init
-	- parameter password: Password that would be used to encrypt private key
-	- parameter aesMode: Encryption mode. Allowed: "aes-128-cbc", "aes-128-ctr"
+	- Parameter password: Password that would be used to encrypt private key
+	- Parameter aesMode: Encryption mode. Allowed: "aes-128-cbc", "aes-128-ctr"
 	*/
     public init? (password: String = "BANKEXFOUNDATION", aesMode: String = "aes-128-cbc") throws {
         var newPrivateKey = Data.random(length: 32)
         defer { Data.zero(&newPrivateKey) }
         try encryptDataToStorage(password, keyData: newPrivateKey, aesMode: aesMode)
     }
-	
-	/**
-	Init with private key. Encrypts key but not clears it from memory.
-	- parameter password: Password that would be used to encrypt private key
-	- parameter aesMode: Encryption mode. Allowed: "aes-128-cbc", "aes-128-ctr"
-	
-	- important: Don't forget to clear your private key from memory using
-	```
-	Data.zero(&privateKey)
-	```
-	*/
+    
+    /// Init with private key. Encrypts key but not clears it from memory.
+    ///
+    /// - Parameters:
+    ///   - privateKey: Private key that would be used for this keystore
+    ///   - password: Password that would be used to encrypt private key
+    ///   - aesMode: Encryption mode. Allowed: "aes-128-cbc", "aes-128-ctr"
+    /// - Throws: Error if password is invalid or
+    /// - Important: Don't forget to clear your private key from memory using
+    /// ```
+    /// Data.zero(&privateKey)
+    /// ```
     public init? (privateKey: Data, password: String = "BANKEXFOUNDATION", aesMode: String = "aes-128-cbc") throws {
         guard privateKey.count == 32 else { return nil }
         try SECP256K1.verifyPrivateKey(privateKey: privateKey)

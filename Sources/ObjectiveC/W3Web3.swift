@@ -10,7 +10,7 @@ import Foundation
 
 extension Web3Provider {
     public var objc: W3Web3HttpProvider {
-		guard let provider = self as? Web3HttpProvider else { fatalError("\(self) is not convertable to objective-c W3Web3HttpProvider") }
+		guard let provider = self as? Web3HttpProvider else { fatalError("\(self) is not convertible to objective-c W3Web3HttpProvider") }
 		return provider.objc
 	}
 }

@@ -181,47 +181,47 @@ public extension SolidityDataReader {
 		return T(number)
 	}
     
-    /// - returns: next 32 bytes as UInt8
+    /// - Returns: next 32 bytes as UInt8
 	func uint8() throws -> UInt8 {
 		return try unsigned(max: 0xff)
 	}
-    /// - returns: next 32 bytes as UInt16
+    /// - Returns: next 32 bytes as UInt16
 	func uint16() throws -> UInt16 {
 		return try unsigned(max: 0xffff)
 	}
-    /// - returns: next 32 bytes as UInt32
+    /// - Returns: next 32 bytes as UInt32
 	func uint32() throws -> UInt32 {
 		return try unsigned(max: 0xffffffff)
 	}
-    /// - returns: next 32 bytes as UInt64
+    /// - Returns: next 32 bytes as UInt64
 	func uint64() throws -> UInt64 {
 		return try unsigned(max: 0xffffffffffffffff)
 	}
-    /// - returns: next 32 bytes as UInt64
+    /// - Returns: next 32 bytes as UInt64
 	func uint() throws -> UInt {
 		return try unsigned(max: BigUInt(UInt.max))
 	}
-    /// - returns: next 32 bytes as Int8
+    /// - Returns: next 32 bytes as Int8
 	func int8() throws -> Int8 {
 		return try signed(min: -0x80, max: 0x7f)
 	}
-    /// - returns: next 32 bytes as Int16
+    /// - Returns: next 32 bytes as Int16
 	func int16() throws -> Int16 {
 		return try signed(min: -0x8000, max: 0x7fff)
 	}
-    /// - returns: next 32 bytes as Int32
+    /// - Returns: next 32 bytes as Int32
 	func int32() throws -> Int32 {
 		return try signed(min: -0x80000000, max: 0x7fffffff)
 	}
-    /// - returns: next 32 bytes as Int64
+    /// - Returns: next 32 bytes as Int64
 	func int64() throws -> Int64 {
 		return try signed(min: -0x8000000000000000, max: 0x7fffffffffffffff)
 	}
-    /// - returns: next 32 bytes as Int
+    /// - Returns: next 32 bytes as Int
 	func int() throws -> Int {
 		return try signed(min: BigInt(Int.min), max: BigInt(Int.max))
 	}
-    /// - returns: next 32 bytes as Int and checks if int is >= 0
+    /// - Returns: next 32 bytes as Int and checks if int is >= 0
 	func intCount() throws -> Int {
 		return try signed(min: 0, max: BigInt(Int.max))
 	}

@@ -11,7 +11,7 @@ import CryptoSwift
 import Foundation
 
 extension UInt32 {
-    /// - returns: Serialized bigEndian value as Data
+    /// - Returns: Serialized bigEndian value as Data
     public func serialize32() -> Data {
         var data = Data(count: 4)
         data.withUnsafeMutableBytes { (body: UnsafeMutablePointer<UInt32>) in
@@ -34,32 +34,45 @@ private extension Data {
     }
 }
 
+/**
+ Represents
+ */
 public class HDNode {
+    /// HD version
     public struct HDversion {
-        public var privatePrefix = Data.fromHex("0x0488ADE4")!
-        public var publicPrefix = Data.fromHex("0x0488B21E")!
+        /// Private key prefix. Default: 0x0488ADE4
+        public var privatePrefix = Data(hex: "0x0488ADE4")
+        /// Public key prefix. Default: 0x0488B21E
+        public var publicPrefix = Data(hex: "0x0488B21E")
         public init() {}
     }
-
+    
+    /// Current path
     public var path: String? = "m"
+    /// Private key
     public var privateKey: Data?
+    /// Public Key
     public var publicKey: Data
+    /// Chain code
     public var chaincode: Data
+    /// Current depth
     public var depth: UInt8
+    /// Parent 4 byte RIPEMD160 hash prefix
     public var parentFingerprint: Data = Data(repeating: 0, count: 4)
-    public var childNumber: UInt32 = UInt32(0)
+    /// Child number
+    public var childNumber: UInt32 = 0
+    
+    /// Returns true if childNumber is greater than Int32.max
     public var isHardened: Bool {
-        return childNumber >= (UInt32(1) << 31)
+        return childNumber >= HDNode.hardenedIndexPrefix
     }
-
+    
+    /// Returns isHardened ? childNumber - HDNode.hardenedIndexPrefix : childNumber
     public var index: UInt32 {
-        if isHardened {
-            return childNumber - (UInt32(1) << 31)
-        } else {
-            return childNumber
-        }
+        return isHardened ? childNumber - HDNode.hardenedIndexPrefix : childNumber
     }
 
+    /// Returns privateKey != nil
     public var hasPrivate: Bool {
         return privateKey != nil
     }
@@ -70,11 +83,13 @@ public class HDNode {
         depth = UInt8(0)
     }
 
+    /// Init with Base58 encoded string
     public convenience init?(_ serializedString: String) {
         let data = Data(Base58.bytesFromBase58(serializedString))
         self.init(data)
     }
-
+    
+    /// Init with binary represented HDNode
     public init?(_ data: Data) {
         guard data.count == 82 else { return nil }
         let header = data[0 ..< 4]
@@ -101,13 +116,28 @@ public class HDNode {
         let checksum = hashedData[0 ..< 4]
         if checksum != data[78 ..< 82] { return nil }
     }
-
+    
+    /// HDNode errors
     public enum Error: Swift.Error {
-        case invalidSeedSize // seed.count should be at least 16 bytes
+        /// Seed size should be at least 16 bytes
+        case invalidSeedSize
+        /// Entropy size should be 64 bytes
         case invalidEntropySize
+        /// Public key should start with 0x02 or 0x03
         case invalidPublicKeyPrefix
+        public var localizedDescription: String {
+            switch self {
+            case .invalidSeedSize:
+                return "Seed size should be at least 16 bytes"
+            case .invalidEntropySize:
+                return "Entropy size should be 64 bytes"
+            case .invalidPublicKeyPrefix:
+                return "Public key should start with 0x02 or 0x03"
+            }
+        }
     }
-
+    
+    /// Init with seed
     public init(seed: Data) throws {
         guard seed.count >= 16 else { throw Error.invalidSeedSize }
         let hmacKey = "Bitcoin seed".data(using: .ascii)!
@@ -128,31 +158,60 @@ public class HDNode {
     }
 
     private static var curveOrder = BigUInt("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141", radix: 16)!
+    
+    /// "m/44'/60'/0'/0"
     public static var defaultPath: String = "m/44'/60'/0'/0"
+    /// "m/44'/60'/0'"
     public static var defaultPathPrefix: String = "m/44'/60'/0'"
+    /// "m/44'/60'/0'/0/0"
     public static var defaultPathMetamask: String = "m/44'/60'/0'/0/0"
+    /// "m/44'/60'/0'/0"
     public static var defaultPathMetamaskPrefix: String = "m/44'/60'/0'/0"
+    /// 1 << 31 or UInt32(Int32.max) + 1
     public static var hardenedIndexPrefix: UInt32 = (UInt32(1) << 31)
-}
 
-extension HDNode {
+    /// Derive Errors
     public enum DeriveError: Swift.Error {
+        /// You have to provide a private key if you want to derive private key
         case providePrivateKey
+        
+        /// Provided index is too big
         case indexIsTooBig
+        
+        /// Depth shouldn't be deeper than 254 levels
         case depthIsTooBig
-        case noHardenedDerivation // no derivation of hardened public key from extended public key
-        case pathComponentsShouldBeConvertableToNumber
+        
+        /// Cannot derive public key in hardened mode
+        case noHardenedDerivation
+        
+        /// Cannot derive public key in hardened mode
+        case pathComponentsShouldBeConvertibleToNumber
+        public var localizedDescription: String {
+            switch self {
+            case .providePrivateKey:
+                return "You have to provide a private key"
+            case .indexIsTooBig:
+                return "Provided index is too big"
+            case .depthIsTooBig:
+                return "Depth shouldn't be deeper than 254 levels"
+            case .noHardenedDerivation:
+                return "Cannot derive public key in hardened mode"
+            case .pathComponentsShouldBeConvertibleToNumber:
+                return "HDPath index should should be convertible"
+            }
+        }
     }
-
+    
+    /// Returns HDNode with new index
     public func derive(index: UInt32, derivePrivateKey: Bool, hardened: Bool = false) throws -> HDNode {
         if derivePrivateKey {
             guard hasPrivate else { throw DeriveError.providePrivateKey }
             let entropy: Array<UInt8>
             var trueIndex: UInt32
-            if index >= (UInt32(1) << 31) || hardened {
+            if index >= HDNode.hardenedIndexPrefix || hardened {
                 trueIndex = index
-                if trueIndex < (UInt32(1) << 31) {
-                    trueIndex = trueIndex + (UInt32(1) << 31)
+                if trueIndex < HDNode.hardenedIndexPrefix {
+                    trueIndex = trueIndex + HDNode.hardenedIndexPrefix
                 }
                 let hmac: Authenticator = HMAC(key: chaincode.bytes, variant: .sha512)
                 var inputForHMAC = Data()
@@ -206,7 +265,7 @@ extension HDNode {
             newNode.path = newPath
             return newNode
         } else { // deriving only the public key
-            guard !(index >= (UInt32(1) << 31) || hardened) else { throw DeriveError.noHardenedDerivation }
+            guard !(index >= HDNode.hardenedIndexPrefix || hardened) else { throw DeriveError.noHardenedDerivation }
             let hmac: Authenticator = HMAC(key: self.chaincode.bytes, variant: .sha512)
             var inputForHMAC = Data()
             inputForHMAC.append(publicKey)
@@ -244,7 +303,8 @@ extension HDNode {
             return newNode
         }
     }
-
+    
+    /// Returns HDNode with appended path
     public func derive(path: String, derivePrivateKey: Bool = true) throws -> HDNode {
         let components = path.components(separatedBy: "/")
         var currentNode: HDNode = self
@@ -258,18 +318,20 @@ extension HDNode {
             if hardened {
                 component.removeLast()
             }
-            guard let index = UInt32(component) else { throw DeriveError.pathComponentsShouldBeConvertableToNumber }
+            guard let index = UInt32(component) else { throw DeriveError.pathComponentsShouldBeConvertibleToNumber }
             currentNode = try currentNode.derive(index: index, derivePrivateKey: derivePrivateKey, hardened: hardened)
         }
         return currentNode
     }
-
+    
+    /// Base58 string representation of HDNode's data
     public func serializeToString(serializePublic: Bool = true, version: HDversion = HDversion()) -> String? {
         guard let data = self.serialize(serializePublic: serializePublic, version: version) else { return nil }
         let encoded = Base58.base58FromBytes(data.bytes)
         return encoded
     }
-
+    
+    /// Data representation of HDNode
     public func serialize(serializePublic: Bool = true, version: HDversion = HDversion()) -> Data? {
         var data = Data()
         if !serializePublic && !hasPrivate { return nil }

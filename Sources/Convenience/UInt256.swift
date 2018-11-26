@@ -11,14 +11,14 @@ import Foundation
 
 
 extension BigUInt {
-    /// - parameter string: String number. can be: "0.023", "123123123.12312312312"
-    /// - parameter units: Units that contains decimals
+    /// - Parameter string: String number. can be: "0.023", "123123123.12312312312"
+    /// - Parameter units: Units that contains decimals
     public init?(_ string: String, units: Web3Units) {
         self.init(string, decimals: units.decimals)
     }
     
-    /// - parameter string: String number. can be: "0.023", "123123123.12312312312"
-    /// - parameter decimals: Number of decimals that string should be multiplyed by
+    /// - Parameter string: String number. can be: "0.023", "123123123.12312312312"
+    /// - Parameter decimals: Number of decimals that string should be multiplyed by
     public init?(_ string: String, decimals: Int) {
         let separators = CharacterSet(charactersIn: ".,")
         let components = string.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: separators)
@@ -157,7 +157,7 @@ public struct NaturalUnits {
     }
     public let string: String
     /// Init with string like "0.1", "1123123123", "123123.123123123123"
-    /// - throws: Error.cannotConvert if it cannot convert to string to BigUInt with 18 decimals
+    /// - Throws: Error.cannotConvert if it cannot convert to string to BigUInt with 18 decimals
     public init(_ string: String) throws {
         guard BigUInt(string, decimals: 18) != nil else { throw Error.cannotConvert(string) }
         self.string = string
@@ -166,8 +166,8 @@ public struct NaturalUnits {
     public init(_ int: Int) {
         self.string = int.description
     }
-    /// - parameter decimals: Number of decimals
-    /// - returns: Wei units with decimals
+    /// - Parameter decimals: Number of decimals
+    /// - Returns: Wei units with decimals
     public func number(with decimals: Int) -> BigUInt {
         return BigUInt(string, decimals: decimals) ?? 0
     }

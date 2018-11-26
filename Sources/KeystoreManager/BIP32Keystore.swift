@@ -38,9 +38,9 @@ public class BIP32Keystore: AbstractKeystore {
     
     /// Searches for the account's encrypted private key and decrypts it using password.
     ///
-    /// - parameter password: Password that used to decrypt your key.
-    /// - parameter account: Account that you need
-    /// - returns: private key for given address
+    /// - Parameter password: Password that used to decrypt your key.
+    /// - Parameter account: Account that you need
+    /// - Returns: private key for given address
     public func UNSAFE_getPrivateKeyData(password: String, account: Address) throws -> Data {
         guard let key = self.paths.key(of: account) else { throw AbstractKeystoreError.invalidAccountError }
         guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else { throw AbstractKeystoreError.encryptionError("Failed to decrypt a keystore") }
@@ -86,9 +86,9 @@ public class BIP32Keystore: AbstractKeystore {
     }
     
     /// Init with mnemonics
-    /// - parameter mnemonics: Mnemonics that needs to generate your account
-    /// - parameter password: Password used to encrypt your private key
-    /// - parameter prefixPath: HDNode path. default: "m/44'/60'/0'/0" (Metamask prefix)
+    /// - Parameter mnemonics: Mnemonics that needs to generate your account
+    /// - Parameter password: Password used to encrypt your private key
+    /// - Parameter prefixPath: HDNode path. default: "m/44'/60'/0'/0" (Metamask prefix)
     /// Shouldn't throw if you generate your mnemonics
     public convenience init(mnemonics: Mnemonics, password: String = "BANKEXFOUNDATION", prefixPath: String = HDNode.defaultPathMetamaskPrefix) throws {
         var seed = mnemonics.seed()
@@ -97,9 +97,9 @@ public class BIP32Keystore: AbstractKeystore {
     }
 
     /// Init with seed
-    /// - parameter seed: Seed that need to generate your account
-    /// - parameter password: Password used to encrypt your private key
-    /// - parameter prefixPath: HDNode path. default: "m/44'/60'/0'/0" (Metamask prefix)
+    /// - Parameter seed: Seed that need to generate your account
+    /// - Parameter password: Password used to encrypt your private key
+    /// - Parameter prefixPath: HDNode path. default: "m/44'/60'/0'/0" (Metamask prefix)
     public init(seed: Data, password: String = "BANKEXFOUNDATION", prefixPath: String = HDNode.defaultPathMetamaskPrefix) throws {
         let prefixNode = try HDNode(seed: seed).derive(path: prefixPath, derivePrivateKey: true)
         rootPrefix = prefixPath
