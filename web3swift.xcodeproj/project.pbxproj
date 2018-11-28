@@ -120,6 +120,8 @@
 		13975205219AFA6D0044D2B0 /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE9218C526C00D6D095 /* TransactionTests.swift */; };
 		13975206219AFA6D0044D2B0 /* SECP256K1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDEA218C526C00D6D095 /* SECP256K1Tests.swift */; };
 		13AC5D3E21A5D109009D0309 /* SolidityDataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AC5D3D21A5D109009D0309 /* SolidityDataReader.swift */; };
+		13BBADB121AD38DA0017F55F /* Accounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BBADB021AD38DA0017F55F /* Accounts.swift */; };
+		13D2576E21ADCD4400D382D1 /* DerivedKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2576D21ADCD4400D382D1 /* DerivedKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -245,6 +247,8 @@
 		139751B7219AF76D0044D2B0 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		139751B9219AF76D0044D2B0 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		13AC5D3D21A5D109009D0309 /* SolidityDataReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidityDataReader.swift; sourceTree = "<group>"; };
+		13BBADB021AD38DA0017F55F /* Accounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accounts.swift; sourceTree = "<group>"; };
+		13D2576D21ADCD4400D382D1 /* DerivedKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DerivedKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,6 +299,8 @@
 				133E673A219EFE630054758F /* Guides.swift */,
 				1317BD58218C526300D6D095 /* Migration.swift */,
 				133E696521A6B8940054758F /* Migration-iOS.swift */,
+				13BBADAF21AD38C20017F55F /* Keystore */,
+				13D2577021ADEE3D00D382D1 /* Encryption */,
 				133970582199D22A0027E27C /* Deprecated */,
 				1317BCFE218C526300D6D095 /* Transaction */,
 				1317BD04218C526300D6D095 /* Contract */,
@@ -521,6 +527,22 @@
 			path = Deprecated;
 			sourceTree = "<group>";
 		};
+		13BBADAF21AD38C20017F55F /* Keystore */ = {
+			isa = PBXGroup;
+			children = (
+				13BBADB021AD38DA0017F55F /* Accounts.swift */,
+			);
+			path = Keystore;
+			sourceTree = "<group>";
+		};
+		13D2577021ADEE3D00D382D1 /* Encryption */ = {
+			isa = PBXGroup;
+			children = (
+				13D2576D21ADCD4400D382D1 /* DerivedKey.swift */,
+			);
+			path = Encryption;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -716,6 +738,7 @@
 				1317BDA7218C526300D6D095 /* ABIv2TypeParser.swift in Sources */,
 				1317BDAF218C526300D6D095 /* BlockExplorer.swift in Sources */,
 				1317BDAC218C526300D6D095 /* SolidityDataWriter.swift in Sources */,
+				13BBADB121AD38DA0017F55F /* Accounts.swift in Sources */,
 				1317BD83218C526300D6D095 /* Web3+Protocols.swift in Sources */,
 				1317BD85218C526300D6D095 /* Web3+Eth.swift in Sources */,
 				1317BD70218C526300D6D095 /* TransactionSigner.swift in Sources */,
@@ -723,6 +746,7 @@
 				13765D6B21964A9B005C483C /* W3Contracts.swift in Sources */,
 				1317BDB8218C526300D6D095 /* HDPath.swift in Sources */,
 				13765D7021964A9B005C483C /* W3Eth.swift in Sources */,
+				13D2576E21ADCD4400D382D1 /* DerivedKey.swift in Sources */,
 				1317BDAA218C526300D6D095 /* SolidityFunction.swift in Sources */,
 				1317BDA6218C526300D6D095 /* ABIv2.swift in Sources */,
 				13765D7221964A9B005C483C /* W3UInt.swift in Sources */,

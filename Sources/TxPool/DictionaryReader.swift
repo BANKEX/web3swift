@@ -174,6 +174,10 @@ public class DictionaryReader {
             throw unconvertible(to: "Int")
         }
     }
+    
+    func json() throws -> Data {
+        return try JSONSerialization.data(withJSONObject: raw, options: .prettyPrinted)
+    }
 }
 
 extension Dictionary where Key == String, Value == Any {

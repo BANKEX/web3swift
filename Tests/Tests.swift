@@ -12,19 +12,14 @@ import BigInt
 
 class GanacheTests: XCTestCase {
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        Web3.default = try! .local(port: 8545)
-    }
-
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
     func testExample() throws {
         // Connecting to your ganache node
-        Web3.default = try! .local(port: 8545)
-        let web3 = Web3.default
+        guard let web3 = try? Web3.local(port: 8545) else { return }
+        Web3.default = web3
         
         // Importing account using mnemonics
         let mnemonicsString = "nation tornado double since increase orchard tonight left drip talk sand mad"
@@ -144,6 +139,9 @@ class GanacheTests: XCTestCase {
     }
     
     func testDetails() throws {
+        guard let web3 = try? Web3.local(port: 8545) else { return }
+        Web3.default = web3
+        
         let details = try Web3.default.eth.getTransactionDetails("0x6f150015d033de944f17c1e1f63aa798bcbac7b9144f53520f4795596df84852")
         print(details)
         /* prints:

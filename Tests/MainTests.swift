@@ -74,10 +74,10 @@ class Tests: XCTestCase {
             }
         }
         for str in positive {
-            XCTAssert(bloom.lookup(str.data), "Failed")
+            XCTAssert(bloom.test(topic: str.data), "Failed")
         }
         for str in negative {
-            XCTAssert(bloom.lookup(str.data) == false, "Failed")
+            XCTAssert(bloom.test(topic: str.data) == false, "Failed")
         }
     }
 

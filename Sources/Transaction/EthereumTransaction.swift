@@ -311,10 +311,10 @@ hash: \(String(describing: hash))
         }
 		
         var params = [txParams] as Array<Encodable>
-		let request = JsonRpcRequest(method: method, parametersArray: params)
         if method.parameters == 2 && onBlock != nil {
             params.append(onBlock as Encodable)
         }
+        let request = JsonRpcRequest(method: method, parametersArray: params)
 		
         if !request.isValid { return nil }
         return request

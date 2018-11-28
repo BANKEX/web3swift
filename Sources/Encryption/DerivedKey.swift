@@ -1,47 +1,159 @@
 //
-//  CryptoExtensions.swift
+//  Encryption.swift
 //  web3swift
 //
-//  Created by Alexander Vlasov on 04.12.2017.
-//  Copyright © 2017 Alexander Vlasov. All rights reserved.
+//  Created by Dmitry on 27/11/2018.
+//  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import CryptoSwift
 import Foundation
+import CryptoSwift
 
-/**
- Scrypt function. Used to generate derivedKey from password, salt, n, r, p
- */
-public func scrypt(password: String, salt: Data, length: Int, N: Int, R: Int, P: Int) -> Data? {
-    guard let deriver = try? OldScrypt(password: Array(password.utf8), salt: salt.bytes, dkLen: length, N: N, r: R, p: P) else { return nil }
-    guard let result = try? deriver.calculate() else { return nil }
-    return Data(result)
-}
-
-func toByteArray<T>(_ value: T) -> [UInt8] {
-    var value = value
-    return withUnsafeBytes(of: &value) { Array($0) }
-}
-
-enum ScryptError: Error {
-    case nIsTooLarge
-    case rIsTooLarge
-    case nMustBeAPowerOf2GreaterThan1
-    
-    var localizedDescription: String {
+enum AesMode {
+    case ctr
+    case cbc
+    enum Error: Swift.Error {
+        case invalidType(String)
+    }
+    init(_ string: String) throws {
+        switch string {
+        case "aes-128-ctr": self = .ctr
+        case "aes-128-cbc": self = .cbc
+        default: throw Error.invalidType(string)
+        }
+    }
+    func blockMode(_ iv: Data) -> BlockMode {
         switch self {
-        case .nIsTooLarge:
-            return "Scrypt error: N is too large"
-        case .rIsTooLarge:
-            return "Scrypt error: R is too large"
-        case .nMustBeAPowerOf2GreaterThan1:
-            return "Scrypt error: N must be a power of two and greater than 1"
+        case .ctr: return CTR(iv: iv.bytes)
+        case .cbc: return CBC(iv: iv.bytes)
         }
     }
 }
 
-/// Implementation of the scrypt key derivation function.
-private class OldScrypt {
+protocol DerivedKey {
+    func calculate(password: Data) throws -> Data
+}
+
+enum DecryptionError: Error {
+    case invalidPassword
+}
+
+enum DerivedKeyType {
+    enum Error: Swift.Error {
+        case invalidType(String)
+    }
+    case scrypt
+    case pbkdf2
+    init(_ type: String) throws {
+        switch type {
+        case "scrypt": self = .scrypt
+        case "pbkdf2": self = .pbkdf2
+        default: throw Error.invalidType(type)
+        }
+    }
+    func derivedKey(_ json: DictionaryReader) throws -> DerivedKey {
+        switch self {
+        case .scrypt: return try Scrypt(json: json)
+        case .pbkdf2: return try PBKDF2(json: json)
+        }
+    }
+}
+
+extension HMAC.Variant {
+    init(_ string: String) throws {
+        switch string {
+        case "hmac-sha256":
+            self = HMAC.Variant.sha256
+        case "hmac-sha384":
+            self = HMAC.Variant.sha384
+        case "hmac-sha512":
+            self = HMAC.Variant.sha512
+        default:
+            throw PBKDF2.Error.unknownHmacAlgorithm(string)
+        }
+    }
+    var digestLength: Int {
+        switch self {
+        case .sha1:
+            return 20
+        case .sha256:
+            return SHA2.Variant.sha256.digestLength
+        case .sha384:
+            return SHA2.Variant.sha384.digestLength
+        case .sha512:
+            return SHA2.Variant.sha512.digestLength
+        case .md5:
+            return 16
+        }
+    }
+}
+
+class PBKDF2: DerivedKey {
+    enum Error: Swift.Error {
+        case unknownHmacAlgorithm(String)
+        case invalidParameters
+        var localizedDescription: String {
+            switch self {
+            case let .unknownHmacAlgorithm(string):
+                return "Unknown hmac algorithm \"\(string)\". Allowed: hmac-sha256, hmac-sha384, hmac-sha512"
+            case .invalidParameters:
+                return "Cannot load PBKDF2 with provided parameters"
+            }
+        }
+    }
+    let variant: HMAC.Variant
+    let keyLength: Int
+    let iterations: Int
+    let salt: [UInt8]
+    
+    init(salt: Data, iterations: Int, keyLength: Int, variant: HMAC.Variant) {
+        self.salt = Array(salt)
+        self.keyLength = keyLength
+        self.iterations = iterations
+        self.variant = variant
+    }
+    init(json: DictionaryReader) throws {
+        variant = try HMAC.Variant(json.at("prf").string())
+        keyLength = try json.at("dklen").int()
+        iterations = try json.at("c").int()
+        salt = try Array(json.at("salt").data())
+        guard iterations > 0 && !salt.isEmpty else { throw Error.invalidParameters }
+        if Double(keyLength) > (pow(2, 32) - 1) * Double(variant.digestLength) {
+            throw Error.invalidParameters
+        }
+    }
+    
+    func calculate(password: Data) throws -> Data {
+        let derivedKey = try! PKCS5.PBKDF2(password: Array(password), salt: Array(salt), iterations: iterations, keyLength: keyLength, variant: variant)
+        do {
+            return try Data(derivedKey.calculate())
+        } catch {
+            throw DecryptionError.invalidPassword
+        }
+    }
+}
+
+
+/**
+ Scrypt function. Used to generate derivedKey from password, salt, n, r, p
+ */
+class Scrypt: DerivedKey {
+    enum ScryptError: Swift.Error {
+        case nIsTooLarge
+        case rIsTooLarge
+        case nMustBeAPowerOf2GreaterThan1
+        
+        var localizedDescription: String {
+            switch self {
+            case .nIsTooLarge:
+                return "Scrypt error: N is too large"
+            case .rIsTooLarge:
+                return "Scrypt error: R is too large"
+            case .nMustBeAPowerOf2GreaterThan1:
+                return "Scrypt error: N must be a power of two and greater than 1"
+            }
+        }
+    }
     enum Error: Swift.Error {
         case invalidPassword
         case invalidSalt
@@ -54,54 +166,51 @@ private class OldScrypt {
             }
         }
     }
-
-    /// Configuration parameters.
-    private let salt: Array<UInt8> // S
-    private let password: Array<UInt8>
-    fileprivate let blocksize: Int // 128 * r
-    private let dkLen: Int
-    private let N: Int
-    private let r: Int
-    private let p: Int
-
-    init(password: Array<UInt8>, salt: Array<UInt8>, dkLen: Int, N: Int, r: Int, p: Int) throws {
-        precondition(dkLen > 0)
-        precondition(N > 0)
-        precondition(r > 0)
-        precondition(p > 0)
-
+    
+    let salt: Data // S
+    let dkLen: Int
+    let n: Int
+    let r: Int
+    let p: Int
+    
+    init(salt: Data, dkLen: Int, N: Int, r: Int, p: Int) throws {
         guard !(N < 2 || (N & (N - 1)) != 0) else { throw ScryptError.nMustBeAPowerOf2GreaterThan1 }
-
+        
         guard N <= .max / 128 / r else { throw ScryptError.nIsTooLarge }
         guard r <= .max / 128 / p else { throw ScryptError.rIsTooLarge }
-
-        blocksize = 128 * r
-        self.N = N
+        
+        self.n = N
         self.r = r
         self.p = p
-        self.password = password
         self.salt = salt
         self.dkLen = dkLen
     }
-
+    init(json: DictionaryReader) throws {
+        dkLen = try json.at("dklen").int()
+        n = try json.at("n").int()
+        r = try json.at("r").int()
+        p = try json.at("p").int()
+        salt = try json.at("salt").data()
+    }
+    
     /// Runs the key derivation function with a specific password.
-    func calculate() throws -> [UInt8] {
+    func calculate(password: Data) throws -> Data {
         // Allocate memory.
         let B = UnsafeMutableRawPointer.allocate(byteCount: 128 * r * p, alignment: 64)
         let XY = UnsafeMutableRawPointer.allocate(byteCount: 256 * r + 64, alignment: 64)
-        let V = UnsafeMutableRawPointer.allocate(byteCount: 128 * r * N, alignment: 64)
-
+        let V = UnsafeMutableRawPointer.allocate(byteCount: 128 * r * n, alignment: 64)
+        
         // Deallocate memory when done
         defer {
             B.deallocate()
             XY.deallocate()
             V.deallocate()
         }
-
-        /* 1: (B_0 ... B_{p-1}) <-- PBKDF2(P, S, 1, p * MFLen) */
-        let barray = try PKCS5.PBKDF2(password: password, salt: [UInt8](salt), iterations: 1, keyLength: p * 128 * r, variant: .sha256).calculate()
         
-        barray.withUnsafeBytes { p in
+        /* 1: (B_0 ... B_{p-1}) <-- PBKDF2(P, S, 1, p * MFLen) */
+        let barray = try PBKDF2(salt: salt, iterations: 1, keyLength: p * 128 * r, variant: .sha256).calculate(password: password)
+        
+        Array(barray).withUnsafeBytes { p in
             B.copyMemory(from: p.baseAddress!, byteCount: barray.count)
         }
         
@@ -110,14 +219,14 @@ private class OldScrypt {
             /* 3: B_i <-- MF(B_i, N) */
             smix(B + i * 128 * r, V.assumingMemoryBound(to: UInt32.self), XY.assumingMemoryBound(to: UInt32.self))
         }
-
+        
         /* 5: DK <-- PBKDF2(P, B, 1, dkLen) */
         let pointer = B.assumingMemoryBound(to: UInt8.self)
         let bufferPointer = UnsafeBufferPointer(start: pointer, count: p * 128 * r)
-        let block = [UInt8](bufferPointer)
-        return try PKCS5.PBKDF2(password: password, salt: block, iterations: 1, keyLength: dkLen, variant: .sha256).calculate()
+        let block = Data(buffer: bufferPointer)
+        return try PBKDF2(salt: block, iterations: 1, keyLength: dkLen, variant: .sha256).calculate(password: password)
     }
-
+    
     /// Computes `B = SMix_r(B, N)`.
     ///
     /// The input `block` must be `128*r` bytes in length; the temporary storage `v` must be `128*r*n` bytes in length;
@@ -127,58 +236,58 @@ private class OldScrypt {
         let X = xy
         let Y = xy + 32 * r
         let Z = xy + 64 * r
-
+        
         /* 1: X <-- B */
         for k in 0 ..< 32 * r {
             X[k] = (block + 4 * k).load(as: UInt32.self)
         }
         
-
+        
         /* 2: for i = 0 to N - 1 do */
-        for i in stride(from: 0, to: N, by: 2) {
+        for i in stride(from: 0, to: n, by: 2) {
             /* 3: V_i <-- X */
             UnsafeMutableRawPointer(v + i * (32 * r)).copyMemory(from: X, byteCount: 128 * r)
             
-
+            
             /* 4: X <-- H(X) */
             blockMixSalsa8(X, Y, Z)
-
+            
             /* 3: V_i <-- X */
             UnsafeMutableRawPointer(v + (i + 1) * (32 * r)).copyMemory(from: Y, byteCount: 128 * r)
-
+            
             /* 4: X <-- H(X) */
             blockMixSalsa8(Y, X, Z)
         }
-
+        
         /* 6: for i = 0 to N - 1 do */
-        for _ in stride(from: 0, to: N, by: 2) {
+        for _ in stride(from: 0, to: n, by: 2) {
             /* 7: j <-- Integerify(X) mod N */
-            var j = Int(integerify(X) & UInt64(N - 1))
-
+            var j = Int(integerify(X) & UInt64(n - 1))
+            
             /* 8: X <-- H(X \xor V_j) */
             blockXor(X, v + j * 32 * r, 128 * r)
             blockMixSalsa8(X, Y, Z)
-
+            
             /* 7: j <-- Integerify(X) mod N */
-            j = Int(integerify(Y) & UInt64(N - 1))
-
+            j = Int(integerify(Y) & UInt64(n - 1))
+            
             /* 8: X <-- H(X \xor V_j) */
             blockXor(Y, v + j * 32 * r, 128 * r)
             blockMixSalsa8(Y, X, Z)
         }
-
+        
         /* 10: B' <-- X */
         for k in 0 ..< 32 * r {
             UnsafeMutableRawPointer(block + 4 * k).storeBytes(of: X[k], as: UInt32.self)
         }
     }
-
+    
     /// Returns the result of parsing `B_{2r-1}` as a little-endian integer.
     private func integerify(_ block: UnsafeRawPointer) -> UInt64 {
         let bi = block + (2 * r - 1) * 64
         return bi.load(as: UInt64.self)
     }
-
+    
     /// Compute `bout = BlockMix_{salsa20/8, r}(bin)`.
     ///
     /// The input `bin` must be `128*r` bytes in length; the output `bout` must also be the same size. The temporary
@@ -189,18 +298,18 @@ private class OldScrypt {
             blockXor(x, bin + i * 16, 64)
             salsa20_8(x)
             UnsafeMutableRawPointer(bout + i * 8).copyMemory(from: x, byteCount: 64)
-
+            
             blockXor(x, bin + i * 16 + 16, 64)
             salsa20_8(x)
             UnsafeMutableRawPointer(bout + i * 8 + r * 16).copyMemory(from: x, byteCount: 64)
         }
     }
-
+    
     @inline(__always)
     func rotate(_ a: UInt32, _ b: UInt32) -> UInt32 {
         return (a << b) | (a >> (32 - b))
     }
-
+    
     /// Applies the salsa20/8 core to the provided block.
     private func salsa20_8(_ block: UnsafeMutablePointer<UInt32>) {
         var x0 = block[0]
@@ -219,7 +328,7 @@ private class OldScrypt {
         var x13 = block[13]
         var x14 = block[14]
         var x15 = block[15]
-
+        
         for _ in 0 ..< 4 {
             x4 ^= rotate(x0 &+ x12, 7)
             x8 ^= rotate(x4 &+ x0, 9)
@@ -271,12 +380,12 @@ private class OldScrypt {
         block[14] = block[14] &+ x14
         block[15] = block[15] &+ x15
     }
-
+    
     private func blockXor(_ dest: UnsafeMutableRawPointer, _ src: UnsafeRawPointer, _ len: Int) {
         let D = dest.assumingMemoryBound(to: UInt.self)
         let S = src.assumingMemoryBound(to: UInt.self)
         let L = len / MemoryLayout<UInt>.size
-
+        
         for i in 0 ..< L {
             D[i] ^= S[i]
         }

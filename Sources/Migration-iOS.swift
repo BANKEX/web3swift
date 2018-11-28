@@ -35,4 +35,11 @@ public struct EIP67CodeParser {
         return EIP67Code(string: string)
     }
 }
+
+extension EIP67Code {
+    @available (*, deprecated: 2.0, message: "Use init with address")
+    public init(address: String) {
+        self.init(address: Address(address))
+    }
+}
 #endif

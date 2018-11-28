@@ -192,12 +192,6 @@ public struct BIP39 {
     }
 }
 
-extension EIP67Code {
-    @available (*, deprecated: 2.0, message: "Use init with address")
-    public init(address: String) {
-        self.init(address: Address(address))
-    }
-}
 extension KeystoreManager {
     @available (*, deprecated: 2.0, renamed: "default")
     static var defaultManager: KeystoreManager? {
