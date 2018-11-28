@@ -96,6 +96,7 @@ public class SolidityDataReader {
 			return ""
 		} else if pointer < Int.max {
             if let string = view(block: { try? stringPointer() }) {
+                try! skip(32)
                 return string
             } else {
                 return try string32()
