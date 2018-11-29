@@ -258,7 +258,15 @@ struct SECP256K1 {
         try signature.checkSignatureSize()
         var recoverableSignature = secp256k1_ecdsa_recoverable_signature()
         let serializedSignature = Data(signature[0 ..< 64])
-        let v = Int32(signature[64])
+        var v = Int32(signature[64])
+        
+        /*
+         fix for web3.js signs
+         eth-lib code: vrs.v < 2 ? vrs.v : 1 - (vrs.v % 2)
+        https://github.com/MaiaVictor/eth-lib/blob/d959c54faa1e1ac8d474028ed1568c5dce27cc7a/src/account.js#L60
+        */
+        v = v < 2 ? v : 1 - (v % 2)
+        
         let result = serializedSignature.withUnsafeBytes { (serPtr: UnsafePointer<UInt8>) -> Int32 in
             withUnsafeMutablePointer(to: &recoverableSignature, { (signaturePointer: UnsafeMutablePointer<secp256k1_ecdsa_recoverable_signature>) in
                 secp256k1_ecdsa_recoverable_signature_parse_compact(context!, signaturePointer, serPtr, v)

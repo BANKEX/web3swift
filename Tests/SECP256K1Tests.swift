@@ -98,4 +98,18 @@ class SECP256K1Tests: XCTestCase {
             }
         }
     }
+
+    func testSomeSignatures() throws {
+        
+        let password = "Your password"
+        let keystore = try! BIP32Keystore(mnemonics: Mnemonics(), password: password)
+        
+        for i in 1...3 {
+            print("Signing \(i)/10")
+            let message = "\(i) Hello World \(i)".data
+            let signature = try! Web3Signer.signPersonalMessage(message, keystore: keystore, account: keystore.addresses[0], password: password)
+            let address = try! Web3.default.personal.ecrecover(personalMessage: message, signature: signature)
+            XCTAssertEqual(address,keystore.addresses[0])
+        }
+    }
 }
