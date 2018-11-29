@@ -173,15 +173,15 @@ public class EthereumKeystoreV3: AbstractKeystore {
         }
         guard let derivedKey = passwordDerivedKey else { return nil }
         var dataForMAC = Data()
-        
-        dataForMAC.append(derivedKey.suffix(16))
+        let derivedKeyLast16bytes = Data(derivedKey[(derivedKey.count - 16) ... (derivedKey.count - 1)])
+        dataForMAC.append(derivedKeyLast16bytes)
         guard let cipherText = Data.fromHex(keystoreParams.crypto.ciphertext) else { return nil }
         if cipherText.count != 32 { return nil }
         dataForMAC.append(cipherText)
         let mac = dataForMAC.sha3(.keccak256)
         guard let calculatedMac = Data.fromHex(keystoreParams.crypto.mac), mac.constantTimeComparisonTo(calculatedMac) else { return nil }
         let cipher = keystoreParams.crypto.cipher
-        let decryptionKey = derivedKey.suffix(16)
+        let decryptionKey = derivedKey[0 ... 15]
         guard let IV = Data.fromHex(keystoreParams.crypto.cipherparams.iv) else { return nil }
         var decryptedPK: Array<UInt8>?
         switch cipher {
