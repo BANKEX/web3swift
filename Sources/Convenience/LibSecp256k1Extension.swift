@@ -222,7 +222,7 @@ struct SECP256K1 {
         try privateKey.checkPrivateKeySize()
         var publicKey = secp256k1_pubkey()
         let result = privateKey.withUnsafeBytes { (privateKeyPointer: UnsafePointer<UInt8>) in
-            secp256k1_ec_pubkey_create(context!, UnsafeMutablePointer<secp256k1_pubkey>(&publicKey), privateKeyPointer)
+            secp256k1_ec_pubkey_create(context!, &publicKey, privateKeyPointer)
         }
         guard result != 0 else { throw SECP256DataError.cannotExtractPublicKeyFromPrivateKey }
         return publicKey
@@ -248,7 +248,7 @@ struct SECP256K1 {
         let keyLen: Int = Int(serializedKey.count)
         var publicKey = secp256k1_pubkey()
         let result = serializedKey.withUnsafeBytes { (serializedKeyPointer: UnsafePointer<UInt8>) in
-            secp256k1_ec_pubkey_parse(context!, UnsafeMutablePointer<secp256k1_pubkey>(&publicKey), serializedKeyPointer, keyLen)
+            secp256k1_ec_pubkey_parse(context!, &publicKey, serializedKeyPointer, keyLen)
         }
         guard result != 0 else { throw SECP256DataError.cannotParsePublicKey }
         return publicKey

@@ -6,7 +6,7 @@
 //  Copyright © 2017 Alexander Vlasov. All rights reserved.
 //
 
-import Cryptor
+//import Cryptor
 import Foundation
 
 /**

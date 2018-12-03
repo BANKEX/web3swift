@@ -6,7 +6,7 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import Cryptor
+//import Cryptor
 import Foundation
 
 /// Mnemonics language

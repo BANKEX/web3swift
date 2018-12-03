@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Cryptor
 
 protocol DerivedKey {
     func calculate(password: Data) throws -> Data

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import Cryptor
+//import Cryptor
 
 @testable import web3swift
 
