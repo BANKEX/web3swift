@@ -24,9 +24,9 @@ class RinkebyPersonalSignatureTests: XCTestCase {
         let signature = try web3.personal.signPersonalMessage(message: message, from: expectedAddress, password: "")
         let unmarshalledSignature = try SECP256K1.unmarshalSignature(signatureData: signature)
         print("V = " + String(unmarshalledSignature.v))
-        print("R = " + Data(unmarshalledSignature.r).toHexString())
-        print("S = " + Data(unmarshalledSignature.s).toHexString())
-        try! print("Personal hash = " + Web3Utils.hashPersonalMessage(message).toHexString())
+        print("R = " + Data(unmarshalledSignature.r).hex)
+        print("S = " + Data(unmarshalledSignature.s).hex)
+        try! print("Personal hash = " + Web3Utils.hashPersonalMessage(message).hex)
         let signer = try web3.personal.ecrecover(personalMessage: message, signature: signature)
         XCTAssert(expectedAddress == signer, "Failed to sign personal message")
     }
@@ -43,9 +43,9 @@ class RinkebyPersonalSignatureTests: XCTestCase {
         let signature = try web3.personal.signPersonalMessage(message: messageData, from: expectedAddress, password: "")
         let unmarshalledSignature = try SECP256K1.unmarshalSignature(signatureData: signature)
         print("V = " + String(unmarshalledSignature.v))
-        print("R = " + Data(unmarshalledSignature.r).toHexString())
-        print("S = " + Data(unmarshalledSignature.s).toHexString())
-        try print("Personal hash = " + Web3Utils.hashPersonalMessage(messageData).toHexString())
+        print("R = " + Data(unmarshalledSignature.r).hex)
+        print("S = " + Data(unmarshalledSignature.s).hex)
+        try print("Personal hash = " + Web3Utils.hashPersonalMessage(messageData).hex)
         let jsonString = "[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"constant\":true,\"inputs\":[{\"name\":\"_message\",\"type\":\"string\"}],\"name\":\"hashPersonalMessage\",\"outputs\":[{\"name\":\"hash\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_message\",\"type\":\"string\"},{\"name\":\"v\",\"type\":\"uint8\"},{\"name\":\"r\",\"type\":\"bytes32\"},{\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"recoverSigner\",\"outputs\":[{\"name\":\"signer\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"}]"
         let contract = try web3.contract(jsonString, at: "0x6f1745a39059268e8e4572e97897b50e4aab62a8")
         var options = Web3Options.default

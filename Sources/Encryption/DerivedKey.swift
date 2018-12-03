@@ -7,28 +7,7 @@
 //
 
 import Foundation
-import CryptoSwift
-
-enum AesMode {
-    case ctr
-    case cbc
-    enum Error: Swift.Error {
-        case invalidType(String)
-    }
-    init(_ string: String) throws {
-        switch string {
-        case "aes-128-ctr": self = .ctr
-        case "aes-128-cbc": self = .cbc
-        default: throw Error.invalidType(string)
-        }
-    }
-    func blockMode(_ iv: Data) -> BlockMode {
-        switch self {
-        case .ctr: return CTR(iv: iv.bytes)
-        case .cbc: return CBC(iv: iv.bytes)
-        }
-    }
-}
+import Cryptor
 
 protocol DerivedKey {
     func calculate(password: Data) throws -> Data
@@ -54,41 +33,111 @@ enum DerivedKeyType {
     func derivedKey(_ json: DictionaryReader) throws -> DerivedKey {
         switch self {
         case .scrypt: return try Scrypt(json: json)
-        case .pbkdf2: return try PBKDF2(json: json)
+        case .pbkdf2: return try PBKDF2Object(json: json)
         }
     }
 }
 
-extension HMAC.Variant {
+//extension HMAC.Variant {
+//    init(_ string: String) throws {
+//        switch string {
+//        case "hmac-sha256":
+//            self = HMAC.Variant.sha256
+//        case "hmac-sha384":
+//            self = HMAC.Variant.sha384
+//        case "hmac-sha512":
+//            self = HMAC.Variant.sha512
+//        default:
+//            throw PBKDF2Object.Error.unknownHmacAlgorithm(string)
+//        }
+//    }
+//    var digestLength: Int {
+//        switch self {
+//        case .sha1:
+//            return 20
+//        case .sha256:
+//            return SHA2.Variant.sha256.digestLength
+//        case .sha384:
+//            return SHA2.Variant.sha384.digestLength
+//        case .sha512:
+//            return SHA2.Variant.sha512.digestLength
+//        case .md5:
+//            return 16
+//        }
+//    }
+//}
+
+
+enum HmacVariant {
+    case sha1, sha224, sha256, sha384, sha512
+    var cc: PBKDF.PseudoRandomAlgorithm {
+        switch self {
+        case .sha1: return .sha1
+        case .sha224: return .sha224
+        case .sha256: return .sha256
+        case .sha384: return .sha384
+        case .sha512: return .sha512
+        }
+    }
+    var c: HMAC.Algorithm {
+        switch self {
+        case .sha1: return .sha1
+        case .sha224: return .sha224
+        case .sha256: return .sha256
+        case .sha384: return .sha384
+        case .sha512: return .sha512
+        }
+    }
+    
     init(_ string: String) throws {
         switch string {
         case "hmac-sha256":
-            self = HMAC.Variant.sha256
+            self = HmacVariant.sha256
         case "hmac-sha384":
-            self = HMAC.Variant.sha384
+            self = HmacVariant.sha384
         case "hmac-sha512":
-            self = HMAC.Variant.sha512
+            self = HmacVariant.sha512
         default:
-            throw PBKDF2.Error.unknownHmacAlgorithm(string)
+            throw PBKDF2Object.Error.unknownHmacAlgorithm(string)
         }
     }
     var digestLength: Int {
         switch self {
         case .sha1:
-            return 20
+            return 160 / 8
+        case .sha224:
+            return 224 / 8
         case .sha256:
-            return SHA2.Variant.sha256.digestLength
+            return 256 / 8
         case .sha384:
-            return SHA2.Variant.sha384.digestLength
+            return 384 / 8
         case .sha512:
-            return SHA2.Variant.sha512.digestLength
-        case .md5:
-            return 16
+            return 512 / 8
         }
     }
 }
 
-class PBKDF2: DerivedKey {
+extension HMAC {
+    enum HMACError: Error {
+        case authenticationFailed
+    }
+    convenience init(key: [UInt8], variant: HmacVariant) {
+        self.init(using: variant.c, key: Data(key))
+    }
+    func authenticate(_ bytes: [UInt8]) throws -> [UInt8] {
+        if let data = update(byteArray: bytes)?.final() {
+            return data
+        } else {
+            throw HMACError.authenticationFailed
+        }
+    }
+}
+func BetterPBKDF(password: [UInt8], salt: [UInt8], iterations: Int, keyLength: Int, variant: HmacVariant) throws -> [UInt8] {
+    let string = String(bytes: password, encoding: .utf8)!
+    return try PBKDF.deriveKey(fromPassword: string, salt: salt, prf: variant.cc, rounds: UInt32(iterations), derivedKeyLength: UInt(keyLength))
+}
+
+class PBKDF2Object: DerivedKey {
     enum Error: Swift.Error {
         case unknownHmacAlgorithm(String)
         case invalidParameters
@@ -101,19 +150,19 @@ class PBKDF2: DerivedKey {
             }
         }
     }
-    let variant: HMAC.Variant
+    let variant: HmacVariant
     let keyLength: Int
     let iterations: Int
     let salt: [UInt8]
     
-    init(salt: Data, iterations: Int, keyLength: Int, variant: HMAC.Variant) {
+    init(salt: Data, iterations: Int, keyLength: Int, variant: HmacVariant) {
         self.salt = Array(salt)
         self.keyLength = keyLength
         self.iterations = iterations
         self.variant = variant
     }
     init(json: DictionaryReader) throws {
-        variant = try HMAC.Variant(json.at("prf").string())
+        variant = try HmacVariant(json.at("prf").string())
         keyLength = try json.at("dklen").int()
         iterations = try json.at("c").int()
         salt = try Array(json.at("salt").data())
@@ -124,9 +173,8 @@ class PBKDF2: DerivedKey {
     }
     
     func calculate(password: Data) throws -> Data {
-        let derivedKey = try! PKCS5.PBKDF2(password: Array(password), salt: Array(salt), iterations: iterations, keyLength: keyLength, variant: variant)
         do {
-            return try Data(derivedKey.calculate())
+            return try Data(BetterPBKDF(password: Array(password), salt: Array(salt), iterations: iterations, keyLength: keyLength, variant: variant))
         } catch {
             throw DecryptionError.invalidPassword
         }
@@ -208,7 +256,7 @@ class Scrypt: DerivedKey {
         }
         
         /* 1: (B_0 ... B_{p-1}) <-- PBKDF2(P, S, 1, p * MFLen) */
-        let barray = try PBKDF2(salt: salt, iterations: 1, keyLength: p * 128 * r, variant: .sha256).calculate(password: password)
+        let barray = try PBKDF2Object(salt: salt, iterations: 1, keyLength: p * 128 * r, variant: .sha256).calculate(password: password)
         
         Array(barray).withUnsafeBytes { p in
             B.copyMemory(from: p.baseAddress!, byteCount: barray.count)
@@ -224,7 +272,7 @@ class Scrypt: DerivedKey {
         let pointer = B.assumingMemoryBound(to: UInt8.self)
         let bufferPointer = UnsafeBufferPointer(start: pointer, count: p * 128 * r)
         let block = Data(buffer: bufferPointer)
-        return try PBKDF2(salt: block, iterations: 1, keyLength: dkLen, variant: .sha256).calculate(password: password)
+        return try PBKDF2Object(salt: block, iterations: 1, keyLength: dkLen, variant: .sha256).calculate(password: password)
     }
     
     /// Computes `B = SMix_r(B, N)`.

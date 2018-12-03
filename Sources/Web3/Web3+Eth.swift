@@ -266,7 +266,7 @@ public class Web3Eth: Web3OptionsInheritable {
 	///
 	/// - Returns: Found Block
     public func getBlockByHashPromise(_ hash: Data, fullTransactions: Bool = false) -> Promise<Block> {
-        let hashString = hash.toHexString().withHex
+        let hashString = hash.hex.withHex
         return getBlockByHashPromise(hashString, fullTransactions: fullTransactions)
     }
 	
@@ -294,7 +294,7 @@ public class Web3Eth: Web3OptionsInheritable {
 	/// - Returns: Transaction details for particular transaction hash. Details indicate position of the transaction in a particular block,
 	/// as well as original transaction details such as value, gas limit, gas price, etc.
     public func getTransactionDetailsPromise(_ txhash: Data) -> Promise<TransactionDetails> {
-        let hashString = txhash.toHexString().withHex
+        let hashString = txhash.hex.withHex
         return getTransactionDetailsPromise(hashString)
     }
 	
@@ -385,7 +385,7 @@ public class Web3Eth: Web3OptionsInheritable {
 	/// was included in block, so it contains logs and status, such as succesful or failed transaction.
 	/// - Important: This function is synchronous!
     public func getTransactionReceiptPromise(_ txhash: Data) -> Promise<TransactionReceipt> {
-        let hashString = txhash.toHexString().withHex
+        let hashString = txhash.hex.withHex
         return getTransactionReceiptPromise(hashString)
     }
 	

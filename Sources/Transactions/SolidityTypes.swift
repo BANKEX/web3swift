@@ -41,6 +41,10 @@ public enum AbiError: Error {
  ```
  */
 public class SolidityType: Equatable, CustomStringConvertible {
+    static let uint256 = SUInt(bits: 256)
+    static let address = SAddress()
+    
+    
     /// SolidityType array size
     public enum ArraySize {
         /// returns number of elements in a static array

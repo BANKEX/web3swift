@@ -6,7 +6,6 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import CryptoSwift
 import Foundation
 import XCTest
 

@@ -119,8 +119,10 @@
 		13975204219AFA6D0044D2B0 /* ERC20Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE7218C526C00D6D095 /* ERC20Tests.swift */; };
 		13975205219AFA6D0044D2B0 /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE9218C526C00D6D095 /* TransactionTests.swift */; };
 		13975206219AFA6D0044D2B0 /* SECP256K1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDEA218C526C00D6D095 /* SECP256K1Tests.swift */; };
+		139947F221B0586200EA5DB6 /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139947F121B0586200EA5DB6 /* PrivateKey.swift */; };
+		13A93F5A21B0A36900F115E4 /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A93F5921B0A36900F115E4 /* AES.swift */; };
+		13A93F6021B172D900F115E4 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A93F5F21B172D900F115E4 /* Transaction.swift */; };
 		13AC5D3E21A5D109009D0309 /* SolidityDataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AC5D3D21A5D109009D0309 /* SolidityDataReader.swift */; };
-		13BBADB121AD38DA0017F55F /* Accounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BBADB021AD38DA0017F55F /* Accounts.swift */; };
 		13D2576E21ADCD4400D382D1 /* DerivedKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2576D21ADCD4400D382D1 /* DerivedKey.swift */; };
 /* End PBXBuildFile section */
 
@@ -246,8 +248,10 @@
 		13765D6921964A9B005C483C /* W3Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = W3Transaction.swift; sourceTree = "<group>"; };
 		139751B7219AF76D0044D2B0 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		139751B9219AF76D0044D2B0 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		139947F121B0586200EA5DB6 /* PrivateKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKey.swift; sourceTree = "<group>"; };
+		13A93F5921B0A36900F115E4 /* AES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AES.swift; sourceTree = "<group>"; };
+		13A93F5F21B172D900F115E4 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		13AC5D3D21A5D109009D0309 /* SolidityDataReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidityDataReader.swift; sourceTree = "<group>"; };
-		13BBADB021AD38DA0017F55F /* Accounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accounts.swift; sourceTree = "<group>"; };
 		13D2576D21ADCD4400D382D1 /* DerivedKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DerivedKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -298,8 +302,8 @@
 			children = (
 				133E673A219EFE630054758F /* Guides.swift */,
 				1317BD58218C526300D6D095 /* Migration.swift */,
+				13A93F5D21B172A800F115E4 /* Transactions */,
 				133E696521A6B8940054758F /* Migration-iOS.swift */,
-				13BBADAF21AD38C20017F55F /* Keystore */,
 				13D2577021ADEE3D00D382D1 /* Encryption */,
 				133970582199D22A0027E27C /* Deprecated */,
 				1317BCFE218C526300D6D095 /* Transaction */,
@@ -413,10 +417,6 @@
 				1317BD41218C526300D6D095 /* ABIv2Decoding.swift */,
 				1317BD42218C526300D6D095 /* ABIv2ParameterTypes.swift */,
 				1317BD44218C526300D6D095 /* ABIv2Encoding.swift */,
-				1317BD43218C526300D6D095 /* SolidityFunction.swift */,
-				13AC5D3D21A5D109009D0309 /* SolidityDataReader.swift */,
-				1317BD45218C526300D6D095 /* SolidityDataWriter.swift */,
-				1317BD46218C526300D6D095 /* SolidityTypes.swift */,
 			);
 			path = ABIv2;
 			sourceTree = "<group>";
@@ -444,9 +444,9 @@
 			children = (
 				1317BD5A218C526300D6D095 /* RIPEMD160+StackOveflow.swift */,
 				1317BD5B218C526300D6D095 /* UInt256.swift */,
-				1317BD5C218C526300D6D095 /* CryptoExtensions.swift */,
 				1317BD5D218C526300D6D095 /* String+Extension.swift */,
 				1317BD5E218C526300D6D095 /* LibSecp256k1Extension.swift */,
+				1317BD5C218C526300D6D095 /* CryptoExtensions.swift */,
 				1317BD5F218C526300D6D095 /* NSRegularExpressionExtension.swift */,
 				1317BD61218C526300D6D095 /* Data+Extension.swift */,
 				1317BD62218C526300D6D095 /* NativeTypesEncoding+Extensions.swift */,
@@ -527,18 +527,24 @@
 			path = Deprecated;
 			sourceTree = "<group>";
 		};
-		13BBADAF21AD38C20017F55F /* Keystore */ = {
+		13A93F5D21B172A800F115E4 /* Transactions */ = {
 			isa = PBXGroup;
 			children = (
-				13BBADB021AD38DA0017F55F /* Accounts.swift */,
+				1317BD43218C526300D6D095 /* SolidityFunction.swift */,
+				13AC5D3D21A5D109009D0309 /* SolidityDataReader.swift */,
+				1317BD45218C526300D6D095 /* SolidityDataWriter.swift */,
+				1317BD46218C526300D6D095 /* SolidityTypes.swift */,
+				13A93F5F21B172D900F115E4 /* Transaction.swift */,
 			);
-			path = Keystore;
+			path = Transactions;
 			sourceTree = "<group>";
 		};
 		13D2577021ADEE3D00D382D1 /* Encryption */ = {
 			isa = PBXGroup;
 			children = (
+				13A93F5921B0A36900F115E4 /* AES.swift */,
 				13D2576D21ADCD4400D382D1 /* DerivedKey.swift */,
+				139947F121B0586200EA5DB6 /* PrivateKey.swift */,
 			);
 			path = Encryption;
 			sourceTree = "<group>";
@@ -691,6 +697,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13A93F6021B172D900F115E4 /* Transaction.swift in Sources */,
 				133E696621A6B8940054758F /* Migration-iOS.swift in Sources */,
 				1317BDBF218C526300D6D095 /* UInt256.swift in Sources */,
 				13765D6F21964A9B005C483C /* W3Web3.swift in Sources */,
@@ -738,8 +745,8 @@
 				1317BDA7218C526300D6D095 /* ABIv2TypeParser.swift in Sources */,
 				1317BDAF218C526300D6D095 /* BlockExplorer.swift in Sources */,
 				1317BDAC218C526300D6D095 /* SolidityDataWriter.swift in Sources */,
-				13BBADB121AD38DA0017F55F /* Accounts.swift in Sources */,
 				1317BD83218C526300D6D095 /* Web3+Protocols.swift in Sources */,
+				13A93F5A21B0A36900F115E4 /* AES.swift in Sources */,
 				1317BD85218C526300D6D095 /* Web3+Eth.swift in Sources */,
 				1317BD70218C526300D6D095 /* TransactionSigner.swift in Sources */,
 				13397055219984480027E27C /* SecurityToken.swift in Sources */,
@@ -770,6 +777,7 @@
 				1317BDBE218C526300D6D095 /* RIPEMD160+StackOveflow.swift in Sources */,
 				1317BDC2218C526300D6D095 /* LibSecp256k1Extension.swift in Sources */,
 				1317BD71218C526300D6D095 /* EthereumTransaction.swift in Sources */,
+				139947F221B0586200EA5DB6 /* PrivateKey.swift in Sources */,
 				1317BD8B218C526300D6D095 /* EIP67Code.swift in Sources */,
 				1317BD88218C526300D6D095 /* Web3+Structures.swift in Sources */,
 				1317BD81218C526300D6D095 /* Web3+Contract.swift in Sources */,
@@ -875,6 +883,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos appletvsimulator appletvos watchos watchsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -935,6 +944,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos appletvsimulator appletvos watchos watchsimulator";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.2;

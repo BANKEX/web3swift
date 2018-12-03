@@ -7,7 +7,7 @@
 //
 
 import BigInt
-import CryptoSwift
+import Cryptor
 import Foundation
 
 extension UInt32 {
@@ -143,7 +143,7 @@ public class HDNode {
     public init(seed: Data) throws {
         guard seed.count >= 16 else { throw Error.invalidSeedSize }
         let hmacKey = "Bitcoin seed".data(using: .ascii)!
-        let hmac: Authenticator = HMAC(key: hmacKey.bytes, variant: HMAC.Variant.sha512)
+        let hmac = HMAC(key: hmacKey.bytes, variant: .sha512)
         let entropy = try hmac.authenticate(seed.bytes)
         try entropy.checkEntropySize()
         let I_L = entropy[0 ..< 32]
@@ -216,7 +216,7 @@ public class HDNode {
                 if trueIndex < HDNode.hardenedIndexPrefix {
                     trueIndex = trueIndex + HDNode.hardenedIndexPrefix
                 }
-                let hmac: Authenticator = HMAC(key: chaincode.bytes, variant: .sha512)
+                let hmac = HMAC(key: chaincode.bytes, variant: .sha512)
                 var inputForHMAC = Data()
                 inputForHMAC.append(Data([UInt8(0x00)]))
                 inputForHMAC.append(privateKey!)
@@ -225,7 +225,7 @@ public class HDNode {
                 try entropy.checkEntropySize()
             } else {
                 trueIndex = index
-                let hmac: Authenticator = HMAC(key: chaincode.bytes, variant: .sha512)
+                let hmac = HMAC(key: chaincode.bytes, variant: .sha512)
                 var inputForHMAC = Data()
                 inputForHMAC.append(publicKey)
                 inputForHMAC.append(trueIndex.serialize32())
@@ -269,7 +269,7 @@ public class HDNode {
             return newNode
         } else { // deriving only the public key
             guard !(index >= HDNode.hardenedIndexPrefix || hardened) else { throw DeriveError.noHardenedDerivation }
-            let hmac: Authenticator = HMAC(key: self.chaincode.bytes, variant: .sha512)
+            let hmac = HMAC(key: self.chaincode.bytes, variant: .sha512)
             var inputForHMAC = Data()
             inputForHMAC.append(publicKey)
             inputForHMAC.append(index.serialize32())

@@ -84,10 +84,7 @@ public struct Address {
     public var addressData: Data {
         switch type {
         case .normal:
-            guard let dataArray = Data.fromHex(_address) else { return Data() }
-            return dataArray
-        //                guard let d = dataArray.setLengthLeft(20) else { return Data()}
-        //                return d
+            return Data.fromHex(_address) ?? Data()
         case .contractDeployment:
             return Data()
         }
@@ -107,7 +104,7 @@ public struct Address {
     /// Converts address to checksum address
     public static func toChecksumAddress(_ addr: String) -> String? {
         let address = addr.lowercased().withoutHex
-        guard let hash = address.data(using: .ascii)?.sha3(.keccak256).toHexString() else { return nil }
+        guard let hash = address.data(using: .ascii)?.keccak256().hex else { return nil }
         var ret = "0x"
 
         for (i, char) in address.enumerated() {
@@ -145,7 +142,7 @@ public struct Address {
     /// - Parameter type: Address type. default: .normal
     /// - Important: addressData is not the utf8 format of hex string
     public init(_ addressData: Data, type: AddressType = .normal) {
-        _address = addressData.toHexString().withHex
+        _address = addressData.hex.withHex
         self.type = type
     }
     
@@ -169,6 +166,12 @@ extension Address: Equatable {
     /// Compares address checksum representation. So there won't be a conflict with string casing
     public static func == (lhs: Address, rhs: Address) -> Bool {
         return lhs.address == rhs.address && lhs.type == rhs.type
+    }
+}
+
+extension Address: Hashable {
+    public var hashValue: Int {
+        return address.hashValue
     }
 }
 

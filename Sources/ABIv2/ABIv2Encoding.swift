@@ -259,7 +259,7 @@ public struct ABIv2Encoder {
                         toReturn.append(encoding)
                     }
                     let total = lengthEncoding + toReturn
-//                    print("Dynamic array of static types encoding :\n" + String(total.toHexString()))
+//                    print("Dynamic array of static types encoding :\n" + String(total.hex))
                     return total
                 } else {
                     // create new context
@@ -292,7 +292,7 @@ public struct ABIv2Encoder {
                         }
                     }
                     let total = lengthEncoding + headsConcatenated + tailsConcatenated
-//                    print("Dynamic array of dynamic types encoding :\n" + String(total.toHexString()))
+//                    print("Dynamic array of dynamic types encoding :\n" + String(total.hex))
                     return total
                 }
             case let .staticSize(staticLength):
@@ -307,7 +307,7 @@ public struct ABIv2Encoder {
                         guard let encoding = enc else { break }
                         toReturn.append(encoding)
                     }
-//                    print("Static array of static types encoding :\n" + String(toReturn.toHexString()))
+//                    print("Static array of static types encoding :\n" + String(toReturn.hex))
                     let total = toReturn
                     return total
                 } else {
@@ -335,7 +335,7 @@ public struct ABIv2Encoder {
                         tailsPointer = tailsPointer + BigUInt(tail.count)
                     }
                     let total = headsConcatenated + tailsConcatenated
-//                    print("Static array of dynamic types encoding :\n" + String(total.toHexString()))
+//                    print("Static array of dynamic types encoding :\n" + String(total.hex))
                     return total
                 }
             case .notArray:

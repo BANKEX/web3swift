@@ -113,7 +113,7 @@ extension Web3Utils {
                 stipped = stipped[1 ... 64]
             }
             guard stipped.count == 64 else { throw PublicKeyToAddressError.invalidPublicKeySize }
-            let sha3 = stipped.sha3(.keccak256)
+            let sha3 = stipped.keccak256()
             let addressData = sha3[12 ..< 32]
             return addressData
         }
@@ -125,7 +125,7 @@ extension Web3Utils {
     /// Returns the Address object.
     public static func publicToAddress(_ publicKey: Data) throws -> Address {
         let addressData = try Web3Utils.publicToAddressData(publicKey)
-        let address = addressData.toHexString().withHex.lowercased()
+        let address = addressData.hex
         return Address(address)
     }
 
@@ -135,7 +135,7 @@ extension Web3Utils {
     /// Returns a 0x prefixed hex string.
     public static func publicToAddressString(_ publicKey: Data) throws -> String {
         let addressData = try Web3Utils.publicToAddressData(publicKey)
-        let address = addressData.toHexString().withHex.lowercased()
+        let address = addressData.hex.withHex.lowercased()
         return address
     }
 
@@ -159,7 +159,7 @@ extension Web3Utils {
             data.append(prefixData)
             data.append(personalMessage)
         }
-        return data.sha3(.keccak256)
+        return data.keccak256()
     }
 
     /// Parse a user-supplied string using the number of decimals for particular Ethereum unit.
@@ -226,13 +226,13 @@ extension Web3Utils {
     /// returns Ethereum variant of sha3 (keccak256) of data. Returns nil is data is empty
     public static func keccak256(_ data: Data) -> Data? {
         if data.count == 0 { return nil }
-        return data.sha3(.keccak256)
+        return data.keccak256()
     }
 
     /// returns Ethereum variant of sha3 (keccak256) of data. Returns nil is data is empty
     public static func sha3(_ data: Data) -> Data? {
         if data.count == 0 { return nil }
-        return data.sha3(.keccak256)
+        return data.keccak256()
     }
 
     /// returns sha256 of data. Returns nil is data is empty

@@ -179,12 +179,12 @@ extension ABIv2.Element.Function {
 
     /// Function hash in hex
     public var methodString: String {
-        return String(signature.sha3(.keccak256).prefix(8))
+        return signature.keccak256().hex
     }
     
     /// Function hash
     public var methodEncoding: Data {
-        return signature.data(using: .ascii)!.sha3(.keccak256)[0..<4]
+        return signature.data(using: .ascii)!.keccak256()[0..<4]
     }
 }
 
@@ -198,7 +198,7 @@ extension ABIv2.Element.Event {
     
     /// Event hash
     public var topic: Data {
-        return signature.data(using: .ascii)!.sha3(.keccak256)
+        return signature.data(using: .ascii)!.keccak256()
     }
 }
 

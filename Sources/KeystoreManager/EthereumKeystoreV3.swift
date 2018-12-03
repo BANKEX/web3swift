@@ -6,7 +6,6 @@
 //  Copyright © 2017 Bankex Foundation. All rights reserved.
 //
 
-import CryptoSwift
 import Foundation
 
 /**
@@ -107,9 +106,9 @@ public class EthereumKeystoreV3: AbstractKeystore {
         var aesCipher: AES!
         switch aesMode {
         case "aes-128-cbc":
-            aesCipher = try? AES(key: encryptionKey.bytes, blockMode: CBC(iv: IV.bytes), padding: .noPadding)
+            aesCipher = AES(key: encryptionKey.bytes, blockMode: CBC(iv: IV.bytes), padding: .noPadding)
         case "aes-128-ctr":
-            aesCipher = try? AES(key: encryptionKey.bytes, blockMode: CTR(iv: IV.bytes), padding: .noPadding)
+            aesCipher = AES(key: encryptionKey.bytes, blockMode: CTR(iv: IV.bytes), padding: .noPadding)
         default:
             aesCipher = nil
         }
@@ -119,10 +118,10 @@ public class EthereumKeystoreV3: AbstractKeystore {
         var dataForMAC = Data()
         dataForMAC.append(last16bytes)
         dataForMAC.append(encryptedKeyData)
-        let mac = dataForMAC.sha3(.keccak256)
-        let kdfparams = KdfParamsV3(salt: saltData.toHexString(), dklen: dkLen, n: N, p: P, r: R, c: nil, prf: nil)
-        let cipherparams = CipherParamsV3(iv: IV.toHexString())
-        let crypto = CryptoParamsV3(ciphertext: encryptedKeyData.toHexString(), cipher: aesMode, cipherparams: cipherparams, kdf: "scrypt", kdfparams: kdfparams, mac: mac.toHexString(), version: nil)
+        let mac = dataForMAC.keccak256()
+        let kdfparams = KdfParamsV3(salt: saltData.hex, dklen: dkLen, n: N, p: P, r: R, c: nil, prf: nil)
+        let cipherparams = CipherParamsV3(iv: IV.hex)
+        let crypto = CryptoParamsV3(ciphertext: encryptedKeyData.hex, cipher: aesMode, cipherparams: cipherparams, kdf: "scrypt", kdfparams: kdfparams, mac: mac.hex, version: nil)
         let pubKey = try Web3Utils.privateToPublic(keyData!)
         let addr = try Web3Utils.publicToAddress(pubKey)
         address = addr
@@ -153,44 +152,32 @@ public class EthereumKeystoreV3: AbstractKeystore {
             passwordDerivedKey = scrypt(password: password, salt: saltData, length: derivedLen, N: N, R: R, P: P)
         case "pbkdf2":
             guard let algo = keystoreParams.crypto.kdfparams.prf else { return nil }
-            var hashVariant: HMAC.Variant?
-            switch algo {
-            case "hmac-sha256":
-                hashVariant = HMAC.Variant.sha256
-            case "hmac-sha384":
-                hashVariant = HMAC.Variant.sha384
-            case "hmac-sha512":
-                hashVariant = HMAC.Variant.sha512
-            default:
-                hashVariant = nil
-            }
-            guard hashVariant != nil else { return nil }
+            let hashVariant = try HmacVariant(algo)
             guard let c = keystoreParams.crypto.kdfparams.c else { return nil }
-            guard let derivedArray = try? PKCS5.PBKDF2(password: Array(password.utf8), salt: saltData.bytes, iterations: c, keyLength: derivedLen, variant: hashVariant!).calculate() else { return nil }
+            guard let derivedArray = try? BetterPBKDF(password: Array(password.utf8), salt: saltData.bytes, iterations: c, keyLength: derivedLen, variant: hashVariant) else { return nil }
             passwordDerivedKey = Data(bytes: derivedArray)
         default:
             return nil
         }
         guard let derivedKey = passwordDerivedKey else { return nil }
         var dataForMAC = Data()
-        let derivedKeyLast16bytes = Data(derivedKey[(derivedKey.count - 16) ... (derivedKey.count - 1)])
-        dataForMAC.append(derivedKeyLast16bytes)
+        dataForMAC.append(derivedKey.suffix(16))
         guard let cipherText = Data.fromHex(keystoreParams.crypto.ciphertext) else { return nil }
         if cipherText.count != 32 { return nil }
         dataForMAC.append(cipherText)
-        let mac = dataForMAC.sha3(.keccak256)
+        let mac = dataForMAC.keccak256()
         guard let calculatedMac = Data.fromHex(keystoreParams.crypto.mac), mac.constantTimeComparisonTo(calculatedMac) else { return nil }
         let cipher = keystoreParams.crypto.cipher
-        let decryptionKey = derivedKey[0 ... 15]
+        let decryptionKey = derivedKey.prefix(16)
         guard let IV = Data.fromHex(keystoreParams.crypto.cipherparams.iv) else { return nil }
         var decryptedPK: Array<UInt8>?
         switch cipher {
         case "aes-128-ctr":
-            guard let aesCipher = try? AES(key: decryptionKey.bytes, blockMode: CTR(iv: IV.bytes), padding: .noPadding) else { return nil }
+            let aesCipher = AES(key: decryptionKey.bytes, blockMode: CTR(iv: IV.bytes), padding: .noPadding)
             decryptedPK = try aesCipher.decrypt(cipherText.bytes)
         case "aes-128-cbc":
-            guard let aesCipher = try? AES(key: decryptionKey.bytes, blockMode: CBC(iv: IV.bytes), padding: .noPadding) else { return nil }
-            decryptedPK = try? aesCipher.decrypt(cipherText.bytes)
+            let aesCipher = AES(key: decryptionKey.bytes, blockMode: CBC(iv: IV.bytes), padding: .noPadding)
+            decryptedPK = try aesCipher.decrypt(cipherText.bytes)
         default:
             return nil
         }
@@ -201,7 +188,9 @@ public class EthereumKeystoreV3: AbstractKeystore {
 	/// Returns json file encoded with v3 standard
     public func serialize() throws -> Data? {
         guard let params = self.keystoreParams else { return nil }
-        let data = try JSONEncoder().encode(params)
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        let data = try encoder.encode(params)
         return data
     }
 }

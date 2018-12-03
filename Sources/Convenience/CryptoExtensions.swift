@@ -6,7 +6,7 @@
 //  Copyright © 2017 Alexander Vlasov. All rights reserved.
 //
 
-import CryptoSwift
+import Cryptor
 import Foundation
 
 /**
@@ -98,8 +98,11 @@ private class OldScrypt {
             V.deallocate()
         }
 
+        
         /* 1: (B_0 ... B_{p-1}) <-- PBKDF2(P, S, 1, p * MFLen) */
-        let barray = try PKCS5.PBKDF2(password: password, salt: [UInt8](salt), iterations: 1, keyLength: p * 128 * r, variant: .sha256).calculate()
+        
+        let pw = String(data: Data(password), encoding: .utf8)!
+        let barray = try PBKDF.deriveKey(fromPassword: pw, salt: salt, prf: .sha256, rounds: 1, derivedKeyLength: UInt(p * 128 * r))
         
         barray.withUnsafeBytes { p in
             B.copyMemory(from: p.baseAddress!, byteCount: barray.count)
@@ -115,7 +118,8 @@ private class OldScrypt {
         let pointer = B.assumingMemoryBound(to: UInt8.self)
         let bufferPointer = UnsafeBufferPointer(start: pointer, count: p * 128 * r)
         let block = [UInt8](bufferPointer)
-        return try PKCS5.PBKDF2(password: password, salt: block, iterations: 1, keyLength: dkLen, variant: .sha256).calculate()
+        return try PBKDF.deriveKey(fromPassword: pw, salt: block, prf: .sha256, rounds: 1, derivedKeyLength: UInt(dkLen))
+//        return try PKCS5.PBKDF2(password: password, salt: block, iterations: 1, keyLength: dkLen, variant: .sha256).calculate()
     }
 
     /// Computes `B = SMix_r(B, N)`.

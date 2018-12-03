@@ -51,7 +51,7 @@ public struct EIP67Code {
                 } else if let number = el.1 as? BigInt {
                     return el.0.abiRepresentation + " " + String(number, radix: 10)
                 } else if let data = el.1 as? Data {
-                    return el.0.abiRepresentation + " " + data.toHexString().withHex
+                    return el.0.abiRepresentation + " " + data.hex.withHex
                 }
                 return ""
             }).joined(separator: ", ") + ")"
@@ -108,7 +108,7 @@ public struct EIP67Code {
         if let data = self.data {
             switch data {
             case let .data(d):
-                queryItems.append(URLQueryItem(name: "data", value: d.toHexString().withHex))
+                queryItems.append(URLQueryItem(name: "data", value: d.hex.withHex))
             case let .function(f):
                 if let enc = f.toString() {
                     queryItems.append(URLQueryItem(name: "function", value: enc))

@@ -32,7 +32,7 @@ class ERC20Tests: XCTestCase {
         let parameters = [address, amount] as [AnyObject]
         let result = method[0].encodeParameters(parameters)
         print(abiNative)
-        let hex = result!.toHexString()
+        let hex = result!.hex
         print(hex)
         XCTAssert(hex == "a9059cbb000000000000000000000000e6877a4d8806e9a9f12eb2e8561ea6c1db19978d0000000000000000000000000000000000000000000000000de0b6b3a7640000", "Failed to encode ERC20")
         let dummyTrue = BigUInt(1).abiEncode(bits: 256)

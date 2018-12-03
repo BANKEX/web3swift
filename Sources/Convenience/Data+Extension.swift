@@ -7,6 +7,9 @@
 //
 
 import Foundation
+import CryptoSwift
+import Cryptor
+
 
 /// Data errors
 public enum DataError: Error {
@@ -18,6 +21,12 @@ public enum DataError: Error {
         case let .hexStringCorrupted(string):
             return "Cannot convert hex string \"\(string)\" to data"
         }
+    }
+}
+
+extension Data {
+    func sha256() -> Data {
+        return digest(using: .sha256)
     }
 }
 

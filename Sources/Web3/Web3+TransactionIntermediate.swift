@@ -298,11 +298,10 @@ public class TransactionIntermediate {
             callPromise.done(on: queue) { data in
                 do {
                     if self.method == "fallback" {
-                        let resultHex = data.toHexString().withHex
+                        let resultHex = data.hex.withHex
                         let response = Web3Response(["result": resultHex as Any])
                         seal.fulfill(response)
                     } else {
-                        print(data.toHexString())
                         guard let decodedData = self.contract.decodeReturnData(self.method, data: data) else {
                             throw Web3Error.processingError("Can not decode returned parameters")
                         }
@@ -311,9 +310,7 @@ public class TransactionIntermediate {
                 } catch {
                     seal.reject(error)
                 }
-                }.catch(on: queue) { err in
-                    seal.reject(err)
-            }
+            }.catch(on: queue, seal.reject)
         }
         return returnPromise
     }

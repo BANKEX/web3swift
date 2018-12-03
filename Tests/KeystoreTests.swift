@@ -6,8 +6,8 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import CryptoSwift
 import XCTest
+import Cryptor
 
 @testable import web3swift
 
@@ -20,13 +20,13 @@ class KeystoresTests: XCTestCase {
         XCTAssertEqual(mnemonics.string, "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about")
         mnemonics.password = "TREZOR"
         var seed = mnemonics.seed()
-        XCTAssert(seed.toHexString() == "c55257c360c07c72029aebc1b53c05ed0362ada38ead3e3e9efa3708e53495531f09a6987599d18264c1e1c92f2cf141630c7a3c4ab7c81b2f001698e7463b04")
+        XCTAssert(seed.hex == "c55257c360c07c72029aebc1b53c05ed0362ada38ead3e3e9efa3708e53495531f09a6987599d18264c1e1c92f2cf141630c7a3c4ab7c81b2f001698e7463b04")
         entropy = Data.fromHex("68a79eaca2324873eacc50cb9c6eca8cc68ea5d936f98787c60c7ebc74e6ce7c")!
         mnemonics = try Mnemonics(entropy: entropy)
         XCTAssertEqual(mnemonics.string, "hamster diagram private dutch cause delay private meat slide toddler razor book happy fancy gospel tennis maple dilemma loan word shrug inflict delay length")
         mnemonics.password = "TREZOR"
         seed = mnemonics.seed()
-        XCTAssert(seed.toHexString() == "64c87cde7e12ecf6704ab95bb1408bef047c22db4cc7491c4271d170a1b213d20b385bc1588d9c7b38f1b39d415665b8a9030c9ec653d75e65f847d8fc1fc440")
+        XCTAssert(seed.hex == "64c87cde7e12ecf6704ab95bb1408bef047c22db4cc7491c4271d170a1b213d20b385bc1588d9c7b38f1b39d415665b8a9030c9ec653d75e65f847d8fc1fc440")
     }
     
     func testImportAndExport() throws {
@@ -35,11 +35,11 @@ class KeystoresTests: XCTestCase {
 """
         let keystore = EthereumKeystoreV3(json)!
         let data = try keystore.serialize()!
-        let key = try keystore.UNSAFE_getPrivateKeyData(password: "hello world", account: keystore.addresses[0]).toHexString()
+        let key = try keystore.UNSAFE_getPrivateKeyData(password: "hello world", account: keystore.addresses[0]).hex
         
         let keystore2 = EthereumKeystoreV3(data)!
         let data2 = try keystore2.serialize()!
-        let key2 = try keystore2.UNSAFE_getPrivateKeyData(password: "hello world", account: keystore.addresses[0]).toHexString()
+        let key2 = try keystore2.UNSAFE_getPrivateKeyData(password: "hello world", account: keystore.addresses[0]).hex
         
         XCTAssertEqual(data,data2)
         XCTAssertEqual(key,key2)
@@ -49,8 +49,8 @@ class KeystoresTests: XCTestCase {
         // 0.0021849870681762695 sec to complete
         let seed = Data.fromHex("0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b")!
         let data = Data.fromHex("4869205468657265")!
-        let hmac = try! HMAC(key: seed.bytes, variant: HMAC.Variant.sha512).authenticate(data.bytes)
-        XCTAssert(Data(hmac).toHexString() == "87aa7cdea5ef619d4ff0b4241a1d6cb02379f4e2ce4ec2787ad0b30545e17cdedaa833b7d6b8a702038b274eaea3f4e4be9d914eeb61f1702e696c203a126854")
+        let hmac = try! HMAC(key: seed.bytes, variant: .sha512).authenticate(data.bytes)
+        XCTAssert(Data(hmac).hex == "87aa7cdea5ef619d4ff0b4241a1d6cb02379f4e2ce4ec2787ad0b30545e17cdedaa833b7d6b8a702038b274eaea3f4e4be9d914eeb61f1702e696c203a126854")
     }
     
     func testMnemonicsWithAllLanguagesAndEntropySizes() {
@@ -84,11 +84,11 @@ class KeystoresTests: XCTestCase {
 
     func testBIP32keystoreExportPrivateKey() throws {
         // 6.153380036354065 sec to complete
-        let mnemonics = try Mnemonics("normal dune pole key case cradle unfold require tornado mercy hospital buyer")
-        let keystore = try BIP32Keystore(mnemonics: mnemonics, password: "")
+        let mnemonics = try! Mnemonics("normal dune pole key case cradle unfold require tornado mercy hospital buyer")
+        let keystore = try! BIP32Keystore(mnemonics: mnemonics, password: "")
         XCTAssertNotNil(keystore)
         let account = keystore.addresses[0]
-        _ = try keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
+        _ = try! keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
     }
 
     func testBIP32keystoreMatching() throws {
@@ -99,7 +99,7 @@ class KeystoresTests: XCTestCase {
         let account = keystore.addresses[0]
         let privateKey = try keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
         let publicKey = try Web3Utils.privateToPublic(privateKey, compressed: true)
-        XCTAssertEqual(publicKey.toHexString(), "027160bd3a4d938cac609ff3a11fe9233de7b76c22a80d2b575e202cbf26631659")
+        XCTAssertEqual(publicKey.hex, "027160bd3a4d938cac609ff3a11fe9233de7b76c22a80d2b575e202cbf26631659")
     }
 
     func testBIP32keystoreMatchingRootNode() throws {
@@ -120,7 +120,7 @@ class KeystoresTests: XCTestCase {
         let account = keystore.addresses[0]
         let key = try keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
         let pubKey = try Web3Utils.privateToPublic(key, compressed: true)
-        XCTAssertEqual(pubKey.toHexString(), "027160bd3a4d938cac609ff3a11fe9233de7b76c22a80d2b575e202cbf26631659")
+        XCTAssertEqual(pubKey.hex, "027160bd3a4d938cac609ff3a11fe9233de7b76c22a80d2b575e202cbf26631659")
     }
 
     func testByBIP32keystoreCreateChildAccount() throws {
@@ -169,14 +169,14 @@ class KeystoresTests: XCTestCase {
     //        let pass = "passDATAb00AB7YxDTTl".data
     //        let salt = "saltKEYbcTcXHCBxtjD2".data
     //        let dataArray = try? PKCS5.PBKDF2(password: pass.bytes, salt: salt.bytes, iterations: 100000, keyLength: 65, variant: HMAC.Variant.sha512).calculate()
-    //        XCTAssert(Data(dataArray!).toHexString().withHex.lowercased() == "0x594256B0BD4D6C9F21A87F7BA5772A791A10E6110694F44365CD94670E57F1AECD797EF1D1001938719044C7F018026697845EB9AD97D97DE36AB8786AAB5096E7".lowercased())
+    //        XCTAssert(Data(dataArray!).hex.withHex.lowercased() == "0x594256B0BD4D6C9F21A87F7BA5772A791A10E6110694F44365CD94670E57F1AECD797EF1D1001938719044C7F018026697845EB9AD97D97DE36AB8786AAB5096E7".lowercased())
     //    }
 
     func testRIPEMD() {
         //  sec to complete
         let data = "message digest".data(using: .ascii)
         let hash = RIPEMD160.hash(message: data!)
-        XCTAssert(hash.toHexString() == "5d0689ef49d2fae572b881b123a85ffa21595f36")
+        XCTAssert(hash.hex == "5d0689ef49d2fae572b881b123a85ffa21595f36")
     }
 
     func testHD32() throws {
@@ -204,7 +204,7 @@ class KeystoresTests: XCTestCase {
         XCTAssert(nextNode.index == UInt32(0))
         XCTAssert(nextNode.isHardened == false)
         XCTAssert(nextNode.parentFingerprint == Data.fromHex("3442193e"))
-        XCTAssert(nextNode.publicKey.toHexString() == "027c4b09ffb985c298afe7e5813266cbfcb7780b480ac294b0b43dc21f2be3d13c")
+        XCTAssert(nextNode.publicKey.hex == "027c4b09ffb985c298afe7e5813266cbfcb7780b480ac294b0b43dc21f2be3d13c")
         XCTAssert(nextNode.serializeToString() == "xpub68Gmy5EVb2BdFbj2LpWrk1M7obNuaPTpT5oh9QCCo5sRfqSHVYWex97WpDZzszdzHzxXDAzPLVSwybe4uPYkSk4G3gnrPqqkV9RyNzAcNJ1")
         XCTAssert(nextNode.serializeToString(serializePublic: false) == "xprv9uHRZZhbkedL37eZEnyrNsQPFZYRAvjy5rt6M1nbEkLSo378x1CQQLo2xxBvREwiK6kqf7GRNvsNEchwibzXaV6i5GcsgyjBeRguXhKsi4R")
 
@@ -213,7 +213,7 @@ class KeystoresTests: XCTestCase {
         XCTAssert(nextNodeHardened.index == UInt32(0))
         XCTAssert(nextNodeHardened.isHardened == true)
         XCTAssert(nextNodeHardened.parentFingerprint == Data.fromHex("3442193e"))
-        XCTAssert(nextNodeHardened.publicKey.toHexString() == "035a784662a4a20a65bf6aab9ae98a6c068a81c52e4b032c0fb5400c706cfccc56")
+        XCTAssert(nextNodeHardened.publicKey.hex == "035a784662a4a20a65bf6aab9ae98a6c068a81c52e4b032c0fb5400c706cfccc56")
         XCTAssert(nextNodeHardened.serializeToString() == "xpub68Gmy5EdvgibQVfPdqkBBCHxA5htiqg55crXYuXoQRKfDBFA1WEjWgP6LHhwBZeNK1VTsfTFUHCdrfp1bgwQ9xv5ski8PX9rL2dZXvgGDnw")
         XCTAssert(nextNodeHardened.serializeToString(serializePublic: false) == "xprv9uHRZZhk6KAJC1avXpDAp4MDc3sQKNxDiPvvkX8Br5ngLNv1TxvUxt4cV1rGL5hj6KCesnDYUhd7oWgT11eZG7XnxHrnYeSvkzY7d2bhkJ7")
 

@@ -75,7 +75,7 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
     public func sign(_ personalMessage: Data, account: String, password: String = "BANKEXFOUNDATION") -> String? {
         let keystoreManager = self.web3.provider.attachedKeystoreManager
         guard let signature = try? Web3Signer.signPersonalMessage(personalMessage, keystore: keystoreManager, account: Address(account), password: password) else { return nil }
-        return signature.toHexString().withHex
+        return signature.hex.withHex
     }
     
     /**
@@ -244,7 +244,7 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
 
         guard let keystore = keystoreManager.walletForAddress(from) else { throw TransactionError.privateKeyNotFound(forAddress: from) }
         try Web3Signer.signTX(transaction: &transaction, keystore: keystore, account: from, password: password)
-        guard let signedData = transaction.encode(forSignature: false, chainId: nil)?.toHexString().withHex else { throw TransactionError.cannotEncodeTransaction }
+        guard let signedData = transaction.encode(forSignature: false, chainId: nil)?.hex.withHex else { throw TransactionError.cannotEncodeTransaction }
         return signedData
     }
 }

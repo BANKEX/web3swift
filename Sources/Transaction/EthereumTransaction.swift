@@ -56,7 +56,7 @@ public struct EthereumTransaction: CustomStringConvertible {
     public var hash: Data? {
         let chainId = inferedChainID ?? self.chainID
         guard let encoded = self.encode(forSignature: false, chainId: chainId) else { return nil }
-        return encoded.sha3(.keccak256)
+        return encoded.keccak256()
     }
     
     /// Init with transaction parameters
@@ -169,7 +169,7 @@ hash: \(String(describing: hash))
     public var txhash: String? {
         guard sender != nil else { return nil }
         guard let hash = self.hash else { return nil }
-        let txid = hash.toHexString().withHex.lowercased()
+        let txid = hash.hex.withHex.lowercased()
         return txid
     }
     
@@ -209,13 +209,13 @@ hash: \(String(describing: hash))
         var params = TransactionParameters(from: from?.address.lowercased(),
                                            to: toString)
         let gasEncoding = gasLimit.abiEncode(bits: 256)
-        params.gas = gasEncoding?.toHexString().withHex.stripLeadingZeroes()
+        params.gas = gasEncoding?.hex.withHex.stripLeadingZeroes()
         let gasPriceEncoding = gasPrice.abiEncode(bits: 256)
-        params.gasPrice = gasPriceEncoding?.toHexString().withHex.stripLeadingZeroes()
+        params.gasPrice = gasPriceEncoding?.hex.withHex.stripLeadingZeroes()
         let valueEncoding = value.abiEncode(bits: 256)
-        params.value = valueEncoding?.toHexString().withHex.stripLeadingZeroes()
+        params.value = valueEncoding?.hex.withHex.stripLeadingZeroes()
         if data != Data() {
-            params.data = data.toHexString().withHex
+            params.data = data.hex.withHex
         } else {
             params.data = "0x"
         }
@@ -229,8 +229,7 @@ hash: \(String(describing: hash))
     /// - Returns: Transaction hash
     public func hashForSignature(chainID: NetworkId? = nil) -> Data? {
         guard let encoded = self.encode(forSignature: true, chainId: chainID) else { return nil }
-        let hash = encoded.sha3(.keccak256)
-        return hash
+        return encoded.keccak256()
     }
 
     init(_ json: [String: Any]) throws {
@@ -323,7 +322,7 @@ hash: \(String(describing: hash))
     static func createRawTransaction(transaction: EthereumTransaction) -> JsonRpcRequest? {
         guard transaction.sender != nil else { return nil }
         guard let encodedData = transaction.encode() else { return nil }
-        let hex = encodedData.toHexString().withHex.lowercased()
+        let hex = encodedData.hex.withHex.lowercased()
         var request = JsonRpcRequest(method: .sendRawTransaction)
         let params = [hex] as Array<Encodable>
         let pars = JsonRpcParams(params: params)

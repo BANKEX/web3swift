@@ -24,7 +24,7 @@ class BetterERC20Tests: XCTestCase {
         let amount = BigUInt(10).power(18)
         let arguments: [SolidityDataRepresentable] = [user, amount]
         let request = arguments.data(function: "transfer(address,uint256)")
-        XCTAssertEqual(request.toHexString(), "a9059cbb0000000000000000000000006a6a0b4aaa60e97386f94c5414522159b45dede80000000000000000000000000000000000000000000000000de0b6b3a7640000")
+        XCTAssertEqual(request.hex, "a9059cbb0000000000000000000000006a6a0b4aaa60e97386f94c5414522159b45dede80000000000000000000000000000000000000000000000000de0b6b3a7640000")
         
         let response = BigUInt(1).solidityData
         let success = try SolidityDataReader(response).bool()

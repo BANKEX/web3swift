@@ -1,5 +1,5 @@
-# We just released web3swift 2.0 [check it out](https://github.com/BANKEX/web3swift/releases/tag/2.0.0)
-### also check our [Discord Channel](https://discord.gg/3ETv2ST)
+
+### You can ask for help in our [Discord Channel](https://discord.gg/3ETv2ST)
 <p align="right">
 <a href="https://brianmacdonald.github.io/Ethonate/address#0x47FC2e245b983A92EB3359F06E31F34B107B6EF6" target="_blank">
 <img src="https://brianmacdonald.github.io/Ethonate/svg/eth-support-blue.svg" alt="Support">
@@ -57,7 +57,7 @@ Don't forget to set the iOS version in a Podfile, otherwise you get an error if 
   Add this to the dependency section of your `Package.swift` manifest:
 
     ```Swift
-    .package(url: "https://github.com/BANKEX/web3swift.git", from: "2.0.0")
+    .package(url: "https://github.com/BANKEX/web3swift.git", from: "2.1.0")
     ```
 
 - **CocoaPods:** Put this in your `Podfile`:
@@ -69,7 +69,7 @@ Don't forget to set the iOS version in a Podfile, otherwise you get an error if 
 - **Carthage:** Put this in your `Cartfile`:
 
     ```
-    github "BANKEX/web3swift" ~> 2.0
+    github "BANKEX/web3swift" ~> 2.1
     ```
 
 

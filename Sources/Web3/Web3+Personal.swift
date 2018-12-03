@@ -82,7 +82,7 @@ public class Web3Personal: Web3OptionsInheritable {
         let queue = web3.requestDispatcher.queue
         do {
             if web3.provider.attachedKeystoreManager.isEmpty {
-                let hexData = message.toHexString().withHex
+                let hexData = message.hex.withHex
 				let request = JsonRpcRequest(method: .personalSign, parameters: from.address.lowercased(), hexData)
                 return web3.dispatch(request).map(on: queue) { response in
                     guard let value: Data = response.getValue() else {

@@ -76,8 +76,8 @@ class ABITests: XCTestCase {
         let data = ABIv2Encoder.encode(types: types, values: [BigUInt(69), true] as [AnyObject])
         XCTAssert(data != nil, "failed to encode")
         let expected = "0x00000000000000000000000000000000000000000000000000000000000000450000000000000000000000000000000000000000000000000000000000000001"
-        print(data!.toHexString().lowercased())
-        XCTAssert(data?.toHexString().lowercased().withHex == expected, "failed to encode")
+        print(data!.hex.lowercased())
+        XCTAssert(data?.hex.lowercased().withHex == expected, "failed to encode")
     }
 
     func testABIv2encoding2() {
@@ -87,8 +87,8 @@ class ABITests: XCTestCase {
         let data = ABIv2Encoder.encode(types: types, values: ["dave"] as [AnyObject])
         XCTAssert(data != nil, "failed to encode")
         let expected = "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000046461766500000000000000000000000000000000000000000000000000000000"
-        print(data!.toHexString().lowercased())
-        XCTAssert(data?.toHexString().lowercased().withHex == expected, "failed to encode")
+        print(data!.hex.lowercased())
+        XCTAssert(data?.hex.lowercased().withHex == expected, "failed to encode")
     }
 
     func testABIv2encoding3() {
@@ -103,8 +103,8 @@ class ABITests: XCTestCase {
         let data = ABIv2Encoder.encode(types: types, values: ["dave".data, true, [BigUInt(1), BigUInt(2), BigUInt(3)]] as [AnyObject])
         XCTAssert(data != nil, "failed to encode")
         let expected = "0x0000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000000464617665000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000003"
-        print(data!.toHexString().lowercased())
-        XCTAssert(data?.toHexString().lowercased().withHex == expected, "failed to encode")
+        print(data!.hex.lowercased())
+        XCTAssert(data?.hex.lowercased().withHex == expected, "failed to encode")
     }
 
     func testABIv2encoding4() {
@@ -117,7 +117,7 @@ class ABITests: XCTestCase {
                                        values: [number!] as [AnyObject])
         XCTAssertNotNil(data, "failed to encode")
         let expected = "0xfffffffffffff38dd0f10627f5529bdb2c52d4846810af0ac000000000000001"
-        let result = data!.toHexString().lowercased().withHex
+        let result = data!.hex.lowercased().withHex
         print(result)
         XCTAssert(result == expected, "failed to encode")
     }
@@ -132,8 +132,8 @@ class ABITests: XCTestCase {
                                        values: [string] as [AnyObject])
         XCTAssertNotNil(data, "failed to encode")
         let expected = "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000c22068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c64202068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c64202068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c642068656c6c6f20776f726c64000000000000000000000000000000000000000000000000000000000000"
-        print(data!.toHexString().lowercased().withHex)
-        XCTAssert(data?.toHexString().lowercased().withHex == expected, "failed to encode")
+        print(data!.hex.lowercased().withHex)
+        XCTAssert(data?.hex.lowercased().withHex == expected, "failed to encode")
     }
 
     func testABIv2encoding6() {
@@ -150,8 +150,8 @@ class ABITests: XCTestCase {
                                                 "Hello, world!"] as [AnyObject])
         XCTAssert(data != nil, "failed to encode")
         let expected = "0x00000000000000000000000000000000000000000000000000000000000001230000000000000000000000000000000000000000000000000000000000000080313233343536373839300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000004560000000000000000000000000000000000000000000000000000000000000789000000000000000000000000000000000000000000000000000000000000000d48656c6c6f2c20776f726c642100000000000000000000000000000000000000"
-        print(data!.toHexString().lowercased())
-        XCTAssert(data?.toHexString().lowercased().withHex == expected, "failed to encode")
+        print(data!.hex.lowercased())
+        XCTAssert(data?.hex.lowercased().withHex == expected, "failed to encode")
     }
 
     func testABIv2encoding7() {
@@ -162,8 +162,8 @@ class ABITests: XCTestCase {
                                        values: [["Hello", "World"]] as [AnyObject])
         XCTAssert(data != nil, "failed to encode")
         let expected = "0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000548656c6c6f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005576f726c64000000000000000000000000000000000000000000000000000000"
-        print(data!.toHexString().lowercased())
-        XCTAssert(data?.toHexString().lowercased() == expected, "failed to encode")
+        print(data!.hex.lowercased())
+        XCTAssert(data?.hex.lowercased() == expected, "failed to encode")
     }
 
     func testABIv2encoding8() {
@@ -174,8 +174,8 @@ class ABITests: XCTestCase {
                                        values: [["Hello", "World"]] as [AnyObject])
         XCTAssert(data != nil, "failed to encode")
         let expected = "000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000548656c6c6f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005576f726c64000000000000000000000000000000000000000000000000000000"
-        print(data!.toHexString().lowercased())
-        XCTAssert(data?.toHexString().lowercased() == expected, "failed to encode")
+        print(data!.hex.lowercased())
+        XCTAssert(data?.hex.lowercased() == expected, "failed to encode")
     }
 
     func testABIv2Decoding1() {

@@ -31,7 +31,7 @@ public struct ABIv2Decoder {
     ///   - data: Data to decode
     /// - Returns: Array of decoded types
     public static func decode(types: [ABIv2.Element.ParameterType], data: Data) -> [AnyObject]? {
-//        print("Full data: \n" + data.toHexString())
+//        print("Full data: \n" + data.hex)
         var toReturn = [AnyObject]()
         var consumed: UInt64 = 0
         for i in 0 ..< types.count {
@@ -59,7 +59,7 @@ public struct ABIv2Decoder {
         }
         switch type {
         case let .uint(bits):
-//            print("Uint256 element itself: \n" + elementItself.toHexString())
+//            print("Uint256 element itself: \n" + elementItself.hex)
             guard elementItself.count >= 32 else { break }
             let mod = BigUInt(1) << bits
             let dataSlice = elementItself[0 ..< 32]
@@ -67,7 +67,7 @@ public struct ABIv2Decoder {
 //            print("Uint256 element is: \n" + String(v))
             return (v as AnyObject, type.memoryUsage)
         case let .int(bits):
-//            print("Int256 element itself: \n" + elementItself.toHexString())
+//            print("Int256 element itself: \n" + elementItself.hex)
             guard elementItself.count >= 32 else { break }
             let mod = BigInt(1) << bits
             let dataSlice = elementItself[0 ..< 32]
@@ -75,14 +75,14 @@ public struct ABIv2Decoder {
 //            print("Int256 element is: \n" + String(v))
             return (v as AnyObject, type.memoryUsage)
         case .address:
-//            print("Address element itself: \n" + elementItself.toHexString())
+//            print("Address element itself: \n" + elementItself.hex)
             guard elementItself.count >= 32 else { break }
             let dataSlice = elementItself[12 ..< 32]
             let address = Address(dataSlice)
 //            print("Address element is: \n" + String(address.address))
             return (address as AnyObject, type.memoryUsage)
         case .bool:
-//            print("Bool element itself: \n" + elementItself.toHexString())
+//            print("Bool element itself: \n" + elementItself.hex)
             guard elementItself.count >= 32 else { break }
             let dataSlice = elementItself[0 ..< 32]
             let v = BigUInt(dataSlice)
@@ -93,13 +93,13 @@ public struct ABIv2Decoder {
                 return (false as AnyObject, type.memoryUsage)
             }
         case let .bytes(length):
-//            print("Bytes32 element itself: \n" + elementItself.toHexString())
+//            print("Bytes32 element itself: \n" + elementItself.hex)
             guard elementItself.count >= 32 else { break }
             let dataSlice = elementItself[0 ..< length]
-//            print("Bytes32 element is: \n" + String(dataSlice.toHexString()))
+//            print("Bytes32 element is: \n" + String(dataSlice.hex))
             return (dataSlice as AnyObject, type.memoryUsage)
         case .string:
-//            print("String element itself: \n" + elementItself.toHexString())
+//            print("String element itself: \n" + elementItself.hex)
             guard elementItself.count >= 32 else { break }
             var dataSlice = elementItself[0 ..< 32]
             let length = UInt64(BigUInt(dataSlice))
@@ -109,18 +109,18 @@ public struct ABIv2Decoder {
 //            print("String element is: \n" + String(string))
             return (string as AnyObject, type.memoryUsage)
         case .dynamicBytes:
-//            print("Bytes element itself: \n" + elementItself.toHexString())
+//            print("Bytes element itself: \n" + elementItself.hex)
             guard elementItself.count >= 32 else { break }
             var dataSlice = elementItself[0 ..< 32]
             let length = UInt64(BigUInt(dataSlice))
             guard elementItself.count >= 32 + length else { break }
             dataSlice = elementItself[32 ..< 32 + length]
-//            print("Bytes element is: \n" + String(dataSlice.toHexString()))
+//            print("Bytes element is: \n" + String(dataSlice.hex))
             return (dataSlice as AnyObject, type.memoryUsage)
         case let .array(type: subType, length: length):
             switch type.arraySize {
             case .dynamicSize:
-//                print("Dynamic array element itself: \n" + elementItself.toHexString())
+//                print("Dynamic array element itself: \n" + elementItself.hex)
                 if subType.isStatic {
                     // uint[] like, expect length and elements
                     guard elementItself.count >= 32 else { break }
@@ -146,7 +146,7 @@ public struct ABIv2Decoder {
                     dataSlice = Data(elementItself[32 ..< elementItself.count])
                     var subpointer: UInt64 = 0
                     var toReturn = [AnyObject]()
-//                    print("Dynamic array sub element itself: \n" + dataSlice.toHexString())
+//                    print("Dynamic array sub element itself: \n" + dataSlice.hex)
                     for _ in 0 ..< length {
                         let (v, c) = decodeSignleType(type: subType, data: dataSlice, pointer: subpointer)
                         guard let valueUnwrapped = v, let consumedUnwrapped = c else { break }
@@ -156,7 +156,7 @@ public struct ABIv2Decoder {
                     return (toReturn as AnyObject, nextElementPointer)
                 }
             case let .staticSize(staticLength):
-//                print("Static array element itself: \n" + elementItself.toHexString())
+//                print("Static array element itself: \n" + elementItself.hex)
                 guard length == staticLength else { break }
                 var toReturn = [AnyObject]()
                 var consumed: UInt64 = 0
@@ -175,7 +175,7 @@ public struct ABIv2Decoder {
                 break
             }
         case let .tuple(types: subTypes):
-//            print("Tuple element itself: \n" + elementItself.toHexString())
+//            print("Tuple element itself: \n" + elementItself.hex)
             var toReturn = [AnyObject]()
             var consumed: UInt64 = 0
             for i in 0 ..< subTypes.count {
@@ -191,23 +191,23 @@ public struct ABIv2Decoder {
                 return (toReturn as AnyObject, nextElementPointer)
             }
         case .function:
-//            print("Function element itself: \n" + elementItself.toHexString())
+//            print("Function element itself: \n" + elementItself.hex)
             guard elementItself.count >= 32 else { break }
             let dataSlice = elementItself[8 ..< 32]
-//            print("Function element is: \n" + String(dataSlice.toHexString()))
+//            print("Function element is: \n" + String(dataSlice.hex))
             return (dataSlice as AnyObject, type.memoryUsage)
         }
         return (nil, nil)
     }
 
     fileprivate static func followTheData(type: ABIv2.Element.ParameterType, data: Data, pointer: UInt64 = 0) -> (elementEncoding: Data?, nextElementPointer: UInt64?) {
-//        print("Follow the data: \n" + data.toHexString())
+//        print("Follow the data: \n" + data.hex)
 //        print("At pointer: \n" + String(pointer))
         if type.isStatic {
             guard data.count >= pointer + type.memoryUsage else { return (nil, nil) }
             let elementItself = data[pointer ..< pointer + type.memoryUsage]
             let nextElement = pointer + type.memoryUsage
-//            print("Got element itself: \n" + elementItself.toHexString())
+//            print("Got element itself: \n" + elementItself.hex)
 //            print("Next element pointer: \n" + String(nextElement))
             return (Data(elementItself), nextElement)
         } else {
@@ -230,7 +230,7 @@ public struct ABIv2Decoder {
             let elementPointer = UInt64(bn)
             let elementItself = data[elementPointer ..< UInt64(data.count)]
             let nextElement = pointer + type.memoryUsage
-//            print("Got element itself: \n" + elementItself.toHexString())
+//            print("Got element itself: \n" + elementItself.hex)
 //            print("Next element pointer: \n" + String(nextElement))
             return (Data(elementItself), nextElement)
         }

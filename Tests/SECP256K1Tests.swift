@@ -6,10 +6,7 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import XCTest
-
 import BigInt
-import CryptoSwift
 import XCTest
 
 @testable import web3swift

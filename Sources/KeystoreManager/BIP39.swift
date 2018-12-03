@@ -6,7 +6,7 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import CryptoSwift
+import Cryptor
 import Foundation
 
 /// Mnemonics language
@@ -157,7 +157,6 @@ public class Mnemonics {
     
     /// Generate seed from mnemonics string. This function will ignore dictionary and won't check for mnemonics error
     public static func seed(from mnemonics: String, password: String) -> Data {
-        let mnemData = Array(mnemonics.decomposedStringWithCompatibilityMapping.utf8)
         let salt = "mnemonic" + password
         let saltData = Array(salt.decomposedStringWithCompatibilityMapping.utf8)
         
@@ -165,7 +164,7 @@ public class Mnemonics {
         // or keyLength > variant.digestLength * 256
         // and .calculate() won't throw any errors
         // so i feel free to use "try!"
-        let seed = try! PKCS5.PBKDF2(password: mnemData, salt: saltData, iterations: 2048, keyLength: 64, variant: .sha512).calculate()
+        let seed = try! PBKDF.deriveKey(fromPassword: mnemonics.decomposedStringWithCompatibilityMapping, salt: saltData, prf: .sha512, rounds: 2048, derivedKeyLength: 64)
         return Data(bytes: seed)
     }
     
@@ -221,14 +220,15 @@ public class Mnemonics {
         var fullEntropy = Data()
         fullEntropy.append(entropy)
         fullEntropy.append(checksum[0 ..< (checksumBits + 7) / 8])
-        var wordList = [String]()
+        let separator = language.separator
+        let words = language.words
+        var indexes = [Int]()
         for i in 0 ..< fullEntropy.count * 8 / 11 {
             let bits = fullEntropy.bitsInRange(i * 11, 11)
             let index = Int(bits)
-            let word = language.words[index]
-            wordList.append(word)
+            indexes.append(index)
         }
-        self.string = wordList.joined(separator: language.separator)
+        self.string = indexes.map { words[$0] }.joined(separator: separator)
         self.language = language
     }
     

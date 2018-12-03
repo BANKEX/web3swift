@@ -266,7 +266,6 @@ struct SECP256K1 {
         https://github.com/MaiaVictor/eth-lib/blob/d959c54faa1e1ac8d474028ed1568c5dce27cc7a/src/account.js#L60
         */
         v = v < 2 ? v : 1 - (v % 2)
-        
         let result = serializedSignature.withUnsafeBytes { (serPtr: UnsafePointer<UInt8>) -> Int32 in
             withUnsafeMutablePointer(to: &recoverableSignature, { (signaturePointer: UnsafeMutablePointer<secp256k1_ecdsa_recoverable_signature>) in
                 secp256k1_ecdsa_recoverable_signature_parse_compact(context!, signaturePointer, serPtr, v)
@@ -324,7 +323,7 @@ struct SECP256K1 {
     static func recoverSender(hash: Data, signature: Data) throws -> Address {
         let pubKey = try SECP256K1.recoverPublicKey(hash: hash, signature: signature, compressed: false)
         try pubKey.checkPublicKeySize()
-        let addressData = Data(pubKey.sha3(.keccak256)[12 ..< 32])
+        let addressData = Data(pubKey.keccak256()[12 ..< 32])
         return Address(addressData)
     }
 

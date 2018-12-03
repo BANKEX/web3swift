@@ -28,7 +28,7 @@ class RemoteParsingTests: XCTestCase {
         XCTAssert(decoded["_from"] as! Address == "0xdbf493e8d7db835192c02b992bd1ab72e96fd2e3")
         XCTAssert(decoded["_value"] as! BigUInt == BigUInt("3946fe37ffce3a0000", radix: 16)!)
         XCTAssert(pres[0].contractAddress == "0x45245bc59219eeaaf6cd3f382e078a461ff9de7b")
-        XCTAssert(pres[0].transactionReceipt!.transactionHash.toHexString().withHex == "0xcb235e8c6ecda032bc82c1084d2159ab82e7e4de35be703da6e80034bc577673")
+        XCTAssert(pres[0].transactionReceipt!.transactionHash.hex.withHex == "0xcb235e8c6ecda032bc82c1084d2159ab82e7e4de35be703da6e80034bc577673")
     }
 
     func testEventParsing2usingABIv2() throws {
@@ -52,7 +52,7 @@ class RemoteParsingTests: XCTestCase {
             for p in present {
                 print("Block " + String(i) + "\n")
                 print("Emitted by contract " + p.contractAddress.address + "\n")
-                print("TX hash " + p.transactionReceipt!.transactionHash.toHexString().withHex + "\n")
+                print("TX hash " + p.transactionReceipt!.transactionHash.hex.withHex + "\n")
                 print("From " + (p.decodedResult["_from"] as! Address).address + "\n")
                 print("From " + (p.decodedResult["_to"] as! Address).address + "\n")
                 print("Value " + String(p.decodedResult["_value"] as! BigUInt) + "\n")
