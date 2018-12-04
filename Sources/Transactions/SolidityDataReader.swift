@@ -120,6 +120,21 @@ public class SolidityDataReader {
 		}
 	}
     
+    /// - Gets next 32 bytes as pointer
+    /// - Moves to that pointer.
+    /// - Returns next 32 bytes
+    public func bytes() throws -> Data {
+        return try pointer {
+            let length = try intCount()
+            guard length > 0 else { return Data() }
+            return try next(length)
+        }
+    }
+    
+    public func bytes32() throws -> Data {
+        return try next(32)
+    }
+    
     /// - Moves to pointer
     /// - Gets number of elements
     /// - Calls builder(self) (number of elements) times
