@@ -55,7 +55,7 @@ static int secp256k1_wnaf_const(int *wnaf, secp256k1_scalar s, int w, int size) 
 
     /* 1 2 3 */
     int u_last;
-    int u;
+    int u = 0;
 
     int flip;
     int bit;

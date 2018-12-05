@@ -39,7 +39,9 @@
 #include "warnp.h"
 
 #include "crypto_scrypt_smix.h"
+#if defined(__SSSE3__)
 #include "crypto_scrypt_smix_sse2.h"
+#endif
 
 #include "scrypt.h"
 
@@ -107,7 +109,7 @@ private_crypto_scrypt(const uint8_t * passwd, size_t passwdlen,
 		goto err1;
 	XY = (uint32_t *)(((uintptr_t)(XY0) + 63) & ~ (uintptr_t)(63));
 #if !defined(MAP_ANON) || !defined(HAVE_MMAP)
-	if ((V0 = malloc(128 * r * N + 63)) == NULL)
+	if ((V0 = malloc(128 * r * (size_t)N + 63)) == NULL)
 		goto err2;
 	V = (uint32_t *)(((uintptr_t)(V0) + 63) & ~ (uintptr_t)(63));
 #endif
@@ -204,10 +206,12 @@ static void
 selectsmix(void)
 {
 
+    #if defined(__SSSE3__)
     if (!testsmix(crypto_scrypt_smix_sse2)) {
         smix_func = crypto_scrypt_smix_sse2;
         return;
     }
+    #endif
 
 	/* If generic smix works, use it. */
 	if (!testsmix(crypto_scrypt_smix)) {

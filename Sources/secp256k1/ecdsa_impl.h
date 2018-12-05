@@ -93,7 +93,7 @@ static int secp256k1_der_read_len(const unsigned char **sigp, const unsigned cha
         /* Not the shortest possible length encoding. */
         return -1;
     }
-    return ret;
+    return (int)ret;
 }
 
 static int secp256k1_der_parse_integer(secp256k1_scalar *r, const unsigned char **sig, const unsigned char *sigend) {

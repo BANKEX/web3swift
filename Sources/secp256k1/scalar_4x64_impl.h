@@ -40,7 +40,7 @@ SECP256K1_INLINE static void secp256k1_scalar_set_int(secp256k1_scalar *r, unsig
 
 SECP256K1_INLINE static unsigned int secp256k1_scalar_get_bits(const secp256k1_scalar *a, unsigned int offset, unsigned int count) {
     VERIFY_CHECK((offset + count - 1) >> 6 == offset >> 6);
-    return (a->d[offset >> 6] >> (offset & 0x3F)) & ((((uint64_t)1) << count) - 1);
+    return (uint)(a->d[offset >> 6] >> (offset & 0x3F)) & ((((uint64_t)1) << count) - 1);
 }
 
 SECP256K1_INLINE static unsigned int secp256k1_scalar_get_bits_var(const secp256k1_scalar *a, unsigned int offset, unsigned int count) {
@@ -50,7 +50,7 @@ SECP256K1_INLINE static unsigned int secp256k1_scalar_get_bits_var(const secp256
         return secp256k1_scalar_get_bits(a, offset, count);
     } else {
         VERIFY_CHECK((offset >> 6) + 1 < 4);
-        return ((a->d[offset >> 6] >> (offset & 0x3F)) | (a->d[(offset >> 6) + 1] << (64 - (offset & 0x3F)))) & ((((uint64_t)1) << count) - 1);
+        return (uint)((a->d[offset >> 6] >> (offset & 0x3F)) | (a->d[(offset >> 6) + 1] << (64 - (offset & 0x3F)))) & ((((uint64_t)1) << count) - 1);
     }
 }
 
@@ -537,7 +537,7 @@ static void secp256k1_scalar_reduce_512(secp256k1_scalar *r, const uint64_t *l) 
     sumadd_fast(n3);
     extract_fast(m5);
     VERIFY_CHECK(c0 <= 1);
-    m6 = c0;
+    m6 = (uint32_t)c0;
 
     /* Reduce 385 bits into 258. */
     /* p[0..4] = m[0..3] + m[4..6] * SECP256K1_N_C. */
@@ -557,7 +557,7 @@ static void secp256k1_scalar_reduce_512(secp256k1_scalar *r, const uint64_t *l) 
     muladd_fast(m6, SECP256K1_N_C_1);
     sumadd_fast(m5);
     extract_fast(p3);
-    p4 = c0 + m6;
+    p4 = (uint32_t)c0 + m6;
     VERIFY_CHECK(p4 <= 2);
 
     /* Reduce 258 bits into 256. */

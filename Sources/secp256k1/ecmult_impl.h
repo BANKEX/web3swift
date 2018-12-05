@@ -548,7 +548,7 @@ static int secp256k1_ecmult_strauss_batch(const secp256k1_ecmult_context *ctx, s
         }
         secp256k1_gej_set_ge(&points[i], &point);
     }
-    secp256k1_ecmult_strauss_wnaf(ctx, &state, r, n_points, points, scalars, inp_g_sc);
+    secp256k1_ecmult_strauss_wnaf(ctx, &state, r, (int)n_points, points, scalars, inp_g_sc);
     secp256k1_scratch_deallocate_frame(scratch);
     return 1;
 }
@@ -669,7 +669,7 @@ static int secp256k1_ecmult_pippenger_wnaf(secp256k1_gej *buckets, int bucket_wi
         return 1;
     }
 
-    for (i = n_wnaf - 1; i >= 0; i--) {
+    for (i = (int)n_wnaf - 1; i >= 0; i--) {
         secp256k1_gej running_sum;
 
         for(j = 0; j < ECMULT_TABLE_SIZE(bucket_window+2); j++) {
