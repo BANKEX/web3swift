@@ -7,7 +7,7 @@
 //
 
 import BigInt
-import CryptoSwift
+//import CryptoSwift
 import XCTest
 
 @testable import web3swift

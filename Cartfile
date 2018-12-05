@@ -1,4 +1,2 @@
 github "mxcl/PromiseKit" ~> 6.0
 github "attaswift/BigInt" ~> 3.1
-github "krzyzanowskim/CryptoSwift"
-github "Boilertalk/secp256k1.swift"
