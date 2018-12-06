@@ -10,8 +10,8 @@ Pod::Spec.new do |spec|
     spec.homepage     = 'https://github.com/bankex/web3swift'
     spec.author       = 'Bankex Foundation'
     spec.source       = { :git => 'https://github.com/bankex/web3swift.git', :branch => 'develop' }
-    spec.source_files = 'Sources/web3swift'
-
+    spec.source_files = 'Sources/web3swift/**/*.swift'
+    spec.swift_version = '4.2'
     spec.dependency 'PromiseKit', '~> 6.4'
     spec.dependency 'BigInt', '~> 3.1'
     spec.dependency 'secp256k1.c', '~> 0.1'

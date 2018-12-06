@@ -364,6 +364,7 @@
 		13A8D50C21B7447400469740 /* asprintf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = asprintf.c; sourceTree = "<group>"; };
 		13A8D52521B7451800469740 /* keccak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keccak.swift; sourceTree = "<group>"; };
 		13A8D54B21B7493900469740 /* scrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scrypt.swift; sourceTree = "<group>"; };
+		13A8D5BD21B9296B00469740 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		13A93F5921B0A36900F115E4 /* AES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AES.swift; sourceTree = "<group>"; };
 		13A93F5F21B172D900F115E4 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		13AC5D3D21A5D109009D0309 /* SolidityDataReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidityDataReader.swift; sourceTree = "<group>"; };
@@ -889,6 +890,7 @@
 		13C3392721B6C68900F33F5E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				13A8D5BD21B9296B00469740 /* CoreImage.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1552,6 +1554,28 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					CoreImage,
+				);
+				"OTHER_LDFLAGS[sdk=appletvos*]" = (
+					"-framework",
+					CoreImage,
+				);
+				"OTHER_LDFLAGS[sdk=iphoneos*]" = (
+					"-framework",
+					CoreImage,
+				);
+				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = (
+					"-framework",
+					CoreImage,
+				);
+				"OTHER_LDFLAGS[sdk=macosx*]" = (
+					"-framework",
+					CoreImage,
+				);
+				"OTHER_LDFLAGS[sdk=watchos*]" = "";
+				"OTHER_LDFLAGS[sdk=watchsimulator*]" = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.bankexfoundation.web3swift;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1584,6 +1608,28 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					CoreImage,
+				);
+				"OTHER_LDFLAGS[sdk=appletvos*]" = (
+					"-framework",
+					CoreImage,
+				);
+				"OTHER_LDFLAGS[sdk=iphoneos*]" = (
+					"-framework",
+					CoreImage,
+				);
+				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = (
+					"-framework",
+					CoreImage,
+				);
+				"OTHER_LDFLAGS[sdk=macosx*]" = (
+					"-framework",
+					CoreImage,
+				);
+				"OTHER_LDFLAGS[sdk=watchos*]" = "";
+				"OTHER_LDFLAGS[sdk=watchsimulator*]" = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.bankexfoundation.web3swift;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

@@ -17,7 +17,7 @@ import BigInt
 /// 3. repeat
 
 
-/// web3swift 2.1 changes
+// MARK:- web3swift 2.1 changes
 
 extension EthereumBloomFilter {
     @available(*, deprecated: 2.1, renamed: "test(topic:)")
@@ -58,7 +58,7 @@ extension Web3Contract {
 	public typealias TransactionIntermediate = web3swift.TransactionIntermediate
 }
 
-/// web3swift 2.0 changes
+// MARK:- web3swift 2.0 changes
 
 @available (*, deprecated: 2.0, renamed: "JsonRpcRequest")
 public typealias JSONRPCrequest = JsonRpcRequest
