@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name         = 'web3swift'
-    spec.version      = '2.1.1'
+    spec.version      = '2.1.2'
     spec.ios.deployment_target = "8.0"
     spec.osx.deployment_target = "10.10"
     spec.tvos.deployment_target = "9.0"
@@ -14,4 +14,5 @@ Pod::Spec.new do |spec|
     spec.dependency 'PromiseKit', '~> 6.4'
     spec.dependency 'BigInt', '~> 3.1'
     spec.dependency 'secp256k1.swift'
+    spec.dependency 'CryptoSwift'
 end
