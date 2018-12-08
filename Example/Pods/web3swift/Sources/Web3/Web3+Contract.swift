@@ -20,6 +20,7 @@ extension Web3 {
 public class Web3Contract {
     var contract: ContractProtocol
     var web3: Web3
+    /// Default options
     public var options: Web3Options
     
     /// Initialize the bound contract instance by supplying the Web3 provider bound object, ABI, Ethereum address and some default
@@ -45,6 +46,10 @@ public class Web3Contract {
         return try deploy(bytecode: bytecode, parameters: args, extraData: extraData, options: options)
     }
     
+    /// Deploys a constact instance using the previously provided (at initialization) ABI, some bytecode, constructor parameters and options.
+    /// If extraData is supplied it is appended to encoded bytecode and constructor parameters.
+    ///
+    /// Returns a "Transaction intermediate" object.
     public func deploy(bytecode: Data, parameters: [Any], extraData: Data = Data(), options: Web3Options?) throws -> TransactionIntermediate {
         let mergedOptions = self.options.merge(with: options)
         var tx = try contract.deploy(bytecode: bytecode, parameters: parameters, extraData: extraData, options: mergedOptions)
@@ -52,7 +57,7 @@ public class Web3Contract {
         return TransactionIntermediate(transaction: tx, web3: web3, contract: contract, method: "fallback", options: mergedOptions)
     }
     
-    /// Creates and object responsible for calling a particular function of the contract. If method name is not found in ABI - returns nil.
+    /// Creates and object responsible for calling a particular function of the contract. If method name is not found in ABI - Returns nil.
     /// If extraData is supplied it is appended to encoded function parameters. Can be usefull if one wants to call
     /// the function not listed in ABI. "Parameters" should be an array corresponding to the list of parameters of the function.
     /// Elements of "parameters" can be other arrays or instances of String, Data, BigInt, BigUInt, Int or Address.
@@ -62,6 +67,12 @@ public class Web3Contract {
         return try method(name, parameters: args, extraData: extraData, options: options)
     }
     
+    /// Creates and object responsible for calling a particular function of the contract. If method name is not found in ABI - Returns nil.
+    /// If extraData is supplied it is appended to encoded function parameters. Can be usefull if one wants to call
+    /// the function not listed in ABI. "Parameters" should be an array corresponding to the list of parameters of the function.
+    /// Elements of "parameters" can be other arrays or instances of String, Data, BigInt, BigUInt, Int or Address.
+    ///
+    /// Returns a "Transaction intermediate" object.
     public func method(_ method: String = "fallback", parameters: [Any], extraData: Data = Data(), options: Web3Options?) throws -> TransactionIntermediate {
         let mergedOptions = self.options.merge(with: options)
         var tx = try contract.method(method, parameters: parameters, extraData: extraData, options: mergedOptions)

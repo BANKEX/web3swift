@@ -35,7 +35,7 @@ private extension Data {
     }
 }
 class SolidityDataWriter {
-    private var data: Data
+    private(set) var data: Data
     private var dynamicData = [SolidityDataPointer]()
     var offset = 0
     init() {
@@ -78,7 +78,19 @@ class SolidityDataWriter {
             self.data.append(data)
         }
     }
+    func setLength() {
+        data.replaceSubrange(0..<0, with: length(data.count, offset: 0xc0))
+    }
+    
+    private func length(_ l: Int, offset: Int) -> Data {
+        func byte(_ value: Int) -> Data { return Data([UInt8(value)]) }
+        guard l + offset > 0xf7 else { return byte(l+offset) }
+        let serialized = BigUInt(l).serialize()
+        return byte(0xf7+serialized.count) + serialized
+    }
+    
     func done() -> Data {
+        guard !dynamicData.isEmpty else { return data }
         for pointer in dynamicData {
             data.write(data: (data.count - offset).solidityData, at: pointer.position)
             if pointer.data.count == 0 {

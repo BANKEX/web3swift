@@ -31,60 +31,116 @@ public class SecurityToken {
     /// Password to unlock private key for sender address
     public var password: String = "BANKEXFOUNDATION"
     
-    /// Represents Address as ERC20 token (with standart password and options)
-    /// - parameter address: Token address
+    /// Represents Address as SecurityToken token (with standard password and options)
+    /// - Parameter address: Token address
     public init(_ address: Address) {
         self.address = address
     }
     
-    /// Represents Address as ERC20 token
-    /// - parameter address: Token address
-    /// - parameter from: Sender address
-    /// - parameter address: Password to decrypt sender's private key
+    /// Represents Address as SecurityToken token
+    /// - Parameter address: Token address
+    /// - Parameter from: Sender address
+    /// - Parameter address: Password to decrypt sender's private key
     public init(_ address: Address, from: Address, password: String) {
         self.address = address
         options.from = from
         self.password = password
     }
+    /// Returns token decimals
     public func decimals() throws -> BigUInt {
         return try address.call("decimals()").wait().uint256()
     }
     
+    /// Returns token total supply
     public func totalSupply() throws -> BigUInt {
         return try address.call("totalSupply()").wait().uint256()
     }
     
+    /// - Returns: User balance in wei
     public func balance(of owner: Address) throws -> BigUInt {
         return try address.call("balanceOf(address)", owner).wait().uint256()
     }
     
+    /**
+     Shows how much balance you approved spender to get from your account.
+     
+     - Returns: Balance that one user can take from another user
+     - Parameter owner: Balance holder
+     - Parameter spender: Spender address
+     
+     Solidity interface:
+     ``` solidity
+     allowance(address,address)
+     ```
+     */
     public func allowance(owner: Address, spender: Address) throws -> BigUInt {
         return try address.call("allowance(address,address)", owner, spender).wait().uint256()
     }
     
-    public func transfer(to: Address, value: BigUInt) throws -> TransactionSendingResult {
-        return try address.send("transfer(address,uint256)", to, value).wait()
+    /**
+     Transfers to user amount of balance
+     
+     - Important: Transaction | Requires password
+     - Returns: TransactionSendingResult
+     - Parameter user: Recipient address
+     - Parameter amount: Amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
+     
+     Solidity interface:
+     ``` solidity
+     transfer(address,uint256)
+     ```
+     */
+    public func transfer(to: Address, amount: BigUInt) throws -> TransactionSendingResult {
+        return try address.send("transfer(address,uint256)", to, amount).wait()
     }
     
-    public func transfer(from: Address, to: Address, spender: Address) throws -> TransactionSendingResult {
-        return try address.send("transferFrom(address,address,uint256)", from, to, spender).wait()
+    /**
+     Transfers from user1 to user2
+     NaturalUnits is user readable representaion of tokens (like "0.01" / "1.543634")
+     - Important: Transaction | Requires password | Contract owner only.
+     ```
+     SecurityToken(address, from: me).transfer(to: user, amount: NaturalUnits(0.1))
+     ```
+     is not the same as
+     ```
+     SecurityToken(address).transferFrom(owner: me, to: user, amount: NaturalUnits(0.1))
+     ```
+     - Returns: TransactionSendingResult
+     */
+    public func transfer(from: Address, to: Address, amount: BigUInt) throws -> TransactionSendingResult {
+        return try address.send("transferFrom(address,address,uint256)", from, to, amount).wait()
     }
     
-    public func approve(spender: Address, value: BigUInt) throws -> TransactionSendingResult {
-        return try address.send("approve(address,uint256)", spender, value).wait()
+    /**
+     Approves user to take \(amount) tokens from your account.
+     
+     - Important: Transaction | Requires password
+     - Returns: TransactionSendingResult
+     - Parameter user: Recipient address
+     - Parameter amount: Amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
+     
+     Solidity interface:
+     ``` solidity
+     approve(address,uint256)
+     ```
+     */
+    public func approve(spender: Address, amount: BigUInt) throws -> TransactionSendingResult {
+        return try address.send("approve(address,uint256)", spender, amount).wait()
     }
     
+    /// Decrease approved balance that spender can take from your address
     public func decreaseApproval(spender: Address, subtractedValue: BigUInt) throws -> TransactionSendingResult {
         return try address.send("decreaseApproval(address,uint256)", spender, subtractedValue).wait()
     }
     
+    /// Increase approved balance that spender can take from your address
     public func increaseApproval(spender: Address, addedValue: BigUInt) throws -> TransactionSendingResult {
         return try address.send("increaseApproval(address,uint256)", spender, addedValue).wait()
     }
     
     /**
      transfer, transferFrom must respect the result of verifyTransfer
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function verifyTransfer(address _from, address _to, uint256 _value) external returns (bool success);
      ```
@@ -96,10 +152,10 @@ public class SecurityToken {
     /**
      Mints new tokens and assigns them to the target _investor.
      Can only be called by the STO attached to the token (Or by the ST owner if there's no STO attached yet)
-     - parameter investor: Address the tokens will be minted to
-     - parameter value: is the amount of tokens that will be minted to the investor
+     - Parameter investor: Address the tokens will be minted to
+     - Parameter value: is the amount of tokens that will be minted to the investor
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function mint(address _investor, uint256 _value) external returns (bool success);
      ```
@@ -111,11 +167,11 @@ public class SecurityToken {
     /**
      Mints new tokens and assigns them to the target _investor.
      Can only be called by the STO attached to the token (Or by the ST owner if there's no STO attached yet)
-     - parameter investor: Address the tokens will be minted to
-     - parameter value: is The amount of tokens that will be minted to the investor
-     - parameter data: Data to indicate validation
+     - Parameter investor: Address the tokens will be minted to
+     - Parameter value: is The amount of tokens that will be minted to the investor
+     - Parameter data: Data to indicate validation
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function mintWithData(address _investor, uint256 _value, bytes _data) external returns (bool success);
      ```
@@ -127,11 +183,11 @@ public class SecurityToken {
     
     /**
      Used to burn the securityToken on behalf of someone else
-     - parameter from: Address for whom to burn tokens
-     - parameter value: No. of tokens to be burned
-     - parameter data: Data to indicate validation
+     - Parameter from: Address for whom to burn tokens
+     - Parameter value: No. of tokens to be burned
+     - Parameter data: Data to indicate validation
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function burnFromWithData(address _from, uint256 _value, bytes _data) external;
      ```
@@ -143,10 +199,10 @@ public class SecurityToken {
     
     /**
      Used to burn the securityToken
-     - parameter value: No. of tokens to be burned
-     - parameter data: Data to indicate validation
+     - Parameter value: No. of tokens to be burned
+     - Parameter data: Data to indicate validation
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function burnWithData(uint256 _value, bytes _data) external;
      ```
@@ -160,16 +216,16 @@ public class SecurityToken {
      If no Permission return false - note that IModule withPerm will allow ST owner all permissions anyway
      this allows individual modules to override this logic if needed (to not allow ST owner all permissions)
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function checkPermission(address _delegate, address _module, bytes32 _perm) external view returns (bool);
      ```
      */
-    
     public func checkPermission(delegate: Address, module: Address, perm: Data) throws -> Bool {
         return try address.call("checkPermission(address,address,bytes32)", delegate, module, perm).wait().bool()
     }
     
+    /// Module
     public struct Module {
         /// Module name
         public var name: String
@@ -185,6 +241,7 @@ public class SecurityToken {
         public var index: BigUInt
         /// Name index
         public var nameIndex: BigUInt
+        /// Init with contract response
         public init(_ response: SolidityDataReader) throws {
             name = try response.string()
             address = try response.address()
@@ -197,9 +254,9 @@ public class SecurityToken {
     }
     /**
      Returns module list for a module type
-     - parameter address: Address of the module
+     - Parameter address: Address of the module
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function getModule(address _module) external view returns(bytes32, address, address, bool, uint8, uint256, uint256);
      ```
@@ -212,10 +269,10 @@ public class SecurityToken {
     
     /**
      Returns module list for a module name
-     - parameter name: Name of the module
-     - returns: address[] List of modules with this name
+     - Parameter name: Name of the module
+     - Returns: address[] List of modules with this name
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function getModulesByName(bytes32 _name) external view returns (address[]);
      ```
@@ -226,10 +283,10 @@ public class SecurityToken {
     
     /**
      Returns module list for a module type
-     - parameter type: Type of the module
-     - returns: address[] List of modules with this type
+     - Parameter type: Type of the module
+     - Returns: address[] List of modules with this type
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function getModulesByType(uint8 _type) external view returns (address[]);
      ```
@@ -241,9 +298,9 @@ public class SecurityToken {
     
     /**
      Queries totalSupply at a specified checkpoint
-     - parameter checkpointId: Checkpoint ID to query as of
+     - Parameter checkpointId: Checkpoint ID to query as of
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function totalSupplyAt(uint256 _checkpointId) external view returns (uint256);
      ```
@@ -254,10 +311,10 @@ public class SecurityToken {
     
     /**
      Queries balance at a specified checkpoint
-     - parameter investor: Investor to query balance for
-     - parameter checkpointId: Checkpoint ID to query as of
+     - Parameter investor: Investor to query balance for
+     - Parameter checkpointId: Checkpoint ID to query as of
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function balanceOfAt(address _investor, uint256 _checkpointId) external view returns (uint256);
      ```
@@ -269,7 +326,7 @@ public class SecurityToken {
     /**
      Creates a checkpoint that can be used to query historical balances / totalSuppy
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function createCheckpoint() external returns (uint256);
      ```
@@ -282,9 +339,9 @@ public class SecurityToken {
     /**
      Gets length of investors array
      NB - this length may differ from investorCount if the list has not been pruned of zero-balance investors
-     - returns: Length
+     - Returns: Length
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function getInvestors() external view returns (address[]);
      ```
@@ -296,10 +353,10 @@ public class SecurityToken {
     /**
      returns an array of investors at a given checkpoint
      NB - this length may differ from investorCount as it contains all investors that ever held tokens
-     - parameter checkpointId: Checkpoint id at which investor list is to be populated
-     - returns: list of investors
+     - Parameter checkpointId: Checkpoint id at which investor list is to be populated
+     - Returns: list of investors
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function getInvestorsAt(uint256 _checkpointId) external view returns(address[]);
      ```
@@ -311,11 +368,11 @@ public class SecurityToken {
     /**
      generates subset of investors
      NB - can be used in batches if investor list is large
-     - parameter start: Position of investor to start iteration from
-     - parameter end: Position of investor to stop iteration at
-     - returns: list of investors
+     - Parameter start: Position of investor to start iteration from
+     - Parameter end: Position of investor to stop iteration at
+     - Returns: list of investors
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function iterateInvestors(uint256 _start, uint256 _end) external view returns(address[]);
      ```
@@ -326,9 +383,9 @@ public class SecurityToken {
     
     /**
      Gets current checkpoint ID
-     - returns: Id
+     - Returns: Id
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function currentCheckpointId() external view returns (uint256);
      ```
@@ -339,10 +396,10 @@ public class SecurityToken {
     
     /**
      Gets an investor at a particular index
-     - parameter index: Index to return address from
-     - returns: Investor address
+     - Parameter index: Index to return address from
+     - Returns: Investor address
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function investors(uint256 _index) external view returns (address);
      ```
@@ -354,10 +411,10 @@ public class SecurityToken {
     /**
      Allows the owner to withdraw unspent POLY stored by them on the ST or any ERC20 token.
      @dev Owner can transfer POLY to the ST which will be used to pay for modules that require a POLY fee.
-     - parameter tokenContract: Address of the ERC20Basic compliance token
-     - parameter value: Amount of POLY to withdraw
+     - Parameter tokenContract: Address of the ERC20Basic compliance token
+     - Parameter value: Amount of POLY to withdraw
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function withdrawERC20(address _tokenContract, uint256 _value) external;
      ```
@@ -368,10 +425,10 @@ public class SecurityToken {
     
     /**
      Allows owner to approve more POLY to one of the modules
-     - parameter module: Module address
-     - parameter budget: New budget
+     - Parameter module: Module address
+     - Parameter budget: New budget
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function changeModuleBudget(address _module, uint256 _budget) external;
      ```
@@ -382,9 +439,9 @@ public class SecurityToken {
     
     /**
      Changes the tokenDetails
-     - parameter newTokenDetails: New token details
+     - Parameter newTokenDetails: New token details
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function updateTokenDetails(string _newTokenDetails) external;
      ```
@@ -395,9 +452,9 @@ public class SecurityToken {
     
     /**
      Allows the owner to change token granularity
-     - parameter granularity: Granularity level of the token
+     - Parameter granularity: Granularity level of the token
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function changeGranularity(uint256 _granularity) external;
      ```
@@ -408,11 +465,11 @@ public class SecurityToken {
     
     /**
      Removes addresses with zero balances from the investors list
-     - parameter start: Index in investors list at which to start removing zero balances
-     - parameter iters: Max number of iterations of the for loop
+     - Parameter start: Index in investors list at which to start removing zero balances
+     - Parameter iters: Max number of iterations of the for loop
      NB - pruning this list will mean you may not be able to iterate over investors on-chain as of a historical checkpoint
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function pruneInvestors(uint256 _start, uint256 _iters) external;
      ```
@@ -424,7 +481,7 @@ public class SecurityToken {
     /**
      Freezes all the transfers
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function freezeTransfers() external;
      ```
@@ -436,7 +493,7 @@ public class SecurityToken {
     /**
      Un-freezes all the transfers
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function unfreezeTransfers() external;
      ```
@@ -448,7 +505,7 @@ public class SecurityToken {
     /**
      Ends token minting period permanently
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function freezeMinting() external;
      ```
@@ -460,11 +517,11 @@ public class SecurityToken {
     /**
      Mints new tokens and assigns them to the target investors.
      Can only be called by the STO attached to the token or by the Issuer (Security Token contract owner)
-     - parameter investors: A list of addresses to whom the minted tokens will be delivered
-     - parameter values: A list of the amount of tokens to mint to corresponding addresses from _investor[] list
-     - returns: Success
+     - Parameter investors: A list of addresses to whom the minted tokens will be delivered
+     - Parameter values: A list of the amount of tokens to mint to corresponding addresses from _investor[] list
+     - Returns: Success
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function mintMulti(address[] _investors, uint256[] _values) external returns (bool success);
      ```
@@ -480,12 +537,12 @@ public class SecurityToken {
      You are allowed to add a new moduleType if:
      - there is no existing module of that type yet added
      - the last member of the module list is replacable
-     - parameter moduleFactory: is the address of the module factory to be added
-     - parameter data: is data packed into bytes used to further configure the module (See STO usage)
-     - parameter maxCost: max amount of POLY willing to pay to module. (WIP)
+     - Parameter moduleFactory: Is the address of the module factory to be added
+     - Parameter data: Is data packed into bytes used to further configure the module (See STO usage)
+     - Parameter maxCost: Max amount of POLY willing to pay to module. (WIP)
      
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function addModule(
      address _moduleFactory,
@@ -501,9 +558,9 @@ public class SecurityToken {
     
     /**
      Archives a module attached to the SecurityToken
-     - parameter module: address of module to archive
+     - Parameter module: Address of module to archive
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function archiveModule(address _module) external;
      ```
@@ -514,9 +571,9 @@ public class SecurityToken {
     
     /**
      Unarchives a module attached to the SecurityToken
-     - parameter module: address of module to unarchive
+     - Parameter module: Address of module to unarchive
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function unarchiveModule(address _module) external;
      ```
@@ -527,9 +584,9 @@ public class SecurityToken {
     
     /**
      Removes a module attached to the SecurityToken
-     - parameter module: address of module to archive
+     - Parameter module: Address of module to archive
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function removeModule(address _module) external;
      ```
@@ -540,9 +597,9 @@ public class SecurityToken {
     
     /**
      Used by the issuer to set the controller addresses
-     - parameter controller: address of the controller
+     - Parameter controller: Address of the controller
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function setController(address _controller) external;
      ```
@@ -553,13 +610,13 @@ public class SecurityToken {
     
     /**
      Used by a controller to execute a forced transfer
-     - parameter from: address from which to take tokens
-     - parameter to: address where to send tokens
-     - parameter value: amount of tokens to transfer
-     - parameter data: data to indicate validation
-     - parameter log: data attached to the transfer by controller to emit in event
+     - Parameter from: Address from which to take tokens
+     - Parameter to: Address where to send tokens
+     - Parameter value: Amount of tokens to transfer
+     - Parameter data: Data to indicate validation
+     - Parameter log: Data attached to the transfer by controller to emit in event
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function forceTransfer(address _from, address _to, uint256 _value, bytes _data, bytes _log) external;
      ```
@@ -570,12 +627,12 @@ public class SecurityToken {
     
     /**
      Used by a controller to execute a foced burn
-     - parameter from: address from which to take tokens
-     - parameter value: amount of tokens to transfer
-     - parameter data: data to indicate validation
-     - parameter log: data attached to the transfer by controller to emit in event
+     - Parameter from: Address from which to take tokens
+     - Parameter value: Amount of tokens to transfer
+     - Parameter data: Data to indicate validation
+     - Parameter log: Data attached to the transfer by controller to emit in event
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function forceBurn(address _from, uint256 _value, bytes _data, bytes _log) external;
      ```
@@ -588,7 +645,7 @@ public class SecurityToken {
      Used by the issuer to permanently disable controller functionality
      @dev enabled via feature switch "disableControllerAllowed"
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function disableController() external;
      ```
@@ -601,7 +658,7 @@ public class SecurityToken {
     /**
      Used to get the version of the securityToken
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function getVersion() external view returns(uint8[]);
      ```
@@ -613,7 +670,7 @@ public class SecurityToken {
     /**
      Gets the investor count
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function getInvestorCount() external view returns(uint256);
      ```
@@ -624,12 +681,12 @@ public class SecurityToken {
     
     /**
      Overloaded version of the transfer function
-     - parameter to: receiver of transfer
-     - parameter value: value of transfer
-     - parameter data: data to indicate validation
-     - returns: bool success
+     - Parameter to: Receiver of transfer
+     - Parameter value: Value of transfer
+     - Parameter data: Data to indicate validation
+     - Returns: Bool success
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function transferWithData(address _to, uint256 _value, bytes _data) external returns (bool success);
      ```
@@ -639,13 +696,13 @@ public class SecurityToken {
     }
     /**
      Overloaded version of the transferFrom function
-     - parameter from: sender of transfer
-     - parameter to: receiver of transfer
-     - parameter value: value of transfer
-     - parameter data: data to indicate validation
-     - returns: bool success
+     - Parameter from: Sender of transfer
+     - Parameter to: Receiver of transfer
+     - Parameter value: Value of transfer
+     - Parameter data: Data to indicate validation
+     - Returns: Bool success
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function transferFromWithData(address _from, address _to, uint256 _value, bytes _data) external returns(bool);
      ```
@@ -656,9 +713,9 @@ public class SecurityToken {
     
     /**
      Provides the granularity of the token
-     - returns: uint256
+     - Returns: Token granularity
      
-     solidity interface:
+     Solidity interface:
      ``` solidity
      function granularity() external view returns(uint256);
      ```

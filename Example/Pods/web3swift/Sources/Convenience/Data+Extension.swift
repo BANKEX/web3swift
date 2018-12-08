@@ -7,16 +7,25 @@
 //
 
 import Foundation
+import CryptoSwift
+
 
 /// Data errors
 public enum DataError: Error {
     /// Throws if data cannot be converted to string
     case hexStringCorrupted(String)
+    /// Printable / user displayable description
     public var localizedDescription: String {
         switch self {
         case let .hexStringCorrupted(string):
             return "Cannot convert hex string \"\(string)\" to data"
         }
+    }
+}
+
+extension Data {
+    func sha256() -> Data {
+        return digest(using: .sha256)
     }
 }
 
@@ -46,9 +55,12 @@ public extension Data {
         return difference == UInt8(0x00)
     }
 
-    /// Replaces all data bytes with zeroes
-    /// This one needs because if data deinits, it still will stay in the memory until the override
-    /// - parameter data: Data to be cleared
+    /// Replaces all data bytes with zeroes.
+	///
+    /// This one needs because if data deinits, it still will stay in the memory until the override.
+	///
+	/// webswift uses that to clear private key from memory.
+    /// - Parameter data: Data to be cleared
     static func zero(_ data: inout Data) {
         let count = data.count
         data.withUnsafeMutableBytes { (dataPtr: UnsafeMutablePointer<UInt8>) in
@@ -56,8 +68,8 @@ public extension Data {
         }
     }
     
-    /// - parameter length: Desired data length
-    /// - returns: Random data
+    /// - Parameter length: Desired data length
+    /// - Returns: Random data
     static func random(length: Int) -> Data {
         var data = Data(repeating: 0, count: length)
         var success = false
@@ -80,7 +92,7 @@ public extension Data {
         return data
     }
     
-    /// - returns: Hex representation of data
+    /// - Returns: Hex representation of data
     var hex: String {
         var string = ""
         withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
@@ -91,10 +103,10 @@ public extension Data {
         return string
     }
     
-    /// - parameter separateEvery: Position where separator should be inserted.
+    /// - Parameter separateEvery: Position where separator should be inserted.
     /// Counts per byte (not per character)
-    /// - parameter separator: Separator string
-    /// - returns: Hex representation of data
+    /// - Parameter separator: Separator string
+    /// - Returns: Hex representation of data
     func hex(separateEvery: Int, separator: String = " ") -> String {
         var string = ""
         string.reserveCapacity(count*2+count/separateEvery*separator.count)
@@ -112,7 +124,7 @@ public extension Data {
         return string
     }
     
-    /// - returns: Data if string is in hex format
+    /// - Returns: Data if string is in hex format
     /// Format: "0x0ba98fc797cfab9864bfac988fa", "0ba98fc797cfab9864bfac988fa"
     static func fromHex(_ hex: String) -> Data? {
         let string = hex.lowercased().withoutHex
@@ -127,19 +139,19 @@ public extension Data {
         return Data(array)
     }
     
-    /// - returns: String (if its utf8 convertible) or hex string
+    /// - Returns: String (if its utf8 convertible) or hex string
     var string: String {
         return String(data: self, encoding: .utf8) ?? hex
     }
     
-    /// - returns: kaccak256 hash of data
+    /// - Returns: kaccak256 hash of data
     func keccak256() -> Data {
         return sha3(.keccak256)
     }
     
     
-    /// - returns: Number bits
-    /// - important: Returns max of 8 bytes for simplicity
+    /// - Returns: Number bits
+    /// - Important: Returns max of 8 bytes for simplicity
     func bitsInRange(_ startingBit: Int, _ length: Int) -> UInt64 {
         let bytes = self[(startingBit / 8) ..< (startingBit + length + 7) / 8]
         let padding = Data(repeating: 0, count: 8 - bytes.count)
@@ -152,7 +164,7 @@ public extension Data {
 }
 
 extension UInt8 {
-    /// - returns: Byte as hex string (from "00" to "ff")
+    /// - Returns: Byte as hex string (from "00" to "ff")
     public var hex: String {
         if self < 0x10 {
             return "0" + String(self, radix: 16)

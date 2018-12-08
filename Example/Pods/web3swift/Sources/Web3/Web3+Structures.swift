@@ -146,7 +146,7 @@ extension EthereumTransaction: Decodable {
     }
 }
 
-/*
+/**
 # TransactionDetails
 Used as result of Web3.default.eth.getTransactionDetails
 */
@@ -202,7 +202,7 @@ public struct TransactionDetails: Decodable {
     }
 }
 
-/*
+/**
 # Transaciton Receipt
 Used in Web3.default.eth.getTransactionReceipt()
 and in contract events
@@ -448,11 +448,13 @@ public struct EventLog: Decodable {
 public enum TransactionInBlockError: Error {
 	/// cannot parse (data: Any) to transaction hash or dictionary
     case corrupted
+    /// Printable / user displayable description
 	public var localizedDescription: String {
 		return "init(data:) failed beacause: Data corrupted"
 	}
 }
 
+/// Transaction in block
 public enum TransactionInBlock: Decodable {
 	/// Transaction with hash
     case hash(Data)
@@ -482,7 +484,7 @@ public enum TransactionInBlock: Decodable {
     }
 	
 	/// init with any object
-	/// - parameter data: Should be in hex or dictionary format
+	/// - Parameter data: Should be in hex or dictionary format
     public init(_ data: Any) throws {
         if let string = data as? String {
             guard let d = Data.fromHex(string) else { throw TransactionInBlockError.corrupted }
@@ -653,7 +655,7 @@ public struct EventParserResult {
 	/// Event log
     public var eventLog: EventLog?
 	
-	//// Standart init with all parameters
+	/// standard init with all parameters
     public init(eventName: String, transactionReceipt: TransactionReceipt?, contractAddress: Address, decodedResult: [String: Any]) {
         self.eventName = eventName
         self.transactionReceipt = transactionReceipt

@@ -15,9 +15,9 @@ import Foundation
  */
 public final class InfuraProvider: Web3HttpProvider {
     /**
-     - parameter net: defines network id. applies to address "https://\(net).infura.io/"
-     - parameter token: your infura token. appends to url address
-     - parameter manager: KeystoreManager for this provider
+     - Parameter net: Defines network id. applies to address "https://\(net).infura.io/"
+     - Parameter token: Your infura token. appends to url address
+     - Parameter manager: KeystoreManager for this provider
      */
     public init?(_ net: NetworkId, accessToken token: String? = nil, keystoreManager manager: KeystoreManager = KeystoreManager()) {
         var requestURLstring = "https://\(net).infura.io/"

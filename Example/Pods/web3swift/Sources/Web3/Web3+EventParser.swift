@@ -31,9 +31,9 @@ extension Web3Contract {
         
         /**
          Parses the transaction for events matching the EventParser settings.
-         - parameter transaction: web3swift native EthereumTransaction object
-         - returns: array of events
-         - important: This call is synchronous
+         - Parameter transaction: web3swift native EthereumTransaction object
+         - Returns: Array of events
+         - Important: This call is synchronous
          */
         public func parseTransaction(_ transaction: EthereumTransaction) throws -> [EventParserResult] {
             return try parseTransactionPromise(transaction).wait()
@@ -41,9 +41,9 @@ extension Web3Contract {
 
         /**
          Parses the transaction for events matching the EventParser settings.
-         - parameter hash: Transaction hash
-         - returns: array of events
-         - important: This call is synchronous
+         - Parameter hash: Transaction hash
+         - Returns: Array of events
+         - Important: This call is synchronous
          */
         public func parseTransactionByHash(_ hash: Data) throws -> [EventParserResult] {
             return try parseTransactionByHashPromise(hash).wait()
@@ -51,9 +51,9 @@ extension Web3Contract {
         
         /**
          Parses the block for events matching the EventParser settings.
-         - parameter blockNumber: Ethereum network block number
-         - returns: array of events
-         - important: This call is synchronous
+         - Parameter blockNumber: Ethereum network block number
+         - Returns: Array of events
+         - Important: This call is synchronous
          */
         public func parseBlockByNumber(_ blockNumber: UInt64) throws -> [EventParserResult] {
             return try parseBlockByNumberPromise(blockNumber).wait()
@@ -61,9 +61,9 @@ extension Web3Contract {
 
         /**
          Parses the block for events matching the EventParser settings.
-         - parameter block: Native web3swift block object
-         - returns: array of events
-         - important: This call is synchronous
+         - Parameter block: Native web3swift block object
+         - Returns: array of events
+         - Important: This call is synchronous
          */
         public func parseBlock(_ block: Block) throws -> [EventParserResult] {
             return try parseBlockPromise(block).wait()
@@ -74,9 +74,9 @@ extension Web3Contract {
 extension Web3Contract.EventParser {
     /**
      Parses the transaction for events matching the EventParser settings.
-     - parameter transaction: web3swift native EthereumTransaction object
-     - returns: promise that returns array of events
-     - important: This call is synchronous
+     - Parameter transaction: web3swift native EthereumTransaction object
+     - Returns: Promise that returns array of events
+     - Important: This call is synchronous
      */
     public func parseTransactionPromise(_ transaction: EthereumTransaction) -> Promise<[EventParserResult]> {
         let queue = web3.requestDispatcher.queue
@@ -95,9 +95,9 @@ extension Web3Contract.EventParser {
 
     /**
      Parses the transaction for events matching the EventParser settings.
-     - parameter hash: Transaction hash
-     - returns: promise that returns array of events
-     - important: This call is synchronous
+     - Parameter hash: Transaction hash
+     - Returns: Promise that returns array of events
+     - Important: This call is synchronous
      */
     public func parseTransactionByHashPromise(_ hash: Data) -> Promise<[EventParserResult]> {
         let queue = web3.requestDispatcher.queue
@@ -111,9 +111,9 @@ extension Web3Contract.EventParser {
 
     /**
      Parses the block for events matching the EventParser settings.
-     - parameter blockNumber: Ethereum network block number
-     - returns: promise that returns array of events
-     - important: This call is synchronous
+     - Parameter blockNumber: Ethereum network block number
+     - Returns: Promise that returns array of events
+     - Important: This call is synchronous
      */
     public func parseBlockByNumberPromise(_ blockNumber: UInt64) -> Promise<[EventParserResult]> {
         let queue = web3.requestDispatcher.queue
@@ -135,9 +135,9 @@ extension Web3Contract.EventParser {
 
     /**
      Parses the block for events matching the EventParser settings.
-     - parameter block: Native web3swift block object
-     - returns: promise that returns array of events
-     - important: This call is synchronous
+     - Parameter block: Native web3swift block object
+     - Returns: Promise that returns array of events
+     - Important: This call is synchronous
      */
     public func parseBlockPromise(_ block: Block) -> Promise<[EventParserResult]> {
         let queue = web3.requestDispatcher.queue
@@ -211,11 +211,11 @@ extension Web3Contract.EventParser {
 extension Web3Contract {
     /**
      Fetches events by doing a lookup on "indexed" parameters of the event. Smart-contract developer can make some of event values "indexed" for such fast queries.
-     - parameter eventName: Event name, should be present in ABI interface of the contract
-     - parameter filter: EventFilter object setting the block limits for query
-     - parameter joinWithReceipts: Bool indicating whether TransactionReceipt should be fetched separately for every matched transaction
-     - returns: array of events
-     - important: This call is synchronous
+     - Parameter eventName: Event name, should be present in ABI interface of the contract
+     - Parameter filter: EventFilter object setting the block limits for query
+     - Parameter joinWithReceipts: Bool indicating whether TransactionReceipt should be fetched separately for every matched transaction
+     - Returns: Array of events
+     - Important: This call is synchronous
      */
     public func getIndexedEvents(eventName: String?, filter: EventFilter, joinWithReceipts: Bool = false) throws -> [EventParserResult] {
         return try getIndexedEventsPromise(eventName: eventName, filter: filter, joinWithReceipts: joinWithReceipts).wait()
@@ -223,11 +223,11 @@ extension Web3Contract {
     
     /**
      Fetches events by doing a lookup on "indexed" parameters of the event. Smart-contract developer can make some of event values "indexed" for such fast queries.
-     - parameter eventName: Event name, should be present in ABI interface of the contract
-     - parameter filter: EventFilter object setting the block limits for query
-     - parameter joinWithReceipts: Bool indicating whether TransactionReceipt should be fetched separately for every matched transaction
-     - returns: promise that returns array of events
-     - important: This call is synchronous
+     - Parameter eventName: Event name, should be present in ABI interface of the contract
+     - Parameter filter: EventFilter object setting the block limits for query
+     - Parameter joinWithReceipts: Bool indicating whether TransactionReceipt should be fetched separately for every matched transaction
+     - Returns: Promise that returns array of events
+     - Important: This call is synchronous
      */
     public func getIndexedEventsPromise(eventName: String?, filter: EventFilter, joinWithReceipts: Bool = false) -> Promise<[EventParserResult]> {
         let queue = web3.requestDispatcher.queue

@@ -11,14 +11,16 @@ import Foundation
 
 /// Browser functions
 public class Web3BrowserFunctions: Web3OptionsInheritable {
-    /// provider for some functions
+    /// Provider for some functions
     var provider: Web3Provider
     unowned var web3: Web3
+    
+    /// Default options for transactions
     public var options: Web3Options {
         return web3.options
     }
     
-    /// init with provider and web3
+    /// Init with provider and web3
     public init(provider prov: Web3Provider, web3 web3instance: Web3) {
         provider = prov
         web3 = web3instance
@@ -26,8 +28,8 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
     
     /// Get a list of Ethereum accounts that a node knows about.
     /// If one has attached a Keystore Manager to the web3 object it returns accounts known to the keystore.
-    /// - important: This function is synchronous!
-    /// - returns: Array of addresses in the node
+    /// - Important: This function is synchronous!
+    /// - Returns: Array of addresses in the node
     public func getAccounts() -> [String]? {
         do {
             return try web3.eth.getAccounts().compactMap { $0.address }
@@ -36,7 +38,7 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
         }
     }
     
-    /// - returns: First account from node
+    /// - Returns: First account from node
     public func getCoinbase() -> String? {
         guard let addresses = self.getAccounts() else { return nil }
         guard addresses.count > 0 else { return nil }
@@ -45,9 +47,9 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
 
     /**
      Signs personal message
-     - parameter personalMessage: message to sign
-     - parameter account: account that signs message
-     - parameter password: password to decrypt private key
+     - Parameter personalMessage: Message to sign
+     - Parameter account: Account that signs message
+     - Parameter password: Password to decrypt private key
      */
     public func personalSign(_ personalMessage: String, account: String, password: String = "BANKEXFOUNDATION") -> String? {
         return sign(personalMessage, account: account, password: password)
@@ -55,9 +57,9 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
 
     /**
      Signs personal message
-     - parameter personalMessage: message to sign
-     - parameter account: account that signs message
-     - parameter password: password to decrypt private key
+     - Parameter personalMessage: Message to sign
+     - Parameter account: Account that signs message
+     - Parameter password: Password to decrypt private key
      */
     public func sign(_ personalMessage: String, account: String, password: String = "BANKEXFOUNDATION") -> String? {
         guard let data = Data.fromHex(personalMessage) else { return nil }
@@ -66,21 +68,21 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
 
     /**
      Signs personal message
-     - parameter personalMessage: message to sign
-     - parameter account: account that signs message
-     - parameter password: password to decrypt private key
+     - Parameter personalMessage: Message to sign
+     - Parameter account: Account that signs message
+     - Parameter password: Password to decrypt private key
      */
     public func sign(_ personalMessage: Data, account: String, password: String = "BANKEXFOUNDATION") -> String? {
         let keystoreManager = self.web3.provider.attachedKeystoreManager
         guard let signature = try? Web3Signer.signPersonalMessage(personalMessage, keystore: keystoreManager, account: Address(account), password: password) else { return nil }
-        return signature.toHexString().withHex
+        return signature.hex.withHex
     }
     
     /**
      Recovers address that signed personal message
-     - parameter personalMessage: signed message
-     - parameter signature: signature
-     - returns: signer address
+     - Parameter personalMessage: Signed message
+     - Parameter signature: Signature
+     - Returns: Signer address
      */
     public func personalECRecover(_ personalMessage: String, signature: String) throws -> String {
         return try personalECRecover(personalMessage.dataFromHex(), signature: signature.dataFromHex())
@@ -88,9 +90,9 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
 
     /**
      Recovers address that signed personal message
-     - parameter personalMessage: signed message
-     - parameter signature: signature
-     - returns: signer address
+     - Parameter personalMessage: Signed message
+     - Parameter signature: Signature
+     - Returns: Signer address
      */
     public func personalECRecover(_ personalMessage: Data, signature: Data) throws -> String {
         try signature.checkSignatureSize()
@@ -111,9 +113,9 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
 
     /**
      Sends transaction to the blockchain
-     - parameter json: transaction to send
-     - parameter password: password to decrypt sender's private key
-     - returns: transaction hash
+     - Parameter json: Transaction to send
+     - Parameter password: Password to decrypt sender's private key
+     - Returns: Transaction hash
      */
     public func sendTransaction(_ json: [String: Any], password: String = "BANKEXFOUNDATION") throws -> String {
         let transaction = try EthereumTransaction(json)
@@ -123,9 +125,9 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
 
     /**
      Sends transaction to the blockchain
-     - parameter transaction: transaction to send
-     - parameter password: password to decrypt sender's private key
-     - returns: transaction hash
+     - Parameter transaction: Transaction to send
+     - Parameter password: Password to decrypt sender's private key
+     - Returns: Transaction hash
      */
     public func sendTransaction(_ transaction: EthereumTransaction, options: Web3Options, password: String = "BANKEXFOUNDATION") throws -> String {
         return try web3.eth.sendTransaction(transaction, options: options, password: password).hash
@@ -133,8 +135,8 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
     
     /**
      Estimates gas that can be used for this transaction
-     - parameter json: transaction to send
-     - returns: gas limit
+     - Parameter json: Transaction to send
+     - Returns: Gas limit
      */
     public func estimateGas(_ json: [String: Any]) throws -> BigUInt {
         let transaction = try EthereumTransaction(json)
@@ -144,9 +146,9 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
 
     /**
      Estimates gas that can be used for this transaction
-     - parameter transaction: transaction to send
-     - parameter options: options that will be send with the transaction
-     - returns: gas limit
+     - Parameter transaction: Transaction to send
+     - Parameter options: Options that will be send with the transaction
+     - Returns: Gas limit
      */
     public func estimateGas(_ transaction: EthereumTransaction, options: Web3Options) throws -> BigUInt {
         return try web3.eth.estimateGas(transaction, options: options)
@@ -156,8 +158,8 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
      Prepares transaction to send.
      Converts json to transaction and options.
      Gets gas price and estimates gas for this transaction from node
-     - parameter json: Transaction to send
-     - returns: transaction and its options
+     - Parameter json: Transaction to send
+     - Returns: Transaction and its options
      */
     public func prepareTxForApproval(_ json: [String: Any]) throws -> (transaction: EthereumTransaction, options: Web3Options) {
         let transaction = try EthereumTransaction(json)
@@ -167,21 +169,32 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
     
     /// Transaction Errors
     public enum TransactionError: Error {
-        /// Throws if sender (options.from) is not setted
+        /// You have to set transaction sender in options.from
         case optionsFromNotFound
-        /// Throws if address is not found in your keystoreManager
+        /// Cannot find private key for address \(address)
         case privateKeyNotFound(forAddress: Address)
-        /// Throws if transaction cannot be signed
+        /// Cannot encode transaction
         case cannotEncodeTransaction
+        /// Printable / user displayable description
+        public var localizedDescription: String {
+            switch self {
+            case .optionsFromNotFound:
+                return "You have to set transaction sender in options.from"
+            case let .privateKeyNotFound(forAddress: address):
+                return "Cannot find private key for address \(address) in the keystore manager"
+            case .cannotEncodeTransaction:
+                return "Cannot encode transaction"
+            }
+        }
     }
 
     /**
      Prepares transaction to send.
      Gets gas price and estimates gas for this transaction from node
-     - important: you must set sender in `options.from`
-     - parameter transaction: Transaction to send
-     - returns: transaction and its options
-     - throws: TransactionError.optionsFromNotFound
+     - Important: You must set sender in `options.from`
+     - Parameter transaction: Transaction to send
+     - Returns: Transaction and its options
+     - Throws: TransactionError.optionsFromNotFound
      */
     public func prepareTxForApproval(_ transaction: EthereumTransaction, options opts: Web3Options) throws -> (transaction: EthereumTransaction, options: Web3Options) {
         var transaction = transaction
@@ -198,9 +211,9 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
     
     /**
      Signs transaction
-     - important: you must set sender in `options.from`
-     - parameter personalMessage: transaction to sign
-     - parameter password: password to decrypt private key
+     - Important: You must set sender in `options.from`
+     - Parameter personalMessage: Transaction to sign
+     - Parameter password: Password to decrypt private key
      */
     public func signTransaction(_ json: [String: Any], password: String = "BANKEXFOUNDATION") throws -> String {
         let transaction = try EthereumTransaction(json)
@@ -210,9 +223,9 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
     
     /**
      Signs transaction
-     - important: you must set sender in `options.from`
-     - parameter personalMessage: transaction to sign
-     - parameter password: password to decrypt private key
+     - Important: You must set sender in `options.from`
+     - Parameter personalMessage: Transaction to sign
+     - Parameter password: Password to decrypt private key
      */
     public func signTransaction(_ trans: EthereumTransaction, options: Web3Options, password: String = "BANKEXFOUNDATION") throws -> String {
         var transaction = trans
@@ -231,7 +244,7 @@ public class Web3BrowserFunctions: Web3OptionsInheritable {
 
         guard let keystore = keystoreManager.walletForAddress(from) else { throw TransactionError.privateKeyNotFound(forAddress: from) }
         try Web3Signer.signTX(transaction: &transaction, keystore: keystore, account: from, password: password)
-        guard let signedData = transaction.encode(forSignature: false, chainId: nil)?.toHexString().withHex else { throw TransactionError.cannotEncodeTransaction }
+        guard let signedData = transaction.encode(forSignature: false, chainId: nil)?.hex.withHex else { throw TransactionError.cannotEncodeTransaction }
         return signedData
     }
 }

@@ -9,8 +9,10 @@
 import BigInt
 import Foundation
 
+/// Encoding functions
 public struct ABIv2Encoder {
     
+    /// Converts value to BigUInt
     public static func convertToBigUInt(_ value: AnyObject) -> BigUInt? {
         switch value {
         case let v as BigUInt:
@@ -58,6 +60,7 @@ public struct ABIv2Encoder {
         return nil
     }
 
+    /// Converts value to BigInt
     public static func convertToBigInt(_ value: AnyObject) -> BigInt? {
         switch value {
         case let v as BigUInt:
@@ -99,7 +102,8 @@ public struct ABIv2Encoder {
         }
         return nil
     }
-
+    
+    /// Converts data to value to solidity data
     public static func convertToData(_ value: AnyObject) -> Data? {
         switch value {
         case let d as Data:
@@ -125,7 +129,8 @@ public struct ABIv2Encoder {
             return nil
         }
     }
-
+    
+    /// Encodes values with provided scheme to solidity data
     public static func encode(types: [ABIv2.Element.InOut], values: [AnyObject]) -> Data? {
         guard types.count == values.count else { return nil }
         let params = types.compactMap { (el) -> ABIv2.Element.ParameterType in
@@ -133,7 +138,8 @@ public struct ABIv2Encoder {
         }
         return encode(types: params, values: values)
     }
-
+    
+    /// Encodes values with provided scheme to solidity data
     public static func encode(types: [ABIv2.Element.ParameterType], values: [AnyObject]) -> Data? {
         guard types.count == values.count else { return nil }
         var tails = [Data]()
@@ -171,7 +177,8 @@ public struct ABIv2Encoder {
         }
         return headsConcatenated + tailsConcatenated
     }
-
+    
+    /// Encodes single value with scheme to solidity data
     public static func encodeSingleType(type: ABIv2.Element.ParameterType, value: AnyObject) -> Data? {
         switch type {
         case .uint:
@@ -252,7 +259,7 @@ public struct ABIv2Encoder {
                         toReturn.append(encoding)
                     }
                     let total = lengthEncoding + toReturn
-//                    print("Dynamic array of static types encoding :\n" + String(total.toHexString()))
+//                    print("Dynamic array of static types encoding :\n" + String(total.hex))
                     return total
                 } else {
                     // create new context
@@ -285,7 +292,7 @@ public struct ABIv2Encoder {
                         }
                     }
                     let total = lengthEncoding + headsConcatenated + tailsConcatenated
-//                    print("Dynamic array of dynamic types encoding :\n" + String(total.toHexString()))
+//                    print("Dynamic array of dynamic types encoding :\n" + String(total.hex))
                     return total
                 }
             case let .staticSize(staticLength):
@@ -300,7 +307,7 @@ public struct ABIv2Encoder {
                         guard let encoding = enc else { break }
                         toReturn.append(encoding)
                     }
-//                    print("Static array of static types encoding :\n" + String(toReturn.toHexString()))
+//                    print("Static array of static types encoding :\n" + String(toReturn.hex))
                     let total = toReturn
                     return total
                 } else {
@@ -328,7 +335,7 @@ public struct ABIv2Encoder {
                         tailsPointer = tailsPointer + BigUInt(tail.count)
                     }
                     let total = headsConcatenated + tailsConcatenated
-//                    print("Static array of dynamic types encoding :\n" + String(total.toHexString()))
+//                    print("Static array of dynamic types encoding :\n" + String(total.hex))
                     return total
                 }
             case .notArray:

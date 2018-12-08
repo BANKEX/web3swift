@@ -59,28 +59,32 @@ public class ERC888 {
     /// Password to unlock private key for sender address
     public var password: String = "BANKEXFOUNDATION"
     
-    /// Represents Address as ERC888 token (with standart password and options)
-    /// - parameter address: Token address
+    /// Represents Address as ERC888 token (with standard password and options)
+    /// - Parameter address: Token address
     public init(_ address: Address) {
         self.address = address
     }
     
     /// Represents Address as ERC888 token
-    /// - parameter address: Token address
-    /// - parameter from: Sender address
-    /// - parameter address: Password to decrypt sender's private key
+    /// - Parameter address: Token address
+    /// - Parameter from: Sender address
+    /// - Parameter address: Password to decrypt sender's private key
     public init(_ address: Address, from: Address, password: String) {
         self.address = address
         options.from = from
         self.password = password
     }
     
+    /// Returns token with given id
     public func token(id: BigUInt) -> Token {
         return Token(parent: self, id: id)
     }
     
+    /// Represents one token
     public class Token {
+        /// Token id
         public let id: BigUInt
+        /// Token parent
         public let parent: ERC888
         fileprivate var address: Address { return parent.address }
         fileprivate var options: Web3Options { return parent.options }
@@ -95,23 +99,23 @@ public class ERC888 {
             self.id = id
         }
         
-        /// - returns: token name/description
+        /// - Returns: token name/description
         public func name() throws -> String {
             return try address.call("name(uint256)", id, options: options).wait().string()
         }
-        /// - returns: token symbol
+        /// - Returns: token symbol
         public func symbol() throws -> String {
             return try address.call("symbol(uint256)", id, options: options).wait().string()
         }
-        /// - returns: token decimals
+        /// - Returns: token decimals
         public func decimals() throws -> BigUInt {
             return try address.call("decimals(uint256)", id, options: options).wait().uint256()
         }
-        /// - returns: user balance in wei
+        /// - Returns: user balance in wei
         public func balance(of user: Address) throws -> BigUInt {
             return try address.call("balanceOf(uint256,address)", id, user, options: options).wait().uint256()
         }
-        /// - returns: user balance in human-readable format (automatically calculates with decimals)
+        /// - Returns: user balance in human-readable format (automatically calculates with decimals)
         public func naturalBalance(of user: Address) throws -> String {
             let balance = try address.call("balanceOf(uint256,address)", id, user, options: options).wait().uint256()
             let decimals = try self.decimals()
@@ -120,10 +124,10 @@ public class ERC888 {
         
         /**
          transfers to user \(amount)
-         - important: Transaction | Requires password | Contract owner only.
-         - returns: TransactionSendingResult
-         - parameter user: recepient address
-         - parameter amount: amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
+         - Important: Transaction | Requires password | Contract owner only.
+         - Returns: TransactionSendingResult
+         - Parameter user: Recipient address
+         - Parameter amount: Amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
          */
         public func transfer(to user: Address, amount: BigUInt) throws -> TransactionSendingResult {
             return try address.send("transfer(uint256,address,uint256)", id, user, amount, password: password, options: options).wait()
@@ -132,8 +136,8 @@ public class ERC888 {
         /**
          transfers to user \(amount)
          NaturalUnits is user readable representaion of tokens (like "0.01" / "1.543634")
-         - important: Transaction | Requires password | Contract owner only.
-         - returns: TransactionSendingResult
+         - Important: Transaction | Requires password | Contract owner only.
+         - Returns: TransactionSendingResult
          */
         public func transfer(to user: Address, amount: NaturalUnits) throws -> TransactionSendingResult {
             let decimals = try Int(self.decimals())
@@ -153,12 +157,12 @@ public class ERC888 {
             self.parent = parent
         }
         
-        /// - returns: gas price for transfer(address,uint256) transaction
+        /// - Returns: gas price for transfer(address,uint256) transaction
         public func transfer(to user: Address, amount: BigUInt) throws -> BigUInt {
             return try address.estimateGas("transfer(uint256,address,uint256)", parent.id, user, amount, options: options).wait()
         }
         
-        /// - returns: gas price for transfer(address,uint256) transaction
+        /// - Returns: gas price for transfer(address,uint256) transaction
         public func transfer(to user: Address, amount: NaturalUnits) throws -> BigUInt {
             let decimals = try Int(parent.decimals())
             let amount = amount.number(with: decimals)

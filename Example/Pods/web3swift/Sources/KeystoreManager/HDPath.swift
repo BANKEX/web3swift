@@ -10,53 +10,78 @@ import Foundation
 
 /// Can be used to check if HDPath is valid
 public class HDPath: ExpressibleByStringLiteral {
+    /// m/44'/60'/0'/0
     public static var `default`: HDPath = "m/44'/60'/0'/0"
+    /// m/44'/60'/0'
     public static var defaultPrefix: HDPath = "m/44'/60'/0'"
+    /// m/44'/60'/0'/0/
     public static var metamask: HDPath = "m/44'/60'/0'/0/0"
+    /// m/44'/60'/0'/0
     public static var metamaskPrefix: HDPath = "m/44'/60'/0'/0"
+    /// 1 << 31
     public static var hardenedIndexPrefix: UInt32 = (UInt32(1) << 31)
     
+    /// Path error
     public enum Error: Swift.Error {
-        case corrupted(String)
+        /// Invalid hdpath
+        case invalidHDPath(String)
+        /// Printable / user displayable description
         public var localizedDescription: String {
             switch self {
-            case let .corrupted(path):
+            case let .invalidHDPath(path):
                 return "Invalid hdpath: \(path)"
             }
         }
     }
+    
+    /// Path component
     public struct Component: CustomStringConvertible {
+        /// Path index
         public var index: UInt32
+        /// Is index hardened
         public var isHardened: Bool
+        /// String representation of the component
         public var description: String {
             return isHardened ? "\(index)'" : "\(index)"
         }
     }
     
+    /// Path starts with m/
     public var m: Bool
+    /// Array of indexes
     public private(set) var components: [Component]
+    /// Parent path
     public var parent: HDPath?
     
     public typealias StringLiteralType = String
-    /// unsafe init with string. this one will crash if something goes wrong
+    /// Unsafe init with string. this one will crash if something goes wrong
     public required init(stringLiteral value: StringLiteralType) {
         (m,components) = try! HDPath.parse(value)
     }
+    
+    /// Init with path string
     public init(path: String) throws {
         (m,components) = try HDPath.parse(path)
     }
+    
+    /// Init with empty path. m = false
     public init() {
         m = false
         components = []
     }
+    
+    /// Init with m and components
     public init(m: Bool = true, components: [Component]) {
         self.m = m
         self.components = components
     }
+    
+    /// Appends index to current path
     public func append(index: UInt32, hardened: Bool) {
         let index = hardened ? index % HDPath.hardenedIndexPrefix : index
         self.components.append(Component(index: index, isHardened: hardened))
     }
+    /// Returns child path with new index
     public func appending(index: UInt32, hardened: Bool) -> HDPath {
         let index = hardened ? index % HDPath.hardenedIndexPrefix : index
         let component = Component(index: index, isHardened: hardened)
@@ -64,6 +89,7 @@ public class HDPath: ExpressibleByStringLiteral {
         path.parent = self
         return path
     }
+    /// String representation of HDPath
     public var description: String {
         var string = ""
         if let parent = parent {
@@ -94,7 +120,7 @@ public class HDPath: ExpressibleByStringLiteral {
             if hardened {
                 component.removeLast()
             }
-            guard let index = UInt32(component) else { throw Error.corrupted(path) }
+            guard let index = UInt32(component) else { throw Error.invalidHDPath(path) }
             array.append(Component(index: index, isHardened: hardened))
         }
         return (m,array)

@@ -68,7 +68,7 @@ internal func encodeTopicToGetLogs(contract: ContractV2, eventName: String?, fil
     }
     var topics = [[String?]?]()
     if eventTopic != nil {
-        topics.append([eventTopic!.toHexString().withHex])
+        topics.append([eventTopic!.hex.withHex])
     } else {
         topics.append(nil as [String?]?)
     }

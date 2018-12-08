@@ -19,13 +19,35 @@ extension Web3 {
 }
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var imageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let queue = OperationQueue()
         queue.addOperation {
-            try? self.test()
+            do {
+                try self.test()
+            } catch {
+                print("error:",error)
+            }
+        }
+        queue.addOperation {
+            // Generating QR code
+            
+            var eip67Data = EIP67Code(address: Address("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"))
+            eip67Data.gasLimit = BigUInt(21000)
+            eip67Data.amount = BigUInt("1000000000000000000")
+            let encoding = eip67Data.toImage(scale: 10)
+            let image = UIImage(ciImage: encoding)
+            
+            DispatchQueue.main.async {
+                self.imageView.layer.shouldRasterize = true
+                self.imageView.layer.magnificationFilter = .nearest
+                self.imageView.layer.minificationFilter = .nearest
+                self.imageView.contentMode = .scaleAspectFit
+                self.imageView.image = image
+            }
         }
     }
     
@@ -76,18 +98,6 @@ class ViewController: UIViewController {
         let balance = try contract.balance(of: coldWalletAddress)
         print("BKX token balance = \(balance)")
         
-        // Test token transfer on Rinkeby
-        var eip67Data = EIP67Code(address: Address("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"))
-        eip67Data.gasLimit = BigUInt(21000)
-        eip67Data.amount = BigUInt("1000000000000000000")
-        //        eip67Data.data =
-        let encoding = eip67Data.toImage(scale: 10.0)
-        
-        DispatchQueue.main.async {
-            self.imageView.image = UIImage(ciImage: encoding)
-            self.imageView.contentMode = .scaleAspectFit
-        }
-        
         //Send on Rinkeby using normal keystore
         print("Rinkeby")
         Web3.default = Web3(infura: .rinkeby)
@@ -106,7 +116,7 @@ class ViewController: UIViewController {
         let txid = sendingResult.hash
         print("On Rinkeby TXid = " + txid)
         
-        //Send ETH on Rinkeby using BIP32 keystore. Should fail due to insufficient balance
+        // Send ETH on Rinkeby using BIP32 keystore. Should fail due to insufficient balance
         web3Rinkeby.keystoreManager = bip32keystoreManager
         options.from = bip32ks?.addresses.first!
         intermediateSend = try web3Rinkeby.contract(coldWalletABI, at: coldWalletAddress).method(options: options)
@@ -137,12 +147,12 @@ class ViewController: UIViewController {
         let transaction3 = try deployedTestAddress.send("increaseCounter(uint8)", 1, password: "BANKEXFOUNDATION").wait()
         print(transaction3)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
 }
 

@@ -6,7 +6,6 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import CryptoSwift
 import Foundation
 
 private extension Dictionary where Value: Equatable {
@@ -18,9 +17,12 @@ private extension Dictionary where Value: Equatable {
     }
 }
 
+/**
+ BIP32 Keystore (HDWallet)
+ 
+ */
 public class BIP32Keystore: AbstractKeystore {
-    // Protocol
-
+    /// Returns array of contained addresses
     public var addresses: [Address] {
         guard !paths.isEmpty else { return [] }
         var allAccounts = [Address]()
@@ -30,8 +32,14 @@ public class BIP32Keystore: AbstractKeystore {
         return allAccounts
     }
 
+    /// Returns true
     public var isHDKeystore: Bool = true
-
+    
+    /// Searches for the account's encrypted private key and decrypts it using password.
+    ///
+    /// - Parameter password: Password that used to decrypt your key.
+    /// - Parameter account: Account that you need
+    /// - Returns: private key for given address
     public func UNSAFE_getPrivateKeyData(password: String, account: Address) throws -> Data {
         guard let key = self.paths.key(of: account) else { throw AbstractKeystoreError.invalidAccountError }
         guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else { throw AbstractKeystoreError.encryptionError("Failed to decrypt a keystore") }
@@ -46,41 +54,65 @@ public class BIP32Keystore: AbstractKeystore {
 
     // --------------
 
+    /// Json representation of the HDWallet
     public var keystoreParams: KeystoreParamsBIP32?
 //    public var mnemonics: String?
+    /// Paths dictionary in format "HDPath: Address"
     public var paths: [String: Address] = [String: Address]()
+    
+    /// HDPath prefix. default: "m/44'/60'/0'/0" (Metamask prefix)
     public var rootPrefix: String
+    
+    /// Init with json file
     public convenience init?(_ jsonString: String) {
         self.init(jsonString.lowercased().data)
     }
 
+    /// Init with json file
     public init?(_ jsonData: Data) {
-        guard var keystorePars = try? JSONDecoder().decode(KeystoreParamsBIP32.self, from: jsonData) else { return nil }
-        if keystorePars.version != 3 { return nil }
-        if keystorePars.crypto.version != nil && keystorePars.crypto.version != "1" { return nil }
-        if !keystorePars.isHDWallet { return nil }
-        for (p, ad) in keystorePars.pathToAddress {
+        guard var keystoreParams = try? JSONDecoder().decode(KeystoreParamsBIP32.self, from: jsonData) else { return nil }
+        if keystoreParams.version != 3 { return nil }
+        if keystoreParams.crypto.version != nil && keystoreParams.crypto.version != "1" { return nil }
+        if !keystoreParams.isHDWallet { return nil }
+        for (p, ad) in keystoreParams.pathToAddress {
             paths[p] = Address(ad)
         }
-        if keystorePars.rootPath == nil {
-            keystorePars.rootPath = HDNode.defaultPathPrefix
+        if keystoreParams.rootPath == nil {
+            keystoreParams.rootPath = HDNode.defaultPathPrefix
         }
-        keystoreParams = keystorePars
-        rootPrefix = keystoreParams!.rootPath!
+        self.keystoreParams = keystoreParams
+        rootPrefix = keystoreParams.rootPath!
     }
     
+    /// Init with mnemonics
+    /// - Parameter mnemonics: Mnemonics that needs to generate your account
+    /// - Parameter password: Password used to encrypt your private key
+    /// - Parameter prefixPath: HDNode path. default: "m/44'/60'/0'/0" (Metamask prefix)
+    /// Shouldn't throw if you generate your mnemonics
     public convenience init(mnemonics: Mnemonics, password: String = "BANKEXFOUNDATION", prefixPath: String = HDNode.defaultPathMetamaskPrefix) throws {
         var seed = mnemonics.seed()
         defer { Data.zero(&seed) }
         try self.init(seed: seed, password: password, prefixPath: prefixPath)
     }
 
+    /// Init with seed
+    /// - Parameter seed: Seed that need to generate your account
+    /// - Parameter password: Password used to encrypt your private key
+    /// - Parameter prefixPath: HDNode path. default: "m/44'/60'/0'/0" (Metamask prefix)
     public init(seed: Data, password: String = "BANKEXFOUNDATION", prefixPath: String = HDNode.defaultPathMetamaskPrefix) throws {
         let prefixNode = try HDNode(seed: seed).derive(path: prefixPath, derivePrivateKey: true)
         rootPrefix = prefixPath
         try createNewAccount(parentNode: prefixNode, password: password)
     }
-
+    
+    /**
+    Creates new sub account using the same seed (mnemonics)
+     
+     So for HDPath "m/44'/60'/0'/0". Will generate sub account "m/44'/60'/0'/1".
+     
+     Also automatically searches in current paths.
+     So it wouldn't skip any index or create an existing account.
+    */
     public func createNewChildAccount(password: String = "BANKEXFOUNDATION") throws {
         guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else { throw AbstractKeystoreError.encryptionError("Failed to decrypt a keystore") }
         guard let rootNode = HDNode(decryptedRootNode!) else { throw AbstractKeystoreError.encryptionError("Failed to deserialize a root node") }
@@ -88,7 +120,8 @@ public class BIP32Keystore: AbstractKeystore {
         guard rootNode.depth == prefixPath.components(separatedBy: "/").count - 1 else { throw AbstractKeystoreError.encryptionError("Derivation depth mismatch") }
         try createNewAccount(parentNode: rootNode, password: password)
     }
-
+    
+    /// Creates new account using custom HDNode
     public func createNewAccount(parentNode: HDNode, password: String = "BANKEXFOUNDATION", aesMode: String = "aes-128-cbc") throws {
         var newIndex = UInt32(0)
         for (p, _) in paths {
@@ -111,6 +144,7 @@ public class BIP32Keystore: AbstractKeystore {
         try encryptDataToStorage(password, data: serializedRootNode, aesMode: aesMode)
     }
 
+    /// Creates sub account using custom HDNode
     public func createNewCustomChildAccount(password: String = "BANKEXFOUNDATION", path: String) throws {
         guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else { throw AbstractKeystoreError.encryptionError("Failed to decrypt a keystore") }
         guard let rootNode = HDNode(decryptedRootNode!) else { throw AbstractKeystoreError.encryptionError("Failed to deserialize a root node") }
@@ -159,12 +193,13 @@ public class BIP32Keystore: AbstractKeystore {
         let last16bytes = derivedKey[(derivedKey.count - 16) ... (derivedKey.count - 1)]
         let encryptionKey = derivedKey[0 ... 15]
         let IV = Data.random(length: 16)
+        
         var aesCipher: AES?
         switch aesMode {
         case "aes-128-cbc":
-            aesCipher = try? AES(key: encryptionKey.bytes, blockMode: CBC(iv: IV.bytes), padding: .pkcs7)
+            aesCipher = AES(key: encryptionKey.bytes, blockMode: CBC(iv: IV.bytes), padding: .pkcs7)
         case "aes-128-ctr":
-            aesCipher = try? AES(key: encryptionKey.bytes, blockMode: CTR(iv: IV.bytes), padding: .pkcs7)
+            aesCipher = AES(key: encryptionKey.bytes, blockMode: CTR(iv: IV.bytes), padding: .pkcs7)
         default:
             aesCipher = nil
         }
@@ -176,10 +211,10 @@ public class BIP32Keystore: AbstractKeystore {
         var dataForMAC = Data()
         dataForMAC.append(last16bytes)
         dataForMAC.append(encryptedKeyData)
-        let mac = dataForMAC.sha3(.keccak256)
-        let kdfparams = KdfParamsV3(salt: saltData.toHexString(), dklen: dkLen, n: N, p: P, r: R, c: nil, prf: nil)
-        let cipherparams = CipherParamsV3(iv: IV.toHexString())
-        let crypto = CryptoParamsV3(ciphertext: encryptedKeyData.toHexString(), cipher: aesMode, cipherparams: cipherparams, kdf: "scrypt", kdfparams: kdfparams, mac: mac.toHexString(), version: nil)
+        let mac = dataForMAC.keccak256()
+        let kdfparams = KdfParamsV3(salt: saltData.hex, dklen: dkLen, n: N, p: P, r: R, c: nil, prf: nil)
+        let cipherparams = CipherParamsV3(iv: IV.hex)
+        let crypto = CryptoParamsV3(ciphertext: encryptedKeyData.hex, cipher: aesMode, cipherparams: cipherparams, kdf: "scrypt", kdfparams: kdfparams, mac: mac.hex, version: nil)
         var pathToAddress = [String: String]()
         for (path, address) in paths {
             pathToAddress[path] = address.address
@@ -190,6 +225,7 @@ public class BIP32Keystore: AbstractKeystore {
         keystoreParams = keystorePars
     }
 
+    /// Update password for your private key
     public func regenerate(oldPassword: String, newPassword: String, dkLen _: Int = 32, N _: Int = 4096, R _: Int = 6, P _: Int = 1) throws {
         var keyData = try getPrefixNodeData(oldPassword)
         if keyData == nil {
@@ -212,20 +248,9 @@ public class BIP32Keystore: AbstractKeystore {
             passwordDerivedKey = scrypt(password: password, salt: saltData, length: derivedLen, N: N, R: R, P: P)
         case "pbkdf2":
             guard let algo = keystorePars.crypto.kdfparams.prf else { return nil }
-            var hashVariant: HMAC.Variant?
-            switch algo {
-            case "hmac-sha256":
-                hashVariant = HMAC.Variant.sha256
-            case "hmac-sha384":
-                hashVariant = HMAC.Variant.sha384
-            case "hmac-sha512":
-                hashVariant = HMAC.Variant.sha512
-            default:
-                hashVariant = nil
-            }
-            guard hashVariant != nil else { return nil }
+            let hashVariant = try HmacVariant(algo)
             guard let c = keystorePars.crypto.kdfparams.c else { return nil }
-            guard let derivedArray = try? PKCS5.PBKDF2(password: Array(password.utf8), salt: saltData.bytes, iterations: c, keyLength: derivedLen, variant: hashVariant!).calculate() else { return nil }
+            guard let derivedArray = try? BetterPBKDF(password: Array(password.utf8), salt: saltData.bytes, iterations: c, keyLength: derivedLen, variant: hashVariant) else { return nil }
             passwordDerivedKey = Data(bytes: derivedArray)
         default:
             return nil
@@ -237,7 +262,7 @@ public class BIP32Keystore: AbstractKeystore {
         guard let cipherText = Data.fromHex(keystorePars.crypto.ciphertext) else { return nil }
         guard cipherText.count % 32 == 0 else { return nil }
         dataForMAC.append(cipherText)
-        let mac = dataForMAC.sha3(.keccak256)
+        let mac = dataForMAC.keccak256()
         guard let calculatedMac = Data.fromHex(keystorePars.crypto.mac), mac.constantTimeComparisonTo(calculatedMac) else { return nil }
         let cipher = keystorePars.crypto.cipher
         let decryptionKey = derivedKey[0 ... 15]
@@ -245,10 +270,10 @@ public class BIP32Keystore: AbstractKeystore {
         var decryptedPK: Array<UInt8>?
         switch cipher {
         case "aes-128-ctr":
-            guard let aesCipher = try? AES(key: decryptionKey.bytes, blockMode: CTR(iv: IV.bytes), padding: .pkcs7) else { return nil }
+            let aesCipher = AES(key: decryptionKey.bytes, blockMode: CTR(iv: IV.bytes), padding: .pkcs7)
             decryptedPK = try aesCipher.decrypt(cipherText.bytes)
         case "aes-128-cbc":
-            guard let aesCipher = try? AES(key: decryptionKey.bytes, blockMode: CBC(iv: IV.bytes), padding: .pkcs7) else { return nil }
+            let aesCipher = AES(key: decryptionKey.bytes, blockMode: CBC(iv: IV.bytes), padding: .pkcs7)
             decryptedPK = try? aesCipher.decrypt(cipherText.bytes)
         default:
             return nil
@@ -257,17 +282,38 @@ public class BIP32Keystore: AbstractKeystore {
         guard decryptedPK?.count == 82 else { return nil }
         return Data(bytes: decryptedPK!)
     }
-
+    
+    /// Returns Json file that you can store and export
     public func serialize() throws -> Data? {
         guard let params = self.keystoreParams else { return nil }
         let data = try JSONEncoder().encode(params)
         return data
     }
 
+    /// Returns your root node string
     public func serializeRootNodeToString(password: String = "BANKEXFOUNDATION") throws -> String {
         guard let decryptedRootNode = try? self.getPrefixNodeData(password), decryptedRootNode != nil else { throw AbstractKeystoreError.encryptionError("Failed to decrypt a keystore") }
         guard let rootNode = HDNode(decryptedRootNode!) else { throw AbstractKeystoreError.encryptionError("Failed to deserialize a root node") }
         guard let string = rootNode.serializeToString(serializePublic: false) else { throw AbstractKeystoreError.encryptionError("Failed to deserialize a root node") }
         return string
+    }
+}
+
+/// HDWallet Json parameters (Native representation)
+public struct KeystoreParamsBIP32: Decodable, Encodable {
+    var crypto: CryptoParamsV3
+    var id: String?
+    var version: Int = 32
+    var isHDWallet: Bool
+    var pathToAddress: [String: String]
+    var rootPath: String?
+    
+    init(crypto cr: CryptoParamsV3, id i: String, version ver: Int, rootPath: String? = nil) {
+        crypto = cr
+        id = i
+        version = ver
+        isHDWallet = true
+        pathToAddress = [String: String]()
+        self.rootPath = rootPath
     }
 }

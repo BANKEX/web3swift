@@ -19,6 +19,29 @@ import BigInt
 
 /// web3swift 2.1 changes
 
+extension EthereumBloomFilter {
+    @available(*, deprecated: 2.1, renamed: "test(topic:)")
+    public func lookup(_ topic: Data) -> Bool {
+        return test(topic: topic)
+    }
+    @available(*, deprecated: 2.1, message: "Use bloom.test(topic:)")
+    public static func bloomLookup(_ bloom: EthereumBloomFilter, topic: Data) -> Bool {
+        return bloom.test(topic: topic)
+    }
+    
+    @available(*, deprecated: 2.1, message: "Use bloom.test(topic:)")
+    public static func bloomLookup(_ bloom: EthereumBloomFilter, topic: BigUInt) -> Bool {
+        return bloom.test(topic: topic)
+    }
+}
+
+extension EthereumKeystoreV3 {
+	@available(*,deprecated: 2.1, message: "Use .address instead of .getAddress()")
+	public func getAddress() -> Address? {
+		return address
+	}
+}
+
 @available (*,deprecated: 2.1, renamed: "EventParserResult")
 public typealias EventParserResultProtocol = EventParserResult
 
@@ -169,12 +192,6 @@ public struct BIP39 {
     }
 }
 
-extension EIP67Code {
-    @available (*, deprecated: 2.0, message: "Use init with address")
-    public init(address: String) {
-        self.init(address: Address(address))
-    }
-}
 extension KeystoreManager {
     @available (*, deprecated: 2.0, renamed: "default")
     static var defaultManager: KeystoreManager? {

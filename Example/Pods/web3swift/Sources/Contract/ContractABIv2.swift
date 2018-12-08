@@ -9,22 +9,28 @@
 import BigInt
 import Foundation
 
+/// Swift class that represents a solidity smart contract
 public struct ContractV2: ContractProtocol {
     public var allEvents: [String] {
 		return events.keys.compactMap { $0 }
     }
-
+    
     public var allMethods: [String] {
 		return methods.keys.compactMap { $0 }
     }
-
+    
+    /// Filter for contract events
     public struct EventFilter {
+        /// Event name
         public var parameterName: String
+        /// Event parameters
         public var parameterValues: [AnyObject]
     }
-
+    
     public var address: Address?
     var _abi: [ABIv2.Element]
+    
+    /// Smart contract methods
     public var methods: [String: ABIv2.Element] {
         var toReturn = [String: ABIv2.Element]()
         for m in _abi {
@@ -38,7 +44,8 @@ public struct ContractV2: ContractProtocol {
         }
         return toReturn
     }
-
+    
+    /// Smart contract init arguments
     public var constructor: ABIv2.Element? {
         var toReturn: ABIv2.Element?
         for m in _abi {
@@ -59,7 +66,8 @@ public struct ContractV2: ContractProtocol {
         }
         return toReturn
     }
-
+    
+    /// Smart contract events
     public var events: [String: ABIv2.Element.Event] {
         var toReturn = [String: ABIv2.Element.Event]()
         for m in _abi {
@@ -76,6 +84,7 @@ public struct ContractV2: ContractProtocol {
 
     public var options: Web3Options = .default
 
+    /// Init with json ABI
     public init(_ abiString: String, at address: Address? = nil) throws {
         let abi = try JSONDecoder().decode([ABIv2.Record].self, from: abiString.data)
         let abiNative = try abi.map({ (record) -> ABIv2.Element in
@@ -84,29 +93,71 @@ public struct ContractV2: ContractProtocol {
         _abi = abiNative
         self.address = address
     }
-
+    
+    /// Init with abi array
     public init(abi: [ABIv2.Element]) {
         _abi = abi
     }
-
+    
+    /// Init with abi array and address
     public init(abi: [ABIv2.Element], at: Address) {
         _abi = abi
         address = at
     }
-
+    
+    /// Method errors
     public enum MethodError: Error {
+        /// Provide contract address to send transcation
         case noAddress
+        /// You have to set the gas limit
         case noGasLimit
+        /// You have to set the gas price
         case noGasPrice
+        /// Provide constructor to deploy smart contract
         case noConstructor
+        /// Smart contract method not found
         case notFound
+        /// Cannot encode data with given parameters
         case cannotEncodeDataWithGivenParameters
+        /// Printable / user displayable description
+        public var localizedDescription: String {
+            switch self {
+            case .noAddress:
+                return "Provide contract address to send transcation"
+            case .noGasLimit:
+                return "You have to set the gas limit"
+            case .noGasPrice:
+                return "You have to set the gas price"
+            case .noConstructor:
+                return "Provide constructor to deploy smart contract"
+            case .notFound:
+                return "Smart contract method not found"
+            case .cannotEncodeDataWithGivenParameters:
+                return "Cannot encode data with given parameters"
+            }
+        }
     }
 
+    /// Deploy smart contract with provided bytecode
+    ///
+    /// - Parameters:
+    ///   - bytecode: Smart contract bytecode
+    ///   - args: Init arguments
+    ///   - extraData: Extra data
+    ///   - options: Transaction options
+    /// - Returns: Transaction and its hash
     public func deploy(bytecode: Data, args: Any..., extraData: Data = Data(), options: Web3Options?) throws -> EthereumTransaction {
         return try deploy(bytecode: bytecode, parameters: args, extraData: extraData, options: options)
     }
 
+    /// Deploy smart contract with provided bytecode
+    ///
+    /// - Parameters:
+    ///   - bytecode: Smart contract bytecode
+    ///   - args: Init arguments
+    ///   - extraData: Extra data
+    ///   - options: Transaction options
+    /// - Returns: Transaction and its hash
     public func deploy(bytecode: Data, parameters: [Any], extraData: Data = Data(), options: Web3Options?) throws -> EthereumTransaction {
         let to: Address = .contractDeployment
         let options = self.options.merge(with: options)
@@ -125,11 +176,27 @@ public struct ContractV2: ContractProtocol {
         return EthereumTransaction(gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: fullData)
     }
 
+    /// Returns smart contract method with provided name
+    ///
+    /// - Parameters:
+    ///   - bytecode: Smart contract bytecode
+    ///   - args: Init arguments
+    ///   - extraData: Extra data
+    ///   - options: Transaction options
+    /// - Returns: Transaction
     public func method(_ name: String, args: Any..., extraData: Data = Data(), options: Web3Options?) throws -> EthereumTransaction {
         return try method(name, parameters: args, extraData: extraData, options: options)
     }
-
-    public func method(_ method: String, parameters: [Any], extraData: Data = Data(), options: Web3Options?) throws -> EthereumTransaction {
+    
+    /// Returns smart contract method with provided name
+    ///
+    /// - Parameters:
+    ///   - bytecode: Smart contract bytecode
+    ///   - args: Init arguments
+    ///   - extraData: Extra data
+    ///   - options: Transaction options
+    /// - Returns: Transaction
+    public func method(_ name: String, parameters: [Any], extraData: Data = Data(), options: Web3Options?) throws -> EthereumTransaction {
         var to: Address
         let options = self.options.merge(with: options)
         if let address = address {
@@ -143,15 +210,20 @@ public struct ContractV2: ContractProtocol {
         guard let gasPrice = options.gasPrice else { throw MethodError.noGasPrice }
         let value = options.value ?? 0
 
-        if method == "fallback" {
+        if name == "fallback" {
             return EthereumTransaction(gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: extraData)
         } else {
-            guard let abiMethod = methods[method] else { throw MethodError.notFound }
+            guard let abiMethod = methods[name] else { throw MethodError.notFound }
             guard let encodedData = abiMethod.encodeParameters(parameters as [AnyObject]) else { throw MethodError.cannotEncodeDataWithGivenParameters }
             return EthereumTransaction(gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: encodedData)
         }
     }
 
+    
+    /// Parses smart contract event
+    ///
+    /// - Parameter eventLog: encoded event
+    /// - Returns: Event name and its data
     public func parseEvent(_ eventLog: EventLog) -> (eventName: String?, eventData: [String: Any]?) {
         for (eName, ev) in events {
             if !ev.anonymous {
@@ -172,16 +244,15 @@ public struct ContractV2: ContractProtocol {
         }
         return (nil, nil)
     }
-
+    
+    /// Returns nil if there is no event with that name.
     public func testBloomForEventPrecence(eventName: String, bloom: EthereumBloomFilter) -> Bool? {
         guard let event = events[eventName] else { return nil }
-        if event.anonymous {
-            return true
-        }
+        guard !event.anonymous else { return true }
         let eventOfSuchTypeIsPresent = bloom.test(topic: event.topic)
         return eventOfSuchTypeIsPresent
     }
-
+    
     public func decodeReturnData(_ method: String, data: Data) -> [String: Any]? {
         guard method != "fallback" else { return [:] }
         guard let function = methods[method] else { return nil }

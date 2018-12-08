@@ -264,7 +264,7 @@ public class Guide {
     ```js
     eth.sendTransaction({from:eth.coinbase, to: "0xDf2bC70175311A6807F085e54881Fc4931359dBF", value: web3.toWei(100, "ether")})
     ```
-    > Dont forget to change recepient address
+    > Dont forget to change recipient address
     
     ### Almost done
     now we have some ether in our account. So just lets use it:
@@ -330,10 +330,10 @@ public class Guide {
     Now you can send transactions using your account:
     
     ```swift
-    let recepient: Address // recepient address
+    let recipient: Address // recipient address
     var options = Web3Options.default
     options.from = Web3.default.keystoreManager!.addresses[0]
-    let transaction = try Web3.default.eth.sendETH(to: recepient, amount: BigUInt("0.01", units: .eth)!, options: options)
+    let transaction = try Web3.default.eth.sendETH(to: recipient, amount: BigUInt("0.01", units: .eth)!, options: options)
     ```
      */
     public struct Create_and_import_account {}

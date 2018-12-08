@@ -16,13 +16,21 @@ public class Web3Utils {
 
 /// Various units used in Ethereum ecosystem
 public enum Web3Units: Int {
+    /// 18 decimals
 	case eth = 18
+    /// 0 decimals
 	case wei = 0
+    /// 3 decimals
 	case kWei = 3
+    /// 6 decimals
 	case mWei = 6
+    /// 9 decimals
 	case gWei = 9
+    /// 12 decimals
 	case microEther = 12
+    /// 15 decimals
 	case finney = 15
+    /// Returns number of decimals (same as .rawValue)
 	public var decimals: Int {
 		return rawValue
 	}
@@ -52,8 +60,11 @@ extension Web3Utils {
 
 /// Errors from Web3Utils
 public enum Web3UtilsError: Error {
+    /// Cannot convert provided data to ascii string
     case cannotConvertDataToAscii
+    /// Invalid signature length: Signature size should be 65 bytes
     case invalidSignatureLength
+    /// Printable / user displayable description
     public var localizedDescription: String {
         switch self {
         case .cannotConvertDataToAscii:
@@ -66,8 +77,19 @@ public enum Web3UtilsError: Error {
 
 /// Errors for function Web3Utils.publicToAddressData
 public enum PublicKeyToAddressError: Error {
+    /// Public key should start with 0x04
     case shouldStartWith4
+    /// Public key must be 64 bytes long
     case invalidPublicKeySize
+    /// Printable / user displayable description
+    public var localizedDescription: String {
+        switch self {
+        case .shouldStartWith4:
+            return "Public key should start with 0x04"
+        case .invalidPublicKeySize:
+            return "Public key must be 64 bytes long"
+        }
+    }
 }
 
 extension Web3Utils {
@@ -91,7 +113,7 @@ extension Web3Utils {
                 stipped = stipped[1 ... 64]
             }
             guard stipped.count == 64 else { throw PublicKeyToAddressError.invalidPublicKeySize }
-            let sha3 = stipped.sha3(.keccak256)
+            let sha3 = stipped.keccak256()
             let addressData = sha3[12 ..< 32]
             return addressData
         }
@@ -103,7 +125,7 @@ extension Web3Utils {
     /// Returns the Address object.
     public static func publicToAddress(_ publicKey: Data) throws -> Address {
         let addressData = try Web3Utils.publicToAddressData(publicKey)
-        let address = addressData.toHexString().withHex.lowercased()
+        let address = addressData.hex
         return Address(address)
     }
 
@@ -113,7 +135,7 @@ extension Web3Utils {
     /// Returns a 0x prefixed hex string.
     public static func publicToAddressString(_ publicKey: Data) throws -> String {
         let addressData = try Web3Utils.publicToAddressData(publicKey)
-        let address = addressData.toHexString().withHex.lowercased()
+        let address = addressData.hex.withHex.lowercased()
         return address
     }
 
@@ -137,11 +159,11 @@ extension Web3Utils {
             data.append(prefixData)
             data.append(personalMessage)
         }
-        return data.sha3(.keccak256)
+        return data.keccak256()
     }
 
     /// Parse a user-supplied string using the number of decimals for particular Ethereum unit.
-    /// If input is non-numeric or precision is not sufficient - returns nil.
+    /// If input is non-numeric or precision is not sufficient - Returns nil.
     /// Allowed decimal separators are ".", ",".
     public static func parseToBigUInt(_ amount: String, units: Web3Units = .eth) -> BigUInt? {
         let unitDecimals = units.decimals
@@ -149,7 +171,7 @@ extension Web3Utils {
     }
 
     /// Parse a user-supplied string using the number of decimals.
-    /// If input is non-numeric or precision is not sufficient - returns nil.
+    /// If input is non-numeric or precision is not sufficient - Returns nil.
     /// Allowed decimal separators are ".", ",".
     public static func parseToBigUInt(_ amount: String, decimals: Int = 18) -> BigUInt? {
         let separators = CharacterSet(charactersIn: ".,")
@@ -204,13 +226,13 @@ extension Web3Utils {
     /// returns Ethereum variant of sha3 (keccak256) of data. Returns nil is data is empty
     public static func keccak256(_ data: Data) -> Data? {
         if data.count == 0 { return nil }
-        return data.sha3(.keccak256)
+        return data.keccak256()
     }
 
     /// returns Ethereum variant of sha3 (keccak256) of data. Returns nil is data is empty
     public static func sha3(_ data: Data) -> Data? {
         if data.count == 0 { return nil }
-        return data.sha3(.keccak256)
+        return data.keccak256()
     }
 
     /// returns sha256 of data. Returns nil is data is empty

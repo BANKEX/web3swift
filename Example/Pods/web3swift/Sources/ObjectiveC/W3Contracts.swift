@@ -109,7 +109,7 @@ protocol W3OptionsInheritable: class {
 	}
 	
 	/// contract owner only
-	/// transfers from owner to recepient
+	/// transfers from owner to recipient
 	@objc public func transferFrom(owner: W3Address, to: W3Address, naturalUnits: W3NaturalUnits) throws -> W3UInt {
 		return try contract.swift.gasPrice.transferFrom(owner: owner.swift, to: to.swift, amount: naturalUnits.swift).objc
 	}
@@ -141,7 +141,7 @@ protocol W3OptionsInheritable: class {
 	@objc public func balance(of user: W3Address) throws -> W3UInt {
 		return try swift.balance(of: user.swift).objc
 	}
-	/// - returns: address of token holder
+	/// - Returns: address of token holder
 	@objc public func owner(of token: W3UInt) throws -> W3Address {
 		return try swift.owner(of: token.swift).objc
 	}
@@ -151,7 +151,7 @@ protocol W3OptionsInheritable: class {
 		return try swift.approve(to: user.swift, token: token.swift).objc
 	}
 	
-	/// - returns: address
+	/// - Returns: address
 	@objc public func approved(for token: W3UInt) throws -> W3Address {
 		return try swift.approved(for: token.swift).objc
 	}
@@ -165,7 +165,7 @@ protocol W3OptionsInheritable: class {
 		return try swift.isApprovedForAll(owner: owner.swift, operator: `operator`.swift) as NSNumber
 	}
 	/// transfers token from one address to another
-	/// - important: admin only
+	/// - Important: admin only
 	@objc public func transfer(from: W3Address, to: W3Address, token: W3UInt) throws -> W3TransactionSendingResult {
 		return try swift.transfer(from: from.swift, to: to.swift, token: token.swift).objc
 	}
@@ -184,19 +184,19 @@ Gas price functions for erc721 token requests
 		self.contract = contract
 	}
 	
-	/// - returns: gas price for approve(address,uint256) transaction
+	/// - Returns: gas price for approve(address,uint256) transaction
 	@objc public func approve(to user: W3Address, token: W3UInt) throws -> W3UInt {
 		return try contract.swift.gasPrice.approve(to: user.swift, token: token.swift).objc
 	}
-	/// - returns: gas price for setApprovalForAll(address,bool) transaction
+	/// - Returns: gas price for setApprovalForAll(address,bool) transaction
 	@objc public func setApproveForAll(operator: W3Address, approved: Bool) throws -> W3UInt {
 		return try contract.swift.gasPrice.setApproveForAll(operator: `operator`.swift, approved: approved).objc
 	}
-	/// - returns: gas price for transferFrom(address,address,uint256) transaction
+	/// - Returns: gas price for transferFrom(address,address,uint256) transaction
 	@objc public func transfer(from: W3Address, to: W3Address, token: W3UInt) throws -> W3UInt {
 		return try contract.swift.gasPrice.transfer(from: from.swift, to: to.swift, token: token.swift).objc
 	}
-	/// - returns: gas price for safeTransferFrom(address,address,uint256) transaction
+	/// - Returns: gas price for safeTransferFrom(address,address,uint256) transaction
 	@objc public func safeTransfer(from: W3Address, to: W3Address, token: W3UInt) throws -> W3UInt {
 		return try contract.swift.gasPrice.safeTransfer(from: from.swift, to: to.swift, token: token.swift).objc
 	}
@@ -283,38 +283,38 @@ Gas price functions for erc721 token requests
 		self.contract = contract
 	}
 	
-	/// - returns: gas price for transfer(address,uint256) transaction
+	/// - Returns: gas price for transfer(address,uint256) transaction
 	@objc public func transfer(to user: W3Address, amount: W3UInt) throws -> W3UInt {
 		return try contract.swift.gasPrice.transfer(to: user.swift, amount: amount.swift).objc
 	}
-	/// - returns: gas price for approve(address,uint256) transaction
+	/// - Returns: gas price for approve(address,uint256) transaction
 	@objc public func approve(to user: W3Address, amount: W3UInt) throws -> W3UInt {
 		return try contract.swift.gasPrice.approve(to: user.swift, amount: amount.swift).objc
 	}
-	/// - returns: gas price for transferFrom(address,address,uint256) transaction
+	/// - Returns: gas price for transferFrom(address,address,uint256) transaction
 	@objc public func transfer(from: W3Address, to: W3Address, amount: W3UInt) throws -> W3UInt {
 		return try contract.swift.gasPrice.transfer(from: from.swift, to: to.swift, amount: amount.swift).objc
 	}
 	
-	/// - returns: gas price for send(address,uint256) transaction
+	/// - Returns: gas price for send(address,uint256) transaction
 	@objc public func send(to user: W3Address, amount: W3UInt) throws -> W3UInt {
 		return try contract.swift.gasPrice.send(to: user.swift, amount: amount.swift).objc
 	}
-	/// - returns: gas price for send(address,uint256,bytes) transaction
+	/// - Returns: gas price for send(address,uint256,bytes) transaction
 	@objc public func send(to user: W3Address, amount: W3UInt, userData: Data) throws -> W3UInt {
 		return try contract.swift.gasPrice.send(to: user.swift, amount: amount.swift, userData: userData).objc
 	}
 	
-	/// - returns: gas price for authorizeOperator(address) transaction
+	/// - Returns: gas price for authorizeOperator(address) transaction
 	@objc public func authorize(operator user: W3Address) throws -> W3UInt {
 		return try contract.swift.gasPrice.authorize(operator: user.swift).objc
 	}
-	/// - returns: gas price for revokeOperator(address) transaction
+	/// - Returns: gas price for revokeOperator(address) transaction
 	@objc public func revoke(operator user: W3Address) throws -> W3UInt {
 		return try contract.swift.gasPrice.revoke(operator: user.swift).objc
 	}
 	
-	/// - returns: gas price for operatorSend(address,address,uint256,bytes) transaction
+	/// - Returns: gas price for operatorSend(address,address,uint256,bytes) transaction
 	@objc public func operatorSend(from: W3Address, to: W3Address, amount: W3UInt, userData: Data) throws -> W3UInt {
 		return try contract.swift.gasPrice.operatorSend(from: from.swift, to: to.swift, amount: amount.swift, userData: userData).objc
 	}

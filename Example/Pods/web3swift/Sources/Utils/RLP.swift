@@ -13,8 +13,8 @@ protocol ArrayType {}
 extension Array: ArrayType {}
 
 struct RLP {
-    static var length56 = BigUInt(UInt(56))
-    static var lengthMax = (BigUInt(UInt(1)) << 256)
+    static var length56 = BigUInt(56)
+    static var lengthMax = (BigUInt(1) << 256)
 
     static func encode(_ element: AnyObject) -> Data? {
         if let string = element as? String {
@@ -65,7 +65,7 @@ struct RLP {
         if data.count == 1 && data.bytes[0] < UInt8(0x80) {
             return data
         } else {
-            guard let length = encodeLength(data.count, offset: UInt8(0x80)) else { return nil }
+            guard let length = encodeLength(data.count, offset: 0x80) else { return nil }
             var encoded = Data()
             encoded.append(length)
             encoded.append(data)

@@ -11,7 +11,15 @@ import Foundation
 
 /// Address error
 public enum AddressError: Error {
+    /// Provided address is not valid (\(string))
     case invalidAddress(String)
+    /// Printable / user displayable description
+    public var localizedDescription: String {
+        switch self {
+        case let .invalidAddress(string):
+            return "Provided address is not valid (\(string))"
+        }
+    }
 }
 
 /**
@@ -49,8 +57,11 @@ public enum AddressError: Error {
  ```
  */
 public struct Address {
+    /// Address type
     public enum AddressType {
+        /// Any ethereum address
         case normal
+        /// Address for contract deployment
         case contractDeployment
     }
 
@@ -73,10 +84,7 @@ public struct Address {
     public var addressData: Data {
         switch type {
         case .normal:
-            guard let dataArray = Data.fromHex(_address) else { return Data() }
-            return dataArray
-        //                guard let d = dataArray.setLengthLeft(20) else { return Data()}
-        //                return d
+            return Data.fromHex(_address) ?? Data()
         case .contractDeployment:
             return Data()
         }
@@ -96,7 +104,7 @@ public struct Address {
     /// Converts address to checksum address
     public static func toChecksumAddress(_ addr: String) -> String? {
         let address = addr.lowercased().withoutHex
-        guard let hash = address.data(using: .ascii)?.sha3(.keccak256).toHexString() else { return nil }
+        guard let hash = address.data(using: .ascii)?.keccak256().hex else { return nil }
         var ret = "0x"
 
         for (i, char) in address.enumerated() {
@@ -114,9 +122,9 @@ public struct Address {
         return ret
     }
     
-    /// init with addressString and type
-    /// - parameter addressString: hex string of address
-    /// - parameter type: address type. default: .normal
+    /// Init with addressString and type
+    /// - Parameter addressString: Hex string of address
+    /// - Parameter type: Address type. default: .normal
     /// Automatically adds 0x prefix if its not found
     public init(_ addressString: String, type: AddressType = .normal) {
         switch type {
@@ -130,21 +138,21 @@ public struct Address {
         }
     }
 
-    /// - parameter addressData: address data
-    /// - parameter type: address type. default: .normal
-    /// - important: addressData is not the utf8 format of hex string
+    /// - Parameter addressData: Address data
+    /// - Parameter type: Address type. default: .normal
+    /// - Important: addressData is not the utf8 format of hex string
     public init(_ addressData: Data, type: AddressType = .normal) {
-        _address = addressData.toHexString().withHex
+        _address = addressData.hex.withHex
         self.type = type
     }
     
     /// checks if address is valid
-    /// - throws: AddressError.invalidAddress if its not valid
+    /// - Throws: AddressError.invalidAddress if its not valid
     public func check() throws {
         guard isValid else { throw AddressError.invalidAddress(_address) }
     }
     
-    /// - returns: "0x" address
+    /// - Returns: "0x" address
     public static var contractDeployment: Address {
         return Address("0x", type: .contractDeployment)
     }
@@ -161,8 +169,14 @@ extension Address: Equatable {
     }
 }
 
+extension Address: Hashable {
+    public var hashValue: Int {
+        return address.hashValue
+    }
+}
+
 extension Address: CustomStringConvertible {
-    /// - Returns: address hex string formatted to checksum
+    /// - Returns: Address hex string formatted to checksum
     public var description: String {
         return address
     }
@@ -176,17 +190,17 @@ extension Address: ExpressibleByStringLiteral {
 }
 
 public extension String {
-    /// - returns: true if string is contract address
+    /// - Returns: true if string is contract address
     var isContractAddress: Bool {
         return Data(hex: self).count > 0
     }
 
-    /// - returns: true is address is 20 bytes long
+    /// - Returns: true is address is 20 bytes long
     var isAddress: Bool {
         return Data(hex: self).count == 20
     }
     
-    /// - returns: contract deployment address.
+    /// - Returns: Contract deployment address.
     var contractAddress: Address {
         return Address(self, type: .contractDeployment)
     }

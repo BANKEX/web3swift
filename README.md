@@ -42,7 +42,13 @@
 -  [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) HD Wallets: Deterministic Wallet
 -  [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) (Seed phrases)
 -  [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) (Key generation prefixes)
--  [EIP-155](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md) (Replay attacks protection) *_enforced!_*
+- [EIP-20](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md) (A standard interface for tokens - ERC-20)
+- [EIP-67](https://github.com/ethereum/EIPs/issues/67) (Standard URI scheme with metadata, value and byte code)
+- [EIP-155](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md) (Replay attacks protection) *enforced!*
+- [EIP-681](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-681.md) (A standard way of representing various transactions, especially payment requests in Ethers and ERC-20 tokens as URLs)
+- [EIP-721](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md) (A standard interface for non-fungible tokens, also known as deeds - ERC-721)
+- [EIP-777](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-777.md) (This EIP defines standard interfaces and behaviors for token contracts)
+- [EIP-888](https://github.com/ethereum/EIPs/issues/888) (MultiDimensional Token Standard)
 
 
 ## Requirements
@@ -77,7 +83,7 @@ Don't forget to set the iOS version in a Podfile, otherwise you get an error if 
 
 > Hi. We spend a lot of time working on documentation. If you have some questions after reading it just [open an issue](https://github.com/bankex/web3swift/issues) or ask in our [discord channel](https://discord.gg/3ETv2ST). We would be happy to answer you.
 
-Most of the classes are documented and have some examples on how to use it. 
+Most of the classes are documented and have some examples on how to use it.
 
 ### [Read documentation in using Xcode](https://bankex.github.io/web3swift/read-documentation-using-xcode.html)
 ### [Github Pages](https://bankex.github.io/web3swift)

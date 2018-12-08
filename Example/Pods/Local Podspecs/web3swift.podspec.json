@@ -1,9 +1,9 @@
 {
   "name": "web3swift",
-  "version": "2.0.5",
+  "version": "2.1.2",
   "platforms": {
     "ios": "8.0",
-    "osx": "10.9",
+    "osx": "10.10",
     "tvos": "9.0",
     "watchos": "2.0"
   },
@@ -16,7 +16,7 @@
   "authors": "Bankex Foundation",
   "source": {
     "git": "https://github.com/bankex/web3swift.git",
-    "tag": "v2.0.5"
+    "tag": "v2.1.2"
   },
   "source_files": "Sources/**/*.swift",
   "dependencies": {
@@ -26,10 +26,10 @@
     "BigInt": [
       "~> 3.1"
     ],
-    "CryptoSwift": [
-      "~> 0.12"
-    ],
     "secp256k1.swift": [
+
+    ],
+    "CryptoSwift": [
 
     ]
   }

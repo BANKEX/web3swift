@@ -6,14 +6,14 @@
 //  Copyright © 2017 Alexander Vlasov. All rights reserved.
 //
 
-import CryptoSwift
+//import Cryptor
 import Foundation
 
 /**
  Scrypt function. Used to generate derivedKey from password, salt, n, r, p
  */
 public func scrypt(password: String, salt: Data, length: Int, N: Int, R: Int, P: Int) -> Data? {
-    guard let deriver = try? Scrypt(password: Array(password.utf8), salt: salt.bytes, dkLen: length, N: N, r: R, p: P) else { return nil }
+    guard let deriver = try? OldScrypt(password: Array(password.utf8), salt: salt.bytes, dkLen: length, N: N, r: R, p: P) else { return nil }
     guard let result = try? deriver.calculate() else { return nil }
     return Data(result)
 }
@@ -27,13 +27,32 @@ enum ScryptError: Error {
     case nIsTooLarge
     case rIsTooLarge
     case nMustBeAPowerOf2GreaterThan1
+    
+    var localizedDescription: String {
+        switch self {
+        case .nIsTooLarge:
+            return "Scrypt error: N is too large"
+        case .rIsTooLarge:
+            return "Scrypt error: R is too large"
+        case .nMustBeAPowerOf2GreaterThan1:
+            return "Scrypt error: N must be a power of two and greater than 1"
+        }
+    }
 }
 
 /// Implementation of the scrypt key derivation function.
-private class Scrypt {
+private class OldScrypt {
     enum Error: Swift.Error {
         case invalidPassword
         case invalidSalt
+        var localizedDescription: String {
+            switch self {
+            case .invalidPassword:
+                return "Scrypt error: invalid password"
+            case .invalidSalt:
+                return "Scrypt error: invalid salt"
+            }
+        }
     }
 
     /// Configuration parameters.
@@ -79,8 +98,11 @@ private class Scrypt {
             V.deallocate()
         }
 
+        
         /* 1: (B_0 ... B_{p-1}) <-- PBKDF2(P, S, 1, p * MFLen) */
-        let barray = try PKCS5.PBKDF2(password: password, salt: [UInt8](salt), iterations: 1, keyLength: p * 128 * r, variant: .sha256).calculate()
+        
+        let pw = String(data: Data(password), encoding: .utf8)!
+        let barray = try PBKDF.deriveKey(fromPassword: pw, salt: salt, prf: .sha256, rounds: 1, derivedKeyLength: UInt(p * 128 * r))
         
         barray.withUnsafeBytes { p in
             B.copyMemory(from: p.baseAddress!, byteCount: barray.count)
@@ -96,7 +118,8 @@ private class Scrypt {
         let pointer = B.assumingMemoryBound(to: UInt8.self)
         let bufferPointer = UnsafeBufferPointer(start: pointer, count: p * 128 * r)
         let block = [UInt8](bufferPointer)
-        return try PKCS5.PBKDF2(password: password, salt: block, iterations: 1, keyLength: dkLen, variant: .sha256).calculate()
+        return try PBKDF.deriveKey(fromPassword: pw, salt: block, prf: .sha256, rounds: 1, derivedKeyLength: UInt(dkLen))
+//        return try PKCS5.PBKDF2(password: password, salt: block, iterations: 1, keyLength: dkLen, variant: .sha256).calculate()
     }
 
     /// Computes `B = SMix_r(B, N)`.

@@ -11,9 +11,9 @@ import Foundation
 
 public extension Data {
     /// Sets data.count to toBytes and fills missing bytes at the start of the data
-    /// - parameter toBytes: Desired data size
-    /// - parameter isNegative: Fills with ff if negative. default: false
-    /// - returns: Data with desired size
+    /// - Parameter toBytes: Desired data size
+    /// - Parameter isNegative: Fills with ff if negative. default: false
+    /// - Returns: Data with desired size
     func setLengthLeft(_ toBytes: UInt64, isNegative: Bool = false) -> Data? {
         let existingLength = UInt64(count)
         if existingLength == toBytes {
@@ -32,9 +32,9 @@ public extension Data {
     }
 
     /// Sets data.count to toBytes and fills missing bytes at the end of the data
-    /// - parameter toBytes: Desired data size
-    /// - parameter isNegative: Fills with ff if negative. default: false
-    /// - returns: Data with desired size
+    /// - Parameter toBytes: Desired data size
+    /// - Parameter isNegative: Fills with ff if negative. default: false
+    /// - Returns: Data with desired size
     func setLengthRight(_ toBytes: UInt64, isNegative: Bool = false) -> Data? {
         let existingLength = UInt64(count)
         if existingLength == toBytes {
@@ -66,7 +66,7 @@ public extension BigInt {
         }
     }
 
-    /// - returns: Fixed size data of number
+    /// - Returns: Fixed size data of number
     func abiEncode(bits: UInt64) -> Data! {
         let isNegative = self < (BigInt(0))
         let data = toTwosComplement()
@@ -91,7 +91,7 @@ public extension BigInt {
 }
 
 public extension BigUInt {
-    /// - returns: Fixed size data of number
+    /// - Returns: Fixed size data of number
     func abiEncode(bits: UInt64) -> Data? {
         let data = serialize()
         let paddedLength = UInt64(ceil((Double(bits) / 8.0)))

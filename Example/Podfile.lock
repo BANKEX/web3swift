@@ -1,21 +1,21 @@
 PODS:
   - BigInt (3.1.0):
     - SipHash (~> 1.2)
-  - CryptoSwift (0.13.0)
-  - PromiseKit (6.5.3):
-    - PromiseKit/CorePromise (= 6.5.3)
-    - PromiseKit/Foundation (= 6.5.3)
-    - PromiseKit/UIKit (= 6.5.3)
-  - PromiseKit/CorePromise (6.5.3)
-  - PromiseKit/Foundation (6.5.3):
+  - CryptoSwift (0.13.1)
+  - PromiseKit (6.7.0):
+    - PromiseKit/CorePromise (= 6.7.0)
+    - PromiseKit/Foundation (= 6.7.0)
+    - PromiseKit/UIKit (= 6.7.0)
+  - PromiseKit/CorePromise (6.7.0)
+  - PromiseKit/Foundation (6.7.0):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (6.5.3):
+  - PromiseKit/UIKit (6.7.0):
     - PromiseKit/CorePromise
   - secp256k1.swift (0.1.4)
   - SipHash (1.2.2)
-  - web3swift (2.0.5):
+  - web3swift (2.1.2):
     - BigInt (~> 3.1)
-    - CryptoSwift (~> 0.12)
+    - CryptoSwift
     - PromiseKit (~> 6.4)
     - secp256k1.swift
 
@@ -36,16 +36,16 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   web3swift:
-    :commit: 590bd35e8a32057860aa8dc707530004311bf0f9
+    :commit: d48680a85c1ef94953d0ad2a630c483aeaf345a9
     :git: https://github.com/bankex/web3swift.git
 
 SPEC CHECKSUMS:
   BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
-  CryptoSwift: 16e78bebf567bad1c87b2d58f6547f25b74c31aa
-  PromiseKit: c609029bdd801f792551a504c695c7d3098b42cd
+  CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
+  PromiseKit: 453ddcc947fe7b302f3ef41882b81d31c554df7f
   secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
   SipHash: fad90a4683e420c52ef28063063dbbce248ea6d4
-  web3swift: 2a33b0dd0fc8901f644d8f9234b0e9bc8611dc87
+  web3swift: 868915a0de620a03510efbe712dcfbd576e61799
 
 PODFILE CHECKSUM: 2b6b41ef6cd2c86449189776fb7c34f8d8e3f570
 

@@ -14,7 +14,7 @@ func objc(_ value: AbstractKeystore) -> W3AbstractKeystore {
 	case let keystore as PlainKeystore: return keystore.objc
 	case let keystore as EthereumKeystoreV3: return keystore.objc
 	case let keystore as BIP32Keystore: return keystore.objc
-	default: fatalError("\(value) is not convertable to objective-c W3AbstractKeystore")
+	default: fatalError("\(value) is not convertible to objective-c W3AbstractKeystore")
 	}
 }
 
@@ -349,7 +349,7 @@ extension EthereumKeystoreV3 {
 	}
 	
 	@objc public func getAddress() -> W3Address? {
-		return swift.getAddress()?.objc
+		return swift.address?.objc
 	}
 	
 	@objc public var addresses: [W3Address] {

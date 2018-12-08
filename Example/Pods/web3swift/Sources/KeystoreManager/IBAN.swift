@@ -13,8 +13,11 @@ import Foundation
  Interexchange Client Address Protocol, an IBAN-compatible system for referencing and transacting to client accounts aimed to streamline the process of transferring funds, worry-free between exchanges and, ultimately, making KYC and AML concerns a thing of the past.
  */
 public struct ICAP {
+    /// Asset
     public var asset: String
+    /// Institution
     public var institution: String
+    /// Client
     public var client: String
 }
 
@@ -130,9 +133,9 @@ public struct IBAN {
 
     /**
     init with iban string
-    - parameter ibanString: iban string like
-    - returns: nil if invalid address is not convertable to iban
-    To skip 30 symbol check, just init it with address.
+    - Parameter ibanString: iban string like
+    - Returns: nil if invalid address is not convertible to iban
+    To skip check for invalid address, just init it with Address.
      ```
      let iban = IBAN("XE7338O073KYGTWWZN0F2WZ0R8PX5ZPPZS")
      ```
@@ -142,12 +145,12 @@ public struct IBAN {
         guard IBAN.isValidIBANaddress(matched) else { return nil }
         iban = matched
     }
-    /// checks if address.base36.count <= 30
+    /// Checks if address.base36.count <= 30
     public static func check(_ address: Address) -> Bool {
         return address.addressData.base36.count <= 30
     }
-    /// init with address
-    /// - important: [Not every address is IBAN compatible](https://github.com/BANKEX/web3swift/issues/137)
+    /// Init with address
+    /// - Important: [Not every address is IBAN compatible](https://github.com/BANKEX/web3swift/issues/137)
     public init(_ address: Address) {
         let padded = address.addressData.base36.leftPadding(toLength: 30, withPad: "0")
         let prefix = "XE"

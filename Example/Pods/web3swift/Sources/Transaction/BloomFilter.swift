@@ -7,53 +7,38 @@
 //
 
 import BigInt
-import CryptoSwift
 import Foundation
 
+/// Ethereum bloom filter
 public struct EthereumBloomFilter {
-    public var bytes = Data(repeatElement(UInt8(0), count: 256))
+    /// Bloom data
+    public var bytes = Data(count: 256)
+    
+    /// Init with number
     public init?(_ biguint: BigUInt) {
         guard let data = biguint.serialize().setLengthLeft(256) else { return nil }
         bytes = data
     }
 
+    /// Init with empty data
     public init() {}
+    
+    /// Init with data
     public init(_ data: Data) {
-        let padding = Data(repeatElement(UInt8(0), count: 256 - data.count))
+        let padding = Data(count: 256 - data.count)
         bytes = padding + data
     }
+    /// Serialize to uint256
     public func asBigUInt() -> BigUInt {
         return BigUInt(bytes)
     }
-}
-
-//
-// func (b Bloom) Test(test *big.Int) bool {
-//    return BloomLookup(b, test)
-// }
-//
-// func (b Bloom) TestBytes(test []byte) bool {
-//    return b.Test(new(big.Int).SetBytes(test))
-//
-// }
-//
-//// MarshalText encodes b as a hex string with 0x prefix.
-// func (b Bloom) MarshalText() ([]byte, error) {
-//    return hexutil.Bytes(b[:]).MarshalText()
-// }
-//
-//// UnmarshalText b as a hex string with 0x prefix.
-// func (b *Bloom) UnmarshalText(input []byte) error {
-//    return hexutil.UnmarshalFixedText("Bloom", input, b[:])
-// }
-
-extension EthereumBloomFilter {
+    
     static func bloom9(_ biguint: BigUInt) -> BigUInt {
         return EthereumBloomFilter.bloom9(biguint.serialize())
     }
 
     static func bloom9(_ data: Data) -> BigUInt {
-        var b = data.sha3(.keccak256)
+        var b = data.keccak256()
         var r = BigUInt(0)
         let mask = BigUInt(2047)
         for i in stride(from: 0, to: 6, by: 2) {
@@ -77,6 +62,7 @@ extension EthereumBloomFilter {
         return bin
     }
 
+    /// Creates bloom filter for transaction receipts
     public static func createBloom(_ receipts: [TransactionReceipt]) -> EthereumBloomFilter? {
         var bin = BigUInt(0)
         for receipt in receipts {
@@ -84,42 +70,33 @@ extension EthereumBloomFilter {
         }
         return EthereumBloomFilter(bin)
     }
-
+    
+    /// Tests topic
     public func test(topic: Data) -> Bool {
         let bin = asBigUInt()
         let comparison = EthereumBloomFilter.bloom9(topic)
         return bin & comparison == comparison
     }
-
+    
+    /// Tests topic
     public func test(topic: BigUInt) -> Bool {
         return test(topic: topic.serialize())
     }
-
-    public static func bloomLookup(_ bloom: EthereumBloomFilter, topic: Data) -> Bool {
-        let bin = bloom.asBigUInt()
-        let comparison = bloom9(topic)
-        return bin & comparison == comparison
-    }
-
-    public static func bloomLookup(_ bloom: EthereumBloomFilter, topic: BigUInt) -> Bool {
-        return EthereumBloomFilter.bloomLookup(bloom, topic: topic.serialize())
-    }
-
+    
+    /// Adds number to bloom
     public mutating func add(_ biguint: BigUInt) {
         var bin = BigUInt(bytes)
         bin = bin | EthereumBloomFilter.bloom9(biguint)
         setBytes(bin.serialize())
     }
-
+    
+    /// Adds data to bloom
     public mutating func add(_ data: Data) {
         var bin = BigUInt(bytes)
         bin = bin | EthereumBloomFilter.bloom9(data)
         setBytes(bin.serialize())
     }
-
-    public func lookup(_ topic: Data) -> Bool {
-        return EthereumBloomFilter.bloomLookup(self, topic: topic)
-    }
+    
 
     mutating func setBytes(_ data: Data) {
         if bytes.count < data.count {

@@ -9,9 +9,17 @@
 import Foundation
 import BigInt
 
+/// Abi errors
 public enum AbiError: Error {
-    /// Unsupported types: function, tuple
+    /// Solidity types (function, tuple) are currently not supported
     case unsupportedType
+    /// Printable / user displayable description
+    public var localizedDescription: String {
+        switch self {
+        case .unsupportedType:
+            return "Solidity types (function, tuple) are currently not supported"
+        }
+    }
 }
 
 /**
@@ -33,6 +41,10 @@ public enum AbiError: Error {
  ```
  */
 public class SolidityType: Equatable, CustomStringConvertible {
+    static let uint256 = SUInt(bits: 256)
+    static let address = SAddress()
+    
+    
     /// SolidityType array size
     public enum ArraySize {
         /// returns number of elements in a static array
@@ -47,7 +59,7 @@ public class SolidityType: Equatable, CustomStringConvertible {
     /// returns true if type is array. default: false
     public var isArray: Bool { return false }
     /// returns true if type is tuple. default: false
-    /// - important: tuples are not supported at this moment
+    /// - Important: tuples are not supported at this moment
     public var isTuple: Bool { return false }
     /// returns number of elements in array if it static. default: .notArray
     public var arraySize: ArraySize { return .notArray }
@@ -57,7 +69,7 @@ public class SolidityType: Equatable, CustomStringConvertible {
     public var memoryUsage: Int { return 32 }
     /// returns default data for empty value. default: Data(repeating: 0, count: memoryUsage)
     public var `default`: Data { return Data(count: memoryUsage) }
-    /// - returns string representation of solidity type
+    /// - Returns string representation of solidity type
     public var description: String { return "" }
     /// returns true if type input parameters is valid: default true
     public var isValid: Bool { return true }
@@ -70,7 +82,15 @@ public class SolidityType: Equatable, CustomStringConvertible {
     
     /// Type conversion error
     public enum Error: Swift.Error {
-        case corrupted
+        /// Unknown solidity type "\(string)"
+        case corrupted(String)
+        /// Printable / user displayable description
+        public var localizedDescription: String {
+            switch self {
+            case let .corrupted(string):
+                return "Unknown solidity type: \"\(string)\""
+            }
+        }
     }
     
     /// Represents solidity uintN type
@@ -203,30 +223,30 @@ extension SolidityType {
         "int": SInt(bits: 256)
     ]
     private static func scan(tuple string: String, from index: Int) throws -> SolidityType {
-        guard string.last! == ")" else { throw Error.corrupted }
-        guard string[..<index] == "tuple" else { throw Error.corrupted }
+        guard string.last! == ")" else { throw Error.corrupted(string) }
+        guard string[..<index] == "tuple" else { throw Error.corrupted(string) }
         let string = string[index+1..<string.count-1]
         let array = try string.split(separator: ",").map { try scan(type: String($0)) }
         return SolidityTuple(types: array)
     }
     private static func scan(arraySize string: String, from index: Int) throws -> SolidityType {
-        guard string.last! == "]" else { throw Error.corrupted }
+        guard string.last! == "]" else { throw Error.corrupted(string) }
         let prefix = string[..<index]
-        guard let type = knownTypes[String(prefix)] else { throw Error.corrupted }
+        guard let type = knownTypes[String(prefix)] else { throw Error.corrupted(string) }
         // type.isValid == true
         let string = string[index+1..<string.count-1]
         if string.isEmpty {
             return SDynamicArray(type: type)
         } else {
-            guard let count = Int(string) else { throw Error.corrupted }
-            guard count > 0 else { throw Error.corrupted }
+            guard let count = Int(string) else { throw Error.corrupted(string) }
+            guard count > 0 else { throw Error.corrupted(string) }
             return SStaticArray(count: count, type: type)
         }
     }
     private static func scan(bytesArray string: String, from index: Int) throws -> SolidityType {
-        guard let count = Int(string[index...]) else { throw Error.corrupted }
+        guard let count = Int(string[index...]) else { throw Error.corrupted(string) }
         let type = SBytes(count: count)
-        guard type.isValid else { throw Error.corrupted }
+        guard type.isValid else { throw Error.corrupted(string) }
         return type
     }
     private static func scan(number string: String, from index: Int) throws -> SolidityType {
@@ -237,36 +257,36 @@ extension SolidityType {
             isSigned = false
         case "int":
             isSigned = true
-        default: throw Error.corrupted
+        default: throw Error.corrupted(string)
         }
         let i = index+1
         for (index2,character) in string[i...].enumerated() {
             switch character {
             case "[":
-                guard let number = Int(string[index...index+index2]) else { throw Error.corrupted }
+                guard let number = Int(string[index...index+index2]) else { throw Error.corrupted(string) }
                 let type = isSigned ? SInt(bits: number) : SUInt(bits: number)
-                guard type.isValid else { throw Error.corrupted }
-                guard string.last! == "]" else { throw Error.corrupted }
+                guard type.isValid else { throw Error.corrupted(string) }
+                guard string.last! == "]" else { throw Error.corrupted(string) }
                 // type.isValid == true
                 let string = string[index+index2+2..<string.count-1]
                 if string.isEmpty {
                     return SDynamicArray(type: type)
                 } else {
-                    guard let count = Int(string) else { throw Error.corrupted }
-                    guard count > 0 else { throw Error.corrupted }
+                    guard let count = Int(string) else { throw Error.corrupted(string) }
+                    guard count > 0 else { throw Error.corrupted(string) }
                     let array = SStaticArray(count: count, type: type)
-                    guard array.isValid else { throw Error.corrupted }
+                    guard array.isValid else { throw Error.corrupted(string) }
                     return array
                 }
             case "0"..."9":
-                guard index2 < 3 else { throw Error.corrupted }
+                guard index2 < 3 else { throw Error.corrupted(string) }
                 continue
-            default: throw Error.corrupted
+            default: throw Error.corrupted(string)
             }
         }
-        guard let number = Int(string[index...]) else { throw Error.corrupted }
+        guard let number = Int(string[index...]) else { throw Error.corrupted(string) }
         let type = isSigned ? SInt(bits: number) : SUInt(bits: number)
-        guard type.isValid else { throw Error.corrupted }
+        guard type.isValid else { throw Error.corrupted(string) }
         return type
     }
     /**
@@ -302,7 +322,7 @@ extension SolidityType {
         } else if let type = knownTypes[String(string)] {
             return type
         } else {
-            throw Error.corrupted
+            throw Error.corrupted(string)
         }
     }
 }
@@ -357,6 +377,7 @@ public class SolidityFunction: CustomStringConvertible {
         case invalidFormat(String)
         /// Throws if function name is empty
         case emptyFunctionName(String)
+        /// Printable / user displayable description
         public var localizedDescription: String {
             switch self {
             case let .invalidFormat(function):

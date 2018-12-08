@@ -58,6 +58,7 @@ public enum SECP256K1Error: Error {
     case invalidSignatureSize
     /// Public key size should be 65 bytes long
     case invalidPublicKeySize
+    /// Printable / user displayable description
     public var localizedDescription: String {
         switch self {
         case .signingFailed:
@@ -98,6 +99,7 @@ public enum SECP256DataError: Error {
     case signatureCorrupted
     /// Invalid marshal signature size
     case invalidMarshalSignatureSize
+    /// Printable / user displayable description
     public var localizedDescription: String {
         switch self {
         case .cannotRecoverPublicKey:
@@ -220,7 +222,7 @@ struct SECP256K1 {
         try privateKey.checkPrivateKeySize()
         var publicKey = secp256k1_pubkey()
         let result = privateKey.withUnsafeBytes { (privateKeyPointer: UnsafePointer<UInt8>) in
-            secp256k1_ec_pubkey_create(context!, UnsafeMutablePointer<secp256k1_pubkey>(&publicKey), privateKeyPointer)
+            secp256k1_ec_pubkey_create(context!, &publicKey, privateKeyPointer)
         }
         guard result != 0 else { throw SECP256DataError.cannotExtractPublicKeyFromPrivateKey }
         return publicKey
@@ -246,7 +248,7 @@ struct SECP256K1 {
         let keyLen: Int = Int(serializedKey.count)
         var publicKey = secp256k1_pubkey()
         let result = serializedKey.withUnsafeBytes { (serializedKeyPointer: UnsafePointer<UInt8>) in
-            secp256k1_ec_pubkey_parse(context!, UnsafeMutablePointer<secp256k1_pubkey>(&publicKey), serializedKeyPointer, keyLen)
+            secp256k1_ec_pubkey_parse(context!, &publicKey, serializedKeyPointer, keyLen)
         }
         guard result != 0 else { throw SECP256DataError.cannotParsePublicKey }
         return publicKey
@@ -256,7 +258,14 @@ struct SECP256K1 {
         try signature.checkSignatureSize()
         var recoverableSignature = secp256k1_ecdsa_recoverable_signature()
         let serializedSignature = Data(signature[0 ..< 64])
-        let v = Int32(signature[64])
+        var v = Int32(signature[64])
+        
+        /*
+         fix for web3.js signs
+         eth-lib code: vrs.v < 2 ? vrs.v : 1 - (vrs.v % 2)
+        https://github.com/MaiaVictor/eth-lib/blob/d959c54faa1e1ac8d474028ed1568c5dce27cc7a/src/account.js#L60
+        */
+        v = v < 2 ? v : 1 - (v % 2)
         let result = serializedSignature.withUnsafeBytes { (serPtr: UnsafePointer<UInt8>) -> Int32 in
             withUnsafeMutablePointer(to: &recoverableSignature, { (signaturePointer: UnsafeMutablePointer<secp256k1_ecdsa_recoverable_signature>) in
                 secp256k1_ecdsa_recoverable_signature_parse_compact(context!, signaturePointer, serPtr, v)
@@ -314,7 +323,7 @@ struct SECP256K1 {
     static func recoverSender(hash: Data, signature: Data) throws -> Address {
         let pubKey = try SECP256K1.recoverPublicKey(hash: hash, signature: signature, compressed: false)
         try pubKey.checkPublicKeySize()
-        let addressData = Data(pubKey.sha3(.keccak256)[12 ..< 32])
+        let addressData = Data(pubKey.keccak256()[12 ..< 32])
         return Address(addressData)
     }
 

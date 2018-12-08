@@ -26,39 +26,39 @@ public protocol ContractProtocol {
     var allEvents: [String] { get }
     
     /// Deploys contract with bytecode and init parameters
-    /// - parameter bytecode: Contract bytecode
-    /// - parameter parameters: Contract init arguments
-    /// - parameter extraData: Extra data for transaction
-    /// - parameter options: Transaction options
+    /// - Parameter bytecode: Contract bytecode
+    /// - Parameter parameters: Contract init arguments
+    /// - Parameter extraData: Extra data for transaction
+    /// - Parameter options: Transaction options
     func deploy(bytecode: Data, parameters: [Any], extraData: Data, options: Web3Options?) throws -> EthereumTransaction
     
     /// Converts method to EthereumTransaction that you can call or send later
-    /// - parameter method: Contract function name
-    /// - parameter parameters: Function arguments
-    /// - parameter extraData: Extra data for transaction
-    /// - parameter options: Transaction options
-    /// - returns: Prepared transaction
+    /// - Parameter method: Contract function name
+    /// - Parameter parameters: Function arguments
+    /// - Parameter extraData: Extra data for transaction
+    /// - Parameter options: Transaction options
+    /// - Returns: Prepared transaction
     func method(_ method: String, parameters: [Any], extraData: Data, options: Web3Options?) throws -> EthereumTransaction
     
     /// init for deployed contract
     init(_ abiString: String, at address: Address?) throws
     
     /// Decodes smart contract response to dictionary
-    /// - parameter method: Smart contract function name
-    /// - parameter data: Smart contract response data
+    /// - Parameter method: Smart contract function name
+    /// - Parameter data: Smart contract response data
     func decodeReturnData(_ method: String, data: Data) -> [String: Any]?
     
     /// Decodes input arguments to dictionary
-    /// - parameter method: Smart contract function name
-    /// - parameter data: Smart contract input data
+    /// - Parameter method: Smart contract function name
+    /// - Parameter data: Smart contract input data
     func decodeInputData(_ method: String, data: Data) -> [String: Any]?
     
     /// Searches for smart contract method and decodes input arguments to dictionary
-    /// - parameter data: Smart contract input data
+    /// - Parameter data: Smart contract input data
     func decodeInputData(_ data: Data) -> [String: Any]?
     
     /// Parses event from log to name and dictionary data
-    /// - parameter eventLog: Raw event log
+    /// - Parameter eventLog: Raw event log
     func parseEvent(_ eventLog: EventLog) -> (eventName: String?, eventData: [String: Any]?)
     /// Tests event with filter
     func testBloomForEventPrecence(eventName: String, bloom: EthereumBloomFilter) -> Bool?
@@ -91,12 +91,17 @@ extension String: EventFilterable {}
 
 extension Address: EventFilterable {}
 
+/// Event filter parameters
 public struct EventFilter {
+    /// Block
     public enum Block {
+        /// Latest block
         case latest
+        /// Pending block
         case pending
+        /// Block with number
         case blockNumber(UInt64)
-
+        
         var encoded: String {
             switch self {
             case .latest:
@@ -108,9 +113,11 @@ public struct EventFilter {
             }
         }
     }
-
+    
+    /// Init with all nils
     public init() {}
-
+    
+    /// Init with known parameters
     public init(fromBlock: Block?, toBlock: Block?,
                 addresses: [Address]? = nil,
                 parameterFilters: [[EventFilterable]?]? = nil) {
@@ -119,12 +126,17 @@ public struct EventFilter {
         self.addresses = addresses
         self.parameterFilters = parameterFilters
     }
-
+    
+    /// Started block
     public var fromBlock: Block?
+    /// Ended block
     public var toBlock: Block?
+    /// Addresses
     public var addresses: [Address]?
+    /// Filters
     public var parameterFilters: [[EventFilterable]?]?
-
+    
+    /// Returns Filter parameters
     public func rpcPreEncode() -> EventFilterParameters {
         var encoding = EventFilterParameters()
         if fromBlock != nil {

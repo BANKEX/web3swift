@@ -6,20 +6,30 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
-import CryptoSwift
+//import Cryptor
 import Foundation
 
 /// Mnemonics language
-public enum BIP39Language {
+public enum BIP39Language: String {
+    /// English word list
     case english
+    /// Chinese simplified word list
     case chinese_simplified
+    /// Chinese traditional word list
     case chinese_traditional
+    /// Japanese word list
     case japanese
+    /// Korean word list
     case korean
+    /// French word list
     case french
+    /// Italian word list
     case italian
+    /// Spanish word list
     case spanish
-    var words: [String] {
+    
+    /// Array of words in the language
+    public var words: [String] {
         switch self {
         case .english:
             return englishWords
@@ -40,7 +50,8 @@ public enum BIP39Language {
         }
     }
 
-    var separator: String {
+    /// Word separator ("\u{3000}") for japanese and " " for anyone else
+    public var separator: String {
         switch self {
         case .japanese:
             return "\u{3000}"
@@ -52,15 +63,19 @@ public enum BIP39Language {
 
 /// Mnemonics entropy size
 public enum EntropySize: Int {
+    /// 128 bit entropy
     case b128 = 128
+    /// 160 bit entropy
     case b160 = 160
+    /// 192 bit entropy
     case b192 = 192
+    /// 224 bit entropy
     case b224 = 224
+    /// 256 bit entropy
     case b256 = 256
 }
 
-/**
- Mnemonics class. Used to generate/create/import ethereum account
+/** Mnemonics class. Used to generate/create/import ethereum account
  
  To generate mnemonics use:
  ```
@@ -88,15 +103,40 @@ public enum EntropySize: Int {
 public class Mnemonics {
     /// Mnemonics init with data error
     public enum Error: Swift.Error {
+        /// Invalid entropy size. Entropy size should be at least 16 bytes long and a multiple of four
         case invalidEntropySize
+        /// Printable / user displayable description
+        public var localizedDescription: String {
+            return "Invalid entropy size. Entropy size should be greater than 15 and a multiple of four"
+        }
     }
     /// Mnemonics init with string error
     public enum EntropyError: Swift.Error {
+        /// Not enough words. Your mnemonics should have at least 12 words
         case notEnoughtWords
+        /// Invalid number of words. It is necessary that the number of words be a multiple of four
         case invalidNumberOfWords
+        /// Cannot find word \"\(string)\" in our dictionary
         case wordNotFound(String)
+        /// Invalid words order
         case invalidOrderOfWords
+        /// Checksum failed checksum: \(string1). expected: \(string2)
         case checksumFailed(String,String)
+        /// Printable / user displayable description
+        public var localizedDescription: String {
+            switch self {
+            case .notEnoughtWords:
+                return "Not enough words. Your mnemonics should have at least 12 words"
+            case .invalidNumberOfWords:
+                return "Invalid number of words. It is necessary that the number of words be a multiple of four"
+            case let .wordNotFound(string):
+                return "Cannot find word \"\(string)\" in our dictionary"
+            case .invalidOrderOfWords:
+                return "Invalid words order"
+            case let .checksumFailed(string1,string2):
+                return "Checksum failed checksum: \(string1). expected: \(string2)"
+            }
+        }
     }
     /// Mnemonics string
     public let string: String
@@ -109,15 +149,14 @@ public class Mnemonics {
     
     /**
      Mnemonics password
-     - important: Mnemonics password affects on privateKey generation
-     - important: WARNING: User cannot use mnemonics generated with password in metamask or some other services that doesn't support mnemonics password
-     - important: With different password you will generate different address
+     - Important: Mnemonics password affects on privateKey generation
+     - Important: WARNING: User cannot use mnemonics generated with password in metamask or some other services that doesn't support mnemonics password
+     - Important: With different password you will generate different address
      */
     public var password: String = ""
     
     /// Generate seed from mnemonics string. This function will ignore dictionary and won't check for mnemonics error
     public static func seed(from mnemonics: String, password: String) -> Data {
-        let mnemData = Array(mnemonics.decomposedStringWithCompatibilityMapping.utf8)
         let salt = "mnemonic" + password
         let saltData = Array(salt.decomposedStringWithCompatibilityMapping.utf8)
         
@@ -125,15 +164,15 @@ public class Mnemonics {
         // or keyLength > variant.digestLength * 256
         // and .calculate() won't throw any errors
         // so i feel free to use "try!"
-        let seed = try! PKCS5.PBKDF2(password: mnemData, salt: saltData, iterations: 2048, keyLength: 64, variant: .sha512).calculate()
+        let seed = try! PBKDF.deriveKey(fromPassword: mnemonics.decomposedStringWithCompatibilityMapping, salt: saltData, prf: .sha512, rounds: 2048, derivedKeyLength: 64)
         return Data(bytes: seed)
     }
     
     /**
      Init with imported mnemonics string and specific language
-     - throws: An error of type Mnemonics.EntropyError
-     - parameter string: mnemonics string
-     - parameter language: mnemonics language. default: .english
+     - Throws: An error of type Mnemonics.EntropyError
+     - Parameter string: Mnemonics string
+     - Parameter language: Mnemonics language. default: .english
      
      Requirements:
      1. Minimum 12 words
@@ -171,8 +210,8 @@ public class Mnemonics {
     
     /**
      Generate mnemonics with entropy size and language
-     - parameter entropySize: mnemonics seed size. default: .b256
-     - parameter language: mnemonics dictionary language. default: .english
+     - Parameter entropySize: Mnemonics seed size. default: .b256
+     - Parameter language: Mnemonics dictionary language. default: .english
      */
     public init(entropySize: EntropySize = .b256, language: BIP39Language = .english) {
         self.entropy = Data.random(length: entropySize.rawValue / 8)
@@ -181,22 +220,23 @@ public class Mnemonics {
         var fullEntropy = Data()
         fullEntropy.append(entropy)
         fullEntropy.append(checksum[0 ..< (checksumBits + 7) / 8])
-        var wordList = [String]()
+        let separator = language.separator
+        let words = language.words
+        var indexes = [Int]()
         for i in 0 ..< fullEntropy.count * 8 / 11 {
             let bits = fullEntropy.bitsInRange(i * 11, 11)
             let index = Int(bits)
-            let word = language.words[index]
-            wordList.append(word)
+            indexes.append(index)
         }
-        self.string = wordList.joined(separator: language.separator)
+        self.string = indexes.map { words[$0] }.joined(separator: separator)
         self.language = language
     }
     
     /**
      Generate mnemonics with pregenerated entropy data
-     - parameter entropy: seed which generates mnemonics string
-     - parameter language: mnemonics dictionary language. default: .english
-     - throws: Error.invalidEntropySize if entropy data has invalid size (< 16 || % 4 != 0)
+     - Parameter entropy: Seed which generates mnemonics string
+     - Parameter language: Mnemonics dictionary language. default: .english
+     - Throws: Error.invalidEntropySize if entropy data has invalid size (< 16 || % 4 != 0)
      */
     public init(entropy: Data, language: BIP39Language = .english) throws {
         guard entropy.count >= 16, entropy.count % 4 == 0 else { throw Error.invalidEntropySize }
@@ -218,7 +258,7 @@ public class Mnemonics {
         self.language = language
     }
     
-    /// - returns: seed from mnemonics
+    /// - Returns: Seed from mnemonics
     public func seed() -> Data {
         return Mnemonics.seed(from: string, password: password)
     }
@@ -226,8 +266,8 @@ public class Mnemonics {
 
 extension Mnemonics: CustomStringConvertible {
     /**
-     mnemonics description
-     - returns: .string
+     Mnemonics description
+     - Returns: .string
      */
     public var description: String {
         return string
