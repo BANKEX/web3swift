@@ -472,6 +472,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1317404621BE96D300208B8F /* web3swiftTests */ = {
+			isa = PBXGroup;
+			children = (
+				1317BDDE218C526C00D6D095 /* BetterABI */,
+				1317BDD3218C526C00D6D095 /* MainTests.swift */,
+				1317BDD4218C526C00D6D095 /* EIP67Tests.swift */,
+				1317BDD5218C526C00D6D095 /* ABITests.swift */,
+				1317BDD6218C526C00D6D095 /* NumberFormattingUtilTests.swift */,
+				1317BDD7218C526C00D6D095 /* InfuraTests.swift */,
+				1317BDD8218C526C00D6D095 /* ContractV2Tests.swift */,
+				1317BDD9218C526C00D6D095 /* PromiseTests.swift */,
+				1317BDDA218C526C00D6D095 /* RLPTests.swift */,
+				1317BDDB218C526C00D6D095 /* Support.swift */,
+				1317BDDC218C526C00D6D095 /* ScryptTests.swift */,
+				1317BDDD218C526C00D6D095 /* UserCasesTests.swift */,
+				1317BDE1218C526C00D6D095 /* TxPoolTests.swift */,
+				1317BDE2218C526C00D6D095 /* AdvancedABITests.swift */,
+				1317BDE3218C526C00D6D095 /* RinkebyPersonalSignatureTests.swift */,
+				1317BDE4218C526C00D6D095 /* LocalNodeTests.swift */,
+				1317BDE5218C526C00D6D095 /* RemoteParsingTests.swift */,
+				1317BDE6218C526C00D6D095 /* KeystoreTests.swift */,
+				1317BDE7218C526C00D6D095 /* ERC20Tests.swift */,
+				1317BDE9218C526C00D6D095 /* TransactionTests.swift */,
+				1317BDEA218C526C00D6D095 /* SECP256K1Tests.swift */,
+				139751B9219AF76D0044D2B0 /* Tests.swift */,
+			);
+			path = web3swiftTests;
+			sourceTree = "<group>";
+		};
 		1317BCD9218C50D100D6D095 = {
 			isa = PBXGroup;
 			children = (
@@ -673,28 +702,7 @@
 		1317BDD2218C526C00D6D095 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				1317BDDE218C526C00D6D095 /* BetterABI */,
-				1317BDD3218C526C00D6D095 /* MainTests.swift */,
-				1317BDD4218C526C00D6D095 /* EIP67Tests.swift */,
-				1317BDD5218C526C00D6D095 /* ABITests.swift */,
-				1317BDD6218C526C00D6D095 /* NumberFormattingUtilTests.swift */,
-				1317BDD7218C526C00D6D095 /* InfuraTests.swift */,
-				1317BDD8218C526C00D6D095 /* ContractV2Tests.swift */,
-				1317BDD9218C526C00D6D095 /* PromiseTests.swift */,
-				1317BDDA218C526C00D6D095 /* RLPTests.swift */,
-				1317BDDB218C526C00D6D095 /* Support.swift */,
-				1317BDDC218C526C00D6D095 /* ScryptTests.swift */,
-				1317BDDD218C526C00D6D095 /* UserCasesTests.swift */,
-				1317BDE1218C526C00D6D095 /* TxPoolTests.swift */,
-				1317BDE2218C526C00D6D095 /* AdvancedABITests.swift */,
-				1317BDE3218C526C00D6D095 /* RinkebyPersonalSignatureTests.swift */,
-				1317BDE4218C526C00D6D095 /* LocalNodeTests.swift */,
-				1317BDE5218C526C00D6D095 /* RemoteParsingTests.swift */,
-				1317BDE6218C526C00D6D095 /* KeystoreTests.swift */,
-				1317BDE7218C526C00D6D095 /* ERC20Tests.swift */,
-				1317BDE9218C526C00D6D095 /* TransactionTests.swift */,
-				1317BDEA218C526C00D6D095 /* SECP256K1Tests.swift */,
-				139751B9219AF76D0044D2B0 /* Tests.swift */,
+				1317404621BE96D300208B8F /* web3swiftTests */,
 				1317BDE8218C526C00D6D095 /* Info.plist */,
 			);
 			path = Tests;

@@ -6,6 +6,7 @@
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
+#if canImport(CIImage)
 import BigInt
 //import CryptoSwift
 import XCTest
@@ -44,3 +45,4 @@ class EIP67Tests: XCTestCase {
         XCTAssert(code.amount == eip67Data.amount)
     }
 }
+#endif

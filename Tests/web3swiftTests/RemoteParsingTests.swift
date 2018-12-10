@@ -45,18 +45,34 @@ class RemoteParsingTests: XCTestCase {
         let web3 = Web3(infura: .mainnet)
         let contract = try web3.contract(jsonString, at: nil)
         guard let eventParser = contract.createEventParser("Transfer", filter: nil) else { return XCTFail() }
-        let currentBlock = try web3.eth.getBlockNumber()
-        let currentBlockAsInt = UInt64(currentBlock)
-        for i in currentBlockAsInt - 1 ... currentBlockAsInt {
-            let present = try eventParser.parseBlockByNumber(i)
-            for p in present {
-                print("Block " + String(i) + "\n")
-                print("Emitted by contract " + p.contractAddress.address + "\n")
-                print("TX hash " + p.transactionReceipt!.transactionHash.hex.withHex + "\n")
-                print("From " + (p.decodedResult["_from"] as! Address).address + "\n")
-                print("From " + (p.decodedResult["_to"] as! Address).address + "\n")
-                print("Value " + String(p.decodedResult["_value"] as! BigUInt) + "\n")
-            }
+        let currentBlock = 0x68b175 // try web3.eth.getBlockNumber()
+        
+        var present = [EventParserResult]()
+//        do {
+//            present = try eventParser.parseBlockByNumber(UInt64(currentBlock-1))
+//        } catch {
+//            XCTFail(error.localizedDescription)
+//        }
+//        for p in present {
+//            print("\nBlock \(currentBlock)")
+//            print("Emitted by contract " + p.contractAddress.address)
+//            print("TX hash " + p.transactionReceipt!.transactionHash.hex.withHex)
+//            print("From " + (p.decodedResult["_from"] as! Address).address)
+//            print("From " + (p.decodedResult["_to"] as! Address).address)
+//            print("Value " + String(p.decodedResult["_value"] as! BigUInt))
+//        }
+        do {
+            present = try eventParser.parseBlockByNumber(UInt64(currentBlock))
+        } catch {
+            XCTFail("\(error)")
+        }
+        for p in present {
+            print("\nBlock \(currentBlock)")
+            print("Emitted by contract " + p.contractAddress.address)
+            print("TX hash " + p.transactionReceipt!.transactionHash.hex.withHex)
+            print("From " + (p.decodedResult["_from"] as! Address).address)
+            print("From " + (p.decodedResult["_to"] as! Address).address)
+            print("Value " + String(p.decodedResult["_value"] as! BigUInt))
         }
     }
 

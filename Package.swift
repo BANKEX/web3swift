@@ -27,5 +27,8 @@ let package = Package(
         "Utils/EIP67Code.swift",
         "Migration-iOS.swift"
         ]),
+    .testTarget(
+      name: "web3swiftTests",
+      dependencies: ["web3swift"]),
     ]
 )

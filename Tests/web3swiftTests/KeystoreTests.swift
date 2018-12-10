@@ -157,12 +157,11 @@ class KeystoresTests: XCTestCase {
         XCTAssertEqual(keystore.addresses.count, 1)
         try! keystore.createNewCustomChildAccount(password: "", path: "/0/1")
         XCTAssertEqual(keystore.addresses.count, 2)
-        let data = try! keystore.serialize()
-        let recreatedStore = BIP32Keystore(data!)
-        XCTAssert(keystore.addresses.count == recreatedStore?.addresses.count)
-        XCTAssert(keystore.rootPrefix == recreatedStore?.rootPrefix)
-        XCTAssert(keystore.addresses[0] == recreatedStore?.addresses[0])
-        XCTAssert(keystore.addresses[1] == recreatedStore?.addresses[1])
+        let data = try! keystore.serialize()!
+        guard let recreatedStore = BIP32Keystore(data) else { XCTFail(); return }
+        XCTAssert(keystore.addresses.count == recreatedStore.addresses.count)
+        XCTAssert(keystore.rootPrefix == recreatedStore.rootPrefix)
+        XCTAssertEqual(Set(keystore.addresses), Set(recreatedStore.addresses))
     }
 
     //    func testPBKDF2() {
