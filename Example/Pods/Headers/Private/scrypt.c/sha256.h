@@ -1,0 +1,1 @@
+../../../scrypt.c/scrypt/sha256.h

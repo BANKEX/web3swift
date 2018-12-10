@@ -1,0 +1,1 @@
+../../../scrypt.c/scrypt/insecure_memzero.h

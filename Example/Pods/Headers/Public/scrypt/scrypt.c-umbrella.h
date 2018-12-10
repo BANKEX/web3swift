@@ -1,0 +1,1 @@
+/Users/dimas/Desktop/web3swift/web3swift/Example/Pods/Target Support Files/scrypt.c/scrypt.c-umbrella.h
