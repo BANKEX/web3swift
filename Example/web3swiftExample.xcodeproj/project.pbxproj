@@ -16,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1324A43D21C3CF6B00370D3C /* How to run.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "How to run.md"; sourceTree = "<group>"; };
 		4CFE41AE4F9BF0444FC1B745 /* Pods-web3swiftExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-web3swiftExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-web3swiftExample/Pods-web3swiftExample.debug.xcconfig"; sourceTree = "<group>"; };
 		74406FC622DDA876095EA67A /* libPods-web3swiftExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-web3swiftExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		816100961FEC716200DE842E /* web3swiftExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = web3swiftExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,6 +61,7 @@
 		8161008D1FEC716200DE842E = {
 			isa = PBXGroup;
 			children = (
+				1324A43D21C3CF6B00370D3C /* How to run.md */,
 				816100981FEC716200DE842E /* web3swiftExample */,
 				816100971FEC716200DE842E /* Products */,
 				4A3F662CD627713756000001 /* Pods */,

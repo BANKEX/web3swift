@@ -1,1 +1,0 @@
-../../../scrypt.c/scrypt/crypto_scrypt_smix.h

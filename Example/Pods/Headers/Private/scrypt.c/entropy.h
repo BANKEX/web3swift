@@ -1,1 +1,0 @@
-../../../scrypt.c/scrypt/entropy.h

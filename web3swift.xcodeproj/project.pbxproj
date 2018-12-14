@@ -304,7 +304,6 @@
 		1317BDE5218C526C00D6D095 /* RemoteParsingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteParsingTests.swift; sourceTree = "<group>"; };
 		1317BDE6218C526C00D6D095 /* KeystoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeystoreTests.swift; sourceTree = "<group>"; };
 		1317BDE7218C526C00D6D095 /* ERC20Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ERC20Tests.swift; sourceTree = "<group>"; };
-		1317BDE8218C526C00D6D095 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1317BDE9218C526C00D6D095 /* TransactionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTests.swift; sourceTree = "<group>"; };
 		1317BDEA218C526C00D6D095 /* SECP256K1Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SECP256K1Tests.swift; sourceTree = "<group>"; };
 		1317BE22218C8A9E00D6D095 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
@@ -703,7 +702,6 @@
 			isa = PBXGroup;
 			children = (
 				1317404621BE96D300208B8F /* web3swiftTests */,
-				1317BDE8218C526C00D6D095 /* Info.plist */,
 			);
 			path = Tests;
 			sourceTree = "<group>";

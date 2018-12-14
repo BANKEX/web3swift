@@ -1,4 +1,4 @@
-## Running the example proejct
+## Running the example project
 
 ```
 cd Example
