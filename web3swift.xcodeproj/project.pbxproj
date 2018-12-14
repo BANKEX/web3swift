@@ -78,6 +78,7 @@
 		1317BDC9218C526300D6D095 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD65218C526300D6D095 /* Array+Extension.swift */; };
 		13397055219984480027E27C /* SecurityToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13397054219984480027E27C /* SecurityToken.swift */; };
 		133970572199876A0027E27C /* ERC888.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133970562199876A0027E27C /* ERC888.swift */; };
+		133A973F21C3E91F00ABB173 /* BlockNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133A973E21C3E91F00ABB173 /* BlockNumber.swift */; };
 		133E673B219EFE630054758F /* Guides.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133E673A219EFE630054758F /* Guides.swift */; };
 		133E696621A6B8940054758F /* Migration-iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133E696521A6B8940054758F /* Migration-iOS.swift */; };
 		135945AB2195952600975EE3 /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135945AA2195952600975EE3 /* Bridging.swift */; };
@@ -314,6 +315,7 @@
 		1324A43A21BED4B800370D3C /* en */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = en; path = en.lproj/README.md; sourceTree = "<group>"; };
 		13397054219984480027E27C /* SecurityToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityToken.swift; sourceTree = "<group>"; };
 		133970562199876A0027E27C /* ERC888.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC888.swift; sourceTree = "<group>"; };
+		133A973E21C3E91F00ABB173 /* BlockNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockNumber.swift; sourceTree = "<group>"; };
 		133E673A219EFE630054758F /* Guides.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guides.swift; sourceTree = "<group>"; };
 		133E696521A6B8940054758F /* Migration-iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Migration-iOS.swift"; sourceTree = "<group>"; };
 		135945AA2195952600975EE3 /* Bridging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridging.swift; sourceTree = "<group>"; };
@@ -531,10 +533,10 @@
 		1317BCFD218C526300D6D095 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				13C3385721B6C23800F33F5E /* web3swift */,
 				13A8D4F321B7447400469740 /* scrypt */,
 				13A8D4ED21B7446A00469740 /* keccak */,
 				13C3385821B6C26900F33F5E /* secp256k1 */,
-				13C3385721B6C23800F33F5E /* web3swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -783,10 +785,11 @@
 			isa = PBXGroup;
 			children = (
 				1317BD43218C526300D6D095 /* SolidityFunction.swift */,
+				1317BD46218C526300D6D095 /* SolidityTypes.swift */,
 				13AC5D3D21A5D109009D0309 /* SolidityDataReader.swift */,
 				1317BD45218C526300D6D095 /* SolidityDataWriter.swift */,
-				1317BD46218C526300D6D095 /* SolidityTypes.swift */,
 				13A93F5F21B172D900F115E4 /* Transaction.swift */,
+				133A973E21C3E91F00ABB173 /* BlockNumber.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -1261,6 +1264,7 @@
 				1317BD7B218C526300D6D095 /* Web3+HttpProvider.swift in Sources */,
 				1317BDA5218C526300D6D095 /* ABIv2Elements.swift in Sources */,
 				1317BD8C218C526300D6D095 /* DictionaryReader.swift in Sources */,
+				133A973F21C3E91F00ABB173 /* BlockNumber.swift in Sources */,
 				1317BD7A218C526300D6D095 /* ERC777.swift in Sources */,
 				1317BDB6218C526300D6D095 /* EthereumKeystoreV3.swift in Sources */,
 				13765D7821964A9B005C483C /* W3Transaction.swift in Sources */,
