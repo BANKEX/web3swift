@@ -90,7 +90,7 @@ class Request {
 
 /// WIP
 class CustomRequest: Request {
-    let parameters: [Any]
+    var parameters: [Any]
     init(method: String, parameters: [Any]) {
         self.parameters = parameters
         super.init(method: method)

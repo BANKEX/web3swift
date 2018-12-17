@@ -8,9 +8,10 @@
 
 import Foundation
 import BigInt
+import PromiseKit
 
 enum BlockNumberType {
-    case exact, latest, pending
+    case exact, earliest, latest, pending
 }
 
 /// WIP
@@ -27,14 +28,28 @@ struct BlockNumber {
             type = .latest
         case "pending":
             type = .pending
+        case "earliest":
+            type = .earliest
         default:
             type = .exact
             offset = try! BigInt(DictionaryReader(string).uint256())
         }
     }
     
+    func promise(network: NetworkProvider) -> Promise<String> {
+        // WIP
+        let (promise, resolver) = Promise<String>.pending()
+        return promise
+    }
+    
     static var latest: BlockNumber {
         return BlockNumber(type: .latest)
+    }
+    static var earliest: BlockNumber {
+        return BlockNumber(type: .earliest)
+    }
+    static var pending: BlockNumber {
+        return BlockNumber(type: .pending)
     }
     
     static func - (l: BlockNumber, r: BigInt) -> BlockNumber {

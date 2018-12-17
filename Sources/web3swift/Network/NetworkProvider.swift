@@ -8,6 +8,51 @@
 
 import Foundation
 import PromiseKit
+import BigInt
+
+protocol JsonRpcInput {
+    func jsonRpcValue(with network: NetworkProvider) -> Any
+}
+extension Int: JsonRpcInput {
+    func jsonRpcValue(with network: NetworkProvider) -> Any {
+        return self
+    }
+}
+extension BigUInt: JsonRpcInput {
+    func jsonRpcValue(with network: NetworkProvider) -> Any {
+        return "0x" + String(self, radix: 16, uppercase: false)
+    }
+}
+extension Address: JsonRpcInput {
+    func jsonRpcValue(with network: NetworkProvider) -> Any {
+        return address
+    }
+}
+extension String: JsonRpcInput {
+    func jsonRpcValue(with network: NetworkProvider) -> Any {
+        return self
+    }
+}
+extension BlockNumber: JsonRpcInput {
+    func jsonRpcValue(with network: NetworkProvider) -> Any {
+        return promise(network: network).jsonRpcValue(with: network)
+    }
+}
+extension Data: JsonRpcInput {
+    func jsonRpcValue(with network: NetworkProvider) -> Any {
+        return hex.withHex
+    }
+}
+extension Promise: JsonRpcInput where T: JsonRpcInput {
+    func jsonRpcValue(with network: NetworkProvider) -> Any {
+        return map { $0 as Any }
+    }
+}
+extension Dictionary: JsonRpcInput where Key == String, Value: JsonRpcInput {
+    func jsonRpcValue(with network: NetworkProvider) -> Any {
+        return mapValues { $0.jsonRpcValue(with: network) }
+    }
+}
 
 /// WIP
 class NetworkProvider {
@@ -31,9 +76,19 @@ class NetworkProvider {
         self.url = url
     }
     
-    func post(method: String, parameters: [Any]) -> Promise<DictionaryReader> {
+    func send(_ method: String, _ parameters: JsonRpcInput...) -> Promise<DictionaryReader> {
         let request = CustomRequest(method: method, parameters: parameters)
-        send(request: request)
+        let promises = parameters.compactMap { $0 as? Promise<Any> }
+        when(fulfilled: promises).done { _ in
+            request.parameters = parameters.map { element in
+                if let promise = element as? Promise<Any> {
+                    return (promise.value! as! JsonRpcInput).jsonRpcValue(with: self)
+                } else {
+                    return element
+                }
+            }
+            self.send(request: request)
+        }.catch(request.resolver.reject)
         return request.promise
     }
     func send(requests: [Request]) {

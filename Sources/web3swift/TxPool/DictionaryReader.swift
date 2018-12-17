@@ -90,11 +90,18 @@ public class DictionaryReader {
     /// Same as [Any]().forEach { value in ... }
     /// - Parameter body: Callback for every value in array
     /// - Throws: DictionaryReader.Error(if unconvertible to [Any])
-    public func array(body: (DictionaryReader)throws->()) throws {
+    public func array(body: (DictionaryReader) throws -> ()) throws {
         guard let data = raw as? [Any] else { throw unconvertible(to: "[Any]") }
         try data.forEach {
             try body(DictionaryReader($0))
         }
+    }
+    
+    /// Tries to represent raw as array.
+    /// - Throws: DictionaryReader.Error(if unconvertible to [Any])
+    public func array() throws -> [DictionaryReader] {
+        guard let data = raw as? [Any] else { throw unconvertible(to: "[Any]") }
+        return data.map(DictionaryReader.init)
     }
 
     /// Tries to represent raw as string then string as address
@@ -111,7 +118,7 @@ public class DictionaryReader {
     }
     
     /// Tries to represent raw as string
-    /// - Returns: Address
+    /// - Returns: String
     /// - Throws: DictionaryReader.Error.unconvertible
     @discardableResult
     public func string() throws -> String {
@@ -121,6 +128,29 @@ public class DictionaryReader {
             return value.description
         } else {
             throw unconvertible(to: "String")
+        }
+    }
+    
+    /// Tries to represent raw as string
+    /// - Returns: String
+    /// - Throws: DictionaryReader.Error.unconvertible
+    @discardableResult
+    public func bool() throws -> Bool {
+        if let value = raw as? Bool {
+            return value
+        } else if let value = raw as? Int {
+            return value != 0
+        } else if let value = raw as? String {
+            switch value {
+            case "true":
+                return true
+            case "false":
+                return false
+            default:
+                throw unconvertible(to: "Bool")
+            }
+        } else {
+            throw unconvertible(to: "Bool")
         }
     }
     
