@@ -33,8 +33,8 @@ public class JsonRpcRequestDispatcher {
 
     internal final class Batch {
         var capacity: Int
-        var promisesDict: [UInt64: (promise: Promise<JsonRpcResponse>, resolver: Resolver<JsonRpcResponse>)] = [UInt64: (promise: Promise<JsonRpcResponse>, resolver: Resolver<JsonRpcResponse>)]()
-        var requests: [JsonRpcRequest] = [JsonRpcRequest]()
+        var promisesDict = [Int: (promise: Promise<JsonRpcResponse>, resolver: Resolver<JsonRpcResponse>)]()
+        var requests = [JsonRpcRequest]()
         var pendingTrigger: Guarantee<Void>?
         var provider: Web3Provider
         var queue: DispatchQueue
@@ -71,7 +71,7 @@ public class JsonRpcRequestDispatcher {
                 let requestsBatch = JsonRpcRequestBatch(requests: self.requests)
                 self.provider.sendAsync(requestsBatch, queue: self.queue).done(on: self.queue) { batch in
                     for response in batch.responses {
-                        if self.promisesDict[UInt64(response.id)] == nil {
+                        if self.promisesDict[response.id] == nil {
                             for k in self.promisesDict.keys {
                                 self.promisesDict[k]?.resolver.reject(Web3Error.nodeError("Unknown request id"))
                             }
@@ -79,7 +79,7 @@ public class JsonRpcRequestDispatcher {
                         }
                     }
                     for response in batch.responses {
-                        let promise = self.promisesDict[UInt64(response.id)]!
+                        let promise = self.promisesDict[response.id]!
                         promise.resolver.fulfill(response)
                     }
                 }.catch(on: self.queue) { err in

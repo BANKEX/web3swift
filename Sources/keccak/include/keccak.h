@@ -21,4 +21,5 @@ decsha3(256)
 decsha3(384)
 decsha3(512)
 deckeccak(256)
+deckeccak(512)
 #endif

@@ -56,6 +56,10 @@ public class DictionaryReader {
     public init(_ data: Any) {
         self.raw = data
     }
+    /// Init with any value
+    public init(json data: Data) throws {
+        self.raw = try JSONSerialization.jsonObject(with: data, options: [])
+    }
     
     func unconvertible(to expected: String) -> Error {
         return Error.unconvertible(value: raw, expected: expected)
@@ -109,6 +113,7 @@ public class DictionaryReader {
     /// Tries to represent raw as string
     /// - Returns: Address
     /// - Throws: DictionaryReader.Error.unconvertible
+    @discardableResult
     public func string() throws -> String {
         if let value = raw as? String {
             return value
@@ -121,6 +126,7 @@ public class DictionaryReader {
     
     /// Tries to represent raw as data or as hex string then as data
     /// - Throws: DictionaryReader.Error.unconvertible
+    @discardableResult
     public func data() throws -> Data {
         if let value = raw as? Data {
             return value
@@ -136,6 +142,7 @@ public class DictionaryReader {
     /// - 0x123123
     /// - "123123123"
     /// - Throws: DictionaryReader.Error.unconvertible
+    @discardableResult
     public func uint256() throws -> BigUInt {
         if let value = raw as? String {
             if value.isHex {
@@ -159,6 +166,7 @@ public class DictionaryReader {
     /// - 0x123123
     /// - "123123123"
     /// - Throws: DictionaryReader.Error.unconvertible
+    @discardableResult
     public func int() throws -> Int {
         if let value = raw as? Int {
             return value
@@ -173,6 +181,10 @@ public class DictionaryReader {
         } else {
             throw unconvertible(to: "Int")
         }
+    }
+    
+    func contains(_ key: String) -> Bool {
+        return (try? at(key)) != nil
     }
     
     func json() throws -> Data {
@@ -199,3 +211,24 @@ extension Dictionary where Key == String, Value == Any {
     }
 }
 
+/// Some chains
+enum ParsingError: Error {
+    case stringPrefix(string: String, shouldHavePrefix: String)
+    case stringEquals(string: String, shouldEqual: String)
+}
+extension String {
+    @discardableResult
+    func starts(with prefix: String) throws -> String {
+        guard hasPrefix(prefix) else {
+            throw ParsingError.stringPrefix(string: self, shouldHavePrefix: prefix)
+        }
+        return self
+    }
+    @discardableResult
+    func equals(_ string: String) throws -> String {
+        guard self == string else {
+            throw ParsingError.stringEquals(string: self, shouldEqual: string)
+        }
+        return self
+    }
+}

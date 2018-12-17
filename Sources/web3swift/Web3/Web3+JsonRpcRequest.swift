@@ -10,11 +10,11 @@ import BigInt
 import Foundation
 
 /// Global counter object to enumerate JSON RPC requests.
-private struct Counter {
-    static var current = UInt64(1)
+struct Counter {
+    static var current = 1
     static var lockQueue = DispatchQueue(label: "counterQueue")
-    static func increment() -> UInt64 {
-        var c: UInt64 = 0
+    static func increment() -> Int {
+        var c: Int = 0
         lockQueue.sync {
             c = Counter.current
             Counter.current = Counter.current + 1
@@ -33,7 +33,7 @@ public struct JsonRpcRequest: Encodable {
     /// node input
     var params: JsonRpcParams
     /// request local id
-    var id: UInt64 = Counter.increment()
+    var id: Int = Counter.increment()
     
     /// A type that can be used as a key for encoding and decoding.
     enum CodingKeys: String, CodingKey {
