@@ -79,7 +79,7 @@
 		13397055219984480027E27C /* SecurityToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13397054219984480027E27C /* SecurityToken.swift */; };
 		133970572199876A0027E27C /* ERC888.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133970562199876A0027E27C /* ERC888.swift */; };
 		133A973F21C3E91F00ABB173 /* BlockNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133A973E21C3E91F00ABB173 /* BlockNumber.swift */; };
-		133A974421C3EFC800ABB173 /* JsonRpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133A974321C3EFC800ABB173 /* JsonRpc.swift */; };
+		133A974421C3EFC800ABB173 /* JsonRpcRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133A974321C3EFC800ABB173 /* JsonRpcRequest.swift */; };
 		133A974621C3FD7800ABB173 /* NetworkPromises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133A974521C3FD7800ABB173 /* NetworkPromises.swift */; };
 		133A974E21C40D5A00ABB173 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133A974D21C40D5A00ABB173 /* NetworkProvider.swift */; };
 		133E673B219EFE630054758F /* Guides.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133E673A219EFE630054758F /* Guides.swift */; };
@@ -124,6 +124,7 @@
 		13975206219AFA6D0044D2B0 /* SECP256K1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDEA218C526C00D6D095 /* SECP256K1Tests.swift */; };
 		1397DFDC21C7B2A1000D659A /* JsonRpcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1397DFDB21C7B2A1000D659A /* JsonRpcTests.swift */; };
 		1397DFE321C7F87A000D659A /* EthereumApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1397DFE021C7F81F000D659A /* EthereumApi.swift */; };
+		1397E00621C8FB0E000D659A /* JsonRpcInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1397E00321C8FA67000D659A /* JsonRpcInput.swift */; };
 		139947F221B0586200EA5DB6 /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139947F121B0586200EA5DB6 /* PrivateKey.swift */; };
 		13A8D4F121B7446A00469740 /* keccak.h in Headers */ = {isa = PBXBuildFile; fileRef = 13A8D4EF21B7446A00469740 /* keccak.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		13A8D4F221B7446A00469740 /* keccak.c in Sources */ = {isa = PBXBuildFile; fileRef = 13A8D4F021B7446A00469740 /* keccak.c */; };
@@ -152,8 +153,8 @@
 		13A8D52321B7447400469740 /* warnp.c in Sources */ = {isa = PBXBuildFile; fileRef = 13A8D50B21B7447400469740 /* warnp.c */; };
 		13A8D52421B7447400469740 /* asprintf.c in Sources */ = {isa = PBXBuildFile; fileRef = 13A8D50C21B7447400469740 /* asprintf.c */; };
 		13A8D52621B7451800469740 /* keccak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A8D52521B7451800469740 /* keccak.swift */; };
-		13A8D52721B7463400469740 /* keccak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13C3393421B6F41000F33F5E /* keccak.framework */; };
-		13A8D52821B7463400469740 /* scrypt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A8D4E521B7442800469740 /* scrypt.framework */; };
+		13A8D52721B7463400469740 /* keccak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13C3393421B6F41000F33F5E /* keccak.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		13A8D52821B7463400469740 /* scrypt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A8D4E521B7442800469740 /* scrypt.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		13A8D54C21B7493900469740 /* scrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A8D54B21B7493900469740 /* scrypt.swift */; };
 		13A93F5A21B0A36900F115E4 /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A93F5921B0A36900F115E4 /* AES.swift */; };
 		13A93F6021B172D900F115E4 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A93F5F21B172D900F115E4 /* Transaction.swift */; };
@@ -214,7 +215,7 @@
 		13C3392421B6C62400F33F5E /* ecdsa_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 13C338F521B6C62400F33F5E /* ecdsa_impl.h */; };
 		13C3392521B6C62400F33F5E /* secp256k1_ec_mult_static_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 13C338F621B6C62400F33F5E /* secp256k1_ec_mult_static_context.h */; };
 		13C3392621B6C62400F33F5E /* scratch.h in Headers */ = {isa = PBXBuildFile; fileRef = 13C338F721B6C62400F33F5E /* scratch.h */; };
-		13C3392821B6C68900F33F5E /* secp256k1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13C3388E21B6C2DD00F33F5E /* secp256k1.framework */; };
+		13C3392821B6C68900F33F5E /* secp256k1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13C3388E21B6C2DD00F33F5E /* secp256k1.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		13C3392A21B6C6D500F33F5E /* web3swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 13C3392921B6C6D400F33F5E /* web3swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		13D2576E21ADCD4400D382D1 /* DerivedKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2576D21ADCD4400D382D1 /* DerivedKey.swift */; };
 /* End PBXBuildFile section */
@@ -321,7 +322,7 @@
 		13397054219984480027E27C /* SecurityToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityToken.swift; sourceTree = "<group>"; };
 		133970562199876A0027E27C /* ERC888.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC888.swift; sourceTree = "<group>"; };
 		133A973E21C3E91F00ABB173 /* BlockNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockNumber.swift; sourceTree = "<group>"; };
-		133A974321C3EFC800ABB173 /* JsonRpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonRpc.swift; sourceTree = "<group>"; };
+		133A974321C3EFC800ABB173 /* JsonRpcRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonRpcRequest.swift; sourceTree = "<group>"; };
 		133A974521C3FD7800ABB173 /* NetworkPromises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPromises.swift; sourceTree = "<group>"; };
 		133A974D21C40D5A00ABB173 /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
 		133E673A219EFE630054758F /* Guides.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guides.swift; sourceTree = "<group>"; };
@@ -345,6 +346,7 @@
 		139751B9219AF76D0044D2B0 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		1397DFDB21C7B2A1000D659A /* JsonRpcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonRpcTests.swift; sourceTree = "<group>"; };
 		1397DFE021C7F81F000D659A /* EthereumApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumApi.swift; sourceTree = "<group>"; };
+		1397E00321C8FA67000D659A /* JsonRpcInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonRpcInput.swift; sourceTree = "<group>"; };
 		139947F121B0586200EA5DB6 /* PrivateKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKey.swift; sourceTree = "<group>"; };
 		13A8D4E521B7442800469740 /* scrypt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = scrypt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		13A8D4EF21B7446A00469740 /* keccak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = keccak.h; sourceTree = "<group>"; };
@@ -544,7 +546,6 @@
 		1317BCFD218C526300D6D095 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				1397DFDE21C7EF0E000D659A /* New Group */,
 				13C3385721B6C23800F33F5E /* web3swift */,
 				13A8D4F321B7447400469740 /* scrypt */,
 				13A8D4ED21B7446A00469740 /* keccak */,
@@ -741,7 +742,8 @@
 			isa = PBXGroup;
 			children = (
 				133A974D21C40D5A00ABB173 /* NetworkProvider.swift */,
-				133A974321C3EFC800ABB173 /* JsonRpc.swift */,
+				133A974321C3EFC800ABB173 /* JsonRpcRequest.swift */,
+				1397E00321C8FA67000D659A /* JsonRpcInput.swift */,
 				133A974521C3FD7800ABB173 /* NetworkPromises.swift */,
 				1397DFE021C7F81F000D659A /* EthereumApi.swift */,
 			);
@@ -754,13 +756,6 @@
 				1397DFDB21C7B2A1000D659A /* JsonRpcTests.swift */,
 			);
 			path = NetworkTests;
-			sourceTree = "<group>";
-		};
-		1397DFDE21C7EF0E000D659A /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		13A8D4ED21B7446A00469740 /* keccak */ = {
@@ -1330,6 +1325,7 @@
 				1317BD83218C526300D6D095 /* Web3+Protocols.swift in Sources */,
 				13A93F5A21B0A36900F115E4 /* AES.swift in Sources */,
 				1317BD85218C526300D6D095 /* Web3+Eth.swift in Sources */,
+				1397E00621C8FB0E000D659A /* JsonRpcInput.swift in Sources */,
 				1317BD70218C526300D6D095 /* TransactionSigner.swift in Sources */,
 				13C335F521B5E00E00F33F5E /* Random.swift in Sources */,
 				13397055219984480027E27C /* SecurityToken.swift in Sources */,
@@ -1378,7 +1374,7 @@
 				13A8D52621B7451800469740 /* keccak.swift in Sources */,
 				13765D7321964A9B005C483C /* W3Structs.swift in Sources */,
 				1317BDC3218C526300D6D095 /* NSRegularExpressionExtension.swift in Sources */,
-				133A974421C3EFC800ABB173 /* JsonRpc.swift in Sources */,
+				133A974421C3EFC800ABB173 /* JsonRpcRequest.swift in Sources */,
 				1317BD72218C526300D6D095 /* EIP681.swift in Sources */,
 				1317BDA4218C526300D6D095 /* ABIv2Parsing.swift in Sources */,
 			);

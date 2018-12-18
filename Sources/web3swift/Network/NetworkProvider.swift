@@ -8,51 +8,6 @@
 
 import Foundation
 import PromiseKit
-import BigInt
-
-protocol JsonRpcInput {
-    func jsonRpcValue(with network: NetworkProvider) -> Any
-}
-extension Int: JsonRpcInput {
-    func jsonRpcValue(with network: NetworkProvider) -> Any {
-        return self
-    }
-}
-extension BigUInt: JsonRpcInput {
-    func jsonRpcValue(with network: NetworkProvider) -> Any {
-        return "0x" + String(self, radix: 16, uppercase: false)
-    }
-}
-extension Address: JsonRpcInput {
-    func jsonRpcValue(with network: NetworkProvider) -> Any {
-        return address
-    }
-}
-extension String: JsonRpcInput {
-    func jsonRpcValue(with network: NetworkProvider) -> Any {
-        return self
-    }
-}
-extension BlockNumber: JsonRpcInput {
-    func jsonRpcValue(with network: NetworkProvider) -> Any {
-        return promise(network: network).jsonRpcValue(with: network)
-    }
-}
-extension Data: JsonRpcInput {
-    func jsonRpcValue(with network: NetworkProvider) -> Any {
-        return hex.withHex
-    }
-}
-extension Promise: JsonRpcInput where T: JsonRpcInput {
-    func jsonRpcValue(with network: NetworkProvider) -> Any {
-        return map { $0 as Any }
-    }
-}
-extension Dictionary: JsonRpcInput where Key == String, Value: JsonRpcInput {
-    func jsonRpcValue(with network: NetworkProvider) -> Any {
-        return mapValues { $0.jsonRpcValue(with: network) }
-    }
-}
 
 /// WIP
 class NetworkProvider {
@@ -76,10 +31,25 @@ class NetworkProvider {
         self.url = url
     }
     
+    /// Send jsonrpc request.
+    /// Automatically waits for promises to complete then adds request to the queue.
+    ///
+    /// - Parameters:
+    ///   - method: Api method
+    ///   - parameters: Input parameters
+    /// - Returns: Promise with response
     func send(_ method: String, _ parameters: JsonRpcInput...) -> Promise<DictionaryReader> {
-        let request = CustomRequest(method: method, parameters: parameters)
-        let promises = parameters.compactMap { $0 as? Promise<Any> }
+        // Mapping types, requesting promises
+        let mapped = parameters.map { $0.jsonRpcValue(with: self) }
+        
+        // Making request with mapped parameters
+        // We will replace promises later after they complete
+        let request = CustomRequest(method: method, parameters: mapped)
+        
+        // Checking for promises and waiting
+        let promises = mapped.compactMap { $0 as? Promise<Any> }
         when(fulfilled: promises).done { _ in
+            // Mapping promise results
             request.parameters = parameters.map { element in
                 if let promise = element as? Promise<Any> {
                     return (promise.value! as! JsonRpcInput).jsonRpcValue(with: self)
@@ -87,6 +57,7 @@ class NetworkProvider {
                     return element
                 }
             }
+            // Sending request
             self.send(request: request)
         }.catch(request.resolver.reject)
         return request.promise

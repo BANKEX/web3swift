@@ -75,6 +75,16 @@ public class DictionaryReader {
         return DictionaryReader(value)
     }
     
+    /// Tries to represent raw as dictionary and gets value at key from it
+    /// - Parameter key: Dictionary key
+    /// - Returns: DictionaryReader with found value or nil if not found
+    /// - Throws: DictionaryReader.Error(if unconvertible to [String: Any] or if key not found in dictionary)
+    public func optional(_ key: String) throws -> DictionaryReader? {
+        guard let data = raw as? [String: Any] else { throw unconvertible(to: "[String: Any]") }
+        guard let value = data[key] else { throw Error.notFound(key: key, dictionary: data) }
+        return DictionaryReader(value)
+    }
+    
     /// Tries to represent raw as dictionary and calls forEach on it.
     /// Same as [String: Any]().map { key, value in ... }
     /// - Parameter block: callback for every key and value of dictionary
@@ -90,7 +100,7 @@ public class DictionaryReader {
     /// Same as [Any]().forEach { value in ... }
     /// - Parameter body: Callback for every value in array
     /// - Throws: DictionaryReader.Error(if unconvertible to [Any])
-    public func array(body: (DictionaryReader) throws -> ()) throws {
+    public func array(_ body: (DictionaryReader) throws -> ()) throws {
         guard let data = raw as? [Any] else { throw unconvertible(to: "[Any]") }
         try data.forEach {
             try body(DictionaryReader($0))
@@ -102,6 +112,13 @@ public class DictionaryReader {
     public func array() throws -> [DictionaryReader] {
         guard let data = raw as? [Any] else { throw unconvertible(to: "[Any]") }
         return data.map(DictionaryReader.init)
+    }
+    
+    /// Tries to represent raw as array and converts it to Array<T>
+    /// - Throws: DictionaryReader.Error(if unconvertible to [Any])
+    public func array<T>(_ mapped: (DictionaryReader) throws -> (T)) throws -> [T] {
+        guard let data = raw as? [Any] else { throw unconvertible(to: "[Any]") }
+        return try data.map { try mapped(DictionaryReader($0)) }
     }
 
     /// Tries to represent raw as string then string as address
@@ -211,6 +228,35 @@ public class DictionaryReader {
         } else {
             throw unconvertible(to: "Int")
         }
+    }
+    
+    
+    /// Tries to represent raw as Int.
+    ///
+    /// Can convert:
+    /// - "0x12312312"
+    /// - 0x123123
+    /// - "123123123"
+    /// - Throws: DictionaryReader.Error.unconvertible
+    @discardableResult
+    public func uint64() throws -> UInt64 {
+        if let value = raw as? Int {
+            return UInt64(value)
+        } else if let value = raw as? String {
+            if value.isHex {
+                guard let value = UInt64(value.withoutHex, radix: 16) else { throw unconvertible(to: "UInt64") }
+                return value
+            } else {
+                guard let value = UInt64(value) else { throw unconvertible(to: "UInt64") }
+                return value
+            }
+        } else {
+            throw unconvertible(to: "Int")
+        }
+    }
+    
+    func isNull() -> Bool {
+        return raw is NSNull
     }
     
     func contains(_ key: String) -> Bool {
