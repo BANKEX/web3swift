@@ -27,15 +27,15 @@ enum JsonRpcError: Error {
 class Request {
     var id = Counter.increment()
     var method: String
-    var promise: Promise<DictionaryReader>
-    var resolver: Resolver<DictionaryReader>
+    var promise: Promise<AnyReader>
+    var resolver: Resolver<AnyReader>
     
     init(method: String) {
         self.method = method
         (promise,resolver) = Promise.pending()
     }
     
-    func response(data: DictionaryReader) throws {
+    func response(data: AnyReader) throws {
         
     }
     func failed(error: Error) {
@@ -63,7 +63,7 @@ class Request {
         return urlRequest
     }
     
-    func checkJsonRpcSyntax(data: DictionaryReader) throws {
+    func checkJsonRpcSyntax(data: AnyReader) throws {
         try data.at("jsonrpc").string().starts(with: "2.")
         if let error = try? data.at("error") {
             let code = try error.at("code").int()
@@ -77,7 +77,7 @@ class Request {
             try data.at("id").int()
         }
     }
-    func _response(data: DictionaryReader) throws {
+    func _response(data: AnyReader) throws {
         try checkJsonRpcSyntax(data: data)
         try response(data: data.at("result"))
         resolver.fulfill(data)
@@ -113,7 +113,7 @@ class RequestBatch: Request {
             requests.append(request)
         }
     }
-    override func response(data: DictionaryReader) throws {
+    override func response(data: AnyReader) throws {
         try data.array {
             let id = try $0.at("id").int()
             guard let request = requests.first(where: {$0.id == id}) else { return }

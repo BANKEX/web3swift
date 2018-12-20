@@ -10,7 +10,7 @@ import Foundation
 import BigInt
 
 extension BigUInt {
-    private typealias Error = DictionaryReader.Error
+    private typealias Error = AnyReader.Error
     init(dictionary value: Any) throws {
         if let string = value as? String {
             if string.isHex {
@@ -33,18 +33,22 @@ extension BigUInt {
  
  Used for easy dictionary parsing
  */
-public class DictionaryReader {
+public class AnyReader {
     /// Errors
     public enum Error: Swift.Error {
         /// Throws if key cannot be found in a dictionary
         case notFound(key: String, dictionary: [String: Any])
+        /// Throws if key cannot be found in a dictionary
+        case elementNotFound(index: Int, array: [Any])
         /// Throws if value cannot be converted to desired type
         case unconvertible(value: Any, expected: String)
         /// Printable / user displayable description
         public var localizedDescription: String {
             switch self {
             case let .notFound(key, dictionary):
-                return "Cannot find object at key \(key): \(dictionary)"
+                return "Cannot find object at key \(key) in \(dictionary)"
+            case let .elementNotFound(index, array):
+                return "Cannot find element at index \(index) in \(array)"
             case let .unconvertible(value, expected):
                 return "Cannot convert \(value) to \(expected)"
             }
@@ -69,30 +73,30 @@ public class DictionaryReader {
     /// - Parameter key: Dictionary key
     /// - Returns: DictionaryReader with found value
     /// - Throws: DictionaryReader.Error(if unconvertible to [String: Any] or if key not found in dictionary)
-    public func at(_ key: String) throws -> DictionaryReader {
+    public func at(_ key: String) throws -> AnyReader {
         guard let data = raw as? [String: Any] else { throw unconvertible(to: "[String: Any]") }
         guard let value = data[key] else { throw Error.notFound(key: key, dictionary: data) }
-        return DictionaryReader(value)
+        return AnyReader(value)
     }
     
     /// Tries to represent raw as dictionary and gets value at key from it
     /// - Parameter key: Dictionary key
     /// - Returns: DictionaryReader with found value or nil if not found
     /// - Throws: DictionaryReader.Error(if unconvertible to [String: Any] or if key not found in dictionary)
-    public func optional(_ key: String) throws -> DictionaryReader? {
+    public func optional(_ key: String) throws -> AnyReader? {
         guard let data = raw as? [String: Any] else { throw unconvertible(to: "[String: Any]") }
         guard let value = data[key] else { throw Error.notFound(key: key, dictionary: data) }
-        return DictionaryReader(value)
+        return AnyReader(value)
     }
     
     /// Tries to represent raw as dictionary and calls forEach on it.
     /// Same as [String: Any]().map { key, value in ... }
     /// - Parameter block: callback for every key and value of dictionary
     /// - Throws: DictionaryReader.Error(if unconvertible to [String: Any])
-    public func dictionary(body: (DictionaryReader, DictionaryReader) throws -> ()) throws {
+    public func dictionary(body: (AnyReader, AnyReader) throws -> ()) throws {
         guard let data = raw as? [String: Any] else { throw unconvertible(to: "[String: Any]") }
         try data.forEach {
-            try body(DictionaryReader($0), DictionaryReader($1))
+            try body(AnyReader($0), AnyReader($1))
         }
     }
     
@@ -100,25 +104,25 @@ public class DictionaryReader {
     /// Same as [Any]().forEach { value in ... }
     /// - Parameter body: Callback for every value in array
     /// - Throws: DictionaryReader.Error(if unconvertible to [Any])
-    public func array(_ body: (DictionaryReader) throws -> ()) throws {
+    public func array(_ body: (AnyReader) throws -> ()) throws {
         guard let data = raw as? [Any] else { throw unconvertible(to: "[Any]") }
         try data.forEach {
-            try body(DictionaryReader($0))
+            try body(AnyReader($0))
         }
     }
     
     /// Tries to represent raw as array.
     /// - Throws: DictionaryReader.Error(if unconvertible to [Any])
-    public func array() throws -> [DictionaryReader] {
+    public func array() throws -> [AnyReader] {
         guard let data = raw as? [Any] else { throw unconvertible(to: "[Any]") }
-        return data.map(DictionaryReader.init)
+        return data.map(AnyReader.init)
     }
     
     /// Tries to represent raw as array and converts it to Array<T>
     /// - Throws: DictionaryReader.Error(if unconvertible to [Any])
-    public func array<T>(_ mapped: (DictionaryReader) throws -> (T)) throws -> [T] {
+    public func array<T>(_ mapped: (AnyReader) throws -> (T)) throws -> [T] {
         guard let data = raw as? [Any] else { throw unconvertible(to: "[Any]") }
-        return try data.map { try mapped(DictionaryReader($0)) }
+        return try data.map { try mapped(AnyReader($0)) }
     }
 
     /// Tries to represent raw as string then string as address
@@ -268,9 +272,15 @@ public class DictionaryReader {
     }
 }
 
+extension AnyReader: CustomStringConvertible {
+    public var description: String {
+        return "\(raw)"
+    }
+}
+
 extension Dictionary where Key == String, Value == Any {
     func notFound(at key: String) -> Error {
-        return DictionaryReader.Error.notFound(key: key, dictionary: self)
+        return AnyReader.Error.notFound(key: key, dictionary: self)
     }
     var json: Data {
         return try! JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
@@ -281,9 +291,19 @@ extension Dictionary where Key == String, Value == Any {
     /// - Parameter key: Dictionary key
     /// - Returns: DictionaryReader with found value
     /// - Throws: DictionaryReader.Error(if key not found in dictionary)
-    public func at(_ key: String) throws -> DictionaryReader {
+    public func at(_ key: String) throws -> AnyReader {
         guard let value = self[key] else { throw notFound(at: key) }
-        return DictionaryReader(value)
+        return AnyReader(value)
+    }
+}
+
+extension Array where Element == AnyReader {
+    func notFound(at index: Int) -> Error {
+        return AnyReader.Error.elementNotFound(index: index, array: self)
+    }
+    func at(_ index: Int) throws -> AnyReader {
+        guard index >= 0 && index < count else { throw notFound(at: index) }
+        return self[index]
     }
 }
 

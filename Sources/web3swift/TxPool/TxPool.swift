@@ -75,12 +75,12 @@ public class TxPool {
     }
 }
 
-extension DictionaryReader {
-    func split(_ separator: String, _ expectedSize: Int) throws -> [DictionaryReader] {
+extension AnyReader {
+    func split(_ separator: String, _ expectedSize: Int) throws -> [AnyReader] {
         let string = try self.string()
         let array = string.components(separatedBy: separator)
         guard array.count >= expectedSize else { throw unconvertible(to: "[Any]") }
-        return array.map { DictionaryReader($0) }
+        return array.map { AnyReader($0) }
     }
 }
 
@@ -90,7 +90,7 @@ public struct TxPoolStatus {
     public var pending: Int
     /// Number of queued transactions
     public var queued: Int
-    init(_ dictionary: DictionaryReader) throws {
+    init(_ dictionary: AnyReader) throws {
         pending = try dictionary.at("pending").int()
         queued = try dictionary.at("queued").int()
     }
@@ -102,7 +102,7 @@ public class TxPoolInspect {
     public let pending: [Transaction]
     /// array of queued transactions
     public let queued: [Transaction]
-    init(_ dictionary: DictionaryReader) throws {
+    init(_ dictionary: AnyReader) throws {
         pending = try TxPoolInspect.parse(dictionary.at("pending"))
         queued = try TxPoolInspect.parse(dictionary.at("queued"))
     }
@@ -110,7 +110,7 @@ public class TxPoolInspect {
         pending = []
         queued = []
     }
-    private static func parse(_ reader: DictionaryReader) throws -> [Transaction] {
+    private static func parse(_ reader: AnyReader) throws -> [Transaction] {
         var array = [Transaction]()
         try reader.dictionary {
             let from = try $0.address()
@@ -138,7 +138,7 @@ public class TxPoolInspect {
         public let gasLimit: BigUInt
         /// Transaction gas price
         public let gasPrice: BigUInt
-        init(_ reader: DictionaryReader, from: Address, nonce: Int) throws {
+        init(_ reader: AnyReader, from: Address, nonce: Int) throws {
             self.from = from
             self.nonce = nonce
             let string = try reader.split(" ", 7)
@@ -156,7 +156,7 @@ public class TxPoolContent {
     public let pending: [Transaction]
     /// Array of queued transactions
     public let queued: [Transaction]
-    init(_ dictionary: DictionaryReader) throws {
+    init(_ dictionary: AnyReader) throws {
         pending = try TxPoolContent.parse(dictionary.at("pending"))
         queued = try TxPoolContent.parse(dictionary.at("queued"))
     }
@@ -164,7 +164,7 @@ public class TxPoolContent {
         pending = []
         queued = []
     }
-    private static func parse(_ reader: DictionaryReader) throws -> [Transaction] {
+    private static func parse(_ reader: AnyReader) throws -> [Transaction] {
         var array = [Transaction]()
         try reader.dictionary {
             let from = try $0.address()
@@ -206,7 +206,7 @@ public class TxPoolContent {
         public let blockHash: Data
         /// trnsaction index
         public let transactionIndex: BigUInt
-        init(_ reader: DictionaryReader, from: Address, nonce: Int) throws {
+        init(_ reader: AnyReader, from: Address, nonce: Int) throws {
             self.from = from
             self.nonce = nonce
             input = try reader.at("input").data()

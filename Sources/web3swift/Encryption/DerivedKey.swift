@@ -29,7 +29,7 @@ enum DerivedKeyType {
         default: throw Error.invalidType(type)
         }
     }
-    func derivedKey(_ json: DictionaryReader) throws -> DerivedKey {
+    func derivedKey(_ json: AnyReader) throws -> DerivedKey {
         switch self {
         case .scrypt: return try Scrypt(json: json)
         case .pbkdf2: return try PBKDF2Object(json: json)
@@ -160,7 +160,7 @@ class PBKDF2Object: DerivedKey {
         self.iterations = iterations
         self.variant = variant
     }
-    init(json: DictionaryReader) throws {
+    init(json: AnyReader) throws {
         variant = try HmacVariant(json.at("prf").string())
         keyLength = try json.at("dklen").int()
         iterations = try json.at("c").int()
@@ -232,7 +232,7 @@ class Scrypt: DerivedKey {
         self.salt = salt
         self.dkLen = dkLen
     }
-    init(json: DictionaryReader) throws {
+    init(json: AnyReader) throws {
         dkLen = try json.at("dklen").int()
         n = try json.at("n").int()
         r = try json.at("r").int()

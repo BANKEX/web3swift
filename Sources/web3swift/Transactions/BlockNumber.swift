@@ -32,7 +32,7 @@ struct BlockNumber {
             type = .earliest
         default:
             type = .exact
-            offset = try! BigInt(DictionaryReader(string).uint256())
+            offset = try! BigInt(AnyReader(string).uint256())
         }
     }
     

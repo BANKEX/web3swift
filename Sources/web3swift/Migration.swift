@@ -16,6 +16,8 @@ import BigInt
 /// 2. (ctrl + alt + cmd + f) to fix all issues in current file
 /// 3. repeat
 
+// MARK:- web3swift 2.2 changes
+public typealias DictionaryReader = AnyReader
 
 // MARK:- web3swift 2.1 changes
 

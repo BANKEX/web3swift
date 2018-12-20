@@ -38,7 +38,7 @@ class NetworkProvider {
     ///   - method: Api method
     ///   - parameters: Input parameters
     /// - Returns: Promise with response
-    func send(_ method: String, _ parameters: JsonRpcInput...) -> Promise<DictionaryReader> {
+    func send(_ method: String, _ parameters: JEncodable...) -> Promise<AnyReader> {
         // Mapping types, requesting promises
         let mapped = parameters.map { $0.jsonRpcValue(with: self) }
         
@@ -52,7 +52,7 @@ class NetworkProvider {
             // Mapping promise results
             request.parameters = parameters.map { element in
                 if let promise = element as? Promise<Any> {
-                    return (promise.value! as! JsonRpcInput).jsonRpcValue(with: self)
+                    return (promise.value! as! JEncodable).jsonRpcValue(with: self)
                 } else {
                     return element
                 }

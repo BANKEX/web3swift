@@ -72,7 +72,7 @@ class PromiseOperation<T>: Operation {
 extension URLSession: NetworkProtocol {
     func send(request: Request, to url: URL) {
         send(request: request, to: url).done(on: .web3) { data in
-            let response = try DictionaryReader(json: data)
+            let response = try AnyReader(json: data)
             do {
                 try request._response(data: response)
             } catch {

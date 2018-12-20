@@ -111,11 +111,11 @@ public struct JsonRpcResponse: Decodable {
 	
 	/// - Returns: .result as DictionaryReader or throw .error
 	/// - Throws: Web3Error.nodeError(error.message), Web3Error.nodeError("No response found")
-    public func response() throws -> DictionaryReader {
+    public func response() throws -> AnyReader {
         if let error = error {
             throw Web3Error.nodeError(error.message)
         } else if let result = result {
-            return DictionaryReader(result)
+            return AnyReader(result)
         } else {
             throw Web3Error.nodeError("No response found")
         }
