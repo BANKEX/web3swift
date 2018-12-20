@@ -24,38 +24,31 @@ class EthereumApi {
         return block.promise(network: network)
     }
     
-    //    Returns the current client version.
-    //
-    //    ##### Parameters
-    //    none
-    //
-    //    ##### Returns
-    //
-    //    `String` - The current client version.
-    //
-    //    ##### Example
-    //    ```js
-    //    // Request
-    //    curl -X POST --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
-    //
-    //    // Result
-    //    {
-    //      "id":67,
-    //      "jsonrpc":"2.0",
-    //      "result": "Mist/v0.9.3/darwin/go1.4.1"
-    //    }
-    //    ```
-    func web3_clientVersion() -> Promise<Int> {
-        return network.send("web3_clientVersion").int()
+    /// Returns the current client version.
+    ///
+    /// ##### Example
+    /// ```js
+    /// // Request
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
+    ///
+    /// // Result
+    /// {
+    ///   "id":67,
+    ///   "jsonrpc":"2.0",
+    ///   "result": "Mist/v0.9.3/darwin/go1.4.1"
+    /// }
+    /// ```
+    ///
+    /// - Returns: `String` - The current client version.
+    func web3_clientVersion() -> Promise<String> {
+        return network.send("web3_clientVersion").string()
     }
     
     /// #### web3_sha3
     ///
     /// Returns Keccak-256 (*not* the standardized SHA3-256) of the given data.
     ///
-    /// ##### Parameters
-    ///
-    /// 1. `DATA` - the data to convert into a SHA3 hash.
+    /// - Parameter : `DATA` - the data to convert into a SHA3 hash.
     ///
     /// ```js
     /// params: [
@@ -63,9 +56,6 @@ class EthereumApi {
     /// ]
     /// ```
     ///
-    /// ##### Returns
-    ///
-    /// `DATA` - The SHA3 result of the given string.
     ///
     /// ##### Example
     /// ```js
@@ -79,18 +69,14 @@ class EthereumApi {
     ///  "result": "0xc94770007dda54cF92009BFF0dE90c06F603a09f"
     /// }
     /// ```
+    ///
+    /// - Returns: `DATA` - The SHA3 result of the given string.
     func web3_sha3(_ data: Data) -> Promise<Data> {
         return network.send("web3_sha3", data.hex).data()
     }
     
     /// Returns the current network id.
     ///
-    /// ##### Parameters
-    /// none
-    ///
-    /// ##### Returns
-    ///
-    /// `String` - The current network id.
     /// - `"1"`: Ethereum Mainnet
     /// - `"2"`: Morden Testnet  (deprecated)
     /// - `"3"`: Ropsten Testnet
@@ -109,18 +95,13 @@ class EthereumApi {
     ///  "result": "3"
     /// }
     /// ```
+    ///
+    /// - Returns: `String` - The current network id.
     func net_version() -> Promise<String> {
         return network.send("net_version").string()
     }
     
     /// Returns `true` if client is actively listening for network connections.
-    ///
-    /// ##### Parameters
-    /// none
-    ///
-    /// ##### Returns
-    ///
-    /// `Boolean` - `true` when listening, otherwise `false`.
     ///
     /// ##### Example
     /// ```js
@@ -134,18 +115,13 @@ class EthereumApi {
     ///  "result":true
     /// }
     /// ```
+    ///
+    /// - Returns: `Boolean` - `true` when listening, otherwise `false`.
     func net_listening() -> Promise<Bool> {
         return network.send("net_listening").bool()
     }
     
     /// Returns number of peers currently connected to the client.
-    ///
-    /// ##### Parameters
-    /// none
-    ///
-    /// ##### Returns
-    ///
-    /// `QUANTITY` - integer of the number of connected peers.
     ///
     /// ##### Example
     /// ```js
@@ -159,19 +135,13 @@ class EthereumApi {
     ///  "result": "0x2" // 2
     /// }
     /// ```
-    
+    ///
+    /// - Returns: `QUANTITY` - integer of the number of connected peers.
     func net_peerCount() -> Promise<Int> {
         return network.send("net_peerCount").int()
     }
     
     /// Returns the current ethereum protocol version.
-    ///
-    /// ##### Parameters
-    /// none
-    ///
-    /// ##### Returns
-    ///
-    /// `String` - The current ethereum protocol version.
     ///
     /// ##### Example
     /// ```js
@@ -185,22 +155,14 @@ class EthereumApi {
     ///  "result": "54"
     /// }
     /// ```
+    ///
+    /// - Returns: `String` - The current ethereum protocol version.
     func eth_protocolVersion() -> Promise<String> {
         return network.send("eth_protocolVersion").string()
     }
     
     /// Returns an object with data about the sync status or `false`.
     ///
-    ///
-    /// ##### Parameters
-    /// none
-    ///
-    /// ##### Returns
-    ///
-    /// `Object|Boolean`, An object with sync status data or `FALSE`, when not syncing:
-    ///  - `startingBlock`: `QUANTITY` - The block at which the import started (will only be reset, after the sync reached his head)
-    ///  - `currentBlock`: `QUANTITY` - The current block, same as eth_blockNumber
-    ///  - `highestBlock`: `QUANTITY` - The estimated highest block
     ///
     /// ##### Example
     /// ```js
@@ -224,6 +186,8 @@ class EthereumApi {
     ///  "result": false
     /// }
     /// ```
+    ///
+    /// - Returns: `Object|Boolean`, An object with sync status data or `FALSE`, when not syncing:
     func eth_syncing() -> Promise<SyncingStatus?> {
         return network.send("eth_syncing").map {
             let bool = (try? $0.bool()) ?? true
@@ -233,14 +197,6 @@ class EthereumApi {
     }
     
     /// Returns the client coinbase address.
-    ///
-    ///
-    /// ##### Parameters
-    /// none
-    ///
-    /// ##### Returns
-    ///
-    /// `DATA`, 20 bytes - the current coinbase address.
     ///
     /// ##### Example
     /// ```js
@@ -254,18 +210,13 @@ class EthereumApi {
     ///  "result": "0xc94770007dda54cF92009BFF0dE90c06F603a09f"
     /// }
     /// ```
+    ///
+    /// - Returns: `DATA`, 20 bytes - the current coinbase address.
     func eth_coinbase() -> Promise<Address> {
         return network.send("eth_coinbase").address()
     }
     
     /// Returns `true` if client is actively mining new blocks.
-    ///
-    /// ##### Parameters
-    /// none
-    ///
-    /// ##### Returns
-    ///
-    /// `Boolean` - returns `true` of the client is mining, otherwise `false`.
     ///
     /// ##### Example
     /// ```js
@@ -280,18 +231,13 @@ class EthereumApi {
     /// }
     ///
     /// ```
+    ///
+    /// - Returns: `Boolean` - returns `true` of the client is mining, otherwise `false`.
     func eth_mining() -> Promise<Bool> {
         return network.send("eth_mining").bool()
     }
     
     /// Returns the number of hashes per second that the node is mining with.
-    ///
-    /// ##### Parameters
-    /// none
-    ///
-    /// ##### Returns
-    ///
-    /// `QUANTITY` - number of hashes per second.
     ///
     /// ##### Example
     /// ```js
@@ -306,18 +252,13 @@ class EthereumApi {
     /// }
     ///
     /// ```
+    ///
+    /// - Returns: `QUANTITY` - number of hashes per second.
     func eth_hashrate() -> Promise<Int> {
         return network.send("eth_hashrate").int()
     }
     
     /// Returns the current price per gas in wei.
-    ///
-    /// ##### Parameters
-    /// none
-    ///
-    /// ##### Returns
-    ///
-    /// `QUANTITY` - integer of the current gas price in wei.
     ///
     /// ##### Example
     /// ```js
@@ -331,19 +272,13 @@ class EthereumApi {
     ///  "result": "0x09184e72a000" // 10000000000000
     /// }
     /// ```
+    ///
+    /// - Returns: `QUANTITY` - integer of the current gas price in wei.
     func eth_gasPrice() -> Promise<BigUInt> {
         return network.send("eth_gasPrice").uint256()
     }
     
     /// Returns a list of addresses owned by client.
-    ///
-    ///
-    /// ##### Parameters
-    /// none
-    ///
-    /// ##### Returns
-    ///
-    /// `Array of DATA`, 20 Bytes - addresses owned by the client.
     ///
     /// ##### Example
     /// ```js
@@ -357,18 +292,13 @@ class EthereumApi {
     ///  "result": ["0xc94770007dda54cF92009BFF0dE90c06F603a09f"]
     /// }
     /// ```
+    ///
+    /// - Returns: `Array of DATA`, 20 Bytes - addresses owned by the client.
     func eth_accounts() -> Promise<[Address]> {
         return network.send("eth_accounts").array(_address)
     }
     
     /// Returns the number of most recent block.
-    ///
-    /// ##### Parameters
-    /// none
-    ///
-    /// ##### Returns
-    ///
-    /// `QUANTITY` - integer of the current block number the client is on.
     ///
     /// ##### Example
     /// ```js
@@ -382,16 +312,13 @@ class EthereumApi {
     ///  "result": "0xc94" // 1207
     /// }
     /// ```
+    ///
+    /// - Returns: `QUANTITY` - integer of the current block number the client is on.
     func eth_blockNumber() -> Promise<BigUInt> {
         return network.send("eth_blockNumber").uint256()
     }
     
     /// Returns the balance of the account of given address.
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `DATA`, 20 Bytes - address to check for balance.
-    /// 2. `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the [default block parameter](#the-default-block-parameter)
     ///
     /// ```js
     /// params: [
@@ -399,10 +326,6 @@ class EthereumApi {
     ///   'latest'
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `QUANTITY` - integer of the current balance in wei.
     ///
     ///
     /// ##### Example
@@ -417,21 +340,16 @@ class EthereumApi {
     ///  "result": "0x0234c8a3397aab58" // 158972490234375000
     /// }
     /// ```
+    ///
+    ///
+    /// - Parameter address: `DATA`, 20 Bytes - address to check for balance.
+    /// - Parameter block: `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the [default block parameter](#the-default-block-parameter)
+    /// - Returns: `QUANTITY` - integer of the current balance in wei.
     func eth_getBalance(address: Address, block: BlockNumber) -> Promise<BigUInt> {
         return network.send("eth_getBalance", address, block).uint256()
     }
     
     /// Returns the value from a storage position at a given address.
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `DATA`, 20 Bytes - address of the storage.
-    /// 2. `QUANTITY` - integer of the position in the storage.
-    /// 3. `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the [default block parameter](#the-default-block-parameter)
-    ///
-    /// ##### Returns
-    ///
-    /// `DATA` - the value at this storage position.
     ///
     /// ##### Example
     /// Calculating the correct position depends on the storage to retrieve. Consider the following contract deployed at `0x295a70b2de5e3953354a6a8344e616ed314d7251` by address `0x391694e7e0b0cce554cb130d723a9d27458f9298`.
@@ -480,17 +398,17 @@ class EthereumApi {
     /// {"jsonrpc":"2.0","id":1,"result":"0x000000000000000000000000000000000000000000000000000000000000162e"}
     ///
     /// ```
+    ///
+    /// - Parameter address: `DATA`, 20 Bytes - address of the storage.
+    /// - Parameter position: `QUANTITY` - integer of the position in the storage.
+    /// - Parameter block: `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the [default block parameter](#the-default-block-parameter)
+    ///
+    /// - Returns: `DATA` - the value at this storage position.
     func eth_getStorageAt(_ address: Address, position: BigUInt, block: BlockNumber) -> Promise<Data> {
         return network.send("eth_getStorageAt", address, position, block).data()
     }
     
     /// Returns the number of transactions *sent* from an address.
-    ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `DATA`, 20 Bytes - address.
-    /// 2. `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the [default block parameter](#the-default-block-parameter)
     ///
     /// ```js
     /// params: [
@@ -498,11 +416,6 @@ class EthereumApi {
     ///   'latest' // state at the latest block
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `QUANTITY` - integer of the number of transactions send from this address.
-    ///
     ///
     /// ##### Example
     /// ```js
@@ -516,27 +429,22 @@ class EthereumApi {
     ///  "result": "0x1" // 1
     /// }
     /// ```
+    ///
+    /// - Parameter : `DATA`, 20 Bytes - address.
+    /// - Parameter : `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the [default block parameter](#the-default-block-parameter)
+    ///
+    /// - Returns: `QUANTITY` - integer of the number of transactions send from this address.
     func eth_getTransactionCount(_ address: Address, block: BlockNumber) -> Promise<BigUInt> {
         return network.send("eth_getTransactionCount", address, block).uint256()
     }
     
     /// Returns the number of transactions in a block from a block matching the given block hash.
     ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `DATA`, 32 Bytes - hash of a block.
-    ///
     /// ```js
     /// params: [
     ///   '0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238'
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `QUANTITY` - integer of the number of transactions in this block.
-    ///
     ///
     /// ##### Example
     /// ```js
@@ -550,26 +458,20 @@ class EthereumApi {
     ///  "result": "0xc" // 11
     /// }
     /// ```
+    ///
+    /// - Parameter : `DATA`, 32 Bytes - hash of a block.
+    /// - Returns: `QUANTITY` - integer of the number of transactions in this block.
     func eth_getBlockTransactionCountByHash(_ hash: Data) -> Promise<BigUInt> {
         return network.send("eth_getBlockTransactionCountByHash", hash).uint256()
     }
     
     /// Returns the number of transactions in a block matching the given block number.
     ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `QUANTITY|TAG` - integer of a block number, or the string `"earliest"`, `"latest"` or `"pending"`, as in the [default block parameter](#the-default-block-parameter).
-    ///
     /// ```js
     /// params: [
     ///   '0xe8', // 232
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `QUANTITY` - integer of the number of transactions in this block.
     ///
     /// ##### Example
     /// ```js
@@ -583,26 +485,21 @@ class EthereumApi {
     ///  "result": "0xa" // 10
     /// }
     /// ```
+    ///
+    /// - Parameter block: `QUANTITY|TAG` - integer of a block number, or the string `"earliest"`, `"latest"` or `"pending"`, as in the [default block parameter](#the-default-block-parameter).
+    ///
+    /// - Returns: `QUANTITY` - integer of the number of transactions in this block.
     func eth_getBlockTransactionCountByNumber(_ block: BlockNumber) -> Promise<BigUInt> {
         return network.send("eth_getBlockTransactionCountByNumber", block).uint256()
     }
     
     /// Returns the number of uncles in a block from a block matching the given block hash.
     ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `DATA`, 32 Bytes - hash of a block.
-    ///
     /// ```js
     /// params: [
     ///   '0xc94770007dda54cF92009BFF0dE90c06F603a09f'
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `QUANTITY` - integer of the number of uncles in this block.
     ///
     ///
     /// ##### Example
@@ -617,6 +514,10 @@ class EthereumApi {
     ///  "result": "0xc" // 1
     /// }
     /// ```
+    ///
+    /// - Parameter : `DATA`, 32 Bytes - hash of a block.
+    ///
+    /// - Returns: `QUANTITY` - integer of the number of uncles in this block.
     func eth_getUncleCountByBlockHash(_ hash: Data) -> Promise<BigUInt> {
         return network.send("eth_getUncleCountByBlockHash", hash).uint256()
     }
@@ -624,20 +525,11 @@ class EthereumApi {
     /// Returns the number of uncles in a block from a block matching the given block number.
     ///
     ///
-    /// ##### Parameters
-    ///
-    /// 1. `QUANTITY|TAG` - integer of a block number, or the string "latest", "earliest" or "pending", see the [default block parameter](#the-default-block-parameter).
-    ///
     /// ```js
     /// params: [
     ///   '0xe8', // 232
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `QUANTITY` - integer of the number of uncles in this block.
-    ///
     ///
     /// ##### Example
     /// ```js
@@ -651,17 +543,15 @@ class EthereumApi {
     ///  "result": "0x1" // 1
     /// }
     /// ```
+    ///
+    /// - Parameter : `QUANTITY|TAG` - integer of a block number, or the string "latest", "earliest" or "pending", see the [default block parameter](#the-default-block-parameter).
+    ///
+    /// - Returns: `QUANTITY` - integer of the number of uncles in this block.
     func eth_getUncleCountByBlockNumber(_ block: BlockNumber) -> Promise<BigUInt> {
         return network.send("eth_getUncleCountByBlockNumber", block).uint256()
     }
     
     /// Returns code at a given address.
-    ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `DATA`, 20 Bytes - address.
-    /// 2. `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the [default block parameter](#the-default-block-parameter).
     ///
     /// ```js
     /// params: [
@@ -669,11 +559,6 @@ class EthereumApi {
     ///   '0x2'  // 2
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `DATA` - the code from the given address.
-    ///
     ///
     /// ##### Example
     /// ```js
@@ -687,6 +572,11 @@ class EthereumApi {
     ///  "result": "0x600160008035811a818181146012578301005b601b6001356025565b8060005260206000f25b600060078202905091905056"
     /// }
     /// ```
+    ///
+    /// - Parameter address: `DATA`, 20 Bytes - address.
+    /// - Parameter block: `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the [default block parameter](#the-default-block-parameter).
+    ///
+    /// - Returns: `DATA` - the code from the given address.
     func eth_getCode(address: Address, block: BlockNumber) -> Promise<Data> {
         return network.send("eth_getCode", address, block).data()
     }
@@ -695,17 +585,10 @@ class EthereumApi {
     ///
     /// By adding a prefix to the message makes the calculated signature recognisable as an Ethereum specific signature. This prevents misuse where a malicious DApp can sign arbitrary data (e.g. transaction) and use the signature to impersonate the victim.
     ///
-    /// **Note** the address to sign with must be unlocked.
+    /// - Note: the address to sign with must be unlocked.
     ///
     /// ##### Parameters
     /// account, message
-    ///
-    /// 1. `DATA`, 20 Bytes - address.
-    /// 2. `DATA`, N Bytes - message to sign.
-    ///
-    /// ##### Returns
-    ///
-    /// `DATA`: Signature
     ///
     /// ##### Example
     ///
@@ -722,22 +605,17 @@ class EthereumApi {
     /// ```
     ///
     /// An example how to use solidity ecrecover to verify the signature calculated with `eth_sign` can be found [here](https://gist.github.com/bas-vk/d46d83da2b2b4721efb0907aecdb7ebd). The contract is deployed on the testnet Ropsten and Rinkeby.
+    ///
+    /// - Parameter address: `DATA`, 20 Bytes - address.
+    /// - Parameter data: `DATA`, N Bytes - message to sign.
+    ///
+    /// - Returns: `DATA`: Signature
     func eth_sign(address: Address, data: Data) -> Promise<Data> {
         return network.send("eth_sign", address, data).data()
     }
     
     /// Creates new message call transaction or a contract creation, if the data field contains code.
     ///
-    /// ##### Parameters
-    ///
-    /// 1. `Object` - The transaction object
-    ///  - `from`: `DATA`, 20 Bytes - The address the transaction is send from.
-    ///  - `to`: `DATA`, 20 Bytes - (optional when creating new contract) The address the transaction is directed to.
-    ///  - `gas`: `QUANTITY`  - (optional, default: 90000) Integer of the gas provided for the transaction execution. It will return unused gas.
-    ///  - `gasPrice`: `QUANTITY`  - (optional, default: To-Be-Determined) Integer of the gasPrice used for each paid gas
-    ///  - `value`: `QUANTITY`  - (optional) Integer of the value sent with this transaction
-    ///  - `data`: `DATA`  - The compiled code of a contract OR the hash of the invoked method signature and encoded parameters. For details see [Ethereum Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)
-    ///  - `nonce`: `QUANTITY`  - (optional) Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
     ///
     /// ```js
     /// params: [{
@@ -749,10 +627,6 @@ class EthereumApi {
     ///  "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
     /// }]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `DATA`, 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available.
     ///
     /// Use [eth_getTransactionReceipt](#eth_gettransactionreceipt) to get the contract address, after the transaction was mined, when you created a contract.
     ///
@@ -768,6 +642,15 @@ class EthereumApi {
     ///  "result": "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331"
     /// }
     /// ```
+    /// - Parameter from: `DATA`, 20 Bytes - The address the transaction is send from.
+    /// - Parameter to: `DATA`, 20 Bytes - (optional when creating new contract) The address the transaction is directed to.
+    /// - Parameter gas: `QUANTITY`  - (optional, default: 90000) Integer of the gas provided for the transaction execution. It will return unused gas.
+    /// - Parameter gasPrice: `QUANTITY`  - (optional, default: To-Be-Determined) Integer of the gasPrice used for each paid gas
+    /// - Parameter value: `QUANTITY`  - (optional) Integer of the value sent with this transaction
+    /// - Parameter data: `DATA`  - The compiled code of a contract OR the hash of the invoked method signature and encoded parameters. For details see [Ethereum Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)
+    /// - Parameter nonce: `QUANTITY`  - (optional) Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
+    ///
+    /// - Returns: `DATA`, 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available.
     func eth_sendTransaction(from: Address, to: Address, gas: BigUInt?, gasPrice: BigUInt?, value: BigUInt?, data: Data, nonce: BigUInt?) -> Promise<Data> {
         let dictionary = JDictionary()
             .set("from", from)
@@ -782,17 +665,10 @@ class EthereumApi {
     
     /// Creates new message call transaction or a contract creation for signed transactions.
     ///
-    /// ##### Parameters
-    ///
-    /// 1. `DATA`, The signed transaction data.
     ///
     /// ```js
     /// params: ["0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `DATA`, 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available.
     ///
     /// Use [eth_getTransactionReceipt](#eth_gettransactionreceipt) to get the contract address, after the transaction was mined, when you created a contract.
     ///
@@ -808,27 +684,15 @@ class EthereumApi {
     ///  "result": "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331"
     /// }
     /// ```
+    ///
+    /// - Parameter data: `DATA`, The signed transaction data.
+    ///
+    /// - Returns: `DATA`, 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available.
     func eth_sendRawTransaction(data: Data) -> Promise<Data> {
         return network.send("eth_sendRawTransaction", data).data()
     }
     
     /// Executes a new message call immediately without creating a transaction on the block chain.
-    ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `Object` - The transaction call object
-    ///  - `from`: `DATA`, 20 Bytes - (optional) The address the transaction is sent from.
-    ///  - `to`: `DATA`, 20 Bytes  - The address the transaction is directed to.
-    ///  - `gas`: `QUANTITY`  - (optional) Integer of the gas provided for the transaction execution. eth_call consumes zero gas, but this parameter may be needed by some executions.
-    ///  - `gasPrice`: `QUANTITY`  - (optional) Integer of the gasPrice used for each paid gas
-    ///  - `value`: `QUANTITY`  - (optional) Integer of the value sent with this transaction
-    ///  - `data`: `DATA`  - (optional) Hash of the method signature and encoded parameters. For details see [Ethereum Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)
-    /// 2. `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the [default block parameter](#the-default-block-parameter)
-    ///
-    /// ##### Returns
-    ///
-    /// `DATA` - the return value of executed contract.
     ///
     /// ##### Example
     /// ```js
@@ -842,7 +706,17 @@ class EthereumApi {
     ///  "result": "0x"
     /// }
     /// ```
-    func eth_call(from: Address?, to: Address, gas: BigUInt?, gasPrice: BigUInt?, value: BigUInt?, data: Data?) -> Promise<Data> {
+    ///
+    /// - Parameter from: `DATA`, 20 Bytes - (optional) The address the transaction is sent from.
+    /// - Parameter to: `DATA`, 20 Bytes  - The address the transaction is directed to.
+    /// - Parameter gas: `QUANTITY`  - (optional) Integer of the gas provided for the transaction execution. eth_call consumes zero gas, but this parameter may be needed by some executions.
+    /// - Parameter gasPrice: `QUANTITY`  - (optional) Integer of the gasPrice used for each paid gas
+    /// - Parameter value: `QUANTITY`  - (optional) Integer of the value sent with this transaction
+    /// - Parameter data: `DATA`  - (optional) Hash of the method signature and encoded parameters. For details see [Ethereum Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)
+    /// - Parameter block: `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the [default block parameter](#the-default-block-parameter)
+    ///
+    /// - Returns: `DATA` - the return value of executed contract.
+    func eth_call(from: Address?, to: Address, gas: BigUInt?, gasPrice: BigUInt?, value: BigUInt?, data: Data?, _ block: BlockNumber) -> Promise<Data> {
         let dictionary = JDictionary()
             .set("from", from)
             .set("to", to)
@@ -850,18 +724,10 @@ class EthereumApi {
             .set("gasPrice", gasPrice)
             .set("value", value)
             .set("data", data)
-        return network.send("eth_call", dictionary).data()
+        return network.send("eth_call", dictionary, block).data()
     }
     
     /// Generates and returns an estimate of how much gas is necessary to allow the transaction to complete. The transaction will not be added to the blockchain. Note that the estimate may be significantly more than the amount of gas actually used by the transaction, for a variety of reasons including EVM mechanics and node performance.
-    ///
-    /// ##### Parameters
-    ///
-    /// See [eth_call](#eth_call) parameters, expect that all properties are optional. If no gas limit is specified geth uses the block gas limit from the pending block as an upper bound. As a result the returned estimate might not be enough to executed the call/transaction when the amount of gas is higher than the pending block gas limit.
-    ///
-    /// ##### Returns
-    ///
-    /// `QUANTITY` - the amount of gas used.
     ///
     /// ##### Example
     /// ```js
@@ -875,6 +741,16 @@ class EthereumApi {
     ///  "result": "0x5208" // 21000
     /// }
     /// ```
+    ///
+    /// - Parameter from: `DATA`, 20 Bytes - (optional) The address the transaction is sent from.
+    /// - Parameter to: `DATA`, 20 Bytes  - The address the transaction is directed to.
+    /// - Parameter gas: `QUANTITY`  - (optional) Integer of the gas provided for the transaction execution. eth_call consumes zero gas, but this parameter may be needed by some executions.
+    /// - Parameter gasPrice: `QUANTITY`  - (optional) Integer of the gasPrice used for each paid gas
+    /// - Parameter value: `QUANTITY`  - (optional) Integer of the value sent with this transaction
+    /// - Parameter data: `DATA`  - (optional) Hash of the method signature and encoded parameters. For details see [Ethereum Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)
+    /// - Parameter block: `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the [default block parameter](#the-default-block-parameter)
+    ///
+    /// - Returns: `QUANTITY` - the amount of gas used.
     func eth_estimateGas(from: Address?, to: Address, gas: BigUInt?, gasPrice: BigUInt?, value: BigUInt?, data: Data?) -> Promise<BigUInt> {
         let dictionary = JDictionary()
             .set("from", from)
@@ -888,42 +764,12 @@ class EthereumApi {
     
     /// Returns information about a block by hash.
     ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `DATA`, 32 Bytes - Hash of a block.
-    /// 2. `Boolean` - If `true` it returns the full transaction objects, if `false` only the hashes of the transactions.
-    ///
     /// ```js
     /// params: [
     ///   '0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331',
     ///   true
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `Object` - A block object, or `null` when no block was found:
-    ///
-    ///  - `number`: `QUANTITY` - the block number. `null` when its pending block.
-    ///  - `hash`: `DATA`, 32 Bytes - hash of the block. `null` when its pending block.
-    ///  - `parentHash`: `DATA`, 32 Bytes - hash of the parent block.
-    ///  - `nonce`: `DATA`, 8 Bytes - hash of the generated proof-of-work. `null` when its pending block.
-    ///  - `sha3Uncles`: `DATA`, 32 Bytes - SHA3 of the uncles data in the block.
-    ///  - `logsBloom`: `DATA`, 256 Bytes - the bloom filter for the logs of the block. `null` when its pending block.
-    ///  - `transactionsRoot`: `DATA`, 32 Bytes - the root of the transaction trie of the block.
-    ///  - `stateRoot`: `DATA`, 32 Bytes - the root of the final state trie of the block.
-    ///  - `receiptsRoot`: `DATA`, 32 Bytes - the root of the receipts trie of the block.
-    ///  - `miner`: `DATA`, 20 Bytes - the address of the beneficiary to whom the mining rewards were given.
-    ///  - `difficulty`: `QUANTITY` - integer of the difficulty for this block.
-    ///  - `totalDifficulty`: `QUANTITY` - integer of the total difficulty of the chain until this block.
-    ///  - `extraData`: `DATA` - the "extra data" field of this block.
-    ///  - `size`: `QUANTITY` - integer the size of this block in bytes.
-    ///  - `gasLimit`: `QUANTITY` - the maximum gas allowed in this block.
-    ///  - `gasUsed`: `QUANTITY` - the total used gas by all transactions in this block.
-    ///  - `timestamp`: `QUANTITY` - the unix timestamp for when the block was collated.
-    ///  - `transactions`: `Array` - Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter.
-    ///  - `uncles`: `Array` - Array of uncle hashes.
     ///
     ///
     /// ##### Example
@@ -957,17 +803,16 @@ class EthereumApi {
     ///  }
     /// }
     /// ```
-    
+    ///
+    /// - Parameter hash: `DATA`, 32 Bytes - Hash of a block.
+    /// - Parameter fullInformation: `Boolean` - If `true` it returns the full transaction objects, if `false` only the hashes of the transactions.
+    ///
+    /// - Returns: `Object` - A block object, or `null` when no block was found:
     func eth_getBlockByHash(_ hash: Data, _ fullInformation: Bool) -> Promise<BlockInfo?> {
         return network.send("eth_getBlockByHash", hash, fullInformation).block()
     }
     
     /// Returns information about a block by block number.
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `QUANTITY|TAG` - integer of a block number, or the string `"earliest"`, `"latest"` or `"pending"`, as in the [default block parameter](#the-default-block-parameter).
-    /// 2. `Boolean` - If `true` it returns the full transaction objects, if `false` only the hashes of the transactions.
     ///
     /// ```js
     /// params: [
@@ -976,9 +821,6 @@ class EthereumApi {
     /// ]
     /// ```
     ///
-    /// ##### Returns
-    ///
-    /// See [eth_getBlockByHash](#eth_getblockbyhash)
     ///
     /// ##### Example
     /// ```js
@@ -987,26 +829,22 @@ class EthereumApi {
     /// ```
     ///
     /// Result see [eth_getBlockByHash](#eth_getblockbyhash)
+    ///
+    /// - Parameter number: `QUANTITY|TAG` - integer of a block number, or the string `"earliest"`, `"latest"` or `"pending"`, as in the [default block parameter](#the-default-block-parameter).
+    /// - Parameter fullInformation: `Boolean` - If `true` it returns the full transaction objects, if `false` only the hashes of the transactions.
+    ///
+    /// - Returns: `Object` - A block object, or `null` when no block was found:
     func eth_getBlockByNumber(_ number: BigUInt, _ fullInformation: Bool) -> Promise<BlockInfo?> {
         return network.send("eth_getBlockByNumber", number, fullInformation).block()
     }
     
     /// Returns the information about a transaction requested by transaction hash.
     ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `DATA`, 32 Bytes - hash of a transaction
-    ///
     /// ```js
     /// params: [
     ///   "0x88df016429689c079f3b2f6ad39fa052532c56795b733da78a91ebe6a713944b"
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `Object` - A transaction object, or `null` when no transaction was found:
     ///
     ///  - `blockHash`: `DATA`, 32 Bytes - hash of the block where this transaction was in. `null` when its pending.
     ///  - `blockNumber`: `QUANTITY` - block number where this transaction was in. `null` when its pending.
@@ -1050,17 +888,15 @@ class EthereumApi {
     ///  }
     /// }
     /// ```
+    ///
+    /// - Parameter hash: `DATA`, 32 Bytes - hash of a transaction
+    ///
+    /// - Returns: `Object` - A transaction object, or `null` when no transaction was found:
     func eth_getTransactionByHash(_ hash: Data) -> Promise<TransactionInfo?> {
         return network.send("eth_getTransactionByHash", hash).transaction()
     }
     
     /// Returns information about a transaction by block hash and transaction index position.
-    ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `DATA`, 32 Bytes - hash of a block.
-    /// 2. `QUANTITY` - integer of the transaction index position.
     ///
     /// ```js
     /// params: [
@@ -1069,28 +905,22 @@ class EthereumApi {
     /// ]
     /// ```
     ///
-    /// ##### Returns
-    ///
-    /// See [eth_getTransactionByHash](#eth_gettransactionbyhash)
-    ///
     /// ##### Example
     /// ```js
     /// // Request
     /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionByBlockHashAndIndex","params":["0xc6ef2fc5426d6ad6fd9e2a26abeab0aa2411b7ab17f30a99d3cb96aed1d1055b", "0x0"],"id":1}'
     /// ```
     ///
-    /// Result see [eth_getTransactionByHash](#eth_gettransactionbyhash)
+    /// - Parameter blockHash: `DATA`, 32 Bytes - hash of a block.
+    /// - Parameter index: `QUANTITY` - integer of the transaction index position.
+    ///
+    /// - Returns: `Object` - A transaction object, or `null` when no transaction was found:
     func eth_getTransactionByBlockHashAndIndex(_ blockHash: Data, _ index: BigUInt) -> Promise<TransactionInfo?> {
         return network.send("eth_getTransactionByBlockHashAndIndex", blockHash, index).transaction()
     }
     
     /// Returns information about a transaction by block number and transaction index position.
     ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `QUANTITY|TAG` - a block number, or the string `"earliest"`, `"latest"` or `"pending"`, as in the [default block parameter](#the-default-block-parameter).
-    /// 2. `QUANTITY` - the transaction index position.
     ///
     /// ```js
     /// params: [
@@ -1099,51 +929,29 @@ class EthereumApi {
     /// ]
     /// ```
     ///
-    /// ##### Returns
-    ///
-    /// See [eth_getTransactionByHash](#eth_gettransactionbyhash)
-    ///
     /// ##### Example
     /// ```js
     /// // Request
     /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionByBlockNumberAndIndex","params":["0x29c", "0x0"],"id":1}'
     /// ```
     ///
-    /// Result see [eth_getTransactionByHash](#eth_gettransactionbyhash)
+    /// - Parameter number: `QUANTITY|TAG` - a block number, or the string `"earliest"`, `"latest"` or `"pending"`, as in the [default block parameter](#the-default-block-parameter).
+    /// - Parameter index: `QUANTITY` - the transaction index position.
+    ///
+    /// - Returns: `Object` - A transaction object, or `null` when no transaction was found:
     func eth_getTransactionByBlockNumberAndIndex(_ number: BlockNumber, _ index: BigUInt) -> Promise<TransactionInfo?> {
         return network.send("eth_getTransactionByBlockNumberAndIndex", number, index).transaction()
     }
     
     /// Returns the receipt of a transaction by transaction hash.
     ///
-    /// **Note** That the receipt is not available for pending transactions.
-    ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `DATA`, 32 Bytes - hash of a transaction
+    /// - Note: That the receipt is not available for pending transactions.
     ///
     /// ```js
     /// params: [
     ///   '0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238'
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `Object` - A transaction receipt object, or `null` when no receipt was found:
-    ///
-    ///  - `transactionHash `: `DATA`, 32 Bytes - hash of the transaction.
-    ///  - `transactionIndex`: `QUANTITY` - integer of the transaction's index position in the block.
-    ///  - `blockHash`: `DATA`, 32 Bytes - hash of the block where this transaction was in.
-    ///  - `blockNumber`: `QUANTITY` - block number where this transaction was in.
-    ///  - `from`: `DATA`, 20 Bytes - address of the sender.
-    ///  - `to`: `DATA`, 20 Bytes - address of the receiver. null when it's a contract creation transaction.
-    ///  - `cumulativeGasUsed `: `QUANTITY ` - The total amount of gas used when this transaction was executed in the block.
-    ///  - `gasUsed `: `QUANTITY ` - The amount of gas used by this specific transaction alone.
-    ///  - `contractAddress `: `DATA`, 20 Bytes - The contract address created, if the transaction was a contract creation, otherwise `null`.
-    ///  - `logs`: `Array` - Array of log objects, which this transaction generated.
-    ///  - `logsBloom`: `DATA`, 256 Bytes - Bloom filter for light clients to quickly retrieve related logs.
     ///
     /// It also returns _either_ :
     ///
@@ -1176,18 +984,15 @@ class EthereumApi {
     ///  }
     /// }
     /// ```
+    ///
+    /// - Parameter hash: `DATA`, 32 Bytes - hash of a transaction
+    ///
+    /// - Returns: `Object` - A transaction receipt object, or `null` when no receipt was found:
     func eth_getTransactionReceipt(_ hash: Data) -> Promise<TransactionReceiptInfo?> {
         return network.send("eth_getTransactionReceipt", hash).transactionReceipt()
     }
     
     /// Returns information about a uncle of a block by hash and uncle index position.
-    ///
-    ///
-    /// ##### Parameters
-    ///
-    ///
-    /// 1. `DATA`, 32 Bytes - hash a block.
-    /// 2. `QUANTITY` - the uncle's index position.
     ///
     /// ```js
     /// params: [
@@ -1196,30 +1001,23 @@ class EthereumApi {
     /// ]
     /// ```
     ///
-    /// ##### Returns
-    ///
-    /// See [eth_getBlockByHash](#eth_getblockbyhash)
-    ///
     /// ##### Example
     /// ```js
     /// // Request
     /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getUncleByBlockHashAndIndex","params":["0xc6ef2fc5426d6ad6fd9e2a26abeab0aa2411b7ab17f30a99d3cb96aed1d1055b", "0x0"],"id":1}'
     /// ```
     ///
-    /// Result see [eth_getBlockByHash](#eth_getblockbyhash)
+    /// - Note: An uncle doesn't contain individual transactions.
     ///
-    /// **Note**: An uncle doesn't contain individual transactions.
+    /// - Parameter hash: `DATA`, 32 Bytes - hash a block.
+    /// - Parameter index: `QUANTITY` - the uncle's index position.
+    ///
+    /// - Returns: `Object` - A block object, or `null` when no block was found:
     func eth_getUncleByBlockHashAndIndex(_ hash: Data, _ index: BigUInt) -> Promise<BlockInfo?> {
         return network.send("eth_getUncleByBlockHashAndIndex", hash, index).block()
     }
     
     /// Returns information about a uncle of a block by number and uncle index position.
-    ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `QUANTITY|TAG` - a block number, or the string `"earliest"`, `"latest"` or `"pending"`, as in the [default block parameter](#the-default-block-parameter).
-    /// 2. `QUANTITY` - the uncle's index position.
     ///
     /// ```js
     /// params: [
@@ -1228,19 +1026,18 @@ class EthereumApi {
     /// ]
     /// ```
     ///
-    /// ##### Returns
-    ///
-    /// See [eth_getBlockByHash](#eth_getblockbyhash)
-    ///
-    /// **Note**: An uncle doesn't contain individual transactions.
-    ///
     /// ##### Example
     /// ```js
     /// // Request
     /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getUncleByBlockNumberAndIndex","params":["0x29c", "0x0"],"id":1}'
     /// ```
     ///
-    /// Result see [eth_getBlockByHash](#eth_getblockbyhash)
+    /// - Note: An uncle doesn't contain individual transactions.
+    ///
+    /// - Parameter number: `QUANTITY|TAG` - a block number, or the string `"earliest"`, `"latest"` or `"pending"`, as in the [default block parameter](#the-default-block-parameter).
+    /// - Parameter index: `QUANTITY` - the uncle's index position.
+    ///
+    /// - Returns: `Object` - A block object, or `null` when no block was found:
     func eth_getUncleByBlockNumberAndIndex(_ number: BigUInt, _ index: BigUInt) -> Promise<BlockInfo?> {
         return network.send("eth_getUncleByBlockNumberAndIndex", number, index).block()
     }
@@ -1256,9 +1053,7 @@ class EthereumApi {
     /// * `[A, B]` "A in first position AND B in second position (and anything after)"
     /// * `[[A, B], [A, B]]` "(A OR B) in first position AND (A OR B) in second position (and anything after)"
     ///
-    /// ##### Parameters
-    ///
-    /// 1. `Object` - The filter options:
+    /// The filter options:
     ///  - `fromBlock`: `QUANTITY|TAG` - (optional, default: `"latest"`) Integer block number, or `"latest"` for the last mined block or `"pending"`, `"earliest"` for not yet mined transactions.
     ///  - `toBlock`: `QUANTITY|TAG` - (optional, default: `"latest"`) Integer block number, or `"latest"` for the last mined block or `"pending"`, `"earliest"` for not yet mined transactions.
     ///  - `address`: `DATA|Array`, 20 Bytes - (optional) Contract address or a list of addresses from which logs should originate.
@@ -1273,10 +1068,6 @@ class EthereumApi {
     /// }]
     /// ```
     ///
-    /// ##### Returns
-    ///
-    /// `QUANTITY` - A filter id.
-    ///
     /// ##### Example
     /// ```js
     /// // Request
@@ -1289,19 +1080,15 @@ class EthereumApi {
     ///  "result": "0x1" // 1
     /// }
     /// ```
-    func eth_newFilter(_ options: [FilterOptions]) -> Promise<BigUInt> {
-        return network.send("eth_newFilter", JArray(options)).uint256()
+    /// - Parameter options: `Object` - The filter options:
+    ///
+    /// - Returns: `QUANTITY` - A filter id.
+    func eth_newFilter(_ options: FilterOptions) -> Promise<BigUInt> {
+        return network.send("eth_newFilter", options).uint256()
     }
     
     /// Creates a filter in the node, to notify when a new block arrives.
     /// To check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).
-    ///
-    /// ##### Parameters
-    /// None
-    ///
-    /// ##### Returns
-    ///
-    /// `QUANTITY` - A filter id.
     ///
     /// ##### Example
     /// ```js
@@ -1315,6 +1102,8 @@ class EthereumApi {
     ///  "result": "0x1" // 1
     /// }
     /// ```
+    ///
+    /// - Returns: `QUANTITY` - A filter id.
     func eth_newBlockFilter() -> Promise<BigUInt> {
         return network.send("eth_newBlockFilter").uint256()
     }
@@ -1322,13 +1111,6 @@ class EthereumApi {
     /// Creates a filter in the node, to notify when a new block arrives.
     /// To check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).
     ///
-    /// ##### Parameters
-    /// None
-    ///
-    /// ##### Returns
-    ///
-    /// `QUANTITY` - A filter id.
-    ///
     /// ##### Example
     /// ```js
     /// // Request
@@ -1341,6 +1123,8 @@ class EthereumApi {
     ///  "result": "0x1" // 1
     /// }
     /// ```
+    ///
+    /// - Returns: `QUANTITY` - A filter id.
     func eth_newPendingTransactionFilter() -> Promise<BigUInt> {
         return network.send("eth_newPendingTransactionFilter").uint256()
     }
@@ -1348,20 +1132,11 @@ class EthereumApi {
     /// Uninstalls a filter with given id. Should always be called when watch is no longer needed.
     /// Additonally Filters timeout when they aren't requested with [eth_getFilterChanges](#eth_getfilterchanges) for a period of time.
     ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `QUANTITY` - The filter id.
-    ///
     /// ```js
     /// params: [
     ///  "0xb" // 11
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `Boolean` - `true` if the filter was successfully uninstalled, otherwise `false`.
     ///
     /// ##### Example
     /// ```js
@@ -1375,26 +1150,21 @@ class EthereumApi {
     ///  "result": true
     /// }
     /// ```
+    ///
+    /// - Parameter id: `QUANTITY` - The filter id.
+    ///
+    /// - Returns: `Boolean` - `true` if the filter was successfully uninstalled, otherwise `false`.
     func eth_uninstallFilter(_ id: BigUInt) -> Promise<Bool> {
         return network.send("eth_uninstallFilter", id).bool()
     }
     
     /// Polling method for a filter, which returns an array of logs which occurred since last poll.
     ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `QUANTITY` - the filter id.
-    ///
     /// ```js
     /// params: [
     ///  "0x16" // 22
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `Array` - Array of log objects, or an empty array if nothing has changed since last poll.
     ///
     /// - For filters created with `eth_newBlockFilter` the return are block hashes (`DATA`, 32 Bytes), e.g. `["0x3454645634534..."]`.
     /// - For filters created with `eth_newPendingTransactionFilter ` the return are transaction hashes (`DATA`, 32 Bytes), e.g. `["0x6345343454645..."]`.
@@ -1433,6 +1203,10 @@ class EthereumApi {
     ///    }]
     /// }
     /// ```
+    ///
+    /// - Parameter id: `QUANTITY` - the filter id.
+    ///
+    /// - Returns: `Array` - Array of log objects, or an empty array if nothing has changed since last poll.
     func eth_getFilterChanges(_ id: BigUInt) -> Promise<FilterChanges> {
         return network.send("eth_getFilterChanges", id).filterChanges()
     }
@@ -1440,19 +1214,11 @@ class EthereumApi {
     /// Returns an array of all logs matching filter with given id.
     ///
     ///
-    /// ##### Parameters
-    ///
-    /// 1. `QUANTITY` - The filter id.
-    ///
     /// ```js
     /// params: [
     ///  "0x16" // 22
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// See [eth_getFilterChanges](#eth_getfilterchanges)
     ///
     /// ##### Example
     /// ```js
@@ -1461,15 +1227,17 @@ class EthereumApi {
     /// ```
     ///
     /// Result see [eth_getFilterChanges](#eth_getfilterchanges)
+    ///
+    /// - Parameter id: `QUANTITY` - The filter id.
+    ///
+    /// - Returns: `Array` - Array of log objects, or an empty array if nothing has changed since last poll.
     func eth_getFilterLogs(_ id: BigUInt) -> Promise<FilterChanges> {
         return network.send("eth_getFilterLogs", id).filterChanges()
     }
     
     /// Returns an array of all logs matching a given filter object.
     ///
-    /// ##### Parameters
-    ///
-    /// 1. `Object` - The filter options:
+    /// The filter options:
     ///  - `fromBlock`: `QUANTITY|TAG` - (optional, default: `"latest"`) Integer block number, or `"latest"` for the last mined block or `"pending"`, `"earliest"` for not yet mined transactions.
     ///  - `toBlock`: `QUANTITY|TAG` - (optional, default: `"latest"`) Integer block number, or `"latest"` for the last mined block or `"pending"`, `"earliest"` for not yet mined transactions.
     ///  - `address`: `DATA|Array`, 20 Bytes - (optional) Contract address or a list of addresses from which logs should originate.
@@ -1482,32 +1250,19 @@ class EthereumApi {
     /// }]
     /// ```
     ///
-    /// ##### Returns
-    ///
-    /// See [eth_getFilterChanges](#eth_getfilterchanges)
-    ///
     /// ##### Example
     /// ```js
     /// // Request
     /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getLogs","params":[{"topics":["0x000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b"]}],"id":74}'
     /// ```
+    /// - Parameter logs: `Object` - The filter options
     ///
-    /// Result see [eth_getFilterChanges](#eth_getfilterchanges)
+    /// - Returns: `Array` - Array of log objects, or an empty array if nothing has changed since last poll.
     func eth_getLogs(_ logs: [FilterLogOptions]) -> Promise<FilterChanges> {
         return network.send("eth_getLogs", JArray(logs)).filterChanges()
     }
     
     /// Returns the hash of the current block, the seedHash, and the boundary condition to be met ("target").
-    ///
-    /// ##### Parameters
-    /// none
-    ///
-    /// ##### Returns
-    ///
-    /// `Array` - Array with the following properties:
-    ///  1. `DATA`, 32 Bytes - current block header pow-hash
-    ///  2. `DATA`, 32 Bytes - the seed hash used for the DAG.
-    ///  3. `DATA`, 32 Bytes - the boundary condition ("target"), 2^256 / difficulty.
     ///
     /// ##### Example
     /// ```js
@@ -1525,18 +1280,13 @@ class EthereumApi {
     ///    ]
     /// }
     /// ```
+    ///
+    /// - Returns: Hash of the current block, the seedHash, and the boundary condition to be met ("target").
     func eth_getWork() -> Promise<WorkInfo> {
         return network.send("eth_getWork").work()
     }
     
     /// Used for submitting a proof-of-work solution.
-    ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `DATA`, 8 Bytes - The nonce found (64 bits)
-    /// 2. `DATA`, 32 Bytes - The header's pow-hash (256 bits)
-    /// 3. `DATA`, 32 Bytes - The mix digest (256 bits)
     ///
     /// ```js
     /// params: [
@@ -1545,11 +1295,6 @@ class EthereumApi {
     ///  "0xD1FE5700000000000000000000000000D1FE5700000000000000000000000000"
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `Boolean` - returns `true` if the provided solution is valid, otherwise `false`.
-    ///
     ///
     /// ##### Example
     /// ```js
@@ -1563,17 +1308,17 @@ class EthereumApi {
     ///  "result": true
     /// }
     /// ```
+    ///
+    /// - Parameter nonce: `DATA`, 8 Bytes - The nonce found (64 bits)
+    /// - Parameter headerPowHash: `DATA`, 32 Bytes - The header's pow-hash (256 bits)
+    /// - Parameter mixDigest: `DATA`, 32 Bytes - The mix digest (256 bits)
+    ///
+    /// - Returns: `Boolean` - returns `true` if the provided solution is valid, otherwise `false`.
     func eth_submitWork(nonce: UInt64, headerPowHash: Data, mixDigest: Data) -> Promise<Bool> {
         return network.send("eth_submitWork", BigUInt(nonce), headerPowHash, mixDigest).bool()
     }
     
     /// Used for submitting mining hashrate.
-    ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `Hashrate`, a hexadecimal string representation (32 bytes) of the hash rate
-    /// 2. `ID`, String - A random hexadecimal(32 bytes) ID identifying the client
     ///
     /// ```js
     /// params: [
@@ -1581,10 +1326,6 @@ class EthereumApi {
     ///  "0x59daa26581d0acd1fce254fb7e85952f4c09d0915afd33d3886cd914bc7d283c"
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `Boolean` - returns `true` if submitting went through succesfully and `false` otherwise.
     ///
     ///
     /// ##### Example
@@ -1599,43 +1340,20 @@ class EthereumApi {
     ///  "result": true
     /// }
     /// ```
+    ///
+    /// - Parameter hashRate: `Hashrate`, a hexadecimal string representation (32 bytes) of the hash rate
+    /// - Parameter id: `ID`, String - A random hexadecimal(32 bytes) ID identifying the client
+    ///
+    /// - Returns: `Boolean` - returns `true` if submitting went through succesfully and `false` otherwise.
     func eth_submitHashrate(hashRate: Data, id: Data) -> Promise<Bool> {
         return network.send("eth_submitHashrate", hashRate, id).bool()
     }
     
     /// Returns the account- and storage-values of the specified account including the Merkle-proof.
     ///
-    /// ##### getProof-Parameters
-    ///
-    /// 1. `DATA`, 20 bytes - address of the account or contract
-    /// 2. `ARRAY`, 32 Bytes - array of storage-keys which should be proofed and included. See eth_getStorageAt
-    /// 3. `QUANTITY|TAG` - integer block number, or the string "latest" or "earliest", see the default block parameter
-    ///
-    ///
     /// ```
     /// params: ["0x1234567890123456789012345678901234567890",["0x0000000000000000000000000000000000000000000000000000000000000000","0x0000000000000000000000000000000000000000000000000000000000000001"],"latest"]
     /// ```
-    ///
-    /// ##### getProof-Returns
-    ///
-    /// Returns
-    /// `Object` - A account object:
-    ///
-    /// `balance`: `QUANTITY` - the balance of the account. See eth_getBalance
-    ///
-    /// `codeHash`: `DATA`, 32 Bytes - hash of the code of the account. For a simple Account without code it will return "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
-    ///
-    /// `nonce`: `QUANTITY`, - nonce of the account. See eth_getTransactionCount
-    ///
-    /// `storageHash`: `DATA`, 32 Bytes - SHA3 of the StorageRoot. All storage will deliver a MerkleProof starting with this rootHash.
-    ///
-    /// `accountProof`: `ARRAY` - Array of rlp-serialized MerkleTree-Nodes, starting with the stateRoot-Node, following the path of the SHA3 (address) as key.
-    ///
-    /// `storageProof`: `ARRAY` - Array of storage-entries as requested. Each entry is a object with these properties:
-    ///
-    /// `key`: `QUANTITY` - the requested storage key
-    /// `value`: `QUANTITY` - the storage value
-    /// `proof`: `ARRAY` - Array of rlp-serialized MerkleTree-Nodes, starting with the storageHash-Node, following the path of the SHA3 (key) as path.
     ///
     /// ##### getProof-Example
     /// ```
@@ -1674,18 +1392,17 @@ class EthereumApi {
     ///  }
     /// }
     /// ```
+    ///
+    /// - Parameter address: `DATA`, 20 bytes - address of the account or contract
+    /// - Parameter keys: `ARRAY`, 32 Bytes - array of storage-keys which should be proofed and included. See eth_getStorageAt
+    /// - Parameter block: `QUANTITY|TAG` - integer block number, or the string "latest" or "earliest", see the default block parameter
+    ///
+    /// - Returns: A account object
     func eth_getProof(address: Address, keys: [Data], block: BlockNumber) -> Promise<ProofInfo> {
         return network.send("eth_getProof", address, JArray(keys), block).proof()
     }
     
     /// Returns the current whisper protocol version.
-    ///
-    /// ##### Parameters
-    /// none
-    ///
-    /// ##### Returns
-    ///
-    /// `String` - The current whisper protocol version
     ///
     /// ##### Example
     /// ```js
@@ -1699,21 +1416,13 @@ class EthereumApi {
     ///  "result": "2"
     /// }
     /// ```
+    ///
+    /// - Returns: `String` - The current whisper protocol version
     func shh_version() -> Promise<String> {
         return network.send("shh_version").string()
     }
     
     /// Sends a whisper message.
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `Object` - The whisper post object:
-    ///  - `from`: `DATA`, 60 Bytes - (optional) The identity of the sender.
-    ///  - `to`: `DATA`, 60 Bytes - (optional) The identity of the receiver. When present whisper will encrypt the message so that only the receiver can decrypt it.
-    ///  - `topics`: `Array of DATA` - Array of `DATA` topics, for the receiver to identify messages.
-    ///  - `payload`: `DATA` - The payload of the message.
-    ///  - `priority`: `QUANTITY` - The integer of the priority in a range from ... (?).
-    ///  - `ttl`: `QUANTITY` - integer of the time to live in seconds.
     ///
     /// ```js
     /// params: [{
@@ -1725,11 +1434,6 @@ class EthereumApi {
     ///  ttl: "0x64",
     /// }]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `Boolean` - returns `true` if the message was send, otherwise `false`.
-    ///
     ///
     /// ##### Example
     /// ```js
@@ -1743,7 +1447,17 @@ class EthereumApi {
     ///  "result": true
     /// }
     /// ```
-    func shh_post(from: Data, to: Data, topics: [Data], payload: Data, priority: BigUInt, ttl: BigUInt) -> Promise<Bool> {
+    ///
+    /// - Parameter : `Object` - The whisper post object:
+    /// - Parameter from: `DATA`, 60 Bytes - (optional) The identity of the sender.
+    /// - Parameter to: `DATA`, 60 Bytes - (optional) The identity of the receiver. When present whisper will encrypt the message so that only the receiver can decrypt it.
+    /// - Parameter topics: `Array of DATA` - Array of `DATA` topics, for the receiver to identify messages.
+    /// - Parameter payload: `DATA` - The payload of the message.
+    /// - Parameter priority: `QUANTITY` - The integer of the priority in a range from ... (?).
+    /// - Parameter ttl: `QUANTITY` - integer of the time to live in seconds.
+    ///
+    /// - Returns: `Boolean` - returns `true` if the message was send, otherwise `false`.
+    func shh_post(from: ShhAddress, to: ShhAddress, topics: [Data], payload: Data, priority: BigUInt, ttl: Int) -> Promise<Bool> {
         let request = JDictionary()
             .set("from", from)
             .set("to", to)
@@ -1755,13 +1469,6 @@ class EthereumApi {
     }
     
     /// Creates new whisper identity in the client.
-    ///
-    /// ##### Parameters
-    /// none
-    ///
-    /// ##### Returns
-    ///
-    /// `DATA`, 60 Bytes - the address of the new identiy.
     ///
     /// ##### Example
     /// ```js
@@ -1775,26 +1482,19 @@ class EthereumApi {
     ///  "result": "0xc931d93e97ab07fe42d923478ba2465f283f440fd6cabea4dd7a2c807108f651b7135d1d6ca9007d5b68aa497e4619ac10aa3b27726e1863c1fd9b570d99bbaf"
     /// }
     /// ```
-    func shh_newIdentity() -> Promise<Data> {
-        return network.send("shh_newIdentity").data()
+    ///
+    /// - Returns: `DATA`, 60 Bytes - the address of the new identiy.
+    func shh_newIdentity() -> Promise<ShhAddress> {
+        return network.send("shh_newIdentity").shhAddress()
     }
     
     /// Checks if the client hold the private keys for a given identity.
-    ///
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `DATA`, 60 Bytes - The identity address to check.
     ///
     /// ```js
     /// params: [
     ///  "0x04f96a5e25610293e42a73908e93ccc8c4d4dc0edcfa9fa872f50cb214e08ebf61a03e245533f97284d442460f2998cd41858798ddfd4d661997d3940272b717b1"
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `Boolean` - returns `true` if the client holds the privatekey for that identity, otherwise `false`.
     ///
     ///
     /// ##### Example
@@ -1809,18 +1509,15 @@ class EthereumApi {
     ///  "result": true
     /// }
     /// ```
+    ///
+    /// - Parameter id: `DATA`, 60 Bytes - The identity address to check.
+    ///
+    /// - Returns: `Boolean` - returns `true` if the client holds the privatekey for that identity, otherwise `false`.
     func shh_hasIdentity(id: ShhAddress) -> Promise<Bool> {
         return network.send("shh_hasIdentity", id).bool()
     }
     
     /// Creates a new group.
-    ///
-    /// ##### Parameters
-    /// none
-    ///
-    /// ##### Returns
-    ///
-    /// `DATA`, 60 Bytes - the address of the new group.
     ///
     /// ##### Example
     /// ```js
@@ -1834,25 +1531,19 @@ class EthereumApi {
     ///  "result": "0xc65f283f440fd6cabea4dd7a2c807108f651b7135d1d6ca90931d93e97ab07fe42d923478ba2407d5b68aa497e4619ac10aa3b27726e1863c1fd9b570d99bbaf"
     /// }
     /// ```
-    func shh_newGroup() -> Promise<Data> {
-        return network.send("shh_newGroup").data()
+    ///
+    /// - Returns: `DATA`, 60 Bytes - the address of the new group.
+    func shh_newGroup() -> Promise<ShhAddress> {
+        return network.send("shh_newGroup").shhAddress()
     }
     
     /// Adds a whisper identity to the group.
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `DATA`, 60 Bytes - The identity address to add to a group.
     ///
     /// ```js
     /// params: [
     ///  "0x04f96a5e25610293e42a73908e93ccc8c4d4dc0edcfa9fa872f50cb214e08ebf61a03e245533f97284d442460f2998cd41858798ddfd4d661997d3940272b717b1"
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `Boolean` - returns `true` if the identity was successfully added to the group, otherwise `false`.
     ///
     /// ##### Example
     /// ```js
@@ -1866,6 +1557,10 @@ class EthereumApi {
     ///  "result": true
     /// }
     /// ```
+    ///
+    /// - Parameter : `DATA`, 60 Bytes - The identity address to add to a group.
+    ///
+    /// - Returns: `Boolean` - returns `true` if the identity was successfully added to the group, otherwise `false`.
     func shh_addToGroup() -> Promise<Bool> {
         return network.send("shh_addToGroup").bool()
     }
@@ -1873,25 +1568,12 @@ class EthereumApi {
     /// Creates filter to notify, when client receives whisper message matching the filter options.
     ///
     ///
-    /// ##### Parameters
-    ///
-    /// 1. `Object` - The filter options:
-    ///  - `to`: `DATA`, 60 Bytes - (optional) Identity of the receiver. *When present it will try to decrypt any incoming message if the client holds the private key to this identity.*
-    ///  - `topics`: `Array of DATA` - Array of `DATA` topics which the incoming message's topics should match.  You can use the following combinations:
-    ///    - `[A, B] = A && B`
-    ///    - `[A, [B, C]] = A && (B || C)`
-    ///    - `[null, A, B] = ANYTHING && A && B` `null` works as a wildcard
-    ///
     /// ```js
     /// params: [{
     ///   "topics": ['0x12341234bf4b564f'],
     ///   "to": "0x04f96a5e25610293e42a73908e93ccc8c4d4dc0edcfa9fa872f50cb214e08ebf61a03e245533f97284d442460f2998cd41858798ddfd4d661997d3940272b717b1"
     /// }]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `QUANTITY` - The newly created filter.
     ///
     /// ##### Example
     /// ```js
@@ -1905,6 +1587,14 @@ class EthereumApi {
     ///  "result": "0x7" // 7
     /// }
     /// ```
+    ///
+    /// - Parameter to: `DATA`, 60 Bytes - (optional) Identity of the receiver. *When present it will try to decrypt any incoming message if the client holds the private key to this identity.*
+    /// - Parameter topics: `Array of DATA` - Array of `DATA` topics which the incoming message's topics should match.  You can use the following combinations:
+    ///    - `[A, B] = A && B`
+    ///    - `[A, [B, C]] = A && (B || C)`
+    ///    - `[null, A, B] = ANYTHING && A && B` `null` works as a wildcard
+    ///
+    /// - Returns: `QUANTITY` - The newly created filter.
     func shh_newFilter(to: Data, topics: TopicFilters) -> Promise<BigUInt> {
         return network.send("shh_newFilter").uint256()
     }
@@ -1912,18 +1602,11 @@ class EthereumApi {
     /// Uninstalls a filter with given id. Should always be called when watch is no longer needed.
     /// Additonally Filters timeout when they aren't requested with [shh_getFilterChanges](#shh_getfilterchanges) for a period of time.
     ///
-    ///
-    /// ##### Parameters
-    ///
-    /// - Parameter id: The filter id.
-    ///
     /// ```js
     /// params: [
     ///  "0x7" // 7
     /// ]
     /// ```
-    ///
-    /// - Returns: `Boolean` - `true` if the filter was successfully uninstalled, otherwise `false`.
     ///
     /// ##### Example
     /// ```js
@@ -1937,38 +1620,25 @@ class EthereumApi {
     ///  "result": true
     /// }
     /// ```
+    ///
+    /// - Parameter id: The filter id.
+    ///
+    /// - Returns: `Boolean` - `true` if the filter was successfully uninstalled, otherwise `false`.
     func shh_uninstallFilter(id: BigUInt) -> Promise<Bool> {
         return network.send("shh_uninstallFilter").bool()
     }
     
     /// Polling method for whisper filters. Returns new messages since the last call of this method.
     ///
-    /// **Note** calling the [shh_getMessages](#shh_getmessages) method, will reset the buffer for this method, so that you won't receive duplicate messages.
+    /// - Note: calling the [shh_getMessages](#shh_getmessages) method, will reset the buffer for this method, so that you won't receive duplicate messages.
     ///
     ///
-    /// ##### Parameters
-    ///
-    /// 1. `QUANTITY` - The filter id.
     ///
     /// ```js
     /// params: [
     ///  "0x7" // 7
     /// ]
     /// ```
-    ///
-    /// ##### Returns
-    ///
-    /// `Array` - Array of messages received since last poll:
-    ///
-    ///  - `hash`: `DATA`, 32 Bytes (?) - The hash of the message.
-    ///  - `from`: `DATA`, 60 Bytes - The sender of the message, if a sender was specified.
-    ///  - `to`: `DATA`, 60 Bytes - The receiver of the message, if a receiver was specified.
-    ///  - `expiry`: `QUANTITY` - Integer of the time in seconds when this message should expire (?).
-    ///  - `ttl`: `QUANTITY` -  Integer of the time the message should float in the system in seconds (?).
-    ///  - `sent`: `QUANTITY` -  Integer of the unix timestamp when the message was sent.
-    ///  - `topics`: `Array of DATA` - Array of `DATA` topics the message contained.
-    ///  - `payload`: `DATA` - The payload of the message.
-    ///  - `workProved`: `QUANTITY` - Integer of the work this message required before it was send (?).
     ///
     /// ##### Example
     /// ```js
@@ -1992,15 +1662,15 @@ class EthereumApi {
     ///    }]
     /// }
     /// ```
+    ///
+    /// - Parameter id: `QUANTITY` - The filter id.
+    ///
+    /// - Returns: `Array` - Array of messages received since last poll
     func shh_getFilterChanges(id: BigUInt) -> Promise<[ShhMessage]> {
         return network.send("shh_getFilterChanges", id).shhMessages()
     }
     
     /// Get all messages matching a filter. Unlike `shh_getFilterChanges` this returns all messages.
-    ///
-    /// ##### Parameters
-    ///
-    /// 1. `QUANTITY` - The filter id.
     ///
     /// ```js
     /// params: [
@@ -2008,17 +1678,15 @@ class EthereumApi {
     /// ]
     /// ```
     ///
-    /// ##### Returns
-    ///
-    /// See [shh_getFilterChanges](#shh_getfilterchanges)
-    ///
     /// ##### Example
     /// ```js
     /// // Request
     /// curl -X POST --data '{"jsonrpc":"2.0","method":"shh_getMessages","params":["0x7"],"id":73}'
     /// ```
     ///
-    /// Result see [shh_getFilterChanges](#shh_getfilterchanges)
+    /// - Parameter id: `QUANTITY` - The filter id.
+    ///
+    /// - Returns: `Array` - Array of messages received
     func shh_getMessages(id: BigUInt) -> Promise<[ShhMessage]> {
         return network.send("shh_getMessages").shhMessages()
     }
@@ -2073,6 +1741,9 @@ private func _proof(_ data: AnyReader) throws -> ProofInfo {
 private func _shhMessage(_ data: AnyReader) throws -> ShhMessage {
     return try ShhMessage(data)
 }
+private func _shhAddress(_ data: AnyReader) throws -> ShhAddress {
+    return try ShhAddress(data)
+}
 private extension Promise where T == AnyReader {
     func bool() -> Promise<Bool> {
         return map(_bool)
@@ -2110,6 +1781,9 @@ private extension Promise where T == AnyReader {
     func proof() -> Promise<ProofInfo> {
         return map(_proof)
     }
+    func shhAddress() -> Promise<ShhAddress> {
+        return map(_shhAddress)
+    }
     func shhMessages() -> Promise<[ShhMessage]> {
         return array(_shhMessage)
     }
@@ -2118,8 +1792,7 @@ private extension Promise where T == AnyReader {
     }
 }
 
-
-struct SyncingStatus {
+class SyncingStatus {
     let startingBlock: Int
     let currentBlock: Int
     let highestBlock: Int
@@ -2399,7 +2072,7 @@ class FilterOptions: JEncodable {
     var address = [Address]()
     
     /// topics: Array of DATA, - (optional) Array of 32 Bytes DATA topics. Topics are order-dependent. Each topic can also be an array of DATA with "or" options.
-    var topics = [Address]()
+    var topics = TopicFilters()
     
     init() {}
     
@@ -2408,7 +2081,7 @@ class FilterOptions: JEncodable {
             .set("from", from)
             .set("to", to)
             .set("address", JArray(address).nilIfEmpty())
-            .set("topics", JArray(topics).nilIfEmpty())
+            .set("topics", topics)
     }
     
     func jsonRpcValue(with network: NetworkProvider) -> Any {
