@@ -24,7 +24,7 @@ class TestCallRequest: Request {
             "gasPrice":"0x0"
             ], "latest"]
     }
-    override func response(data: AnyReader) throws {
+    override func response(data: DictionaryReader) throws {
         let expected = "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001e2242414e4b4558222070726f6a656374207574696c69747920746f6b656e0000"
         try data.string().equals(expected)
     }
@@ -38,7 +38,7 @@ class JsonRpcTests: XCTestCase {
     }
     func testGetBlockByNumber() throws {
         let a = DispatchSemaphore(value: 0)
-        getBlock(number: 436) { block, error in
+        getBlock(number: 860000) { block, error in
             a.signal()
         }
         a.wait()
@@ -108,10 +108,10 @@ class BlockInfo {
     /// timestamp: QUANTITY - the unix timestamp for when the block was collated.
     let timestamp: BigUInt
     /// transactions: Array - Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter.
-    let transactions: [TransactionInfo]
+    let transactions: [TransactionDetails]
     /// uncles: Array - Array of uncle hashes.
     let uncles: [Data]
-    init(_ json: AnyReader) throws {
+    init(_ json: DictionaryReader) throws {
         processed = try? ProcessedBlockInfo(json)
         parentHash = try json.at("parentHash").data()
         sha3Uncles = try json.at("sha3Uncles").data()
@@ -126,7 +126,10 @@ class BlockInfo {
         gasLimit = try json.at("gasLimit").uint256()
         gasUsed = try json.at("gasUsed").uint256()
         timestamp = try json.at("timestamp").uint256()
-        transactions = try json.at("transactions").array(TransactionInfo.init)
+        
+        transactions = try json.at("transactions").array { (a) in
+            return try TransactionDetails(a.raw as! [String: Any])
+        }
         uncles = try json.at("uncles").array { try $0.data() }
     }
 }
@@ -139,63 +142,10 @@ class ProcessedBlockInfo {
     let nonce: UInt64
     /// logsBloom: DATA, 256 Bytes - the bloom filter for the logs of the block. null when its pending block.
     let logsBloom: Data
-    init(_ json: AnyReader) throws {
+    init(_ json: DictionaryReader) throws {
         number = try json.at("number").uint256()
         hash = try json.at("hash").data()
         nonce = try json.at("nonce").uint64()
         logsBloom = try json.at("logsBloom").data()
-    }
-}
-class TransactionInfo {
-    /// null when its pending.
-    let processed: ProcessedTransactionInfo?
-    /// from: DATA, 20 Bytes - address of the sender.
-    let from: Address
-    /// gas: QUANTITY - gas provided by the sender.
-    let gas: BigUInt
-    /// gasPrice: QUANTITY - gas price provided by the sender in Wei.
-    let gasPrice: BigUInt
-    /// hash: DATA, 32 Bytes - hash of the transaction.
-    let hash: Data
-    /// input: DATA - the data send along with the transaction.
-    let input: Data
-    /// nonce: QUANTITY - the number of transactions made by the sender prior to this one.
-    let nonce: BigUInt
-    /// to: DATA, 20 Bytes - address of the receiver. null when its a contract creation transaction.
-    let to: Address
-    /// value: QUANTITY - value transferred in Wei.
-    let value: BigUInt
-    /// v: QUANTITY - ECDSA recovery id
-    let v: BigUInt
-    /// r: DATA, 32 Bytes - ECDSA signature r
-    let r: Data
-    /// s: DATA, 32 Bytes - ECDSA signature s
-    let s: Data
-    init(_ json: AnyReader) throws {
-        processed = try? ProcessedTransactionInfo(json)
-        from = try json.at("from").address()
-        gas = try json.at("gas").uint256()
-        gasPrice = try json.at("gasPrice").uint256()
-        hash = try json.at("hash").data()
-        input = try json.at("input").data()
-        nonce = try json.at("nonce").uint256()
-        to = try json.at("to").address()
-        value = try json.at("value").uint256()
-        v = try json.at("v").uint256()
-        r = try json.at("r").data()
-        s = try json.at("s").data()
-    }
-}
-class ProcessedTransactionInfo {
-    /// blockHash: DATA, 32 Bytes - hash of the block where this transaction was in. null when its pending.
-    let blockHash: Data
-    /// blockNumber: QUANTITY - block number where this transaction was in. null when its pending.
-    let blockNumber: BigUInt
-    /// transactionIndex: QUANTITY - integer of the transaction's index position in the block. null when its pending.
-    let transactionIndex: BigUInt
-    init(_ json: AnyReader) throws {
-        blockHash = try json.at("blockHash").data()
-        blockNumber = try json.at("blockNumber").uint256()
-        transactionIndex = try json.at("transactionIndex").uint256()
     }
 }
