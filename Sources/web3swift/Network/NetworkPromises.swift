@@ -9,12 +9,13 @@
 import Foundation
 import PromiseKit
 
-/// WIP
-protocol NetworkProtocol {
+/// Work in progress. Will be released in 2.2
+public protocol NetworkProtocol {
+    /// Sends request to url. To get
     func send(request: Request, to url: URL)
 }
 
-/// WIP
+/// Work in progress. Will be released in 2.2
 extension DispatchQueue {
     public static var web3 = DispatchQueue(label: "web3swift.queue")
     func promise<T>(_ execute: @escaping ()throws->(T)) -> Promise<T> {
@@ -51,7 +52,7 @@ extension DispatchQueue {
     }
 }
 
-/// WIP
+/// Work in progress. Will be released in 2.2
 class PromiseOperation<T>: Operation {
     let resolver: Resolver<T>
     let execute: ()throws->(T)
@@ -70,8 +71,9 @@ class PromiseOperation<T>: Operation {
 }
 
 extension URLSession: NetworkProtocol {
-    func send(request: Request, to url: URL) {
+    public func send(request: Request, to url: URL) {
         send(request: request, to: url).done(on: .web3) { data in
+            print("response: \(data.string)")
             let response = try AnyReader(json: data)
             do {
                 try request._response(data: response)
@@ -89,6 +91,7 @@ extension URLSession: NetworkProtocol {
     }
     private func send(request: URLRequest) -> Promise<Data> {
         let (promise, resolver) = Promise<Data>.pending()
+        print("request: \(request.httpBody!.string)")
         dataTask(with: request) { data, response, error in
             if let error = error {
                 resolver.reject(error)

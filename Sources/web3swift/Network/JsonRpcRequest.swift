@@ -9,7 +9,6 @@
 import Foundation
 import PromiseKit
 
-/// WIP
 enum JsonRpcError: Error {
     case syntaxError(code: Int, message: String)
     case responseError(code: Int, message: String)
@@ -23,29 +22,29 @@ enum JsonRpcError: Error {
     }
 }
 
-/// WIP
-class Request {
-    var id = Counter.increment()
-    var method: String
-    var promise: Promise<AnyReader>
-    var resolver: Resolver<AnyReader>
+/// Work in progress. Will be released in 2.2
+open class Request {
+    public var id = Counter.increment()
+    public var method: String
+    public var promise: Promise<AnyReader>
+    public var resolver: Resolver<AnyReader>
     
-    init(method: String) {
+    public init(method: String) {
         self.method = method
         (promise,resolver) = Promise.pending()
     }
     
-    func response(data: AnyReader) throws {
+    open func response(data: AnyReader) throws {
         
     }
-    func failed(error: Error) {
+    open func failed(error: Error) {
         
     }
-    func request() -> [Any] {
+    open func request() -> [Any] {
         return []
     }
     
-    func requestBody() -> Any {
+    open func requestBody() -> Any {
         var dictionary = [String: Any]()
         dictionary["jsonrpc"] = "2.0"
         dictionary["method"] = method
@@ -54,16 +53,17 @@ class Request {
         return dictionary
     }
     
-    func request(url: URL) throws -> URLRequest {
+    open func request(url: URL) throws -> URLRequest {
         var urlRequest = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData)
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
-        urlRequest.httpBody = try JSONSerialization.data(withJSONObject: requestBody(), options: [])
+        let body = requestBody()
+        urlRequest.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
         return urlRequest
     }
     
-    func checkJsonRpcSyntax(data: AnyReader) throws {
+    open func checkJsonRpcSyntax(data: AnyReader) throws {
         try data.at("jsonrpc").string().starts(with: "2.")
         if let error = try? data.at("error") {
             let code = try error.at("code").int()
@@ -77,43 +77,44 @@ class Request {
             try data.at("id").int()
         }
     }
-    func _response(data: AnyReader) throws {
+    open func _response(data: AnyReader) throws {
         try checkJsonRpcSyntax(data: data)
-        try response(data: data.at("result"))
-        resolver.fulfill(data)
+        let result = try data.at("result")
+        try response(data: result)
+        resolver.fulfill(result)
     }
-    func _failed(error: Error) {
+    open func _failed(error: Error) {
         failed(error: error)
         resolver.reject(error)
     }
 }
 
-/// WIP
-class CustomRequest: Request {
-    var parameters: [Any]
-    init(method: String, parameters: [Any]) {
+/// Work in progress. Will be released in 2.2
+open class CustomRequest: Request {
+    public var parameters: [Any]
+    public init(method: String, parameters: [Any]) {
         self.parameters = parameters
         super.init(method: method)
     }
-    override func request() -> [Any] {
+    open override func request() -> [Any] {
         return parameters
     }
 }
 
-/// WIP
-class RequestBatch: Request {
+/// Work in progress. Will be released in 2.2
+open class RequestBatch: Request {
     private(set) var requests = [Request]()
-    init() {
+    public init() {
         super.init(method: "")
     }
-    func append(_ request: Request) {
+    open func append(_ request: Request) {
         if let batch = request as? RequestBatch {
             requests.append(contentsOf: batch.requests)
         } else {
             requests.append(request)
         }
     }
-    override func response(data: AnyReader) throws {
+    open override func response(data: AnyReader) throws {
         try data.array {
             let id = try $0.at("id").int()
             guard let request = requests.first(where: {$0.id == id}) else { return }
@@ -124,7 +125,11 @@ class RequestBatch: Request {
             }
         }
     }
-    override func requestBody() -> Any {
+    open override func _response(data: AnyReader) throws {
+        try response(data: data)
+        resolver.fulfill(data)
+    }
+    open override func requestBody() -> Any {
         return requests.map { $0.requestBody() }
     }
 }

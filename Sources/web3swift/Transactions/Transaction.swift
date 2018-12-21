@@ -8,8 +8,22 @@
 
 import Foundation
 import BigInt
+import PromiseKit
 
-/// WIP
+//class TransactionBuilder {
+//    var nonce: BigUInt?
+//    var gasPrice: BigUInt?
+//    var gasLimit: BigUInt?
+//    var to: Address?
+//    var value: BigUInt?
+//    var data: Data?
+//
+//    func complete() -> Promise<Transaction> {
+//
+//    }
+//}
+
+/// Work in progress. Will be released in 2.2 - 2.3
 class Transaction {
     var nonce: BigUInt = 0
     var gasPrice: BigUInt
@@ -53,7 +67,7 @@ class Transaction {
     }
 }
 
-/// WIP
+/// Work in progress. Will be released in 2.2
 class SignedTransaction {
     let transaction: Transaction
     let signature: Signature
@@ -91,7 +105,7 @@ extension Data {
     }
 }
 
-/// WIP
+/// Work in progress. Will be released in 2.2
 class TransactionDataWriter {
     private(set) var data: Data
     init() {

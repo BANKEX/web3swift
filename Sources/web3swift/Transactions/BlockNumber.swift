@@ -10,19 +10,25 @@ import Foundation
 import BigInt
 import PromiseKit
 
-enum BlockNumberType {
+/// Block number type. earliest, latest and pending are tags.
+public enum BlockNumberType: String {
     case exact, earliest, latest, pending
 }
 
-/// WIP
-struct BlockNumber {
-    var type: BlockNumberType
-    var offset: BigInt = 0
-    init(type: BlockNumberType, offset: BigInt = 0) {
+/// Work in progress. Will be released in 2.2 - 2.3
+public struct BlockNumber {
+    /// Block number tag
+    public var type: BlockNumberType
+    /// Block number offset. Allows you to use .latest - 5
+    public var offset: Int = 0
+    /// Init with type and offset
+    public init(type: BlockNumberType, offset: Int = 0) {
         self.type = type
         self.offset = offset
     }
-    init(_ string: String) {
+    /// Init with block number.
+    /// Accepts "latest" "pending" "earliest" "1234" "0x90af".
+    public init(_ string: String) {
         switch string {
         case "latest":
             type = .latest
@@ -32,32 +38,73 @@ struct BlockNumber {
             type = .earliest
         default:
             type = .exact
-            offset = try! BigInt(AnyReader(string).uint256())
+            offset = try! AnyReader(string).int()
         }
     }
     
-    func promise(network: NetworkProvider) -> Promise<String> {
-        // WIP
-        let (promise, resolver) = Promise<String>.pending()
-        return promise
+    /// Returns promise for string representation of block number
+    ///
+    /// For .latest it will return "latest" immidiatly
+    ///
+    /// But if you use (.latest - 5) it will send request to get latest block number.
+    /// Then return the difference
+    ///
+    /// - Parameter network: Provider for requesting "latest" and "earliest" block numbers if you use them with offset
+    /// - Returns: Block number as string
+    public func promise(network: NetworkProvider) -> Promise<String> {
+        if offset == 0 {
+            if type == .exact {
+                return .value("0")
+            } else {
+                return .value(type.rawValue)
+            }
+        } else {
+            switch type {
+            case .exact:
+                return .value(offset.description)
+            case .pending:
+                return .value("pending")
+            case .latest:
+                let offset = self.offset
+                let (promise,resolver) = Promise<String>.pending()
+                EthereumApi(network: network).blockNumber().done { number in
+                    resolver.fulfill(String(number + offset))
+                }.catch(resolver.reject)
+                return promise
+            case .earliest:
+                let offset = self.offset
+                let (promise,resolver) = Promise<String>.pending()
+                EthereumApi(network: network).getBlockByNumber("earliest", false).done { block in
+                    // Earliest block is always processed so we can unwrap it
+                    resolver.fulfill(String(block!.processed!.number + offset))
+                }.catch(resolver.reject)
+                return promise
+            }
+        }
     }
     
-    static var latest: BlockNumber {
+    /// Returns "latest" block number
+    public static var latest: BlockNumber {
         return BlockNumber(type: .latest)
     }
-    static var earliest: BlockNumber {
+    /// Returns "earliest" block number
+    public static var earliest: BlockNumber {
         return BlockNumber(type: .earliest)
     }
-    static var pending: BlockNumber {
+    /// Returns "pending" block number
+    public static var pending: BlockNumber {
         return BlockNumber(type: .pending)
     }
     
-    static func - (l: BlockNumber, r: BigInt) -> BlockNumber {
+    /// Math method for block numbers
+    public static func - (l: BlockNumber, r: Int) -> BlockNumber {
         var v = l
         v.offset -= r
         return v
     }
-    static func + (l: BlockNumber, r: BigInt) -> BlockNumber {
+    
+    /// Math method for block numbers
+    public static func + (l: BlockNumber, r: Int) -> BlockNumber {
         var v = l
         v.offset -= r
         return v
@@ -65,14 +112,14 @@ struct BlockNumber {
 }
 
 extension BlockNumber: ExpressibleByIntegerLiteral {
-    init(integerLiteral value: Int) {
+    public init(integerLiteral value: Int) {
         type = .exact
-        offset = BigInt(value)
+        offset = value
     }
 }
 
 extension BlockNumber: ExpressibleByStringLiteral {
-    init(stringLiteral value: String) {
+    public init(stringLiteral value: String) {
         self.init(value)
     }
 }
