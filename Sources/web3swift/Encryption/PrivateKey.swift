@@ -51,7 +51,6 @@ public class PrivateKey {
         self.privateKey = privateKey
     }
     
-    
     /// Signs hash with private key signature
     ///
     /// - Parameter hash: 32 bytes hash. To get hash call data.keccak256()
@@ -62,6 +61,10 @@ public class PrivateKey {
         return Signature(data: signature)
     }
     
+    /// Returns compressed public key (33 bytes instead of 65)
+    public func compressedPublicKey() -> Data {
+        return try! SECP256K1.combineSerializedPublicKeys(keys: [publicKey], outputCompressed: true)
+    }
     
     /// Verifies the private key. Also every 32 byte private keys are valid
     ///

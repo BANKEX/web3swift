@@ -31,6 +31,10 @@ extension Data {
 
 public extension Data {
     /// Inits with array of type
+    init<T>(raw: T) {
+        let pointer = Swift.withUnsafeBytes(of: raw) { $0.bindMemory(to: T.self) }
+        self.init(buffer: pointer)
+    }
     init<T>(fromArray values: [T]) {
         var values = values
         self.init(buffer: UnsafeBufferPointer(start: &values, count: values.count))

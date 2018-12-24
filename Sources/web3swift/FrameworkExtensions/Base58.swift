@@ -7,6 +7,28 @@
 //
 
 import Foundation
+import base58
+
+extension Data {
+    var base58: String {
+        let input = withUnsafeBytes { UnsafeRawPointer($0) }
+        var size = count*2
+        var data = Data(count: size)
+        let output: UnsafeMutablePointer<Int8> = data.withUnsafeMutableBytes { return $0 }
+        b58enc(output, &size, input, count)
+        return String(data: data[..<size], encoding: .utf8)!
+    }
+}
+extension String {
+    var base58: Data? {
+        let data = Data(utf8)
+        let string: UnsafePointer<Int8> = data.withUnsafeBytes { $0 }
+        var result = Data(count: count)
+        var size = 0
+        guard b58tobin(&result, &size, string, data.count) else { return nil }
+        return result[..<size]
+    }
+}
 
 struct Base58 {
     static let base58Alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
@@ -104,13 +126,9 @@ struct Base58 {
             if b != 0 { break }
             zerosToRemove += 1
         }
-        base58.removeFirst(zerosToRemove)
-
-        var result: [UInt8] = Array(repeating: 0, count: zerosCount)
-        for b in base58 {
-            result.append(b)
-        }
-        return result
+        
+        base58.replaceSubrange(..<zerosToRemove, with: Array(repeating: 0, count: zerosCount))
+        return base58
     }
 }
 

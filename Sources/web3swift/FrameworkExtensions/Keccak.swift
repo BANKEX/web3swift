@@ -10,8 +10,8 @@ import Foundation
 import keccak
 
 extension Data {
-    var pointer: UnsafePointer<UInt8>! { return withUnsafeBytes { $0 } }
-    mutating func mutablePointer() -> UnsafeMutablePointer<UInt8>! {
+    var pointer: UnsafePointer<UInt8> { return withUnsafeBytes { $0 } }
+    mutating func mutablePointer() -> UnsafeMutablePointer<UInt8> {
         return withUnsafeMutableBytes { $0 }
     }
     

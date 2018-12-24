@@ -19,9 +19,10 @@ let package = Package(
     .target(name: "secp256k1"),
     .target(name: "keccak"),
     .target(name: "scrypt"),
+    .target(name: "base58"),
     .target(
       name: "web3swift",
-      dependencies: ["BigInt", "secp256k1", "keccak", "scrypt", "PromiseKit"],
+      dependencies: ["BigInt", "secp256k1", "keccak", "scrypt", "PromiseKit", "base58"],
       exclude: [
         "ObjectiveC",
         "Utils/EIP67Code.swift",

@@ -113,9 +113,7 @@ extension Web3Utils {
                 stipped = stipped[1 ... 64]
             }
             guard stipped.count == 64 else { throw PublicKeyToAddressError.invalidPublicKeySize }
-            let sha3 = stipped.keccak256()
-            let addressData = sha3[12 ..< 32]
-            return addressData
+            return stipped.keccak256()[12 ..< 32]
         }
     }
 

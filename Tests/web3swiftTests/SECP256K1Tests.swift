@@ -68,7 +68,7 @@ class SECP256K1Tests: XCTestCase {
         var previousPublic = try SECP256K1.privateKeyToPublicKey(privateKey: randomPrivateKey)
         for _ in 0 ..< 100_000 {
             let pub = try SECP256K1.privateKeyToPublicKey(privateKey: randomPrivateKey)
-            guard Data(toByteArray(previousPublic.data)) == Data(toByteArray(pub.data)) else {
+            guard Data(raw: previousPublic.data) == Data(raw: pub.data) else {
                 return XCTFail()
             }
             previousPublic = pub
@@ -83,8 +83,8 @@ class SECP256K1Tests: XCTestCase {
             var signature = try SECP256K1.recoverableSign(hash: randomHash, privateKey: randomPrivateKey, useExtraEntropy: true)
             let serialized = try SECP256K1.serializeSignature(recoverableSignature: &signature)
             let parsed = try SECP256K1.parseSignature(signature: serialized)
-            let sigData = Data(toByteArray(signature.data))
-            let parsedData = Data(toByteArray(parsed.data))
+            let sigData = Data(raw: signature.data)
+            let parsedData = Data(raw: parsed.data)
             guard sigData == parsedData else {
                 for i in 0 ..< sigData.count {
                     if sigData[i] != parsedData[i] {
