@@ -9,23 +9,27 @@
 import Foundation
 import base58
 
+enum Base58Alphabet: Int8 {
+    case bitcoin, ripple
+}
+
 extension Data {
-    var base58: String {
+    func base58(_ type: Base58Alphabet) -> String {
         let input = withUnsafeBytes { UnsafeRawPointer($0) }
         var size = count*2
         var data = Data(count: size)
         let output: UnsafeMutablePointer<Int8> = data.withUnsafeMutableBytes { return $0 }
-        b58enc(output, &size, input, count)
+        b58enc(output, &size, input, count, type.rawValue)
         return String(data: data[..<size], encoding: .utf8)!
     }
 }
 extension String {
-    var base58: Data? {
+    func base58(_ type: Base58Alphabet) -> Data? {
         let data = Data(utf8)
         let string: UnsafePointer<Int8> = data.withUnsafeBytes { $0 }
         var result = Data(count: count)
         var size = 0
-        guard b58tobin(&result, &size, string, data.count) else { return nil }
+        guard b58tobin(&result, &size, string, data.count, type.rawValue) else { return nil }
         return result[..<size]
     }
 }

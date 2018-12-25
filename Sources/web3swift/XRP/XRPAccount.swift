@@ -7,10 +7,6 @@
 //
 
 import Foundation
-
-typealias XRPAddress = Address58
-typealias BTCAddress = Address58
-
 public enum BTCNetworkId: UInt8 {
     case mainnet = 0x00
     case testnet = 0x6f
@@ -32,9 +28,24 @@ extension PrivateKey {
     }
 }
 
+class BTCAddress: Address58 {
+    override var string: String {
+        return data.base58(.bitcoin)
+    }
+}
+class XRPAddress: Address58 {
+    override var string: String {
+        var string = data.base58(.ripple)
+        string[0] = "r"
+        return string
+    }
+}
+
 class Address58 {
     let data: Data
-    lazy var string = data.base58
+    var string: String {
+        return data.base58(.bitcoin)
+    }
     init(_ data: Data) {
         self.data = data
     }
