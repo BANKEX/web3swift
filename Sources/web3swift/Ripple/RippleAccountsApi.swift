@@ -1,8 +1,8 @@
 //
-//  XRPApi.swift
+//  RippleAccountsApi.swift
 //  web3swift
 //
-//  Created by Dmitry on 21/12/2018.
+//  Created by Dmitry on 27/12/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
@@ -10,22 +10,10 @@ import Foundation
 import BigInt
 import PromiseKit
 
-extension URL {
-    static var xrpMainnet = URL(string: "https://s2.ripple.com:51234")!
-    static var xrpTestnet = URL(string: "https://s.altnet.rippletest.net:51234")!
-}
-
-let xrp = XRPApi.mainnet
-class XRPApi {
+class RippleAccountsApi {
     let network: NetworkProvider
     init(network: NetworkProvider) {
         self.network = network
-    }
-    static var mainnet: XRPApi {
-        return XRPApi(network: NetworkProvider(url: .xrpMainnet))
-    }
-    static var testnet: XRPApi {
-        return XRPApi(network: NetworkProvider(url: .xrpTestnet))
     }
     
     /// The account_channels method returns information about an account's Payment Channels. This includes only channels where the specified account is the channel's source, not the destination. (A channel's "source" and "owner" are the same.) All information retrieved is relative to a particular version of the ledger.
@@ -49,7 +37,7 @@ class XRPApi {
     
     class Channel {
         /// The owner of the channel, as an Address.
-        let account: XRPAddress
+        let account: RippleAddress
         /// The total amount of XRP, in drops allocated to this channel.
         let amount: BigUInt
         /// The total amount of XRP, in drops, paid out from this channel, as of the ledger version used. (You can calculate the amount of XRP left in the channel by subtracting balance from amount.)
@@ -57,7 +45,7 @@ class XRPApi {
         /// A unique ID for this channel, as a 64-character hexadecimal string. This is also the ID of the channel object in the ledger's state data.
         let channelId: Data
         /// the destination account of the channel, as an Address. Only this account can receive the XRP in the channel while it is open.
-        let destinationAccount: XRPAddress
+        let destinationAccount: RippleAddress
         /// (May be omitted) The public key for the payment channel in base58 format. Signed claims against this channel must be redeemed with the matching key pair.
         let publicKey: Data?
         /// The number of seconds the payment channel must stay open after the owner of the channel requests to close it.
@@ -71,11 +59,11 @@ class XRPApi {
         /// (May be omitted) A 32-bit unsigned integer to use as a destination tag for payments through this channel, if one was specified at channel creation. This indicates the payment channel's beneficiary or other purpose at the destination account.
         let destinationTag: UInt64?
         init(_ json: AnyReader) throws {
-            account = try json.at("account").xrpAddress()
+            account = try json.at("account").rippleAddress()
             amount = try json.at("amount").uint256()
             balance = try json.at("balance").uint256()
             channelId = try json.at("channel_id").data()
-            destinationAccount = try json.at("destinationAccount").xrpAddress()
+            destinationAccount = try json.at("destinationAccount").rippleAddress()
             publicKey = try json.at("public_key").data()
             settleDelay = try json.at("settle_delay").int()
             expiration = try json.optional("expiration")?.int()
@@ -85,10 +73,10 @@ class XRPApi {
         }
     }
     
-     /// account    String    A unique identifier for the account, most commonly the account's Address.
-     /// strict    Boolean    (Optional) If true, only accept an address or public key for the account parameter. Defaults to false.
-     /// ledger_hash    String    (Optional) A 20-byte hex string for the ledger version to use. (See Specifying Ledgers)
-     /// ledger_index    String or Unsigned Integer    (Optional) The sequence number of the ledger to use, or a shortcut string to choose a ledger automatically. (See Specifying Ledgers)
+    /// account    String    A unique identifier for the account, most commonly the account's Address.
+    /// strict    Boolean    (Optional) If true, only accept an address or public key for the account parameter. Defaults to false.
+    /// ledger_hash    String    (Optional) A 20-byte hex string for the ledger version to use. (See Specifying Ledgers)
+    /// ledger_index    String or Unsigned Integer    (Optional) The sequence number of the ledger to use, or a shortcut string to choose a ledger automatically. (See Specifying Ledgers)
     func currencies(account: String, strict: Bool, ledgerHash: String, ledgerIndex: String) -> Promise<Currencies> {
         let input = JDictionary()
             .set("account", account)
@@ -124,7 +112,7 @@ class XRPApi {
     /// ledger_index    String or Unsigned Integer    (Optional) The sequence number of the ledger to use, or a shortcut string to choose a ledger automatically. (See Specifying Ledgers)
     /// queue    Boolean    (Optional) If true, and the FeeEscalation amendment is enabled, also returns stats about queued transactions associated with this account. Can only be used when querying for the data from the current open ledger. New in: rippled 0.33.0
     /// signer_lists    Boolean    (Optional) If true, and the MultiSign amendment is enabled, also returns any SignerList objects associated with this account. New in: rippled 0.31.0
-    func accountInfo(account: String, strict: Bool, ledgerHash: String?, ledgerIndex: String?, queue: Bool?, singerLists: Bool?) -> Promise<AnyReader> {
+    func info(account: String, strict: Bool, ledgerHash: String?, ledgerIndex: String?, queue: Bool?, singerLists: Bool?) -> Promise<AnyReader> {
         let input = JDictionary()
             .set("account", account)
             .set("strict", strict)
@@ -402,41 +390,5 @@ class XRPApi {
             problems = try json.at("problems").array(_string)
             transactions = try json.at("transactions").array()
         }
-    }
-}
-
-extension AnyReader {
-    func uint() throws -> UInt {
-        if let value = raw as? UInt {
-            return value
-        } else if let value = raw as? String {
-            if value.isHex {
-                guard let value = UInt(value.withoutHex, radix: 16) else { throw unconvertible(to: "UInt") }
-                return value
-            } else {
-                guard let value = UInt(value) else { throw unconvertible(to: "UInt") }
-                return value
-            }
-        } else {
-            throw unconvertible(to: "UInt")
-        }
-    }
-    func xrpBase58() throws -> Data {
-        let string = try self.string()
-        guard let data = string.base58(.ripple) else { throw unconvertible(to: "base58 data") }
-        return data
-    }
-    func xrpAddress() throws -> XRPAddress {
-        let data = try xrpBase58()
-        return XRPAddress(data)
-    }
-    func dictionary<T>(_ body: (AnyReader) throws -> (T)) throws -> [String: T] {
-        guard let data = raw as? [String: Any] else { throw unconvertible(to: "[String: Any]") }
-        
-        return try data.mapValues { try body(AnyReader($0)) }
-    }
-    /// Returns bool if exists and false if not
-    func bool(at key: String) throws -> Bool {
-        return try optional(key)?.bool() ?? false
     }
 }

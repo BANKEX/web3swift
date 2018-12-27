@@ -1,5 +1,5 @@
 //
-//  XRPAccount.swift
+//  RippleAddress.swift
 //  web3swift
 //
 //  Created by Dmitry on 12/24/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct XRPNetworkId: RawRepresentable {
+public struct RippleNetworkId: RawRepresentable {
     public var rawValue: UInt8
     public init(rawValue: UInt8) {
         self.rawValue = rawValue
@@ -16,11 +16,11 @@ public struct XRPNetworkId: RawRepresentable {
 }
 
 extension PrivateKey {
-    func xrpAddress() -> XRPAddress {
-        return try! XRPAddress(publicKey: publicKey)
+    func rippleAddress() -> RippleAddress {
+        return try! RippleAddress(publicKey: publicKey)
     }
 }
-class XRPAddress: Address58 {
+class RippleAddress: Address58 {
     override var string: String {
         var string = data.base58(.ripple)
         string[0] = "r"
