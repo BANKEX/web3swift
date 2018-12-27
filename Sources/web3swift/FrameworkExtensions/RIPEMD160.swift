@@ -9,6 +9,14 @@
 
 import Foundation
 
+extension Data {
+    public var ripemd160: Data {
+        var hasher = RIPEMD160()
+        hasher.update(data: self)
+        return hasher.finalize()
+    }
+}
+
 /// From https://stackoverflow.com/questions/43091858/swift-hash-a-string-using-hash-hmac-with-ripemd160/43191938
 /// This class contains hash functions for BIP32HDNode
 public struct RIPEMD160 {

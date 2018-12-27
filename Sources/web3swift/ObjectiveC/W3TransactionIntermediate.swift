@@ -317,7 +317,6 @@ extension TransactionIntermediate {
      - Returns: Promise for gas price
      */
     @objc public func estimateGasAsync(options: W3Options?, onBlock: String = "latest", completion: @escaping  (W3UInt?,Error?)->()) {
-        
         swift.estimateGasPromise(options: options?.swift, onBlock: onBlock)
             .done { completion($0.objc,nil) }
             .catch { completion(nil, $0) }

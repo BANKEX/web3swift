@@ -19,6 +19,11 @@ extension Int: JEncodable {
         return self
     }
 }
+extension UInt: JEncodable {
+    public func jsonRpcValue(with network: NetworkProvider) -> Any {
+        return self
+    }
+}
 extension BigUInt: JEncodable {
     public func jsonRpcValue(with network: NetworkProvider) -> Any {
         return "0x" + String(self, radix: 16, uppercase: false)
@@ -59,6 +64,20 @@ extension Dictionary: JEncodable where Value: JEncodable {
         return mapValues { $0.jsonRpcValue(with: network) }
     }
 }
+
+open class JValue: JEncodable {
+    public var raw: Any
+    public init(_ value: Any) {
+        raw = value
+    }
+    public init?(_ value: Any?) {
+        guard let value = value else { return nil }
+        raw = value
+    }
+    public func jsonRpcValue(with network: NetworkProvider) -> Any {
+        return raw
+    }
+}
 open class JDictionary: JEncodable {
     public var dictionary = [String: JEncodable]()
     
@@ -82,6 +101,11 @@ open class JArray: JEncodable {
     
     public init() {}
     public init(_ array: [JEncodable]) {
+        guard !array.isEmpty else { return }
+        self.array = array
+    }
+    public init?(_ array: [JEncodable]?) {
+        guard let array = array else { return nil }
         guard !array.isEmpty else { return }
         self.array = array
     }

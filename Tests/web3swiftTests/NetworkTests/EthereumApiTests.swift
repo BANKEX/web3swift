@@ -39,24 +39,9 @@ class EthereumApiTests: XCTestCase {
         let publicKey = "031e7bcc70c72770dbb72fea022e8a6d07f814d2ebe4de9ae3f7af75bf706902a7".hex
         try XCTAssertEqual(BTCAddress(publicKey: publicKey).string, "17JsmEygbbEUEpvt4PFtYaTeSqfb9ki1F1")
     }
-    func testXrpAddress() {
+    func testRippleAddress() {
         let publicKey = "ED9434799226374926EDA3B54B1B461B4ABF7237962EAE18528FEA67595397FA32".hex
         try XCTAssertEqual(XRPAddress(publicKey: publicKey).string, "rDTXLQ7ZKZVKz33zJbHjgVShjsBnqMBhmN")
-    }
-    
-    func testXrpBase58() {
-        var data = Data.random(length: 32)
-        XCTAssertEqual(data.base58(.ripple), Base58.base58FromBytes(Array(data), Base58.riple))
-        data = Data.random(length: 32)
-        XCTAssertEqual(data.base58(.ripple), Base58.base58FromBytes(Array(data), Base58.riple))
-        data = Data.random(length: 32)
-        XCTAssertEqual(data.base58(.ripple), Base58.base58FromBytes(Array(data), Base58.riple))
-        data = Data.random(length: 32)
-        XCTAssertEqual(data.base58(.ripple), Base58.base58FromBytes(Array(data), Base58.riple))
-        data = Data.random(length: 32)
-        XCTAssertEqual(data.base58(.ripple), Base58.base58FromBytes(Array(data), Base58.riple))
-        data = Data.random(length: 32)
-        XCTAssertEqual(data.base58(.ripple), Base58.base58FromBytes(Array(data), Base58.riple))
     }
 }
 //"""

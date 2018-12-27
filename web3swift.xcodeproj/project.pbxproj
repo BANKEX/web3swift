@@ -134,6 +134,7 @@
 		13992BAB21CBE9F00057BD93 /* OutputParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BAA21CBE9F00057BD93 /* OutputParameters.swift */; };
 		13992BAD21CBECEF0057BD93 /* EthereumApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BAC21CBECEF0057BD93 /* EthereumApiTests.swift */; };
 		13992BB921CD10A40057BD93 /* XRPApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BB821CD10A40057BD93 /* XRPApi.swift */; };
+		13992BD021D3B60F0057BD93 /* BitcoinAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BCF21D3B60F0057BD93 /* BitcoinAddress.swift */; };
 		139947F221B0586200EA5DB6 /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139947F121B0586200EA5DB6 /* PrivateKey.swift */; };
 		13A8D4F121B7446A00469740 /* keccak.h in Headers */ = {isa = PBXBuildFile; fileRef = 13A8D4EF21B7446A00469740 /* keccak.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		13A8D4F221B7446A00469740 /* keccak.c in Sources */ = {isa = PBXBuildFile; fileRef = 13A8D4F021B7446A00469740 /* keccak.c */; };
@@ -365,6 +366,7 @@
 		13992BAA21CBE9F00057BD93 /* OutputParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputParameters.swift; sourceTree = "<group>"; };
 		13992BAC21CBECEF0057BD93 /* EthereumApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumApiTests.swift; sourceTree = "<group>"; };
 		13992BB821CD10A40057BD93 /* XRPApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XRPApi.swift; sourceTree = "<group>"; };
+		13992BCF21D3B60F0057BD93 /* BitcoinAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitcoinAddress.swift; sourceTree = "<group>"; };
 		139947F121B0586200EA5DB6 /* PrivateKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKey.swift; sourceTree = "<group>"; };
 		13A8D4E521B7442800469740 /* scrypt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = scrypt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		13A8D4EF21B7446A00469740 /* keccak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = keccak.h; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 			isa = PBXGroup;
 			children = (
 				1317BE22218C8A9E00D6D095 /* Cartfile */,
+				13992BB821CD10A40057BD93 /* XRPApi.swift */,
 				1317BE23218C8A9E00D6D095 /* CHANGELOG.md */,
 				1317BE26218C8A9F00D6D095 /* LICENSE.md */,
 				1317BE24218C8A9E00D6D095 /* Package.swift */,
@@ -729,8 +732,8 @@
 				13765D5F21964A97005C483C /* W3TransactionIntermediate.swift */,
 				13765D6221964A98005C483C /* W3Contract.swift */,
 				13765D6121964A97005C483C /* W3Eth.swift */,
-				13765D6721964A9A005C483C /* W3Personal.swift */,
 				13765D5E21964A96005C483C /* W3Wallet.swift */,
+				13765D6721964A9A005C483C /* W3Personal.swift */,
 			);
 			path = ObjectiveC;
 			sourceTree = "<group>";
@@ -792,6 +795,7 @@
 		135DBB2C21D12178001C382C /* Bitcoin */ = {
 			isa = PBXGroup;
 			children = (
+				13992BCF21D3B60F0057BD93 /* BitcoinAddress.swift */,
 			);
 			path = Bitcoin;
 			sourceTree = "<group>";
@@ -832,7 +836,6 @@
 		13992BB621CD04810057BD93 /* XRP */ = {
 			isa = PBXGroup;
 			children = (
-				13992BB821CD10A40057BD93 /* XRPApi.swift */,
 				135DBAEB21D1050E001C382C /* XRPAccount.swift */,
 			);
 			path = XRP;
@@ -1418,6 +1421,7 @@
 				1317BD82218C526300D6D095 /* Web3+EventParser.swift in Sources */,
 				13C335FB21B5E00E00F33F5E /* Cryptor.swift in Sources */,
 				1317BDB1218C526300D6D095 /* IBAN.swift in Sources */,
+				13992BD021D3B60F0057BD93 /* BitcoinAddress.swift in Sources */,
 				1317BD7B218C526300D6D095 /* Web3+HttpProvider.swift in Sources */,
 				1317BDA5218C526300D6D095 /* ABIv2Elements.swift in Sources */,
 				1317BD8C218C526300D6D095 /* AnyReader.swift in Sources */,

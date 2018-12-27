@@ -243,7 +243,7 @@ public class EthereumApi {
     ///
     /// ```
     ///
-    /// - Returns: `Boolean` - returns `true` of the client is mining, otherwise `false`.
+    /// - Returns: `Boolean` - returns `true` of the client is mining, otherwise `false`.§
     public func mining() -> Promise<Bool> {
         return network.send("eth_mining").bool()
     }
@@ -1414,19 +1414,19 @@ public class EthereumApi {
     }
 }
 
-private func _bool(_ data: AnyReader) throws -> Bool {
+func _bool(_ data: AnyReader) throws -> Bool {
     return try data.bool()
 }
 func _data(_ data: AnyReader) throws -> Data {
     return try data.data()
 }
-private func _string(_ data: AnyReader) throws -> String {
+func _string(_ data: AnyReader) throws -> String {
     return try data.string()
 }
-private func _int(_ data: AnyReader) throws -> Int {
+func _int(_ data: AnyReader) throws -> Int {
     return try data.int()
 }
-private func _uint256(_ data: AnyReader) throws -> BigUInt {
+func _uint256(_ data: AnyReader) throws -> BigUInt {
     return try data.uint256()
 }
 private func _address(_ data: AnyReader) throws -> Address {
