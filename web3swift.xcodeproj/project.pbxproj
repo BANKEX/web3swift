@@ -79,6 +79,7 @@
 		13397055219984480027E27C /* SecurityToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13397054219984480027E27C /* SecurityToken.swift */; };
 		133970572199876A0027E27C /* ERC888.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133970562199876A0027E27C /* ERC888.swift */; };
 		1339953E21D4EDF3009A8485 /* RippleAccountsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1339953D21D4EDF3009A8485 /* RippleAccountsApi.swift */; };
+		1339954021D4F032009A8485 /* RippleLedgerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1339953F21D4F032009A8485 /* RippleLedgerApi.swift */; };
 		133A973F21C3E91F00ABB173 /* BlockNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133A973E21C3E91F00ABB173 /* BlockNumber.swift */; };
 		133A974421C3EFC800ABB173 /* JsonRpcRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133A974321C3EFC800ABB173 /* JsonRpcRequest.swift */; };
 		133A974621C3FD7800ABB173 /* NetworkPromises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133A974521C3FD7800ABB173 /* NetworkPromises.swift */; };
@@ -333,6 +334,7 @@
 		13397054219984480027E27C /* SecurityToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityToken.swift; sourceTree = "<group>"; };
 		133970562199876A0027E27C /* ERC888.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC888.swift; sourceTree = "<group>"; };
 		1339953D21D4EDF3009A8485 /* RippleAccountsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleAccountsApi.swift; sourceTree = "<group>"; };
+		1339953F21D4F032009A8485 /* RippleLedgerApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleLedgerApi.swift; sourceTree = "<group>"; };
 		133A973E21C3E91F00ABB173 /* BlockNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockNumber.swift; sourceTree = "<group>"; };
 		133A974321C3EFC800ABB173 /* JsonRpcRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonRpcRequest.swift; sourceTree = "<group>"; };
 		133A974521C3FD7800ABB173 /* NetworkPromises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPromises.swift; sourceTree = "<group>"; };
@@ -837,9 +839,10 @@
 		13992BB621CD04810057BD93 /* Ripple */ = {
 			isa = PBXGroup;
 			children = (
-				13992BB821CD10A40057BD93 /* RippleApi.swift */,
 				135DBAEB21D1050E001C382C /* RippleAddress.swift */,
+				13992BB821CD10A40057BD93 /* RippleApi.swift */,
 				1339953D21D4EDF3009A8485 /* RippleAccountsApi.swift */,
+				1339953F21D4F032009A8485 /* RippleLedgerApi.swift */,
 			);
 			path = Ripple;
 			sourceTree = "<group>";
@@ -1464,6 +1467,7 @@
 				13C335FF21B5E00E00F33F5E /* KeyDerivation.swift in Sources */,
 				13765D6B21964A9B005C483C /* W3Contracts.swift in Sources */,
 				1317BDB8218C526300D6D095 /* HDPath.swift in Sources */,
+				1339954021D4F032009A8485 /* RippleLedgerApi.swift in Sources */,
 				13C335FA21B5E00E00F33F5E /* Status.swift in Sources */,
 				13765D7021964A9B005C483C /* W3Eth.swift in Sources */,
 				13D2576E21ADCD4400D382D1 /* DerivedKey.swift in Sources */,

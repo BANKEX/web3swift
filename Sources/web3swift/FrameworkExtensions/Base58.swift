@@ -22,15 +22,33 @@ extension Data {
         b58enc(output, &size, input, count, type.rawValue)
         return String(data: data[..<size], encoding: .utf8)!
     }
+    func base58Check(_ type: Base58Alphabet, _ prefix: UInt8) -> String {
+        let input = withUnsafeBytes { UnsafeRawPointer($0) }
+        var size = count*2
+        var data = Data(count: size)
+        let output: UnsafeMutablePointer<Int8> = data.withUnsafeMutableBytes { return $0 }
+        
+        b58check_enc(output, &size, prefix, input, count, type.rawValue)
+        return String(data: data[..<size], encoding: .utf8)!
+    }
 }
 extension String {
     func base58(_ type: Base58Alphabet) -> Data? {
         let data = Data(utf8)
         let string: UnsafePointer<Int8> = data.withUnsafeBytes { $0 }
         var result = Data(count: count)
+        var size = count
+        b58tobin(result.mutablePointer(), &size, string, data.count, type.rawValue)
+        return result.subdata(in: count-size..<count)
+    }
+    func base58Check(_ type: Base58Alphabet) -> Data? {
+        let data = Data(utf8)
+        let string: UnsafePointer<Int8> = data.withUnsafeBytes { $0 }
+        var result = Data(count: count)
         var size = 0
-        guard b58tobin(&result, &size, string, data.count, type.rawValue) else { return nil }
-        return result[..<size]
+        let g = b58check(&result, size, string, data.count, 0x21)
+//        b58tobin(&result, &size, string, data.count, type.rawValue)
+        return Data(result[..<size])
     }
 }
 
