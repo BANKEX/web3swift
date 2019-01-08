@@ -25,12 +25,11 @@ class RippleAccountsApi {
     ///   - ledgerIndex: The sequence number of the ledger to use, or a shortcut string to choose a ledger automatically. (See Specifying Ledgers)
     ///   - limit: Limit the number of transactions to retrieve. The server is not required to honor this value. Must be within the inclusive range 10 to 400. Defaults to 200.
     ///   - marker: Value from a previous paginated response. Resume retrieving data where that response left off.
-    func channels(account: String, destinationAccount: String?, ledgerHash: String?, ledgerIndex: String?, limit: Int?) -> Promise<[Channel]> {
+    func channels(account: String, destinationAccount: String?, ledger: Ledger, limit: Int?) -> Promise<[Channel]> {
         let input = JDictionary()
             .set("account", account)
             .set("destination_account", destinationAccount)
-            .set("ledger_hash", ledgerHash)
-            .set("ledger_index", ledgerIndex)
+            .set(ledger)
             .set("limit", limit)
         return network.send("account_channels", input).array(Channel.init)
     }
@@ -77,12 +76,11 @@ class RippleAccountsApi {
     /// strict    Boolean    (Optional) If true, only accept an address or public key for the account parameter. Defaults to false.
     /// ledger_hash    String    (Optional) A 20-byte hex string for the ledger version to use. (See Specifying Ledgers)
     /// ledger_index    String or Unsigned Integer    (Optional) The sequence number of the ledger to use, or a shortcut string to choose a ledger automatically. (See Specifying Ledgers)
-    func currencies(account: String, strict: Bool, ledgerHash: String, ledgerIndex: String) -> Promise<Currencies> {
+    func currencies(account: String, strict: Bool, ledger: Ledger) -> Promise<Currencies> {
         let input = JDictionary()
             .set("account", account)
             .set("strict", strict)
-            .set("ledger_hash", ledgerHash)
-            .set("ledger_index", ledgerIndex)
+            .set(ledger)
         return network.send("account_currencies", input).map(Currencies.init)
     }
     
@@ -112,12 +110,11 @@ class RippleAccountsApi {
     /// ledger_index    String or Unsigned Integer    (Optional) The sequence number of the ledger to use, or a shortcut string to choose a ledger automatically. (See Specifying Ledgers)
     /// queue    Boolean    (Optional) If true, and the FeeEscalation amendment is enabled, also returns stats about queued transactions associated with this account. Can only be used when querying for the data from the current open ledger. New in: rippled 0.33.0
     /// signer_lists    Boolean    (Optional) If true, and the MultiSign amendment is enabled, also returns any SignerList objects associated with this account. New in: rippled 0.31.0
-    func info(account: String, strict: Bool, ledgerHash: String?, ledgerIndex: String?, queue: Bool?, singerLists: Bool?) -> Promise<AnyReader> {
+    func info(account: String, strict: Bool, ledger: Ledger, queue: Bool?, singerLists: Bool?) -> Promise<AnyReader> {
         let input = JDictionary()
             .set("account", account)
             .set("strict", strict)
-            .set("ledger_hash", ledgerHash)
-            .set("ledger_index", ledgerIndex)
+            .set(ledger)
             .set("queue", queue)
             .set("signer_lists", singerLists)
         return network.send("account_info", input)
@@ -129,11 +126,10 @@ class RippleAccountsApi {
     /// peer    String    (Optional) The Address of a second account. If provided, show only lines of trust connecting the two accounts.
     /// limit    Integer    (Optional, default varies) Limit the number of transactions to retrieve. The server is not required to honor this value. Must be within the inclusive range 10 to 400. New in: rippled 0.26.4
     /// marker    Marker    (Optional) Value from a previous paginated response. Resume retrieving data where that response left off. New in: rippled 0.26.4
-    func lines(account: String, ledger_hash: String?, ledger_index: String?, peer: String?, limit: Int?, marker: Any?) -> Promise<Lines> {
+    func lines(account: String, ledger: Ledger, peer: String?, limit: Int?, marker: Any?) -> Promise<Lines> {
         let input = JDictionary()
             .set("account", account)
-            .set("ledger_hash", ledger_hash)
-            .set("ledger_index", ledger_index)
+            .set(ledger)
             .set("peer", peer)
             .set("limit", limit)
             .set("marker", JValue(marker))
@@ -214,12 +210,11 @@ class RippleAccountsApi {
     /// ledger_index    String or Unsigned Integer    (Optional) The sequence number of the ledger to use, or a shortcut string to choose a ledger automatically. (See Specifying Ledgers)
     /// limit    Unsigned Integer    (Optional) The maximum number of objects to include in the results. Must be within the inclusive range 10 to 400 on non-admin connections. Defaults to 200.
     /// marker    Marker    (Optional) Value from a previous paginated response. Resume retrieving data where that response left off.
-    func objects(account: String, type: String?, ledger_hash: String?, ledger_index: String?, limit: UInt?, marker: Any?) -> Promise<AnyReader> {
+    func objects(account: String, type: String?, ledger: Ledger, limit: UInt?, marker: Any?) -> Promise<AnyReader> {
         let input = JDictionary()
             .set("account", account)
             .set("type", type)
-            .set("ledger_hash", ledger_hash)
-            .set("ledger_index", ledger_index)
+            .set(ledger)
             .set("limit", limit)
             .set("marker", JValue(marker))
         return network.send("account_objects", input)
@@ -230,11 +225,10 @@ class RippleAccountsApi {
     /// ledger_index    Ledger Index    (Optional, defaults to current) The sequence number of the ledger to use, or "current", "closed", or "validated" to select a ledger dynamically. (See Specifying Ledgers)
     /// limit    Integer    (Optional, default varies) Limit the number of transactions to retrieve. The server is not required to honor this value. Must be within the inclusive range 10 to 400. New in: rippled 0.26.4
     /// marker    Marker    (Optional) Value from a previous paginated response. Resume retrieving data where that response left off. New in: rippled 0.26.4
-    func offers(account: String, ledger_hash: String?, ledger_index: String?, limit: UInt?, marker: Any?) -> Promise<AnyReader> {
+    func offers(account: String, ledger: Ledger, limit: UInt?, marker: Any?) -> Promise<AnyReader> {
         let input = JDictionary()
             .set("account", account)
-            .set("ledger_hash", ledger_hash)
-            .set("ledger_index", ledger_index)
+            .set(ledger)
             .set("limit", limit)
             .set("marker", JValue(marker))
         return network.send("account_offers", input)
@@ -249,13 +243,12 @@ class RippleAccountsApi {
     /// forward    Boolean    (Optional) Defaults to false. If set to true, returns values indexed with the oldest ledger first. Otherwise, the results are indexed with the newest ledger first. (Each page of results may not be internally ordered, but the pages are overall ordered.)
     /// limit    Integer    (Optional) Default varies. Limit the number of transactions to retrieve. The server is not required to honor this value.
     /// marker    Marker    Value from a previous paginated response. Resume retrieving data where that response left off. This value is stable even if there is a change in the server's range of available ledgers.
-    func tx(account: String, ledger_index_min: Int?, ledger_index_max: Int?, ledger_hash: String?, ledger_index: String?, binary: Bool, forward: Bool, limit: Bool, marker: Any?) -> Promise<TX> {
+    func tx(account: String, ledger_index_min: Int?, ledger_index_max: Int?, ledger: Ledger, binary: Bool, forward: Bool, limit: Bool, marker: Any?) -> Promise<TX> {
         let input = JDictionary()
             .set("account", account)
             .set("ledger_index_min", ledger_index_min)
             .set("ledger_index_max", ledger_index_max)
-            .set("ledger_hash", ledger_hash)
-            .set("ledger_index", ledger_index)
+            .set(ledger)
             .set("binary", binary)
             .set("forward", forward)
             .set("limit", limit)
@@ -315,12 +308,11 @@ class RippleAccountsApi {
     /// hotwallet    String or Array    (Optional) An operational address to exclude from the balances issued, or an array of such addresses.
     /// ledger_hash    String    (Optional) A 20-byte hex string for the ledger version to use. (See Specifying Ledgers)
     /// ledger_index    String or Unsigned Integer    (Optional) The sequence number of the ledger version to use, or a shortcut string to choose a ledger automatically. (See Specifying Ledgers)
-    func gateway_balances(account: String, hotWallet: [String]?, ledger_hash: String?, ledger_index: Int?) -> Promise<Balances> {
+    func gateway_balances(account: String, hotWallet: [String]?, ledger: Ledger) -> Promise<Balances> {
         let input = JDictionary()
             .set("account", account)
             .set("hotWallet", JArray(hotWallet))
-            .set("ledger_hash", ledger_hash)
-            .set("ledger_index", ledger_index)
+            .set(ledger)
         return network.send("gateway_balances", input).map(Balances.init)
     }
     
@@ -367,14 +359,13 @@ class RippleAccountsApi {
     /// limit    Unsigned Integer    (Optional) The maximum number of trust line problems to include in the results. Defaults to 300.
     /// ledger_hash    String    (Optional) A 20-byte hex string for the ledger version to use. (See Specifying Ledgers)
     /// ledger_index    String or Unsigned Integer    (Optional) The sequence number of the ledger to use, or a shortcut string to choose a ledger automatically. (See Specifying Ledgers)
-    func noripple_check(account: String, role: String, transactions: Bool?, limit: UInt?, ledger_hash: String, ledger_index: String) -> Promise<NoRippleCheck> {
+    func noripple_check(account: String, role: String, transactions: Bool?, limit: UInt?, ledger: Ledger) -> Promise<NoRippleCheck> {
         let input = JDictionary()
             .set("account", account)
             .set("role", role)
             .set("transactions", transactions)
             .set("limit", limit)
-            .set("ledger_hash", ledger_hash)
-            .set("ledger_index", ledger_index)
+            .set(ledger)
         return network.send("noripple_check", input).map(NoRippleCheck.init)
     }
     

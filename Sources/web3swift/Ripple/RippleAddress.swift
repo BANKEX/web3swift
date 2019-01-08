@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 public struct RippleNetworkId: RawRepresentable {
     public var rawValue: UInt8

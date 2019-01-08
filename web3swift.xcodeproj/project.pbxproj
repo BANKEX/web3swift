@@ -80,6 +80,8 @@
 		133970572199876A0027E27C /* ERC888.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133970562199876A0027E27C /* ERC888.swift */; };
 		1339953E21D4EDF3009A8485 /* RippleAccountsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1339953D21D4EDF3009A8485 /* RippleAccountsApi.swift */; };
 		1339954021D4F032009A8485 /* RippleLedgerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1339953F21D4F032009A8485 /* RippleLedgerApi.swift */; };
+		1339954221D66282009A8485 /* Ledger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1339954121D66282009A8485 /* Ledger.swift */; };
+		1339954321D6663E009A8485 /* RippleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BB821CD10A40057BD93 /* RippleApi.swift */; };
 		133A973F21C3E91F00ABB173 /* BlockNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133A973E21C3E91F00ABB173 /* BlockNumber.swift */; };
 		133A974421C3EFC800ABB173 /* JsonRpcRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133A974321C3EFC800ABB173 /* JsonRpcRequest.swift */; };
 		133A974621C3FD7800ABB173 /* NetworkPromises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133A974521C3FD7800ABB173 /* NetworkPromises.swift */; };
@@ -135,7 +137,6 @@
 		13992BA921CBE9C70057BD93 /* InputParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BA821CBE9C70057BD93 /* InputParameters.swift */; };
 		13992BAB21CBE9F00057BD93 /* OutputParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BAA21CBE9F00057BD93 /* OutputParameters.swift */; };
 		13992BAD21CBECEF0057BD93 /* EthereumApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BAC21CBECEF0057BD93 /* EthereumApiTests.swift */; };
-		13992BB921CD10A40057BD93 /* RippleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BB821CD10A40057BD93 /* RippleApi.swift */; };
 		13992BD021D3B60F0057BD93 /* BitcoinAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BCF21D3B60F0057BD93 /* BitcoinAddress.swift */; };
 		139947F221B0586200EA5DB6 /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139947F121B0586200EA5DB6 /* PrivateKey.swift */; };
 		13A8D4F121B7446A00469740 /* keccak.h in Headers */ = {isa = PBXBuildFile; fileRef = 13A8D4EF21B7446A00469740 /* keccak.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -335,6 +336,7 @@
 		133970562199876A0027E27C /* ERC888.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC888.swift; sourceTree = "<group>"; };
 		1339953D21D4EDF3009A8485 /* RippleAccountsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleAccountsApi.swift; sourceTree = "<group>"; };
 		1339953F21D4F032009A8485 /* RippleLedgerApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleLedgerApi.swift; sourceTree = "<group>"; };
+		1339954121D66282009A8485 /* Ledger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ledger.swift; sourceTree = "<group>"; };
 		133A973E21C3E91F00ABB173 /* BlockNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockNumber.swift; sourceTree = "<group>"; };
 		133A974321C3EFC800ABB173 /* JsonRpcRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonRpcRequest.swift; sourceTree = "<group>"; };
 		133A974521C3FD7800ABB173 /* NetworkPromises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPromises.swift; sourceTree = "<group>"; };
@@ -843,6 +845,7 @@
 				13992BB821CD10A40057BD93 /* RippleApi.swift */,
 				1339953D21D4EDF3009A8485 /* RippleAccountsApi.swift */,
 				1339953F21D4F032009A8485 /* RippleLedgerApi.swift */,
+				1339954121D66282009A8485 /* Ledger.swift */,
 			);
 			path = Ripple;
 			sourceTree = "<group>";
@@ -1465,6 +1468,8 @@
 				13C335F521B5E00E00F33F5E /* Random.swift in Sources */,
 				13397055219984480027E27C /* SecurityToken.swift in Sources */,
 				13C335FF21B5E00E00F33F5E /* KeyDerivation.swift in Sources */,
+				1339954221D66282009A8485 /* Ledger.swift in Sources */,
+				1339954321D6663E009A8485 /* RippleApi.swift in Sources */,
 				13765D6B21964A9B005C483C /* W3Contracts.swift in Sources */,
 				1317BDB8218C526300D6D095 /* HDPath.swift in Sources */,
 				1339954021D4F032009A8485 /* RippleLedgerApi.swift in Sources */,
@@ -1505,7 +1510,6 @@
 				13C335FC21B5E00E00F33F5E /* HMAC.swift in Sources */,
 				1317BDB5218C526300D6D095 /* BIP32Keystore.swift in Sources */,
 				1317BD7C218C526300D6D095 /* Web3.swift in Sources */,
-				13992BB921CD10A40057BD93 /* RippleApi.swift in Sources */,
 				1317BDAB218C526300D6D095 /* ABIv2Encoding.swift in Sources */,
 				1317BDBB218C526300D6D095 /* AbstractKeystore.swift in Sources */,
 				13A8D52621B7451800469740 /* Keccak.swift in Sources */,

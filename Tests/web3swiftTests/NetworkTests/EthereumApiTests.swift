@@ -73,9 +73,23 @@ class EthereumApiTests: XCTestCase {
         XCTAssertEqual(secret.hex, "559EDD35041D3C11F9BBCED912F4DE6A".hex.hex)
     }
     
+    func testAll() {
+        let secret = "sswKp6cZgif8AKYsSrhozKNRPdkhd"
+        print("Secret:       \(secret)")
+        let secretData = secretToData(secret)
+        print("Secret hex:   \(secretData.hex)")
+        let privateKey = secretToPrivateKey(secretData)
+        print("Private key:  \(privateKey.hex)")
+        let publicKey = privateToPublic(privateKey)
+        print("Public key:   \(publicKey.hex)")
+        let address = publicToAddress(publicKey)
+        print("Address:      \(address)")
+    }
+    
     func testSecretToPrivate() {
         let secret = "559EDD35041D3C11F9BBCED912F4DE6A".hex
         let privateKey = secretToPrivateKey(secret)
+        print(privateKey.hex)
         let publicKey = privateToPublic(privateKey)
         XCTAssertEqual(publicKey.hex, "0351BDFB30E7924993C625687AE6127034C4A5EBA78A01E9C58B0C46E04E3A4948".hex.hex)
     }
@@ -87,13 +101,13 @@ class EthereumApiTests: XCTestCase {
     
     func testPublicKeyToAddress() {
 //"result": {
-//    "account_id": "rDGnaDqJczDAjrKHKdhGRJh2G7zJfZhj5q",
-//    "key_type": "secp256k1",
-//    "master_key": "COON WARN AWE LUCK TILE WIRE ELI SNUG TO COVE SHAM NAT",
-//    "master_seed": "sstV9YX8k7yTRzxkRFAHmX7EVqMfX",
-//    "master_seed_hex": "559EDD35041D3C11F9BBCED912F4DE6A",
-//    "public_key": "aBQXEw1vZD3guCX3rHL8qy8ooDomdFuxZcWrbRZKZjdDkUoUjGVS",
-//    "public_key_hex": "0351BDFB30E7924993C625687AE6127034C4A5EBA78A01E9C58B0C46E04E3A4948"
+//"account_id": "rDGnaDqJczDAjrKHKdhGRJh2G7zJfZhj5q",
+//"key_type": "secp256k1",
+//"master_key": "COON WARN AWE LUCK TILE WIRE ELI SNUG TO COVE SHAM NAT",
+//"master_seed": "sstV9YX8k7yTRzxkRFAHmX7EVqMfX",
+//"master_seed_hex": "559EDD35041D3C11F9BBCED912F4DE6A",
+//"public_key": "aBQXEw1vZD3guCX3rHL8qy8ooDomdFuxZcWrbRZKZjdDkUoUjGVS",
+//"public_key_hex": "0351BDFB30E7924993C625687AE6127034C4A5EBA78A01E9C58B0C46E04E3A4948"
 //},
         
         

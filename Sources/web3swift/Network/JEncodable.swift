@@ -65,6 +65,10 @@ extension Dictionary: JEncodable where Value: JEncodable {
     }
 }
 
+public protocol JKeyedEncodable {
+    func write(to dictionary: JDictionary)
+}
+
 open class JValue: JEncodable {
     public var raw: Any
     public init(_ value: Any) {
@@ -82,12 +86,24 @@ open class JDictionary: JEncodable {
     public var dictionary = [String: JEncodable]()
     
     public init() {}
+    
+    @discardableResult
     open func at(_ key: String) -> JsonRpcDictionaryKey {
         return JsonRpcDictionaryKey(parent: self, key: key)
     }
+    
+    @discardableResult
+    open func set(_ value: JKeyedEncodable) -> Self {
+        value.write(to: self)
+        return self
+    }
+    
+    @discardableResult
     open func set(_ key: String, _ value: JEncodable?) -> Self {
         return self
     }
+    
+    @discardableResult
     open func set(_ key: String, _ value: JEncodable) -> Self {
         dictionary[key] = value
         return self
