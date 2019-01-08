@@ -8,6 +8,18 @@
 
 import Foundation
 
+@objc public extension NSData {
+    @objc func hexString() -> NSString {
+        return (self as Data).hex as NSString
+    }
+}
+
+@objc public extension NSString {
+    @objc func hexData() -> NSData? {
+        return (try? (self as String).dataFromHex()) as NSData?
+    }
+}
+
 var opt: ObjcError {
 	return .returnsOptionalValue
 }
@@ -44,11 +56,11 @@ extension Address.AddressType {
     public required init(_ swift: Address) {
 		self.swift = swift
 	}
-	@objc public init(string: String, type: W3AddressType = .normal) {
-		swift = Address(string, type: type.swift)
+	@objc public init(string: String) {
+		swift = Address(string, type: .normal)
 	}
-	@objc public init(data: Data, type: W3AddressType = .normal) {
-		swift = Address(data, type: type.swift)
+	@objc public init(data: Data) {
+		swift = Address(data, type: .normal)
 	}
 	@objc public var isValid: Bool {
 		return swift.isValid
@@ -78,9 +90,19 @@ extension Address.AddressType {
 	@objc public override var description: String {
 		return swift.description
 	}
+    
+    @objc public func call(method: String, arguments: [Any]) throws -> W3SolidityDataReader {
+        return try swift.call(method, arguments.swift).wait().objc
+    }
+    @objc public func send(method: String, arguments: [Any], password: String, options: W3Options?) throws -> W3TransactionSendingResult {
+        return try swift.send(method, arguments.swift, password: password, web3: .default, options: options?.swift).wait().objc
+    }
 }
 
 @objc public extension NSString {
+    var address: W3Address {
+        return W3Address(string: self as String)
+    }
 	var isContractAddress: Bool {
 		return (self as String).hex.count > 0
 	}
@@ -90,7 +112,7 @@ extension Address.AddressType {
 	}
 	
 	var contractAddress: W3Address {
-		return W3Address(string: self as String, type: .contractDeployment)
+		return W3Address(string: self as String)
 	}
 }
 

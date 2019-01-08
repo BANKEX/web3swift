@@ -163,7 +163,7 @@ extension JsonRpcParams {
 	
 	@objc public var params: [Any] {
 		get { return swift.params }
-		set { swift.params = newValue }
+		set { swift.params = newValue.swift }
 	}
 }
 

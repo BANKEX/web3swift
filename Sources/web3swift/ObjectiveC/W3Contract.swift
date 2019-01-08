@@ -76,12 +76,12 @@ extension ContractProtocol {
     
     @objc public func deploy(bytecode: Data, parameters: [Any], extraData: Data?, options: W3Options?) throws -> W3EthereumTransaction {
         let extraData = extraData ?? Data()
-        return try swift.deploy(bytecode: bytecode, parameters: parameters, extraData: extraData, options: options?.swift).objc
+        return try swift.deploy(bytecode: bytecode, parameters: parameters.swift, extraData: extraData, options: options?.swift).objc
     }
     
     @objc public func method(_ method: String, parameters: [Any], extraData: Data?, options: W3Options?) throws -> W3EthereumTransaction {
         let extraData = extraData ?? Data()
-        return try swift.method(method, parameters: parameters, extraData: extraData, options: options?.swift).objc
+        return try swift.method(method, parameters: parameters.swift, extraData: extraData, options: options?.swift).objc
     }
     
     @objc public func parseEvent(_ eventLog: W3EventLog) -> W3ContractParsedEvent {
@@ -105,4 +105,3 @@ extension ContractProtocol {
         return swift.decodeInputData(data)
     }
 }
-

@@ -9,12 +9,12 @@
 import Foundation
 
 extension SolidityDataReader {
-    public var objc: W3DataResponse {
-        return W3DataResponse(self)
+    public var objc: W3SolidityDataReader {
+        return W3SolidityDataReader(self)
     }
 }
 
-@objc public class W3DataResponse: NSObject, SwiftContainer {
+@objc public class W3SolidityDataReader: NSObject, SwiftContainer {
     public let swift: SolidityDataReader
     public required init(_ swift: SolidityDataReader) {
         self.swift = swift

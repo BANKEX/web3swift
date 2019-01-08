@@ -106,7 +106,7 @@ extension BigUInt {
 		self.value = value
 	}
 	
-	public init?(_ string: String, decimals: Int) {
+	@objc public init?(_ string: String, decimals: Int) {
 		guard let value = BigUInt(string, decimals: decimals) else { return nil }
 		self.value = value
 	}
@@ -126,6 +126,10 @@ extension BigUInt {
 	@objc public func string(unitDecimals: Int, decimals: Int = 18, decimalSeparator: String = ".", options: W3StringOptions = .default) -> String {
 		return value.string(unitDecimals: unitDecimals, decimals: decimals, decimalSeparator: decimalSeparator, options: options.swift)
 	}
+    
+    public override var description: String {
+        return swift.description
+    }
 }
 
 extension BigInt {
@@ -133,7 +137,10 @@ extension BigInt {
 		return W3Int(value: self)
 	}
 }
-@objc public class W3Int: NSObject {
+@objc public class W3Int: NSObject, SwiftBridgeable {
+    public var swift: BigInt {
+        return value
+    }
 	let value: BigInt
 	init(value: BigInt) {
 		self.value = value
@@ -220,6 +227,10 @@ extension BigInt {
 	@objc public func string(units: W3Units, decimals: Int = 18, decimalSeparator: String = ".", options: W3StringOptions = .default) -> String {
 		return value.string(units: units.swift, decimals: decimals, decimalSeparator: decimalSeparator, options: options.swift)
 	}
+    
+    public override var description: String {
+        return swift.description
+    }
 }
 
 extension Web3Units {

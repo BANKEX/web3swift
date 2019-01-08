@@ -94,4 +94,18 @@ extension Web3 {
 		super.init()
 		options = W3Options(object: self)
 	}
+    
+    @objc public func addAccount(mnemonics: String, password: String) throws -> W3Address {
+        let mnemonics = try Mnemonics(mnemonics)
+        let keystore = try BIP32Keystore(mnemonics: mnemonics, password: password)
+        keystoreManager.swift.append(keystore)
+        return keystore.addresses.first!.objc
+    }
+    
+    @objc public func addAccount(privateKey: Data, password: String) throws -> W3Address {
+        guard let keystore = try EthereumKeystoreV3(privateKey: privateKey, password: password)
+            else { throw SECP256K1Error.invalidPrivateKeySize }
+        keystoreManager.swift.append(keystore)
+        return keystore.addresses.first!.objc
+    }
 }
