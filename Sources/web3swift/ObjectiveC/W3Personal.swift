@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBlockchain
 
 @objc public class W3Personal: NSObject {
     public var swift: Web3Personal {

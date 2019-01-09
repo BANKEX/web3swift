@@ -8,6 +8,7 @@
 
 import BigInt
 import Foundation
+import CoreBlockchain
 
 /// Ethereum bloom filter
 public struct EthereumBloomFilter {

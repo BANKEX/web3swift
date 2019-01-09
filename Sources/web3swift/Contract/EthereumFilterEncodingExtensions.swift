@@ -8,6 +8,7 @@
 
 import BigInt
 import Foundation
+import CoreBlockchain
 
 extension BigUInt: EventFilterEncodable {
     public func eventFilterEncoded() -> String? {

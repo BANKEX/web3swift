@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBlockchain
 
 /// Parses string to ParameterType
 public struct ABIv2TypeParser {

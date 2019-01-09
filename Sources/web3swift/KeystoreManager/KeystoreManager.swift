@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBlockchain
 
 /**
  Manager for your keystores.

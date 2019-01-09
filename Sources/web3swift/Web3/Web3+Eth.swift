@@ -9,6 +9,7 @@
 import BigInt
 import Foundation
 import PromiseKit
+import CoreBlockchain
 
 /// Extension located
 public class Web3Eth: Web3OptionsInheritable {

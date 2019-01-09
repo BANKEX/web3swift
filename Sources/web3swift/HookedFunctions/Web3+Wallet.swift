@@ -7,6 +7,7 @@ import BigInt
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 import Foundation
+import CoreBlockchain
 
 /// Web3Wallet errors
 public enum Web3WalletError: Error {

@@ -8,6 +8,7 @@
 
 import Foundation
 import BigInt
+import CoreBlockchain
 
 public class SyncingStatus {
     public let startingBlock: Int

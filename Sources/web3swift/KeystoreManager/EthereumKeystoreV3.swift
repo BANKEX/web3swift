@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBlockchain
 
 /**
 # Web3 Secret Storage

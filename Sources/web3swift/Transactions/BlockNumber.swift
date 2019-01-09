@@ -9,6 +9,7 @@
 import Foundation
 import BigInt
 import PromiseKit
+import CoreBlockchain
 
 /// Block number type. earliest, latest and pending are tags.
 public enum BlockNumberType: String {

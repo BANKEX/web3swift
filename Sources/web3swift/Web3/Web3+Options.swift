@@ -8,6 +8,7 @@
 
 import BigInt
 import Foundation
+import CoreBlockchain
 
 /// Protocol of classes that contains options parameter
 public protocol Web3OptionsInheritable {

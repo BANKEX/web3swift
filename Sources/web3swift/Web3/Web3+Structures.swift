@@ -7,6 +7,7 @@
 
 import BigInt
 import Foundation
+import CoreBlockchain
 
 fileprivate func decodeHexToData<T>(_ container: KeyedDecodingContainer<T>, key: KeyedDecodingContainer<T>.Key, allowOptional: Bool = false) throws -> Data? {
     if allowOptional {

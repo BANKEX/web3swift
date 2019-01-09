@@ -1,0 +1,6 @@
+#!/bin/sh
+cd "$(dirname "$0")"
+./GenerateDocumentation
+cd Documentation
+git commit -a -m "Updated documentation"
+git push

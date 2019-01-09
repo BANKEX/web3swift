@@ -8,6 +8,7 @@
 
 import Foundation
 import BigInt
+import CoreBlockchain
 
 private extension Int {
 	var solidityFormatted: Int {

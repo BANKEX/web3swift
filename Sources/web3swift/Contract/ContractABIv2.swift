@@ -8,6 +8,7 @@
 
 import BigInt
 import Foundation
+import CoreBlockchain
 
 /// Swift class that represents a solidity smart contract
 public struct ContractV2: ContractProtocol {

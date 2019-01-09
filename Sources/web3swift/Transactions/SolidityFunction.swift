@@ -9,6 +9,7 @@
 import Foundation
 import BigInt
 import PromiseKit
+import CoreBlockchain
 
 /// Protocol thats allows to convert types to solidity data
 public protocol SolidityDataRepresentable {

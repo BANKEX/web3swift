@@ -8,6 +8,7 @@
 
 import BigInt
 import Foundation
+import CoreBlockchain
 
 /// Transaction signer errors
 public enum TransactionSignerError: Error {

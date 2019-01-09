@@ -8,6 +8,7 @@
 
 import BigInt
 import Foundation
+import CoreBlockchain
 
 /// Decoding functions
 public struct ABIv2Decoder {

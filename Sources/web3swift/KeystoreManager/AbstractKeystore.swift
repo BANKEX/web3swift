@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBlockchain
 
 /// Keystore Protocol
 public protocol AbstractKeystore {

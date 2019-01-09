@@ -9,6 +9,7 @@
 import Foundation
 import PromiseKit
 import BigInt
+import CoreBlockchain
 
 /**
  Native realisation of txpool

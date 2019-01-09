@@ -8,6 +8,7 @@
 
 import BigInt
 import Foundation
+import CoreBlockchain
 
 protocol ArrayType {}
 extension Array: ArrayType {}

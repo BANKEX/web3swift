@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBlockchain
 
 var opt: ObjcError {
 	return .returnsOptionalValue

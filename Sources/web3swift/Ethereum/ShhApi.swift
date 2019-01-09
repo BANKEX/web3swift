@@ -9,6 +9,7 @@
 import Foundation
 import PromiseKit
 import BigInt
+import CoreBlockchain
 
 /// Shh ethereum api. Doesn't works on infura networks
 public struct ShhApi {

@@ -8,6 +8,7 @@
 
 import Foundation
 import BigInt
+import CoreBlockchain
 
 /**
  Native implementation of ERC777 token

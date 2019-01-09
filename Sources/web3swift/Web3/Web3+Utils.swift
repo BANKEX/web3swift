@@ -8,6 +8,7 @@
 
 import BigInt
 import Foundation
+import CoreBlockchain
 
 /// Namespaced Utils functions. Are not bound to particular web3 instance, so capitalization matters.
 public class Web3Utils {

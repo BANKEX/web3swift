@@ -8,6 +8,7 @@
 
 import BigInt
 import Foundation
+import CoreBlockchain
 
 /// Browser functions
 public class Web3BrowserFunctions: Web3OptionsInheritable {

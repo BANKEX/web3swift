@@ -12,7 +12,7 @@
 </a>
 </p>
 
-![bkx-foundation-github-swift](https://user-images.githubusercontent.com/2669441/50160945-7f6e0e80-02eb-11e9-98ee-57eeb140c296.png)
+![bkx-foundation-github-swift](https://user-images.githubusercontent.com/3356474/34412791-5b58962c-ebf0-11e7-8460-5592b12e6e9d.png)
 
 <p align="center">
 <a href="https://developer.apple.com/swift/" target="_blank">

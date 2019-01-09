@@ -8,6 +8,7 @@
 
 import BigInt
 import Foundation
+import CoreBlockchain
 
 /// Global counter object to enumerate JSON RPC requests.
 struct Counter {

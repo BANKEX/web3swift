@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBlockchain
 
 private extension Dictionary where Value: Equatable {
     func key(of value: Value) -> Key? {

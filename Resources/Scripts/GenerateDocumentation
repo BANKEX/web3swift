@@ -1,0 +1,12 @@
+#!/bin/sh
+cd "$(dirname "$0")"
+cd web3swift
+jazzy \
+--xcodebuild-arguments -scheme,web3swift \
+--theme fullwidth \
+--author 'Bankex Foundation' \
+--author_url https://github.com/bankex/web3swift \
+--github_url https://github.com/bankex/web3swift \
+--output ../Documentation \
+--documentation=../Documentation/Documentation/*.md \
+-e Sources/web3swift/Migration.swift,Sources/web3swift/Migration-iOS.swift,Sources/web3swift/Guides.swift,Sources/web3swift/Deprecated/BlockExplorer.swift,Sources/web3swift/ObjectiveC/Bridging.swift,Sources/web3swift/ObjectiveC/W3Structs.swift,Sources/web3swift/ObjectiveC/W3Contract.swift,Sources/web3swift/ObjectiveC/W3Transaction.swift,Sources/web3swift/ObjectiveC/W3Contracts.swift,Sources/web3swift/ObjectiveC/W3TransactionIntermediate.swift,Sources/web3swift/ObjectiveC/W3Eth.swift,Sources/web3swift/ObjectiveC/W3TxPool.swift,Sources/web3swift/ObjectiveC/W3JsonRpc.swift,Sources/web3swift/ObjectiveC/W3UInt.swift,Sources/web3swift/ObjectiveC/W3Keystore.swift,Sources/web3swift/ObjectiveC/W3Wallet.swift,Sources/web3swift/ObjectiveC/W3Personal.swift,Sources/web3swift/ObjectiveC/W3Web3.swift,Sources/web3swift/ObjectiveC/W3Provider.swift

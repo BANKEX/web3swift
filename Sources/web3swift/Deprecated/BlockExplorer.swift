@@ -9,6 +9,7 @@
 import Foundation
 import BigInt
 import PromiseKit
+import CoreBlockchain
 
 /*
  Block explorer api. Uses scan.bankex.com. Will be removed in the future releases.

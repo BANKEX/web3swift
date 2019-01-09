@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBlockchain
 
 /// Keystore that contains private key
 public class PlainKeystore: AbstractKeystore {

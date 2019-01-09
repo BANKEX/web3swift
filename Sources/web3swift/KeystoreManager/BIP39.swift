@@ -8,6 +8,7 @@
 
 //import Cryptor
 import Foundation
+import CoreBlockchain
 
 /// Mnemonics language
 public enum BIP39Language: String {

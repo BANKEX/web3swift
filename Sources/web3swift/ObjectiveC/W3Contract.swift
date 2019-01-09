@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBlockchain
 
 extension ContractV2.EventFilter {
     public var objc: W3ContractEventFilter {

@@ -10,6 +10,7 @@
 import BigInt
 import CoreImage
 import Foundation
+import CoreBlockchain
 
 /// QRCode typealias
 public typealias EthereumQRCode = EIP67Code

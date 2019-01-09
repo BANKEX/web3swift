@@ -8,6 +8,7 @@
 
 import BigInt
 import Foundation
+import CoreBlockchain
 
 /// Contract protocol
 /// At this moment uses only in ContractV2

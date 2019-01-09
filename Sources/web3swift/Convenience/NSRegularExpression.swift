@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBlockchain
 
 extension NSRegularExpression {
     typealias GroupNamesSearchResult = (NSTextCheckingResult, NSTextCheckingResult, Int)

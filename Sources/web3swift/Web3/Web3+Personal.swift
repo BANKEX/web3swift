@@ -9,6 +9,7 @@
 import BigInt
 import Foundation
 import PromiseKit
+import CoreBlockchain
 
 /// Personal functions
 public class Web3Personal: Web3OptionsInheritable {

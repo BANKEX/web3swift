@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBlockchain
 
 public enum TopicFilter {
     case any, exact(Data), or(Data,Data)

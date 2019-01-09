@@ -7,8 +7,8 @@
 //
 
 import BigInt
-//import Cryptor
 import Foundation
+import CoreBlockchain
 
 extension UInt32 {
     /// - Returns: Serialized bigEndian value as Data
@@ -86,7 +86,7 @@ public class HDNode {
 
     /// Init with Base58 encoded string
     public convenience init?(_ serializedString: String) {
-        let data = Data(Base58.bytesFromBase58(serializedString))
+        guard let data = serializedString.base58(.bitcoin) else { return nil }
         self.init(data)
     }
     
@@ -330,8 +330,7 @@ public class HDNode {
     /// Base58 string representation of HDNode's data
     public func serializeToString(serializePublic: Bool = true, version: HDversion = HDversion()) -> String? {
         guard let data = self.serialize(serializePublic: serializePublic, version: version) else { return nil }
-        let encoded = Base58.base58FromBytes(data.bytes)
-        return encoded
+        return data.base58(.bitcoin)
     }
     
     /// Data representation of HDNode

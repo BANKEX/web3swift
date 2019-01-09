@@ -9,6 +9,7 @@
 import Foundation
 import PromiseKit
 import BigInt
+import CoreBlockchain
 
 
 /// Default provider for all ethereum requests.
@@ -1414,19 +1415,7 @@ public class EthereumApi {
     }
 }
 
-func _bool(_ data: AnyReader) throws -> Bool {
-    return try data.bool()
-}
-func _data(_ data: AnyReader) throws -> Data {
-    return try data.data()
-}
-func _string(_ data: AnyReader) throws -> String {
-    return try data.string()
-}
-func _int(_ data: AnyReader) throws -> Int {
-    return try data.int()
-}
-func _uint256(_ data: AnyReader) throws -> BigUInt {
+public func _uint256(_ data: AnyReader) throws -> BigUInt {
     return try data.uint256()
 }
 private func _address(_ data: AnyReader) throws -> Address {
@@ -1460,18 +1449,6 @@ private func _shhAddress(_ data: AnyReader) throws -> ShhAddress {
     return try ShhAddress(data)
 }
 extension Promise where T == AnyReader {
-    func bool() -> Promise<Bool> {
-        return map(on: .web3, _bool)
-    }
-    func data() -> Promise<Data> {
-        return map(on: .web3, _data)
-    }
-    func string() -> Promise<String> {
-        return map(on: .web3, _string)
-    }
-    func int() -> Promise<Int> {
-        return map(on: .web3, _int)
-    }
     func uint256() -> Promise<BigUInt> {
         return map(on: .web3, _uint256)
     }
@@ -1501,8 +1478,5 @@ extension Promise where T == AnyReader {
     }
     func shhMessages() -> Promise<[ShhMessage]> {
         return array(_shhMessage)
-    }
-    func array<T>(_ convert: @escaping (AnyReader)throws->(T)) -> Promise<[T]> {
-        return map(on: .web3) { try $0.array().map(convert) }
     }
 }

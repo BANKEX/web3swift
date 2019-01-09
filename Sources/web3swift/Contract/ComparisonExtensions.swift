@@ -8,6 +8,7 @@
 
 import BigInt
 import Foundation
+import CoreBlockchain
 
 extension BigUInt: EventFilterComparable {
     public func isEqualTo(_ other: AnyObject) -> Bool {

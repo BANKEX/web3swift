@@ -9,6 +9,7 @@
 import Foundation
 import PromiseKit
 import BigInt
+import CoreBlockchain
 
 /** ISecurityToken.sol
  * ERC20 events

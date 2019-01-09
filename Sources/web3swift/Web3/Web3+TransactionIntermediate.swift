@@ -9,6 +9,7 @@
 import BigInt
 import Foundation
 import PromiseKit
+import CoreBlockchain
 
 /// Parsing errors
 public enum Web3ResponseError: Error {
