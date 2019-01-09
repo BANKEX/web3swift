@@ -11,6 +11,7 @@ import BigInt
 import XCTest
 
 @testable import web3swift
+@testable import CoreBlockchain
 
 class RemoteParsingTests: XCTestCase {
     func testEventParsing1usingABIv2() throws {

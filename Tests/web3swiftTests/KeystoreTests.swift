@@ -10,6 +10,7 @@ import XCTest
 //import Cryptor
 
 @testable import web3swift
+@testable import CoreBlockchain
 
 class KeystoresTests: XCTestCase {
 

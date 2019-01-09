@@ -11,6 +11,7 @@ import XCTest
 import PromiseKit
 import BigInt
 @testable import web3swift
+@testable import CoreBlockchain
 
 class TestCallRequest: Request {
     init() {

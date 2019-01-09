@@ -12,6 +12,7 @@ import BigInt
 import XCTest
 
 @testable import web3swift
+@testable import CoreBlockchain
 
 class EIP67Tests: XCTestCase {
     let address: Address = "0x6a6a0b4aaa60E97386F94c5414522159b45DEdE8"

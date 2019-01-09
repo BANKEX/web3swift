@@ -9,6 +9,7 @@
 import XCTest
 import BigInt
 @testable import web3swift
+@testable import CoreBlockchain
 
 class GanacheTests: XCTestCase {
 

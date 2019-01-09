@@ -11,6 +11,16 @@ import PromiseKit
 import BigInt
 import CoreBlockchain
 
+extension URL {
+    public static func infura(_ network: NetworkId, token: String? = nil) -> URL {
+        var url = URL(string: "https://\(network).infura.io/")!
+        if let token = token {
+            url.appendPathComponent(token)
+        }
+        return url
+    }
+}
+
 
 /// Default provider for all ethereum requests.
 public var eth = EthereumApi.infura(.mainnet)

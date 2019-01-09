@@ -10,12 +10,12 @@ import Foundation
 import CoreBlockchain
 
 extension PrivateKey {
-    public func btcAddress(network: BTCNetworkId = .mainnet) -> BTCAddress {
-        return try! BTCAddress(publicKey: publicKey, network: network.rawValue)
+    public func bitcoinAddress(network: BTCNetworkId = .mainnet) -> BitcoinAddress {
+        return try! BitcoinAddress(publicKey: publicKey, network: network.rawValue)
     }
 }
 
-open class BTCAddress: Address58 {
+open class BitcoinAddress: Address58 {
     open override var string: String {
         return data.base58(.bitcoin)
     }

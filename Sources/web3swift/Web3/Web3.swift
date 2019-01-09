@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Ethereum
 
 /// Web3 errors
 public enum Web3Error: Error {

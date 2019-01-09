@@ -9,6 +9,7 @@
 import BigInt
 import Foundation
 import PromiseKit
+import CoreBlockchain
 
 /// A web3 instance bound to provider. All further functionality is provided under web.*. namespaces.
 public class Web3: Web3OptionsInheritable {
@@ -58,6 +59,20 @@ public class Web3: Web3OptionsInheritable {
     
     /// Public web3.browserFunctions.* namespace.
     public lazy var browserFunctions = Web3BrowserFunctions(provider: self.provider, web3: self)
+    
+    public func addAccount(mnemonics: String, password: String) throws -> Address {
+        let mnemonics = try Mnemonics(mnemonics)
+        let keystore = try BIP32Keystore(mnemonics: mnemonics, password: password)
+        keystoreManager.append(keystore)
+        return keystore.addresses.first!
+    }
+    
+    public func addAccount(privateKey: Data, password: String) throws -> Address {
+        guard let keystore = try EthereumKeystoreV3(privateKey: privateKey, password: password)
+            else { throw SECP256K1Error.invalidPrivateKeySize }
+        keystoreManager.append(keystore)
+        return keystore.addresses.first!
+    }
 
     /// Add a provider request to the dispatch queue.
     public func dispatch(_ request: JsonRpcRequest) -> Promise<JsonRpcResponse> {

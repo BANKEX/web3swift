@@ -9,6 +9,7 @@
 import BigInt
 import Foundation
 import CoreBlockchain
+import Ethereum
 
 /// Ethereum transaction. Ready to send
 public struct EthereumTransaction: CustomStringConvertible {

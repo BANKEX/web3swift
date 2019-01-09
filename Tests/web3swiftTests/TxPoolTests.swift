@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import web3swift
+@testable import CoreBlockchain
 import BigInt
 
 class TxPoolTests: XCTestCase {

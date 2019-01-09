@@ -11,6 +11,7 @@ import BigInt
 import XCTest
 
 @testable import web3swift
+@testable import CoreBlockchain
 
 class AdvancedABIv2Tests: XCTestCase {
     func testAdvancedABIv2() throws {

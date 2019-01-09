@@ -36,7 +36,7 @@ public class PrivateKey {
     public var privateKey: Data
     
     /// Singleton that generates public key from private key
-    public lazy var publicKey: Data = try! SECP256K1.privateToPublic(privateKey: privateKey)
+    public lazy var publicKey = PublicKey(try! SECP256K1.privateToPublic(privateKey: privateKey))
     
     /// Generates random private key. All generated keys are verified
     public init() {
@@ -58,17 +58,44 @@ public class PrivateKey {
         return Signature(data: signature)
     }
     
-    /// Returns compressed public key (33 bytes instead of 65)
-    public func compressedPublicKey() -> Data {
-        return try! SECP256K1.combineSerializedPublicKeys(keys: [publicKey], outputCompressed: true)
-    }
-    
     /// Verifies the private key. Also every 32 byte private keys are valid
     ///
     /// - Throws: SECP256K1Error.invalidPrivateKey
     public func verify() throws {
         try SECP256K1.verifyPrivateKey(privateKey: privateKey)
     }
+}
+
+public class PublicKey {
+    public var data: Data
+    public init(_ data: Data) {
+        self.data = data
+    }
+    public func check() throws {
+        
+    }
+    public func compressed() throws -> PublicKey {
+        guard self.data.count != 33 else { return self }
+        let data = try SECP256K1.combineSerializedPublicKeys(keys: [self.data], outputCompressed: true)
+        return PublicKey(data)
+    }
+    public func decompressed() throws -> PublicKey {
+        guard self.data.count != 65 else { return self }
+        let data = try SECP256K1.combineSerializedPublicKeys(keys: [self.data], outputCompressed: false)
+        return PublicKey(data)
+    }
+    public func ethereumAddress() throws -> Address {
+        var stipped = try decompressed().data
+        if stipped.count == 65 {
+            guard stipped[0] == 4 else { throw PublicKeyError.invalidPublicKeySize }
+            return Address(stipped[1..<65].keccak256()[12..<32])
+        }
+        guard stipped.count == 64 else { throw PublicKeyError.invalidPublicKeySize }
+        return Address(stipped.keccak256()[12 ..< 32])
+    }
+}
+public enum PublicKeyError: Error {
+    case invalidPublicKeySize
 }
 
 
@@ -111,3 +138,5 @@ public class Signature {
         return v
     }()
 }
+
+

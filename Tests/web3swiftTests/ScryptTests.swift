@@ -10,6 +10,7 @@ import Foundation
 import XCTest
 
 @testable import web3swift
+@testable import CoreBlockchain
 
 class ScryptTests: XCTestCase {
     func testScrypt() {

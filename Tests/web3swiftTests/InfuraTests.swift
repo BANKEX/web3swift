@@ -9,6 +9,7 @@
 import XCTest
 
 @testable import web3swift
+@testable import CoreBlockchain
 class InfuraTests: XCTestCase {
     func testGetBalance() throws {
         let web3 = Web3(infura: .mainnet)

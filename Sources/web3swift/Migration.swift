@@ -9,7 +9,7 @@
 import Foundation
 import BigInt
 import CoreBlockchain
-
+import Ethereum
 
 /// TIP
 /// To quickly fix all renamed functions you can do:

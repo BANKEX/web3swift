@@ -10,6 +10,7 @@ import Foundation
 import PromiseKit
 import BigInt
 import CoreBlockchain
+import Ethereum
 
 /**
  Native realisation of txpool

@@ -39,6 +39,7 @@ extension Address: JEncodable {
 extension PrivateKey {
     /// Singleton that generates address from public key
     public var address: Address {
-        return try! Web3Utils.publicToAddress(publicKey)
+        return try! publicKey.ethereumAddress()
     }
 }
+

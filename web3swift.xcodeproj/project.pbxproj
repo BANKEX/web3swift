@@ -67,9 +67,17 @@
 		1317BDC6218C526300D6D095 /* NativeTypesEncoding+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD62218C526300D6D095 /* NativeTypesEncoding+Extensions.swift */; };
 		13397055219984480027E27C /* SecurityToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13397054219984480027E27C /* SecurityToken.swift */; };
 		133970572199876A0027E27C /* ERC888.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133970562199876A0027E27C /* ERC888.swift */; };
-		133A973F21C3E91F00ABB173 /* BlockNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133A973E21C3E91F00ABB173 /* BlockNumber.swift */; };
 		133E673B219EFE630054758F /* Guides.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133E673A219EFE630054758F /* Guides.swift */; };
 		133E696621A6B8940054758F /* Migration-iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133E696521A6B8940054758F /* Migration-iOS.swift */; };
+		1353F25921E61BD0009A4062 /* OutputParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BAA21CBE9F00057BD93 /* OutputParameters.swift */; };
+		1353F25A21E61BD0009A4062 /* InputParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BA821CBE9C70057BD93 /* InputParameters.swift */; };
+		1353F25B21E61BD0009A4062 /* ShhApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BA621CBE7C70057BD93 /* ShhApi.swift */; };
+		1353F25C21E61BD0009A4062 /* EthereumApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1397DFE021C7F81F000D659A /* EthereumApi.swift */; };
+		1353F25D21E61D53009A4062 /* BlockNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133A973E21C3E91F00ABB173 /* BlockNumber.swift */; };
+		1353F25E21E61D53009A4062 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A93F5F21B172D900F115E4 /* Transaction.swift */; };
+		1353F26121E61E37009A4062 /* NetworkId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1353F25F21E61E22009A4062 /* NetworkId.swift */; };
+		1353F26321E61EFC009A4062 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE29CA21E5297700B79997 /* Extensions.swift */; };
+		1353F26421E62387009A4062 /* Ethereum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13FE29DC21E5E99800B79997 /* Ethereum.framework */; };
 		135945AB2195952600975EE3 /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135945AA2195952600975EE3 /* Bridging.swift */; };
 		135DBB2621D120AD001C382C /* base58.c in Sources */ = {isa = PBXBuildFile; fileRef = 135DBB2421D120AD001C382C /* base58.c */; };
 		135DBB2921D120BF001C382C /* base58.h in Headers */ = {isa = PBXBuildFile; fileRef = 135DBB2821D120BF001C382C /* base58.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -86,7 +94,6 @@
 		1374196821E4C58F0033359C /* RippleAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135DBAEB21D1050E001C382C /* RippleAddress.swift */; };
 		1374196921E4C58F0033359C /* RippleLedgerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1339953F21D4F032009A8485 /* RippleLedgerApi.swift */; };
 		1374196A21E4C58F0033359C /* RippleAccountsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1339953D21D4EDF3009A8485 /* RippleAccountsApi.swift */; };
-		1374196B21E4C6060033359C /* EthereumApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1397DFE021C7F81F000D659A /* EthereumApi.swift */; };
 		13765D6A21964A9B005C483C /* W3TxPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D5B21964A95005C483C /* W3TxPool.swift */; };
 		13765D6B21964A9B005C483C /* W3Contracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D5C21964A95005C483C /* W3Contracts.swift */; };
 		13765D6C21964A9B005C483C /* W3Keystore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D5D21964A96005C483C /* W3Keystore.swift */; };
@@ -125,9 +132,6 @@
 		13975205219AFA6D0044D2B0 /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE9218C526C00D6D095 /* TransactionTests.swift */; };
 		13975206219AFA6D0044D2B0 /* SECP256K1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDEA218C526C00D6D095 /* SECP256K1Tests.swift */; };
 		1397DFDC21C7B2A1000D659A /* JsonRpcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1397DFDB21C7B2A1000D659A /* JsonRpcTests.swift */; };
-		13992BA721CBE7C70057BD93 /* ShhApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BA621CBE7C70057BD93 /* ShhApi.swift */; };
-		13992BA921CBE9C70057BD93 /* InputParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BA821CBE9C70057BD93 /* InputParameters.swift */; };
-		13992BAB21CBE9F00057BD93 /* OutputParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BAA21CBE9F00057BD93 /* OutputParameters.swift */; };
 		13992BAD21CBECEF0057BD93 /* EthereumApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13992BAC21CBECEF0057BD93 /* EthereumApiTests.swift */; };
 		13A8D4F121B7446A00469740 /* keccak.h in Headers */ = {isa = PBXBuildFile; fileRef = 13A8D4EF21B7446A00469740 /* keccak.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		13A8D4F221B7446A00469740 /* keccak.c in Sources */ = {isa = PBXBuildFile; fileRef = 13A8D4F021B7446A00469740 /* keccak.c */; };
@@ -157,7 +161,6 @@
 		13A8D52421B7447400469740 /* asprintf.c in Sources */ = {isa = PBXBuildFile; fileRef = 13A8D50C21B7447400469740 /* asprintf.c */; };
 		13A8D52721B7463400469740 /* keccak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13C3393421B6F41000F33F5E /* keccak.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		13A8D52821B7463400469740 /* scrypt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A8D4E521B7442800469740 /* scrypt.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		13A93F6021B172D900F115E4 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A93F5F21B172D900F115E4 /* Transaction.swift */; };
 		13AC5D3E21A5D109009D0309 /* SolidityDataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AC5D3D21A5D109009D0309 /* SolidityDataReader.swift */; };
 		13C338F821B6C62400F33F5E /* hash.h in Headers */ = {isa = PBXBuildFile; fileRef = 13C338C821B6C62200F33F5E /* hash.h */; };
 		13C338F921B6C62400F33F5E /* field_10x26.h in Headers */ = {isa = PBXBuildFile; fileRef = 13C338C921B6C62200F33F5E /* field_10x26.h */; };
@@ -240,7 +243,6 @@
 		13FE29C721E528BE00B79997 /* JEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1397E00321C8FA67000D659A /* JEncodable.swift */; };
 		13FE29C821E528BE00B79997 /* NetworkPromises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133A974521C3FD7800ABB173 /* NetworkPromises.swift */; };
 		13FE29C921E528BE00B79997 /* AnyReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD22218C526300D6D095 /* AnyReader.swift */; };
-		13FE29CC21E52A6000B79997 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE29CA21E5297700B79997 /* Extensions.swift */; };
 		13FE29CD21E52C2B00B79997 /* base58.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 135DBB1B21D12070001C382C /* base58.framework */; };
 		13FE29CE21E52C2B00B79997 /* keccak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13C3393421B6F41000F33F5E /* keccak.framework */; };
 		13FE29CF21E52C2B00B79997 /* scrypt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A8D4E521B7442800469740 /* scrypt.framework */; };
@@ -250,6 +252,10 @@
 		13FE29D321E5DEE600B79997 /* CoreBlockchain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13FE297D21E5207C00B79997 /* CoreBlockchain.framework */; };
 		13FE29D521E5E00100B79997 /* ResponseProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE29D421E5E00100B79997 /* ResponseProcessing.swift */; };
 		13FE29D621E5E4BD00B79997 /* CoreBlockchain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13FE297D21E5207C00B79997 /* CoreBlockchain.framework */; };
+		13FE29E521E5E99900B79997 /* Ethereum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13FE29DC21E5E99800B79997 /* Ethereum.framework */; };
+		13FE29EA21E5E99900B79997 /* EthereumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE29E921E5E99900B79997 /* EthereumTests.swift */; };
+		13FE29EC21E5E99900B79997 /* Ethereum.h in Headers */ = {isa = PBXBuildFile; fileRef = 13FE29DE21E5E99800B79997 /* Ethereum.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		13FE29F321E5E9AC00B79997 /* CoreBlockchain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13FE297D21E5207C00B79997 /* CoreBlockchain.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -273,6 +279,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 13FE297C21E5207C00B79997;
 			remoteInfo = CoreBlockchain;
+		};
+		13FE29E621E5E99900B79997 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1317BCDA218C50D100D6D095 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13FE29DB21E5E99800B79997;
+			remoteInfo = Ethereum;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -385,6 +398,7 @@
 		133A974D21C40D5A00ABB173 /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
 		133E673A219EFE630054758F /* Guides.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guides.swift; sourceTree = "<group>"; };
 		133E696521A6B8940054758F /* Migration-iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Migration-iOS.swift"; sourceTree = "<group>"; };
+		1353F25F21E61E22009A4062 /* NetworkId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkId.swift; sourceTree = "<group>"; };
 		135945AA2195952600975EE3 /* Bridging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridging.swift; sourceTree = "<group>"; };
 		135DBAEB21D1050E001C382C /* RippleAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleAddress.swift; sourceTree = "<group>"; };
 		135DBB1B21D12070001C382C /* base58.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = base58.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -528,6 +542,11 @@
 		13FE29A621E5232100B79997 /* UInt256.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UInt256.swift; sourceTree = "<group>"; };
 		13FE29CA21E5297700B79997 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		13FE29D421E5E00100B79997 /* ResponseProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseProcessing.swift; sourceTree = "<group>"; };
+		13FE29DC21E5E99800B79997 /* Ethereum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Ethereum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		13FE29DE21E5E99800B79997 /* Ethereum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ethereum.h; sourceTree = "<group>"; };
+		13FE29E421E5E99900B79997 /* EthereumTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EthereumTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		13FE29E921E5E99900B79997 /* EthereumTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumTests.swift; sourceTree = "<group>"; };
+		13FE29EB21E5E99900B79997 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -535,6 +554,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1353F26421E62387009A4062 /* Ethereum.framework in Frameworks */,
 				13FE29D621E5E4BD00B79997 /* CoreBlockchain.framework in Frameworks */,
 				135DBB2A21D120E4001C382C /* base58.framework in Frameworks */,
 				13A8D52721B7463400469740 /* keccak.framework in Frameworks */,
@@ -629,6 +649,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		13FE29D921E5E99800B79997 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13FE29F321E5E9AC00B79997 /* CoreBlockchain.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13FE29E121E5E99900B79997 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13FE29E521E5E99900B79997 /* Ethereum.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -693,6 +729,8 @@
 				1374195621E4C5620033359C /* BitcoinTests.xctest */,
 				13FE297D21E5207C00B79997 /* CoreBlockchain.framework */,
 				13FE298521E5207C00B79997 /* CoreBlockchainTests.xctest */,
+				13FE29DC21E5E99800B79997 /* Ethereum.framework */,
+				13FE29E421E5E99900B79997 /* EthereumTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -700,6 +738,7 @@
 		1317BCFD218C526300D6D095 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				13FE29DD21E5E99800B79997 /* Ethereum */,
 				1374193321E4C5530033359C /* Ripple */,
 				1374194F21E4C5620033359C /* Bitcoin */,
 				13C3385721B6C23800F33F5E /* web3swift */,
@@ -863,6 +902,7 @@
 		1317BDD2218C526C00D6D095 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				13FE29E821E5E99900B79997 /* EthereumTests */,
 				1374193E21E4C5530033359C /* RippleTests */,
 				1374195A21E4C5620033359C /* BitcoinTests */,
 				1317404621BE96D300208B8F /* web3swiftTests */,
@@ -967,17 +1007,6 @@
 			path = NetworkTests;
 			sourceTree = "<group>";
 		};
-		13992BA521CBE7A50057BD93 /* Ethereum */ = {
-			isa = PBXGroup;
-			children = (
-				1397DFE021C7F81F000D659A /* EthereumApi.swift */,
-				13992BA621CBE7C70057BD93 /* ShhApi.swift */,
-				13992BA821CBE9C70057BD93 /* InputParameters.swift */,
-				13992BAA21CBE9F00057BD93 /* OutputParameters.swift */,
-			);
-			path = Ethereum;
-			sourceTree = "<group>";
-		};
 		13A8D4ED21B7446A00469740 /* keccak */ = {
 			isa = PBXGroup;
 			children = (
@@ -1042,8 +1071,6 @@
 				1317BD01218C526300D6D095 /* EthereumTransaction.swift */,
 				13AC5D3D21A5D109009D0309 /* SolidityDataReader.swift */,
 				1317BD45218C526300D6D095 /* SolidityDataWriter.swift */,
-				13A93F5F21B172D900F115E4 /* Transaction.swift */,
-				133A973E21C3E91F00ABB173 /* BlockNumber.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -1070,7 +1097,6 @@
 			isa = PBXGroup;
 			children = (
 				1317BD5B218C526300D6D095 /* BigInt.swift */,
-				13992BA521CBE7A50057BD93 /* Ethereum */,
 				13A93F5D21B172A800F115E4 /* Transactions */,
 				133E673A219EFE630054758F /* Guides.swift */,
 				1317BD58218C526300D6D095 /* Migration.swift */,
@@ -1087,7 +1113,6 @@
 				1317BD3C218C526300D6D095 /* ABIv2 */,
 				1317BD4A218C526300D6D095 /* KeystoreManager */,
 				1317BD66218C526300D6D095 /* ObjectiveC */,
-				13FE29CA21E5297700B79997 /* Extensions.swift */,
 			);
 			path = web3swift;
 			sourceTree = "<group>";
@@ -1217,6 +1242,31 @@
 			path = Convenience;
 			sourceTree = "<group>";
 		};
+		13FE29DD21E5E99800B79997 /* Ethereum */ = {
+			isa = PBXGroup;
+			children = (
+				13FE29DE21E5E99800B79997 /* Ethereum.h */,
+				1397DFE021C7F81F000D659A /* EthereumApi.swift */,
+				13992BA621CBE7C70057BD93 /* ShhApi.swift */,
+				13992BA821CBE9C70057BD93 /* InputParameters.swift */,
+				13992BAA21CBE9F00057BD93 /* OutputParameters.swift */,
+				13A93F5F21B172D900F115E4 /* Transaction.swift */,
+				133A973E21C3E91F00ABB173 /* BlockNumber.swift */,
+				1353F25F21E61E22009A4062 /* NetworkId.swift */,
+				13FE29CA21E5297700B79997 /* Extensions.swift */,
+			);
+			path = Ethereum;
+			sourceTree = "<group>";
+		};
+		13FE29E821E5E99900B79997 /* EthereumTests */ = {
+			isa = PBXGroup;
+			children = (
+				13FE29E921E5E99900B79997 /* EthereumTests.swift */,
+				13FE29EB21E5E99900B79997 /* Info.plist */,
+			);
+			path = EthereumTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1336,6 +1386,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				13FE298D21E5207C00B79997 /* CoreBlockchain.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13FE29D721E5E99800B79997 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13FE29EC21E5E99900B79997 /* Ethereum.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1561,6 +1619,43 @@
 			productReference = 13FE298521E5207C00B79997 /* CoreBlockchainTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		13FE29DB21E5E99800B79997 /* Ethereum */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13FE29ED21E5E99900B79997 /* Build configuration list for PBXNativeTarget "Ethereum" */;
+			buildPhases = (
+				13FE29D721E5E99800B79997 /* Headers */,
+				13FE29D821E5E99800B79997 /* Sources */,
+				13FE29D921E5E99800B79997 /* Frameworks */,
+				13FE29DA21E5E99800B79997 /* Resources */,
+				1353F26221E61E5D009A4062 /* Carthage */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Ethereum;
+			productName = Ethereum;
+			productReference = 13FE29DC21E5E99800B79997 /* Ethereum.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		13FE29E321E5E99900B79997 /* EthereumTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13FE29F021E5E99900B79997 /* Build configuration list for PBXNativeTarget "EthereumTests" */;
+			buildPhases = (
+				13FE29E021E5E99900B79997 /* Sources */,
+				13FE29E121E5E99900B79997 /* Frameworks */,
+				13FE29E221E5E99900B79997 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				13FE29E721E5E99900B79997 /* PBXTargetDependency */,
+			);
+			name = EthereumTests;
+			productName = EthereumTests;
+			productReference = 13FE29E421E5E99900B79997 /* EthereumTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1608,6 +1703,12 @@
 					13FE298421E5207C00B79997 = {
 						CreatedOnToolsVersion = 10.1;
 					};
+					13FE29DB21E5E99800B79997 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					13FE29E321E5E99900B79997 = {
+						CreatedOnToolsVersion = 10.1;
+					};
 				};
 			};
 			buildConfigurationList = 1317BCDD218C50D100D6D095 /* Build configuration list for PBXProject "web3swift" */;
@@ -1634,6 +1735,8 @@
 				1374195521E4C5620033359C /* BitcoinTests */,
 				13FE297C21E5207C00B79997 /* CoreBlockchain */,
 				13FE298421E5207C00B79997 /* CoreBlockchainTests */,
+				13FE29DB21E5E99800B79997 /* Ethereum */,
+				13FE29E321E5E99900B79997 /* EthereumTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1723,10 +1826,42 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		13FE29DA21E5E99800B79997 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13FE29E221E5E99900B79997 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		1317BE04218C5D1B00D6D095 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Carthage;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nfor path in $FRAMEWORK_SEARCH_PATHS\ndo\nif [ -d \"${path}/Dip.framework\" ] && [[ $path == *\"Carthage\"* ]]; then\nexport SCRIPT_INPUT_FILE_COUNT=1\nexport SCRIPT_INPUT_FILE_0=\"${path}/Dip.framework\"\n/usr/local/bin/carthage copy-frameworks\nbreak\nfi\ndone\n";
+		};
+		1353F26221E61E5D009A4062 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1805,26 +1940,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13A93F6021B172D900F115E4 /* Transaction.swift in Sources */,
 				133E696621A6B8940054758F /* Migration-iOS.swift in Sources */,
 				13765D6F21964A9B005C483C /* W3Web3.swift in Sources */,
 				13765D7121964A9B005C483C /* W3Contract.swift in Sources */,
 				1317BD87218C526300D6D095 /* Web3+Infura.swift in Sources */,
 				1317BDAD218C526300D6D095 /* SolidityTypes.swift in Sources */,
 				1317BDBD218C526300D6D095 /* Migration.swift in Sources */,
-				13FE29CC21E52A6000B79997 /* Extensions.swift in Sources */,
 				133E673B219EFE630054758F /* Guides.swift in Sources */,
-				13992BA721CBE7C70057BD93 /* ShhApi.swift in Sources */,
 				1317BD78218C526300D6D095 /* ERC20.swift in Sources */,
 				1317BD84218C526300D6D095 /* Web3+Methods.swift in Sources */,
 				1317BD7F218C526300D6D095 /* Web3+JsonRpcRequest.swift in Sources */,
-				13992BAB21CBE9F00057BD93 /* OutputParameters.swift in Sources */,
 				13765D6E21964A9B005C483C /* W3TransactionIntermediate.swift in Sources */,
 				13765D7621964A9B005C483C /* W3Personal.swift in Sources */,
 				1317BDB0218C526300D6D095 /* KeystoreManager.swift in Sources */,
 				1317BDB3218C526300D6D095 /* BIP32HDNode.swift in Sources */,
 				1317BD97218C526300D6D095 /* Batching.swift in Sources */,
-				13992BA921CBE9C70057BD93 /* InputParameters.swift in Sources */,
 				13765D7521964A9B005C483C /* W3JsonRpc.swift in Sources */,
 				1317BD8D218C526300D6D095 /* TxPool.swift in Sources */,
 				1317BD7D218C526300D6D095 /* Web3+Personal.swift in Sources */,
@@ -1835,12 +1965,10 @@
 				1317BDB1218C526300D6D095 /* IBAN.swift in Sources */,
 				1317BD7B218C526300D6D095 /* Web3+HttpProvider.swift in Sources */,
 				1317BDA5218C526300D6D095 /* ABIv2Elements.swift in Sources */,
-				133A973F21C3E91F00ABB173 /* BlockNumber.swift in Sources */,
 				1317BD7A218C526300D6D095 /* ERC777.swift in Sources */,
 				1317BDB6218C526300D6D095 /* EthereumKeystoreV3.swift in Sources */,
 				13765D7821964A9B005C483C /* W3Transaction.swift in Sources */,
 				1317BDC6218C526300D6D095 /* NativeTypesEncoding+Extensions.swift in Sources */,
-				1374196B21E4C6060033359C /* EthereumApi.swift in Sources */,
 				1317BD76218C526300D6D095 /* ContractProtocol.swift in Sources */,
 				1317BDA2218C526300D6D095 /* Web3+Wallet.swift in Sources */,
 				1317BD74218C526300D6D095 /* ComparisonExtensions.swift in Sources */,
@@ -2051,6 +2179,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		13FE29D821E5E99800B79997 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1353F25A21E61BD0009A4062 /* InputParameters.swift in Sources */,
+				1353F25D21E61D53009A4062 /* BlockNumber.swift in Sources */,
+				1353F25E21E61D53009A4062 /* Transaction.swift in Sources */,
+				1353F26321E61EFC009A4062 /* Extensions.swift in Sources */,
+				1353F25C21E61BD0009A4062 /* EthereumApi.swift in Sources */,
+				1353F25921E61BD0009A4062 /* OutputParameters.swift in Sources */,
+				1353F26121E61E37009A4062 /* NetworkId.swift in Sources */,
+				1353F25B21E61BD0009A4062 /* ShhApi.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13FE29E021E5E99900B79997 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13FE29EA21E5E99900B79997 /* EthereumTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2068,6 +2219,11 @@
 			isa = PBXTargetDependency;
 			target = 13FE297C21E5207C00B79997 /* CoreBlockchain */;
 			targetProxy = 13FE298721E5207C00B79997 /* PBXContainerItemProxy */;
+		};
+		13FE29E721E5E99900B79997 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13FE29DB21E5E99800B79997 /* Ethereum */;
+			targetProxy = 13FE29E621E5E99900B79997 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2459,7 +2615,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = AUCR797TMH;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = RippleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2485,7 +2640,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = AUCR797TMH;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = RippleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2573,7 +2727,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = AUCR797TMH;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = BitcoinTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2599,7 +2752,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = AUCR797TMH;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = BitcoinTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2936,7 +3088,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = AUCR797TMH;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = CoreBlockchainTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2962,7 +3113,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = AUCR797TMH;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = CoreBlockchainTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2970,6 +3120,118 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = org.bankexfoundation.CoreBlockchainTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+		13FE29EE21E5E99900B79997 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = AUCR797TMH;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = org.bankexfoundation.Ethereum;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		13FE29EF21E5E99900B79997 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = AUCR797TMH;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = org.bankexfoundation.Ethereum;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+		13FE29F121E5E99900B79997 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = AUCR797TMH;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = org.bankexfoundation.EthereumTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		13FE29F221E5E99900B79997 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = AUCR797TMH;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = org.bankexfoundation.EthereumTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -3091,6 +3353,24 @@
 			buildConfigurations = (
 				13FE299221E5207C00B79997 /* Debug */,
 				13FE299321E5207C00B79997 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13FE29ED21E5E99900B79997 /* Build configuration list for PBXNativeTarget "Ethereum" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13FE29EE21E5E99900B79997 /* Debug */,
+				13FE29EF21E5E99900B79997 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13FE29F021E5E99900B79997 /* Build configuration list for PBXNativeTarget "EthereumTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13FE29F121E5E99900B79997 /* Debug */,
+				13FE29F221E5E99900B79997 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

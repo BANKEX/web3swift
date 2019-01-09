@@ -10,6 +10,7 @@ import BigInt
 import XCTest
 
 @testable import web3swift
+@testable import CoreBlockchain
 
 class UserCases: XCTestCase {
     func getKeystoreData() -> Data? {

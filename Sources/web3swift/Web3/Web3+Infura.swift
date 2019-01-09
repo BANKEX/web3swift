@@ -8,16 +8,7 @@
 
 import BigInt
 import Foundation
-
-extension URL {
-    static func infura(_ network: NetworkId, token: String? = nil) -> URL {
-        var url = URL(string: "https://\(network).infura.io/")!
-        if let token = token {
-            url.appendPathComponent(token)
-        }
-        return url
-    }
-}
+import Ethereum
 
 /**
  Custom Web3 HTTP provider of Infura nodes.

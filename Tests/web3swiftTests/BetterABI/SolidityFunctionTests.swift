@@ -9,6 +9,7 @@
 import XCTest
 import BigInt
 @testable import web3swift
+@testable import CoreBlockchain
 
 private func scan(type: String) throws -> SolidityType {
     return try SolidityType.scan(type: type)

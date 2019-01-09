@@ -11,6 +11,7 @@ import BigInt
 import XCTest
 
 @testable import web3swift
+@testable import CoreBlockchain
 
 class LocalNodeTests: XCTestCase {
     var web3: Web3?

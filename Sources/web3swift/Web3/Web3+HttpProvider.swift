@@ -9,6 +9,7 @@
 import BigInt
 import Foundation
 import PromiseKit
+import Ethereum
 
 /// Providers abstraction for custom providers (websockets, other custom private key managers). At the moment should not be used.
 public protocol Web3Provider {
