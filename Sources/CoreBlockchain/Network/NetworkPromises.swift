@@ -70,6 +70,16 @@ class PromiseOperation<T>: Operation {
     }
 }
 
+enum URLError: Error {
+    case invalidURLFormat(String)
+    var localizedDescription: String {
+        switch self {
+        case .invalidURLFormat(let string):
+            return "Invalid url format: \(string)"
+        }
+    }
+}
+
 extension URLSession: NetworkProtocol {
     public func send(request: Request, to url: URL) {
         send(request: request, to: url).done(on: .web3) { data in
@@ -82,6 +92,17 @@ extension URLSession: NetworkProtocol {
             }
         }.catch(request._failed)
     }
+    public func get(_ string: String) -> Promise<Data> {
+        guard let url = URL(string: string) else {
+            return Promise<Data>(error: URLError.invalidURLFormat(string))
+        }
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 15)
+        return send(request: request)
+    }
+    public func get(url: URL) -> Promise<Data> {
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 15)
+        return send(request: request)
+    }
     private func send(request: Request, to url: URL) -> Promise<Data> {
         return DispatchQueue.web3.promise {
             try request.request(url: url)
@@ -91,7 +112,6 @@ extension URLSession: NetworkProtocol {
     }
     private func send(request: URLRequest) -> Promise<Data> {
         let (promise, resolver) = Promise<Data>.pending()
-        print("request: \(request.httpBody!.string)")
         dataTask(with: request) { data, response, error in
             if let error = error {
                 resolver.reject(error)

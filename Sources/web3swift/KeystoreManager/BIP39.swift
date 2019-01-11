@@ -33,21 +33,21 @@ public enum BIP39Language: String {
     public var words: [String] {
         switch self {
         case .english:
-            return englishWords
+            return BIP39Language.englishWords
         case .chinese_simplified:
-            return simplifiedchineseWords
+            return BIP39Language.simplifiedchineseWords
         case .chinese_traditional:
-            return traditionalchineseWords
+            return BIP39Language.traditionalchineseWords
         case .japanese:
-            return japaneseWords
+            return BIP39Language.japaneseWords
         case .korean:
-            return koreanWords
+            return BIP39Language.koreanWords
         case .french:
-            return frenchWords
+            return BIP39Language.frenchWords
         case .italian:
-            return italianWords
+            return BIP39Language.italianWords
         case .spanish:
-            return spanishWords
+            return BIP39Language.spanishWords
         }
     }
 

@@ -7,17 +7,30 @@
 //
 
 import Foundation
+import PromiseKit
 import CoreBlockchain
 
 extension PrivateKey {
     public func bitcoinAddress(network: BTCNetworkId = .mainnet) -> BitcoinAddress {
-        return try! BitcoinAddress(publicKey: publicKey, network: network.rawValue)
+        return publicKey.bitcoinAddress(network: network)
+    }
+}
+extension PublicKey {
+    public func bitcoinAddress(network: BTCNetworkId = .mainnet) -> BitcoinAddress {
+        return try! BitcoinAddress(publicKey: self, network: network.rawValue)
     }
 }
 
 open class BitcoinAddress: Address58 {
-    open override var string: String {
-        return data.base58(.bitcoin)
+    public func balance() -> Promise<Int64> {
+        return URLSession.web3.get("https://insight.bitpay.com/api/addr/\(string)/balance").map(on: .web3) {
+            let string = $0.string
+            if let balance = Int64(string) {
+                return balance
+            } else {
+                throw NSError(domain: string, code: 0, userInfo: nil)
+            }
+        }
     }
 }
 

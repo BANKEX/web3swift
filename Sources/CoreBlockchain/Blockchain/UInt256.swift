@@ -13,6 +13,9 @@ public struct UInt256: ExpressibleByIntegerLiteral {
     public init() {
         raw = (0,0,0,0)
     }
+    public init(_ a: UInt64, _ b: UInt64, _ c: UInt64, _ d: UInt64) {
+        raw = (a,b,c,d)
+    }
     public init(repeating word: UInt64) {
         raw = (word,word,word,word)
     }
@@ -45,6 +48,14 @@ public struct UInt256: ExpressibleByIntegerLiteral {
         raw = (UInt64(source),0,0,0)
     }
     
+    public init(_ data: Data) {
+        let pointer: UnsafePointer<UInt64> = data.withUnsafeBytes { $0 }
+        raw = (pointer[0],pointer[1],pointer[2],pointer[3])
+    }
+    public var data: Data {
+        return Data(raw: self)
+    }
+    
     public typealias IntegerLiteralType = UInt64
     
     public var isZero: Bool {
@@ -54,6 +65,8 @@ public struct UInt256: ExpressibleByIntegerLiteral {
         raw = (0,0,0,0)
     }
     public typealias Word = UInt64
+    
+    
 }
 
 extension UInt256: UnsignedInteger {

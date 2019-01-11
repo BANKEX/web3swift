@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import Bitcoin
+@testable import CoreBlockchain
 
 class BitcoinTests: XCTestCase {
 
@@ -22,6 +23,10 @@ class BitcoinTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let raw = "xpub6CrL3ZRNGn27tJuruirR4hkfyF65rHyPbyE9sxHkGSM8kQMRavuBHX1xLQcpWSRFUumQygipVGd2u5KQaJMRHhmHH1a7nYUVu8uXQWdSXvy".base58(.bitcoin)!
+        let key = PublicKey(raw)
+        let balance = try! BitcoinAddress("1GVY5eZvtc5bA6EFEGnpqJeHUC5YaV5dsb")!.balance().wait()
+        print(balance)
     }
 
     func testPerformanceExample() {

@@ -28,5 +28,15 @@ public class RippleAddress: Address58 {
         string[0] = "r"
         return string
     }
+    public init(publicKey: PublicKey) throws {
+        try super.init(publicKey: publicKey, network: 0)
+    }
+    public override init(_ data: Data) {
+        super.init(data)
+    }
+    public override init?(_ base58: String) {
+        guard let data = base58.base58(.ripple) else { return nil }
+        super.init(data)
+    }
 }
 
