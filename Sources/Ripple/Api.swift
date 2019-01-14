@@ -49,14 +49,10 @@ extension AnyReader {
             throw unconvertible(to: "UInt")
         }
     }
-    func rippleBase58() throws -> Data {
-        let string = try self.string()
-        guard let data = string.base58(.ripple) else { throw unconvertible(to: "base58 data") }
-        return data
-    }
     func rippleAddress() throws -> RippleAddress {
-        let data = try rippleBase58()
-        return RippleAddress(data)
+        let string = try self.string()
+        guard let address = RippleAddress(string) else { throw unconvertible(to: "base58 data") }
+        return address
     }
     /// Returns bool if exists and false if not
     func bool(at key: String) throws -> Bool {

@@ -47,6 +47,9 @@ public class PrivateKey {
     public init(_ privateKey: Data) {
         self.privateKey = privateKey
     }
+    public init(_ uint256: UInt256) {
+        self.privateKey = uint256.data
+    }
     
     /// Signs hash with private key signature
     ///
@@ -68,29 +71,36 @@ public class PrivateKey {
 
 public class PublicKey {
     public var data: Data
+    public var isCompressed: Bool { return data.count == 33 }
     public init(_ data: Data) {
         self.data = data
     }
-    public func check() throws {
-        
+    public func verify() throws {
+        _ = try SECP256K1.combineSerializedPublicKeys(keys: [data], outputCompressed: !isCompressed)
     }
-    public func compressed() throws -> PublicKey {
+    public func compressed() -> PublicKey {
         guard self.data.count != 33 else { return self }
-        let data = try SECP256K1.combineSerializedPublicKeys(keys: [self.data], outputCompressed: true)
-        return PublicKey(data)
+        do {
+            let data = try SECP256K1.combineSerializedPublicKeys(keys: [self.data], outputCompressed: true)
+            return PublicKey(data)
+        } catch {
+            fatalError("Invalid public key")
+        }
     }
-    public func decompressed() throws -> PublicKey {
+    public func decompressed() -> PublicKey {
         guard self.data.count != 65 else { return self }
-        let data = try SECP256K1.combineSerializedPublicKeys(keys: [self.data], outputCompressed: false)
-        return PublicKey(data)
+        do {
+            let data = try SECP256K1.combineSerializedPublicKeys(keys: [self.data], outputCompressed: false)
+            return PublicKey(data)
+        } catch {
+            fatalError("Invalid public key")
+        }
     }
-    public func ethereumAddress() throws -> Address {
-        var stipped = try decompressed().data
+    public func ethereumAddress() -> Address {
+        var stipped = decompressed().data
         if stipped.count == 65 {
-            guard stipped[0] == 4 else { throw PublicKeyError.invalidPublicKeySize }
             return Address(stipped[1..<65].keccak256()[12..<32])
         }
-        guard stipped.count == 64 else { throw PublicKeyError.invalidPublicKeySize }
         return Address(stipped.keccak256()[12 ..< 32])
     }
 }

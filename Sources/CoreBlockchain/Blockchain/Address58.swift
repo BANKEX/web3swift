@@ -8,6 +8,12 @@
 
 import Foundation
 
+extension PublicKey {
+    public func bitcoinAddress() -> Data {
+        return compressed().data.sha256.ripemd160
+    }
+}
+
 open class Address58 {
     public let data: Data
     open var string: String {
@@ -15,15 +21,5 @@ open class Address58 {
     }
     public init(_ data: Data) {
         self.data = data
-    }
-    public init?(_ base58: String) {
-        guard let data = base58.base58(.bitcoin) else { return nil }
-        self.data = data
-    }
-    public init(publicKey: PublicKey, network: UInt8 = 0x00) throws {
-        var encrypted = try publicKey.compressed().data.sha256.ripemd160
-        encrypted.insert(network, at: 0)
-        encrypted.append(encrypted.sha256.sha256[..<4])
-        data = encrypted
     }
 }

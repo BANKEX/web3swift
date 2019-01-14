@@ -108,6 +108,16 @@ extension Data {
         }
         return string
     }
+    /// - Returns: Hex representation of data
+    public var reversedHex: String {
+        var string = ""
+        withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
+            for i in (0..<count).reversed() {
+                string += bytes[i].hex
+            }
+        }
+        return string
+    }
     
     /// - Parameter separateEvery: Position where separator should be inserted.
     /// Counts per byte (not per character)

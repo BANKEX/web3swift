@@ -49,11 +49,42 @@ public struct UInt256: ExpressibleByIntegerLiteral {
     }
     
     public init(_ data: Data) {
-        let pointer: UnsafePointer<UInt64> = data.withUnsafeBytes { $0 }
-        raw = (pointer[0],pointer[1],pointer[2],pointer[3])
+        raw = (0,0,0,0)
+        let count = Swift.min(data.count,32)
+        data.withUnsafeBytes { (input: UnsafePointer<UInt8>) in
+            withUnsafeMutableBytes(of: &self) { output in
+                for i in 0..<count {
+                    output[31-i] = input[i];
+                }
+            }
+        }
     }
     public var data: Data {
-        return Data(raw: self)
+        return data(stripZeroes: false)
+    }
+    public func data(stripZeroes: Bool) -> Data {
+        if stripZeroes {
+            let size = bitWidth / 8
+            var data = Data(count: size)
+            data.withUnsafeMutableBytes { (a: UnsafeMutablePointer<UInt8>) in
+                withUnsafeBytes(of: self) { p in
+                    for i in 0..<size {
+                        a[size-i] = p[i];
+                    }
+                }
+            }
+            return data
+        } else {
+            var data = Data(count: 32)
+            data.withUnsafeMutableBytes { (a: UnsafeMutablePointer<UInt8>) in
+                withUnsafeBytes(of: self) { p in
+                    for i in 0..<32 {
+                        a[31-i] = p[i];
+                    }
+                }
+            }
+            return data
+        }
     }
     
     public typealias IntegerLiteralType = UInt64

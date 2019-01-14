@@ -20,13 +20,11 @@ class BitcoinTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
+    func testBalance() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let raw = "xpub6CrL3ZRNGn27tJuruirR4hkfyF65rHyPbyE9sxHkGSM8kQMRavuBHX1xLQcpWSRFUumQygipVGd2u5KQaJMRHhmHH1a7nYUVu8uXQWdSXvy".base58(.bitcoin)!
-        let key = PublicKey(raw)
-        let balance = try! BitcoinAddress("1GVY5eZvtc5bA6EFEGnpqJeHUC5YaV5dsb")!.balance().wait()
-        print(balance)
+        let balance = try BitcoinAddress("1GVY5eZvtc5bA6EFEGnpqJeHUC5YaV5dsb")!.balance().wait()
+        XCTAssert(balance >= 0)
     }
 
     func testPerformanceExample() {

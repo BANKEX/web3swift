@@ -13,43 +13,65 @@ public enum Base58Alphabet: Int8 {
     case bitcoin, ripple
 }
 
+public enum Base58Error: Error {
+    case invalidStringFormat
+    case invalidPrefix
+    case invalidChecksum
+    case invalidSize
+}
+
 extension Data {
-    public func base58(_ type: Base58Alphabet) -> String {
+    var raw: UnsafeRawPointer {
+        return self.withUnsafeBytes { UnsafeRawPointer($0) }
+    }
+    mutating func mraw() -> UnsafeMutableRawPointer {
+        return self.withUnsafeMutableBytes { UnsafeMutableRawPointer($0) }
+    }
+    public func base58(_ alphabet: Base58Alphabet) -> String {
         let input = withUnsafeBytes { UnsafeRawPointer($0) }
         var size = count*2
         var data = Data(count: size)
         let output: UnsafeMutablePointer<Int8> = data.withUnsafeMutableBytes { return $0 }
-        b58enc(output, &size, input, count, type.rawValue)
+        b58enc(output, &size, input, count, alphabet.rawValue)
         return String(data: data[..<size], encoding: .utf8)!
     }
-//    public func base58Check(_ type: Base58Alphabet, _ prefix: UInt8) -> String {
-//        let input = withUnsafeBytes { UnsafeRawPointer($0) }
-//        var size = count*2
-//        var data = Data(count: size)
-//        let output: UnsafeMutablePointer<Int8> = data.withUnsafeMutableBytes { return $0 }
-//        
-//        b58check_enc(output, &size, prefix, input, count, type.rawValue)
-//        return String(data: data[..<size], encoding: .utf8)!
-//    }
+    public func base58(_ alphabet: Base58Alphabet, prefix: UInt8) -> String {
+        return base58Check(alphabet,prefix).base58(alphabet)
+    }
+    public func base58Check(_ alphabet: Base58Alphabet, _ prefix: UInt8) -> Data {
+        var data = self
+        data.reserveCapacity(data.count + 5)
+        data.insert(prefix, at: 0)
+        data.append(data.sha256.sha256[0..<4])
+        return data
+    }
 }
 extension String {
-    public func base58(_ type: Base58Alphabet) -> Data? {
+    public func base58(_ alphabet: Base58Alphabet) throws -> Data {
+        guard !isEmpty else { throw Base58Error.invalidSize }
         let data = Data(utf8)
         let string: UnsafePointer<Int8> = data.withUnsafeBytes { $0 }
         var result = Data(count: count)
         var size = count
-        b58tobin(result.mutablePointer(), &size, string, data.count, type.rawValue)
+        guard b58tobin(result.mutablePointer(), &size, string, data.count, alphabet.rawValue)
+            else { throw Base58Error.invalidStringFormat }
         return result.subdata(in: count-size..<count)
     }
-//    public func base58Check(_ type: Base58Alphabet) -> Data? {
-//        let data = Data(utf8)
-//        let string: UnsafePointer<Int8> = data.withUnsafeBytes { $0 }
-//        var result = Data(count: count)
-//        var size = 0
-//        let g = b58check(&result, size, string, data.count, 0x21)
-////        b58tobin(&result, &size, string, data.count, type.rawValue)
-//        return Data(result[..<size])
-//    }
+    public func base58(_ alphabet: Base58Alphabet, check: Bool, prefix: UInt8? = nil) throws -> Data {
+        let data = try base58(alphabet)
+        
+        // There should be at least one byte between 1 byte prefix and 4 byte checksum
+        guard data.count > 5 else { throw Base58Error.invalidSize }
+        let checksumIndex = data.count-4
+        if let prefix = prefix {
+            guard data[0] == prefix else { throw Base58Error.invalidPrefix }
+        }
+        if check {
+            guard data[checksumIndex...] == data[..<checksumIndex].sha256.sha256[..<4]
+                else { throw Base58Error.invalidChecksum }
+        }
+        return data[1..<checksumIndex]
+    }
 }
 
 struct Base58 {

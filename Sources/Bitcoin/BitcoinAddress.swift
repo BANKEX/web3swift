@@ -17,11 +17,22 @@ extension PrivateKey {
 }
 extension PublicKey {
     public func bitcoinAddress(network: BTCNetworkId = .mainnet) -> BitcoinAddress {
-        return try! BitcoinAddress(publicKey: self, network: network.rawValue)
+        return BitcoinAddress(publicKey: self, network: network)
     }
 }
 
 open class BitcoinAddress: Address58 {
+    public init?(_ base58: String) {
+        guard let data = try? base58.base58(.bitcoin, check: true) else { return nil }
+        super.init(data)
+    }
+    public override init(_ data: Data) {
+        super.init(data)
+    }
+    public init(publicKey: PublicKey, network: BTCNetworkId) {
+        let data = publicKey.bitcoinAddress().base58Check(.bitcoin, network.rawValue)
+        super.init(data)
+    }
     public func balance() -> Promise<Int64> {
         return URLSession.web3.get("https://insight.bitpay.com/api/addr/\(string)/balance").map(on: .web3) {
             let string = $0.string
