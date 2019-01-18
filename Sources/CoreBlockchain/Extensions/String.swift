@@ -94,61 +94,6 @@ public extension String {
         return Data(byteArray)
     }
 
-    /// Returns true if string starts with "0x"
-    public var isHex: Bool {
-        return hasPrefix("0x")
-    }
-    
-    /// Returns string with "0x" prefix (if !isHex)
-    public var withHex: String {
-        guard !isHex else { return self }
-        return "0x" + self
-    }
-    
-    /// Returns string without "0x" prefix (if isHex)
-    public var withoutHex: String {
-        guard isHex else { return self }
-        return String(self[2...])
-    }
-    
-    /// Returns hex string
-    public var hex: Data {
-        let string = withoutHex
-        var array = [UInt8]()
-        array.reserveCapacity(string.unicodeScalars.lazy.underestimatedCount)
-        var buffer: UInt8?
-        var skip = string.hasPrefix("0x") ? 2 : 0
-        for char in string.unicodeScalars.lazy {
-            guard skip == 0 else {
-                skip -= 1
-                continue
-            }
-            guard char.value >= 48 && char.value <= 102 else { return Data() }
-            let v: UInt8
-            let c: UInt8 = UInt8(char.value)
-            switch c {
-            case let c where c <= 57:
-                v = c - 48
-            case let c where c >= 65 && c <= 70:
-                v = c - 55
-            case let c where c >= 97:
-                v = c - 87
-            default:
-                return Data()
-            }
-            if let b = buffer {
-                array.append(b << 4 | v)
-                buffer = nil
-            } else {
-                buffer = v
-            }
-        }
-        if let b = buffer {
-            array.append(b)
-        }
-        return Data(array)
-    }
-
     public func dataFromHex() throws -> Data {
         let data = self.hex
         guard data.count > 0 else { throw DataError.hexStringCorrupted(self) }

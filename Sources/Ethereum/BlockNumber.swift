@@ -16,7 +16,7 @@ public enum BlockNumberType: String {
     case exact, earliest, latest, pending
 }
 
-/// Work in progress. Will be released in 2.2 - 2.3
+/// Work in progress. Will be released in 3.0 - 2.3
 public struct BlockNumber {
     /// Block number tag
     public var type: BlockNumberType

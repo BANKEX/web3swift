@@ -14,8 +14,11 @@ enum LedgerType {
 }
 
 class Ledger {
+    static var current = Ledger(.tag("current"))
+    static var closed = Ledger(.tag("closed"))
+    static var validated = Ledger(.tag("validated"))
     let type: LedgerType
-    init(type: LedgerType) {
+    init(_ type: LedgerType) {
         self.type = type
     }
 }

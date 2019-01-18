@@ -11,12 +11,12 @@ import PromiseKit
 import CoreBlockchain
 
 extension PrivateKey {
-    public func bitcoinAddress(network: BTCNetworkId = .mainnet) -> BitcoinAddress {
+    public func bitcoinAddress(network: BitcoinNetworkId = .mainnet) -> BitcoinAddress {
         return publicKey.bitcoinAddress(network: network)
     }
 }
 extension PublicKey {
-    public func bitcoinAddress(network: BTCNetworkId = .mainnet) -> BitcoinAddress {
+    public func bitcoinAddress(network: BitcoinNetworkId = .mainnet) -> BitcoinAddress {
         return BitcoinAddress(publicKey: self, network: network)
     }
 }
@@ -29,7 +29,7 @@ open class BitcoinAddress: Address58 {
     public override init(_ data: Data) {
         super.init(data)
     }
-    public init(publicKey: PublicKey, network: BTCNetworkId) {
+    public init(publicKey: PublicKey, network: BitcoinNetworkId) {
         let data = publicKey.bitcoinAddress().base58Check(.bitcoin, network.rawValue)
         super.init(data)
     }
@@ -45,7 +45,7 @@ open class BitcoinAddress: Address58 {
     }
 }
 
-public enum BTCNetworkId: UInt8 {
+public enum BitcoinNetworkId: UInt8 {
     case mainnet = 0x00
     case testnet = 0x6f
 }

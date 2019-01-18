@@ -97,17 +97,6 @@ extension Data {
         }
         return data
     }
-    
-    /// - Returns: Hex representation of data
-    public var hex: String {
-        var string = ""
-        withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
-            for i in 0..<count {
-                string += bytes[i].hex
-            }
-        }
-        return string
-    }
     /// - Returns: Hex representation of data
     public var reversedHex: String {
         var string = ""
@@ -119,40 +108,10 @@ extension Data {
         return string
     }
     
-    /// - Parameter separateEvery: Position where separator should be inserted.
-    /// Counts per byte (not per character)
-    /// - Parameter separator: Separator string
-    /// - Returns: Hex representation of data
-    public func hex(separateEvery: Int, separator: String = " ") -> String {
-        var string = ""
-        string.reserveCapacity(count*2+count/separateEvery*separator.count)
-        var separateCount = separateEvery
-        withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
-            for i in 0..<count {
-                string += bytes[i].hex
-                separateCount -= 1
-                if separateCount == 0 {
-                    separateCount = separateEvery
-                    string += separator
-                }
-            }
-        }
-        return string
-    }
-    
     /// - Returns: Data if string is in hex format
     /// Format: "0x0ba98fc797cfab9864bfac988fa", "0ba98fc797cfab9864bfac988fa"
     public static func fromHex(_ hex: String) -> Data? {
-        let string = hex.lowercased().withoutHex
-        let data = string.hex
-        if data.count == 0 {
-            if string == "" {
-                return Data()
-            } else {
-                return nil
-            }
-        }
-        return data
+        return try? hex.hexToData()
     }
     
     /// - Returns: String (if its utf8 convertible) or hex string

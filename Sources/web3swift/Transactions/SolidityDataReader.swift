@@ -39,19 +39,10 @@ public enum SolidityDataReaderError: Error {
 }
 
 /// Solidity data reader
-public class SolidityDataReader {
-    /// Data
-	public let data: Data
-    /// Current position in data
-	public var position = 0
+public class SolidityDataReader: DataReader {
     /// Header size (in general contains function hash)
     /// Need to ignore header data for array pointers
 	public var headerSize = 0
-    
-    /// Inits with data
-	public init(_ data: Data) {
-		self.data = data
-	}
     
     /// Returns next 32 bytes as BigUInt
 	public func uint256() throws -> BigUInt {
@@ -158,22 +149,6 @@ public class SolidityDataReader {
 		guard range.upperBound <= data.count else { throw SolidityDataReaderError.notFound }
 		position = range.upperBound
 		headerSize = size
-		return self.data[range]
-	}
-    
-    /// Moves position by (count) bytes
-	public func skip(_ count: Int) throws {
-		let end = position+count
-		guard end <= data.count else { throw SolidityDataReaderError.notFound }
-		position = end
-	}
-    
-    /// Returns next data with size.
-    /// Position changes
-	public func next(_ size: Int) throws -> Data {
-		let range = position..<position+size
-		guard range.upperBound <= data.count else { throw SolidityDataReaderError.notFound }
-		position = range.upperBound
 		return self.data[range]
 	}
     

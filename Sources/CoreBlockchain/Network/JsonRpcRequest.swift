@@ -25,7 +25,7 @@ enum JsonRpcError: Error {
     }
 }
 
-/// Work in progress. Will be released in 2.2
+/// Work in progress. Will be released in 3.0
 open class Request {
     public var id = Request.nextId()
     public var method: String
@@ -99,7 +99,7 @@ private extension Request {
     }
 }
 
-/// Work in progress. Will be released in 2.2
+/// Work in progress. Will be released in 3.0
 open class CustomRequest: Request {
     public var parameters: [Any]
     public init(method: String, parameters: [Any]) {
@@ -111,7 +111,7 @@ open class CustomRequest: Request {
     }
 }
 
-/// Work in progress. Will be released in 2.2
+/// Work in progress. Will be released in 3.0
 open class RequestBatch: Request {
     private(set) var requests = [Request]()
     public init() {

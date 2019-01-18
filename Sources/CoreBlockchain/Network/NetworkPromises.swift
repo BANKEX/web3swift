@@ -9,13 +9,13 @@
 import Foundation
 import PromiseKit
 
-/// Work in progress. Will be released in 2.2
+/// Work in progress. Will be released in 3.0
 public protocol NetworkProtocol {
     /// Sends request to url. To get
     func send(request: Request, to url: URL)
 }
 
-/// Work in progress. Will be released in 2.2
+/// Work in progress. Will be released in 3.0
 extension DispatchQueue {
     public static var web3 = DispatchQueue(label: "web3swift.queue")
     func promise<T>(_ execute: @escaping ()throws->(T)) -> Promise<T> {
@@ -52,7 +52,7 @@ extension DispatchQueue {
     }
 }
 
-/// Work in progress. Will be released in 2.2
+/// Work in progress. Will be released in 3.0
 class PromiseOperation<T>: Operation {
     let resolver: Resolver<T>
     let execute: ()throws->(T)

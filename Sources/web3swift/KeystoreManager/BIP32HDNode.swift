@@ -86,7 +86,7 @@ public class HDNode {
 
     /// Init with Base58 encoded string
     public convenience init?(_ serializedString: String) {
-        guard let data = serializedString.base58(.bitcoin) else { return nil }
+        guard let data = try? serializedString.base58(.bitcoin) else { return nil }
         self.init(data)
     }
     

@@ -38,8 +38,8 @@ extension Address: JEncodable {
 
 extension PrivateKey {
     /// Singleton that generates address from public key
-    public var address: Address {
-        return try! publicKey.ethereumAddress()
+    public var ethereumAddress: Address {
+        return publicKey.ethereumAddress()
     }
 }
 

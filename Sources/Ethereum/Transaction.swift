@@ -24,7 +24,7 @@ import CoreBlockchain
 //    }
 //}
 
-/// Work in progress. Will be released in 2.2 - 2.3
+/// Work in progress. Will be released in 3.0 - 2.3
 class Transaction {
     var nonce: BigUInt = 0
     var gasPrice: BigUInt
@@ -68,7 +68,7 @@ class Transaction {
     }
 }
 
-/// Work in progress. Will be released in 2.2
+/// Work in progress. Will be released in 3.0
 class SignedTransaction {
     let transaction: Transaction
     let signature: Signature
@@ -106,15 +106,8 @@ extension Data {
     }
 }
 
-/// Work in progress. Will be released in 2.2
-class TransactionDataWriter {
-    private(set) var data: Data
-    init() {
-        self.data = Data()
-    }
-    init(data: Data) {
-        self.data = data
-    }
+/// Work in progress. Will be released in 3.0
+class TransactionDataWriter: DataWriter {
     
     func append(_ value: BigUInt) {
         _append(value.serialize())
@@ -123,12 +116,12 @@ class TransactionDataWriter {
         _append(value.addressData)
     }
     func _append(_ value: Data) {
-        data.append(value.length(offset: 0x80))
-        data.append(value)
+        append(data: value.length(offset: 0x80))
+        append(data: value)
     }
     func append(_ value: Data) {
-        data.append(value.length(offset: 0x80))
-        data.append(value)
+        append(data: value.length(offset: 0x80))
+        append(data: value)
     }
     
     func done() -> Data {
