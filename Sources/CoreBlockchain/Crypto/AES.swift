@@ -78,121 +78,88 @@ public class AES {
         self.key = Data(key)
     }
     
-    public func encrypt(_ digest: [UInt8]) throws -> [UInt8] {
-        return try AES128(key: key, iv: blockMode.iv).encrypt(Data(digest), padding: padding, mode: blockMode.mode).bytes
+    public func encrypt(_ data: [UInt8]) throws -> [UInt8] {
+        return try encrypt(Data(data)).bytes
     }
-    public func encrypt(_ digest: Data) throws -> Data {
-        return try AES128(key: key, iv: blockMode.iv).encrypt(digest, padding: padding, mode: blockMode.mode)
+    public func encrypt(_ data: Data) throws -> Data {
+        let iv = blockMode.iv
+        let mode = blockMode.mode
+        guard key.count == kCCKeySizeAES128 else {
+            throw AESError.badKeyLength
+        }
+        guard iv.count == kCCBlockSizeAES128 else {
+            throw AESError.badInputVectorLength
+        }
+        var outLength = 0
+        var outBytes = [UInt8](repeating: 0, count: data.count + kCCBlockSizeAES128)
+        var length = 0
+        
+        var cryptor: CCCryptorRef!
+        try CCCryptorCreateWithMode(CCOperation(kCCEncrypt), mode.cc, CCAlgorithm(kCCAlgorithmAES128), padding.cc, •iv, •key, key.count, nil, 0, 0, CCModeOptions(kCCModeOptionCTR_BE), &cryptor).check()
+        try CCCryptorUpdate(cryptor, •data, data.count, &outBytes, outBytes.count, &outLength).check()
+        length += outLength
+        try CCCryptorFinal(cryptor, &outBytes + outLength, outBytes.count, &outLength).check()
+        length += outLength
+        
+        return Data(bytes: •outBytes, count: length)
     }
     
-    public func decrypt(_ digest: [UInt8]) throws -> [UInt8] {
-        return try AES128(key: key, iv: blockMode.iv).decrypt(Data(digest), padding: padding, mode: blockMode.mode).bytes
+    public func decrypt(_ data: [UInt8]) throws -> [UInt8] {
+        return try decrypt(Data(data)).bytes
     }
-    public func decrypt(_ digest: Data) throws -> Data {
-        return try AES128(key: key, iv: blockMode.iv).decrypt(digest, padding: padding, mode: blockMode.mode)
+    public func decrypt(_ data: Data) throws -> Data {
+        let iv = blockMode.iv
+        let mode = blockMode.mode
+        guard key.count == kCCKeySizeAES128 else {
+            throw AESError.badKeyLength
+        }
+        guard iv.count == kCCBlockSizeAES128 else {
+            throw AESError.badInputVectorLength
+        }
+        var outLength = 0
+        var outBytes = [UInt8](repeating: 0, count: data.count + kCCBlockSizeAES128)
+        var length = 0
+        
+        var cryptor: CCCryptorRef!
+        try CCCryptorCreateWithMode(CCOperation(kCCDecrypt), mode.cc, CCAlgorithm(kCCAlgorithmAES128), padding.cc, •iv, •key, key.count, nil, 0, 0, CCModeOptions(kCCModeOptionCTR_BE), &cryptor).check()
+        try CCCryptorUpdate(cryptor, •data, data.count, &outBytes, outBytes.count, &outLength).check()
+        length += outLength
+        try CCCryptorFinal(cryptor, &outBytes + outLength, outBytes.count, &outLength).check()
+        length += outLength
+        
+        return Data(bytes: •outBytes, count: length)
     }
 }
 
 private extension CCCryptorStatus {
     func check() throws {
-        guard self == kCCSuccess else { throw AES128.Error.cryptoFailed(status: self) }
-    }
-}
-private extension Data {
-    func pointer(_ body: (UnsafePointer<UInt8>?) throws -> ()) rethrows {
-        try withUnsafeBytes(body)
+        guard self == kCCSuccess else { throw AESError.cryptoFailed(status: self) }
     }
 }
 
-//PBKDF.deriveKey(fromPassword: mnemonics.decomposedStringWithCompatibilityMapping, salt: saltData, prf: .sha512, rounds: 2048, derivedKeyLength: 64)
-struct AES128 {
-    private var key: Data
-    private var iv: Data
-    
-    init(key: Data, iv: Data) throws {
-        guard key.count == kCCKeySizeAES128 else {
-            throw Error.badKeyLength
-        }
-        guard iv.count == kCCBlockSizeAES128 else {
-            throw Error.badInputVectorLength
-        }
-        self.key = key
-        self.iv = iv
+private func aes128(key: Data, iv: Data, input: Data, operation: CCOperation, padding: AESPadding, mode: AesMode) throws -> Data {
+    guard key.count == kCCKeySizeAES128 else {
+        throw AESError.badKeyLength
     }
-    
-    enum Error: Swift.Error {
-        case keyGeneration(status: Int)
-        case cryptoFailed(status: CCCryptorStatus)
-        case badKeyLength
-        case badInputVectorLength
+    guard iv.count == kCCBlockSizeAES128 else {
+        throw AESError.badInputVectorLength
     }
+    var outLength = 0
+    var outBytes = [UInt8](repeating: 0, count: input.count + kCCBlockSizeAES128)
+    var length = 0
     
-    func encrypt(_ digest: Data, padding: AESPadding, mode: AesMode) throws -> Data {
-        return try crypt(input: digest, operation: CCOperation(kCCEncrypt), padding: padding, mode: mode)
-    }
+    var cryptor: CCCryptorRef!
+    try CCCryptorCreateWithMode(operation, mode.cc, CCAlgorithm(kCCAlgorithmAES128), padding.cc, •iv, •key, key.count, nil, 0, 0, CCModeOptions(kCCModeOptionCTR_BE), &cryptor).check()
+    try CCCryptorUpdate(cryptor, •input, input.count, &outBytes, outBytes.count, &outLength).check()
+    length += outLength
+    try CCCryptorFinal(cryptor, &outBytes + outLength, outBytes.count, &outLength).check()
+    length += outLength
     
-    func decrypt(_ encrypted: Data, padding: AESPadding, mode: AesMode) throws -> Data {
-        return try crypt(input: encrypted, operation: CCOperation(kCCDecrypt), padding: padding, mode: mode)
-    }
-    
-    private func crypt(input: Data, operation: CCOperation, padding: AESPadding, mode: AesMode) throws -> Data {
-        var outLength = Int(0)
-        var outBytes = [UInt8](repeating: 0, count: input.count + kCCBlockSizeAES128)
-        var length = 0
-        
-        var cryptor: CCCryptorRef!
-        try iv.pointer { ivBytes in
-            try key.pointer { keyBytes in
-                try CCCryptorCreateWithMode(operation, mode.cc, CCAlgorithm(kCCAlgorithmAES128), padding.cc, ivBytes, keyBytes, key.count, nil, 0, 0, CCModeOptions(kCCModeOptionCTR_BE), &cryptor).check()
-            }
-        }
-        try input.pointer { encryptedBytes in
-            try CCCryptorUpdate(cryptor, encryptedBytes, input.count, &outBytes, outBytes.count, &outLength).check()
-        }
-        length += outLength
-        try CCCryptorFinal(cryptor, &outBytes + outLength, outBytes.count, &outLength).check()
-        length += outLength
-        
-        return Data(bytes: UnsafePointer<UInt8>(outBytes), count: length)
-    }
-    
-    static func createKey(password: Data, salt: Data) throws -> Data {
-        let length = kCCKeySizeAES256
-        var status = Int32(0)
-        var derivedBytes = [UInt8](repeating: 0, count: length)
-        password.withUnsafeBytes { (passwordBytes: UnsafePointer<Int8>!) in
-            salt.withUnsafeBytes { (saltBytes: UnsafePointer<UInt8>!) in
-                status = CCKeyDerivationPBKDF(CCPBKDFAlgorithm(kCCPBKDF2),                  // algorithm
-                    passwordBytes,                                // password
-                    password.count,                               // passwordLen
-                    saltBytes,                                    // salt
-                    salt.count,                                   // saltLen
-                    CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA1),   // prf
-                    10000,                                        // rounds
-                    &derivedBytes,                                // derivedKey
-                    length)                                       // derivedKeyLen
-            }
-        }
-        guard status == 0 else {
-            throw Error.keyGeneration(status: Int(status))
-        }
-        return Data(bytes: UnsafePointer<UInt8>(derivedBytes), count: length)
-    }
-    
-    static func randomIv() -> Data {
-        return randomData(length: kCCBlockSizeAES128)
-    }
-    
-    static func randomSalt() -> Data {
-        return randomData(length: 8)
-    }
-    
-    static func randomData(length: Int) -> Data {
-        var data = Data(count: length)
-        let status = data.withUnsafeMutableBytes { mutableBytes in
-            SecRandomCopyBytes(kSecRandomDefault, length, mutableBytes)
-        }
-        assert(status == Int32(0))
-        return data
-    }
+    return Data(bytes: •outBytes, count: length)
+}
+
+enum AESError: Swift.Error {
+    case cryptoFailed(status: CCCryptorStatus)
+    case badKeyLength
+    case badInputVectorLength
 }

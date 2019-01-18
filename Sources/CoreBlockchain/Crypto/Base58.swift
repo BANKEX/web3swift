@@ -21,18 +21,10 @@ public enum Base58Error: Error {
 }
 
 extension Data {
-    var raw: UnsafeRawPointer {
-        return self.withUnsafeBytes { UnsafeRawPointer($0) }
-    }
-    mutating func mraw() -> UnsafeMutableRawPointer {
-        return self.withUnsafeMutableBytes { UnsafeMutableRawPointer($0) }
-    }
     public func base58(_ alphabet: Base58Alphabet) -> String {
-        let input = withUnsafeBytes { UnsafeRawPointer($0) }
         var size = count*2
         var data = Data(count: size)
-        let output: UnsafeMutablePointer<Int8> = data.withUnsafeMutableBytes { return $0 }
-        b58enc(output, &size, input, count, alphabet.rawValue)
+        b58enc(••data•Int8.self, &size, •self, count, alphabet.rawValue)
         return String(data: data[..<size], encoding: .utf8)!
     }
     public func base58(_ alphabet: Base58Alphabet, prefix: UInt8) -> String {
@@ -50,10 +42,9 @@ extension String {
     public func base58(_ alphabet: Base58Alphabet) throws -> Data {
         guard !isEmpty else { throw Base58Error.invalidSize }
         let data = Data(utf8)
-        let string: UnsafePointer<Int8> = data.withUnsafeBytes { $0 }
         var result = Data(count: count)
         var size = count
-        guard b58tobin(result.mutablePointer(), &size, string, data.count, alphabet.rawValue)
+        guard b58tobin(••••result, &size, •data•Int8.self, data.count, alphabet.rawValue)
             else { throw Base58Error.invalidStringFormat }
         return result.subdata(in: count-size..<count)
     }

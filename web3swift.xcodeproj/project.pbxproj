@@ -245,8 +245,7 @@
 		13F84C9421EE13AA00006B37 /* DefinitionsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F84C9221EE13A700006B37 /* DefinitionsParser.swift */; };
 		13F84C9721EE21B300006B37 /* DataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F84C9621EE21B300006B37 /* DataReader.swift */; };
 		13F84C9921EE21DF00006B37 /* DataWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F84C9821EE21DF00006B37 /* DataWriter.swift */; };
-		13F84D1021F15A6600006B37 /* Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F84D0E21F15A4E00006B37 /* Hex.swift */; };
-		13F84D1121F15B1C00006B37 /* 👽.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F84D0C21F15A2E00006B37 /* 👽.swift */; };
+		13F84CB621EE4FB900006B37 /* Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F84CB421EE4E7200006B37 /* Hex.swift */; };
 		13FE298621E5207C00B79997 /* CoreBlockchain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13FE297D21E5207C00B79997 /* CoreBlockchain.framework */; };
 		13FE298B21E5207C00B79997 /* CoreBlockchainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE298A21E5207C00B79997 /* CoreBlockchainTests.swift */; };
 		13FE29A821E526BF00B79997 /* BigInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BD5B218C526300D6D095 /* BigInt.swift */; };
@@ -542,8 +541,7 @@
 		13F84C9221EE13A700006B37 /* DefinitionsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefinitionsParser.swift; sourceTree = "<group>"; };
 		13F84C9621EE21B300006B37 /* DataReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataReader.swift; sourceTree = "<group>"; };
 		13F84C9821EE21DF00006B37 /* DataWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataWriter.swift; sourceTree = "<group>"; };
-		13F84D0C21F15A2E00006B37 /* 👽.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "👽.swift"; sourceTree = "<group>"; };
-		13F84D0E21F15A4E00006B37 /* Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hex.swift; sourceTree = "<group>"; };
+		13F84CB421EE4E7200006B37 /* Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hex.swift; sourceTree = "<group>"; };
 		13FE297D21E5207C00B79997 /* CoreBlockchain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreBlockchain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		13FE298521E5207C00B79997 /* CoreBlockchainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreBlockchainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		13FE298A21E5207C00B79997 /* CoreBlockchainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreBlockchainTests.swift; sourceTree = "<group>"; };
@@ -1177,7 +1175,6 @@
 				13F84C3F21EE0BFF00006B37 /* UInt256.swift */,
 				13F84C4021EE0BFF00006B37 /* Future.swift */,
 				13F84C4121EE0BFF00006B37 /* Address58.swift */,
-				13F84D0C21F15A2E00006B37 /* 👽.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -1194,7 +1191,6 @@
 				13F84C5421EE0BFF00006B37 /* Ripemd160.swift */,
 				13F84C5521EE0BFF00006B37 /* Secp256k1.swift */,
 				13F84C5621EE0BFF00006B37 /* Base58.swift */,
-				13F84D0E21F15A4E00006B37 /* Hex.swift */,
 			);
 			path = Crypto;
 			sourceTree = "<group>";
@@ -1222,6 +1218,7 @@
 			children = (
 				13F84C9621EE21B300006B37 /* DataReader.swift */,
 				13F84C9821EE21DF00006B37 /* DataWriter.swift */,
+				13F84CB421EE4E7200006B37 /* Hex.swift */,
 			);
 			path = Serialisation;
 			sourceTree = "<group>";
@@ -2172,7 +2169,6 @@
 				13F84C7321EE0C0000006B37 /* KeyDerivation.swift in Sources */,
 				13F84C5C21EE0C0000006B37 /* AnyReader.swift in Sources */,
 				13F84C6621EE0C0000006B37 /* Keccak.swift in Sources */,
-				13F84D1121F15B1C00006B37 /* 👽.swift in Sources */,
 				13F84C5921EE0C0000006B37 /* NetworkProvider.swift in Sources */,
 				13F84C5F21EE0C0000006B37 /* Int.swift in Sources */,
 				13F84C5A21EE0C0000006B37 /* JsonRpcRequest.swift in Sources */,
@@ -2181,8 +2177,8 @@
 				13F84C7221EE0C0000006B37 /* Status.swift in Sources */,
 				13F84C6121EE0C0000006B37 /* Address.swift in Sources */,
 				13F84C6A21EE0C0000006B37 /* Utilities.swift in Sources */,
-				13F84D1021F15A6600006B37 /* Hex.swift in Sources */,
 				13F84C6C21EE0C0000006B37 /* HMAC.swift in Sources */,
+				13F84CB621EE4FB900006B37 /* Hex.swift in Sources */,
 				13F84C5E21EE0C0000006B37 /* Data.swift in Sources */,
 				13F84C7421EE0C0000006B37 /* PrivateKey.swift in Sources */,
 			);

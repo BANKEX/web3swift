@@ -36,7 +36,6 @@ open class DataWriter {
 private extension Data {
     mutating func append<T>(raw: T) {
         let count = MemoryLayout<T>.size
-        let pointer = withUnsafePointer(to: raw, {$0.withMemoryRebound(to: UInt8.self, capacity: count, {$0})})
-        append(pointer, count: count)
+        append(•••raw, count: count)
     }
 }

@@ -190,7 +190,7 @@ public class BIP32Keystore: AbstractKeystore {
         }
         let saltLen = 32
         let saltData = Data.random(length: saltLen)
-        guard let derivedKey = scrypt(password: password, salt: saltData, length: dkLen, N: N, R: R, P: P) else { throw AbstractKeystoreError.keyDerivationError }
+        guard let derivedKey = try? scrypt(password: password, salt: saltData, length: dkLen, N: N, R: R, P: P) else { throw AbstractKeystoreError.keyDerivationError }
         let last16bytes = derivedKey[(derivedKey.count - 16) ... (derivedKey.count - 1)]
         let encryptionKey = derivedKey[0 ... 15]
         let IV = Data.random(length: 16)
@@ -246,7 +246,7 @@ public class BIP32Keystore: AbstractKeystore {
             guard let N = keystorePars.crypto.kdfparams.n else { return nil }
             guard let P = keystorePars.crypto.kdfparams.p else { return nil }
             guard let R = keystorePars.crypto.kdfparams.r else { return nil }
-            passwordDerivedKey = scrypt(password: password, salt: saltData, length: derivedLen, N: N, R: R, P: P)
+            passwordDerivedKey = try? scrypt(password: password, salt: saltData, length: derivedLen, N: N, R: R, P: P)
         case "pbkdf2":
             guard let algo = keystorePars.crypto.kdfparams.prf else { return nil }
             let hashVariant = try HmacVariant(algo)

@@ -100,7 +100,7 @@ public class EthereumKeystoreV3: AbstractKeystore {
         }
         let saltLen = 32
         let saltData = Data.random(length: saltLen)
-        guard let derivedKey = scrypt(password: password, salt: saltData, length: dkLen, N: N, R: R, P: P) else { throw AbstractKeystoreError.keyDerivationError }
+        guard let derivedKey = try? scrypt(password: password, salt: saltData, length: dkLen, N: N, R: R, P: P) else { throw AbstractKeystoreError.keyDerivationError }
         let last16bytes = Data(derivedKey[(derivedKey.count - 16) ... (derivedKey.count - 1)])
         let encryptionKey = Data(derivedKey[0 ... 15])
         let IV = Data.random(length: 16)
@@ -150,7 +150,7 @@ public class EthereumKeystoreV3: AbstractKeystore {
             guard let N = keystoreParams.crypto.kdfparams.n else { return nil }
             guard let P = keystoreParams.crypto.kdfparams.p else { return nil }
             guard let R = keystoreParams.crypto.kdfparams.r else { return nil }
-            passwordDerivedKey = scrypt(password: password, salt: saltData, length: derivedLen, N: N, R: R, P: P)
+            passwordDerivedKey = try? scrypt(password: password, salt: saltData, length: derivedLen, N: N, R: R, P: P)
         case "pbkdf2":
             guard let algo = keystoreParams.crypto.kdfparams.prf else { return nil }
             let hashVariant = try HmacVariant(algo)

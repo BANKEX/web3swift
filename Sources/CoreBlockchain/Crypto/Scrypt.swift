@@ -9,10 +9,14 @@
 import Foundation
 import scrypt
 
-public func scrypt(password: String, salt: Data, length: Int, N: Int, R: Int, P: Int) -> Data? {
+enum ScryptError: Error {
+    case failed(code: Int32)
+}
+
+public func scrypt(password: String, salt: Data, length: Int, N: Int, R: Int, P: Int) throws -> Data {
     let password = password.data
     var derivedKey = Data(count: length)
-    let status = crypto_scrypt(password.pointer, password.count, salt.pointer, salt.count, UInt64(N), UInt32(R), UInt32(P), derivedKey.mutablePointer(), derivedKey.count)
-    guard status == 0 else { return nil }
+    let status = crypto_scrypt(•••password, password.count, •••salt, salt.count, UInt64(N), UInt32(R), UInt32(P), ••••derivedKey, derivedKey.count)
+    guard status == 0 else { throw ScryptError.failed(code: status) }
     return derivedKey
 }

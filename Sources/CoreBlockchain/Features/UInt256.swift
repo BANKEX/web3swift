@@ -51,12 +51,10 @@ public struct UInt256: ExpressibleByIntegerLiteral {
     public init(_ data: Data) {
         raw = (0,0,0,0)
         let count = Swift.min(data.count,32)
-        data.withUnsafeBytes { (input: UnsafePointer<UInt8>) in
-            withUnsafeMutableBytes(of: &self) { output in
-                for i in 0..<count {
-                    output[31-i] = input[i];
-                }
-            }
+        let input = •••data
+        let output = ••••self
+        for i in 0..<count {
+            output[31-i] = input[i];
         }
     }
     public var data: Data {
@@ -76,6 +74,7 @@ public struct UInt256: ExpressibleByIntegerLiteral {
             return data
         } else {
             var data = Data(count: 32)
+            
             data.withUnsafeMutableBytes { (a: UnsafeMutablePointer<UInt8>) in
                 withUnsafeBytes(of: self) { p in
                     for i in 0..<32 {

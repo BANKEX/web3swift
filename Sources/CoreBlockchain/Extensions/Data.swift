@@ -80,20 +80,17 @@ extension Data {
         var data = Data(repeating: 0, count: length)
         var success = false
         #if !os(Linux)
-        let result = data.withUnsafeMutableBytes {
-            SecRandomCopyBytes(kSecRandomDefault, length, $0)
-        }
+        let result = SecRandomCopyBytes(kSecRandomDefault, length, ••data)
         success = result == errSecSuccess
         #endif
         guard !success else { return data }
-        data.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<UInt32>) in
-            for i in 0..<length/4+1 {
-                #if canImport(Darwin)
-                bytes[i] = arc4random()
-                #else
-                bytes[i] = UInt32(bitPattern: rand())
-                #endif
-            }
+        let bytes = ••data•UInt8.self
+        for i in 0..<length {
+            #if canImport(Darwin)
+            bytes[i] = UInt8(arc4random() & 0xff)
+            #else
+            bytes[i] = UInt8(rand() & 0xff)
+            #endif
         }
         return data
     }
