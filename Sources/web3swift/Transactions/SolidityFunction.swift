@@ -98,13 +98,13 @@ extension Address {
             let nonce = web3.eth.getTransactionCountPromise(address: from, onBlock: onBlock)
             let gasEstimate = web3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
             let gasPrice = web3.eth.getGasPricePromise()
-            nonce.catch { error in
+            nonce.catch(on: queue) { error in
                 seal.reject(Web3Error.processingError("Failed to fetch nonce"))
             }
-            gasEstimate.catch { error in
+            gasEstimate.catch(on: queue) { error in
                 seal.reject(Web3Error.processingError("Failed to fetch gas estimate"))
             }
-            gasPrice.catch { error in
+            gasPrice.catch(on: queue) { error in
                 seal.reject(Web3Error.processingError("Failed to fetch gas price"))
             }
             

@@ -71,7 +71,11 @@ public struct Web3Signer {
         var privateKey = try keystore.UNSAFE_getPrivateKeyData(password: password, account: account)
         defer { Data.zero(&privateKey) }
         let hash = try Web3Utils.hashPersonalMessage(personalMessage)
-        return try SECP256K1.signForRecovery(hash: hash, privateKey: privateKey, useExtraEntropy: useExtraEntropy).serializedSignature
+        var signature = try SECP256K1.signForRecovery(hash: hash, privateKey: privateKey, useExtraEntropy: useExtraEntropy).serializedSignature
+        if signature[64] < 27 {
+            signature[64] += 27
+        }
+        return signature
     }
     
     /// EIP155Signer
