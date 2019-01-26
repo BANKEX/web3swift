@@ -176,7 +176,7 @@ public class SolidityType: Equatable, CustomStringConvertible {
     public class SDynamicArray: SolidityType {
         public override var description: String { return "\(type)[]" }
         public override var memoryUsage: Int { return 0 }
-        public override var isStatic: Bool { return type.isStatic }
+        public override var isStatic: Bool { return false }
         public override var isArray: Bool { return true }
         public override var subtype: SolidityType? { return type }
         public override var arraySize: ArraySize { return .dynamic }
