@@ -152,4 +152,6 @@ Changes made to this branch will be merged into the [master](https://github.com/
 
 ## Donate
 
-![](https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=0x47FC2e245b983A92EB3359F06E31F34B107B6EF6)
+<a href="https://brianmacdonald.github.io/Ethonate/address/#0x47FC2e245b983A92EB3359F06E31F34B107B6EF6" target="_blank">
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=0x47FC2e245b983A92EB3359F06E31F34B107B6EF6" alt="0x47FC2e245b983A92EB3359F06E31F34B107B6EF6">
+</a>
