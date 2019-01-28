@@ -74,14 +74,14 @@ internal func encodeTopicToGetLogs(contract: ContractV2, eventName: String?, fil
     }
     if filter.parameterFilters != nil {
         if event == nil { return nil }
-        var lastNonemptyFilter = 0
+        var lastNonemptyFilter = -1
         for i in 0 ..< filter.parameterFilters!.count {
             let filterValue = filter.parameterFilters![i]
             if filterValue != nil {
                 lastNonemptyFilter = i
             }
         }
-        if lastNonemptyFilter != 0 {
+        if lastNonemptyFilter != -1 {
             guard lastNonemptyFilter <= event!.inputs.count else { return nil }
             for i in 0 ... lastNonemptyFilter {
                 let filterValues = filter.parameterFilters![i]
