@@ -94,12 +94,6 @@ public extension String {
         return Data(byteArray)
     }
 
-    public func dataFromHex() throws -> Data {
-        let data = self.hex
-        guard data.count > 0 else { throw DataError.hexStringCorrupted(self) }
-        return data
-    }
-
     public func stripLeadingZeroes() -> String {
         let hex = withHex
         var count = 0

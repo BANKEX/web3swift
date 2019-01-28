@@ -122,35 +122,35 @@ class RippleAccountsApi {
     }
     
     class AccountInfo {
-//account_data    Object    The AccountRoot ledger object with this account's information, as stored in the ledger.
+        /// account_data    Object    The AccountRoot ledger object with this account's information, as stored in the ledger.
         var accountData: AccountRoot
-//signer_lists    Array    (Omitted unless the request specified signer_lists and at least one SignerList is associated with the account.) Array of SignerList ledger objects associated with this account for Multi-Signing. Since an account can own at most one SignerList, this array must have exactly one member if it is present. New in: rippled 0.31.0
-//ledger_current_index    Integer    (Omitted if ledger_index is provided instead) The sequence number of the most-current ledger, which was used when retrieving this information. The information does not contain any changes from ledgers newer than this one.
-//ledger_index    Integer    (Omitted if ledger_current_index is provided instead) The sequence number of the ledger used when retrieving this information. The information does not contain any changes from ledgers newer than this one.
-//queue_data    Object    (Omitted unless queue specified as true and querying the current open ledger.) Information about queued transactions sent by this account. This information describes the state of the local rippled server, which may be different from other servers in the consensus network. Some fields may be omitted because the values are calculated "lazily" by the queuing mechanism.
-//validated    Boolean    True if this data is from a validated ledger version; if omitted or set to false, this data is not final. New in: rippled 0.26.0
+        /// signer_lists    Array    (Omitted unless the request specified signer_lists and at least one SignerList is associated with the account.) Array of SignerList ledger objects associated with this account for Multi-Signing. Since an account can own at most one SignerList, this array must have exactly one member if it is present. New in: rippled 0.31.0
+        /// ledger_current_index    Integer    (Omitted if ledger_index is provided instead) The sequence number of the most-current ledger, which was used when retrieving this information. The information does not contain any changes from ledgers newer than this one.
+        /// ledger_index    Integer    (Omitted if ledger_current_index is provided instead) The sequence number of the ledger used when retrieving this information. The information does not contain any changes from ledgers newer than this one.
+        /// queue_data    Object    (Omitted unless queue specified as true and querying the current open ledger.) Information about queued transactions sent by this account. This information describes the state of the local rippled server, which may be different from other servers in the consensus network. Some fields may be omitted because the values are calculated "lazily" by the queuing mechanism.
+        /// validated    Boolean    True if this data is from a validated ledger version; if omitted or set to false, this data is not final. New in: rippled 0.26.0
         init(_ json: AnyReader) throws {
             accountData = try AccountRoot(json.at("account_data"))
         }
     }
     class AccountRoot {
-//        LedgerEntryType    String    UInt16    The value 0x0061, mapped to the string AccountRoot, indicates that this is an AccountRoot object.
-        
-//        Account    String    AccountID    The identifying address of this account, such as rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn.
-//        Balance    String    Amount    The account's current XRP balance in drops, represented as a string.
+        /// LedgerEntryType    String    UInt16    The value 0x0061, mapped to the string AccountRoot, indicates that this is an AccountRoot object.
+        ///
+        /// Account    String    AccountID    The identifying address of this account, such as rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn.
+        /// Balance    String    Amount    The account's current XRP balance in drops, represented as a string.
         var balance: BigUInt
-//        Flags    Number    UInt32    A bit-map of boolean flags enabled for this account.
-//        OwnerCount    Number    UInt32    The number of objects this account owns in the ledger, which contributes to its owner reserve.
-//        PreviousTxnID    String    Hash256    The identifying hash of the transaction that most recently modified this object.
-//        PreviousTxnLgrSeq    Number    UInt32    The index of the ledger that contains the transaction that most recently modified this object.
-//        Sequence    Number    UInt32    The sequence number of the next valid transaction for this account. (Each account starts with Sequence = 1 and increases each time a transaction is made.)
-//        AccountTxnID    String    Hash256    (Optional) The identifying hash of the transaction most recently submitted by this account.
-//        Domain    String    VariableLength    (Optional) A domain associated with this account. In JSON, this is the hexadecimal for the ASCII representation of the domain.
-//        EmailHash    String    Hash128    (Optional) The md5 hash of an email address. Clients can use this to look up an avatar through services such as Gravatar.
-//        MessageKey    String    VariableLength    (Optional) A public key that may be used to send encrypted messages to this account. In JSON, uses hexadecimal. No more than 33 bytes.
-//        RegularKey    String    AccountID    (Optional) The address of a keypair that can be used to sign transactions for this account instead of the master key. Use a SetRegularKey transaction to change this value.
-//        TickSize    Number    UInt8    (Optional) How many significant digits to use for exchange rates of Offers involving currencies issued by this address. Valid values are 3 to 15, inclusive. (Requires the TickSize amendment.)
-//        TransferRate    Number    UInt32    (Optional) A transfer fee to charge other users for sending currency issued by this account to each other.
+        /// Flags    Number    UInt32    A bit-map of boolean flags enabled for this account.
+        /// OwnerCount    Number    UInt32    The number of objects this account owns in the ledger, which contributes to its owner reserve.
+        /// PreviousTxnID    String    Hash256    The identifying hash of the transaction that most recently modified this object.
+        /// PreviousTxnLgrSeq    Number    UInt32    The index of the ledger that contains the transaction that most recently modified this object.
+        /// Sequence    Number    UInt32    The sequence number of the next valid transaction for this account. (Each account starts with Sequence = 1 and increases each time a transaction is made.)
+        /// AccountTxnID    String    Hash256    (Optional) The identifying hash of the transaction most recently submitted by this account.
+        /// Domain    String    VariableLength    (Optional) A domain associated with this account. In JSON, this is the hexadecimal for the ASCII representation of the domain.
+        /// EmailHash    String    Hash128    (Optional) The md5 hash of an email address. Clients can use this to look up an avatar through services such as Gravatar.
+        /// MessageKey    String    VariableLength    (Optional) A public key that may be used to send encrypted messages to this account. In JSON, uses hexadecimal. No more than 33 bytes.
+        /// RegularKey    String    AccountID    (Optional) The address of a keypair that can be used to sign transactions for this account instead of the master key. Use a SetRegularKey transaction to change this value.
+        /// TickSize    Number    UInt8    (Optional) How many significant digits to use for exchange rates of Offers involving currencies issued by this address. Valid values are 3 to 15, inclusive. (Requires the TickSize amendment.)
+        /// TransferRate    Number    UInt32    (Optional) A transfer fee to charge other users for sending currency issued by this account to each other.
         init(_ json: AnyReader) throws {
             balance = try json.at("balance").uint256()
         }

@@ -50,9 +50,20 @@ extension AnyReader {
         }
     }
     func rippleAddress() throws -> RippleAddress {
-        let string = try self.string()
-        guard let address = RippleAddress(string) else { throw unconvertible(to: "base58 data") }
-        return address
+        if let any = raw as? RippleAddress {
+            return any
+        } else {
+            let string = try self.string()
+            if string[0] == "r" {
+                guard let address = RippleAddress(string) else { throw unconvertible(to: "ripple address") }
+                return address
+            } else if let data = try? string.dataFromHex() {
+                guard data.count == 20 else { throw unconvertible(to: "ripple address") }
+                return RippleAddress(data)
+            } else {
+                throw unconvertible(to: "ripple address")
+            }
+        }
     }
     /// Returns bool if exists and false if not
     func bool(at key: String) throws -> Bool {

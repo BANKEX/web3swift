@@ -8,19 +8,6 @@
 
 import Foundation
 
-/// Data errors
-public enum DataError: Error {
-    /// Throws if data cannot be converted to string
-    case hexStringCorrupted(String)
-    /// Printable / user displayable description
-    public var localizedDescription: String {
-        switch self {
-        case let .hexStringCorrupted(string):
-            return "Cannot convert hex string \"\(string)\" to data"
-        }
-    }
-}
-
 extension Data {
     /// Returns Sha256 hash of this data
     public func sha256() -> Data {
@@ -103,12 +90,6 @@ extension Data {
             }
         }
         return string
-    }
-    
-    /// - Returns: Data if string is in hex format
-    /// Format: "0x0ba98fc797cfab9864bfac988fa", "0ba98fc797cfab9864bfac988fa"
-    public static func fromHex(_ hex: String) -> Data? {
-        return try? hex.hexToData()
     }
     
     /// - Returns: String (if its utf8 convertible) or hex string

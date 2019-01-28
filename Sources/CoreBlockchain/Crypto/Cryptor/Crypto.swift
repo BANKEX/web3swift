@@ -110,7 +110,7 @@ extension String: CryptoDigest {
         // This force unwrap may look scary but for CommonCrypto this cannot fail.
         // The API allows for optionals to support the OpenSSL implementation which can.
 		let result = (Digest(using: algorithm).update(string: self as String)?.final())!
-		return CryptoUtils.hexString(from: result)
+		return Data(result).hex
 		
     }
 }

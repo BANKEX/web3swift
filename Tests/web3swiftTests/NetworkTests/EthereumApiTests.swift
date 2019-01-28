@@ -12,15 +12,6 @@ import XCTest
 @testable import CoreBlockchain
 
 class EthereumApiTests: XCTestCase {
-    func testSome() {
-        let yourPassword = "••••••••••••••••••••••••••••"
-        let yourAddress = try! Web3.default.addAccount(mnemonics: "nation tornado double since increase orchard tonight left drip talk sand mad", password: yourPassword)
-        
-        let tokenAddress: Address = "0x45245bc59219eeaaf6cd3f382e078a461ff9de7b"
-        
-        let token = ERC20(tokenAddress, from: yourAddress, password: yourPassword)
-        let result = try! token.transfer(to: "0xfbb1b73c4f0bda4f67dca266ce6ef42f520fbb98", amount: NaturalUnits("1.5"))
-    }
 //    func testNet() throws {
 //        eth = .localhost(port: 8545)
 //        try XCTAssertNoThrow(eth.version().wait())

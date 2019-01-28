@@ -84,7 +84,7 @@ public struct Address {
     public var addressData: Data {
         switch type {
         case .normal:
-            return Data.fromHex(_address) ?? Data()
+            return _address.hex
         case .contractDeployment:
             return Data()
         }

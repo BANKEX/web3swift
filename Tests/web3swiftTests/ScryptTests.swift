@@ -16,7 +16,7 @@ class ScryptTests: XCTestCase {
     func testScrypt() {
         let password = "password"
         let salt = "NaCl".data
-        let derived = scrypt(password: password, salt: salt, length: 64, N: 1024, R: 8, P: 16)!
+        let derived = try! scrypt(password: password, salt: salt, length: 64, N: 1024, R: 8, P: 16)
         let expected = """
                 fd ba be 1c 9d 34 72 00 78 56 e7 19 0d 01 e9 fe
                    7c 6a d7 cb c8 23 78 30 e7 73 76 63 4b 37 31 62
@@ -30,7 +30,7 @@ class ScryptTests: XCTestCase {
         //            N: Int = 4096, R: Int = 6, P: Int = 1
         let password = "BANKEXFOUNDATION"
         let salt = Data.random(length: 32)
-        XCTAssertNotNil(scrypt(password: password, salt: salt, length: 32, N: 4096, R: 6, P: 1))
+        XCTAssertNoThrow(try scrypt(password: password, salt: salt, length: 32, N: 4096, R: 6, P: 1))
     }
 
 //    func testLibsodiumPerformance() {

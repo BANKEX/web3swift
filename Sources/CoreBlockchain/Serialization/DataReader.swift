@@ -32,6 +32,20 @@ open class DataReader {
         position = range.upperBound
         return self.data[range]
     }
+    /// Returns next data with size.
+    /// Position changes
+    open func next() throws -> UInt8 {
+        guard position + 1 < data.count else { throw DataReaderError.notEnoughBytes(1) }
+        defer { position += 1 }
+        return data[position]
+    }
+    /// Returns next data with size.
+    /// Position changes
+    open func raw<T>() throws -> T {
+        let size = MemoryLayout<T>.size
+        let data = try next(size)
+        return data•T.self
+    }
     /// Inits with data
     public init(_ data: Data) {
         self.data = data

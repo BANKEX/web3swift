@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+
 prefix operator •
 public prefix func • <T>(v: T) -> UnsafeRawPointer {
     return withUnsafeBytes(of: v) { $0.baseAddress! }
@@ -44,6 +46,9 @@ public prefix func •• (v: inout Data) -> UnsafeMutableRawPointer {
 
 
 infix operator •: AdditionPrecedence
+public func • <T>(v: Data, t: T.Type) -> T {
+    return v.withUnsafeBytes { (p: UnsafePointer<T>) in p.pointee } 
+}
 public func • <T>(v: UnsafeRawPointer, t: T.Type) -> UnsafePointer<T> {
     return v.assumingMemoryBound(to: t)
 }

@@ -17,8 +17,21 @@ import Ethereum
 /// 2. (ctrl + alt + cmd + f) to fix all issues in current file
 /// 3. repeat
 
-// MARK:- web3swift 2.2 changes
+// MARK:- web3swift 3.0 changes
+extension BigInt {
+    public typealias StringOptions = NumberToStringOptions
+}
+extension BigUInt {
+    public typealias StringOptions = NumberToStringOptions
+}
 public typealias DictionaryReader = AnyReader
+extension Data {
+    /// - Returns: Data if string is in hex format
+    /// Format: "0x0ba98fc797cfab9864bfac988fa", "0ba98fc797cfab9864bfac988fa"
+    public static func fromHex(_ hex: String) -> Data? {
+        return try? hex.dataFromHex()
+    }
+}
 
 // MARK:- web3swift 2.1 changes
 

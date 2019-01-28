@@ -99,6 +99,7 @@ public struct UInt256: ExpressibleByIntegerLiteral {
     
 }
 
+// MARK:- UnsignedInteger
 extension UInt256: UnsignedInteger {
     public static func ^= (lhs: inout UInt256, rhs: UInt256) {
         lhs.raw.0 ^= rhs.raw.0
@@ -129,10 +130,14 @@ extension UInt256: UnsignedInteger {
     }
     
     public typealias Words = [UInt]
-    
+}
+
+// MARK:- BinaryInteger
+extension UInt256: BinaryInteger {
     
 }
-    
+
+// MARK:- Numeric
 extension UInt256: Numeric {
     public init?<T>(exactly source: T) where T : BinaryInteger {
         self.init(source)
@@ -545,6 +550,7 @@ extension UInt256 {
     }
 }
 
+// MARK:- Comparable
 extension UInt256: Comparable {
     /// Returns whether the magnitude of this instance is less than, greather
     /// than, or equal to the magnitude of the given value.
@@ -572,6 +578,7 @@ extension UInt256: Comparable {
     }
 }
 
+// MARK:- Hashable
 extension UInt256: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(raw.0)
@@ -619,5 +626,106 @@ private extension FixedWidthInteger {
             let borrow: Self = (firstDifference.overflow ? 1 : 0) +
                 (secondDifference.overflow ? 1 : 0)
             return (borrow, secondDifference.partialValue)
+    }
+}
+
+/// Number to string convertion options
+public struct NumberToStringOptions: OptionSet {
+    public let rawValue: Int
+    public init(rawValue: Int) {
+        self.rawValue = rawValue
+    }
+    /// Fallback to scientific number. (like `1.0e-16`)
+    public static let fallbackToScientific = NumberToStringOptions(rawValue: 0b1)
+    /// Removes last zeroes (will print `1.123` instead of `1.12300000000000`)
+    public static let stripZeroes = NumberToStringOptions(rawValue: 0b10)
+    /// Default options: [.stripZeroes]
+    public static let `default`: NumberToStringOptions = [.stripZeroes]
+}
+public extension BinaryInteger {
+    func power(_ exponent: Int) -> Self {
+        if exponent == 0 { return 1 }
+        if exponent == 1 { return self }
+        if exponent < 0 {
+            precondition(self != 0)
+            return self == 1 ? 1 : 0
+        }
+        let signum = self.signum()
+        var b = self * signum
+        if b <= 1 { return self }
+        var result = Self(1)
+        var e = exponent
+        while e > 0 {
+            if e & 1 == 1 {
+                result *= b
+            }
+            e >>= 1
+            b *= b
+        }
+        if signum == -1 && exponent & 1 != 0 {
+            return result * -1
+        } else {
+            return result
+        }
+    }
+    /// Formats Number to String. The supplied number is first divided into integer and decimal part based on "toUnits",
+    /// then limit the decimal part to "decimals" symbols and uses a "decimalSeparator" as a separator.
+    /// Fallbacks to scientific format if higher precision is required.
+    /// default: decimals: 18, decimalSeparator: ".", options: .stripZeroes
+    public func string(unitDecimals: Int, decimals: Int, decimalSeparator: String = ".", options: NumberToStringOptions = .default) -> String {
+        guard self != 0 else { return "0" }
+        var toDecimals = decimals
+        if unitDecimals < toDecimals {
+            toDecimals = unitDecimals
+        }
+        
+        let divisor = Self(10).power(unitDecimals)
+        let (quotient, remainder) = (self * signum()).quotientAndRemainder(dividingBy: divisor)
+        var fullRemainder = String(remainder)
+        let fullPaddedRemainder = fullRemainder.leftPadding(toLength: unitDecimals, withPad: "0")
+        let remainderPadded = fullPaddedRemainder[0 ..< toDecimals]
+        let offset = remainderPadded.reversed().firstIndex(where: { $0 != "0" })?.base
+        
+        if let offset = offset {
+            if toDecimals == 0 {
+                return sign + String(quotient)
+            } else if options.contains(.stripZeroes) {
+                return sign + String(quotient) + decimalSeparator + remainderPadded[..<offset]
+            } else {
+                return sign + String(quotient) + decimalSeparator + remainderPadded
+            }
+        } else if quotient != 0 || !options.contains(.fallbackToScientific) {
+            return sign + String(quotient)
+        } else {
+            var firstDigit = 0
+            for char in fullPaddedRemainder {
+                if char == "0" {
+                    firstDigit = firstDigit + 1
+                } else {
+                    let firstDecimalUnit = String(fullPaddedRemainder[firstDigit ..< firstDigit+1])
+                    var remainingDigits = ""
+                    let numOfRemainingDecimals = fullPaddedRemainder.count - firstDigit - 1
+                    if numOfRemainingDecimals <= 0 {
+                        remainingDigits = ""
+                    } else if numOfRemainingDecimals > decimals {
+                        let end = firstDigit+1+decimals > fullPaddedRemainder.count ? fullPaddedRemainder.count : firstDigit+1+decimals
+                        remainingDigits = String(fullPaddedRemainder[firstDigit+1 ..< end])
+                    } else {
+                        remainingDigits = String(fullPaddedRemainder[firstDigit+1 ..< fullPaddedRemainder.count])
+                    }
+                    fullRemainder = firstDecimalUnit
+                    if !remainingDigits.isEmpty {
+                        fullRemainder += decimalSeparator + remainingDigits
+                    }
+                    firstDigit = firstDigit + 1
+                    break
+                }
+            }
+            return sign + fullRemainder + "e-" + String(firstDigit)
+        }
+    }
+    
+    private var sign: String {
+        return signum() == -1 ? "-" : ""
     }
 }
