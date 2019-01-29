@@ -67,11 +67,11 @@ extension Data {
         var data = Data(repeating: 0, count: length)
         var success = false
         #if !os(Linux)
-        let result = SecRandomCopyBytes(kSecRandomDefault, length, ••data)
+        let result = SecRandomCopyBytes(kSecRandomDefault, length, raw(&data))
         success = result == errSecSuccess
         #endif
         guard !success else { return data }
-        let bytes = ••data•UInt8.self
+        let bytes = pointer(&data)
         for i in 0..<length {
             #if canImport(Darwin)
             bytes[i] = UInt8(arc4random() & 0xff)

@@ -21,6 +21,7 @@ public struct UInt256: ExpressibleByIntegerLiteral {
     }
     public init(integerLiteral value: UInt64) {
         raw = (value,0,0,0)
+        print("init(integerLiteral: \(value) (UInt64)) -> \(raw)")
     }
     public init<T>(clamping source: T) where T : BinaryInteger {
         if source.signum() == -1 {
@@ -30,29 +31,33 @@ public struct UInt256: ExpressibleByIntegerLiteral {
         } else {
             self.init(source)
         }
+        print("init(clamping: \(source) (\(type(of: source)))) -> \(raw)")
     }
     public init<T>(truncatingIfNeeded source: T) where T : BinaryInteger {
-        if source.trailingZeroBitCount == 0 {
+        if source.signum() == -1 {
             raw = (.max,.max,.max,.max)
             write(source)
         } else {
             raw = (0,0,0,0)
             write(source)
         }
+        print("init(truncatingIfNeeded: \(source) (\(type(of: source)))) -> \(raw)")
     }
     public init?<T>(exactly source: T) where T : BinaryFloatingPoint {
         self.init(source)
+        print("init(exactly: \(source) (\(type(of: source)))) -> \(raw) BinaryFloatingPoint")
     }
     
     public init<T>(_ source: T) where T : BinaryFloatingPoint {
         raw = (UInt64(source),0,0,0)
+        print("init(source: \(source) (\(type(of: source)))) -> \(raw) BinaryFloatingPoint")
     }
     
     public init(_ data: Data) {
         raw = (0,0,0,0)
         let count = Swift.min(data.count,32)
-        let input = •••data
-        let output = ••••self
+        let input = pointer(data)
+        let output = pointer(&self)
         for i in 0..<count {
             output[31-i] = input[i];
         }
@@ -62,7 +67,7 @@ public struct UInt256: ExpressibleByIntegerLiteral {
     }
     public func data(stripZeroes: Bool) -> Data {
         if stripZeroes {
-            let size = bitWidth / 8
+            let size = leadingZeroBitCount / 8
             var data = Data(count: size)
             data.withUnsafeMutableBytes { (a: UnsafeMutablePointer<UInt8>) in
                 withUnsafeBytes(of: self) { p in
@@ -123,9 +128,22 @@ extension UInt256: UnsignedInteger {
     
     public var words: [UInt] {
         let count = 32 / MemoryLayout<UInt>.size
-        var array = Array(repeating: UInt(0), count: count)
-        let src = withUnsafeBytes(of: self) { $0.baseAddress! }
-        memcpy(&array, src, 32)
+        let rawWords = CoreBlockchain.raw(self).as(UInt.self)
+        var wordsCount = 4
+        for i in (0..<count).reversed() {
+            if rawWords[i] == 0 {
+                wordsCount -= 1
+            } else {
+                break
+            }
+        }
+        if wordsCount == 0 {
+            wordsCount = 1
+        }
+        var array = Array(repeating: UInt(0), count: wordsCount)
+        for i in 0..<wordsCount {
+            array[i] = rawWords[i]
+        }
         return array
     }
     
@@ -134,29 +152,34 @@ extension UInt256: UnsignedInteger {
 
 // MARK:- BinaryInteger
 extension UInt256: BinaryInteger {
-    
 }
 
 // MARK:- Numeric
 extension UInt256: Numeric {
     public init?<T>(exactly source: T) where T : BinaryInteger {
         self.init(source)
+        print("init(exactly: \(source) (\(type(of: source)))) -> \(raw) BinaryInteger")
     }
     
     public init<T>(_ source: T) where T : BinaryInteger {
         raw = (0,0,0,0)
         write(source)
+        print("init(source: \(source) (\(type(of: source)))) -> \(raw) (BinaryInteger)")
     }
     
     public mutating func write<T: BinaryInteger>(_ source: T) {
-        let dst = UnsafeMutableRawPointer(&raw)
-        let src = UnsafeRawPointer(Array(source.words))
-        
-        let bitWidth = source.bitWidth
-        if bitWidth > 256 {
-            memcpy(dst, src, 32)
+        if let source = source as? UInt256 {
+            self = source
         } else {
-            memcpy(dst, src, bitWidth/8)
+            let dst = UnsafeMutableRawPointer(&raw)
+            let src = UnsafeRawPointer(Array(source.words))
+            
+            let bitWidth = source.bitWidth
+            if bitWidth > 256 {
+                memcpy(dst, src, 32)
+            } else {
+                memcpy(dst, src, bitWidth/8)
+            }
         }
     }
     
@@ -262,7 +285,7 @@ extension UInt256: Numeric {
         }
         
         var tempSelf = self
-        let n = tempSelf.bitWidth - rhs.bitWidth
+        let n = tempSelf.leadingZeroBitCount - rhs.leadingZeroBitCount
         var quotient: UInt256 = 0
         var tempRHS = rhs << n
         var tempQuotient: UInt256 = 1 << n
@@ -299,7 +322,7 @@ extension UInt256: Numeric {
     }
     
     /// leadingZeroBitCount
-    public var bitWidth: Int {
+    public var leadingZeroBitCount: Int {
         if raw.3 != 0 { return 256 - raw.3.leadingZeroBitCount }
         if raw.2 != 0 { return 192 - raw.2.leadingZeroBitCount }
         if raw.1 != 0 { return 128 - raw.1.leadingZeroBitCount }
@@ -487,6 +510,12 @@ extension UInt256 {
         }
     }
     
+    public static func << <RHS : BinaryInteger>(lhs: UInt256, rhs: RHS) -> UInt256 {
+        var a = lhs
+        a <<= rhs
+        return a
+    }
+    
     public static func <<= <RHS : BinaryInteger>(lhs: inout UInt256, rhs: RHS) {
         guard rhs != 0 else { return }
         guard rhs > 0 else {
@@ -629,103 +658,243 @@ private extension FixedWidthInteger {
     }
 }
 
-/// Number to string convertion options
-public struct NumberToStringOptions: OptionSet {
-    public let rawValue: Int
-    public init(rawValue: Int) {
-        self.rawValue = rawValue
+//// MARK:- FixedWidthInteger
+extension UInt256: FixedWidthInteger {
+    public init<T>(_truncatingBits source: T) where T : BinaryInteger {
+        self.init()
     }
-    /// Fallback to scientific number. (like `1.0e-16`)
-    public static let fallbackToScientific = NumberToStringOptions(rawValue: 0b1)
-    /// Removes last zeroes (will print `1.123` instead of `1.12300000000000`)
-    public static let stripZeroes = NumberToStringOptions(rawValue: 0b10)
-    /// Default options: [.stripZeroes]
-    public static let `default`: NumberToStringOptions = [.stripZeroes]
-}
-public extension BinaryInteger {
-    func power(_ exponent: Int) -> Self {
-        if exponent == 0 { return 1 }
-        if exponent == 1 { return self }
-        if exponent < 0 {
-            precondition(self != 0)
-            return self == 1 ? 1 : 0
+    public static var bitWidth: Int {
+        print("bitWidth 256")
+        return 256
+    }
+    public static var max: UInt256 {
+        return UInt256(.max, .max, .max, .max)
+    }
+    public static var min: UInt256 {
+        return UInt256(0,0,0,0)
+    }
+
+    public func addingReportingOverflow(_ rhs: UInt256) -> (partialValue: UInt256, overflow: Bool) {
+        var lhs = self
+        let overflow = lhs.addReportingOverflow(rhs)
+        print("\(self) + \(rhs) = \(lhs) \(overflow)")
+        return (lhs,overflow)
+    }
+
+    public func subtractingReportingOverflow(_ rhs: UInt256) -> (partialValue: UInt256, overflow: Bool) {
+        var lhs = self
+        let overflow = lhs.subtractReportingOverflow(rhs)
+        return (lhs,overflow)
+    }
+
+    public func multipliedReportingOverflow(by rhs: UInt256) -> (partialValue: UInt256, overflow: Bool) {
+        // If either `lhs` or `rhs` is zero, the result is zero.
+        guard !self.isZero && !rhs.isZero else {
+            print("\(self) * \(rhs) = 0")
+            return (0,false)
         }
-        let signum = self.signum()
-        var b = self * signum
-        if b <= 1 { return self }
-        var result = Self(1)
-        var e = exponent
-        while e > 0 {
-            if e & 1 == 1 {
-                result *= b
-            }
-            e >>= 1
-            b *= b
-        }
-        if signum == -1 && exponent & 1 != 0 {
-            return result * -1
+
+        var newData = UInt256()
+
+        let a = self.raw
+        let b = rhs.raw
+
+        var carry: Word = 0
+
+        carry = 0
+
+        var product = a.0.multipliedFullWidth(by: b.0)
+        (carry, newData.raw.0) = Word.addingFullWidth(
+            newData.raw.0, product.low, carry)
+        carry = product.high &+ carry
+
+        product = a.0.multipliedFullWidth(by: b.1)
+        (carry, newData.raw.1) = Word.addingFullWidth(
+            newData.raw.1, product.low, carry)
+        carry = product.high &+ carry
+
+        product = a.0.multipliedFullWidth(by: b.2)
+        (carry, newData.raw.2) = Word.addingFullWidth(
+            newData.raw.2, product.low, carry)
+        carry = product.high &+ carry
+
+        product = a.0.multipliedFullWidth(by: b.3)
+        (carry, newData.raw.3) = Word.addingFullWidth(
+            newData.raw.3, product.low, carry)
+        carry = product.high &+ carry
+
+
+        // 1
+
+        carry = 0
+
+        product = a.1.multipliedFullWidth(by: b.0)
+        (carry, newData.raw.1) = Word.addingFullWidth(
+            newData.raw.1, product.low, carry)
+        carry = product.high &+ carry
+
+        product = a.1.multipliedFullWidth(by: b.1)
+        (carry, newData.raw.2) = Word.addingFullWidth(
+            newData.raw.2, product.low, carry)
+        carry = product.high &+ carry
+
+        product = a.1.multipliedFullWidth(by: b.2)
+        (carry, newData.raw.3) = Word.addingFullWidth(
+            newData.raw.3, product.low, carry)
+
+        //
+
+        carry = 0
+
+        product = a.2.multipliedFullWidth(by: b.0)
+        (carry, newData.raw.2) = Word.addingFullWidth(
+            newData.raw.2, product.low, carry)
+        carry = product.high &+ carry
+
+        product = a.2.multipliedFullWidth(by: b.1)
+        (carry, newData.raw.3) = Word.addingFullWidth(
+            newData.raw.3, product.low, carry)
+
+        //
+
+
+        carry = 0
+
+        product = a.3.multipliedFullWidth(by: b.0)
+        (carry, newData.raw.3) = Word.addingFullWidth(
+            newData.raw.3, product.low, carry)
+
+        //
+        print("\(self) * \(rhs) = \(newData) \(carry > 0)")
+        return (newData,carry > 0)
+    }
+
+    public func dividedReportingOverflow(by rhs: UInt256) -> (partialValue: UInt256, overflow: Bool) {
+        return (self/rhs, false)
+    }
+
+    public func remainderReportingOverflow(dividingBy rhs: UInt256) -> (partialValue: UInt256, overflow: Bool) {
+        return (self%rhs, false)
+    }
+
+    public func multipliedFullWidth(by other: UInt256) -> (high: UInt256, low: UInt256) {
+        return (0,self*other)
+    }
+
+    public func dividingFullWidth(_ dividend: (high: UInt256, low: UInt256)) -> (quotient: UInt256, remainder: UInt256) {
+        return dividend.high.divideFullWidth(by: dividend.low)
+    }
+
+    public var nonzeroBitCount: Int {
+        return raw.0.nonzeroBitCount + raw.1.nonzeroBitCount + raw.2.nonzeroBitCount + raw.3.nonzeroBitCount
+    }
+
+
+    @discardableResult
+    public mutating func addReportingOverflow(_ b: UInt256) -> Bool {
+        var carry = false
+        var (d, c) = self.raw.0.addingReportingOverflow(b.raw.0)
+        self.raw.0 = d
+        carry = c
+
+        (d, c) = self.raw.1.addingReportingOverflow(b.raw.1)
+        if carry {
+            let (d2, c2) = d.addingReportingOverflow(1)
+            self.raw.1 = d2
+            carry = c || c2
         } else {
-            return result
+            self.raw.1 = d
+            carry = c
+        }
+
+        (d, c) = self.raw.2.addingReportingOverflow(b.raw.2)
+        if carry {
+            let (d2, c2) = d.addingReportingOverflow(1)
+            self.raw.2 = d2
+            carry = c || c2
+        } else {
+            self.raw.2 = d
+            carry = c
+        }
+
+        (d, c) = self.raw.3.addingReportingOverflow(b.raw.3)
+        if carry {
+            let (d2, c2) = d.addingReportingOverflow(1)
+            self.raw.3 = d2
+            carry = c || c2
+        } else {
+            self.raw.3 = d
+            carry = c
+        }
+        return carry
+    }
+    @discardableResult
+    private mutating func subtractReportingOverflow(_ rhs: UInt256) -> Bool {
+        // Comare `lhs` and `rhs` so we can use `_unsignedSubtract` to subtract
+        // the smaller magnitude from the larger magnitude.
+        switch _compareMagnitude(to: rhs) {
+        case .equal:
+            self = 0
+            return false
+        case .greaterThan:
+            _subtractReportingOverflow(rhs)
+            return false
+        case .lessThan:
+            var result = rhs
+            result._subtractReportingOverflow(self)
+            result = ~result
+            self = result
+            return true
         }
     }
-    /// Formats Number to String. The supplied number is first divided into integer and decimal part based on "toUnits",
-    /// then limit the decimal part to "decimals" symbols and uses a "decimalSeparator" as a separator.
-    /// Fallbacks to scientific format if higher precision is required.
-    /// default: decimals: 18, decimalSeparator: ".", options: .stripZeroes
-    public func string(unitDecimals: Int, decimals: Int, decimalSeparator: String = ".", options: NumberToStringOptions = .default) -> String {
-        guard self != 0 else { return "0" }
-        var toDecimals = decimals
-        if unitDecimals < toDecimals {
-            toDecimals = unitDecimals
-        }
-        
-        let divisor = Self(10).power(unitDecimals)
-        let (quotient, remainder) = (self * signum()).quotientAndRemainder(dividingBy: divisor)
-        var fullRemainder = String(remainder)
-        let fullPaddedRemainder = fullRemainder.leftPadding(toLength: unitDecimals, withPad: "0")
-        let remainderPadded = fullPaddedRemainder[0 ..< toDecimals]
-        let offset = remainderPadded.reversed().firstIndex(where: { $0 != "0" })?.base
-        
-        if let offset = offset {
-            if toDecimals == 0 {
-                return sign + String(quotient)
-            } else if options.contains(.stripZeroes) {
-                return sign + String(quotient) + decimalSeparator + remainderPadded[..<offset]
-            } else {
-                return sign + String(quotient) + decimalSeparator + remainderPadded
-            }
-        } else if quotient != 0 || !options.contains(.fallbackToScientific) {
-            return sign + String(quotient)
-        } else {
-            var firstDigit = 0
-            for char in fullPaddedRemainder {
-                if char == "0" {
-                    firstDigit = firstDigit + 1
-                } else {
-                    let firstDecimalUnit = String(fullPaddedRemainder[firstDigit ..< firstDigit+1])
-                    var remainingDigits = ""
-                    let numOfRemainingDecimals = fullPaddedRemainder.count - firstDigit - 1
-                    if numOfRemainingDecimals <= 0 {
-                        remainingDigits = ""
-                    } else if numOfRemainingDecimals > decimals {
-                        let end = firstDigit+1+decimals > fullPaddedRemainder.count ? fullPaddedRemainder.count : firstDigit+1+decimals
-                        remainingDigits = String(fullPaddedRemainder[firstDigit+1 ..< end])
-                    } else {
-                        remainingDigits = String(fullPaddedRemainder[firstDigit+1 ..< fullPaddedRemainder.count])
-                    }
-                    fullRemainder = firstDecimalUnit
-                    if !remainingDigits.isEmpty {
-                        fullRemainder += decimalSeparator + remainingDigits
-                    }
-                    firstDigit = firstDigit + 1
-                    break
+    @discardableResult
+    private mutating func _subtractReportingOverflow(_ rhs: UInt256) -> Bool {
+        var carry: Word = 0
+        (carry, raw.0) = raw.0.subtractingWithBorrow(rhs.raw.0, carry)
+        (carry, raw.1) = raw.1.subtractingWithBorrow(rhs.raw.1, carry)
+        (carry, raw.2) = raw.2.subtractingWithBorrow(rhs.raw.2, carry)
+        (carry, raw.3) = raw.3.subtractingWithBorrow(rhs.raw.3, carry)
+        return carry != 0
+    }
+
+    public func divideFullWidth(by rhs: UInt256) -> (quotient: UInt256, remainder: UInt256) {
+        precondition(!rhs.isZero, "Divided by zero")
+
+        // Handle quick cases that don't require division:
+        // If `abs(self) < abs(rhs)`, the result is zero, remainder = self
+        // If `abs(self) == abs(rhs)`, the result is 1 or -1, remainder = 0
+        switch _compareMagnitude(to: rhs) {
+        case .lessThan:
+            return (0,self)
+        case .equal:
+            return (1,0)
+        default:
+            var tempSelf = self
+            let n = UInt256(tempSelf.leadingZeroBitCount - rhs.leadingZeroBitCount)
+            var quotient: UInt256 = 0
+            var tempRHS = rhs << n
+            var tempQuotient: UInt256 = 1 << n
+
+            for _ in 0...n {
+                if tempRHS._compareMagnitude(to: tempSelf) != .greaterThan {
+                    tempSelf -= tempRHS
+                    quotient += tempQuotient
                 }
+                tempRHS >>= 1
+                tempQuotient >>= 1
             }
-            return sign + fullRemainder + "e-" + String(firstDigit)
+
+            return (quotient,tempSelf)
         }
     }
-    
-    private var sign: String {
-        return signum() == -1 ? "-" : ""
+
+    public var byteSwapped: UInt256 {
+        let a = pointer(self)
+        var result = self
+        let b = pointer(&result)
+        for i in 0..<31 {
+            b[i] = a[i-31]
+        }
+        return result
     }
 }

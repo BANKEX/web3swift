@@ -41,9 +41,9 @@ class Definitions: ExpressibleByStringLiteral {
     var keys: [UInt32: Definition] = [:]
     subscript(key: String) -> Definition? {
         get {
-            return keys[key.data.sha256•UInt32.self]
+            return keys[key.data.sha256.as(UInt32.self)]
         } set {
-            keys[key.data.sha256•UInt32.self] = newValue
+            keys[key.data.sha256.as(UInt32.self)] = newValue
         }
     }
     init() {
@@ -70,7 +70,7 @@ class Definitions: ExpressibleByStringLiteral {
     private init(data: DefDataReader) throws {
         let count = try data.int()
         for _ in 0..<count {
-            let key: UInt32 = try data.raw()
+            let key: UInt32 = try data.nextRaw()
             let value = try Definition(data: data)
             keys[key] = value
         }
@@ -79,7 +79,7 @@ class Definitions: ExpressibleByStringLiteral {
         let data = try! DefDataReader(value.hex(separateEvery: 40, separator: "\n")).readBits()
         let count = try! data.int()
         for _ in 0..<count {
-            let key: UInt32 = try! data.raw()
+            let key: UInt32 = try! data.nextRaw()
             let value = try! Definition(data: data)
             keys[key] = value
         }
@@ -184,7 +184,7 @@ private class DefDataWriter: DataWriter {
         data.append(string.data(using: .utf8)!)
     }
     func done() {
-        (••data•UInt16.self)[0] = UInt16(data.count)
+        raw(&data).as(UInt16.self)[0] = UInt16(data.count)
         append(data: bits.data)
         append(byte: bits.byte)
     }
@@ -194,22 +194,22 @@ private class DefDataReader: DataReader {
     func readBits() throws -> Self {
         let a = try next(2)
         bits.data = data
-        bits.position = Int(•a•UInt16.self•0) * 8
+        bits.position = Int(raw(a).as(UInt16.self).at(0)) * 8
         return self
     }
     func int() throws -> Int {
-        let firstByte: Int8 = try raw()
+        let firstByte: Int8 = try nextRaw()
         switch firstByte {
         case ..<125:
             return Int(firstByte)
         case 125:
-            let value: Int16 = try raw()
+            let value: Int16 = try nextRaw()
             return Int(value)
         case 126:
-            let value: Int32 = try raw()
+            let value: Int32 = try nextRaw()
             return Int(value)
         case 127:
-            let value: Int64 = try raw()
+            let value: Int64 = try nextRaw()
             return Int(value)
         default:
             fatalError()

@@ -24,7 +24,7 @@ extension Data {
     public func base58(_ alphabet: Base58Alphabet) -> String {
         var size = count*2
         var data = Data(count: size)
-        b58enc(••data•Int8.self, &size, •self, count, alphabet.rawValue)
+        b58enc(raw(&data).as(Int8.self), &size, raw(self), count, alphabet.rawValue)
         return String(data: data[..<size], encoding: .utf8)!
     }
     public func base58(_ alphabet: Base58Alphabet, prefix: UInt8) -> String {
@@ -44,7 +44,7 @@ extension String {
         let data = Data(utf8)
         var result = Data(count: count)
         var size = count
-        guard b58tobin(••••result, &size, •data•Int8.self, data.count, alphabet.rawValue)
+        guard b58tobin(pointer(&result), &size, raw(data).as(Int8.self), data.count, alphabet.rawValue)
             else { throw Base58Error.invalidStringFormat }
         return result.subdata(in: count-size..<count)
     }

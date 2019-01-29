@@ -95,13 +95,13 @@ public class AES {
         var length = 0
         
         var cryptor: CCCryptorRef!
-        try CCCryptorCreateWithMode(CCOperation(kCCEncrypt), mode.cc, CCAlgorithm(kCCAlgorithmAES128), padding.cc, •iv, •key, key.count, nil, 0, 0, CCModeOptions(kCCModeOptionCTR_BE), &cryptor).check()
-        try CCCryptorUpdate(cryptor, •data, data.count, &outBytes, outBytes.count, &outLength).check()
+        try CCCryptorCreateWithMode(CCOperation(kCCEncrypt), mode.cc, CCAlgorithm(kCCAlgorithmAES128), padding.cc, raw(iv), raw(key), key.count, nil, 0, 0, CCModeOptions(kCCModeOptionCTR_BE), &cryptor).check()
+        try CCCryptorUpdate(cryptor, raw(data), data.count, &outBytes, outBytes.count, &outLength).check()
         length += outLength
         try CCCryptorFinal(cryptor, &outBytes + outLength, outBytes.count, &outLength).check()
         length += outLength
         
-        return Data(bytes: •outBytes, count: length)
+        return Data(bytes: raw(outBytes), count: length)
     }
     
     public func decrypt(_ data: [UInt8]) throws -> [UInt8] {
@@ -121,13 +121,13 @@ public class AES {
         var length = 0
         
         var cryptor: CCCryptorRef!
-        try CCCryptorCreateWithMode(CCOperation(kCCDecrypt), mode.cc, CCAlgorithm(kCCAlgorithmAES128), padding.cc, •iv, •key, key.count, nil, 0, 0, CCModeOptions(kCCModeOptionCTR_BE), &cryptor).check()
-        try CCCryptorUpdate(cryptor, •data, data.count, &outBytes, outBytes.count, &outLength).check()
+        try CCCryptorCreateWithMode(CCOperation(kCCDecrypt), mode.cc, CCAlgorithm(kCCAlgorithmAES128), padding.cc, raw(iv), raw(key), key.count, nil, 0, 0, CCModeOptions(kCCModeOptionCTR_BE), &cryptor).check()
+        try CCCryptorUpdate(cryptor, raw(data), data.count, &outBytes, outBytes.count, &outLength).check()
         length += outLength
         try CCCryptorFinal(cryptor, &outBytes + outLength, outBytes.count, &outLength).check()
         length += outLength
         
-        return Data(bytes: •outBytes, count: length)
+        return Data(bytes: raw(outBytes), count: length)
     }
 }
 
@@ -149,13 +149,13 @@ private func aes128(key: Data, iv: Data, input: Data, operation: CCOperation, pa
     var length = 0
     
     var cryptor: CCCryptorRef!
-    try CCCryptorCreateWithMode(operation, mode.cc, CCAlgorithm(kCCAlgorithmAES128), padding.cc, •iv, •key, key.count, nil, 0, 0, CCModeOptions(kCCModeOptionCTR_BE), &cryptor).check()
-    try CCCryptorUpdate(cryptor, •input, input.count, &outBytes, outBytes.count, &outLength).check()
+    try CCCryptorCreateWithMode(operation, mode.cc, CCAlgorithm(kCCAlgorithmAES128), padding.cc, raw(iv), raw(key), key.count, nil, 0, 0, CCModeOptions(kCCModeOptionCTR_BE), &cryptor).check()
+    try CCCryptorUpdate(cryptor, raw(input), input.count, &outBytes, outBytes.count, &outLength).check()
     length += outLength
     try CCCryptorFinal(cryptor, &outBytes + outLength, outBytes.count, &outLength).check()
     length += outLength
     
-    return Data(bytes: •outBytes, count: length)
+    return Data(bytes: raw(outBytes), count: length)
 }
 
 enum AESError: Swift.Error {

@@ -41,10 +41,10 @@ open class DataReader {
     }
     /// Returns next data with size.
     /// Position changes
-    open func raw<T>() throws -> T {
+    open func nextRaw<T>() throws -> T {
         let size = MemoryLayout<T>.size
         let data = try next(size)
-        return data•T.self
+        return data.as(T.self)
     }
     /// Inits with data
     public init(_ data: Data) {

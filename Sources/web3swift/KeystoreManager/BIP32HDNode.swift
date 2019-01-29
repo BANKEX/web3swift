@@ -14,7 +14,7 @@ extension UInt32 {
     /// - Returns: Serialized bigEndian value as Data
     public func serialize32() -> Data {
         var data = Data(count: 4)
-        (••data•UInt32.self)[0] = bigEndian
+        raw(&data).as(UInt32.self)[0] = bigEndian
         return data
     }
 }

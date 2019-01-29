@@ -36,6 +36,6 @@ open class DataWriter {
 private extension Data {
     mutating func append<T>(raw: T) {
         let count = MemoryLayout<T>.size
-        append(•••raw, count: count)
+        append(pointer(raw), count: count)
     }
 }

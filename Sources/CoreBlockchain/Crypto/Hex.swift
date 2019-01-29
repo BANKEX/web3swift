@@ -24,9 +24,9 @@ extension Data {
     /// Returns Hex representation of data
     public var hex: String {
         var data = Data(count: count*2)
-        let ptr = •hexMap•512•UInt16.self
-        let p = ••data•UInt16.self
-        let b = •••self
+        let ptr = raw(hexMap).offset(512).as(UInt16.self)
+        let p = raw(&data).as(UInt16.self)
+        let b = pointer(self)
         for i in 0..<count {
             p[i] = ptr[Int(b[i])]
         }
@@ -40,17 +40,17 @@ extension Data {
     public func hex(separateEvery: Int, separator: String) -> String {
         let separatorData = separator.data(using: .utf8)!
         let separatorSize = separatorData.count
-        let separatorPointer = •separatorData
+        let separatorPointer = raw(separatorData)
         
         let separations = ((count-1) / separateEvery) * separatorSize
         let stringSize = (count*2) + separations * separatorSize
         
         var stringData = Data(count: stringSize)
-        let stringPointer = ••stringData
+        let stringPointer = raw(&stringData)
         
-        let hexMapPointer = •hexMap•512
+        let hexMapPointer = raw(hexMap).offset(512)
         
-        let input = •••self
+        let input = pointer(self)
         
         var byteIndex = 0
         var stringIndex = 0
@@ -84,8 +84,8 @@ extension String {
         return isHex ? String(dropFirst(2)) : self
     }
     public func dataFromHex() throws -> Data {
-        let leftMap = •hexMap•UInt8.self
-        let rightMap = •hexMap•256•UInt8.self
+        let leftMap = raw(hexMap).as(UInt8.self)
+        let rightMap = raw(hexMap).offset(256).as(UInt8.self)
         let string: [UInt8] = Array(utf8)
         var count = string.count / 2
         var index = 0
@@ -96,7 +96,7 @@ extension String {
         var cIndex = 0
         
         var data = Data(count: count)
-        let output = ••••data
+        let output = pointer(&data)
         
         while cIndex < data.count {
             if index + 1 < string.count {
@@ -124,15 +124,15 @@ extension String {
     /// - Returns: Hex representation of data
     public func hex(separateEvery: Int, separator: String) throws -> Data {
         let separatorSize = separator.utf8.count
-        let leftMap = •hexMap•UInt8.self
-        let rightMap = •hexMap•256•UInt8.self
+        let leftMap = raw(hexMap).as(UInt8.self)
+        let rightMap = raw(hexMap).offset(256).as(UInt8.self)
         let string: [UInt8] = Array(utf8)
         
         let separations = string.count / (separateEvery * 2 + separatorSize)
         let bytesCount = (string.count - (separations * separatorSize)) / 2
         
         var data = Data(count: bytesCount)
-        let pointer = ••••data
+        let output = pointer(&data)
         var characterIndex = 0
         var dataIndex = 0
         var iteraction = 0
@@ -146,13 +146,13 @@ extension String {
                     guard a != 1 else { throw HexError.invalidHexFormat(self) }
                     let b = leftMap[Int(string[characterIndex+1])]
                     guard b != 16 else { throw HexError.invalidHexFormat(self) }
-                    pointer[dataIndex] = a | b
+                    output[dataIndex] = a | b
                     characterIndex += 2
                     dataIndex += 1
                 } else {
                     let a = leftMap[Int(string[characterIndex])]
                     guard a != 16 else { throw HexError.invalidHexFormat(self) }
-                    pointer[dataIndex] = a
+                    output[dataIndex] = a
                     return data
                 }
             }

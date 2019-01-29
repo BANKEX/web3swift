@@ -211,7 +211,7 @@ public struct SECP256K1 {
     public static func recoverPublicKey(hash: Data, recoverableSignature: inout secp256k1_ecdsa_recoverable_signature) throws -> secp256k1_pubkey {
         try hash.checkHashSize()
         var publicKey = secp256k1_pubkey()
-        try secp256k1_ecdsa_recover(context!, &publicKey, &recoverableSignature, •••hash)
+        try secp256k1_ecdsa_recover(context!, &publicKey, &recoverableSignature, pointer(hash))
             .onError(.cannotRecoverPublicKey)
         
         return publicKey
@@ -220,7 +220,7 @@ public struct SECP256K1 {
     public static func privateKeyToPublicKey(privateKey: Data) throws -> secp256k1_pubkey {
         try privateKey.checkPrivateKeySize()
         var publicKey = secp256k1_pubkey()
-        try secp256k1_ec_pubkey_create(context!, &publicKey, •••privateKey)
+        try secp256k1_ec_pubkey_create(context!, &publicKey, pointer(privateKey))
             .onError(.cannotExtractPublicKeyFromPrivateKey)
         return publicKey
     }
@@ -229,14 +229,14 @@ public struct SECP256K1 {
         var keyLength = compressed ? 33 : 65
         var serializedPubkey = Data(repeating: 0x00, count: keyLength)
         let flags = UInt32(compressed ? SECP256K1_EC_COMPRESSED : SECP256K1_EC_UNCOMPRESSED)
-        try secp256k1_ec_pubkey_serialize(context!, ••••serializedPubkey, &keyLength, &publicKey, flags).onError(.cannotSerializePublicKey)
+        try secp256k1_ec_pubkey_serialize(context!, pointer(&serializedPubkey), &keyLength, &publicKey, flags).onError(.cannotSerializePublicKey)
         return Data(serializedPubkey)
     }
 
     public static func parsePublicKey(serializedKey: Data) throws -> secp256k1_pubkey {
         try serializedKey.checkSignatureSize(maybeCompressed: true)
         var publicKey = secp256k1_pubkey()
-        try secp256k1_ec_pubkey_parse(context!, &publicKey, •••serializedKey, serializedKey.count)
+        try secp256k1_ec_pubkey_parse(context!, &publicKey, pointer(serializedKey), serializedKey.count)
             .onError(.cannotParsePublicKey)
         return publicKey
     }
@@ -252,15 +252,14 @@ public struct SECP256K1 {
         // eth-lib code: vrs.v < 2 ? vrs.v : 1 - (vrs.v % 2)
         // https://github.com/MaiaVictor/eth-lib/blob/d959c54faa1e1ac8d474028ed1568c5dce27cc7a/src/account.js#L60
         v = v < 2 ? v : 1 - (v % 2)
-        try secp256k1_ecdsa_recoverable_signature_parse_compact(context!, &recoverableSignature, •••serializedSignature, v).onError(.cannotParseSignature)
+        try secp256k1_ecdsa_recoverable_signature_parse_compact(context!, &recoverableSignature, pointer(serializedSignature), v).onError(.cannotParseSignature)
         return recoverableSignature
     }
 
     public static func serializeSignature(recoverableSignature: inout secp256k1_ecdsa_recoverable_signature) throws -> Data {
         var serializedSignature = Data(repeating: 0x00, count: 64)
         var v: Int32 = 0
-        let output = ••••serializedSignature
-        try secp256k1_ecdsa_recoverable_signature_serialize_compact(context!, output, &v, &recoverableSignature).onError(.cannotSerializeSignature)
+        try secp256k1_ecdsa_recoverable_signature_serialize_compact(context!, pointer(&serializedSignature), &v, &recoverableSignature).onError(.cannotSerializeSignature)
         
         if v == 0 {
             serializedSignature.append(0x00)
@@ -277,7 +276,7 @@ public struct SECP256K1 {
         try verifyPrivateKey(privateKey: privateKey)
         var recoverableSignature = secp256k1_ecdsa_recoverable_signature()
         let extraEntropy: Data? = useExtraEntropy ? .random(length: 32) : nil
-        try secp256k1_ecdsa_sign_recoverable(context!, &recoverableSignature, •••hash, •••privateKey, nil, •••extraEntropy)
+        try secp256k1_ecdsa_sign_recoverable(context!, &recoverableSignature, pointer(hash), pointer(privateKey), nil, pointer(extraEntropy))
             .onError(.cannotMakeRecoverableSignature)
         return recoverableSignature
     }
@@ -297,7 +296,7 @@ public struct SECP256K1 {
 
     public static func verifyPrivateKey(privateKey: Data) throws {
         try privateKey.checkPrivateKeySize()
-        try secp256k1_ec_seckey_verify(context!, •••privateKey)
+        try secp256k1_ec_seckey_verify(context!, pointer(privateKey))
             .equals(1, .invalidPrivateKey)
     }
 

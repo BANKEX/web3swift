@@ -13,7 +13,7 @@ extension Data {
     /// - Returns: kaccak256 hash of data
     public func keccak256() -> Data {
         var data = Data(count: 32)
-        keccak_256(••••data, 32, •••self, count)
+        keccak_256(pointer(&data), 32, pointer(self), count)
         return data
     }
 }
