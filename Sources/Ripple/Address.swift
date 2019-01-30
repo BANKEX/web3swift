@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import PromiseKit
 import CoreBlockchain
 import BigInt
 

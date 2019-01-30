@@ -50,6 +50,33 @@ extension DispatchQueue {
             }
         }
     }
+    
+    
+//    func future<T>(_ execute: @escaping () throws -> (T)) -> Future<T> {
+//        let future = Future<T>()
+//        async {
+//            future.resolve(execute)
+//        }
+//        return future
+//    }
+//    func resolver<T>(_ execute: @escaping (Future<T>) throws -> ()) -> Future<T> {
+//        let future = Future<T>()
+//        async {
+//            do {
+//                try execute(future)
+//            } catch {
+//                future.fail(error)
+//            }
+//        }
+//        return future
+//    }
+//    
+//    func run<T>(_ resolver: Future<T>, _ code: @escaping () throws -> (T)) -> Future<T> {
+//        async {
+//            resolver.resolve(code)
+//        }
+//        return resolver
+//    }
 }
 
 /// Work in progress. Will be released in 3.0
@@ -90,7 +117,7 @@ extension URLSession: NetworkProtocol {
             } catch {
                 request._failed(error: error)
             }
-        }.catch(request._failed)
+            }.catch(on: .web3, request._failed)
     }
     public func get(_ string: String) -> Promise<Data> {
         guard let url = URL(string: string) else {

@@ -664,7 +664,6 @@ extension UInt256: FixedWidthInteger {
         self.init()
     }
     public static var bitWidth: Int {
-        print("bitWidth 256")
         return 256
     }
     public static var max: UInt256 {
@@ -677,7 +676,6 @@ extension UInt256: FixedWidthInteger {
     public func addingReportingOverflow(_ rhs: UInt256) -> (partialValue: UInt256, overflow: Bool) {
         var lhs = self
         let overflow = lhs.addReportingOverflow(rhs)
-        print("\(self) + \(rhs) = \(lhs) \(overflow)")
         return (lhs,overflow)
     }
 
@@ -690,7 +688,6 @@ extension UInt256: FixedWidthInteger {
     public func multipliedReportingOverflow(by rhs: UInt256) -> (partialValue: UInt256, overflow: Bool) {
         // If either `lhs` or `rhs` is zero, the result is zero.
         guard !self.isZero && !rhs.isZero else {
-            print("\(self) * \(rhs) = 0")
             return (0,false)
         }
 
@@ -764,8 +761,7 @@ extension UInt256: FixedWidthInteger {
         (carry, newData.raw.3) = Word.addingFullWidth(
             newData.raw.3, product.low, carry)
 
-        //
-        print("\(self) * \(rhs) = \(newData) \(carry > 0)")
+        
         return (newData,carry > 0)
     }
 

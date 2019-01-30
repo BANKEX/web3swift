@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreBlockchain
-import PromiseKit
 
 protocol REncodable {
     func encode(to data: RippleWriter)

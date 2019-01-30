@@ -8,7 +8,6 @@
 
 import Foundation
 import BigInt
-import PromiseKit
 import CoreBlockchain
 
 //class TransactionBuilder {
