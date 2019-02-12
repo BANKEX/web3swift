@@ -229,7 +229,7 @@ public struct KeystoreParamsV3: Decodable, Encodable {
     
     /// Init with all params
     public init(address ad: String?, crypto cr: CryptoParamsV3, id i: String, version ver: Int) {
-        address = ad
+        address = ad?.withoutHex
         crypto = cr
         id = i
         version = ver
