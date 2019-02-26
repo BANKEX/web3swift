@@ -323,7 +323,7 @@ public class Web3Eth: Web3OptionsInheritable {
 	/// - Parameter options: Object can override the "to", "gasPrice", "gasLimit" and "value" parameters is pre-formed transaction.
 	/// "from" field in "options" is mandatory for both local and remote signing.
 	/// - Parameter password: Password to decrypt sender's private key
-    func sendTransactionPromise(_ transaction: EthereumTransaction, options: Web3Options, password: String = "BANKEXFOUNDATION") -> Promise<TransactionSendingResult> {
+    public func sendTransactionPromise(_ transaction: EthereumTransaction, options: Web3Options, password: String = "BANKEXFOUNDATION") -> Promise<TransactionSendingResult> {
         //        print(transaction)
         var assembledTransaction: EthereumTransaction = transaction.mergedWithOptions(options)
         let queue = web3.requestDispatcher.queue

@@ -78,7 +78,7 @@ public class Web3Personal: Web3OptionsInheritable {
         return try Web3Utils.hashECRecover(hash: hash, signature: signature)
     }
     
-    func signPersonalMessagePromise(message: Data, from: Address, password: String = "BANKEXFOUNDATION") -> Promise<Data> {
+    public func signPersonalMessagePromise(message: Data, from: Address, password: String = "BANKEXFOUNDATION") -> Promise<Data> {
         let queue = web3.requestDispatcher.queue
         do {
             if web3.provider.attachedKeystoreManager.isEmpty {
