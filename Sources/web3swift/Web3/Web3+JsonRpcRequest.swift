@@ -27,13 +27,13 @@ struct Counter {
 /// JSON RPC request structure for serialization and deserialization purposes.
 public struct JsonRpcRequest: Encodable {
     /// jsonrpc version
-    var jsonrpc: String = "2.0"
+    public var jsonrpc: String = "2.0"
     /// node api
-    var method: JsonRpcMethod
+    public var method: JsonRpcMethod
     /// node input
-    var params: JsonRpcParams
+    public var params: JsonRpcParams
     /// request local id
-    var id: Int = Counter.increment()
+    public var id: Int = Counter.increment()
     
     /// A type that can be used as a key for encoding and decoding.
     enum CodingKeys: String, CodingKey {
