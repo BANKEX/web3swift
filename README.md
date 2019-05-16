@@ -1,5 +1,3 @@
-> ## bankex/web3swift development is frozen at this moment and may not be updated to swift 5. You can use [matter-labs/web3swift](https://github.com/matter-labs/web3swift) instead
-
 ### You can ask for help in our [Discord Channel](https://discord.gg/3ETv2ST)
 <p align="right">
 <a href="https://bankex.github.io/web3swift/read-documentation-using-xcode.html" target="_blank">
