@@ -157,7 +157,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_protocolVersion","params":[],"id":67}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_protocolVersion","params":[],"id":67}'
     ///
     /// // Result
     /// {
@@ -169,7 +169,7 @@ public class EthereumApi {
     ///
     /// - Returns: `String` - The current ethereum protocol version.
     public func protocolVersion() -> Promise<String> {
-        return network.send("eth_protocolVersion").string()
+        return network.send("ctxc_protocolVersion").string()
     }
     
     /// Returns an object with data about the sync status or `false`.
@@ -178,7 +178,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_syncing","params":[],"id":1}'
     ///
     /// // Result
     /// {
@@ -200,7 +200,7 @@ public class EthereumApi {
     ///
     /// - Returns: `Object|Boolean`, An object with sync status data or `FALSE`, when not syncing:
     public func syncing() -> Promise<SyncingStatus?> {
-        return network.send("eth_syncing").map {
+        return network.send("ctxc_syncing").map {
             let bool = (try? $0.bool()) ?? true
             guard bool else { return nil }
             return try SyncingStatus($0)
@@ -212,7 +212,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_coinbase","params":[],"id":64}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_coinbase","params":[],"id":64}'
     ///
     /// // Result
     /// {
@@ -224,7 +224,7 @@ public class EthereumApi {
     ///
     /// - Returns: `DATA`, 20 bytes - the current coinbase address.
     public func coinbase() -> Promise<Address> {
-        return network.send("eth_coinbase").address()
+        return network.send("ctxc_coinbase").address()
     }
     
     /// Returns `true` if client is actively mining new blocks.
@@ -232,7 +232,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_mining","params":[],"id":71}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_mining","params":[],"id":71}'
     ///
     /// // Result
     /// {
@@ -245,7 +245,7 @@ public class EthereumApi {
     ///
     /// - Returns: `Boolean` - returns `true` of the client is mining, otherwise `false`.
     public func mining() -> Promise<Bool> {
-        return network.send("eth_mining").bool()
+        return network.send("ctxc_mining").bool()
     }
     
     /// Returns the number of hashes per second that the node is mining with.
@@ -253,7 +253,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_hashrate","params":[],"id":71}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_hashrate","params":[],"id":71}'
     ///
     /// // Result
     /// {
@@ -266,7 +266,7 @@ public class EthereumApi {
     ///
     /// - Returns: `QUANTITY` - number of hashes per second.
     public func hashrate() -> Promise<Int> {
-        return network.send("eth_hashrate").int()
+        return network.send("ctxc_hashrate").int()
     }
     
     /// Returns the current price per gas in wei.
@@ -274,7 +274,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_gasPrice","params":[],"id":73}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_gasPrice","params":[],"id":73}'
     ///
     /// // Result
     /// {
@@ -286,7 +286,7 @@ public class EthereumApi {
     ///
     /// - Returns: `QUANTITY` - integer of the current gas price in wei.
     public func gasPrice() -> Promise<BigUInt> {
-        return network.send("eth_gasPrice").uint256()
+        return network.send("ctxc_gasPrice").uint256()
     }
     
     /// Returns a list of addresses owned by client.
@@ -294,7 +294,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_accounts","params":[],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_accounts","params":[],"id":1}'
     ///
     /// // Result
     /// {
@@ -306,7 +306,7 @@ public class EthereumApi {
     ///
     /// - Returns: `Array of DATA`, 20 Bytes - addresses owned by the client.
     public func accounts() -> Promise<[Address]> {
-        return network.send("eth_accounts").array(_address)
+        return network.send("ctxc_accounts").array(_address)
     }
     
     /// Returns the number of most recent block.
@@ -314,7 +314,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_blockNumber","params":[],"id":1}'
     ///
     /// // Result
     /// {
@@ -326,7 +326,7 @@ public class EthereumApi {
     ///
     /// - Returns: `QUANTITY` - integer of the current block number the client is on.
     public func blockNumber() -> Promise<Int> {
-        return network.send("eth_blockNumber").int()
+        return network.send("ctxc_blockNumber").int()
     }
     
     /// Returns the balance of the account of given address.
@@ -342,7 +342,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getBalance","params":["0xc94770007dda54cF92009BFF0dE90c06F603a09f", "latest"],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getBalance","params":["0xc94770007dda54cF92009BFF0dE90c06F603a09f", "latest"],"id":1}'
     ///
     /// // Result
     /// {
@@ -357,7 +357,7 @@ public class EthereumApi {
     /// - Parameter block: `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the [default block parameter](#the-default-block-parameter)
     /// - Returns: `QUANTITY` - integer of the current balance in wei.
     public func getBalance(address: Address, block: BlockNumber) -> Promise<BigUInt> {
-        return network.send("eth_getBalance", address, block).uint256()
+        return network.send("ctxc_getBalance", address, block).uint256()
     }
     
     /// Returns the value from a storage position at a given address.
@@ -381,7 +381,7 @@ public class EthereumApi {
     /// Retrieving the value of pos0 is straight forward:
     ///
     /// ```js
-    /// curl -X POST --data '{"jsonrpc":"2.0", "method": "eth_getStorageAt", "params": ["0x295a70b2de5e3953354a6a8344e616ed314d7251", "0x0", "latest"], "id": 1}' localhost:8545
+    /// curl -X POST --data '{"jsonrpc":"2.0", "method": "ctxc_getStorageAt", "params": ["0x295a70b2de5e3953354a6a8344e616ed314d7251", "0x0", "latest"], "id": 1}' localhost:8545
     ///
     /// {"jsonrpc":"2.0","id":1,"result":"0x00000000000000000000000000000000000000000000000000000000000004d2"}
     /// ```
@@ -404,7 +404,7 @@ public class EthereumApi {
     /// ```
     /// Now to fetch the storage:
     /// ```js
-    /// curl -X POST --data '{"jsonrpc":"2.0", "method": "eth_getStorageAt", "params": ["0x295a70b2de5e3953354a6a8344e616ed314d7251", "0x6661e9d6d8b923d5bbaab1b96e1dd51ff6ea2a93520fdc9eb75d059238b8c5e9", "latest"], "id": 1}' localhost:8545
+    /// curl -X POST --data '{"jsonrpc":"2.0", "method": "ctxc_getStorageAt", "params": ["0x295a70b2de5e3953354a6a8344e616ed314d7251", "0x6661e9d6d8b923d5bbaab1b96e1dd51ff6ea2a93520fdc9eb75d059238b8c5e9", "latest"], "id": 1}' localhost:8545
     ///
     /// {"jsonrpc":"2.0","id":1,"result":"0x000000000000000000000000000000000000000000000000000000000000162e"}
     ///
@@ -416,7 +416,7 @@ public class EthereumApi {
     ///
     /// - Returns: `DATA` - the value at this storage position.
     public func getStorageAt(_ address: Address, position: BigUInt, block: BlockNumber) -> Promise<Data> {
-        return network.send("eth_getStorageAt", address, position, block).data()
+        return network.send("ctxc_getStorageAt", address, position, block).data()
     }
     
     /// Returns the number of transactions *sent* from an address.
@@ -431,7 +431,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionCount","params":["0xc94770007dda54cF92009BFF0dE90c06F603a09f","latest"],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getTransactionCount","params":["0xc94770007dda54cF92009BFF0dE90c06F603a09f","latest"],"id":1}'
     ///
     /// // Result
     /// {
@@ -446,7 +446,7 @@ public class EthereumApi {
     ///
     /// - Returns: `QUANTITY` - integer of the number of transactions send from this address.
     public func getTransactionCount(_ address: Address, block: BlockNumber) -> Promise<BigUInt> {
-        return network.send("eth_getTransactionCount", address, block).uint256()
+        return network.send("ctxc_getTransactionCount", address, block).uint256()
     }
     
     /// Returns the number of transactions in a block from a block matching the given block hash.
@@ -460,7 +460,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getBlockTransactionCountByHash","params":["0xc94770007dda54cF92009BFF0dE90c06F603a09f"],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getBlockTransactionCountByHash","params":["0xc94770007dda54cF92009BFF0dE90c06F603a09f"],"id":1}'
     ///
     /// // Result
     /// {
@@ -473,7 +473,7 @@ public class EthereumApi {
     /// - Parameter : `DATA`, 32 Bytes - hash of a block.
     /// - Returns: `QUANTITY` - integer of the number of transactions in this block.
     public func getBlockTransactionCountByHash(_ hash: Data) -> Promise<BigUInt> {
-        return network.send("eth_getBlockTransactionCountByHash", hash).uint256()
+        return network.send("ctxc_getBlockTransactionCountByHash", hash).uint256()
     }
     
     /// Returns the number of transactions in a block matching the given block number.
@@ -487,7 +487,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getBlockTransactionCountByNumber","params":["0xe8"],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getBlockTransactionCountByNumber","params":["0xe8"],"id":1}'
     ///
     /// // Result
     /// {
@@ -501,7 +501,7 @@ public class EthereumApi {
     ///
     /// - Returns: `QUANTITY` - integer of the number of transactions in this block.
     public func getBlockTransactionCountByNumber(_ block: BlockNumber) -> Promise<BigUInt> {
-        return network.send("eth_getBlockTransactionCountByNumber", block).uint256()
+        return network.send("ctxc_getBlockTransactionCountByNumber", block).uint256()
     }
     
     /// Returns the number of uncles in a block from a block matching the given block hash.
@@ -516,7 +516,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getUncleCountByBlockHash","params":["0xc94770007dda54cF92009BFF0dE90c06F603a09f"],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getUncleCountByBlockHash","params":["0xc94770007dda54cF92009BFF0dE90c06F603a09f"],"id":1}'
     ///
     /// // Result
     /// {
@@ -530,7 +530,7 @@ public class EthereumApi {
     ///
     /// - Returns: `QUANTITY` - integer of the number of uncles in this block.
     public func getUncleCountByBlockHash(_ hash: Data) -> Promise<BigUInt> {
-        return network.send("eth_getUncleCountByBlockHash", hash).uint256()
+        return network.send("ctxc_getUncleCountByBlockHash", hash).uint256()
     }
     
     /// Returns the number of uncles in a block from a block matching the given block number.
@@ -545,7 +545,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getUncleCountByBlockNumber","params":["0xe8"],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getUncleCountByBlockNumber","params":["0xe8"],"id":1}'
     ///
     /// // Result
     /// {
@@ -559,7 +559,7 @@ public class EthereumApi {
     ///
     /// - Returns: `QUANTITY` - integer of the number of uncles in this block.
     public func getUncleCountByBlockNumber(_ block: BlockNumber) -> Promise<BigUInt> {
-        return network.send("eth_getUncleCountByBlockNumber", block).uint256()
+        return network.send("ctxc_getUncleCountByBlockNumber", block).uint256()
     }
     
     /// Returns code at a given address.
@@ -574,7 +574,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getCode","params":["0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b", "0x2"],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getCode","params":["0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b", "0x2"],"id":1}'
     ///
     /// // Result
     /// {
@@ -589,7 +589,7 @@ public class EthereumApi {
     ///
     /// - Returns: `DATA` - the code from the given address.
     public func getCode(address: Address, block: BlockNumber) -> Promise<Data> {
-        return network.send("eth_getCode", address, block).data()
+        return network.send("ctxc_getCode", address, block).data()
     }
     
     /// The sign method calculates an Ethereum specific signature with: `sign(keccak256("\x19Ethereum Signed Message:\n" + len(message) + message)))`.
@@ -605,7 +605,7 @@ public class EthereumApi {
     ///
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_sign","params":["0x9b2055d370f73ec7d8a03e965129118dc8f5bf83", "0xdeadbeaf"],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_sign","params":["0x9b2055d370f73ec7d8a03e965129118dc8f5bf83", "0xdeadbeaf"],"id":1}'
     ///
     /// // Result
     /// {
@@ -615,14 +615,14 @@ public class EthereumApi {
     /// }
     /// ```
     ///
-    /// An example how to use solidity ecrecover to verify the signature calculated with `eth_sign` can be found [here](https://gist.github.com/bas-vk/d46d83da2b2b4721efb0907aecdb7ebd). The contract is deployed on the testnet Ropsten and Rinkeby.
+    /// An example how to use solidity ecrecover to verify the signature calculated with `ctxc_sign` can be found [here](https://gist.github.com/bas-vk/d46d83da2b2b4721efb0907aecdb7ebd). The contract is deployed on the testnet Ropsten and Rinkeby.
     ///
     /// - Parameter address: `DATA`, 20 Bytes - address.
     /// - Parameter data: `DATA`, N Bytes - message to sign.
     ///
     /// - Returns: `DATA`: Signature
     public func sign(address: Address, data: Data) -> Promise<Data> {
-        return network.send("eth_sign", address, data).data()
+        return network.send("ctxc_sign", address, data).data()
     }
     
     /// Creates new message call transaction or a contract creation, if the data field contains code.
@@ -639,12 +639,12 @@ public class EthereumApi {
     /// }]
     /// ```
     ///
-    /// Use [eth_getTransactionReceipt](#eth_gettransactionreceipt) to get the contract address, after the transaction was mined, when you created a contract.
+    /// Use [ctxc_getTransactionReceipt](#ctxc_gettransactionreceipt) to get the contract address, after the transaction was mined, when you created a contract.
     ///
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{see above}],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_sendTransaction","params":[{see above}],"id":1}'
     ///
     /// // Result
     /// {
@@ -671,7 +671,7 @@ public class EthereumApi {
             .set("value", value)
             .set("data", data)
             .set("nonce", nonce)
-        return network.send("eth_sendTransaction", dictionary).data()
+        return network.send("ctxc_sendTransaction", dictionary).data()
     }
     
     /// Creates new message call transaction or a contract creation for signed transactions.
@@ -681,12 +681,12 @@ public class EthereumApi {
     /// params: ["0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"]
     /// ```
     ///
-    /// Use [eth_getTransactionReceipt](#eth_gettransactionreceipt) to get the contract address, after the transaction was mined, when you created a contract.
+    /// Use [ctxc_getTransactionReceipt](#ctxc_gettransactionreceipt) to get the contract address, after the transaction was mined, when you created a contract.
     ///
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_sendRawTransaction","params":[{see above}],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_sendRawTransaction","params":[{see above}],"id":1}'
     ///
     /// // Result
     /// {
@@ -700,7 +700,7 @@ public class EthereumApi {
     ///
     /// - Returns: `DATA`, 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available.
     public func sendRawTransaction(data: Data) -> Promise<Data> {
-        return network.send("eth_sendRawTransaction", data).data()
+        return network.send("ctxc_sendRawTransaction", data).data()
     }
     
     /// Executes a new message call immediately without creating a transaction on the block chain.
@@ -708,7 +708,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_call","params":[{see above}],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_call","params":[{see above}],"id":1}'
     ///
     /// // Result
     /// {
@@ -720,7 +720,7 @@ public class EthereumApi {
     ///
     /// - Parameter from: `DATA`, 20 Bytes - (optional) The address the transaction is sent from.
     /// - Parameter to: `DATA`, 20 Bytes  - The address the transaction is directed to.
-    /// - Parameter gas: `QUANTITY`  - (optional) Integer of the gas provided for the transaction execution. eth_call consumes zero gas, but this parameter may be needed by some executions.
+    /// - Parameter gas: `QUANTITY`  - (optional) Integer of the gas provided for the transaction execution. ctxc_call consumes zero gas, but this parameter may be needed by some executions.
     /// - Parameter gasPrice: `QUANTITY`  - (optional) Integer of the gasPrice used for each paid gas
     /// - Parameter value: `QUANTITY`  - (optional) Integer of the value sent with this transaction
     /// - Parameter data: `DATA`  - (optional) Hash of the method signature and encoded parameters. For details see [Ethereum Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)
@@ -735,7 +735,7 @@ public class EthereumApi {
             .set("gasPrice", gasPrice)
             .set("value", value)
             .set("data", data)
-        return network.send("eth_call", dictionary, block).data()
+        return network.send("ctxc_call", dictionary, block).data()
     }
     
     /// Generates and returns an estimate of how much gas is necessary to allow the transaction to complete. The transaction will not be added to the blockchain. Note that the estimate may be significantly more than the amount of gas actually used by the transaction, for a variety of reasons including EVM mechanics and node performance.
@@ -743,7 +743,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_estimateGas","params":[{see above}],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_estimateGas","params":[{see above}],"id":1}'
     ///
     /// // Result
     /// {
@@ -755,7 +755,7 @@ public class EthereumApi {
     ///
     /// - Parameter from: `DATA`, 20 Bytes - (optional) The address the transaction is sent from.
     /// - Parameter to: `DATA`, 20 Bytes  - The address the transaction is directed to.
-    /// - Parameter gas: `QUANTITY`  - (optional) Integer of the gas provided for the transaction execution. eth_call consumes zero gas, but this parameter may be needed by some executions.
+    /// - Parameter gas: `QUANTITY`  - (optional) Integer of the gas provided for the transaction execution. ctxc_call consumes zero gas, but this parameter may be needed by some executions.
     /// - Parameter gasPrice: `QUANTITY`  - (optional) Integer of the gasPrice used for each paid gas
     /// - Parameter value: `QUANTITY`  - (optional) Integer of the value sent with this transaction
     /// - Parameter data: `DATA`  - (optional) Hash of the method signature and encoded parameters. For details see [Ethereum Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)
@@ -770,7 +770,7 @@ public class EthereumApi {
             .set("gasPrice", gasPrice)
             .set("value", value)
             .set("data", data)
-        return network.send("eth_estimateGas", dictionary).uint256()
+        return network.send("ctxc_estimateGas", dictionary).uint256()
     }
     
     /// Returns information about a block by hash.
@@ -786,7 +786,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getBlockByHash","params":["0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331", true],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getBlockByHash","params":["0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331", true],"id":1}'
     ///
     /// // Result
     /// {
@@ -820,7 +820,7 @@ public class EthereumApi {
     ///
     /// - Returns: `Object` - A block object, or `null` when no block was found:
     public func getBlockByHash(_ hash: Data, _ fullInformation: Bool) -> Promise<BlockInfo?> {
-        return network.send("eth_getBlockByHash", hash, fullInformation).block()
+        return network.send("ctxc_getBlockByHash", hash, fullInformation).block()
     }
     
     /// Returns information about a block by block number.
@@ -836,17 +836,17 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["0x1b4", true],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getBlockByNumber","params":["0x1b4", true],"id":1}'
     /// ```
     ///
-    /// Result see [eth_getBlockByHash](#eth_getblockbyhash)
+    /// Result see [ctxc_getBlockByHash](#ctxc_getblockbyhash)
     ///
     /// - Parameter number: `QUANTITY|TAG` - integer of a block number, or the string `"earliest"`, `"latest"` or `"pending"`, as in the [default block parameter](#the-default-block-parameter).
     /// - Parameter fullInformation: `Boolean` - If `true` it returns the full transaction objects, if `false` only the hashes of the transactions.
     ///
     /// - Returns: `Object` - A block object, or `null` when no block was found:
     public func getBlockByNumber(_ number: BlockNumber, _ fullInformation: Bool) -> Promise<BlockInfo?> {
-        return network.send("eth_getBlockByNumber", number, fullInformation).block()
+        return network.send("ctxc_getBlockByNumber", number, fullInformation).block()
     }
     
     /// Returns the information about a transaction requested by transaction hash.
@@ -875,7 +875,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionByHash","params":["0x88df016429689c079f3b2f6ad39fa052532c56795b733da78a91ebe6a713944b"],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getTransactionByHash","params":["0x88df016429689c079f3b2f6ad39fa052532c56795b733da78a91ebe6a713944b"],"id":1}'
     ///
     /// // Result
     /// {
@@ -904,7 +904,7 @@ public class EthereumApi {
     ///
     /// - Returns: `Object` - A transaction object, or `null` when no transaction was found:
     public func getTransactionByHash(_ hash: Data) -> Promise<TransactionInfo?> {
-        return network.send("eth_getTransactionByHash", hash).transaction()
+        return network.send("ctxc_getTransactionByHash", hash).transaction()
     }
     
     /// Returns information about a transaction by block hash and transaction index position.
@@ -919,7 +919,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionByBlockHashAndIndex","params":["0xc6ef2fc5426d6ad6fd9e2a26abeab0aa2411b7ab17f30a99d3cb96aed1d1055b", "0x0"],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getTransactionByBlockHashAndIndex","params":["0xc6ef2fc5426d6ad6fd9e2a26abeab0aa2411b7ab17f30a99d3cb96aed1d1055b", "0x0"],"id":1}'
     /// ```
     ///
     /// - Parameter blockHash: `DATA`, 32 Bytes - hash of a block.
@@ -927,7 +927,7 @@ public class EthereumApi {
     ///
     /// - Returns: `Object` - A transaction object, or `null` when no transaction was found:
     public func getTransactionByBlockHashAndIndex(_ blockHash: Data, _ index: BigUInt) -> Promise<TransactionInfo?> {
-        return network.send("eth_getTransactionByBlockHashAndIndex", blockHash, index).transaction()
+        return network.send("ctxc_getTransactionByBlockHashAndIndex", blockHash, index).transaction()
     }
     
     /// Returns information about a transaction by block number and transaction index position.
@@ -943,7 +943,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionByBlockNumberAndIndex","params":["0x29c", "0x0"],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getTransactionByBlockNumberAndIndex","params":["0x29c", "0x0"],"id":1}'
     /// ```
     ///
     /// - Parameter number: `QUANTITY|TAG` - a block number, or the string `"earliest"`, `"latest"` or `"pending"`, as in the [default block parameter](#the-default-block-parameter).
@@ -951,7 +951,7 @@ public class EthereumApi {
     ///
     /// - Returns: `Object` - A transaction object, or `null` when no transaction was found:
     public func getTransactionByBlockNumberAndIndex(_ number: BlockNumber, _ index: BigUInt) -> Promise<TransactionInfo?> {
-        return network.send("eth_getTransactionByBlockNumberAndIndex", number, index).transaction()
+        return network.send("ctxc_getTransactionByBlockNumberAndIndex", number, index).transaction()
     }
     
     /// Returns the receipt of a transaction by transaction hash.
@@ -973,7 +973,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionReceipt","params":["0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238"],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getTransactionReceipt","params":["0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238"],"id":1}'
     ///
     /// // Result
     /// {
@@ -1000,7 +1000,7 @@ public class EthereumApi {
     ///
     /// - Returns: `Object` - A transaction receipt object, or `null` when no receipt was found:
     public func getTransactionReceipt(_ hash: Data) -> Promise<TransactionReceiptInfo?> {
-        return network.send("eth_getTransactionReceipt", hash).transactionReceipt()
+        return network.send("ctxc_getTransactionReceipt", hash).transactionReceipt()
     }
     
     /// Returns information about a uncle of a block by hash and uncle index position.
@@ -1015,7 +1015,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getUncleByBlockHashAndIndex","params":["0xc6ef2fc5426d6ad6fd9e2a26abeab0aa2411b7ab17f30a99d3cb96aed1d1055b", "0x0"],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getUncleByBlockHashAndIndex","params":["0xc6ef2fc5426d6ad6fd9e2a26abeab0aa2411b7ab17f30a99d3cb96aed1d1055b", "0x0"],"id":1}'
     /// ```
     ///
     /// - Note: An uncle doesn't contain individual transactions.
@@ -1025,7 +1025,7 @@ public class EthereumApi {
     ///
     /// - Returns: `Object` - A block object, or `null` when no block was found:
     public func getUncleByBlockHashAndIndex(_ hash: Data, _ index: BigUInt) -> Promise<BlockInfo?> {
-        return network.send("eth_getUncleByBlockHashAndIndex", hash, index).block()
+        return network.send("ctxc_getUncleByBlockHashAndIndex", hash, index).block()
     }
     
     /// Returns information about a uncle of a block by number and uncle index position.
@@ -1040,7 +1040,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getUncleByBlockNumberAndIndex","params":["0x29c", "0x0"],"id":1}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getUncleByBlockNumberAndIndex","params":["0x29c", "0x0"],"id":1}'
     /// ```
     ///
     /// - Note: An uncle doesn't contain individual transactions.
@@ -1050,11 +1050,11 @@ public class EthereumApi {
     ///
     /// - Returns: `Object` - A block object, or `null` when no block was found:
     public func getUncleByBlockNumberAndIndex(_ number: BigUInt, _ index: BigUInt) -> Promise<BlockInfo?> {
-        return network.send("eth_getUncleByBlockNumberAndIndex", number, index).block()
+        return network.send("ctxc_getUncleByBlockNumberAndIndex", number, index).block()
     }
     
     /// Creates a filter object, based on filter options, to notify when the state changes (logs).
-    /// To check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).
+    /// To check if the state has changed, call [ctxc_getFilterChanges](#ctxc_getfilterchanges).
     ///
     /// ##### A note on specifying topic filters:
     /// Topics are order-dependent. A transaction with a log with topics [A, B] will be matched by the following topic filters:
@@ -1082,7 +1082,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_newFilter","params":[{"topics":["0x0000000000000000000000000000000000000000000000000000000012341234"]}],"id":73}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_newFilter","params":[{"topics":["0x0000000000000000000000000000000000000000000000000000000012341234"]}],"id":73}'
     ///
     /// // Result
     /// {
@@ -1095,16 +1095,16 @@ public class EthereumApi {
     ///
     /// - Returns: `QUANTITY` - A filter id.
     public func newFilter(_ options: FilterOptions) -> Promise<BigUInt> {
-        return network.send("eth_newFilter", options).uint256()
+        return network.send("ctxc_newFilter", options).uint256()
     }
     
     /// Creates a filter in the node, to notify when a new block arrives.
-    /// To check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).
+    /// To check if the state has changed, call [ctxc_getFilterChanges](#ctxc_getfilterchanges).
     ///
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_newBlockFilter","params":[],"id":73}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_newBlockFilter","params":[],"id":73}'
     ///
     /// // Result
     /// {
@@ -1116,16 +1116,16 @@ public class EthereumApi {
     ///
     /// - Returns: `QUANTITY` - A filter id.
     public func newBlockFilter() -> Promise<BigUInt> {
-        return network.send("eth_newBlockFilter").uint256()
+        return network.send("ctxc_newBlockFilter").uint256()
     }
     
     /// Creates a filter in the node, to notify when a new block arrives.
-    /// To check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).
+    /// To check if the state has changed, call [ctxc_getFilterChanges](#ctxc_getfilterchanges).
     ///
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_newBlockFilter","params":[],"id":73}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_newBlockFilter","params":[],"id":73}'
     ///
     /// // Result
     /// {
@@ -1137,11 +1137,11 @@ public class EthereumApi {
     ///
     /// - Returns: `QUANTITY` - A filter id.
     public func newPendingTransactionFilter() -> Promise<BigUInt> {
-        return network.send("eth_newPendingTransactionFilter").uint256()
+        return network.send("ctxc_newPendingTransactionFilter").uint256()
     }
     
     /// Uninstalls a filter with given id. Should always be called when watch is no longer needed.
-    /// Additonally Filters timeout when they aren't requested with [eth_getFilterChanges](#eth_getfilterchanges) for a period of time.
+    /// Additonally Filters timeout when they aren't requested with [ctxc_getFilterChanges](#ctxc_getfilterchanges) for a period of time.
     ///
     /// ```js
     /// params: [
@@ -1152,7 +1152,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_uninstallFilter","params":["0xb"],"id":73}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_uninstallFilter","params":["0xb"],"id":73}'
     ///
     /// // Result
     /// {
@@ -1166,7 +1166,7 @@ public class EthereumApi {
     ///
     /// - Returns: `Boolean` - `true` if the filter was successfully uninstalled, otherwise `false`.
     public func uninstallFilter(_ id: BigUInt) -> Promise<Bool> {
-        return network.send("eth_uninstallFilter", id).bool()
+        return network.send("ctxc_uninstallFilter", id).bool()
     }
     
     /// Polling method for a filter, which returns an array of logs which occurred since last poll.
@@ -1177,9 +1177,9 @@ public class EthereumApi {
     /// ]
     /// ```
     ///
-    /// - For filters created with `eth_newBlockFilter` the return are block hashes (`DATA`, 32 Bytes), e.g. `["0x3454645634534..."]`.
-    /// - For filters created with `eth_newPendingTransactionFilter ` the return are transaction hashes (`DATA`, 32 Bytes), e.g. `["0x6345343454645..."]`.
-    /// - For filters created with `eth_newFilter` logs are objects with following params:
+    /// - For filters created with `ctxc_newBlockFilter` the return are block hashes (`DATA`, 32 Bytes), e.g. `["0x3454645634534..."]`.
+    /// - For filters created with `ctxc_newPendingTransactionFilter ` the return are transaction hashes (`DATA`, 32 Bytes), e.g. `["0x6345343454645..."]`.
+    /// - For filters created with `ctxc_newFilter` logs are objects with following params:
     ///
     ///  - `removed`: `TAG` - `true` when the log was removed, due to a chain reorganization. `false` if its a valid log.
     ///  - `logIndex`: `QUANTITY` - integer of the log index position in the block. `null` when its pending log.
@@ -1194,7 +1194,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getFilterChanges","params":["0x16"],"id":73}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getFilterChanges","params":["0x16"],"id":73}'
     ///
     /// // Result
     /// {
@@ -1219,7 +1219,7 @@ public class EthereumApi {
     ///
     /// - Returns: `Array` - Array of log objects, or an empty array if nothing has changed since last poll.
     public func getFilterChanges(_ id: BigUInt) -> Promise<FilterChanges> {
-        return network.send("eth_getFilterChanges", id).filterChanges()
+        return network.send("ctxc_getFilterChanges", id).filterChanges()
     }
     
     /// Returns an array of all logs matching filter with given id.
@@ -1234,16 +1234,16 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getFilterLogs","params":["0x16"],"id":74}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getFilterLogs","params":["0x16"],"id":74}'
     /// ```
     ///
-    /// Result see [eth_getFilterChanges](#eth_getfilterchanges)
+    /// Result see [ctxc_getFilterChanges](#ctxc_getfilterchanges)
     ///
     /// - Parameter id: `QUANTITY` - The filter id.
     ///
     /// - Returns: `Array` - Array of log objects, or an empty array if nothing has changed since last poll.
     public func getFilterLogs(_ id: BigUInt) -> Promise<FilterChanges> {
-        return network.send("eth_getFilterLogs", id).filterChanges()
+        return network.send("ctxc_getFilterLogs", id).filterChanges()
     }
     
     /// Returns an array of all logs matching a given filter object.
@@ -1264,13 +1264,13 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getLogs","params":[{"topics":["0x000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b"]}],"id":74}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getLogs","params":[{"topics":["0x000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b"]}],"id":74}'
     /// ```
     /// - Parameter logs: `Object` - The filter options
     ///
     /// - Returns: `Array` - Array of log objects, or an empty array if nothing has changed since last poll.
     public func getLogs(_ logs: [FilterLogOptions]) -> Promise<FilterChanges> {
-        return network.send("eth_getLogs", JArray(logs)).filterChanges()
+        return network.send("ctxc_getLogs", JArray(logs)).filterChanges()
     }
     
     /// Returns the hash of the current block, the seedHash, and the boundary condition to be met ("target").
@@ -1278,7 +1278,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getWork","params":[],"id":73}'
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getWork","params":[],"id":73}'
     ///
     /// // Result
     /// {
@@ -1294,7 +1294,7 @@ public class EthereumApi {
     ///
     /// - Returns: Hash of the current block, the seedHash, and the boundary condition to be met ("target").
     public func getWork() -> Promise<WorkInfo> {
-        return network.send("eth_getWork").work()
+        return network.send("ctxc_getWork").work()
     }
     
     /// Used for submitting a proof-of-work solution.
@@ -1310,7 +1310,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0", "method":"eth_submitWork", "params":["0x0000000000000001", "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "0xD1GE5700000000000000000000000000D1GE5700000000000000000000000000"],"id":73}'
+    /// curl -X POST --data '{"jsonrpc":"2.0", "method":"ctxc_submitWork", "params":["0x0000000000000001", "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "0xD1GE5700000000000000000000000000D1GE5700000000000000000000000000"],"id":73}'
     ///
     /// // Result
     /// {
@@ -1326,7 +1326,7 @@ public class EthereumApi {
     ///
     /// - Returns: `Boolean` - returns `true` if the provided solution is valid, otherwise `false`.
     public func submitWork(nonce: UInt64, headerPowHash: Data, mixDigest: Data) -> Promise<Bool> {
-        return network.send("eth_submitWork", BigUInt(nonce), headerPowHash, mixDigest).bool()
+        return network.send("ctxc_submitWork", BigUInt(nonce), headerPowHash, mixDigest).bool()
     }
     
     /// Used for submitting mining hashrate.
@@ -1342,7 +1342,7 @@ public class EthereumApi {
     /// ##### Example
     /// ```js
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0", "method":"eth_submitHashrate", "params":["0x0000000000000000000000000000000000000000000000000000000000500000", "0x59daa26581d0acd1fce254fb7e85952f4c09d0915afd33d3886cd914bc7d283c"],"id":73}'
+    /// curl -X POST --data '{"jsonrpc":"2.0", "method":"ctxc_submitHashrate", "params":["0x0000000000000000000000000000000000000000000000000000000000500000", "0x59daa26581d0acd1fce254fb7e85952f4c09d0915afd33d3886cd914bc7d283c"],"id":73}'
     ///
     /// // Result
     /// {
@@ -1357,7 +1357,7 @@ public class EthereumApi {
     ///
     /// - Returns: `Boolean` - returns `true` if submitting went through succesfully and `false` otherwise.
     public func submitHashrate(hashRate: Data, id: Data) -> Promise<Bool> {
-        return network.send("eth_submitHashrate", hashRate, id).bool()
+        return network.send("ctxc_submitHashrate", hashRate, id).bool()
     }
     
     /// Returns the account- and storage-values of the specified account including the Merkle-proof.
@@ -1369,7 +1369,7 @@ public class EthereumApi {
     /// ##### getProof-Example
     /// ```
     /// // Request
-    /// curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getProof","params":["0x1234567890123456789012345678901234567890",["0x0000000000000000000000000000000000000000000000000000000000000000","0x0000000000000000000000000000000000000000000000000000000000000001"],"latest"],"id":1}' -H "Content-type:application/json" http://localhost:8545
+    /// curl -X POST --data '{"jsonrpc":"2.0","method":"ctxc_getProof","params":["0x1234567890123456789012345678901234567890",["0x0000000000000000000000000000000000000000000000000000000000000000","0x0000000000000000000000000000000000000000000000000000000000000001"],"latest"],"id":1}' -H "Content-type:application/json" http://localhost:8545
     ///
     /// // Result
     /// {
@@ -1405,12 +1405,12 @@ public class EthereumApi {
     /// ```
     ///
     /// - Parameter address: `DATA`, 20 bytes - address of the account or contract
-    /// - Parameter keys: `ARRAY`, 32 Bytes - array of storage-keys which should be proofed and included. See eth_getStorageAt
+    /// - Parameter keys: `ARRAY`, 32 Bytes - array of storage-keys which should be proofed and included. See ctxc_getStorageAt
     /// - Parameter block: `QUANTITY|TAG` - integer block number, or the string "latest" or "earliest", see the default block parameter
     ///
     /// - Returns: A account object
     public func getProof(address: Address, keys: [Data], block: BlockNumber) -> Promise<ProofInfo> {
-        return network.send("eth_getProof", address, JArray(keys), block).proof()
+        return network.send("ctxc_getProof", address, JArray(keys), block).proof()
     }
 }
 
