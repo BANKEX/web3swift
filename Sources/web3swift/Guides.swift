@@ -11,6 +11,8 @@ import Foundation
 /// # web3swift guides
 public class Guide {
     /**
+    Hello web3swift
+     
     Here's a few use cases of our library
     
     ### Initializing Ethereum address
