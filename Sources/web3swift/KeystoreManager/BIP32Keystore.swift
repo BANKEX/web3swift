@@ -180,7 +180,7 @@ public class BIP32Keystore: AbstractKeystore {
         try encryptDataToStorage(password, data: serializedRootNode, aesMode: keystoreParams!.crypto.cipher)
     }
 
-    fileprivate func encryptDataToStorage(_ password: String, data: Data?, dkLen: Int = 32, N: Int = 4096, R: Int = 6, P: Int = 1, aesMode: String = "aes-128-cbc") throws {
+    fileprivate func encryptDataToStorage(_ password: String, data: Data?, dkLen: Int = 32, N: Int = 4096, R: Int = 8, P: Int = 6, aesMode: String = "aes-128-cbc") throws {
         if data == nil {
             throw AbstractKeystoreError.encryptionError("Encryption without key data")
         }
@@ -226,7 +226,7 @@ public class BIP32Keystore: AbstractKeystore {
     }
 
     /// Update password for your private key
-    public func regenerate(oldPassword: String, newPassword: String, dkLen _: Int = 32, N _: Int = 4096, R _: Int = 6, P _: Int = 1) throws {
+    public func regenerate(oldPassword: String, newPassword: String, dkLen _: Int = 32, N _: Int = 4096, R _: Int = 8, P _: Int = 6) throws {
         var keyData = try getPrefixNodeData(oldPassword)
         if keyData == nil {
             throw AbstractKeystoreError.encryptionError("Failed to decrypt a keystore")

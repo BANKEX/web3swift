@@ -93,7 +93,7 @@ public class EthereumKeystoreV3: AbstractKeystore {
         try encryptDataToStorage(password, keyData: privateKey, aesMode: aesMode)
     }
 
-    fileprivate func encryptDataToStorage(_ password: String, keyData: Data?, dkLen: Int = 32, N: Int = 4096, R: Int = 6, P: Int = 1, aesMode: String = "aes-128-cbc") throws {
+    fileprivate func encryptDataToStorage(_ password: String, keyData: Data?, dkLen: Int = 32, N: Int = 4096, R: Int = 8, P: Int = 6, aesMode: String = "aes-128-cbc") throws {
         if keyData == nil {
             throw AbstractKeystoreError.encryptionError("Encryption without key data")
         }
@@ -130,7 +130,7 @@ public class EthereumKeystoreV3: AbstractKeystore {
     }
 
 	/// Updates account password
-    public func regenerate(oldPassword: String, newPassword: String, dkLen _: Int = 32, N _: Int = 4096, R _: Int = 6, P _: Int = 1) throws {
+    public func regenerate(oldPassword: String, newPassword: String, dkLen _: Int = 32, N _: Int = 4096, R _: Int = 8, P _: Int = 6) throws {
         var keyData = try getKeyData(oldPassword)
         if keyData == nil {
             throw AbstractKeystoreError.encryptionError("Failed to decrypt a keystore")
