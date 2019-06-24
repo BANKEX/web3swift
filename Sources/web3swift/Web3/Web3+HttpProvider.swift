@@ -9,6 +9,7 @@
 import BigInt
 import Foundation
 import PromiseKit
+import Alamofire
 
 /// Providers abstraction for custom providers (websockets, other custom private key managers). At the moment should not be used.
 public protocol Web3Provider {
@@ -42,6 +43,7 @@ public class Web3HttpProvider: Web3Provider {
         do {
             guard httpProviderURL.scheme == "http" || httpProviderURL.scheme == "https" else { return nil }
             url = httpProviderURL
+            
             if net == nil {
                 let request = JsonRpcRequest(method: .getNetwork)
                 let response = try Web3HttpProvider.post(request, providerURL: httpProviderURL, queue: DispatchQueue.global(qos: .userInteractive), session: session).wait()
@@ -66,34 +68,35 @@ public class Web3HttpProvider: Web3Provider {
     static func post(_ request: JsonRpcRequest, providerURL: URL, queue: DispatchQueue = .main, session: URLSession) -> Promise<JsonRpcResponse> {
         let rp = Promise<Data>.pending()
         var task: URLSessionTask?
-        queue.async {
-            do {
-                let encoder = JSONEncoder()
-                let requestData = try encoder.encode(request)
-                var urlRequest = URLRequest(url: providerURL, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData)
-                urlRequest.httpMethod = "POST"
-                urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
-                urlRequest.httpBody = requestData
-                //                let debugValue = try JSONSerialization.jsonObject(with: requestData, options: JSONSerialization.ReadingOptions(rawValue: 0))
-                //                print(debugValue)
-                //                let debugString = String(data: requestData, encoding: .utf8)
-                //                print(debugString)
-                task = session.dataTask(with: urlRequest) { data, _, error in
-                    guard error == nil else {
-                        rp.resolver.reject(error!)
-                        return
-                    }
-                    guard data != nil else {
-                        rp.resolver.reject(Web3Error.nodeError("Node response is empty"))
-                        return
-                    }
-                    rp.resolver.fulfill(data!)
+        let encoder = JSONEncoder()
+        let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = Alamofire.SessionManager.defaultHTTPHeaders
+        configuration.timeoutIntervalForRequest = 15
+        let path: String = Bundle.main.path(forResource: "backend", ofType: "cer") ?? ""
+        let certificationData = try? Data(contentsOf: URL(fileURLWithPath: path)) as CFData
+        
+        let certificate = SecCertificateCreateWithData(nil, certificationData!)
+        let certificates: [SecCertificate] = [certificate!]
+        
+        let policies: [String: ServerTrustPolicy] = ["backend.cortexlabs.ai": ServerTrustPolicy.pinCertificates(certificates: certificates, validateCertificateChain: true, validateHost: true)]
+        
+        Alamofire.SessionManager(configuration: configuration, serverTrustPolicyManager: ServerTrustPolicyManager(policies: policies))
+        let requestData = try encoder.encode(request)
+        do{
+            Alamofire.request(providerURL.absoluteString, method: .post, parameters: ["httpBody":request], encoding: URLEncoding.httpBody).response(queue: queue) { (response) in
+                guard response.error == nil else {
+                    rp.resolver.reject(response.error!)
+                    return
                 }
-                task?.resume()
-            } catch {
-                rp.resolver.reject(error)
+                guard response.data != nil else {
+                    rp.resolver.reject(Web3Error.nodeError("Node response is empty"))
+                    return
+                }
+                rp.resolver.fulfill(response.data!)
             }
+        }catch{
+            rp.resolver.reject(error)
+            
         }
         return rp.promise.ensure(on: queue) {
             task = nil
