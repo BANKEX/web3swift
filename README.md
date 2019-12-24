@@ -1,3 +1,16 @@
+## Important notice: 
+### This version is not currently supported updated.
+## Use [matterinc/web3swift](https://github.com/matterinc/web3swift) instead.
+
+> As we've left the company BANKEX and I was the main enthusiast maintainer of this project, all the further work and updates will be done in the new repo.
+>*Sincerely,*
+>*Alex (@shamatar)*
+
+> We will continue working at *web3swift* library within our core team in our new company.
+>We are committed to make it more powerful and push new updates to [matterinc/web3swift](https://github.com/matterinc/web3swift)
+>*Regards,*
+>*Petr Korolev (@skywinder)*
+
 ### You can ask for help in our [Discord Channel](https://discord.gg/3ETv2ST)
 <p align="right">
 <a href="https://bankex.github.io/web3swift/read-documentation-using-xcode.html" target="_blank">
